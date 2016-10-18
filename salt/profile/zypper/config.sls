@@ -2,4 +2,4 @@
   ini.options_present:
     - sections:
         main:
-          solver.onlyRequires: true
+          solver.onlyRequires: 'true'
