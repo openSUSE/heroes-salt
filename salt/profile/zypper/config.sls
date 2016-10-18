@@ -1,3 +1,4 @@
+# TODO: unhardcode, move to pillars
 /etc/zypp/zypp.conf:
   ini.options_present:
     - sections:
