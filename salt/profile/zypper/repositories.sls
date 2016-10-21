@@ -10,4 +10,10 @@
 {% if data.has_key('refresh') %}
     - refresh: {{ data.refresh }}
 {% endif %}
+{% if data.has_key('gpgcheck') %}
+    - gpgcheck: {{ data.gpgcheck }}
+{% endif %}
+{% if data.has_key('key_url') %}
+    - key_url: {{ data.key_url }}
+{% endif %}
 {% endfor %}
