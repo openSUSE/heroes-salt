@@ -3,3 +3,4 @@ salt:
     backup_mode: minion
     environment: production
     hash_type: sha512
+    master: nothing.opensuse.org
