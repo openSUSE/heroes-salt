@@ -1,4 +1,5 @@
 include:
+  - grains
   - salt.minion
 
 remove-etc-salt-minion:
