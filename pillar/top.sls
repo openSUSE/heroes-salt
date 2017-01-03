@@ -3,6 +3,7 @@
 {% set id = salt['grains.get']('id') %}
 {% set osrelease = salt['grains.get']('osrelease') %}
 {% set roles = salt['pillar.get']('roles', []) %}
+{% set salt_cluster = salt['pillar.get']('salt_cluster', '') %}
 {% set virt_cluster = salt['pillar.get']('virt_cluster', '') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
@@ -33,5 +34,8 @@ production:
   'osrelease:{{ osrelease }}':
     - match: grain
     - osrelease.{{ osrelease.replace('.', '_') }}
+  'salt_cluster:{{ salt_cluster }}':
+    - match: grain
+    - salt_cluster.{{ salt_cluster }}
   '{{ id }}':
     - id.{{ id.replace('.', '_') }}
