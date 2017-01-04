@@ -3,3 +3,5 @@ grains:
   country: de
   salt_cluster: opensuse
   virt_cluster: atreju
+  roles:
+    - saltmaster

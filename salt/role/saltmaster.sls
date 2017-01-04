@@ -1,0 +1,2 @@
+include:
+  - profile.salt.master
