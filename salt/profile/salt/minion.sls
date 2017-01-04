@@ -6,7 +6,7 @@ remove-etc-salt-minion:
   file.managed:
     - name: /etc/salt/minion
     - template: jinja
-    - source: salt://profile/files/etc/salt/master_minion_default_config
+    - source: salt://profile/salt/files/master_minion_default_config
     - defaults:
         salt_service: minion
     - listen_in:
