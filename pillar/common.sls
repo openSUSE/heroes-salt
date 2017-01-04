@@ -44,7 +44,7 @@ salt:
       - production
     ext_pillar:
       - git:
-          - production gitlab@gitlab.opensuse.org/infa/salt.git:
+          - production gitlab@gitlab.opensuse.org:infra/salt.git:
               - env: production
               - root: pillar
               - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
@@ -54,7 +54,7 @@ salt:
       - git
     gitfs_provider: pygit2
     gitfs_remotes:
-      - gitlab@gitlab.opensuse.org/infra/salt.git:
+      - gitlab@gitlab.opensuse.org:infra/salt.git:
           - root: salt
           - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
           - pubkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt.pub
@@ -69,6 +69,7 @@ salt:
       - https://gitlab.opensuse.org/saltstack-formulas/users-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/timezone-formula.git
     gitfs_ssl_verify: True
+    hash_type: sha512
     pillar_gitfs_ssl_verify: True
     pillar_merge_lists: True
     pillar_source_merging_strategy: smart
