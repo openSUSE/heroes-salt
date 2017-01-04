@@ -1,3 +1,4 @@
 include:
   - locale
+  - ntp
   - timezone

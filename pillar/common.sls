@@ -4,6 +4,30 @@ locale:
   default:
     name: 'en_US.UTF-8'
     requires: 'en_US.UTF-8 UTF-8'
+ntp:
+  ng:
+    settings:
+      ntpd: true
+      ntp_conf:
+        controlkey:
+          - 1
+        disable:
+          - monitor
+        driftfile:
+          - /var/lib/ntp/drift/ntp.drift
+        logfile:
+          - /var/log/ntp
+        keys:
+          - /etc/ntp.keys
+        requestkey:
+          - 1
+        restrict:
+          - -4 default kod notrap nomodify nopeer
+          - -6 default kod notrap nomodify nopeer
+          - 127.0.0.1
+          - ::1
+        trustedkey:
+          - 1
 timezone:
   name: 'UTC'
   utc: True
