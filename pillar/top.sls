@@ -1,10 +1,10 @@
-{% set country = salt['pillar.get']('country') %}
+{% set country = salt['pillar.get']('grains:country') %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
 {% set osrelease = salt['grains.get']('osrelease') %}
-{% set roles = salt['pillar.get']('roles', []) %}
-{% set salt_cluster = salt['pillar.get']('salt_cluster', '') %}
-{% set virt_cluster = salt['pillar.get']('virt_cluster', '') %}
+{% set roles = salt['pillar.get']('grains:roles', []) %}
+{% set salt_cluster = salt['pillar.get']('grains:salt_cluster', '') %}
+{% set virt_cluster = salt['pillar.get']('grains:virt_cluster', '') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
 production:
