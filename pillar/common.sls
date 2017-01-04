@@ -20,7 +20,7 @@ salt:
       - production
     ext_pillar:
       - git:
-          - production gitlab@gitlab.opensuse.org/infa/salt.git
+          - production gitlab@gitlab.opensuse.org/infa/salt.git:
               - env: production
               - root: pillar
               - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
@@ -30,7 +30,7 @@ salt:
       - git
     gitfs_provider: pygit2
     gitfs_remotes:
-      - gitlab@gitlab.opensuse.org/infra/salt.git
+      - gitlab@gitlab.opensuse.org/infra/salt.git:
           - root: salt
           - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
           - pubkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt.pub
@@ -58,4 +58,4 @@ salt:
     hash_type: sha512
   reactor:
     - 'salt/fileserver/gitfs/update':
-      - /srv/reactor/update_fileserver.sls
+        - /srv/reactor/update_fileserver.sls
