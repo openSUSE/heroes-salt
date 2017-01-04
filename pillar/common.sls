@@ -80,6 +80,3 @@ salt:
     backup_mode: minion
     environment: production
     hash_type: sha512
-  reactor:
-    - 'salt/fileserver/gitfs/update':
-        - /srv/reactor/update_fileserver.sls
