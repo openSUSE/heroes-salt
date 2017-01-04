@@ -1,4 +1,4 @@
-{% set roles = salt['pillar.get']('roles', []) %}
+{% set roles = salt['pillar.get']('grains:roles', []) %}
 
 production:
   '*':
