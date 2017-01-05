@@ -1,3 +1,5 @@
+{% set osrelease = salt['grains.get']('osrelease') %}
+
 locale:
   present:
     - 'en_US.UTF-8 UTF-8'
@@ -81,3 +83,27 @@ salt:
     backup_mode: minion
     environment: production
     hash_type: sha512
+sshd_config:
+  HostKey:
+    - /etc/ssh/ssh_host_rsa_key
+    - /etc/ssh/ssh_host_dsa_key
+    - /etc/ssh/ssh_host_ecdsa_key
+{% if osrelease != '11.3' %}
+    - /etc/ssh/ssh_host_ed25519_key
+{% endif %}
+  PermitRootLogin: without-password
+  PrintMotd: yes
+{% if osrelease.startswith('11') and (salt['grains.get']('cpuarch') == 'x86_64') %}
+  # TODO: support more 64bit archs https://progress.opensuse.org/issues/15794
+  Subsystem: sftp /usr/lib64/ssh/sftp-server
+{% else %}
+  # TODO: upstream fix is not sufficient https://github.com/saltstack-formulas/openssh-formula/pull/57
+  Subsystem: sftp /usr/lib/ssh/sftp-server
+{% endif %}
+  UseDNS: yes
+  matches:
+    root:
+      type:
+        User: root
+      options:
+        Banner: /etc/ssh/banner
