@@ -16,7 +16,7 @@ production:
     - role.{{ role }}
 {% endfor %}
 {% if virt_cluster %}
-  'virt_cluster:{{ virt_cluster }}:
+  'virt_cluster:{{ virt_cluster }}':
     - match: grain
     - virt_cluster.{{ virt_cluster }}
   'G@virt_cluster:{{ virt_cluster }} and G@virtual:{{ virtual }}':
