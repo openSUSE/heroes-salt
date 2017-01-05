@@ -1,4 +1,4 @@
 include:
   - locale
-  - ntp
+  - ntp.ng
   - timezone
