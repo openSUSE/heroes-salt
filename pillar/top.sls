@@ -8,6 +8,9 @@
 {% set virtual = salt['grains.get']('virtual') %}
 
 production:
+  'virt_cluster:{{ virt_cluster }}':
+    - match: grain
+    - virt_cluster.{{ virt_cluster }}
   '*':
     - common
 {% for role in roles %}
@@ -15,9 +18,6 @@ production:
     - match: grain
     - role.{{ role }}
 {% endfor %}
-  'virt_cluster:{{ virt_cluster }}':
-    - match: grain
-    - virt_cluster.{{ virt_cluster }}
   'G@virt_cluster:{{ virt_cluster }} and G@virtual:{{ virtual }}':
     - match: compound
     - virt_cluster.{{ virt_cluster }}.{{ virtual }}
