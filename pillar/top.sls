@@ -1,16 +1,13 @@
-{% set country = salt['pillar.get']('grains:country') %}
+{% set country = salt['grains.get']('country') %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
 {% set osrelease = salt['grains.get']('osrelease') %}
-{% set roles = salt['pillar.get']('grains:roles', []) %}
-{% set salt_cluster = salt['pillar.get']('grains:salt_cluster', '') %}
-{% set virt_cluster = salt['pillar.get']('grains:virt_cluster', '') %}
+{% set roles = salt['grains.get']('roles', []) %}
+{% set salt_cluster = salt['grains.get']('salt_cluster') %}
+{% set virt_cluster = salt['grains.get']('virt_cluster', '') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
 production:
-  'virt_cluster:{{ virt_cluster }}':
-    - match: grain
-    - virt_cluster.{{ virt_cluster }}
   '*':
     - common
 {% for role in roles %}
@@ -18,9 +15,14 @@ production:
     - match: grain
     - role.{{ role }}
 {% endfor %}
+{% if virt_cluster %}
+  'virt_cluster:{{ virt_cluster }}':
+    - match: grain
+    - virt_cluster.{{ virt_cluster }}
   'G@virt_cluster:{{ virt_cluster }} and G@virtual:{{ virtual }}':
     - match: compound
     - virt_cluster.{{ virt_cluster }}.{{ virtual }}
+{% endif %}
   'virtual:{{ virtual }}':
     - match: grain
     - virtual.{{ virtual }}
