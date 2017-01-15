@@ -2,10 +2,10 @@
 
 locale:
   present:
-    - 'en_US.UTF-8 UTF-8'
+    - en_US.UTF-8 UTF-8
   default:
-    name: 'en_US.UTF-8'
-    requires: 'en_US.UTF-8 UTF-8'
+    name: en_US.UTF-8
+    requires: en_US.UTF-8 UTF-8
 ntp:
   ng:
     settings:
@@ -30,9 +30,6 @@ ntp:
           - ::1
         trustedkey:
           - 1
-timezone:
-  name: 'UTC'
-  utc: True
 salt:
   gitfs:
     libgit2:
@@ -88,18 +85,18 @@ sshd_config:
     - /etc/ssh/ssh_host_rsa_key
     - /etc/ssh/ssh_host_dsa_key
     - /etc/ssh/ssh_host_ecdsa_key
-{% if osrelease != '11.3' %}
+    {% if osrelease != '11.3' %}
     - /etc/ssh/ssh_host_ed25519_key
-{% endif %}
+    {% endif %}
   PermitRootLogin: without-password
   PrintMotd: yes
-{% if osrelease.startswith('11') and (salt['grains.get']('cpuarch') == 'x86_64') %}
+  {% if osrelease.startswith('11') and (salt['grains.get']('cpuarch') == 'x86_64') %}
   # TODO: support more 64bit archs https://progress.opensuse.org/issues/15794
   Subsystem: sftp /usr/lib64/ssh/sftp-server
-{% else %}
+  {% else %}
   # TODO: upstream fix is not sufficient https://github.com/saltstack-formulas/openssh-formula/pull/57
   Subsystem: sftp /usr/lib/ssh/sftp-server
-{% endif %}
+  {% endif %}
   UseDNS: yes
   matches:
     root:
@@ -107,3 +104,6 @@ sshd_config:
         User: root
       options:
         Banner: /etc/ssh/banner
+timezone:
+  name: UTC
+  utc: True

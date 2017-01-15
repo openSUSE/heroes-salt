@@ -4,16 +4,16 @@
 {{ repo }}:
   pkgrepo.managed:
     - baseurl: {{ data.baseurl }}
-{% if data.has_key('priority') %}
+    {% if data.has_key('priority') %}
     - priority: {{ data.priority }}
-{% endif %}
-{% if data.has_key('refresh') %}
+    {% endif %}
+    {% if data.has_key('refresh') %}
     - refresh: {{ data.refresh }}
-{% endif %}
-{% if data.has_key('gpgcheck') %}
+    {% endif %}
+    {% if data.has_key('gpgcheck') %}
     - gpgcheck: {{ data.gpgcheck }}
-{% endif %}
-{% if data.has_key('key_url') %}
+    {% endif %}
+    {% if data.has_key('key_url') %}
     - key_url: {{ data.key_url }}
-{% endif %}
+    {% endif %}
 {% endfor %}
