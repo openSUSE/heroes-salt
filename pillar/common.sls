@@ -107,3 +107,23 @@ sshd_config:
 timezone:
   name: UTC
   utc: True
+sudoers:
+  defaults:
+    generic:
+      - always_set_home
+      - secure_path="/usr/sbin:/usr/bin:/sbin:/bin"
+      - env_reset
+      - env_keep="LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL LANGUAGE LINGUAS XDG_SESSION_COOKIE"
+      - '!insults'
+      - targetpw
+  users:
+    ALL:
+      - 'ALL=(ALL) ALL'
+    root:
+      - 'ALL=(ALL) ALL'
+  includedir: /etc/sudoers.d
+  included_files:
+    /etc/sudoers.d/nagios_nopasswd_zypper:
+      users:
+        nagios:
+          - 'ALL=(ALL) NOPASSWD: /usr/sbin/zypp-refresh,/usr/bin/zypper ref,/usr/bin/zypper sl,/usr/bin/zypper --xmlout --non-interactive list-updates -t package -t patch'
