@@ -17,7 +17,7 @@ zypper:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-Module-Web-Scripting/12/x86_64/product
       priority: 99
       refresh: True
-    SLE-Module-Web-Scripting-Update
+    SLE-Module-Web-Scripting-Update:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-Module-Web-Scripting/12/x86_64/update
       priority: 99
       refresh: True
