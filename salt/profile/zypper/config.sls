@@ -1,5 +1,5 @@
-{% set zypp_conf = salt['pillar.get']('zypper:zypp_conf', {}) %}
-{% set zypper_conf = salt['pillar.get']('zypper:zypper_conf', {}) %}
+{% set zypp_conf = salt['pillar.get']('zypper:config:zypp_conf', {}) %}
+{% set zypper_conf = salt['pillar.get']('zypper:config:zypper_conf', {}) %}
 
 {% if zypp_conf %}
 /etc/zypp/zypp.conf:
@@ -8,7 +8,7 @@
         {% for section, data in zypp_conf.iteritems() %}
         {{ section }}:
           {% for config, value in data.iteritems() %}
-          {{ config }}: {{ value }}
+          {{ config }}: '{{ value }}'
           {% endfor %}
         {% endfor %}
 {% endif %}
