@@ -20,7 +20,7 @@
         {% for section, data in zypper_conf.iteritems() %}
         {{ section }}:
           {% for config, value in data.iteritems() %}
-          {{ config }}: {{ value }}
+          {{ config }}: '{{ value }}'
           {% endfor %}
         {% endfor %}
 {% endif %}
