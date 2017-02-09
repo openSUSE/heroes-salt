@@ -132,3 +132,5 @@ zypper:
     zypp_conf:
       main:
         solver.onlyRequires: 'true'
+  packages:
+    aaa_base: {}
