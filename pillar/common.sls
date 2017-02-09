@@ -127,3 +127,7 @@ sudoers:
       users:
         nagios:
           - 'ALL=(ALL) NOPASSWD: /usr/sbin/zypp-refresh,/usr/bin/zypper ref,/usr/bin/zypper sl,/usr/bin/zypper --xmlout --non-interactive list-updates -t package -t patch'
+zypper:
+  zypp_conf:
+    main:
+      solver.onlyRequires: 'true'
