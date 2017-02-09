@@ -133,4 +133,4 @@ zypper:
       main:
         solver.onlyRequires: 'true'
   packages:
-    aaa_base: {}
+    aaa_base-extras: {}
