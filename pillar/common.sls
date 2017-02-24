@@ -132,5 +132,6 @@ zypper:
     zypp_conf:
       main:
         solver.onlyRequires: 'true'
+        download.use_deltarpm: 'false'
   packages:
     aaa_base-extras: {}
