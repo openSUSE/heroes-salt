@@ -135,3 +135,4 @@ zypper:
         download.use_deltarpm: 'false'
   packages:
     aaa_base-extras: {}
+    ca-certificates-freeipa-opensuse: {}
