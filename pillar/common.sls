@@ -131,8 +131,9 @@ zypper:
   config:
     zypp_conf:
       main:
-        solver.onlyRequires: 'true'
         download.use_deltarpm: 'false'
+        solver.onlyRequires: 'true'
   packages:
     aaa_base-extras: {}
+    abuild-online-update: {}
     ca-certificates-freeipa-opensuse: {}
