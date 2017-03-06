@@ -6,6 +6,7 @@ locale:
   default:
     name: en_US.UTF-8
     requires: en_US.UTF-8 UTF-8
+
 ntp:
   ng:
     settings:
@@ -30,6 +31,7 @@ ntp:
           - ::1
         trustedkey:
           - 1
+
 salt:
   gitfs:
     libgit2:
@@ -80,6 +82,7 @@ salt:
     backup_mode: minion
     environment: production
     hash_type: sha512
+
 sshd_config:
   HostKey:
     - /etc/ssh/ssh_host_rsa_key
@@ -104,9 +107,14 @@ sshd_config:
         User: root
       options:
         Banner: /etc/ssh/banner
+
+openssh:
+  banner_src: salt://profile/openssh/ssh_banner
+
 timezone:
   name: UTC
   utc: True
+
 sudoers:
   defaults:
     generic:
@@ -127,6 +135,7 @@ sudoers:
       users:
         nagios:
           - 'ALL=(ALL) NOPASSWD: /usr/sbin/zypp-refresh,/usr/bin/zypper ref,/usr/bin/zypper sl,/usr/bin/zypper --xmlout --non-interactive list-updates -t package -t patch'
+
 zypper:
   config:
     zypp_conf:
