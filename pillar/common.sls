@@ -137,3 +137,8 @@ zypper:
     aaa_base-extras: {}
     abuild-online-update: {}
     ca-certificates-freeipa-opensuse: {}
+    ca-certificates-mozilla: {}
+    curl: {}
+    susepaste: {}
+    wget: {}
+    wgetpaste: {}
