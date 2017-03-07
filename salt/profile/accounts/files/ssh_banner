@@ -1,0 +1,5 @@
+Welcome to {{ grains['fqdn'] }}!
+************************************************
+* Managed by SaltStack and the openSUSE Heroes *
+************************************************
+Make sure changes get pushed into the state repo!

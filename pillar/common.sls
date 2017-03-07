@@ -104,6 +104,8 @@ sshd_config:
         User: root
       options:
         Banner: /etc/ssh/banner
+openssh:
+  banner_src: salt://profile/accounts/files/ssh_banner
 timezone:
   name: UTC
   utc: True
