@@ -141,6 +141,12 @@ zypper:
     ca-certificates-freeipa-opensuse: {}
     ca-certificates-mozilla: {}
     curl: {}
+    dhcp-client: {}
+    less: {}
+    screen: {}
     susepaste: {}
+    tmux: {}
+    vim: {}
+    vim-data: {}
     wget: {}
     wgetpaste: {}
