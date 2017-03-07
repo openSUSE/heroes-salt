@@ -37,8 +37,10 @@ production:
   'osrelease:{{ osrelease }}':
     - match: grain
     - osrelease.{{ osrelease.replace('.', '_') }}
+{% if salt_cluster == 'opensuse' %}
   'salt_cluster:{{ salt_cluster }}':
     - match: grain
     - salt_cluster.{{ salt_cluster }}
   '{{ id }}':
     - id.{{ id.replace('.', '_') }}
+{% endif %}
