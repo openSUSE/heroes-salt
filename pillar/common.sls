@@ -109,7 +109,7 @@ sshd_config:
         Banner: /etc/ssh/banner
 
 openssh:
-  banner_src: salt://profile/openssh/ssh_banner
+  banner_src: salt://profile/accounts/ssh_banner
 
 timezone:
   name: UTC
