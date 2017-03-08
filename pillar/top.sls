@@ -41,7 +41,7 @@ production:
   'salt_cluster:{{ salt_cluster }}':
     - match: grain
     - salt_cluster.{{ salt_cluster }}
-    - salt_cluster.{{ salt_cluster }}.osrelease.{{ osrelease }}
+    - salt_cluster.{{ salt_cluster }}.osrelease.{{ osrelease.replace('.', '_' }}
   '{{ id }}':
     - id.{{ id.replace('.', '_') }}
 {% endif %}
