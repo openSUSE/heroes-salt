@@ -1,10 +1,5 @@
 zypper:
   repositories:
-    openSUSE:infrastructure:
-      baseurl: http://download.opensuse.org/repositories/openSUSE:/infrastructure/SLE_12
-      gpgcheck: 0
-      priority: 100
-      refresh: True
     SLE-Module-Adv-Systems-Management:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-Module-Adv-Systems-Management/12/x86_64/product
       priority: 99
