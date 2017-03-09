@@ -1,7 +1,7 @@
 zypper:
   repositories:
     openSUSE:infrastructure:
-      baseurl: http://download.opensuse.org/repositories/openSUSE:/infrastructure/SLE_12_SP2
-      gpgcheck: 0
+      baseurl: https://download.opensuse.org/repositories/openSUSE:/infrastructure/SLE_12_SP2
+      gpgautoimport: True
       priority: 100
       refresh: True
