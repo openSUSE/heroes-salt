@@ -136,16 +136,22 @@ zypper:
         download.use_deltarpm: 'false'
         solver.onlyRequires: 'true'
   packages:
+    {% if not osrelease.startswith('11') %}
     aaa_base-extras: {}
+    {% endif %}
     abuild-online-update: {}
     ca-certificates-freeipa-opensuse: {}
+    {% if not osrelease.startswith('11') %}
     ca-certificates-mozilla: {}
+    {% endif %}
     curl: {}
     dhcp-client: {}
     less: {}
     screen: {}
     susepaste: {}
+    {% if not osrelease.startswith('11') %}
     tmux: {}
+    {% endif %}
     vim: {}
     vim-data: {}
     wget: {}
