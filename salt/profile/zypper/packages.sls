@@ -6,7 +6,7 @@
     {% if data.has_key('refresh') %}
     - refresh: {{ data.refresh }}
     {% else %}
-    - refresh: False
+    - refresh: True
     {% endif %}
     {% if data.has_key('fromrepo') %}
     - fromrepo: {{ data.fromrepo }}
