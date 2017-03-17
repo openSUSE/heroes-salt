@@ -36,11 +36,11 @@ zypper:
       refresh: True
 {% if 'ha' in roles %}
     SLE-HA-POOL:
-      baseurl: http://download.nue.suse.com/ibs/SUSE/Products/SLE-HA/12-SP2/x86_64/product
+      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-HA/12-SP2/x86_64/product
       priority: 99
       refresh: True
     SLE-HA-UPDATES:
-      baseurl: http://download.nue.suse.com/ibs/SUSE/Updates/SLE-HA/12-SP2/x86_64/update
+      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-HA/12-SP2/x86_64/update
       priority: 99
       refresh: True
 {% endif %}
