@@ -34,7 +34,7 @@ zypper:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SERVER/12/x86_64/update
       priority: 99
       refresh: True
-{% if 'ha' in roles %}
+    {% if 'ha' in roles %}
     SLE-HA-POOL:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-HA/12/x86_64/product
       priority: 99
@@ -43,4 +43,4 @@ zypper:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-HA/12/x86_64/update
       priority: 99
       refresh: True
-{% endif %}
+    {% endif %}
