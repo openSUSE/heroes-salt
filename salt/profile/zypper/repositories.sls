@@ -16,4 +16,7 @@
     {% if data.has_key('key_url') %}
     - key_url: {{ data.key_url }}
     {% endif %}
+    {% if data.has_key('gpgautoimport') %}
+    - gpgautoimport: {{ data.gpgautoimport }}
+    {% endif %}
 {% endfor %}
