@@ -15,7 +15,7 @@ production:
     - match: grain
     - role.{{ role }}
   {% endfor %}
-  {% if virt_cluster %}
+  {% if virt_cluster and virt_cluster == 'atreju' %}
   'virt_cluster:{{ virt_cluster }}':
     - match: grain
     - virt_cluster.{{ virt_cluster }}
