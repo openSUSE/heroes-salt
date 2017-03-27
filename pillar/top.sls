@@ -37,6 +37,9 @@ production:
   'osrelease:{{ osrelease }}':
     - match: grain
     - osrelease.{{ osrelease.replace('.', '_') }}
+  'salt_cluster:(opensuse|suse_external)':
+    - match: grain_pcre
+    - salt_cluster.opensuse_or_suse_external
   {% if salt_cluster == 'opensuse' %}
   'salt_cluster:{{ salt_cluster }}':
     - match: grain
