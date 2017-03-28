@@ -37,7 +37,6 @@ production:
   'osrelease:{{ osrelease }}':
     - match: grain
     - osrelease.{{ osrelease.replace('.', '_') }}
-  # match all SLE12* and Leap versions
   'osrelease:(1|4)2.*':
     - match: grain_pcre
     - osrelease.12_x_or_42_x
