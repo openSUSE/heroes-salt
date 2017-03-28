@@ -1,5 +1,5 @@
 zypper:
-  package:
+  packages:
     aaa_base-extras: {}
     ca-certificates-mozilla: {}
     tmux: {}
