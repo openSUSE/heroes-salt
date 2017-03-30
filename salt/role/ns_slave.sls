@@ -1,1 +1,2 @@
-#
+include:
+  - profile.nameserver.slave
