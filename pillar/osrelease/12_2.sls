@@ -1,7 +1,13 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 zypper:
   repositories:
+    SLE-HA:
+      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-HA/12-SP2/x86_64/product
+      priority: 99
+      refresh: True
+    SLE-HA-Update:
+      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-HA/12-SP2/x86_64/update
+      priority: 99
+      refresh: True
     SLE-Module-Adv-Systems-Management:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-Module-Adv-Systems-Management/12/x86_64/product
       priority: 99
@@ -34,13 +40,3 @@ zypper:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SERVER/12-SP2/x86_64/update
       priority: 99
       refresh: True
-    {% if 'ha' in roles %}
-    SLE-HA-POOL:
-      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-HA/12-SP2/x86_64/product
-      priority: 99
-      refresh: True
-    SLE-HA-UPDATES:
-      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-HA/12-SP2/x86_64/update
-      priority: 99
-      refresh: True
-    {% endif %}
