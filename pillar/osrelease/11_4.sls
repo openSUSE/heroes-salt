@@ -16,3 +16,7 @@ zypper:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SLES11-SP4-Updates/sle-11-x86_64
       priority: 99
       refresh: True
+    SUSE:CA:
+      baseurl: http://smt-internal.opensuse.org/int-suse-ca/SLE_11_SP4
+      priority: 99
+      refresh: True

@@ -8,3 +8,7 @@ zypper:
       baseurl: https://download.opensuse.org/update/leap/42.1/oss
       priority: 99
       refresh: True
+    SUSE:CA:
+      baseurl: http://smt-internal.opensuse.org/int-suse-ca/openSUSE_Leap_42.1
+      priority: 99
+      refresh: True
