@@ -65,8 +65,8 @@ salt:
       - https://gitlab.opensuse.org/saltstack-formulas/openssh-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/salt-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/sudoers-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/users-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/timezone-formula.git
+      - https://gitlab.opensuse.org/saltstack-formulas/users-formula.git
     gitfs_ssl_verify: True
     hash_type: sha512
     pillar_gitfs_ssl_verify: True
