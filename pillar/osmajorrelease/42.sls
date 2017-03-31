@@ -1,6 +1,6 @@
 limits:
   users:
-    *:
+    '*':
       - limit_type: hard
         limit_item: nproc
         limit_value: 1700
