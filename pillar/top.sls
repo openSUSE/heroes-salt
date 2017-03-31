@@ -1,6 +1,7 @@
 {% set country = salt['grains.get']('country') %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
+{% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
 {% set osrelease = salt['grains.get']('osrelease') %}
 {% set roles = salt['grains.get']('roles', []) %}
 {% set salt_cluster = salt['grains.get']('salt_cluster') %}
@@ -34,13 +35,15 @@ production:
     - match: grain
     - domain.{{ domain.replace('.', '_') }}
   {% endif %}
+  'osmajorrelease:{{ osmajorrelease }}':
+    - match: grain
+    - osmajorrelease.{{ osmajorrelease }}
+  'osmajorrelease:(1|4)2':
+    - match: grain_pcre
+    - osmajorrelease.12_or_42
   'osrelease:{{ osrelease }}':
     - match: grain
     - osrelease.{{ osrelease.replace('.', '_') }}
-  # match all SLE12* and Leap versions
-  'osrelease:(1|4)2.*':
-    - match: grain_pcre
-    - osrelease.12_x_or_42_x
   'salt_cluster:(opensuse|suse_external)':
     - match: grain_pcre
     - salt_cluster.opensuse_or_suse_external
