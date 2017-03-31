@@ -10,5 +10,6 @@ zypper:
       refresh: True
     SUSE:CA:
       baseurl: http://smt-internal.opensuse.org/int-suse-ca/openSUSE_Leap_42.2
+      gpgautoimport: True
       priority: 99
       refresh: True
