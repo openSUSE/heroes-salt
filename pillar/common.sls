@@ -130,6 +130,10 @@ sudoers:
       users:
         nagios:
           - 'ALL=(ALL) NOPASSWD: /usr/sbin/zypp-refresh,/usr/bin/zypper ref,/usr/bin/zypper sl,/usr/bin/zypper --xmlout --non-interactive list-updates -t package -t patch'
+    /etc/sudoers.d/wheel:
+      groups:
+        wheel:
+          - 'ALL=(ALL) ALL'
 zypper:
   config:
     zypp_conf:
