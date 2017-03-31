@@ -1,11 +1,4 @@
 powerdns:
-  file.managed:
-    - name: /etc/systemd/system/pdns.service
-    - source: salt://profile/nameserver/files/pdns.service
-    - user: root
-    - group: root
-    - mode: 644
-
   service.running:
     - name: pdns
     - enable: True
