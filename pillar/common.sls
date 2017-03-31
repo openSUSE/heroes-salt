@@ -60,6 +60,7 @@ salt:
       - https://gitlab.opensuse.org/saltstack-formulas/dhcpd-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/grains-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/keepalived-formula.git
+      - https://gitlab.opensuse.org/saltstack-formulas/limits-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/locale-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/ntp-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/openssh-formula.git
