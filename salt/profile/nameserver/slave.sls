@@ -2,8 +2,6 @@ powerdns:
   service.running:
     - name: pdns
     - enable: True
-    - require:
-        - file: powerdns
 
 powerdns_config:
   file.managed:
