@@ -30,6 +30,9 @@ ntp:
           - ::1
         trustedkey:
           - 1
+openssh:
+  banner_src: salt://profile/accounts/files/ssh_banner
+  sshd_config_mode: 0640
 salt:
   gitfs:
     libgit2:
@@ -105,8 +108,6 @@ sshd_config:
         User: root
       options:
         Banner: /etc/ssh/banner
-openssh:
-  banner_src: salt://profile/accounts/files/ssh_banner
 timezone:
   name: UTC
   utc: True
