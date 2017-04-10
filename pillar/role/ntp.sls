@@ -6,6 +6,8 @@ ntp:
           - peerstats file peerstats type day enable
           - loopstats file loopstats type day enable
           - clockstats file clockstats type day enable
+        fudge:
+          - 127.127.1.0 stratum 10
         peer:
           - morla1.suse.de
           - crick.suse.de
@@ -14,6 +16,7 @@ ntp:
           - talon2.suse.cz
           - turtlecon.suse.cz
         restrict:
+          - 127.127.8.0
           - 130.149.17.21 nomodify notrap nopeer noquery
           - 131.188.3.220 nomodify notrap nopeer noquery
           - 131.188.3.221 nomodify notrap nopeer noquery
