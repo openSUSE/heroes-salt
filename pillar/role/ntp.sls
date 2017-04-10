@@ -8,15 +8,7 @@ ntp:
           - clockstats file clockstats type day enable
         fudge:
           - 127.127.1.0 stratum 10
-        peer:
-          - morla1.suse.de
-          - crick.suse.de
-          - wilkins.suse.de
-          - talon1.suse.cz
-          - talon2.suse.cz
-          - turtlecon.suse.cz
         restrict:
-          - 127.127.8.0
           - 130.149.17.21 nomodify notrap nopeer noquery
           - 131.188.3.220 nomodify notrap nopeer noquery
           - 131.188.3.221 nomodify notrap nopeer noquery
@@ -32,9 +24,6 @@ ntp:
           - 192.168.0.0 mask 255.255.255.0  kod nomodify notrap nopeer noquery
           - 192.168.10.0 mask 255.255.255.0 kod nomodify notrap nopeer noquery
           - 192.168.11.0 mask 255.255.255.0 kod nomodify notrap nopeer noquery
-          - ntp1.suse.de
-          - ntp2.suse.de
-          - ntp3.suse.de
         server:
           - 127.127.1.0
           - 130.149.17.21 iburst
@@ -45,6 +34,3 @@ ntp:
           - 62.128.1.18 iburst
           - 129.143.2.23 iburst
           - 213.239.239.164 iburst prefer
-          - ntp1.suse.de
-          - ntp2.suse.de
-          - ntp3.suse.de

@@ -24,6 +24,7 @@ ntp:
         requestkey:
           - 1
         restrict:
+          - default ignore
           - -4 default kod notrap nomodify nopeer
           - -6 default kod notrap nomodify nopeer
           - 127.0.0.1

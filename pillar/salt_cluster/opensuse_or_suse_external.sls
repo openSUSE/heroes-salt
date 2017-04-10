@@ -1,3 +1,4 @@
+{% if 'ntp' not in salt['grains.get']('roles' ,[]) %}
 ntp:
   ng:
     settings:
@@ -8,3 +9,4 @@ ntp:
         server:
           - rolex.opensuse.org
           - lange.opensuse.org
+{% endif %}
