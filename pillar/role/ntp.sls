@@ -23,7 +23,7 @@ ntp:
           - 129.143.2.23 nomodify notrap nopeer noquery
           - 213.239.239.164 nomodify notrap nopeer noquery
           - 10.0.0.0 mask 255.0.0.0 kod nomodify notrap nopeer
-          - 2620:0113:: mask ffff:ffff:: kod nomodify notrap nopeer
+          - '2620:0113:: mask ffff:ffff:: kod nomodify notrap nopeer'
           - 149.44.0.0 mask 255.255.0.0 kod nomodify notrap nopeer noquery
           - 149.44.176.0 mask 255.255.248.0 kod nomodify notrap nopeer
           - 192.168.0.0 mask 255.255.255.0  kod nomodify notrap nopeer noquery
