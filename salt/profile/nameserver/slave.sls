@@ -1,3 +1,3 @@
 include:
   - sqlite
-  - powerdns
+  - powerdns.backend_sqlite
