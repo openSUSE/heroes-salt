@@ -31,8 +31,10 @@ salt:
       - https://gitlab.opensuse.org/saltstack-formulas/limits-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/locale-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/ntp-formula.git
+      - https://gitlab.opensuse.org/saltstack-formulas/powerdns-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/openssh-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/salt-formula.git
+      - https://gitlab.opensuse.org/saltstack-formulas/sqlite-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/sudoers-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/timezone-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/users-formula.git
