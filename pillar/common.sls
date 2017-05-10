@@ -24,59 +24,17 @@ ntp:
         requestkey:
           - 1
         restrict:
+          - default ignore
           - -4 default kod notrap nomodify nopeer
           - -6 default kod notrap nomodify nopeer
           - 127.0.0.1
           - ::1
         trustedkey:
           - 1
+openssh:
+  banner_src: salt://profile/accounts/files/ssh_banner
+  sshd_config_mode: 0640
 salt:
-  gitfs:
-    libgit2:
-      install_from_source: False
-    pygit2:
-      install_from_source: False
-  master:
-    cli_summary: True
-    default_top: production
-    env_order:
-      - production
-    ext_pillar:
-      - git:
-          - production gitlab@mickey.opensuse.org:infra/salt.git:
-              - env: production
-              - root: pillar
-              - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
-              - pubkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt.pub
-    ext_pillar_first: True
-    fileserver_backend:
-      - git
-    gitfs_provider: pygit2
-    gitfs_remotes:
-      - gitlab@mickey.opensuse.org:infra/salt.git:
-          - root: salt
-          - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
-          - pubkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt.pub
-      - https://gitlab.opensuse.org/saltstack-formulas/dhcpd-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/grains-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/keepalived-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/locale-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/mysql-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/ntp-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/openssh-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/salt-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/sudoers-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/users-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/timezone-formula.git
-    gitfs_ssl_verify: True
-    hash_type: sha512
-    pillar_gitfs_ssl_verify: True
-    pillar_merge_lists: True
-    pillar_source_merging_strategy: smart
-    state_output: changes
-    state_verbose: False
-    top_file_merging_strategy: same
-    user: salt
   minion:
     backup_mode: minion
     environment: production
@@ -105,8 +63,6 @@ sshd_config:
         User: root
       options:
         Banner: /etc/ssh/banner
-openssh:
-  banner_src: salt://profile/accounts/files/ssh_banner
 timezone:
   name: UTC
   utc: True
@@ -118,10 +74,7 @@ sudoers:
       - env_reset
       - env_keep="LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL LANGUAGE LINGUAS XDG_SESSION_COOKIE"
       - '!insults'
-      - targetpw
   users:
-    ALL:
-      - 'ALL=(ALL) ALL'
     root:
       - 'ALL=(ALL) ALL'
   includedir: /etc/sudoers.d
@@ -130,6 +83,10 @@ sudoers:
       users:
         nagios:
           - 'ALL=(ALL) NOPASSWD: /usr/sbin/zypp-refresh,/usr/bin/zypper ref,/usr/bin/zypper sl,/usr/bin/zypper --xmlout --non-interactive list-updates -t package -t patch'
+    /etc/sudoers.d/wheel:
+      groups:
+        wheel:
+          - 'ALL=(ALL) ALL'
 zypper:
   config:
     zypp_conf:
@@ -137,22 +94,13 @@ zypper:
         download.use_deltarpm: 'false'
         solver.onlyRequires: 'true'
   packages:
-    {% if not osrelease.startswith('11') %}
-    aaa_base-extras: {}
-    {% endif %}
     abuild-online-update: {}
     ca-certificates-freeipa-opensuse: {}
-    {% if not osrelease.startswith('11') %}
-    ca-certificates-mozilla: {}
-    {% endif %}
     curl: {}
     dhcp-client: {}
     less: {}
     screen: {}
     susepaste: {}
-    {% if not osrelease.startswith('11') %}
-    tmux: {}
-    {% endif %}
     vim: {}
     vim-data: {}
     wget: {}

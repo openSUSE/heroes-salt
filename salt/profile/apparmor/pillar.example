@@ -1,0 +1,15 @@
+apparmor:
+  # install and run auditd? (default: True)
+  auditd: True
+  # install apparmor-profiles package? (default: True)
+  defaultprofiles: True
+
+  profiles:
+    # salt://profile/apparmor/files/ping.apparmor -> /etc/apparmor.d/bin.ping
+    bin.ping:
+      source: salt://profile/apparmor/files/ping.apparmor
+
+  abstractions:
+    # salt://profile/apparmor/files/common-stuff.apparmor -> /etc/apparmor.d/abstractions/common-stuff
+    common-stuff
+      source: salt://profile/apparmor/files/common-stuff.apparmor

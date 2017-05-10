@@ -1,11 +1,17 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 zypper:
   repositories:
+    SLE-HA:
+      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-HA/12-SP2/x86_64/product
+      priority: 99
+      refresh: False
+    SLE-HA-Update:
+      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-HA/12-SP2/x86_64/update
+      priority: 99
+      refresh: True
     SLE-Module-Adv-Systems-Management:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-Module-Adv-Systems-Management/12/x86_64/product
       priority: 99
-      refresh: True
+      refresh: False
     SLE-Module-Adv-Systems-Management-Update:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-Module-Adv-Systems-Management/12/x86_64/update
       priority: 99
@@ -13,7 +19,7 @@ zypper:
     SLE-Module-Web-Scripting:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-Module-Web-Scripting/12/x86_64/product
       priority: 99
-      refresh: True
+      refresh: False
     SLE-Module-Web-Scripting-Update:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-Module-Web-Scripting/12/x86_64/update
       priority: 99
@@ -21,7 +27,7 @@ zypper:
     SLE-SDK:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-SDK/12-SP2/x86_64/product
       priority: 99
-      refresh: True
+      refresh: False
     SLE-SDK-Update:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SDK/12-SP2/x86_64/update
       priority: 99
@@ -29,18 +35,13 @@ zypper:
     SLE-SERVER:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-SERVER/12-SP2/x86_64/product
       priority: 99
-      refresh: True
+      refresh: False
     SLE-SERVER-Update:
       baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SERVER/12-SP2/x86_64/update
       priority: 99
       refresh: True
-    {% if 'ha' in roles %}
-    SLE-HA-POOL:
-      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-HA/12-SP2/x86_64/product
+    SUSE:CA:
+      baseurl: http://smt-internal.opensuse.org/int-suse-ca/SLE_12_SP2
+      gpgautoimport: True
       priority: 99
       refresh: True
-    SLE-HA-UPDATES:
-      baseurl: http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-HA/12-SP2/x86_64/update
-      priority: 99
-      refresh: True
-    {% endif %}
