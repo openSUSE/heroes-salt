@@ -1,12 +1,12 @@
 apparmor:
   pkg.installed:
     - pkgs:
-      - apparmor-abstractions
-      - apparmor-parser
-{% if salt['pillar.get']('apparmor:defaultprofiles', True) %}
-      - apparmor-profiles
-{% endif %}
-      - apparmor-utils
+        - apparmor-abstractions
+        - apparmor-parser
+        {% if salt['pillar.get']('apparmor:defaultprofiles', True) %}
+        - apparmor-profiles
+        {% endif %}
+        - apparmor-utils
 
   service.running:
     - enable: True
