@@ -30,7 +30,7 @@ production:
   'country:{{ country }}':
     - match: grain
     - country.{{ country }}
-  {% if domain and domain == 'opensuse.org' %}
+  {% if domain and domain == 'infra.opensuse.org' %}
   'domain:{{ domain }}':
     - match: grain
     - domain.{{ domain.replace('.', '_') }}

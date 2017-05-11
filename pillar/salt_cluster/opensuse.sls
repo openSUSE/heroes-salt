@@ -1,3 +1,3 @@
 salt:
   minion:
-    master: minnie.opensuse.org
+    master: minnie.infra.opensuse.org
