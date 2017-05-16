@@ -1,6 +1,6 @@
 include:
   - profile.accounts
-  - profile.apparmor
+  #- profile.apparmor
   - profile.regional
   - profile.salt.minion
   - profile.zypper
