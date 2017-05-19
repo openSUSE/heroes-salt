@@ -99,6 +99,7 @@ zypper:
     curl: {}
     dhcp-client: {}
     less: {}
+    man: {}
     screen: {}
     susepaste: {}
     vim: {}
