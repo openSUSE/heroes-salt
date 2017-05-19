@@ -4,9 +4,9 @@ ntp:
     settings:
       ntp_conf:
         restrict:
-          - rolex.opensuse.org
-          - lange.opensuse.org
+          - ntp1.infra.opensuse.org
+          - ntp2.infra.opensuse.org
         server:
-          - rolex.opensuse.org iburst
-          - lange.opensuse.org iburst
+          - ntp1.infra.opensuse.org iburst
+          - ntp2.infra.opensuse.org iburst
 {% endif %}
