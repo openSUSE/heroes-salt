@@ -7,6 +7,6 @@ ntp:
           - rolex.opensuse.org
           - lange.opensuse.org
         server:
-          - rolex.opensuse.org
-          - lange.opensuse.org
+          - rolex.opensuse.org iburst
+          - lange.opensuse.org iburst
 {% endif %}
