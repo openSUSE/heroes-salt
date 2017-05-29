@@ -1,4 +1,4 @@
-{% set os_family = salt['grains.get']('os_family', None) %}
+{% set os_family = salt['grains.get']('os_family') %}
 {% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
 
 apparmor:
