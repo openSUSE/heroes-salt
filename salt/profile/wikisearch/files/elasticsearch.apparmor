@@ -1,0 +1,114 @@
+# managed by salt - do not edit manually!
+
+# AppArmor profile for elasticsearch 1.7
+
+# vim: ft=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Christian Boltz
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+profile elasticsearch /usr/share/java/elasticsearch/bin/elasticsearch flags=(complain) {
+  #include <abstractions/base>
+
+  /bin/hostname Cx,
+  /dev/tty rw,
+  /usr/bin/dirname mrix,
+  /usr/bin/getopt mrix,
+  /usr/bin/uname mrix,
+  /usr/bin/which mrix,
+  /usr/lib*/jvm/java-*-openjdk-*/jre/bin/java rCx -> java,
+  /usr/share/java/elasticsearch/bin/elasticsearch r,
+  /usr/share/java/elasticsearch/bin/elasticsearch.in.sh r,
+
+
+  profile /bin/hostname flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+
+    /bin/hostname mr,
+
+  }
+
+  profile java flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+
+    / r,
+    /dev/ r,
+    /dev/hugepages/ r,
+    /dev/mqueue/ r,
+    /dev/pts/ r,
+    /etc/elasticsearch/ r,
+    /etc/elasticsearch/elasticsearch.yml r,
+    /etc/elasticsearch/logging.yml r,
+    /lib*/ r,
+    /proc/ r,
+    /proc/*/ r,
+    /proc/*/fd/ r,
+    /proc/*/maps r,
+    /proc/*/mounts r,
+    /proc/*/net/dev r,
+    /proc/*/net/if_inet6 r,
+    /proc/*/net/ipv6_route r,
+    /proc/*/net/snmp r,
+    /proc/*/stat r,
+    /proc/*/statm r,
+    /proc/cpuinfo r,
+    /proc/diskstats r,
+    /proc/loadavg r,
+    /proc/meminfo r,
+    /proc/mtrr r,
+    /proc/stat r,
+    /proc/sys/fs/binfmt_misc/ r,
+    /proc/uptime r,
+    /proc/vmstat r,
+    /run/ r,
+    /run/elasticsearch/ r,
+    /run/elasticsearch/elasticsearch.pid rw,
+    /run/user/0/ r,
+    /sys/ r,
+    /sys/devices/system/cpu/ r,
+    /sys/fs/cgroup/ r,
+    /sys/fs/cgroup/blkio/ r,
+    /sys/fs/cgroup/cpu,cpuacct/ r,
+    /sys/fs/cgroup/cpuset/ r,
+    /sys/fs/cgroup/devices/ r,
+    /sys/fs/cgroup/freezer/ r,
+    /sys/fs/cgroup/hugetlb/ r,
+    /sys/fs/cgroup/memory/ r,
+    /sys/fs/cgroup/net_cls,net_prio/ r,
+    /sys/fs/cgroup/perf_event/ r,
+    /sys/fs/cgroup/pids/ r,
+    /sys/fs/cgroup/systemd/ r,
+    /sys/fs/pstore/ r,
+    /sys/kernel/debug/ r,
+    /sys/kernel/security/ r,
+    /tmp/ r,
+    owner /tmp/hsperfdata_elasticsearch/ rw,
+    owner /tmp/hsperfdata_elasticsearch/* rw,
+    owner /tmp/jna--*/ rw,
+    owner /tmp/jna--*/*.tmp mrw,
+    /usr/ r,
+    /usr/lib*/ r,
+    /usr/share/ r,
+    /usr/share/java/ r,
+    /usr/share/java/elasticsearch/ r,
+    /usr/share/java/elasticsearch/** r,
+    /usr/share/java/elasticsearch/lib/sigar/libsigar-amd64-linux.so mr,
+    /var/ r,
+    /var/lib/ r,
+    owner /var/lib/elasticsearch/ r,
+    owner /var/lib/elasticsearch/nodes/ rw,
+    owner /var/lib/elasticsearch/nodes/** rwk,
+    owner /var/log/elasticsearch/*.log rw,
+
+  }
+}
