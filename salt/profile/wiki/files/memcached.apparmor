@@ -1,0 +1,27 @@
+# managed by salt - do not edit manually!
+
+# AppArmor profile for memcached 1.4.33
+
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Christian Boltz
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+profile memcached /usr/sbin/memcached flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability setgid,
+  capability setuid,
+
+  /usr/sbin/memcached mr,
+
+}
+
