@@ -236,6 +236,9 @@ if (isset($_SERVER['HTTP_X_USERNAME'])) { # avoid logging 'undefined index' warn
     $wgAuthRemoteuserUserPrefsForced = [ 'email' => '' ];
 }
 
+$wgGroupPermissions['*']['createaccount'] = false;
+$wgGroupPermissions['*']['autocreateaccount'] = true;
+
 # UserMerge ------------------------
 require_once( "$IP/extensions/UserMerge/UserMerge.php" );
 // By default nobody can use this function, enable for bureaucrat?
