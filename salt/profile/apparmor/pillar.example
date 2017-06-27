@@ -8,6 +8,9 @@ apparmor:
     # salt://profile/apparmor/files/ping.apparmor -> /etc/apparmor.d/bin.ping
     bin.ping:
       source: salt://profile/apparmor/files/ping.apparmor
+    usr.sbin.httpd-prefork
+      source: salt://profile/apparmor/files/httpd-prefork.apparmor
+      template: jinja
 
   abstractions:
     # salt://profile/apparmor/files/common-stuff.apparmor -> /etc/apparmor.d/abstractions/common-stuff
