@@ -26,6 +26,7 @@ salt:
           - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
           - pubkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt.pub
       - https://gitlab.opensuse.org/saltstack-formulas/dhcpd-formula.git
+      - https://gitlab.opensuse.org/saltstack-formulas/elasticsearch-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/grains-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/keepalived-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/limits-formula.git
