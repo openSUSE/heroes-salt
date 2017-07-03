@@ -8,15 +8,15 @@ apparmor:
 
 # list of wikis running MediaWiki 1.27 (this will allow us to migrate to a new version one by one later)
 mediawiki_1_27:
-  elasticsearch_server: 192.168.122.105
-  mysql_server: 192.168.122.106
+  elasticsearch_server: water.infra.opensuse.org
+  mysql_server: mysql.infra.opensuse.org
   wikis:
     en:
-      alias: wikimove.opensuse.org
       dbpass: not_in_salt_yet
 #      readonly_msg: 'This wiki is in read-only mode for maintenance!'
 #      site_notice: 'Welcome to the updated openSUSE wiki! If you notice any issues, please send a mail to admin [at] opensuse.org'
     en-test:
+      alias: wikimove.opensuse.org
       bento_lang: en
       dbpass: not_in_salt_yet
       lang: en
