@@ -1,0 +1,39 @@
+# managed by salt - do not edit!
+
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Christian Boltz
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+profile pygmentize /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/python>
+
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /proc/meminfo r,
+  /usr/ r,
+  /usr/bin/ r,
+  /usr/bin/env rix,
+  /usr/bin/python r,
+  /usr/bin/python2.7 rix,
+  /usr/lib/ r,
+  /usr/local/lib/ r,
+  /usr/local/lib64/ r,
+  /usr/share/ r,
+  /usr/share/mediawiki_1_27/ r,
+  /usr/share/mediawiki_1_27/extensions/ r,
+  /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/ r,
+  /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/ r,
+  /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize r,
+
+}
+
+# vim: ft=apparmor expandtab

@@ -118,6 +118,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /bin/bash rix,
     /dev/tty rw,
     /proc/meminfo r,
+    /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize Px -> pygmentize,
     /usr/sbin/sendmail PUx,
     /var/log/apache2/access_log w,
     /var/log/apache2/error_log w,
