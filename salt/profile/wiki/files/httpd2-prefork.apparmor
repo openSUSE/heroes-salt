@@ -14,7 +14,7 @@
 
 #include <tunables/global>
 
-@{wiki_upload_extensions}=doc docx gif jpg jpeg odp ods odt pdf png ppt pptx sxc sxw xls xlsx
+@{wiki_upload_extensions}=doc docx gif jpg jpeg odp ods odt pdf png ppt pptx svg sxc sxw xls xlsx
 
 profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_disconnected) {
   #include <abstractions/base>
@@ -128,6 +128,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /srv/www/{{wiki}}.opensuse.org/public/ r,
     /srv/www/{{wiki}}.opensuse.org/public/** r,
     /srv/www/{{wiki}}.opensuse.org/public/images/**.@{wiki_upload_extensions} rw,
+    /srv/www/{{wiki}}.opensuse.org/public/images/temp/svg_*/ rw,
     /srv/www/{{wiki}}.opensuse.org/tmp/php* rw,
     /srv/www/{{wiki}}.opensuse.org/secrets.php r,
     /srv/www/{{wiki}}.opensuse.org/wiki_settings.php r,
