@@ -5,6 +5,8 @@ apparmor:
       template: jinja
     memcached:
       source: salt://profile/wiki/files/memcached.apparmor
+    pygmentize:
+      source: salt://profile/wiki/files/pygmentize.apparmor
 
 # list of wikis running MediaWiki 1.27 (this will allow us to migrate to a new version one by one later)
 mediawiki_1_27:
