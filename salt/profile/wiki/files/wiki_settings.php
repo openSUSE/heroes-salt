@@ -6,8 +6,8 @@ $wgLanguageCode = "{{ data.get('lang', wiki) }}";
 $bento_lang = '{{ data.get('bento_lang', wiki) }}';
 
 $wgDBserver   = '{{ mysql_server }}';
-$wgDBname     = 'wiki-{{ wiki }}';
-$wgDBuser     = 'wiki-{{ wiki }}';
+$wgDBname     = 'wiki_{{ wiki|replace('-', '_') }}';
+$wgDBuser     = 'wiki_{{ wiki|replace('-', '_') }}';
 # $wgDBpassword = '{{ data.dbpass }}';
 
 require_once('secrets.php'); # sets $wgDBpassword and $wgSecretKey
