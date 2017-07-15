@@ -128,6 +128,8 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /srv/www/{{wiki}}.opensuse.org/public/ r,
     /srv/www/{{wiki}}.opensuse.org/public/** r,
     /srv/www/{{wiki}}.opensuse.org/public/images/**.@{wiki_upload_extensions} rw,
+    /srv/www/{{wiki}}.opensuse.org/public/images/lockdir/*.lock rwk,
+    /srv/www/{{wiki}}.opensuse.org/public/images/temp/ResourceLoaderImage?????? rw,
     /srv/www/{{wiki}}.opensuse.org/public/images/temp/svg_*/ rw,
     /srv/www/{{wiki}}.opensuse.org/tmp/php* rw,
     /srv/www/{{wiki}}.opensuse.org/secrets.php r,
