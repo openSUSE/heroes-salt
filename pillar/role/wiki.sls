@@ -13,16 +13,88 @@ mediawiki_1_27:
   elasticsearch_server: water.infra.opensuse.org
   mysql_server: mysql.infra.opensuse.org
   wikis:
+    # availale options:
+      # alias: wikimove.opensuse.org
+      # bento_lang: en
+      # dbpass: not_in_salt_yet
+      # lang: en
+      # readonly_msg: 'This wiki is in read-only mode for maintenance!'
+      # site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    cn:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    cs:
+      alias: cz.opensuse.org
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    de:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    el:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     en:
       dbpass: not_in_salt_yet
-#      readonly_msg: 'This wiki is in read-only mode for maintenance!'
-#      site_notice: 'Welcome to the updated openSUSE wiki! If you notice any issues, please send a mail to admin [at] opensuse.org'
+      site_notice: 'The english openSUSE wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     en-test:
       alias: wikimove.opensuse.org
       bento_lang: en
       dbpass: not_in_salt_yet
       lang: en
       site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
+    es:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    fr:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    hu:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    it:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    ja:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    languages:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    nl:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    old-de:
+      dbpass: not_in_salt_yet
+      readonly_msg: 'Dieses Wiki ist ein Archiv und kann nicht bearbeitet werden.'
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    old-en:
+      dbpass: not_in_salt_yet
+      readonly_msg: "This wiki is an archive and can't be edited."
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    pl:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    pt:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    ru:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    sv:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    tr:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    zh:
+      dbpass: not_in_salt_yet
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+    zh-tw:
+      alias: zh_tw.opensuse.org
+      bento_lang: zh_TW
+      dbpass: not_in_salt_yet
+      lang: zh_TW
+      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
 
 # special cases for bento_lang:
 # cz    -> bento_lang cs
