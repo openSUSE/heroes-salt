@@ -99,6 +99,7 @@ zypper:
     curl: {}
     dhcp-client: {}
     less: {}
+    lsof: {}
     man: {}
     screen: {}
     susepaste: {}
