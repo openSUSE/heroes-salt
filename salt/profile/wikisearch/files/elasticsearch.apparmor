@@ -109,6 +109,7 @@ profile elasticsearch /usr/share/java/elasticsearch/bin/elasticsearch flags=(com
     owner /var/lib/elasticsearch/nodes/ rw,
     owner /var/lib/elasticsearch/nodes/** rwk,
     owner /var/log/elasticsearch/*.log rw,
+    owner /var/log/elasticsearch/elasticsearch.log.20[12][0-9]-[01][0-9]-[0-3][0-9] rw,
 
   }
 }
