@@ -45,9 +45,8 @@ $wgUploadDirectory  = "$IP/images";
 $wgEnableEmail = true;
 $wgEnableUserEmail = false;
 
-#$wgEmergencyContact = "webmaster@novell.com";
-$wgEmergencyContact = "noreply@novell.com";
-$wgPasswordSender   = "webmaster@novell.com";
+$wgEmergencyContact = "noreply@opensuse.org";
+$wgPasswordSender   = "noreply@opensuse.org";
 
 ## For a detailed description of the following switches see
 ## http://meta.wikimedia.org/Enotif and http://meta.wikimedia.org/Eauthent
