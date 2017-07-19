@@ -121,8 +121,8 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /usr/bin/timeout rix,
     /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize Px -> pygmentize,
     /usr/sbin/sendmail PUx,
-    /var/log/apache2/access_log w,
-    /var/log/apache2/access_log-20[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/{{wiki}}}-access_log w,
+    /var/log/apache2/{{wiki}}}-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
     /var/log/apache2/error_log w,
 
     /srv/www/{{wiki}}.opensuse.org/cache/ r,

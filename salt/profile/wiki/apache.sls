@@ -26,3 +26,7 @@ apache2_running:
     - repl: APACHE_MODULES="        alias apparmor auth_basic authn_file authz_host authz_groupfile authz_core authz_user               dir env expires include log_config mime negotiation setenvif     socache_shmcb         reqtimeout authn_core php7 rewrite"
     - listen_in:
       - service: apache2
+
+/etc/logrotate.d/apache2-wiki:
+  file.managed:
+    - source: salt://profile/wiki/files/apache2-wiki.logrotate
