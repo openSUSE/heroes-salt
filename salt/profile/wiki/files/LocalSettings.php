@@ -100,8 +100,6 @@ $wgTmpDirectory     = "{$wgUploadDirectory}/temp";
 
 $wgLocalInterwiki   = $wgSitename;
 
-$wgCookieDomain = "opensuse.org";
-
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
 ## License and Creative Commons licenses are supported so far.
