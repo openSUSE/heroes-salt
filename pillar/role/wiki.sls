@@ -64,13 +64,17 @@ mediawiki_1_27:
       dbpass: not_in_salt_yet
       site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     old-de:
+      bento_lang: de
       dbpass: not_in_salt_yet
+      lang: de
       readonly_msg: 'Dieses Wiki ist ein Archiv und kann nicht bearbeitet werden.'
-      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+      site_notice: 'Dieses Wiki ist ein Archiv (Stand: 2011) des alten openSUSE-Wikis. Das aktuelle openSUSE-Wiki finden Sie unter [https://de.opensuse.org de.opensuse.org].'
     old-en:
+      bento_lang: en
       dbpass: not_in_salt_yet
-      readonly_msg: "This wiki is an archive and can't be edited."
-      site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
+      lang: en
+      readonly_msg: 'This wiki is an archive and cannot be edited.'
+      site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
     pl:
       dbpass: not_in_salt_yet
       site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
