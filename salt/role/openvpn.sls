@@ -1,1 +1,2 @@
-#
+include:
+  - profile.ldap.client
