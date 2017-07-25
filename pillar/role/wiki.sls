@@ -20,6 +20,7 @@ mediawiki_1_27:
       # dbpass: not_in_salt_yet
       # lang: en
       # readonly_msg: 'This wiki is in read-only mode for maintenance!'
+      # robots: robots-disallow.txt  # filename in salt/profile/wiki/files/
       # site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     cn:
       dbpass: not_in_salt_yet
@@ -42,6 +43,7 @@ mediawiki_1_27:
       bento_lang: en
       dbpass: not_in_salt_yet
       lang: en
+      robots: robots-disallow.txt
       site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
     es:
       dbpass: not_in_salt_yet
@@ -70,6 +72,7 @@ mediawiki_1_27:
       dbmysql5: False
       lang: de
       readonly_msg: 'Dieses Wiki ist ein Archiv und kann nicht bearbeitet werden.'
+      robots: robots-disallow.txt
       site_notice: 'Dieses Wiki ist ein Archiv (Stand: 2011) des alten openSUSE-Wikis. Das aktuelle openSUSE-Wiki finden Sie unter [https://de.opensuse.org de.opensuse.org].'
     old-en:
       bento_lang: en
@@ -77,6 +80,7 @@ mediawiki_1_27:
       dbpass: not_in_salt_yet
       lang: en
       readonly_msg: 'This wiki is an archive and cannot be edited.'
+      robots: robots-disallow.txt
       site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
     pl:
       dbpass: not_in_salt_yet
