@@ -16,6 +16,7 @@ mediawiki_1_27:
     # availale options:
       # alias: wikimove.opensuse.org
       # bento_lang: en
+      # dbmysql5: False  # only needed for old-en and old-de, defaults to True
       # dbpass: not_in_salt_yet
       # lang: en
       # readonly_msg: 'This wiki is in read-only mode for maintenance!'
@@ -66,11 +67,13 @@ mediawiki_1_27:
     old-de:
       bento_lang: de
       dbpass: not_in_salt_yet
+      dbmysql5: False
       lang: de
       readonly_msg: 'Dieses Wiki ist ein Archiv und kann nicht bearbeitet werden.'
       site_notice: 'Dieses Wiki ist ein Archiv (Stand: 2011) des alten openSUSE-Wikis. Das aktuelle openSUSE-Wiki finden Sie unter [https://de.opensuse.org de.opensuse.org].'
     old-en:
       bento_lang: en
+      dbmysql5: False
       dbpass: not_in_salt_yet
       lang: en
       readonly_msg: 'This wiki is an archive and cannot be edited.'
