@@ -22,4 +22,11 @@ $wgSiteNotice = '{{ data.site_notice }}';
 
 {% if data.has_key('readonly_msg') %}
 $wgReadOnly = '{{ data.readonly_msg }}';
+$wgIgnoreImageErrors=true;  # avoid error message for thumbnails, see https://www.mediawiki.org/wiki/Manual:$wgReadOnly
 {% endif %}
+
+{%- if data.has_key('dbmysql5') and not data.get('dbmysql5') %}
+$wgDBmysql5 = false;  # old-en and old-de don't work with utf8 DB connection
+{%- else %}
+$wgDBmysql5 = true;
+{%- endif %}

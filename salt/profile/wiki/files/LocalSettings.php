@@ -60,9 +60,6 @@ $wgEmailAuthentication = false;
 # If you're on MySQL 3.x, this next line must be FALSE:
 $wgDBmysql4 = true;
 
-# Experimental charset support for MySQL 4.1/5.0.
-$wgDBmysql5 = true;
-
 # File Cache
 #$wgUseFileCache = true; /* default: false */
 #$wgFileCacheDirectory = "/srv/www/htdocs/cache";

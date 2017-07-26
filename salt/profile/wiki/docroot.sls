@@ -51,6 +51,12 @@
     - source: salt://profile/wiki/files/wiki_settings.php
     - template: jinja
 
+{% if data.get('robots') %}
+/srv/www//{{ wiki }}.opensuse.org/public/robots.txt:
+  file.managed:
+    - source: salt://profile/wiki/files/{{ data.robots }}
+{% endif %}
+
 {%endfor%}
 
 # SQL commands to migrate old hit counter data
