@@ -39,7 +39,6 @@ mediawiki_1_27:
       dbpass: not_in_salt_yet
       site_notice: 'The english openSUSE wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     en-test:
-      alias: wikimove.opensuse.org
       bento_lang: en
       dbpass: not_in_salt_yet
       lang: en

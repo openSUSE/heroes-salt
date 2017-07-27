@@ -109,6 +109,17 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
 
   }
 
+  ^vhost_files flags=(complain,attach_disconnected) {
+    #include <abstractions/apache2-common>
+
+    /var/log/apache2/files-access_log w,
+    /var/log/apache2/files-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/error_log w,
+
+    /srv/www/files.opensuse.org/public/ r,
+    /srv/www/files.opensuse.org/public/** r,
+  }
+
   #  {% for wiki in pillar['mediawiki_1_27']['wikis'] %}
   ^vhost_{{wiki}}wiki flags=(complain,attach_disconnected) {
     #include <abstractions/apache2-common>
