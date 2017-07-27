@@ -37,10 +37,8 @@ for formula in ${FORMULAS[@]}; do
     pushd $formula-formula > /dev/null
     git remote set-url origin ${upstream}.git
     git remote remove opensuse
-    git remote remove suse
     git remote remove tampakrap
     git remote add opensuse gitlab@gitlab.infra.opensuse.org:saltstack-formulas/$formula-formula.git
-    git remote add suse gitlab@gitlab.suse.de:salt-formulas/$formula-formula.git
     git remote add tampakrap git@github.com:tampakrap/$formula-formula.git
     git remote -v
     git checkout master
@@ -48,7 +46,5 @@ for formula in ${FORMULAS[@]}; do
     git reset --hard origin/master
     git push -f opensuse master
     git push -f opensuse master:production
-    git push -f suse master
-    git push -f suse master:production
     popd > /dev/null
 done
