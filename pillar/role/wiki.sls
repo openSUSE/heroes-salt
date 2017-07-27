@@ -20,7 +20,7 @@ mediawiki_1_27:
       # dbpass: not_in_salt_yet
       # lang: en
       # readonly_msg: 'This wiki is in read-only mode for maintenance!'
-      # robots: robots-disallow.txt  # filename in salt/profile/wiki/files/
+      # robots: robots-disallow.txt  # filename in salt/profile/wiki/files/, defaults to 'robots.txt'
       # site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     cn:
       dbpass: not_in_salt_yet
