@@ -30,3 +30,8 @@ $wgDBmysql5 = false;  # old-en and old-de don't work with utf8 DB connection
 {%- else %}
 $wgDBmysql5 = true;
 {%- endif %}
+
+$wgDefaultSkin = "{{ data.get('skin', 'bento') }}";
+{%- if data.has_key('skin') %}
+wfLoadSkin('Chameleon');
+{%- endif %}
