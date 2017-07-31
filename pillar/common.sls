@@ -101,8 +101,11 @@ zypper:
     less: {}
     lsof: {}
     man: {}
+    mtr: {}
     screen: {}
     susepaste: {}
+    tcpdump: {}
+    traceroute: {}
     vim: {}
     vim-data: {}
     wget: {}
