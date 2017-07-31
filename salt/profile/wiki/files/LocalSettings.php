@@ -107,7 +107,7 @@ $wgRightsText = "";
 $wgRightsIcon = "";
 # $wgRightsCode = ""; # Not yet used
 
-$wgDefaultSkin = 'bento';
+# $wgDefaultSkin = 'bento';
 wfLoadSkin('bento');
 
 # $wgLocalTZoffset = date("Z") / 3600; # 3600 is obviously wrong, since the value is expected in minutes
