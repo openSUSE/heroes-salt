@@ -40,8 +40,3 @@ zypper:
       baseurl: http://smt-internal.infra.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SERVER/12/x86_64/update
       priority: 99
       refresh: True
-    SUSE:CA:
-      baseurl: http://smt-internal.infra.opensuse.org/int-suse-ca/SLE_12
-      gpgautoimport: True
-      priority: 99
-      refresh: True
