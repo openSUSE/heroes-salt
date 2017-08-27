@@ -14,8 +14,8 @@ salt:
           - production gitlab@gitlab.infra.opensuse.org:infra/salt.git:
               - env: production
               - root: pillar
-              - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
-              - pubkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt.pub
+              - privkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt
+              - pubkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt.pub
     ext_pillar_first: True
     fileserver_backend:
       - git
@@ -23,8 +23,8 @@ salt:
     gitfs_remotes:
       - gitlab@gitlab.infra.opensuse.org:infra/salt.git:
           - root: salt
-          - privkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt
-          - pubkey: /srv/salt/.ssh/salt_gitlab_oo_infra_salt.pub
+          - privkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt
+          - pubkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt.pub
       - https://gitlab.opensuse.org/saltstack-formulas/dhcpd-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/elasticsearch-formula.git
       - https://gitlab.opensuse.org/saltstack-formulas/grains-formula.git
