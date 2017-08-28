@@ -95,6 +95,13 @@ mediawiki_1_27:
 # zh_tw -> bento_lang zh_TW
 # full bento_lang list: https://github.com/openSUSE/opensuse-themes/tree/master/bento/js/l10n
 
+sudoers:
+  included_files:
+    /etc/sudoers.d/group_wiki-admins:
+      groups:
+        wiki-admins:
+          - 'ALL=(ALL) ALL'
+
 zypper:
   packages:
     apache2: {}
