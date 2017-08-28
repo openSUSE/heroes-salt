@@ -76,11 +76,11 @@ sssd:
         infra.opensuse.org:
           auth_provider: ldap
           id_provider: ldap
-          ldap_group_search_base = cn=groups,cn=compat,dc=infra,dc=opensuse,dc=org
+          ldap_group_search_base: cn=groups,cn=compat,dc=infra,dc=opensuse,dc=org
           ldap_search_base: dc=infra,dc=opensuse,dc=org
           ldap_tls_reqcert: demand
           ldap_uri: ldaps://freeipa.infra.opensuse.org
-          ldap_user_search_base = cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org
+          ldap_user_search_base: cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org
       general_settings:
         config_file_version: 2
         domains: infra.opensuse.org
