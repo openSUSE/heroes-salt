@@ -22,6 +22,7 @@ FORMULAS=(
 )
 
 for formula in ${FORMULAS[@]}; do
+    prefix=
     echo "### $formula"
     case $formula in
         grains|sqlite|zypper) owner=tampakrap ;;
