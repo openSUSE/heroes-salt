@@ -40,6 +40,13 @@ elasticsearch:
     WORK_DIR: /tmp/elasticsearch
   version: 1.7.6
 
+sudoers:
+  included_files:
+    /etc/sudoers.d/group_wiki-admins:
+      groups:
+        wiki-admins:
+          - 'ALL=(ALL) ALL'
+
 zypper:
   repositories:
     openSUSE:infrastructure:wiki:
