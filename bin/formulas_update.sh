@@ -28,7 +28,7 @@ for formula in ${FORMULAS[@]}; do
         limits) owner=ryancurrah ;;
         sssd)
             owner=Spark-Networks
-            $prefix=salt-
+            prefix=salt-
             ;;
         *) owner=saltstack-formulas ;;
     esac
@@ -39,7 +39,7 @@ for formula in ${FORMULAS[@]}; do
     git remote remove opensuse
     git remote remove tampakrap
     git remote add opensuse gitlab@gitlab.infra.opensuse.org:saltstack-formulas/$formula-formula.git
-    git remote add tampakrap git@github.com:tampakrap/$formula-formula.git
+    git remote add tampakrap git@github.com:tampakrap/$prefix$formula-formula.git
     git remote -v
     git checkout master
     git fetch origin
