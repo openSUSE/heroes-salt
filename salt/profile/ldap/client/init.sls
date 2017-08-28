@@ -2,7 +2,7 @@ include:
   - sssd
 
 {% for file in ['account', 'auth', 'password', 'session'] %}
-/etc/pam.d/session-{{ file }}-pc:
+/etc/pam.d/common-{{ file }}-pc:
   file.managed:
     - source: salt://profile/ldap/client/files/etc/pam.d/common-{{ file }}-pc
 {% endfor %}
