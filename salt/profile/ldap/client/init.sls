@@ -5,7 +5,7 @@ include:
 /etc/pam.d/session-{{ file }}-pc:
   file.managed:
     - source: salt://profile/ldap/client/files/etc/pam.d/session-{{ file }}-pc
-{% endif %}
+{% endfor %}
 
 /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
   file.managed:
