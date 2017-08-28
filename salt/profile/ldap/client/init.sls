@@ -15,3 +15,7 @@ include:
 /etc/openldap/ldap.conf:
   file.managed:
     - source: salt://profile/ldap/client/files/etc/openldap/ldap.conf
+
+/etc/nsswitch.conf:
+  file.managed:
+    - source: salt://profile/ldap/client/files/etc/nsswitch.conf
