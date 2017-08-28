@@ -10,6 +10,7 @@ FORMULAS=(
     locale
     mysql
     ntp
+    openldap
     openssh
     powerdns
     salt

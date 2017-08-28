@@ -31,6 +31,11 @@ ntp:
           - ::1
         trustedkey:
           - 1
+openldap:
+  base: dc=infra,dc=opensuse,dc=org
+  tls_cacertdir: /etc/ssl/certs/
+  tls_reqcert: demand
+  uri: ldaps://freeipa.infra.opensuse.org
 openssh:
   banner_src: salt://profile/accounts/files/ssh_banner
   sshd_config_mode: 0640
@@ -127,7 +132,6 @@ zypper:
     lsof: {}
     man: {}
     mtr: {}
-    openldap2-client: {}
     openssh-helpers: {}
     screen: {}
     sssd-ldap: {}
