@@ -1,4 +1,5 @@
 include:
+  - openldap.client
   - sssd
 
 {% for file in ['account', 'auth', 'password', 'session'] %}
@@ -11,10 +12,6 @@ include:
   file.managed:
     - source: salt://profile/ldap/client/files/usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
     - mode: 0755
-
-/etc/openldap/ldap.conf:
-  file.managed:
-    - source: salt://profile/ldap/client/files/etc/openldap/ldap.conf
 
 /etc/nsswitch.conf:
   file.managed:
