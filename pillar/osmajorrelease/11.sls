@@ -11,10 +11,10 @@ zypper:
       priority: 99
       refresh: True
     SLE-SERVER:
-      baseurl: http://smt-internal.infra.opensuse.org/repo/$RCE/SLES11-{{ osminorrelease }}-Pool/sle-11-x86_64
+      baseurl: http://smt-internal.infra.opensuse.org/repo/$RCE/SLES11-SP{{ osminorrelease }}-Pool/sle-11-x86_64
       priority: 99
       refresh: False
     SLE-SERVER-Update:
-      baseurl: http://smt-internal.infra.opensuse.org/repo/$RCE/SLES11-{{ osminorrelease }}-Updates/sle-11-x86_64
+      baseurl: http://smt-internal.infra.opensuse.org/repo/$RCE/SLES11-SP{{ osminorrelease }}-Updates/sle-11-x86_64
       priority: 99
       refresh: True
