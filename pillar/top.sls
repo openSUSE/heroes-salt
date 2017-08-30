@@ -1,8 +1,8 @@
 {% set country = salt['grains.get']('country') %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
+{% set osfullname = salt['grains.get']('osfullname') %}
 {% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
-{% set osrelease = salt['grains.get']('osrelease') %}
 {% set roles = salt['grains.get']('roles', []) %}
 {% set salt_cluster = salt['grains.get']('salt_cluster') %}
 {% set virt_cluster = salt['grains.get']('virt_cluster', '') %}
@@ -35,15 +35,15 @@ production:
     - match: grain
     - domain.{{ domain.replace('.', '_') }}
   {% endif %}
+  'osfullname:{{ osfullname }}':
+    - match: grain
+    - osfullname.{{ osfullname }}
   'osmajorrelease:{{ osmajorrelease }}':
     - match: grain
     - osmajorrelease.{{ osmajorrelease }}
   'osmajorrelease:(1|4)2':
     - match: grain_pcre
     - osmajorrelease.12_or_42
-  'osrelease:{{ osrelease }}':
-    - match: grain
-    - osrelease.{{ osrelease.replace('.', '_') }}
   'salt_cluster:(opensuse|suse_external)':
     - match: grain_pcre
     - salt_cluster.opensuse_or_suse_external
@@ -51,7 +51,7 @@ production:
   'salt_cluster:{{ salt_cluster }}':
     - match: grain
     - salt_cluster.{{ salt_cluster }}
-    - salt_cluster.{{ salt_cluster }}.osrelease.{{ osrelease.replace('.', '_') }}
+    - salt_cluster.{{ salt_cluster }}.osfullname.{{ osfullname }}
   '{{ id }}':
     - id.{{ id.replace('.', '_') }}
   {% endif %}
