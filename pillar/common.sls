@@ -131,13 +131,11 @@ zypper:
     less: {}
     lsof: {}
     man: {}
-    mtr: {}
     openssh-helpers: {}
     screen: {}
     sssd-ldap: {}
     susepaste: {}
     tcpdump: {}
-    traceroute: {}
     vim: {}
     vim-data: {}
     wget: {}
