@@ -1,3 +1,6 @@
+include:
+  - role.common.wiki
+
 apparmor:
   profiles:
     httpd2-prefork:
@@ -95,13 +98,6 @@ mediawiki_1_27:
 # zh_tw -> bento_lang zh_TW
 # full bento_lang list: https://github.com/openSUSE/opensuse-themes/tree/master/bento/js/l10n
 
-sudoers:
-  included_files:
-    /etc/sudoers.d/group_wiki-admins:
-      groups:
-        wiki-admins:
-          - 'ALL=(ALL) ALL'
-
 zypper:
   packages:
     apache2: {}
@@ -111,9 +107,3 @@ zypper:
     mariadb-client: {}
     # needed for migration to unpack tarballs
     tar: {}
-  repositories:
-    openSUSE:infrastructure:wiki:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/wiki/openSUSE_Leap_{{ salt['grains.get']('osrelease') }}
-      gpgcheck: 0
-      priority: 100
-      refresh: True
