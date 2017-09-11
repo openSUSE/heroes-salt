@@ -1,7 +1,7 @@
 grains:
   city: nuremberg
   country: de
-  role:
+  roles:
     - login
   salt_cluster: opensuse
   virt_cluster: atreju
