@@ -138,5 +138,6 @@ zypper:
     tcpdump: {}
     vim: {}
     vim-data: {}
+    withlock: {}
     wget: {}
     wgetpaste: {}
