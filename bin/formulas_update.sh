@@ -4,6 +4,7 @@
 
 FORMULAS=(
     dhcpd
+    elasticsearch
     grains
     keepalived
     limits
@@ -26,6 +27,7 @@ for formula in ${FORMULAS[@]}; do
     prefix=
     echo "### $formula"
     case $formula in
+        elasticsearch) owner=cboltz ;;
         grains|sqlite|zypper) owner=tampakrap ;;
         limits) owner=ryancurrah ;;
         sssd)
