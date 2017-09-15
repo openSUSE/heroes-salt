@@ -1,3 +1,6 @@
+include:
+  - role.common.wiki
+
 apparmor:
   profiles:
     elasticsearch:
@@ -39,18 +42,3 @@ elasticsearch:
     RESTART_ON_UPGRADE: true
     WORK_DIR: /tmp/elasticsearch
   version: 1.7.6
-
-sudoers:
-  included_files:
-    /etc/sudoers.d/group_wiki-admins:
-      groups:
-        wiki-admins:
-          - 'ALL=(ALL) ALL'
-
-zypper:
-  repositories:
-    openSUSE:infrastructure:wiki:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/wiki/openSUSE_Leap_{{ salt['grains.get']('osrelease') }}
-      gpgcheck: 0
-      priority: 100
-      refresh: True
