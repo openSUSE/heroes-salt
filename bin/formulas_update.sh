@@ -27,7 +27,9 @@ for formula in ${FORMULAS[@]}; do
     prefix=
     echo "### $formula"
     case $formula in
-        elasticsearch) owner=cboltz ;;
+        elasticsearch)
+            # until https://github.com/saltstack-formulas/elasticsearch-formula/pull/36 gets merged
+            owner=cboltz ;;
         grains|sqlite|zypper) owner=tampakrap ;;
         limits) owner=ryancurrah ;;
         sssd)
