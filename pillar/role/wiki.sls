@@ -28,15 +28,20 @@ mediawiki_1_27:
       # site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     cn:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     cs:
       alias: cz.opensuse.org
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     de:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     el:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     en:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     en-test:
       bento_lang: en
       dbpass: not_in_salt_yet
@@ -46,18 +51,25 @@ mediawiki_1_27:
       site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
     es:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     fr:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     hu:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     it:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     ja:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     languages:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     nl:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     old-de:
       bento_lang: de
       dbpass: not_in_salt_yet
@@ -76,21 +88,28 @@ mediawiki_1_27:
       site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
     pl:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     pt:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     ru:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     sv:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     tr:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     zh:
       dbpass: not_in_salt_yet
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
     zh-tw:
       alias: zh_tw.opensuse.org
       bento_lang: zh_TW
       dbpass: not_in_salt_yet
       lang: zh_TW
+      site_notice: 'Most openSUSE services will be down from Oct. 13 at 16:00 UTC to Oct. 14 at 16:00 UTC because of a planned power outage. See [https://news.opensuse.org/2017/10/04/planned-downtime-to-affect-opensuse-services/ news.opensuse.org] for details.'
 
 # special cases for bento_lang:
 # cz    -> bento_lang cs
