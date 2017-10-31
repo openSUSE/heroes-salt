@@ -11,6 +11,17 @@ remove-etc-salt-master:
     - listen_in:
         - service: salt-master
 
+/etc/salt/gpgkeys:
+  file.directory:
+    - user: salt
+    - group: salt
+    - dir_mode: 700
+    - file_mode: 600
+    - recurse:
+        - user
+        - group
+        - mode
+
 /srv/reactor:
   file.recurse:
     - source: salt://profile/salt/files/reactor
