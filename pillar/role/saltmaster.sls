@@ -14,8 +14,8 @@ salt:
           - production gitlab@gitlab.infra.opensuse.org:infra/salt.git:
               - env: production
               - root: pillar
-              - privkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt
-              - pubkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt.pub
+              - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
+              - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
     ext_pillar_first: True
     fileserver_backend:
       - git
@@ -23,26 +23,26 @@ salt:
     gitfs_remotes:
       - gitlab@gitlab.infra.opensuse.org:infra/salt.git:
           - root: salt
-          - privkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt
-          - pubkey: /var/lib/salt/.ssh/salt_gitlab_oo_infra_salt.pub
-      - https://gitlab.opensuse.org/saltstack-formulas/dhcpd-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/elasticsearch-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/grains-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/keepalived-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/limits-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/locale-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/mysql-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/ntp-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/openldap-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/openssh-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/powerdns-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/salt-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/sqlite-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/sssd-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/sudoers-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/timezone-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/users-formula.git
-      - https://gitlab.opensuse.org/saltstack-formulas/zypper-formula.git
+          - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
+          - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/dhcpd-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/elasticsearch-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/grains-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/keepalived-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/limits-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/locale-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/mysql-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/ntp-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/openldap-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/openssh-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/powerdns-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/salt-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/sqlite-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/sssd-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/sudoers-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/timezone-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/users-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/zypper-formula.git
     gitfs_ssl_verify: True
     hash_type: sha512
     pillar_gitfs_ssl_verify: True
