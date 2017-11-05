@@ -55,3 +55,7 @@ salt:
   reactor:
     - 'salt/fileserver/gitfs/update':
         - /srv/reactor/update_fileserver.sls
+
+zypper:
+  packages:
+    python-pygit2: {}
