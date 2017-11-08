@@ -8,6 +8,7 @@ import os
 import sys
 
 all_roles = ['base']
+status = 0
 
 for sls in os.listdir('pillar/id'):
     with open("pillar/id/%s" % sls) as f:
