@@ -24,7 +24,7 @@ all_roles = sorted(set(all_roles))
 for directory in ['salt', 'pillar']:
     for sls in os.listdir('%s/role' % directory):
         if sls.endswith('.sls'):
-            with open('salt/role/%s' % sls) as f:
+            with open('%s/role/%s' % (directory, sls)) as f:
                 if sls.split('.sls')[0] not in all_roles:
                     print ('%s/role/%s not in roles' % (directory, sls))
                     status = 1
