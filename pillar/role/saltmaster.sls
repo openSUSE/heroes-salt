@@ -55,5 +55,3 @@ salt:
   reactor:
     - 'salt/fileserver/gitfs/update':
         - /srv/reactor/update_fileserver.sls
-    - 'dvocc17/update/repo':
-        - /srv/reactor/dvocc17_changed.sls
