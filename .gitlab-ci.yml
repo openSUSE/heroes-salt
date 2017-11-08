@@ -1,0 +1,10 @@
+stages:
+  - deploy
+
+deploy_job:
+  stage: deploy
+  script: salt-call event.fire_master update salt/fileserver/gitfs/update
+  only:
+    - production
+  tags:
+    - shell
