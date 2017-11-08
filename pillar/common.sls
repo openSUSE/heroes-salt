@@ -29,6 +29,9 @@ ntp:
           - -6 default kod notrap nomodify nopeer
           - 127.0.0.1
           - ::1
+          - ntp1.infra.opensuse.org
+          - ntp2.infra.opensuse.org
+          - ntp3.infra.opensuse.org
         trustedkey:
           - 1
 openldap:
