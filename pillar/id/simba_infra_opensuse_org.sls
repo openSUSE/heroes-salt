@@ -2,6 +2,6 @@ grains:
   city: nuremberg
   country: de
   roles:
-    - dvocc17
+    - worker_gitlab
   salt_cluster: opensuse
   virt_cluster: atreju

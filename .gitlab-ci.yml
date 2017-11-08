@@ -1,0 +1,19 @@
+stages:
+  - test
+  - deploy
+
+test_roles_job:
+  stage: test
+  before_script:
+    - zypper -qn in --no-recommends python3 python3-PyYAML
+  script: bin/test_roles.py
+  tags:
+    - docker
+
+deploy_job:
+  stage: deploy
+  script: salt-call event.fire_master update salt/fileserver/gitfs/update
+  only:
+    - production
+  tags:
+    - shell
