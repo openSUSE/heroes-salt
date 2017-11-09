@@ -2,11 +2,24 @@ stages:
   - test
   - deploy
 
-test_roles_job:
+test_roles:
   stage: test
   before_script:
     - zypper -qn in --no-recommends python3 python3-PyYAML
   script: bin/test_roles.py
+  tags:
+    - docker
+
+test_show_highstate:
+  stage: test
+  before_script:
+    - zypper -qn in --no-recommends salt git python3 python3-PyYAML
+    - rm -rf /srv/{salt,pillar}
+    - ln -s $PWD/salt /srv/salt
+    - ln -s $PWD/pillar /srv/pillar
+    - sed -i -e 's/^production:$/base:/' /srv/{salt,pillar}/top.sls
+    - bin/get_formulas.py -c /srv/formula -s
+  script: bin/test_show_highstate.py
   tags:
     - docker
 
