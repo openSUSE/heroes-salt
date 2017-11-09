@@ -7,5 +7,5 @@ production:
   {% for role in roles %}
   'roles:{{ role }}':
     - match: grain
-    - role.{{ role }}
+    {{ include_optional("role/{0}".format(role)) }}
   {% endfor %}
