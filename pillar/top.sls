@@ -1,3 +1,4 @@
+{% from "macros.jinja" import include_optional with context %}
 {% set country = salt['grains.get']('country') %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}

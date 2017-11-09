@@ -1,3 +1,4 @@
+{% from "macros.jinja" import include_optional with context %}
 {% set roles = salt['pillar.get']('grains:roles', []) %}
 
 production:
