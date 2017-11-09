@@ -3,6 +3,7 @@
 keepalived:
   vrrp_instances:
     VRRP_OPENSUSE_PRIVATE:
+      authentication:
         auth_pass: |
           -----BEGIN PGP MESSAGE-----
           
