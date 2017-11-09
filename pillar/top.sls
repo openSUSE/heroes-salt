@@ -17,7 +17,7 @@ production:
     - match: grain
     {{ include_optional("role/{0}".format(role)) }}
   {% endfor %}
-  {% if virt_cluster == 'atreju' and virtual == 'kvm' %}
+  {% if virt_cluster in ['atreju', 'bryce'] %}
   'virt_cluster:{{ virt_cluster }}':
     - match: grain
     - virt_cluster.{{ virt_cluster }}
