@@ -6,7 +6,7 @@
 {% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
 {% set roles = salt['grains.get']('roles', []) %}
 {% set salt_cluster = salt['grains.get']('salt_cluster') %}
-{% set virt_cluster = salt['grains.get']('virt_cluster', '') %}
+{% set virt_cluster = salt['grains.get']('virt_cluster') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
 production:
@@ -17,7 +17,7 @@ production:
     - match: grain
     {{ include_optional("role/{0}".format(role)) }}
   {% endfor %}
-  {% if virt_cluster and virt_cluster == 'atreju' and virtual == 'kvm' %}
+  {% if virt_cluster in ['atreju', 'bryce'] %}
   'virt_cluster:{{ virt_cluster }}':
     - match: grain
     - virt_cluster.{{ virt_cluster }}
