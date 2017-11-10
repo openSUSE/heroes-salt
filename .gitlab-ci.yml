@@ -12,7 +12,7 @@ test_roles_job:
 
 deploy_job:
   stage: deploy
-  script: salt-call event.fire_master update salt/fileserver/gitfs/update
+  script: sudo salt-call event.fire_master update salt/fileserver/gitfs/update
   only:
     - production
   tags:
