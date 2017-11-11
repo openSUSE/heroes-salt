@@ -8,7 +8,7 @@ help() {
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts s:v:h arg; do
+while getopts h arg; do
     case ${arg} in
         h) help && exit ;;
         *) help && exit 1 ;;
