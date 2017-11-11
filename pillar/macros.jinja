@@ -5,3 +5,18 @@
     {% endif %}
   {%- endfor %}
 {%- endmacro %}
+
+{%- macro valid_virt_cluster() -%}
+  {%- import_yaml "valid_custom_grains.yaml" as valid_custom_grains -%}
+  {%- set valid_virt_cluster = [] -%}
+  {%- for country, data in valid_custom_grains['localized'].items() -%}
+    {%- if data['virt_cluster'] is iterable and data['virt_cluster'] is not string -%}
+      {%- for item in data['virt_cluster'] -%}
+        {%- do valid_virt_cluster.append(item) -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- do valid_virt_cluster.append(data['virt_cluster']) -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {{ valid_virt_cluster }}
+{%- endmacro -%}
