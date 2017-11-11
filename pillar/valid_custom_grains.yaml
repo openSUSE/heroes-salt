@@ -1,0 +1,10 @@
+---
+global:
+  salt_cluster: opensuse
+localized:
+  de:
+    city: nuremberg
+    virt_cluster: atreju
+  us:
+    city: provo
+    virt_cluster: bryce
