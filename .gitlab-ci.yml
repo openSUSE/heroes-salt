@@ -25,7 +25,7 @@ test_show_highstate:
 
 deploy_job:
   stage: deploy
-  script: salt-call event.fire_master update salt/fileserver/gitfs/update
+  script: sudo salt-call event.fire_master update salt/fileserver/gitfs/update
   only:
     - production
   tags:
