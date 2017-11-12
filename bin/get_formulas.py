@@ -4,10 +4,11 @@
 
 import argparse
 import os
+import sys
 import yaml
 
 
-def clone(DEST, SYMLINK=False):
+def clone_or_pull(DEST, SYMLINK=False):
     def use_git_to_clone_or_pull_repo():
         # pygit2 is not available for python3 in Leap, use plain git instead
 
@@ -43,9 +44,15 @@ with open('FORMULAS.yaml', 'r') as f:
     FORMULAS = yaml.load(f)
 
 parser = argparse.ArgumentParser(description='Loads the formulas from FORMULAS.yaml and optionally clones them in a specified destination. Optionally it can also create a symlink from the cloned path to /srv/salt, useful for the CI worker.')
-parser.add_argument('-c', '--clone', nargs=1, help='Clones the formulas to a specified destination that is passed as option to this argument.')
+parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination". If the repository is already cloned, then it will be pulled/fetched.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
+requiredArgs = parser.add_argument_group('required arguments')
+requiredArgs.add_argument('-d', '--destination', nargs=1, required=True, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
 args = parser.parse_args()
 
+if not os.path.isabs(args.destination[0]):
+    parser.print_help()
+    sys.exit(1)
+
 if args.clone:
-    clone(args.clone[0], args.symlink)
+    clone_or_pull(args.destination[0], args.symlink)

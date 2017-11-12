@@ -22,7 +22,7 @@ test_show_highstate:
   stage: test
   before_script:
     - bin/prepare_test_show_highstate_env.sh
-    - bin/get_formulas.py -c /srv/formula -s
+    - bin/get_formulas.py -c -d /srv/formula -s
   script: bin/test_show_highstate.sh
   tags:
     - docker
