@@ -1,4 +1,5 @@
 {% from "macros.jinja" import include_optional with context %}
+{% from "macros.jinja" import valid_virt_cluster with context %}
 {% set country = salt['grains.get']('country') %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
@@ -17,7 +18,7 @@ production:
     - match: grain
     {{ include_optional("role/{0}".format(role)) }}
   {% endfor %}
-  {% if virt_cluster in ['atreju', 'bryce'] %}
+  {% if virt_cluster in valid_virt_cluster() %}
   'virt_cluster:{{ virt_cluster }}':
     - match: grain
     - virt_cluster.{{ virt_cluster }}
