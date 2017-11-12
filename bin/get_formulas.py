@@ -61,6 +61,22 @@ def enable_remote(REMOTE, DEST):
             git(['checkout', '-qB', 'master', '%s/master' % REMOTE], cwd=FULL_PATH)
 
 
+def check_open_pull_requests():
+    from github import Github
+
+    g = Github()
+    for formula, data in FORMULAS.items():
+        open_pull_requests = data.get('pending', [])
+        if open_pull_requests:
+            namespace = data.get('original_namespace', 'saltstack-formulas')
+            prefix = data.get('prefix', '')
+            org = g.get_organization(namespace)
+            for pull_request in open_pull_requests:
+                pr = int(pull_request.split('/')[-1])
+                state = org.get_repo('%s%s-formula' % (prefix, formula)).get_pull(pr).state
+                print('%s is %s' % (pull_request, state))
+
+
 with open('FORMULAS.yaml', 'r') as f:
     FORMULAS = yaml.load(f)
 
@@ -68,6 +84,7 @@ parser = argparse.ArgumentParser(description='Loads the formulas from FORMULAS.y
 parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination". The gitlab fork will also be added as remote. If the repository is already cloned, then both remotes will be pulled/fetched.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
 parser.add_argument('-r', '--remote', nargs=1, help='Enable the specified remote. Available remotes: origin, opensuse. Default: origin')
+parser.add_argument('-p', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
 requiredArgs = parser.add_argument_group('required arguments')
 requiredArgs.add_argument('-d', '--destination', nargs=1, required=True, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
 args = parser.parse_args()
@@ -85,3 +102,6 @@ if args.clone:
 
 if args.remote:
     enable_remote(args.remote[0], args.destination[0])
+
+if args.pull_requests:
+    check_open_pull_requests()
