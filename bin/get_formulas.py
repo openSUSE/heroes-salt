@@ -17,11 +17,11 @@ def clone_or_pull(DEST, SYMLINK=False):
         if not os.path.exists(DEST):
             os.mkdir(DEST)
         if os.path.isdir(FULL_PATH):
-            subprocess.Popen(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.call(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
         else:
-            subprocess.Popen(['git', 'clone', url, FULL_PATH], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        subprocess.Popen(['git', 'remote', 'add', 'opensuse', opensuse_fork_url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
-        subprocess.Popen(['git', 'fetch', 'opensuse'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
+            subprocess.call(['git', 'clone', url, FULL_PATH], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.call(['git', 'remote', 'add', 'opensuse', opensuse_fork_url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
+        subprocess.call(['git', 'fetch', 'opensuse'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
 
     def use_pygit2_to_clone_or_pull_repo():
         import pygit2
@@ -51,7 +51,7 @@ def enable_remote(REMOTE, DEST):
 
         for formula in FORMULAS.keys():
             FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            subprocess.Popen(['git', 'checkout', '-B', 'master', '%s/master' % REMOTE], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
+            subprocess.call(['git', 'checkout', '-B', 'master', '%s/master' % REMOTE], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
 
 
 with open('FORMULAS.yaml', 'r') as f:
