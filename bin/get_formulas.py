@@ -8,12 +8,16 @@ import sys
 import yaml
 
 
-def git(cmd, cwd=None):
+def git(cmd, cwd=None, additional_env=None):
     # pygit2 is not available for python3 in Leap, use plain git instead
 
     import subprocess
 
-    status = subprocess.call(['git'] + cmd, cwd=cwd)
+    env = os.environ.copy()
+    if additional_env:
+        env.update(additional_env)
+
+    status = subprocess.call(['git'] + cmd, cwd=cwd, env=env)
     if status != 0:
         sys.exit(status)
 
@@ -27,7 +31,8 @@ def clone_or_pull(DEST, SYMLINK=False):
         else:
             git(['clone', '-q', url, FULL_PATH])
         git(['remote', 'add', 'opensuse', opensuse_fork_url], cwd=FULL_PATH)
-        git(['fetch', '-q', 'opensuse'], cwd=FULL_PATH)
+        # TODO: get rid of GIT_SSL_NO_VERIFY as soon as we switch to letsencrypt wildcard certs
+        git(['fetch', '-q', 'opensuse'], cwd=FULL_PATH, additional_env={'GIT_SSL_NO_VERIFY': 'true'})
 
     def use_pygit2_to_clone_or_pull_repo():
         import pygit2
