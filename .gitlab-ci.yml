@@ -18,11 +18,21 @@ test_custom_grains:
   tags:
     - docker
 
-test_show_highstate:
+test_show_highstate_against_upstream_formulas:
   stage: test
   before_script:
     - bin/prepare_test_show_highstate_env.sh
     - bin/get_formulas.py -c -d /srv/formula -s
+  script: bin/test_show_highstate.sh
+  allow_failure: true
+  tags:
+    - docker
+
+test_show_highstate_against_forked_formulas:
+  stage: test
+  before_script:
+    - bin/prepare_test_show_highstate_env.sh
+    - bin/get_formulas.py -c -d /srv/formula -s -r opensuse
   script: bin/test_show_highstate.sh
   tags:
     - docker
