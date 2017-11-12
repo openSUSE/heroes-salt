@@ -22,7 +22,7 @@ def git(cmd, cwd=None, additional_env=None):
         sys.exit(status)
 
 
-def clone_or_pull(DEST, SYMLINK=False):
+def clone_or_pull(DEST):
     def use_git_to_clone_or_pull_repo():
         if not os.path.exists(DEST):
             os.mkdir(DEST)
@@ -50,8 +50,11 @@ def clone_or_pull(DEST, SYMLINK=False):
         opensuse_fork_url = 'https://gitlab.infra.opensuse.org/saltstack-formulas/%s-formula' % formula
         FULL_PATH = '%s/%s-formula' % (DEST, formula)
         use_git_to_clone_or_pull_repo()
-        if SYMLINK:
-            os.symlink('%s/%s' % (FULL_PATH, formula), '/srv/salt/%s' % formula)
+
+
+def create_symlinks(DEST):
+    for formula in FORMULAS.keys():
+        os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), '/srv/salt/%s' % formula)
 
 
 def enable_remote(REMOTE, DEST):
@@ -98,7 +101,10 @@ if args.remote and args.remote[0] not in ['origin', 'opensuse']:
     sys.exit(1)
 
 if args.clone:
-    clone_or_pull(args.destination[0], args.symlink)
+    clone_or_pull(args.destination[0])
+
+if args.symlink:
+    create_symlinks(args.destination[0])
 
 if args.remote:
     enable_remote(args.remote[0], args.destination[0])
