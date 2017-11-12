@@ -27,7 +27,7 @@ test_show_highstate:
     - ln -s $PWD/pillar /srv/pillar
     - sed -i -e 's/^production:$/base:/' /srv/{salt,pillar}/top.sls
     - bin/get_formulas.py -c /srv/formula -s
-  script: bin/test_show_highstate.py
+  script: bin/test_show_highstate.sh
   tags:
     - docker
 
