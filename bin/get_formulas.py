@@ -111,3 +111,6 @@ if args.clone or args.symlink or args.remote:
             parser.print_help()
             sys.exit(1)
         enable_remote(args.remote[0], args.destination[0])
+else:
+    parser.print_help()
+    sys.exit(1)
