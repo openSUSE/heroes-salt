@@ -8,20 +8,26 @@ import sys
 import yaml
 
 
+def git(cmd, cwd=None):
+    # pygit2 is not available for python3 in Leap, use plain git instead
+
+    import subprocess
+
+    status = subprocess.call(['git'] + cmd, cwd=cwd)
+    if status != 0:
+        sys.exit(status)
+
+
 def clone_or_pull(DEST, SYMLINK=False):
     def use_git_to_clone_or_pull_repo():
-        # pygit2 is not available for python3 in Leap, use plain git instead
-
-        import subprocess
-
         if not os.path.exists(DEST):
             os.mkdir(DEST)
         if os.path.isdir(FULL_PATH):
-            subprocess.call(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
+            git(['pull', '-q'], cwd=FULL_PATH)
         else:
-            subprocess.call(['git', 'clone', url, FULL_PATH], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        subprocess.call(['git', 'remote', 'add', 'opensuse', opensuse_fork_url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
-        subprocess.call(['git', 'fetch', 'opensuse'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
+            git(['clone', '-q', url, FULL_PATH])
+        git(['remote', 'add', 'opensuse', opensuse_fork_url], cwd=FULL_PATH)
+        git(['fetch', '-q', 'opensuse'], cwd=FULL_PATH)
 
     def use_pygit2_to_clone_or_pull_repo():
         import pygit2
@@ -45,13 +51,9 @@ def clone_or_pull(DEST, SYMLINK=False):
 
 def enable_remote(REMOTE, DEST):
     def use_git_to_enable_remote():
-        # pygit2 is not available for python3 in Leap, use plain git instead
-
-        import subprocess
-
         for formula in FORMULAS.keys():
             FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            subprocess.call(['git', 'checkout', '-B', 'master', '%s/master' % REMOTE], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=FULL_PATH)
+            git(['checkout', '-qB', 'master', '%s/master' % REMOTE], cwd=FULL_PATH)
 
 
 with open('FORMULAS.yaml', 'r') as f:
