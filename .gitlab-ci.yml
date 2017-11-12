@@ -21,11 +21,7 @@ test_custom_grains:
 test_show_highstate:
   stage: test
   before_script:
-    - zypper -qn in --no-recommends salt git python3 python3-PyYAML
-    - rm -rf /srv/{salt,pillar}
-    - ln -s $PWD/salt /srv/salt
-    - ln -s $PWD/pillar /srv/pillar
-    - sed -i -e 's/^production:$/base:/' /srv/{salt,pillar}/top.sls
+    - bin/prepare_test_show_highstate_env.sh
     - bin/get_formulas.py -c /srv/formula -s
   script: bin/test_show_highstate.sh
   tags:
