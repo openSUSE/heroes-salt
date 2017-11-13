@@ -30,6 +30,9 @@ test_show_highstate_against_upstream_formulas:
 
 test_show_highstate_against_forked_formulas:
   stage: test
+  variables:
+    # TODO: get rid of GIT_SSL_NO_VERIFY as soon as we switch to letsencrypt wildcard certs
+    GIT_SSL_NO_VERIFY: 'true'
   before_script:
     - bin/prepare_test_show_highstate_env.sh
     - bin/get_formulas.py -c -d /srv/formula -s -r opensuse
