@@ -8,7 +8,7 @@
 zypper:
   repositories:
     openSUSE:infrastructure:
-      baseurl: https://download.infra.opensuse.org/repositories/openSUSE:/infrastructure/SLE_{{ version }}
+      baseurl: https://download.infra.opensuse.org/repositories/openSUSE:/infrastructure/SLE_{{ version }}/
       gpgautoimport: True
       priority: 100
       refresh: True
