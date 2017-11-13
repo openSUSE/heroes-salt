@@ -71,7 +71,9 @@ def clone_or_pull(CLONE_FROM, CLONE_BRANCH, DEST):
 
 def create_symlinks(DEST):
     for formula in FORMULAS.keys():
-        os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), '/srv/salt/%s' % formula)
+        FULL_PATH = '/srv/salt/%s' % formula
+        if not os.path.islink(FULL_PATH):
+            os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), FULL_PATH)
 
 
 with open('FORMULAS.yaml', 'r') as f:
