@@ -168,11 +168,16 @@ parser.add_argument('-p', '--push', nargs='+', help='Pushes (with --force) to th
 parser.add_argument('--use-pygit2', action='store_true', help='Use pygit2 instead of invoking git whenever possible.')
 args = parser.parse_args()
 
+will_run = False
+
 if args.pull_requests:
+    will_run = True
     check_open_pull_requests()
 
 # Every option below requires the --destination argument to be set
 if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or args.update or args.push:
+    will_run = True
+
     if (args.clone_from or args.clone_branch) and not args.clone:
         parser.print_help()
         sys.exit(1)
@@ -207,6 +212,7 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
 
     if args.push:
         push(args.push, args.destination[0])
-else:
+
+if not will_run:
     parser.print_help()
     sys.exit(1)
