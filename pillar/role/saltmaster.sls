@@ -25,7 +25,6 @@ salt:
           - root: salt
           - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
           - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/dhcpd-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/elasticsearch-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/grains-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/keepalived-formula.git
@@ -42,7 +41,6 @@ salt:
       - https://gitlab.infra.opensuse.org/saltstack-formulas/sssd-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/sudoers-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/timezone-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/users-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/zypper-formula.git
     gitfs_ssl_verify: True
     hash_type: sha512
