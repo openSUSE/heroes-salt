@@ -71,8 +71,16 @@ def create_symlinks(DEST):
             os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), FULL_PATH)
 
 
-def add_remote(REMOTES, DEST):
+def fetch_remote(remote, formula):
     from pygit2.errors import GitError
+
+    try:
+        remote.fetch()
+    except GitError:
+        print('%s-formula: Failed to fetch remote %s' % (formula, remote.name))
+
+
+def add_remote(REMOTES, DEST):
     import pygit2
 
     for remote in REMOTES:
@@ -105,17 +113,40 @@ def add_remote(REMOTES, DEST):
                 repo.create_remote(name, full_url)
             except ValueError:
                 pass
-            try:
-                repo.remotes[remote].fetch()
-            except GitError:
-                print('%s-formula: Failed to fetch remote %s' % (formula, remote))
+            fetch_remote(repo.remotes[name], formula)
+
+
+def update(REMOTES, DEST):
+    import pygit2
+
+    for formula in FORMULAS.keys():
+        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        repo = pygit2.Repository(FULL_PATH)
+        git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
+        git(['pull', '-q'], cwd=FULL_PATH)
+        if REMOTES:
+            for remote in REMOTES:
+                fetch_remote(repo.remotes[remote], formula)
+
+
+def push(REMOTES, DEST):
+    import pygit2
+
+    for formula in FORMULAS.keys():
+        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        repo = pygit2.Repository(FULL_PATH)
+        git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
+        for remote in REMOTES:
+            git(['push', '-qf', remote, 'master'], cwd=FULL_PATH)
+            git(['push', '-qf', remote, 'master:production'], cwd=FULL_PATH)
+            fetch_remote(repo.remotes[remote], formula)
 
 
 with open('FORMULAS.yaml', 'r') as f:
     FORMULAS = yaml.load(f)
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the formulas from FORMULAS.yaml and performs one or more of the operations specified at the arguments.')
-parser.add_argument('-p', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
+parser.add_argument('-q', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
 parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
 parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
@@ -132,6 +163,8 @@ Examples:
          -r forks_rw prefixes git@github.com:
          -r mycompany no_prefixes https://gitlab.mycompany.com saltstack-formulas
          -r mycompany_forks no_prefixes git@gitlab.mycompany.com: saltstack-formulas''')
+parser.add_argument('-u', '--update', nargs='*', help='Switch to origin/master and git pull. Optionally it can accept a list of remotes as arguments, that will be fetched.')
+parser.add_argument('-p', '--push', nargs='+', help='Pushes (with --force) to the given list of remotes from origin/master to their master and production branch, and then fetches them.')
 parser.add_argument('--use-pygit2', action='store_true', help='Use pygit2 instead of invoking git whenever possible.')
 args = parser.parse_args()
 
@@ -139,7 +172,7 @@ if args.pull_requests:
     check_open_pull_requests()
 
 # Every option below requires the --destination argument to be set
-if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote:
+if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or args.update or args.push:
     if (args.clone_from or args.clone_branch) and not args.clone:
         parser.print_help()
         sys.exit(1)
@@ -168,6 +201,12 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
 
     if args.add_remote:
         add_remote(args.add_remote, args.destination[0])
+
+    if args.update:
+        update(args.update, args.destination[0])
+
+    if args.push:
+        push(args.push, args.destination[0])
 else:
     parser.print_help()
     sys.exit(1)
