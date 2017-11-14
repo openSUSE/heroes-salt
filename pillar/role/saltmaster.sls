@@ -36,6 +36,7 @@ salt:
       - https://gitlab.infra.opensuse.org/saltstack-formulas/openldap-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/openssh-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/powerdns-formula.git
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/rsyslog-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/salt-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/sqlite-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/sssd-formula.git
