@@ -15,6 +15,7 @@ ntp: {}
 openldap: {}
 openssh: {}
 powerdns: {}
+rsyslog: {}
 salt: {}
 sqlite:
   namespace: 'tampakrap'
