@@ -71,23 +71,74 @@ def create_symlinks(DEST):
             os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), FULL_PATH)
 
 
+def add_remote(REMOTES, DEST):
+    from pygit2.errors import GitError
+    import pygit2
+
+    for remote in REMOTES:
+        namespace = None
+        if len(remote) == 4:
+            namespace = remote.pop()
+
+        url = 'https://github.com'
+        if len(remote) == 3:
+            url = remote.pop()
+
+        prefix = ''
+        use_prefix = False
+        if not remote[1].startswith('no'):
+            use_prefix = True
+
+        name = remote[0]
+
+        for formula, data in FORMULAS.items():
+            if not namespace:
+                namespace = data.get('namespace', 'saltstack-formulas')
+            if use_prefix:
+                prefix = data.get('prefix', '')
+            if not url.endswith(':'):
+                url += '/'
+            full_url = '%s%s/%s%s-formula' % (url, namespace, prefix, formula)
+            FULL_PATH = '%s/%s-formula' % (DEST, formula)
+            repo = pygit2.Repository(FULL_PATH)
+            try:
+                repo.create_remote(name, full_url)
+            except ValueError:
+                pass
+            try:
+                repo.remotes[remote].fetch()
+            except GitError:
+                print('%s-formula: Failed to fetch remote %s' % (formula, remote))
+
+
 with open('FORMULAS.yaml', 'r') as f:
     FORMULAS = yaml.load(f)
 
-parser = argparse.ArgumentParser(description='Loads the formulas from FORMULAS.yaml and optionally clones them in a specified destination. Optionally it can also create a symlink from the cloned path to /srv/salt, useful for the CI worker.')
+parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the formulas from FORMULAS.yaml and performs one or more of the operations specified at the arguments.')
 parser.add_argument('-p', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
 parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
 parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
 parser.add_argument('--clone-branch', nargs=1, help='Specify the branch to clone.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
+parser.add_argument('-r', '--add-remote', action='append', nargs='+', help='''Add the specified remotes on the local repositories. It can be passed multiple times.
+Usage: REMOTE_NAME USE_PREFIXES [GIT_PROVIDER_URL] [NAMESPACE].
+       - REMOTE is string
+       - USE_PREFIXES should be a string starting with "no" (for no prefix usage), or whatever else string (for prefix usage)
+       - GIT_URL (optional) can be in the form "https://gitlab.example.com" or "git@gitlab.example.com:" (make sure you have the trailing colon). If no git provider URL is given, https://github.com will be used.
+       - NAMESPACE (optional) is string. If no namespace is given, the one defined in FORMULAS.yaml will be used.
+Examples:
+         -r forks_ro prefixes
+         -r forks_rw prefixes git@github.com:
+         -r mycompany no_prefixes https://gitlab.mycompany.com saltstack-formulas
+         -r mycompany_forks no_prefixes git@gitlab.mycompany.com: saltstack-formulas''')
 args = parser.parse_args()
 
 if args.pull_requests:
     check_open_pull_requests()
 
 # Every option below requires the --destination argument to be set
-if args.clone or args.symlink or args.clone_from or args.clone_branch:
+if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote:
     if (args.clone_from or args.clone_branch) and not args.clone:
         parser.print_help()
         sys.exit(1)
@@ -95,6 +146,12 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch:
     if not args.destination or not os.path.isabs(args.destination[0]):
         parser.print_help()
         sys.exit(1)
+
+    if args.add_remote:
+        for remote in args.add_remote:
+            if len(remote) < 2:
+                parser.print_help()
+                sys.exit(1)
 
     if args.clone:
         clone_from = None
@@ -107,6 +164,9 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch:
 
     if args.symlink:
         create_symlinks(args.destination[0])
+
+    if args.add_remote:
+        add_remote(args.add_remote, args.destination[0])
 else:
     parser.print_help()
     sys.exit(1)
