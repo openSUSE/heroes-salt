@@ -1,0 +1,10 @@
+# managed by salt - do not edit!
+{%- for package in salt['pillar.get']('monitoring:check_zypper:local_package', {}) %}
+local_package:{{ package }}
+{%- endfor %}
+{%- for package in salt['pillar.get']('monitoring:check_zypper:patch', {}) %}
+patch:{{ package }}
+{%- endfor %}
+{%- for package in salt['pillar.get']('monitoring:check_zypper:whitelist', {}) %}
+whitelist:{{ package }}
+{%- endfor %}
