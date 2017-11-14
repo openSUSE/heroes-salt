@@ -34,22 +34,17 @@ def git(cmd, cwd=None):
         sys.exit(status)
 
 
-def clone_or_pull(CLONE_FROM, CLONE_BRANCH, DEST):
-    def use_git_to_clone_or_pull_repo():
+def clone(CLONE_FROM, CLONE_BRANCH, DEST):
+    def use_git_to_clone_repo():
         if not os.path.exists(DEST):
             os.mkdir(DEST)
-        if os.path.isdir(FULL_PATH):
-            git(['pull', '-q'], cwd=FULL_PATH)
-        else:
+        if not os.path.isdir(FULL_PATH):
             git(['clone', '-q', url, FULL_PATH] + branch_opts)
 
-    def use_pygit2_to_clone_or_pull_repo():
+    def use_pygit2_to_clone_repo():
         import pygit2
 
-        if os.path.isdir(FULL_PATH):
-            repo = pygit2.Repository(FULL_PATH)
-            repo.checkout('HEAD')
-        else:
+        if not os.path.isdir(FULL_PATH):
             pygit2.clone_repository(url, FULL_PATH, bare=False)
 
     branch_opts = []
@@ -59,14 +54,14 @@ def clone_or_pull(CLONE_FROM, CLONE_BRANCH, DEST):
         for formula in FORMULAS.keys():
             url = '%s/%s-formula' % (CLONE_FROM, formula)
             FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            use_git_to_clone_or_pull_repo()
+            use_git_to_clone_repo()
     else:
         for formula, data in FORMULAS.items():
             namespace = data.get('namespace', 'saltstack-formulas')
             prefix = data.get('prefix', '')
             url = 'https://github.com/%s/%s%s-formula' % (namespace, prefix, formula)
             FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            use_git_to_clone_or_pull_repo()
+            use_git_to_clone_repo()
 
 
 def create_symlinks(DEST):
@@ -82,7 +77,7 @@ with open('FORMULAS.yaml', 'r') as f:
 parser = argparse.ArgumentParser(description='Loads the formulas from FORMULAS.yaml and optionally clones them in a specified destination. Optionally it can also create a symlink from the cloned path to /srv/salt, useful for the CI worker.')
 parser.add_argument('-p', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
 parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
-parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination". If the repository is already cloned, then it will be pulled/fetched.')
+parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
 parser.add_argument('--clone-branch', nargs=1, help='Specify the branch to clone.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
@@ -108,7 +103,7 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch:
             clone_from = args.clone_from[0]
         if args.clone_branch:
             clone_branch = args.clone_branch[0]
-        clone_or_pull(clone_from, clone_branch, args.destination[0])
+        clone(clone_from, clone_branch, args.destination[0])
 
     if args.symlink:
         create_symlinks(args.destination[0])
