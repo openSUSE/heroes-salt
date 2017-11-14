@@ -34,18 +34,20 @@ def git(cmd, cwd=None):
         sys.exit(status)
 
 
-def clone(CLONE_FROM, CLONE_BRANCH, DEST):
-    def use_git_to_clone_repo():
-        if not os.path.exists(DEST):
-            os.mkdir(DEST)
-        if not os.path.isdir(FULL_PATH):
-            git(['clone', '-q', url, FULL_PATH] + branch_opts)
+def clone(CLONE_FROM, CLONE_BRANCH, DEST, USE_PYGIT2):
+    def clone_repo():
+        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        if os.path.isdir(FULL_PATH):
+            return
 
-    def use_pygit2_to_clone_repo():
-        import pygit2
+        if USE_PYGIT2:
+            import pygit2
 
-        if not os.path.isdir(FULL_PATH):
             pygit2.clone_repository(url, FULL_PATH, bare=False)
+        else:
+            if not os.path.exists(DEST):
+                os.mkdir(DEST)
+            git(['clone', '-q', url, FULL_PATH] + branch_opts)
 
     branch_opts = []
     if CLONE_BRANCH:
@@ -53,15 +55,13 @@ def clone(CLONE_FROM, CLONE_BRANCH, DEST):
     if CLONE_FROM:
         for formula in FORMULAS.keys():
             url = '%s/%s-formula' % (CLONE_FROM, formula)
-            FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            use_git_to_clone_repo()
+            clone_repo()
     else:
         for formula, data in FORMULAS.items():
             namespace = data.get('namespace', 'saltstack-formulas')
             prefix = data.get('prefix', '')
             url = 'https://github.com/%s/%s%s-formula' % (namespace, prefix, formula)
-            FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            use_git_to_clone_repo()
+            clone_repo()
 
 
 def create_symlinks(DEST):
@@ -132,6 +132,7 @@ Examples:
          -r forks_rw prefixes git@github.com:
          -r mycompany no_prefixes https://gitlab.mycompany.com saltstack-formulas
          -r mycompany_forks no_prefixes git@gitlab.mycompany.com: saltstack-formulas''')
+parser.add_argument('--use-pygit2', action='store_true', help='Use pygit2 instead of invoking git whenever possible.')
 args = parser.parse_args()
 
 if args.pull_requests:
@@ -160,7 +161,7 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
             clone_from = args.clone_from[0]
         if args.clone_branch:
             clone_branch = args.clone_branch[0]
-        clone(clone_from, clone_branch, args.destination[0])
+        clone(clone_from, clone_branch, args.destination[0], args.use_pygit2)
 
     if args.symlink:
         create_symlinks(args.destination[0])
