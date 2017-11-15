@@ -23,20 +23,20 @@ ALL_LOCATIONS=(
 )
 
 write_grains() {
-    $SUDO sed -i -e "s/\(city:\).*/\1 $1/" -e "s/\(country:\).*/\1 $2/" -e "s/\(osfullname:\).*/\1 $1/" -e "s/\(osmajorrelease:\).*/\1 $2/" \
-        -e "s/\(osrelease_info:\).*/\1 [$2, $3]/" -e "s/\(virt_cluster:\).*/\1 $3/ "etc/salt/grains
+    $SUDO sed -i -e "s/\(city:\).*/\1 $1/" -e "s/\(country:\).*/\1 $2/" -e "s/\(osfullname:\).*/\1 $4/" -e "s/\(osmajorrelease:\).*/\1 $5/" \
+        -e "s/\(osrelease_info:\).*/\1 [$5, $6]/" -e "s/\(virt_cluster:\).*/\1 $3/" /etc/salt/grains
     echo "Grains: osfullname: $4, osmajorrelease: $5, city: $1, country: $2, virt_cluster: $3"
-    if $($SUDO $RUN_TEST > /dev/null); then
-        echo 'PASSED'
-    else
-        STATUS=1
-    fi
-    echo
 }
 
 for os in ${ALL_OS[@]}; do
     for location in ${ALL_LOCATIONS[@]}; do
         write_grains ${location//,/ } ${os//,/ }
+        if $($SUDO $RUN_TEST > /dev/null); then
+            echo 'PASSED'
+        else
+            STATUS=1
+        fi
+        echo
     done
 done
 
