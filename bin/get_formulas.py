@@ -111,8 +111,8 @@ def add_remote(REMOTES, DEST):
             repo = pygit2.Repository(FULL_PATH)
             try:
                 repo.create_remote(name, full_url)
-            except ValueError:
-                pass
+            except ValueError:  # remote already exists
+                continue
             fetch_remote(repo.remotes[name], formula)
 
 
