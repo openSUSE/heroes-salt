@@ -34,23 +34,20 @@ def git(cmd, cwd=None):
         sys.exit(status)
 
 
-def clone_or_pull(CLONE_FROM, CLONE_BRANCH, DEST):
-    def use_git_to_clone_or_pull_repo():
-        if not os.path.exists(DEST):
-            os.mkdir(DEST)
+def clone(CLONE_FROM, CLONE_BRANCH, DEST, USE_PYGIT2):
+    def clone_repo():
+        FULL_PATH = '%s/%s-formula' % (DEST, formula)
         if os.path.isdir(FULL_PATH):
-            git(['pull', '-q'], cwd=FULL_PATH)
-        else:
-            git(['clone', '-q', url, FULL_PATH] + branch_opts)
+            return
 
-    def use_pygit2_to_clone_or_pull_repo():
-        import pygit2
+        if USE_PYGIT2:
+            import pygit2
 
-        if os.path.isdir(FULL_PATH):
-            repo = pygit2.Repository(FULL_PATH)
-            repo.checkout('HEAD')
-        else:
             pygit2.clone_repository(url, FULL_PATH, bare=False)
+        else:
+            if not os.path.exists(DEST):
+                os.mkdir(DEST)
+            git(['clone', '-q', url, FULL_PATH] + branch_opts)
 
     branch_opts = []
     if CLONE_BRANCH:
@@ -58,39 +55,135 @@ def clone_or_pull(CLONE_FROM, CLONE_BRANCH, DEST):
     if CLONE_FROM:
         for formula in FORMULAS.keys():
             url = '%s/%s-formula' % (CLONE_FROM, formula)
-            FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            use_git_to_clone_or_pull_repo()
+            clone_repo()
     else:
         for formula, data in FORMULAS.items():
             namespace = data.get('namespace', 'saltstack-formulas')
             prefix = data.get('prefix', '')
             url = 'https://github.com/%s/%s%s-formula' % (namespace, prefix, formula)
-            FULL_PATH = '%s/%s-formula' % (DEST, formula)
-            use_git_to_clone_or_pull_repo()
+            clone_repo()
 
 
 def create_symlinks(DEST):
     for formula in FORMULAS.keys():
-        os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), '/srv/salt/%s' % formula)
+        FULL_PATH = '/srv/salt/%s' % formula
+        if not os.path.islink(FULL_PATH):
+            os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), FULL_PATH)
+
+
+def fetch_remote(remote, formula):
+    from pygit2.errors import GitError
+    import pygit2
+
+    remotecallbacks = None
+    if not remote.url.startswith(('http://', 'https://', 'git://', 'ssh://', 'git+ssh://')):
+        username = remote.url.split('@')[0]
+        credentials = pygit2.KeypairFromAgent(username)
+        remotecallbacks = pygit2.RemoteCallbacks(credentials=credentials)
+    try:
+        remote.fetch(callbacks=remotecallbacks)
+    except GitError:
+        print('%s-formula: Failed to fetch remote %s' % (formula, remote.name))
+
+
+def add_remote(REMOTES, DEST):
+    import pygit2
+
+    for remote in REMOTES:
+        namespace = None
+        if len(remote) == 4:
+            namespace = remote.pop()
+
+        url = 'https://github.com'
+        if len(remote) == 3:
+            url = remote.pop()
+
+        prefix = ''
+        use_prefix = False
+        if not remote[1].startswith('no'):
+            use_prefix = True
+
+        name = remote[0]
+
+        for formula, data in FORMULAS.items():
+            if not namespace:
+                namespace = data.get('namespace', 'saltstack-formulas')
+            if use_prefix:
+                prefix = data.get('prefix', '')
+            if not url.endswith(':'):
+                url += '/'
+            full_url = '%s%s/%s%s-formula' % (url, namespace, prefix, formula)
+            FULL_PATH = '%s/%s-formula' % (DEST, formula)
+            repo = pygit2.Repository(FULL_PATH)
+            try:
+                repo.create_remote(name, full_url)
+            except ValueError:  # remote already exists
+                continue
+            fetch_remote(repo.remotes[name], formula)
+
+
+def update(REMOTES, DEST):
+    import pygit2
+
+    for formula in FORMULAS.keys():
+        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        repo = pygit2.Repository(FULL_PATH)
+        git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
+        git(['pull', '-q'], cwd=FULL_PATH)
+        if REMOTES:
+            for remote in REMOTES:
+                fetch_remote(repo.remotes[remote], formula)
+
+
+def push(REMOTES, DEST):
+    import pygit2
+
+    for formula in FORMULAS.keys():
+        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        repo = pygit2.Repository(FULL_PATH)
+        git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
+        for remote in REMOTES:
+            git(['push', '-qf', remote, 'master'], cwd=FULL_PATH)
+            git(['push', '-qf', remote, 'master:production'], cwd=FULL_PATH)
+            fetch_remote(repo.remotes[remote], formula)
 
 
 with open('FORMULAS.yaml', 'r') as f:
     FORMULAS = yaml.load(f)
 
-parser = argparse.ArgumentParser(description='Loads the formulas from FORMULAS.yaml and optionally clones them in a specified destination. Optionally it can also create a symlink from the cloned path to /srv/salt, useful for the CI worker.')
-parser.add_argument('-p', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
+parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the formulas from FORMULAS.yaml and performs one or more of the operations specified at the arguments.')
+parser.add_argument('-q', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
 parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
-parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination". If the repository is already cloned, then it will be pulled/fetched.')
+parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
 parser.add_argument('--clone-branch', nargs=1, help='Specify the branch to clone.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
+parser.add_argument('-r', '--add-remote', action='append', nargs='+', help='''Add the specified remotes on the local repositories. It can be passed multiple times.
+Usage: REMOTE_NAME USE_PREFIXES [GIT_PROVIDER_URL] [NAMESPACE].
+       - REMOTE is string
+       - USE_PREFIXES should be a string starting with "no" (for no prefix usage), or whatever else string (for prefix usage)
+       - GIT_URL (optional) can be in the form "https://gitlab.example.com" or "git@gitlab.example.com:" (make sure you have the trailing colon). If no git provider URL is given, https://github.com will be used.
+       - NAMESPACE (optional) is string. If no namespace is given, the one defined in FORMULAS.yaml will be used.
+Examples:
+         -r forks_ro prefixes
+         -r forks_rw prefixes git@github.com:
+         -r mycompany no_prefixes https://gitlab.mycompany.com saltstack-formulas
+         -r mycompany_forks no_prefixes git@gitlab.mycompany.com: saltstack-formulas''')
+parser.add_argument('-u', '--update', nargs='*', help='Switch to origin/master and git pull. Optionally it can accept a list of remotes as arguments, that will be fetched.')
+parser.add_argument('-p', '--push', nargs='+', help='Pushes (with --force) to the given list of remotes from origin/master to their master and production branch, and then fetches them.')
+parser.add_argument('--use-pygit2', action='store_true', help='Use pygit2 instead of invoking git whenever possible.')
 args = parser.parse_args()
 
+will_run = False
+
 if args.pull_requests:
+    will_run = True
     check_open_pull_requests()
 
 # Every option below requires the --destination argument to be set
-if args.clone or args.symlink or args.clone_from or args.clone_branch:
+if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or args.update or args.push:
+    will_run = True
+
     if (args.clone_from or args.clone_branch) and not args.clone:
         parser.print_help()
         sys.exit(1)
@@ -99,6 +192,12 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch:
         parser.print_help()
         sys.exit(1)
 
+    if args.add_remote:
+        for remote in args.add_remote:
+            if len(remote) < 2:
+                parser.print_help()
+                sys.exit(1)
+
     if args.clone:
         clone_from = None
         clone_branch = None
@@ -106,10 +205,20 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch:
             clone_from = args.clone_from[0]
         if args.clone_branch:
             clone_branch = args.clone_branch[0]
-        clone_or_pull(clone_from, clone_branch, args.destination[0])
+        clone(clone_from, clone_branch, args.destination[0], args.use_pygit2)
 
     if args.symlink:
         create_symlinks(args.destination[0])
-else:
+
+    if args.add_remote:
+        add_remote(args.add_remote, args.destination[0])
+
+    if args.update:
+        update(args.update, args.destination[0])
+
+    if args.push:
+        push(args.push, args.destination[0])
+
+if not will_run:
     parser.print_help()
     sys.exit(1)
