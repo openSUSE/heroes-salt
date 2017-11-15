@@ -9,7 +9,6 @@ grains:
 monitoring:
   check_zypper:
     whitelist:
-      - ca-certificates-suse
       - monitoring-plugins-multipath
       - monitoring-plugins-sks_keyserver
       - perl-JSON-Parse
