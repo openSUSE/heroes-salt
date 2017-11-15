@@ -1,5 +1,4 @@
 ---
-dhcpd: {}
 elasticsearch:
   namespace: 'cboltz'
   pending:
@@ -27,6 +26,5 @@ sssd:
   prefix: 'salt-'
 sudoers: {}
 timezone: {}
-users: {}
 zypper:
   namespace: 'tampakrap'
