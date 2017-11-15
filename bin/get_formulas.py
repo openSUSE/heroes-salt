@@ -73,9 +73,15 @@ def create_symlinks(DEST):
 
 def fetch_remote(remote, formula):
     from pygit2.errors import GitError
+    import pygit2
 
+    remotecallbacks = None
+    if not remote.url.startswith(('http://', 'https://', 'git://', 'ssh://', 'git+ssh://')):
+        username = remote.url.split('@')[0]
+        credentials = pygit2.KeypairFromAgent(username)
+        remotecallbacks = pygit2.RemoteCallbacks(credentials=credentials)
     try:
-        remote.fetch()
+        remote.fetch(callbacks=remotecallbacks)
     except GitError:
         print('%s-formula: Failed to fetch remote %s' % (formula, remote.name))
 
