@@ -31,7 +31,7 @@ write_grains() {
 for os in ${ALL_OS[@]}; do
     for location in ${ALL_LOCATIONS[@]}; do
         write_grains ${location//,/ } ${os//,/ }
-        if $($SUDO $RUN_TEST > /dev/null); then
+        if $($RUN_TEST > /dev/null); then
             echo 'PASSED'
         else
             STATUS=1

@@ -71,6 +71,13 @@ def create_symlinks(DEST):
             os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), FULL_PATH)
 
 
+def remove_symlinks():
+    for formula in FORMULAS.keys():
+        FULL_PATH = '/srv/salt/%s' % formula
+        if os.path.islink(FULL_PATH):
+            os.unlink(FULL_PATH)
+
+
 def fetch_remote(remote, formula):
     from pygit2.errors import GitError
     import pygit2
@@ -148,6 +155,13 @@ def push(REMOTES, DEST):
             fetch_remote(repo.remotes[remote], formula)
 
 
+def checkout_remote_and_branch(REMOTE_BRANCH, DEST):
+    for formula in FORMULAS.keys():
+        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        branch = REMOTE_BRANCH.split('/')[1]
+        git(['checkout', '-qB', branch, REMOTE_BRANCH], cwd=FULL_PATH)
+
+
 with open('FORMULAS.yaml', 'r') as f:
     FORMULAS = yaml.load(f)
 
@@ -158,6 +172,7 @@ parser.add_argument('-c', '--clone', action='store_true', help='Clone the formul
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
 parser.add_argument('--clone-branch', nargs=1, help='Specify the branch to clone.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
+parser.add_argument('--remove-symlinks', action='store_true', help='Removes all symlinks that were created in /srv/salt.')
 parser.add_argument('-r', '--add-remote', action='append', nargs='+', help='''Add the specified remotes on the local repositories. It can be passed multiple times.
 Usage: REMOTE_NAME USE_PREFIXES [GIT_PROVIDER_URL] [NAMESPACE].
        - REMOTE is string
@@ -171,6 +186,7 @@ Examples:
          -r mycompany_forks no_prefixes git@gitlab.mycompany.com: saltstack-formulas''')
 parser.add_argument('-u', '--update', nargs='*', help='Switch to origin/master and git pull. Optionally it can accept a list of remotes as arguments, that will be fetched.')
 parser.add_argument('-p', '--push', nargs='+', help='Pushes (with --force) to the given list of remotes from origin/master to their master and production branch, and then fetches them.')
+parser.add_argument('--checkout', nargs=1, help='Checkout to the specified remote/branch.')
 parser.add_argument('--use-pygit2', action='store_true', help='Use pygit2 instead of invoking git whenever possible.')
 args = parser.parse_args()
 
@@ -180,8 +196,12 @@ if args.pull_requests:
     will_run = True
     check_open_pull_requests()
 
+if args.remove_symlinks:
+    will_run = True
+    remove_symlinks()
+
 # Every option below requires the --destination argument to be set
-if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or args.update or args.push:
+if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or args.update or args.push or args.checkout:
     will_run = True
 
     if (args.clone_from or args.clone_branch) and not args.clone:
@@ -218,6 +238,9 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
 
     if args.push:
         push(args.push, args.destination[0])
+
+    if args.checkout:
+        checkout_remote_and_branch(args.checkout[0], args.destination[0])
 
 if not will_run:
     parser.print_help()
