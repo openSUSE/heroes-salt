@@ -25,3 +25,4 @@ remove-etc-salt-master:
 /srv/reactor:
   file.recurse:
     - source: salt://profile/salt/files/srv/reactor
+    - template: jinja
