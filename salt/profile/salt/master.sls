@@ -24,4 +24,4 @@ remove-etc-salt-master:
 
 /srv/reactor:
   file.recurse:
-    - source: salt://profile/salt/files/reactor
+    - source: salt://profile/salt/files/srv/reactor
