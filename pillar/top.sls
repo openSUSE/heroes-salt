@@ -1,4 +1,3 @@
-{% from "macros.jinja" import include_optional with context %}
 {% from "macros.jinja" import valid_virt_cluster with context %}
 {% set country = salt['grains.get']('country') %}
 {% set domain = salt['grains.get']('domain') %}
@@ -16,7 +15,8 @@ production:
   {% for role in roles %}
   'roles:{{ role }}':
     - match: grain
-    {{ include_optional("role/{0}".format(role)) }}
+    - ignore_missing: True
+    - role.{{ role }}
   {% endfor %}
   {% if virt_cluster in valid_virt_cluster() %}
   'virt_cluster:{{ virt_cluster }}':
