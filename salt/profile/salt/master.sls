@@ -22,6 +22,12 @@ remove-etc-salt-master:
         - group
         - mode
 
+/usr/local/sbin/saltmaster-deploy:
+  file.managed:
+    - source: salt://profile/salt/files/usr/local/sbin/saltmaster-deploy
+    - template: jinja
+    - mode: 700
+
 /srv/reactor:
   file.recurse:
     - source: salt://profile/salt/files/srv/reactor
