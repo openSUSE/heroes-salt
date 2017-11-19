@@ -1,3 +1,5 @@
+#!yaml|gpg
+
 profile:
   salt:
     reactor:
