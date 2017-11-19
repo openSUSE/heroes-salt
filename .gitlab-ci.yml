@@ -42,7 +42,7 @@ test_show_highstate_against_forked_formulas:
 
 deploy_job:
   stage: deploy
-  script: sudo salt-call event.fire_master update salt/fileserver/gitfs/update
+  script: sudo salt-call event.fire_master $CI_DEPLOY_PASSWORD salt/fileserver/gitfs/update
   only:
     - production@infra/salt
   tags:

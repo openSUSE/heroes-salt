@@ -1,3 +1,6 @@
+include:
+  - secrets.role.saltmaster
+
 salt:
   gitfs:
     libgit2:
