@@ -44,6 +44,6 @@ deploy_job:
   stage: deploy
   script: sudo salt-call event.fire_master update salt/fileserver/gitfs/update
   only:
-    - production
+    - production@infra/salt
   tags:
     - shell
