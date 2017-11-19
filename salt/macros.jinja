@@ -1,7 +1,0 @@
-{%- macro include_optional(sls_file) %}
-    {%- if salt['file.file_exists']('{0}/files/{1}/{2}/init.sls'.format(opts['cachedir'], saltenv, sls_file)) or
-           salt['file.file_exists']('{0}/files/{1}/{2}.sls'.format(opts['cachedir'], saltenv, sls_file))
-    %}
-    - {{ sls_file }}
-    {% endif %}
-{%- endmacro %}
