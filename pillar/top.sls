@@ -9,7 +9,7 @@
 {% set virt_cluster = salt['grains.get']('virt_cluster') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
-production:
+{{ saltenv }}:
   '*':
     - common
   {% for role in roles %}
