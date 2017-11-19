@@ -1,4 +1,3 @@
-{% from "macros.jinja" import include_optional with context %}
 {% set roles = salt['pillar.get']('grains:roles', []) %}
 
 production:
@@ -7,5 +6,5 @@ production:
   {% for role in roles %}
   'roles:{{ role }}':
     - match: grain
-    {{ include_optional("role/{0}".format(role)) }}
+    - role.{{ role }}
   {% endfor %}
