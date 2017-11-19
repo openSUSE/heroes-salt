@@ -47,7 +47,6 @@ LC_ALL=C bin/test_show_highstate.sh
 
 # Cleanup
 bin/get_formulas.py --destination $DESTINATION --remove-symlinks --checkout origin/master
-sed -i -e 's/^base:$/production:/' /srv/{salt,pillar}/top.sls
 for dir in ${SALT_DIRS[@]}; do
     sudo chown -R root: $dir
 done
