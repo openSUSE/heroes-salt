@@ -1,11 +1,3 @@
-{%- macro include_optional(sls_file) %}
-  {%- for root in opts['pillar_roots'][saltenv] -%}
-    {%- if salt['file.file_exists']('{0}/{1}/init.sls'.format(root, sls_file)) or salt['file.file_exists']('{0}/{1}.sls'.format(root, sls_file)) %}
-    - {{ sls_file }}
-    {% endif %}
-  {%- endfor %}
-{%- endmacro %}
-
 {%- macro valid_virt_cluster() -%}
   {%- import_yaml "valid_custom_grains.yaml" as valid_custom_grains -%}
   {%- set valid_virt_cluster = [] -%}
