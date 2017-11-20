@@ -2,6 +2,12 @@ stages:
   - test
   - deploy
 
+test_secrets:
+  stage: test
+  script: bin/test_secrets.sh
+  tags:
+    - docker
+
 test_roles:
   stage: test
   before_script:
