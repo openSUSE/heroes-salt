@@ -10,8 +10,8 @@ keepalived:
       - admin-auto@opensuse.org
     router_id: OPENSUSE_NUE
     smtp_connect_timeout: 30
-    smtp_server: localhost
-  vrrp_instances:
+    smtp_server: relay.infra.opensuse.org
+  vrrp_instance:
     VRRP_OPENSUSE_PRIVATE:
       advert_int: 1
       authentication:
