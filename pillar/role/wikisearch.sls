@@ -7,7 +7,7 @@ apparmor:
       source: salt://profile/wikisearch/files/elasticsearch.apparmor
 
 elasticsearch:
-  add_repo: False
+  use_repo: False
   config:
     node.name: ${HOSTNAME}
     node.master: true
