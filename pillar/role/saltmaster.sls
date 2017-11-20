@@ -2,11 +2,6 @@ include:
   - secrets.role.saltmaster
 
 salt:
-  gitfs:
-    libgit2:
-      install_from_source: False
-    pygit2:
-      install_from_source: False
   master:
     cli_summary: True
     default_top: production
@@ -57,7 +52,3 @@ salt:
   reactor:
     - 'salt/fileserver/gitfs/update':
         - /srv/reactor/update_fileserver.sls
-
-zypper:
-  packages:
-    python-pygit2: {}
