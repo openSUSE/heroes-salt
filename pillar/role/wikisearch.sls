@@ -7,6 +7,9 @@ apparmor:
       source: salt://profile/wikisearch/files/elasticsearch.apparmor
 
 elasticsearch:
+  # workaround until https://github.com/saltstack-formulas/elasticsearch-formula/pull/48 is accepted
+  lookup:
+    use_repo: False
   use_repo: False
   config:
     node.name: ${HOSTNAME}
