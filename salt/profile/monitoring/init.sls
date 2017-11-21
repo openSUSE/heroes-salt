@@ -24,3 +24,18 @@
     - user: root
     - group: root
     - mode: 444
+
+{% for xinetd_service in ['nrpe', 'check_mk'] %}
+/etc/xinetd.d/{{ xinetd_service }}:
+  file.managed:
+    - contents:
+    - source: salt://profile/monitoring/files/xinetd-{{ xinetd_service }}
+    - user: root
+    - group: root
+    - mode: 444
+{% endfor %}
+
+xinetd:
+  pkg.installed: []
+  service.running:
+    - enable: True

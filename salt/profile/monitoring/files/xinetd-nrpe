@@ -1,0 +1,16 @@
+# managed by salt - do not edit!
+
+# description: NRPE (Nagios Remote Plugin Executor)
+service nrpe
+{
+    disable         = no
+    socket_type     = stream
+    port            = 5666
+    wait            = no
+    user            = nagios
+    group           = nagios
+    server          = /usr/sbin/nrpe
+    server_args     = -c /etc/nrpe.cfg --inetd
+    only_from       = 127.0.0.1 192.168.47.7
+    log_on_success  = 
+}
