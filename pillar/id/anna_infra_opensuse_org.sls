@@ -7,3 +7,4 @@ grains:
     - ntp
   salt_cluster: opensuse
   virt_cluster: atreju
+  subrole_ntp: ntp2
