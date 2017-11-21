@@ -25,6 +25,13 @@
     - group: root
     - mode: 444
 
+/etc/nrpe.cfg:
+  file.managed:
+    - source: salt://profile/monitoring/files/nrpe.cfg
+    - user: root
+    - group: root
+    - mode: 444
+
 {% for xinetd_service in ['nrpe', 'check_mk'] %}
 /etc/xinetd.d/{{ xinetd_service }}:
   file.managed:
