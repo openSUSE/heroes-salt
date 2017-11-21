@@ -1,4 +1,5 @@
 include:
+  - salt.gitfs.pygit2
   - salt.master
 
 remove-etc-salt-master:
