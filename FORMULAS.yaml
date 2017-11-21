@@ -1,5 +1,7 @@
 ---
-elasticsearch: {}
+elasticsearch:
+  pending:
+    - 'https://github.com/saltstack-formulas/elasticsearch-formula/pull/48'
 grains:
   namespace: 'tampakrap'
 keepalived: {}
