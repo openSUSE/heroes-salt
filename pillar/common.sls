@@ -8,7 +8,7 @@ locale:
     requires: en_US.UTF-8 UTF-8
 monitoring:
   checks:
-    check_zypper: '/usr/lib/nagios/plugins/check_zypper -vrst 120 -ui /etc/nagios/check_zypper-ignores.txt'
+    check_zypper: '/usr/lib/nagios/plugins/check_zypper -vrst 120 -ui /etc/monitoring-plugins/check_zypper-ignores.txt'
 ntp:
   ng:
     settings:

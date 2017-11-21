@@ -1,4 +1,4 @@
-{% for dir in ['/etc/nrpe.d', '/etc/nagios'] %}
+{% for dir in ['/etc/nrpe.d', '/etc/monitoring-plugins'] %}
 {{ dir }}:
   file.directory:
     - user: root
@@ -17,7 +17,7 @@
     - mode: 444
 {% endfor %}
 
-/etc/nagios/check_zypper-ignores.txt:
+/etc/monitoring-plugins/check_zypper-ignores.txt:
   file.managed:
     - source: salt://profile/monitoring/files/check_zypper-ignores.txt
     - template: jinja
