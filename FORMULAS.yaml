@@ -1,8 +1,5 @@
 ---
-elasticsearch:
-  namespace: 'cboltz'
-  pending:
-    - 'https://github.com/saltstack-formulas/elasticsearch-formula/pull/36'
+elasticsearch: {}
 grains:
   namespace: 'tampakrap'
 keepalived: {}
