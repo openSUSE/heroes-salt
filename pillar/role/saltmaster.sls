@@ -2,6 +2,10 @@ include:
   - secrets.role.saltmaster
 
 salt:
+  gitfs:
+    pygit2:
+      git:
+        require_state: git
   master:
     cli_summary: True
     default_top: production
