@@ -27,9 +27,9 @@ def get_roles(with_base=False):
 
 def print_roles():
     parser = argparse.ArgumentParser('Collects all the roles that are assigned to a minion, and returns them as a python array, a yaml list or a plain list (parsable by bash)')
-    parser.add_argument('-p', '--python', action='store_true', help='Prints the roles as a python array')
-    parser.add_argument('-y', '--yaml', action='store_true', help='Prints the roles as a yaml array')
-    parser.add_argument('--with-base', action='store_true', help='Include the base role at the results')
+    parser.add_argument('-p', '--python', action='store_true', default=False, help='Prints the roles as a python array')
+    parser.add_argument('-y', '--yaml', action='store_true', default=False, help='Prints the roles as a yaml array')
+    parser.add_argument('-b', '--with-base', action='store_true', default=False, help='Include the base role at the results')
     args = parser.parse_args()
 
     roles = get_roles(with_base=args.with_base)
