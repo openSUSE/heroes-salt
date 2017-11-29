@@ -1,11 +1,15 @@
+{% set subrole_ntp = salt['grains.get']('subrole_ntp') %}
+
 ntp:
   ng:
     settings:
       ntp_conf:
         peer:
-          - ntp1.infra.opensuse.org
-          - ntp2.infra.opensuse.org
-          - ntp3.infra.opensuse.org
+          {% for n in range(3) %}
+          {% if subrole_ntp != 'ntp{0}'.format(n+1) %}
+          - ntp{{ n+1 }}.infra.opensuse.org
+          {% endif %}
+          {% endfor %}
         restrict:
           - ntp1.opensuse.org
           - ntp2.opensuse.org
