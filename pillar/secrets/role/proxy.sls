@@ -1,7 +1,7 @@
 #!yaml|gpg
 
 keepalived:
-  vrrp_instances:
+  vrrp_instance:
     VRRP_OPENSUSE_PRIVATE:
       authentication:
         auth_pass: |
