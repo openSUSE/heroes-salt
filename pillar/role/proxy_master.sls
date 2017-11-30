@@ -1,5 +1,5 @@
 keepalived:
-  vrrp_instances:
+  vrrp_instance:
     VRRP_OPENSUSE_PRIVATE:
       priority: 110
       state: MASTER
