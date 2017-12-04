@@ -5,10 +5,10 @@ grains:
   virt_cluster: atreju
 
 {% set osrelease = salt['grains.get']('osrelease') %}
-{% if osrelease == '11.4' %}
+{% if osrelease == '42.3' %}
 profile:
   monitoring:
     check_zypper:
       whitelist:
-        - mongodb
+      - chrony
 {% endif %}

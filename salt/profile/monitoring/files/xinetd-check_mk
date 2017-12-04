@@ -1,0 +1,16 @@
+# managed by salt - do not edit!
+
+service check_mk
+{
+	type           = UNLISTED
+	port           = 6556
+	socket_type    = stream
+	protocol       = tcp
+	wait           = no
+	user           = root
+	server         = /usr/bin/check_mk_agent
+	#server         = /usr/bin/check_mk_caching_agent
+	only_from      = 127.0.0.1 192.168.47.7
+	log_on_success =
+	disable        = no
+}

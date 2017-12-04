@@ -3,6 +3,7 @@ include:
   - profile.apparmor
   - profile.ldap.client
   - profile.log
+  - profile.monitoring
   - profile.regional
   - profile.salt.minion
   - profile.zypper

@@ -1,0 +1,14 @@
+profile:
+  monitoring:
+    checks:
+      check_memcached_bytes: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --bytes=100000000,200000000'
+      check_memcached_total_items: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --total_items=ZERO:OK'
+      check_zypper: '/usr/lib/nagios/plugins/check_zypper -vrst 120 -ui /etc/nagios/check_zypper-ignores.txt'
+    check_zypper:
+      whitelist:
+        - nothing
+        - really_nothing
+      patch:
+        - no_patch
+      local_package:
+        - remote_package

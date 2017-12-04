@@ -6,6 +6,17 @@ import argparse
 import yaml
 import os
 
+def read_file_skip_jinja(filename):
+    ''' reads a file and returns its content, except lines starting with '{%' '''
+    non_jinja_lines = []
+
+    with open(filename) as f:
+        for line in f.read().split('\n'):
+            if not line.startswith('{%'):
+                non_jinja_lines.append(line)
+
+    return '\n'.join(non_jinja_lines)
+
 
 def get_roles(with_base=False):
     roles = []
@@ -13,13 +24,16 @@ def get_roles(with_base=False):
         roles.append('base')
 
     for sls in os.listdir('pillar/id'):
-        with open("pillar/id/%s" % sls) as f:
-            try:
-                _roles = yaml.load(f)['grains']['roles']
-            except KeyError:
-                continue
-            for item in _roles:
-                roles.append(item)
+        non_jinja_lines = []
+
+        content = read_file_skip_jinja("pillar/id/%s" % sls)
+
+        try:
+            _roles = yaml.load(content)['grains']['roles']
+        except KeyError:
+            continue
+        for item in _roles:
+            roles.append(item)
 
     roles = sorted(set(roles))
     return roles

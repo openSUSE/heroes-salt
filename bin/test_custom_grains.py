@@ -6,6 +6,7 @@ import yaml
 import os
 import sys
 
+from get_roles import read_file_skip_jinja
 
 def error_msg(sls, key, valid_values):
     if type(valid_values) == str:
@@ -45,17 +46,17 @@ all_localized_grains = VALID_CUSTOM_GRAINS['localized']
 
 all_ids = sorted(os.listdir('pillar/id'))
 for sls in all_ids:
-    with open("pillar/id/%s" % sls) as f:
-        mygrains = yaml.load(f)['grains']
+    content = read_file_skip_jinja("pillar/id/%s" % sls)
+    mygrains = yaml.load(content)['grains']
 
-        for key, valid_values in valid_global_grains.items():
+    for key, valid_values in valid_global_grains.items():
+        status = test_custom_grain(mygrains, sls, key, valid_values, status)
+
+    try:
+        valid_localized_grains = all_localized_grains[mygrains['country']]
+        for key, valid_values in valid_localized_grains.items():
             status = test_custom_grain(mygrains, sls, key, valid_values, status)
-
-        try:
-            valid_localized_grains = all_localized_grains[mygrains['country']]
-            for key, valid_values in valid_localized_grains.items():
-                status = test_custom_grain(mygrains, sls, key, valid_values, status)
-        except KeyError:
-            status = error_msg(sls, 'country', all_localized_grains.keys())
+    except KeyError:
+        status = error_msg(sls, 'country', all_localized_grains.keys())
 
 sys.exit(status)
