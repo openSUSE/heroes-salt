@@ -2,6 +2,12 @@ stages:
   - test
   - deploy
 
+test_extension:
+  stage: test
+  script: bin/test_extension.sh
+  tags:
+    - docker
+
 test_secrets:
   stage: test
   script: bin/test_secrets.sh
