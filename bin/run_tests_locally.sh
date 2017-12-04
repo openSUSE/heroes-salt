@@ -29,6 +29,7 @@ SALT_DIRS=(
     /var/cache/salt
 )
 
+bin/test_extension.sh
 bin/test_secrets.sh
 bin/test_roles.py
 bin/test_custom_grains.py
