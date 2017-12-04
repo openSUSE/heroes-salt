@@ -1,7 +1,7 @@
 #!/bin/bash
 
-NON_SLS_PILLAR=$(find pillar -type f | egrep -v "(macros.jinja|valid_custom_grains.yaml|.sls$)")
-NON_SLS_SALT=$(find salt -type f | egrep -v "/(files|templates)/|salt/profile/apparmor/pillar.example|.sls$")
+NON_SLS_PILLAR=$(find pillar -type f | egrep -v "(macros.jinja|valid_custom_grains.yaml|\.sls$)")
+NON_SLS_SALT=$(find salt -type f | egrep -v "/(files|templates)/|pillar.example$|\.sls$")
 NON_SLS=( ${NON_SLS_PILLAR} ${NON_SLS_SALT} )
 
 if [[ -n $NON_SLS ]]; then
