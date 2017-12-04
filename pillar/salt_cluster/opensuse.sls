@@ -8,6 +8,9 @@ ntp:
           - ntp2.infra.opensuse.org iburst
           - ntp3.infra.opensuse.org iburst
 {% endif %}
+profile:
+  log:
+    rsyslog_host: 192.168.47.7
 salt:
   minion:
     master: minnie.infra.opensuse.org

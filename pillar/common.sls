@@ -42,6 +42,10 @@ openldap:
 openssh:
   banner_src: salt://profile/accounts/files/ssh_banner
   sshd_config_mode: 0640
+rsyslog:
+  custom:
+    - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja
+  custom_config_template: salt://profile/log/files/etc/rsyslog.conf
 salt:
   minion:
     backup_mode: minion

@@ -11,7 +11,10 @@ ntp: {}
 openldap: {}
 openssh: {}
 powerdns: {}
-rsyslog: {}
+rsyslog:
+  namespace: 'tampakrap'
+  pending:
+    - 'https://github.com/saltstack-formulas/rsyslog-formula/pull/16'
 salt: {}
 sqlite:
   namespace: 'tampakrap'
