@@ -6,8 +6,9 @@ grains:
 
 {% set osrelease = salt['grains.get']('osrelease') %}
 {% if osrelease == '11.4' %}
-monitoring:
-  check_zypper:
-    whitelist:
-      - mongodb
+profile:
+  monitoring:
+    check_zypper:
+      whitelist:
+        - mongodb
 {% endif %}

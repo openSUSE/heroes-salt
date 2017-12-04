@@ -6,7 +6,7 @@
     - mode: 755
 {% endfor %}
 
-{% set checks = salt['pillar.get']('monitoring:checks', {}) %}
+{% set checks = salt['pillar.get']('profile:monitoring:checks', {}) %}
 {% for check, cmd in checks.items() %}
 /etc/nrpe.d/{{ check }}.cfg:
   file.managed:

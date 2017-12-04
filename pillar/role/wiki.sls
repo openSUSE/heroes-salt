@@ -98,10 +98,11 @@ mediawiki_1_27:
 # zh_tw -> bento_lang zh_TW
 # full bento_lang list: https://github.com/openSUSE/opensuse-themes/tree/master/bento/js/l10n
 
-monitoring:
-  checks:
-    check_memcached_bytes: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --bytes=100000000,200000000'
-    check_memcached_total_items: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --total_items=ZERO:OK'
+profile:
+  monitoring:
+    checks:
+      check_memcached_bytes: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --bytes=100000000,200000000'
+      check_memcached_total_items: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --total_items=ZERO:OK'
 
 zypper:
   packages:
