@@ -5,7 +5,7 @@
 /etc/apparmor.d/{{ profile }}:
   file.managed:
     - source: {{ data.source }}
-    {% if data.has_key('template') %}
+    {% if 'template' in data %}
     - template: {{ data.template }}
     {% endif %}
     - listen_in:
@@ -16,7 +16,7 @@
 /etc/apparmor.d/abstractions/{{ abstraction }}:
   file.managed:
     - source: {{ data.source }}
-    {% if data.has_key('template') %}
+    {% if 'template' in data %}
     - template: {{ data.template }}
     {% endif %}
     - listen_in:
