@@ -24,8 +24,6 @@ def get_roles(with_base=False):
         roles.append('base')
 
     for sls in os.listdir('pillar/id'):
-        non_jinja_lines = []
-
         content = read_file_skip_jinja("pillar/id/%s" % sls)
 
         try:
