@@ -47,9 +47,7 @@ def print_roles():
     if args.out == 'python':
         print(roles)
     elif args.out == 'yaml':
-        print('roles:')
-        for role in roles:
-            print('  - %s' % role)
+        print(yaml.dump({'roles': roles}, default_flow_style=False))
     else:
         print(' '.join(roles))
 
