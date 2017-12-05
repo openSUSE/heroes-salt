@@ -27,6 +27,7 @@ salt:
           - root: salt
           - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
           - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/chrony-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/elasticsearch-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/git-formula.git
       - https://gitlab.infra.opensuse.org/saltstack-formulas/grains-formula.git
