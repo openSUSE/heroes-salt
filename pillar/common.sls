@@ -1,5 +1,16 @@
 {% set osrelease = salt['grains.get']('osrelease') %}
 
+chrony:
+  driftfile: /var/lib/chrony/drift
+  logdir: /var/log/chrony
+  otherparams:
+    {% if 'ntp' not in salt['grains.get']('roles', []) %}
+    - logchange 0.5
+    - log measurements statistics tracking rtc
+    - makestep 1.0 3
+    - noclientlog
+    {% endif %}
+    - rtcsync
 locale:
   present:
     - en_US.UTF-8 UTF-8

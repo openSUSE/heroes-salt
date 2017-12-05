@@ -1,3 +1,12 @@
+{% set subrole_ntp = salt['grains.get']('subrole_ntp', '') %}
+
+chrony:
+  ntpservers:
+   {% for n in range(3) %}
+   {% if subrole_ntp != 'ntp{0}'.format(n+1) %}
+   - ntp{{ n+1 }}.infra.opensuse.org
+   {% endif %}
+   {% endfor %}
 {% if 'ntp' not in salt['grains.get']('roles' ,[]) %}
 ntp:
   ng:
