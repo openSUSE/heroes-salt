@@ -37,7 +37,7 @@ $SUDO rm -rf /srv/{salt,pillar}
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
 ID=$(hostname -f)
-ROLES=$(bin/get_roles.py --yaml)
+ROLES=$(bin/get_roles.py -o yaml)
 printf "city:\ncountry:\ndomain: infra.opensuse.org\nosfullname:\nosmajorrelease:\nosrelease_info:\n$ROLES\nsalt_cluster: opensuse\nvirt_cluster:\n" | $SUDO tee /etc/salt/grains > /dev/null
 touch pillar/id/${ID//./_}.sls
 [[ -n $STRIP_SECRETS ]] && sed -i -e "s#\- secrets\..*#- id.${ID//./_}#g" $(grep -lr "\- secrets\." pillar)
