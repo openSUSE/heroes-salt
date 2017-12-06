@@ -18,18 +18,25 @@ def read_file_skip_jinja(filename):
     return '\n'.join(non_jinja_lines)
 
 
+def get_roles_of_one_server(server):
+    if not server.endswith('_infra_opensuse_org.sls'):
+        server += '_infra_opensuse_org.sls'
+    content = read_file_skip_jinja("pillar/id/%s" % server)
+    try:
+        roles = yaml.load(content)['grains']['roles']
+    except KeyError:
+        roles = []
+
+    return roles
+
+
 def get_roles(with_base=False):
     roles = []
     if with_base:
         roles.append('base')
 
     for sls in os.listdir('pillar/id'):
-        content = read_file_skip_jinja("pillar/id/%s" % sls)
-
-        try:
-            _roles = yaml.load(content)['grains']['roles']
-        except KeyError:
-            continue
+        _roles = get_roles_of_one_server(sls)
         for item in _roles:
             roles.append(item)
 

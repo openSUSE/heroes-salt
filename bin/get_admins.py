@@ -3,7 +3,7 @@
 # For description and usage, see the argparse options at the end of the file
 
 from ldap3 import Server, Connection, ALL
-from get_roles import get_roles, read_file_skip_jinja
+from get_roles import get_roles, get_roles_of_one_server
 import argparse
 import os
 import sys
@@ -25,13 +25,8 @@ def get_admins_of_a_role(admins, role):
         return results
 
     for sls in os.listdir('pillar/id'):
-        content = read_file_skip_jinja('pillar/id/%s' % sls)
         server = sls.split('_')[0]
-        try:
-            roles = yaml.load(content)['grains']['roles']
-        except KeyError:
-            roles = []
-
+        roles = get_roles_of_one_server(server)
         if role in roles:
             for member in members:
                 results[member] = admins[member]
@@ -44,11 +39,7 @@ def get_admins_of_a_server(admins, server):
     results = {}
 
     try:
-        with open('pillar/id/%s_infra_opensuse_org.sls' % server) as f:
-            try:
-                roles = yaml.load(f)['grains']['roles']
-            except KeyError:
-                roles = []
+        roles = get_roles_of_one_server(server)
     except FileNotFoundError:
         print('Server not found')
         sys.exit(1)
