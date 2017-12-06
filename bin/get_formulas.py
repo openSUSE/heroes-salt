@@ -201,7 +201,7 @@ if args.remove_symlinks:
     remove_symlinks()
 
 # Every option below requires the --destination argument to be set
-if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or args.update or args.push or args.checkout:
+if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or type(args.update) == list or args.push or args.checkout:
     will_run = True
 
     if (args.clone_from or args.clone_branch) and not args.clone:
@@ -233,7 +233,7 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
     if args.add_remote:
         add_remote(args.add_remote, args.destination[0])
 
-    if args.update:
+    if type(args.update) == list:
         update(args.update, args.destination[0])
 
     if args.push:
