@@ -37,7 +37,6 @@ $wgArticlePath      = "$wgScriptPath/$1";
 
 $wgStylePath        = "$wgScriptPath/skins";
 $wgStyleDirectory   = "$IP/skins";
-$wgLogo             = "$wgStylePath/common/images/wiki.png";
 
 $wgUploadPath       = "$wgScriptPath/images";
 $wgUploadDirectory  = "$IP/images";
@@ -207,8 +206,8 @@ $wgGroupPermissions['user']['move'] = true;
 # make the real IPs visible to the wiki instead of the auth proxy (AccessManager) IPs. Without this, IP blocking blocks the proxy IP and therefore edits from everywhere.
 $wgUseSquid = true;
 $wgSquidServers = array();
-$wgSquidServers[] = '192.168.254.4';
-$wgSquidServers[] = '149.44.161.63';
+$wgSquidServers[] = '192.168.47.101';  # elsa.infra.o.o
+$wgSquidServers[] = '192.168.47.102';  # anna.infra.o.o
 
 # Category watching ----------------------------------
 # see https://www.mediawiki.org/wiki/Manual:CategoryMembershipChanges
