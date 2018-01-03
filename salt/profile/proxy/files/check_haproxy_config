@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# managed by salt
+
+haproxy -c -f /etc/haproxy/haproxy.cfg
