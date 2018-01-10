@@ -37,6 +37,8 @@ test_show_highstate_against_upstream_formulas:
     - bin/get_formulas.py -c -d /srv/formula -s
   script: bin/test_show_highstate.sh
   allow_failure: true
+  except:
+    - production@infra/salt
   tags:
     - docker
 
