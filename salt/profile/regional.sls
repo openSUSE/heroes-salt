@@ -1,4 +1,11 @@
+{% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
+
 include:
-  - locale
+  {% if osmajorrelease == 11 %}
   - ntp.ng
+  {% else %}
+  - chrony
+  - chrony.config
+  {% endif %}
+  - locale
   - timezone

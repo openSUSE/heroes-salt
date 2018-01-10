@@ -1,20 +1,19 @@
-{% set subrole_ntp = salt['grains.get']('subrole_ntp') %}
+{% set ipv4 = salt['grains.get']('ipv4') %}
 
-ntp:
-  ng:
-    settings:
-      ntp_conf:
-        peer:
-          {% for n in range(3) %}
-          {% if subrole_ntp != 'ntp{0}'.format(n+1) %}
-          - ntp{{ n+1 }}.infra.opensuse.org
-          {% endif %}
-          {% endfor %}
-        restrict:
-          - ntp1.opensuse.org
-          - ntp2.opensuse.org
-          - 192.168.47.0 mask 255.255.255.0 kod nomodify notrap nopeer noquery
-          - 192.168.254.0 mask 255.255.255.0 kod nomodify notrap nopeer noquery
-        server:
-          - ntp1.opensuse.org iburst prefer
-          - ntp2.opensuse.org iburst
+chrony:
+  allow:
+    - 127.0.0.0/8
+    - 192.168.47.0/24
+    - 192.168.254.0/24
+  ntpservers:
+    - ntp1.opensuse.org
+    - ntp2.opensuse.org
+  otherparams:
+    - makestep -1 1
+    {% for ip in ipv4 %}
+    # filter only the priv IPs and exclude the VRRPs
+    {% if ip.startswith('192.168') and not ip.endswith('.4') %}
+    - bindaddress {{ ip }}
+    {% endif %}
+    {% endfor %}
+    - bindaddress 127.0.0.1
