@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# managed by salt
+
+test -z "$1" && {
+	echo "Usage: $0 needle"
+	echo ""
+	echo "Prints all section headers and all lines matching 'needle' in haproxy.cfg"
+	exit 1
+}
+
+grep "^[a-z]\|$1" /etc/haproxy/haproxy.cfg
