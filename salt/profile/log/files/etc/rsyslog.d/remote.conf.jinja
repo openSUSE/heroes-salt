@@ -64,7 +64,7 @@ $InputTCPServerRun {{ config.listentcpprt|default('514') }} # Starts a TCP serve
 ##$UDPServerAddress 10.10.0.1 # force to listen on this IP only,
 ##                            # needs SYSLOG_REQUIRES_NETWORK=yes.
 #$InputTCPServerRun <port> # Starts a TCP server on selected port
-{%- endif %}
+{% endif %}
 # UDP Syslog Server:
 {%- if config.listenudp|default(false) %}
 $ModLoad imudp.so         # provides UDP syslog reception
