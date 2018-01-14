@@ -35,6 +35,3 @@ keepalived:
         - 195.135.221.143/25 dev external
         - 2001:67c:2178:8::18/64 dev external
       virtual_router_id: 51
-zypper:
-  packages:
-    monitoring-plugins-keepalived: {}

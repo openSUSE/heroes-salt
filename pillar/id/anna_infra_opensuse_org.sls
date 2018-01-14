@@ -2,6 +2,7 @@ grains:
   city: nuremberg
   country: de
   roles:
+    - ha
     - proxy
     - proxy_master
     - ntp
