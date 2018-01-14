@@ -69,6 +69,7 @@ salt:
     backup_mode: minion
     environment: production
     hash_type: sha512
+    ipv6: false
 sshd_config:
   AuthorizedKeysCommand: /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
   AuthorizedKeysCommandUser: nobody
