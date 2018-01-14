@@ -101,7 +101,7 @@ mediawiki_1_27:
 profile:
   monitoring:
     checks:
-      check_memcached_bytes: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --bytes=100000000,200000000'
+      check_memcached_bytes: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --bytes=400000000,500000000'
       check_memcached_total_items: '/usr/lib/nagios/plugins/check_memcached.pl -H 127.0.0.1 -p 11211 -a -f  --total_items=ZERO:OK'
 
 zypper:
