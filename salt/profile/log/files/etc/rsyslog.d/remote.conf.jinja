@@ -1,4 +1,5 @@
 ## Managed by Salt
+{%- set config = salt['pillar.get']('rsyslog', {}) %}
 ##
 ## === When you're using remote logging, enable on-disk queues ===  
 ## === in rsyslog.d/remote.conf. When neccesary also set the   ===
@@ -18,41 +19,63 @@
 # An on-disk queue is created for this action. If the remote host is
 # down, messages are spooled to disk and sent when it is up again.
 #
-$WorkDirectory /var/spool/rsyslog # where to place spool files
+{% if config.imjournal|default(false) %}
+$WorkDirectory {{ config.get('workingdirectory', '/var/spool/rsyslog') }} # where to place spool files
 $ActionQueueFileName uniqName # unique name prefix for spool files
 $ActionQueueMaxDiskSpace 1g   # 1gb space limit (use as much as possible)
 $ActionQueueSaveOnShutdown on # save messages to disk on shutdown
 $ActionQueueType LinkedList   # run asynchronously
 $ActionResumeRetryCount -1    # infinite retries if host is down
+{%- else %}
+#$WorkDirectory /var/spool/rsyslog # where to place spool files
+#$ActionQueueFileName uniqName # unique name prefix for spool files
+#$ActionQueueMaxDiskSpace 1g   # 1gb space limit (use as much as possible)
+#$ActionQueueSaveOnShutdown on # save messages to disk on shutdown
+#$ActionQueueType LinkedList   # run asynchronously
+#$ActionResumeRetryCount -1    # infinite retries if host is down
+{%- endif %}
 
 # ######### Sending Messages to Remote Hosts ########## 
 
 # Remote Logging using TCP for reliable delivery
 # remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
-{%- set roles = salt['grains.get']('roles', []) %}
-{%- if 'syslog' not in roles %}
-*.* @@syslog.infra.opensuse.org
+{%- if config.target|default(false) and config.protocol == 'tcp' %}
+*.* @@{{ config.target }}
+{%- else %}
+#*.* @@remote-host
 {%- endif %}
 
 # Remote Logging using UDP
 # remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
+{%- if config.target|default(false) and config.protocol == 'udp' %}
+*.* @{{ config.target }}
+{%- else %}
 #*.* @remote-host
-
+{% endif %}
 
 # ######### Receiving Messages from Remote Hosts ########## 
 # TCP Syslog Server:
 # provides TCP syslog reception and GSS-API (if compiled to support it)
+{%- if config.listentcp|default(false) %}
+$ModLoad imtcp.so         # load module
+$InputTCPServerRun {{ config.listentcpprt|default('514') }} # Starts a TCP server on selected port
+{%- else %}
 #$ModLoad imtcp.so         # load module
 ##$UDPServerAddress 10.10.0.1 # force to listen on this IP only,
 ##                            # needs SYSLOG_REQUIRES_NETWORK=yes.
 #$InputTCPServerRun <port> # Starts a TCP server on selected port
+{%- endif %}
 
+{%- if config.listenudp|default(false) %}
+$ModLoad imudp.so         # provides UDP syslog reception
+$UDPServerRun 514         # start a UDP syslog server at standard port 514
+{%- else %}
 # UDP Syslog Server:
 #$ModLoad imudp.so         # provides UDP syslog reception
 ##$UDPServerAddress 10.10.0.1 # force to listen on this IP only,
 ##                            # needs SYSLOG_REQUIRES_NETWORK=yes.
 #$UDPServerRun 514         # start a UDP syslog server at standard port 514
-
+{% endif %}
 
 ########### Encrypting Syslog Traffic with TLS ##########
 # -- TLS Syslog Server: 
