@@ -19,7 +19,7 @@
 # An on-disk queue is created for this action. If the remote host is
 # down, messages are spooled to disk and sent when it is up again.
 #
-{% if config.imjournal|default(false) %}
+{%- if config.imjournal|default(false) %}
 $WorkDirectory {{ config.get('workingdirectory', '/var/spool/rsyslog') }} # where to place spool files
 $ActionQueueFileName uniqName # unique name prefix for spool files
 $ActionQueueMaxDiskSpace 1g   # 1gb space limit (use as much as possible)
@@ -65,12 +65,11 @@ $InputTCPServerRun {{ config.listentcpprt|default('514') }} # Starts a TCP serve
 ##                            # needs SYSLOG_REQUIRES_NETWORK=yes.
 #$InputTCPServerRun <port> # Starts a TCP server on selected port
 {%- endif %}
-
+# UDP Syslog Server:
 {%- if config.listenudp|default(false) %}
 $ModLoad imudp.so         # provides UDP syslog reception
 $UDPServerRun 514         # start a UDP syslog server at standard port 514
 {%- else %}
-# UDP Syslog Server:
 #$ModLoad imudp.so         # provides UDP syslog reception
 ##$UDPServerAddress 10.10.0.1 # force to listen on this IP only,
 ##                            # needs SYSLOG_REQUIRES_NETWORK=yes.
