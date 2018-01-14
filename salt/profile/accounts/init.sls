@@ -8,5 +8,5 @@ include:
 
 /etc/bash.bashrc.local:
   file.managed:
-    - source: salt://profile/files/etc/bash.bashrc.local.jinja
+    - source: salt://profile/accounts/files/etc/bash.bashrc.local.jinja
     - template: jinja
