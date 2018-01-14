@@ -1,5 +1,6 @@
 ---
 global:
+  hostusage: []
   salt_cluster: opensuse
 localized:
   de:

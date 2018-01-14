@@ -30,7 +30,7 @@ def test_custom_grain(mygrains, sls, key, valid_values, status):
         if value != valid_values:
             status = error_msg(sls, key, valid_values)
     else:
-        if value not in valid_values:
+        if valid_values and value not in valid_values:
             status = error_msg(sls, key, valid_values)
 
     return status
