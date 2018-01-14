@@ -4,6 +4,6 @@ grains:
   hostusage:
     - gitlab.i.o.o
   roles:
-    - gitlab
+    - web_gitlab
   salt_cluster: opensuse
   virt_cluster: atreju
