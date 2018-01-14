@@ -17,10 +17,6 @@ locale:
   default:
     name: en_US.UTF-8
     requires: en_US.UTF-8 UTF-8
-profile:
-  monitoring:
-    checks:
-      check_zypper: '/usr/lib/nagios/plugins/check_zypper -vrst 120 -ui /etc/monitoring-plugins/check_zypper-ignores.txt'
 ntp:
   ng:
     settings:
@@ -57,6 +53,10 @@ openldap:
 openssh:
   banner_src: salt://profile/accounts/files/ssh_banner
   sshd_config_mode: 0640
+profile:
+  monitoring:
+    checks:
+      check_zypper: '/usr/lib/nagios/plugins/check_zypper -vrst 120 -ui /etc/monitoring-plugins/check_zypper-ignores.txt'
 rsyslog:
   custom:
     - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja
@@ -95,9 +95,6 @@ sshd_config:
         User: root
       options:
         Banner: /etc/ssh/banner
-timezone:
-  name: UTC
-  utc: True
 sssd:
   settings:
     sssd: True
@@ -142,6 +139,9 @@ sudoers:
       groups:
         wheel:
           - 'ALL=(ALL) ALL'
+timezone:
+  name: UTC
+  utc: True
 zypper:
   config:
     zypp_conf:
