@@ -12,10 +12,9 @@ profile:
         - gitlab-workhorse
         - grpc
         - libgrpc4
-        - libprotobuf13
-        - libprotoc13
+        - libprotobuf15
+        - libprotoc15
         - libruby2_4-2_4
-        - libsodium23
         - nodejs8
         - ruby2.4
         - ruby2.4-rubygem-RedCloth
@@ -40,11 +39,13 @@ profile:
         - ruby2.4-rubygem-autoprefixer-rails
         - ruby2.4-rubygem-babosa
         - ruby2.4-rubygem-base32
+        - ruby2.4-rubygem-batch-loader
         - ruby2.4-rubygem-bcrypt_pbkdf
         - ruby2.4-rubygem-bindata
         - ruby2.4-rubygem-bootstrap_form
         - ruby2.4-rubygem-browser
         - ruby2.4-rubygem-builder
+        - ruby2.4-rubygem-bundler
         - ruby2.4-rubygem-carrierwave
         - ruby2.4-rubygem-cause
         - ruby2.4-rubygem-charlock_holmes
@@ -165,9 +166,8 @@ profile:
         - ruby2.4-rubygem-memoist
         - ruby2.4-rubygem-method_source
         - ruby2.4-rubygem-mime-types
-        - ruby2.4-rubygem-mime-types-2
+        - ruby2.4-rubygem-mini_mime
         - ruby2.4-rubygem-mini_portile2
-        - ruby2.4-rubygem-mmap2
         - ruby2.4-rubygem-mousetrap-rails
         - ruby2.4-rubygem-multi_json
         - ruby2.4-rubygem-multi_xml
@@ -221,6 +221,7 @@ profile:
         - ruby2.4-rubygem-prometheus-client-mmap
         - ruby2.4-rubygem-public_suffix
         - ruby2.4-rubygem-puma
+        - ruby2.4-rubygem-puma_worker_killer
         - ruby2.4-rubygem-pyu-ruby-sasl
         - ruby2.4-rubygem-rack-1_6
         - ruby2.4-rubygem-rack-accept
