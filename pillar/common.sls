@@ -61,6 +61,9 @@ rsyslog:
   custom:
     - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja
   custom_config_template: salt://profile/log/files/etc/rsyslog.conf
+  imjournal: true
+  protocol: tcp
+  target: syslog.infra.opensuse.org
 salt:
   minion:
     backup_mode: minion
