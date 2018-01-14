@@ -1,6 +1,8 @@
 grains:
   city: provo
   country: us
+  hostusage:
+    - en.o.o (read-only)
   roles:
     - mysql
     - wiki
