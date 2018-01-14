@@ -14,6 +14,7 @@ profile:
         - python-siphashc3
         - python-social-auth-app-django
         - python-social-auth-core
+        - translate-toolkit
         - weblate
 {% endif %}
 sudoers:
