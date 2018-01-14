@@ -1,0 +1,37 @@
+HOSTUSAGE='{{ salt['pillar.get']('grains:hostusage', [])|join(', ') }}'
+# Other prompting for root
+if test "$UID" -eq 0  ; then
+    if test -n "$TERM" -a -t ; then
+        _bred="$(path tput bold 2> /dev/null; path tput setaf 1 2> /dev/null)"
+        _sgr0="$(path tput sgr0 2> /dev/null)"
+    fi
+    # Colored root prompt (see bugzilla #144620)
+    if test -n "$_bred" -a -n "$_sgr0" ; then
+        _u="\[$_bred\]\h ($HOSTUSAGE)"
+        _p=" #\[$_sgr0\]"
+    else
+        _u="\h ($HOSTUSAGE)"
+        _p=" #"
+    fi
+    unset _bred _sgr0
+else
+    _u="\u@\h"
+    _p=">"
+fi
+if test -z "$EMACS" -a -z "$MC_SID" -a -z "$restricted" -a \
+        -z "$STY" -a -n "$DISPLAY" -a ! -r $HOME/.bash.expert
+then
+    _t="\[\$(ppwd)\]"
+else
+    _t=""
+fi
+
+
+case "$(declare -p PS1 2> /dev/null)" in
+*-x*PS1=*)
+    ;;
+*)
+    # With full path on prompt
+    PS1="${_t}${_u}:\w${_p} "
+;;
+esac
