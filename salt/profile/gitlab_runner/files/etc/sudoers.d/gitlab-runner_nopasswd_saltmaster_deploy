@@ -1,0 +1,4 @@
+# Managed by Salt
+
+{% set deploy_password = salt['pillar.get']('profile:salt:reactor:update_fileserver_deploy_password', '') %}
+gitlab-runner ALL=(ALL) NOPASSWD: /usr/bin/salt-call event.fire_master {{ deploy_password }} salt/fileserver/gitfs/update
