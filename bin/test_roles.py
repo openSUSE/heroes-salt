@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 
-# Checks if the declared {salt,pillar}/role/*.sls files actually match an
-# assigned role to a minion
+# Various roles related tests:
+# - Checks if the declared {salt,pillar}/role/*.sls files actually match an
+#   assigned role to a minion
+# - Checks if the assigned roles to minions have equivalent
+#   {salt,pillar}/role/*.sls files
 
 import os
 import sys
