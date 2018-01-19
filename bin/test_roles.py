@@ -5,13 +5,15 @@
 #   assigned role to a minion
 # - Checks if the assigned roles to minions have equivalent
 #   {salt,pillar}/role/*.sls files
+# - Checks that the special roles are not included in any pillar/id/*.sls
 
 import os
 import sys
-from get_roles import get_roles
+from get_roles import get_roles, get_roles_of_one_server
 
 status = 0
-roles = get_roles(append=['base', 'web'])
+special_roles = ['base', 'web']
+roles = get_roles(append=special_roles)
 
 for directory in ['salt', 'pillar']:
     for sls in os.listdir('%s/role' % directory):
@@ -22,7 +24,17 @@ for directory in ['salt', 'pillar']:
 
 for role in roles:
     if not os.path.isfile('salt/role/%s.sls' % role):
-        print('%s is missing the salt/role/%s.sls file' % (role, role))
+        print('%s role is missing the salt/role/%s.sls file' % (role, role))
         status = 1
+
+roles = get_roles()
+
+for special_role in special_roles:
+    if special_role in roles:
+        for sls in os.listdir('pillar/id/'):
+            _roles = get_roles_of_one_server(sls)
+            if special_role in _roles:
+                print('%s role should not be included in pillar/id/%s file' % (special_role, sls))
+                status = 1
 
 sys.exit(status)
