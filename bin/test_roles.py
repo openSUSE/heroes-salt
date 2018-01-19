@@ -8,8 +8,7 @@ import sys
 from get_roles import get_roles
 
 status = 0
-
-roles = get_roles(with_base=True)
+roles = get_roles(append=['base'])
 
 for directory in ['salt', 'pillar']:
     for sls in os.listdir('%s/role' % directory):
