@@ -2,6 +2,7 @@
 
 # For description and usage, see the argparse options at the end of the file
 
+from copy import copy
 import argparse
 import yaml
 import os
@@ -32,7 +33,7 @@ def get_roles_of_one_server(server):
 
 
 def get_roles(append=[]):
-    roles = append
+    roles = copy(append)
 
     for sls in os.listdir('pillar/id'):
         _roles = get_roles_of_one_server(sls)
