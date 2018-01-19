@@ -9,7 +9,7 @@
 
 import os
 import sys
-from get_roles import get_roles, get_roles_of_one_server
+from get_roles import get_roles, get_roles_of_one_minion
 
 status = 0
 special_roles = ['base', 'web']
@@ -32,7 +32,7 @@ roles = get_roles()
 for special_role in special_roles:
     if special_role in roles:
         for sls in os.listdir('pillar/id/'):
-            _roles = get_roles_of_one_server(sls)
+            _roles = get_roles_of_one_minion(sls)
             if special_role in _roles:
                 print('%s role should not be included in pillar/id/%s file' % (special_role, sls))
                 status = 1

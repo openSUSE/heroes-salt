@@ -20,10 +20,10 @@ def read_file_skip_jinja(filename):
     return '\n'.join(non_jinja_lines)
 
 
-def get_roles_of_one_server(server):
-    if not server.endswith('_infra_opensuse_org.sls'):
-        server += '_infra_opensuse_org.sls'
-    content = read_file_skip_jinja("pillar/id/%s" % server)
+def get_roles_of_one_minion(minion):
+    if not minion.endswith('_infra_opensuse_org.sls'):
+        minion += '_infra_opensuse_org.sls'
+    content = read_file_skip_jinja("pillar/id/%s" % minion)
     try:
         roles = yaml.load(content)['grains']['roles']
     except KeyError:
@@ -36,7 +36,7 @@ def get_roles(append=[]):
     roles = copy(append)
 
     for sls in os.listdir('pillar/id'):
-        _roles = get_roles_of_one_server(sls)
+        _roles = get_roles_of_one_minion(sls)
         for item in _roles:
             roles.append(item)
 

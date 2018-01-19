@@ -3,7 +3,7 @@
 # For description and usage, see the argparse options at the end of the file
 
 from ldap3 import Server, Connection, ALL
-from get_roles import get_roles, get_roles_of_one_server
+from get_roles import get_roles, get_roles_of_one_minion
 import argparse
 import os
 import sys
@@ -25,12 +25,12 @@ def get_admins_of_a_role(admins, role):
         return results
 
     for sls in os.listdir('pillar/id'):
-        server = sls.split('_')[0]
-        roles = get_roles_of_one_server(server)
+        minion = sls.split('_')[0]
+        roles = get_roles_of_one_minion(minion)
         if role in roles:
             for member in members:
                 results[member] = admins[member]
-                results[member]['roles'].append('%s (%s)' % (server, role))
+                results[member]['roles'].append('%s (%s)' % (minion, role))
 
     return results
 
@@ -39,7 +39,7 @@ def get_admins_of_a_server(admins, server):
     results = {}
 
     try:
-        roles = get_roles_of_one_server(server)
+        roles = get_roles_of_one_minion(server)
     except FileNotFoundError:
         print('Server not found')
         sys.exit(1)
