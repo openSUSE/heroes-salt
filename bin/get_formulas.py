@@ -162,7 +162,7 @@ def checkout_remote_and_branch(REMOTE_BRANCH, DEST):
         git(['checkout', '-qB', branch, REMOTE_BRANCH], cwd=FULL_PATH)
 
 
-with open('FORMULAS.yaml', 'r') as f:
+with open('pillar/FORMULAS.yaml', 'r') as f:
     FORMULAS = yaml.load(f)
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the formulas from FORMULAS.yaml and performs one or more of the operations specified at the arguments.')
