@@ -1,9 +1,9 @@
 ---
 chrony: {}
 elasticsearch: {}
+git: {}
 grains:
   namespace: 'tampakrap'
-git: {}
 keepalived: {}
 limits:
   namespace: 'ryancurrah'
