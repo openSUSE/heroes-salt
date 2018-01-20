@@ -3,6 +3,7 @@ chrony: {}
 elasticsearch: {}
 grains:
   namespace: 'tampakrap'
+git: {}
 keepalived: {}
 limits:
   namespace: 'ryancurrah'
