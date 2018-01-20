@@ -54,6 +54,18 @@ test_show_highstate_against_forked_formulas:
   tags:
     - docker
 
+test_nginx:
+  stage: test
+  variables:
+    # TODO: get rid of GIT_SSL_NO_VERIFY as soon as we switch to letsencrypt wildcard certs
+    GIT_SSL_NO_VERIFY: 'true'
+  before_script:
+    - bin/prepare_test_show_highstate_env.sh -s
+    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
+  script: bin/test_nginx.sh
+  tags:
+    - docker
+
 deploy_job:
   stage: deploy
   script: sudo salt-call event.fire_master $CI_DEPLOY_PASSWORD salt/fileserver/gitfs/update
