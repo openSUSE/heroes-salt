@@ -12,7 +12,8 @@ if [[ $(whoami) != 'root' ]]; then
 fi
 
 reset_nginx() {
-    $SUDO rm -rf /etc/nginx/vhosts.d/*
+    rm -rf /etc/nginx
+    cp -a /etc/nginx_orig /etc/nginx
     printf "roles:\n- $role" | $SUDO tee /etc/salt/grains > /dev/null
 }
 
@@ -31,7 +32,6 @@ create_fake_certs() {
         $SUDO cp test/fixtures/domain.crt $cert
     done
 }
-
 
 WEB_ROLES=( $(bin/get_roles.py | grep web_) )
 
