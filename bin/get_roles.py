@@ -59,7 +59,7 @@ def print_roles():
     elif args.out == 'yaml':
         print(yaml.dump({'roles': roles}, default_flow_style=False))
     else:
-        print(' '.join(roles))
+        print('\n'.join(roles))
 
 
 if __name__ == "__main__":
