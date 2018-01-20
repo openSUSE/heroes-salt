@@ -27,26 +27,11 @@ salt:
           - root: salt
           - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
           - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/chrony-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/elasticsearch-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/git-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/grains-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/keepalived-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/limits-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/locale-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/mysql-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/nginx-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/ntp-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/openldap-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/openssh-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/powerdns-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/rsyslog-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/salt-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/sqlite-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/sssd-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/sudoers-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/timezone-formula.git
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/zypper-formula.git
+      {% import_yaml "FORMULAS.yaml" as formulas_yaml %}
+      {% set formulas = formulas_yaml.keys()|sort %}
+      {% for formula in formulas %}
+      - https://gitlab.infra.opensuse.org/saltstack-formulas/{{ formula }}-formula.git
+      {% endfor %}
     gitfs_ssl_verify: True
     hash_type: sha512
     pillar_gitfs_ssl_verify: True
