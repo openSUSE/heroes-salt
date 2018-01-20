@@ -1,16 +1,9 @@
-{% set host = salt['grains.get']('host') %}
-
 include:
   - secrets.role.proxy
 
 keepalived:
   global_defs:
-    notification_email_from: keepalived+{{ host }}@opensuse.org
-    notification_email:
-      - admin-auto@opensuse.org
     router_id: OPENSUSE_NUE
-    smtp_connect_timeout: 30
-    smtp_server: relay.infra.opensuse.org
   vrrp_instance:
     VRRP_OPENSUSE_PRIVATE:
       advert_int: 1
