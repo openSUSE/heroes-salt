@@ -4,21 +4,30 @@ help() {
     echo "Encrypt a given string and print out the output. This output can be"
     echo "then used as encrypted pillar"
     echo
+    echo "Options:"
+    echo "-m        Pass multiline input, end with CTRL+D when done"
+    echo
 }
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts h arg; do
+while getopts mh arg; do
     case ${arg} in
+        m) MULTILINE=1 ;;
         h) help && exit ;;
         *) help && exit 1 ;;
     esac
 done
 
-echo "Please type the string that you want to encrypt"
-read STRING
+if [[ -n $MULTILINE ]]; then
+    echo "Please type the lines that you want to encrypt, and press CTRL+D when done"
+    STRING=$(cat)
+else
+    echo "Please type the string that you want to encrypt"
+    read STRING
+fi
 
-[[ -z $STRING ]] && help && exit 1
+[[ -z $STRING ]] && echo "ERROR: Input was empty" && exit 1
 
 RECIPIENTS=$(egrep '^\s*0x' encrypted_pillar_recipients | while read i; do echo "-r $i"; done | xargs)
 echo -n "${STRING}" | gpg --armor --batch --trust-model always --encrypt ${RECIPIENTS}
