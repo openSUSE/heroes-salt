@@ -24,12 +24,22 @@ create_fake_certs() {
 
     PRIVATE_KEYS=( $(grep ssl_certificate_key pillar/role/$role.sls | cut -d':' -f2) )
     for key in ${PRIVATE_KEYS[@]}; do
-        $SUDO cp test/fixtures/domain.key $key
+        if [[ ${key##*.} != 'key' ]]; then
+            echo "pillar/role/$role.sls \"ssl_certificate_key: $key\" should have extension .key"
+            STATUS=1
+        else
+            $SUDO cp test/fixtures/domain.key $key
+        fi
     done
 
     PUBLIC_CERTS=( $(grep "ssl_certificate:" pillar/role/$role.sls | cut -d':' -f2) )
     for cert in ${PUBLIC_CERTS[@]}; do
-        $SUDO cp test/fixtures/domain.crt $cert
+        if [[ ${cert##*.} != 'crt' ]]; then
+            echo "pillar/role/$role.sls \"ssl_certificate: $cert\" should have extension .crt"
+            STATUS=1
+        else
+            $SUDO cp test/fixtures/domain.crt $cert
+        fi
     done
 }
 
