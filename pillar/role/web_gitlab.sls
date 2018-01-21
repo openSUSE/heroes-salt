@@ -162,9 +162,9 @@ nginx:
                     - root: /srv/www/vhosts/gitlab-ce/public
                     - internal
           enabled: True
-{% set osrelease = salt['grains.get']('osrelease') %}
-{% if osrelease == '42.3' %}
 profile:
+  {% set osrelease = salt['grains.get']('osrelease') %}
+  {% if osrelease == '42.3' %}
   monitoring:
     check_zypper:
       whitelist:
@@ -481,4 +481,28 @@ profile:
         - ruby2.4-rubygem-webpack-rails
         - ruby2.4-rubygem-wikicloth
         - ruby2.4-stdlib
-{% endif %}
+  {% endif %}
+  web:
+    server:
+      nginx:
+        csr:
+          gitlab.infra.opensuse.org: |
+            -----BEGIN CERTIFICATE REQUEST-----
+            MIIDGzCCAgMCAQAwgZ4xCzAJBgNVBAYTAkRFMRAwDgYDVQQIDAdCYXZhcmlhMRIw
+            EAYDVQQHDAlOdXJlbWJlcmcxETAPBgNVBAoMCG9wZW5TVVNFMQ8wDQYDVQQLDAZI
+            ZXJvZXMxIjAgBgNVBAMMGWdpdGxhYi5pbmZyYS5vcGVuc3VzZS5vcmcxITAfBgkq
+            hkiG9w0BCQEWEmFkbWluQG9wZW5zdXNlLm9yZzCCASIwDQYJKoZIhvcNAQEBBQAD
+            ggEPADCCAQoCggEBALWfuMhdJOdrwvu2hCw0+bRNl8AADSvdBBokQlwpUvbgITNW
+            R3tkj/KgIEO0ohBC7j+a2L3t3qm5tP8ETdETcS96lj1nZ6fTWV1J9qezfpTBRDE3
+            VIK3vykoBqzRMBVq6R4Kajg7SvB9pWRpHBC4xm3vPA4AnSN9skPtMMGpqZxFMbpG
+            sirObzr5Rit4tM53gZy7zgS2n22TqMeEsEYvd/fHxW2bNLvS5BwX+RU1NhRlNFDP
+            I7BQgCOGzgWrKZeukGfzcOhIXMKtnLPQc/65VcGQDRm01ReSBqNbyADuAfbYrFOP
+            yf8V2FlloUG/voM4c5y6WamHv2ZJepel5qxIickCAwEAAaA3MDUGCSqGSIb3DQEJ
+            DjEoMCYwJAYDVR0RBB0wG4IZZ2l0bGFiLmluZnJhLm9wZW5zdXNlLm9yZzANBgkq
+            hkiG9w0BAQsFAAOCAQEAGJ+RU/bwMTZ+/rkCibJD3Ylp+UUBm0qvFTFkEtkptrM2
+            5/im/ogEPgYZnJNBlU+lTba7XL3uyG+eX3A3n8aX9wJE7DMYB7x1qZGkUppd0zIG
+            myRBZlZUBxtGtOLGW5+AcpjHdqk5aeLjaWz3PaX3WD7QnAYx7XWPJMdcFVzzwPoO
+            M+mSd9H9RUx9HOYy2Wolxg+Mx05mvBrTHoTYsgSBhrmSNLVbA7ZgvAx+cc4vh9Q0
+            6NaN7mDmnbT1CVSlQ43o0pRpUIwa9NGD7DQ/Ccrw0FevD/7szXa9KZvXhHdqS7BP
+            PJKOVLf4VbNDRGmkks0fst/NNdNuXRlS4lZMePi6pQ==
+            -----END CERTIFICATE REQUEST-----
