@@ -1,4 +1,4 @@
-{% set websites = ['static', 'studioexpress'] %}
+{% set websites = ['html5test', 'static', 'studioexpress'] %}
 
 include:
   - role.common.nginx
