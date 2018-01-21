@@ -28,3 +28,4 @@ nginx:
                     - proxy_pass http://redmine
                 - access_log: /var/log/nginx/redmine.access.log combined
                 - error_log: /var/log/nginx/redmine.error.log
+          enabled: True
