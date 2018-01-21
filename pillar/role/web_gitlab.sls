@@ -1,8 +1,49 @@
 include:
   - role.common.nginx
+  - secrets.role.web_gitlab
 
 nginx:
   ng:
+    certificates:
+      gitlab.infra.opensuse.org:
+        public_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIEWTCCA0GgAwIBAgIBDDANBgkqhkiG9w0BAQsFADA9MRswGQYDVQQKDBJJTkZS
+          QS5PUEVOU1VTRS5PUkcxHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1dGhvcml0eTAe
+          Fw0xNzEwMTkxMjI5MzVaFw0xOTEwMjAxMjI5MzVaMEExGzAZBgNVBAoMEklORlJB
+          Lk9QRU5TVVNFLk9SRzEiMCAGA1UEAwwZZ2l0bGFiLmluZnJhLm9wZW5zdXNlLm9y
+          ZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALWfuMhdJOdrwvu2hCw0
+          +bRNl8AADSvdBBokQlwpUvbgITNWR3tkj/KgIEO0ohBC7j+a2L3t3qm5tP8ETdET
+          cS96lj1nZ6fTWV1J9qezfpTBRDE3VIK3vykoBqzRMBVq6R4Kajg7SvB9pWRpHBC4
+          xm3vPA4AnSN9skPtMMGpqZxFMbpGsirObzr5Rit4tM53gZy7zgS2n22TqMeEsEYv
+          d/fHxW2bNLvS5BwX+RU1NhRlNFDPI7BQgCOGzgWrKZeukGfzcOhIXMKtnLPQc/65
+          VcGQDRm01ReSBqNbyADuAfbYrFOPyf8V2FlloUG/voM4c5y6WamHv2ZJepel5qxI
+          ickCAwEAAaOCAV4wggFaMB8GA1UdIwQYMBaAFKlSimqonCWUWJHsFYnI+g8qlmg/
+          MEQGCCsGAQUFBwEBBDgwNjA0BggrBgEFBQcwAYYoaHR0cDovL2lwYS1jYS5pbmZy
+          YS5vcGVuc3VzZS5vcmcvY2Evb2NzcDAOBgNVHQ8BAf8EBAMCBPAwHQYDVR0lBBYw
+          FAYIKwYBBQUHAwEGCCsGAQUFBwMCMH0GA1UdHwR2MHQwcqA6oDiGNmh0dHA6Ly9p
+          cGEtY2EuaW5mcmEub3BlbnN1c2Uub3JnL2lwYS9jcmwvTWFzdGVyQ1JMLmJpbqI0
+          pDIwMDEOMAwGA1UECgwFaXBhY2ExHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1dGhv
+          cml0eTAdBgNVHQ4EFgQUrqKLD5dYozCI//zl7UW5jYyEkXIwJAYDVR0RBB0wG4IZ
+          Z2l0bGFiLmluZnJhLm9wZW5zdXNlLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAVm3I
+          IpSAJovwTDnbDebdPl0+o9QKCYN91B6HXcet05Z+8endi2Nk/vWsa3pClmfo4hgv
+          GieObg+fOnjL7JuPXUDf/0/WggaIjGEbk7I8CUubjK3u6AxM2csWBqg0XEL9KdT9
+          ScNcNVzHqhrIgO2pz2xImVO03hSLnmsVjTl/ssOsSBbWYSHueT3C7ZJIr4gQ7XDI
+          wL0yxP6NShgkEqAUs9QY5GBjm5bsykOj89qgi6Zu8kUJqPYLKkwjZy62cDRvoiQh
+          TM0JvF2fa2AjvK0CYcYkIo+Kz1KagM52oQBlZQO7RcEVcW9GfHVMmmj3in5/U45H
+          nLpMhv4+wJAh8gJ0oA==
+          -----END CERTIFICATE-----
+        # private_key included from pillar/secrets/role/web_gitlab.sls
+    dh_param:
+      gitlab.infra.opensuse.org.dhparams: |
+        -----BEGIN DH PARAMETERS-----
+        MIIBCAKCAQEA7PJQ8wuX4X5olj1lgscd7NWYCdW2+W/8JmBYQE79qnjKhW9I0lg6
+        zigDe6qUh/QonJ9v2rjeoOMa9lFpgee7Hd4QP1ZmS2seaNBVaVBUWaTX/W8Kzi6B
+        muks7dMjbkrx4hHzw5A/UK4sXR7o2jkZbSF72hrxL9e2EAD0DTH3cyVJnjbbjxC/
+        G44CZVTNZpPk1J9kl00eq19Nx/0tXoa6mS1I4h6+zHS8mg2rZKwWZ+FbpGunGXmE
+        V5EOx0TUmcFmCxpdS94+PnFrS78OKpMugJWQNE4hLwZ19+HTzFKRHSoGTUXOZrOk
+        QwknZM+Uol0R0oUeo/5zEmN4mfQ1Iv0nCwIBAg==
+        -----END DH PARAMETERS-----
     servers:
       managed:
         gitlab.infra.opensuse.org.conf:
@@ -73,8 +114,8 @@ nginx:
                 ## Strong SSL Security
                 ## https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html & https://cipherli.st/
                 - ssl: 'on'
-                - ssl_certificate: /etc/ssl/services/gitlab.infra.opensuse.org.crt
-                - ssl_certificate_key: /etc/ssl/services/gitlab.infra.opensuse.org.pem
+                - ssl_certificate: /etc/nginx/ssl/gitlab.infra.opensuse.org.crt
+                - ssl_certificate_key: /etc/nginx/ssl/gitlab.infra.opensuse.org.pem
                 # GitLab needs backwards compatible ciphers to retain compatibility with Java IDEs
                 - ssl_ciphers: '"ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4"'
                 - ssl_protocols:
@@ -84,7 +125,7 @@ nginx:
                 - ssl_prefer_server_ciphers: 'on'
                 - ssl_session_cache: shared:SSL:10m
                 - ssl_session_timeout: 5m
-                - ssl_dhparam: /etc/ssl/services/gitlab.infra.opensuse.org.dhparams
+                - ssl_dhparam: /etc/nginx/ssl/gitlab.infra.opensuse.org.dhparams
                 ## [Optional] Enable HTTP Strict Transport Security
                 - add_header: Strict-Transport-Security "max-age=31536000; includeSubDomains"
                 ## Real IP Module Config

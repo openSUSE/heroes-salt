@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Prepares the CI runner environment to run the show_highstate tests
+# See the description at the help()
 
 set -e
 
@@ -14,30 +14,32 @@ if [[ $(whoami) != 'root' ]]; then
 fi
 
 help() {
-    echo "Prepares the CI runner or workstation environment to run the show_highstate tests"
+    echo "Prepares the CI runner or workstation environment to run highstate or show_highstate tests"
     echo
     echo "Arguments:"
     echo
-    echo "-s    Strip out secrets files (CI runner can't read them)"
+    echo "-p <pkg1,pkg2> Comma-separated list of additional packages to be installed"
+    echo "-s             Strip out secrets files (CI runner can't read them)"
     echo
 }
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts sh arg; do
+while getopts p:sh arg; do
     case ${arg} in
+        p) PKG=(${OPTARG//,/ }) ;;
         s) STRIP_SECRETS=1 ;;
         h) help && exit ;;
         *) help && exit 1 ;;
     esac
 done
 
-$SUDO zypper -qn in --no-recommends salt git python3 python3-PyYAML
+$SUDO zypper -qn in --no-recommends salt git python3 python3-PyYAML ${PKG}
 $SUDO rm -rf /srv/{salt,pillar}
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
 ID=$(hostname -f)
 ROLES=$(bin/get_roles.py -o yaml)
 printf "city:\ncountry:\ndomain: infra.opensuse.org\nosfullname:\nosmajorrelease:\nosrelease_info:\n$ROLES\nsalt_cluster: opensuse\nvirt_cluster:\n" | $SUDO tee /etc/salt/grains > /dev/null
-touch pillar/id/${ID//./_}.sls
+printf "nothing: nothing" | $SUDO tee pillar/id/${ID//./_}.sls > /dev/null
 [[ -n $STRIP_SECRETS ]] && sed -i -e "s#\- secrets\..*#- id.${ID//./_}#g" $(grep -lr "\- secrets\." pillar)
