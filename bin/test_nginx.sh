@@ -17,6 +17,13 @@ reset_nginx() {
     printf "roles:\n- $role" | $SUDO tee /etc/salt/grains > /dev/null
 }
 
+reset_ip() {
+    # Reset the grains-retrieved IPs to 127.0.0.1, as `nginx -t` actually tries
+    # to bind to any configured listen IP
+
+    sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" pillar/role/$role.sls
+}
+
 create_fake_certs() {
     # We are replacing both the cert/key pair because:
     # - the key is encrypted and the CI worker can't decrypt it
@@ -49,6 +56,7 @@ for role in ${WEB_ROLES[@]}; do
     if grep nginx salt/role/$role.sls > /dev/null; then
         echo "Testing role: $role"
         reset_nginx
+        reset_ip
         $SUDO salt-call --local -l quiet state.apply role.$role > /dev/null
         create_fake_certs
         if $(nginx -tq); then

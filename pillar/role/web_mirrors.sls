@@ -1,3 +1,5 @@
+{% set ip4_private = salt['grains.get']('ipv4_interfaces:private[0]') %}
+
 include:
   - role.common.nginx
 
@@ -11,7 +13,7 @@ nginx:
         mirrors.opensuse.org.conf:
           config:
             - server:
-                - listen: 192.168.47.17:80
+                - listen: {{ ip4_private }}:80
                 - set_real_ip_from: 192.168.47.101
                 - set_real_ip_from: 192.168.47.102
                 - real_ip_header: X-Forwarded-For
