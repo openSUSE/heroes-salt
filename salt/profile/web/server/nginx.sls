@@ -6,5 +6,5 @@ include:
 {% for domain, csr in csr_dict.items() %}
 /etc/nginx/ssl/{{ domain }}.csr:
   file.managed:
-    - contents: {{ csr }}
+    - contents_pillar: profile:web:server:nginx:csr:{{ domain }}
 {% endfor %}

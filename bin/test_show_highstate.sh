@@ -31,7 +31,11 @@ write_grains() {
 for os in ${ALL_OS[@]}; do
     for location in ${ALL_LOCATIONS[@]}; do
         write_grains ${location//,/ } ${os//,/ }
-        if $($RUN_TEST > /dev/null); then
+        $RUN_TEST > /dev/null
+        _STATUS=$(echo $?)
+        # We ignore exit code 2 as it means that an empty file is produced
+        # See https://github.com/saltstack/salt/issues/39172
+        if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
             echo 'PASSED'
         else
             STATUS=1

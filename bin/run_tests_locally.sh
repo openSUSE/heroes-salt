@@ -29,20 +29,19 @@ SALT_DIRS=(
     /var/cache/salt
 )
 
-bin/test_extension.sh
-bin/test_secrets.sh
-bin/test_roles.py
-bin/test_custom_grains.py
-bin/prepare_test_show_highstate_env.sh
-bin/get_formulas.py --destination $DESTINATION --clone --symlink --use-pygit2 --update opensuse \
-    --add-remote opensuse no_prefix gitlab@gitlab.infra.opensuse.org: saltstack-formulas
+# Prepare env
 for dir in ${SALT_DIRS[@]}; do
     sudo chown -R ${USER}: $dir
 done
+bin/prepare_test_highstate_env.sh
+bin/get_formulas.py --destination $DESTINATION --clone --symlink --use-pygit2 --update opensuse \
+    --add-remote opensuse no_prefix gitlab@gitlab.infra.opensuse.org: saltstack-formulas
 echo "virtual: kvm" >> /etc/salt/grains
 ln -s ~/.gnupg /etc/salt/gpgkeys
+
+# Run tests
 echo "Running against upstream formulas"
-LC_ALL=C bin/test_show_highstate.sh
+LC_ALL=C bin/test_validate.sh
 bin/get_formulas.py --destination $DESTINATION --checkout opensuse/production
 echo "Running against forked formulas"
 LC_ALL=C bin/test_show_highstate.sh

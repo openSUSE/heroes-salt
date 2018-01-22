@@ -1,4 +1,4 @@
-{% set roles = salt['pillar.get']('grains:roles', []) %}
+{% set roles = salt['grains.get']('roles', []) %}
 
 {{ saltenv }}:
   '*':

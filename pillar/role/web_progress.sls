@@ -25,6 +25,7 @@ nginx:
                 - location /:
                     - try_files: $uri/index.html $uri.html $uri @cluster
                 - location @cluster:
-                    - proxy_pass http://redmine
+                    - proxy_pass: http://redmine
                 - access_log: /var/log/nginx/redmine.access.log combined
                 - error_log: /var/log/nginx/redmine.error.log
+          enabled: True
