@@ -1,3 +1,4 @@
+{% set host = salt['grains.get']('host') %}
 {% set ip4_private = salt['grains.get']('ipv4_interfaces:private[0]') %}
 
 include:
@@ -35,15 +36,11 @@ nginx:
                     - {{ ip4_private }}:11371
                     - default_server
                 - server_name: keyserver.opensuse.org
-                - server_name: keyserver1.opensuse.org
+                - server_name: {{ host }}.opensuse.org
                 - server_name: '*.sks-keyservers.net'
                 - server_name: '*.pool.sks-keyservers.net'
                 - server_name: pgp.mit.edu
                 - server_name: keys.gnupg.net
-                - set_real_ip_from: 192.168.47.4
-                - set_real_ip_from: 192.168.47.101
-                - set_real_ip_from: 192.168.47.102
-                - real_ip_header: X-Forwarded-For
                 - root: /srv/www/htdocs
                 - rewrite: ^/stats /pks/lookup?op=stats
                 - rewrite: ^/s/(.*) /pks/lookup?search=$1
@@ -68,7 +65,7 @@ nginx:
                 - location /pks:
                     - proxy_pass: http://127.0.0.1:11371
                     - proxy_pass_header: Server
-                    - add_header: Via "1.1 keyserver1.opensuse.org:11371"
+                    - add_header: Via "1.1 {{ host }}.opensuse.org:11371"
                     - proxy_ignore_client_abort: 'on'
                     - client_max_body_size: 8m
                 - error_page: 500 502 503 504 /50x.html
