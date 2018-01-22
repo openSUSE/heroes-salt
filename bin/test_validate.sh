@@ -11,7 +11,13 @@ TESTS=(
 )
 
 for _test in ${TESTS[@]}; do
-    bin/test_${_test} || STATUS=1
+    echo "Running test_${_test}"
+    if bin/test_${_test}; then
+        echo 'PASSED'
+    else
+        echo 'FAILED'
+        STATUS=1
+    fi
 done
 
 exit $STATUS
