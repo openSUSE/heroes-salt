@@ -224,21 +224,20 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
                 unknown_formulas.append(formula)
         if unknown_formulas:
             print("ERROR: The following given formulas are not in FORMULAS.yaml: %s\n" % ', '.join(unknown_formulas), file=sys.stderr)
-            parser.print_help()
             sys.exit(1)
 
     if (args.clone_from or args.clone_branch) and not args.clone:
-        parser.print_help()
+        print('ERROR: Please specify -c / --clone when using --clone-from or --clone-branch', file=sys.stderr)
         sys.exit(1)
 
     if not args.destination or not os.path.isabs(args.destination[0]):
-        parser.print_help()
+        print('ERROR: The given destination is not an absolute path', file=sys.stderr)
         sys.exit(1)
 
     if args.add_remote:
         for remote in args.add_remote:
             if len(remote) < 2:
-                parser.print_help()
+                print('ERROR: At least two parameters are required for -r / --add-remote', file=sys.stderr)
                 sys.exit(1)
 
     if args.clone:
