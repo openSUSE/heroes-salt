@@ -2,6 +2,7 @@
 
 # For description and usage, see the argparse options at the end of the file
 
+from copy import copy
 import argparse
 import os
 import sys
@@ -163,11 +164,14 @@ def checkout_remote_and_branch(REMOTE_BRANCH, DEST):
 
 
 with open('pillar/FORMULAS.yaml', 'r') as f:
-    FORMULAS = yaml.load(f)
+    FORMULAS_YAML = yaml.load(f)
+
+FORMULAS = copy(FORMULAS_YAML)
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the formulas from FORMULAS.yaml and performs one or more of the operations specified at the arguments.')
 parser.add_argument('-q', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
 parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
+parser.add_argument('-f', '--formulas', action='append', nargs='+', help='Specify specific formulas to operate on, instead of working with all the specified FORMULAS.yaml formulas.')
 parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
 parser.add_argument('--clone-branch', nargs=1, help='Specify the branch to clone.')
@@ -204,18 +208,36 @@ if args.remove_symlinks:
 if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or type(args.update) == list or args.push or args.checkout:
     will_run = True
 
+    if args.formulas:
+        unknown_formulas = []
+        args_formulas = []
+        FORMULAS = {}
+
+        for sublist in args.formulas:
+            for item in sublist:
+                args_formulas.append(item)
+
+        for formula in args_formulas:
+            try:
+                FORMULAS[formula] = FORMULAS_YAML[formula]
+            except KeyError:
+                unknown_formulas.append(formula)
+        if unknown_formulas:
+            print("ERROR: The following given formulas are not in FORMULAS.yaml: %s\n" % ', '.join(unknown_formulas), file=sys.stderr)
+            sys.exit(1)
+
     if (args.clone_from or args.clone_branch) and not args.clone:
-        parser.print_help()
+        print('ERROR: Please specify -c / --clone when using --clone-from or --clone-branch', file=sys.stderr)
         sys.exit(1)
 
     if not args.destination or not os.path.isabs(args.destination[0]):
-        parser.print_help()
+        print('ERROR: The given destination is not an absolute path', file=sys.stderr)
         sys.exit(1)
 
     if args.add_remote:
         for remote in args.add_remote:
             if len(remote) < 2:
-                parser.print_help()
+                print('ERROR: At least two parameters are required for -r / --add-remote', file=sys.stderr)
                 sys.exit(1)
 
     if args.clone:
