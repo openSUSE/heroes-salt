@@ -71,6 +71,7 @@ salt:
     hash_type: sha512
     ipv6: false
 sshd_config:
+  AuthorizedKeysFile: .ssh/authorized_keys
   AuthorizedKeysCommand: /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
   AuthorizedKeysCommandUser: nobody
   HostKey:
@@ -80,6 +81,7 @@ sshd_config:
     {% if osrelease != '11.3' %}
     - /etc/ssh/ssh_host_ed25519_key
     {% endif %}
+  PasswordAuthentication: no
   PermitRootLogin: without-password
   PrintMotd: yes
   {% if osrelease.startswith('11') and (salt['grains.get']('cpuarch') == 'x86_64') %}
@@ -90,6 +92,7 @@ sshd_config:
   Subsystem: sftp /usr/lib/ssh/sftp-server
   {% endif %}
   UseDNS: yes
+  UsePAM: yes
   matches:
     root:
       type:
