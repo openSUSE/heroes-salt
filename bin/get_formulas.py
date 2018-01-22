@@ -224,7 +224,6 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
                 unknown_formulas.append(formula)
         if unknown_formulas:
             print("ERROR: The following given formulas are not in FORMULAS.yaml: %s\n" % ', '.join(unknown_formulas), file=sys.stderr)
-
             parser.print_help()
             sys.exit(1)
 
