@@ -14,9 +14,6 @@ nginx:
           config:
             - server:
                 - listen: {{ ip4_private }}:80
-                - set_real_ip_from: 192.168.47.101
-                - set_real_ip_from: 192.168.47.102
-                - real_ip_header: X-Forwarded-For
                 - location /:
                     - root: /srv/www/vhosts/mirrors.opensuse.org
                     - index:

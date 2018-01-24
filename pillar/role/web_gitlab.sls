@@ -128,10 +128,6 @@ nginx:
                 - ssl_dhparam: /etc/nginx/ssl/gitlab.infra.opensuse.org.dhparams
                 ## [Optional] Enable HTTP Strict Transport Security
                 - add_header: Strict-Transport-Security "max-age=31536000; includeSubDomains"
-                ## Real IP Module Config
-                ## http://nginx.org/en/docs/http/ngx_http_realip_module.html
-                - real_ip_header: X-Forwarded-For
-                - real_ip_recursive: 'off'
                 - access_log:
                     - /var/log/nginx/gitlab_access.log
                     - gitlab_ssl_access

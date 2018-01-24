@@ -25,7 +25,6 @@ nginx:
                     - default_server
                     {% endif %}
                 - root: /srv/www/vhosts/{{ website }}.opensuse.org
-                - gzip: 'on'
                 - gzip_vary: 'on'
                 - gzip_min_length: 1000
                 - gzip_comp_level: 5
