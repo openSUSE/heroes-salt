@@ -22,3 +22,9 @@ nginx:
                 - location = /50x.html:
                     - root: /srv/www/htdocs
           enabled: True
+sudoers:
+  included_files:
+    /etc/sudoers.d/group_mirrors-admins:
+      groups:
+        mirrors-admins:
+          - 'ALL=(ALL) ALL'
