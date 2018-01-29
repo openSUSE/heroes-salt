@@ -36,7 +36,6 @@ done
 bin/prepare_test_highstate_env.sh
 bin/get_formulas.py --destination $DESTINATION --clone --symlink --use-pygit2 --update opensuse \
     --add-remote opensuse no_prefix gitlab@gitlab.infra.opensuse.org: saltstack-formulas
-echo "virtual: kvm" >> /etc/salt/grains
 ln -s ~/.gnupg /etc/salt/gpgkeys
 
 # Run tests
