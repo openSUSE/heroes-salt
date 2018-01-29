@@ -18,14 +18,14 @@ ALL_OS=(
     SLES,12,3
 )
 ALL_LOCATIONS=(
-    nuremberg,de,atreju
-    provo,us,bryce
+    de,nuremberg,atreju
+    us,provo,bryce
 )
 
 write_grains() {
-    $SUDO sed -i -e "s/\(city:\).*/\1 $1/" -e "s/\(country:\).*/\1 $2/" -e "s/\(osfullname:\).*/\1 $4/" -e "s/\(osmajorrelease:\).*/\1 $5/" \
+    $SUDO sed -i -e "s/\(city:\).*/\1 $2/" -e "s/\(country:\).*/\1 $1/" -e "s/\(osfullname:\).*/\1 $4/" -e "s/\(osmajorrelease:\).*/\1 $5/" \
         -e "s/\(osrelease_info:\).*/\1 [$5, $6]/" -e "s/\(virt_cluster:\).*/\1 $3/" /etc/salt/grains
-    echo "Grains: osfullname: $4, osmajorrelease: $5, city: $1, country: $2, virt_cluster: $3"
+    echo "Grains: osfullname: $4, osmajorrelease: $5, city: $2, country: $1, virt_cluster: $3"
 }
 
 for os in ${ALL_OS[@]}; do
