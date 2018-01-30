@@ -42,6 +42,7 @@ for os in ${ALL_OS[@]}; do
             if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
                 echo 'PASSED'
             else
+                echo 'FAILED'
                 STATUS=1
             fi
             echo
