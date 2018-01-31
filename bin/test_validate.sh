@@ -4,6 +4,7 @@
 
 TESTS=(
     extension.sh
+    empty_files.sh
     secrets.sh
     roles.py
     custom_grains.py
