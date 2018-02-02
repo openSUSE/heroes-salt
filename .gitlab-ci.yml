@@ -34,7 +34,6 @@ test_nginx:
     GIT_SSL_NO_VERIFY: 'true'
   before_script:
     - bin/prepare_test_env.sh -g -p nginx
-    - cp -a /etc/nginx /etc/nginx_orig
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f nginx
   script: bin/test_nginx.sh
   tags:
