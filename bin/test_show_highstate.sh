@@ -2,6 +2,8 @@
 
 # Runs state.show_highstate using all localized grains' combinations
 
+source bin/get_colors.sh
+
 if [[ $(whoami) != 'root' ]]; then
     if [[ -f /usr/bin/sudo ]]; then
         SUDO='/usr/bin/sudo'
@@ -25,7 +27,7 @@ ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
 write_grains() {
     $SUDO sed -i -e "s/\(city:\).*/\1 $2/" -e "s/\(country:\).*/\1 $1/" -e "s/\(osfullname:\).*/\1 $4/" -e "s/\(osmajorrelease:\).*/\1 $5/" \
         -e "s/\(osrelease_info:\).*/\1 [$5, $6]/" -e "s/\(virt_cluster:\).*/\1 $3/" -e "s/\(virtual:\).*/\1 $7/" /etc/salt/grains
-    echo "Grains: osfullname: $4, osmajorrelease: $5, city: $2, country: $1, virt_cluster: $3, virtual: $7"
+    echo_INFO "Grains: osfullname: $4, osmajorrelease: $5, city: $2, country: $1, virt_cluster: $3, virtual: $7"
 }
 
 for os in ${ALL_OS[@]}; do
@@ -37,9 +39,9 @@ for os in ${ALL_OS[@]}; do
             # We ignore exit code 2 as it means that an empty file is produced
             # See https://github.com/saltstack/salt/issues/39172
             if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
-                echo 'PASSED'
+                echo_PASSED
             else
-                echo 'FAILED'
+                echo_FAILED
                 STATUS=1
             fi
             echo
