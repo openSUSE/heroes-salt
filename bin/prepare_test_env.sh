@@ -20,17 +20,19 @@ help() {
     echo
     echo "-p <pkg1,pkg2> Comma-separated list of additional packages to be installed"
     echo "-g             Make preparation for show_highstate"
-    echo "-s             Strip out secrets files (CI runner can't read them)"
+    echo "-s             Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
     echo
 }
 
 [[ $1 == '--help' ]] && help && exit
 
+SECRETS="False"
+
 while getopts p:gsh arg; do
     case ${arg} in
         p) PKG=(${OPTARG//,/ }) ;;
         g) HIGHSTATE=1 ;;
-        s) STRIP_SECRETS=1 ;;
+        s) SECRETS="True" ;;
         h) help && exit ;;
         *) help && exit 1 ;;
     esac
@@ -46,9 +48,5 @@ ID=$(hostname -f)
 printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  salt_cluster: opensuse\n  virt_cluster: atreju\n" > pillar/id/${ID//./_}.sls
 if [[ -n $HIGHSTATE ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
-    printf "city:\ncountry:\ndomain: infra.opensuse.org\nosfullname:\nosmajorrelease:\nosrelease_info:\n$ROLES\nsalt_cluster: opensuse\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
-    if [[ -n $STRIP_SECRETS ]]; then
-        SECRETS=$(grep -lr "\- secrets\." pillar || true)
-        if [[ -n $SECRETS ]]; then sed -i -e "s#\- secrets\..*#- id.${ID//./_}#g" $SECRETS; fi
-    fi
+    printf "city:\ncountry:\ndomain: infra.opensuse.org\ninclude_secrets: $SECRETS\nosfullname:\nosmajorrelease:\nosrelease_info:\n$ROLES\nsalt_cluster: opensuse\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
 fi

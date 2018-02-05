@@ -9,7 +9,7 @@ validate:
     # TODO: get rid of GIT_SSL_NO_VERIFY as soon as we switch to letsencrypt wildcard certs
     GIT_SSL_NO_VERIFY: 'true'
   before_script:
-    - bin/prepare_test_env.sh -g -s
+    - bin/prepare_test_env.sh -g
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
   script: bin/test_validate.sh
   tags:
@@ -18,7 +18,7 @@ validate:
 validate_show_highstate_against_upstream_formulas:
   stage: validate
   before_script:
-    - bin/prepare_test_env.sh -g -s
+    - bin/prepare_test_env.sh -g
     - bin/get_formulas.py -c -d /srv/formula -s
   script: bin/test_show_highstate.sh
   allow_failure: true

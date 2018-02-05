@@ -1,6 +1,8 @@
 include:
   - role.common.nginx
+  {% if salt['grains.get']('include_secrets', True) %}
   - secrets.role.web_gitlab
+  {% endif %}
 
 nginx:
   ng:
