@@ -2,6 +2,8 @@
 
 # Run various code validation/syntax checks
 
+source bin/get_colors.sh
+
 TESTS=(
     extension.sh
     empty_files.sh
@@ -12,13 +14,14 @@ TESTS=(
 )
 
 for _test in ${TESTS[@]}; do
-    echo "Running test_${_test}"
+    echo_INFO "## Running test_${_test}"
     if bin/test_${_test}; then
-        echo 'PASSED'
+        echo_PASSED
     else
-        echo 'FAILED'
+        echo_FAILED
         STATUS=1
     fi
+    echo
 done
 
 exit $STATUS

@@ -4,6 +4,8 @@
 
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
 
+source bin/get_colors.sh
+
 reset_nginx() {
     rm -rf /etc/nginx
     cp -a /etc/nginx_orig /etc/nginx
@@ -49,15 +51,15 @@ WEB_ROLES=( $(bin/get_roles.py | grep web_) )
 
 for role in ${WEB_ROLES[@]}; do
     if grep nginx salt/role/$role.sls > /dev/null; then
-        echo "Testing role: $role"
+        echo_INFO "Testing role: $role"
         reset_nginx
         reset_ip
         salt-call --local -l quiet state.apply role.$role > /dev/null
         create_fake_certs
         if $(nginx -tq); then
-            echo 'PASSED'
+            echo_PASSED
         else
-            echo 'FAILED'
+            echo_FAILED
             STATUS=1
         fi
         echo
