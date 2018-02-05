@@ -1,4 +1,4 @@
-{% set ip4_private = salt['grains.get']('ipv4_interfaces:private[0]') %}
+{% set ip4_private = salt['grains.get']('ip4_interfaces:private', '127.0.0.1')[0] %}
 
 include:
   - role.common.nginx
