@@ -33,7 +33,7 @@ SALT_DIRS=(
 for dir in ${SALT_DIRS[@]}; do
     sudo chown -R ${USER}: $dir
 done
-bin/prepare_test_highstate_env.sh
+bin/prepare_test_env.sh -g -p python3-pygit2
 bin/get_formulas.py --destination $DESTINATION --clone --symlink --use-pygit2 --update opensuse \
     --add-remote opensuse no_prefix gitlab@gitlab.infra.opensuse.org: saltstack-formulas
 ln -s ~/.gnupg /etc/salt/gpgkeys

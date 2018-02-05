@@ -20,10 +20,7 @@ ALL_OS=(
     SLES,11,4
     SLES,12,3
 )
-ALL_LOCATIONS=(
-    de,nuremberg,atreju
-    us,provo,bryce
-)
+ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
 
 write_grains() {
     $SUDO sed -i -e "s/\(city:\).*/\1 $2/" -e "s/\(country:\).*/\1 $1/" -e "s/\(osfullname:\).*/\1 $4/" -e "s/\(osmajorrelease:\).*/\1 $5/" \

@@ -43,6 +43,8 @@ create_fake_certs() {
     done
 }
 
+cp -a /etc/nginx /etc/nginx_orig
+
 WEB_ROLES=( $(bin/get_roles.py | grep web_) )
 
 for role in ${WEB_ROLES[@]}; do
@@ -55,8 +57,10 @@ for role in ${WEB_ROLES[@]}; do
         if $(nginx -tq); then
             echo 'PASSED'
         else
+            echo 'FAILED'
             STATUS=1
         fi
+        echo
     fi
 done
 
