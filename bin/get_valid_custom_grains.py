@@ -22,7 +22,11 @@ def print_valid_localized_grains():
     results = []
     all_valid_localized_grains = get_all_valid_localized_grains()
     for country, items in all_valid_localized_grains.items():
-        results.append('%s,%s' % (country, ','.join(items.values())))
+        if type(items['virt_cluster']) == str:
+            results.append('%s,%s,%s' % (country, items['city'], items['virt_cluster']))
+        elif type(items['virt_cluster']) == list:
+            for virt_cluster in items['virt_cluster']:
+                results.append('%s,%s,%s' % (country, items['city'], virt_cluster))
     print('\n'.join(results))
 
 
