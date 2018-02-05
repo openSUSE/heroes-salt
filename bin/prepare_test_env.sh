@@ -48,7 +48,7 @@ if [[ -n $HIGHSTATE ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
     printf "city:\ncountry:\ndomain: infra.opensuse.org\nosfullname:\nosmajorrelease:\nosrelease_info:\n$ROLES\nsalt_cluster: opensuse\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
     if [[ -n $STRIP_SECRETS ]]; then
-        SECRETS=$(grep -lr "\- secrets\." pillar)
-        [[ -n $SECRETS ]] && sed -i -e "s#\- secrets\..*#- id.${ID//./_}#g" $SECRETS
+        SECRETS=$(grep -lr "\- secrets\." pillar || true)
+        if [[ -n $SECRETS ]]; then sed -i -e "s#\- secrets\..*#- id.${ID//./_}#g" $SECRETS; fi
     fi
 fi
