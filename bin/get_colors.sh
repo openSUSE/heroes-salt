@@ -11,5 +11,5 @@ echo_FAILED() {
 }
 
 echo_INFO() {
-    echo -e "\e[33m${1}\e[0m"
+    echo -e "\e[33m${*}\e[0m"
 }
