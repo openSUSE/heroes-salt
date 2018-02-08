@@ -1,4 +1,8 @@
-{% set ip4_private = salt['grains.get']('ip4_interfaces:private', '127.0.0.1')[0] %}
+{% if saltenv == 'production' %}
+{% set ip4_private = salt['grains.get']('ip4_interfaces:private')[0] %}
+{% else %}
+{% set ip4_private = '127.0.0.1' %}
+{% endif %}
 
 include:
   - role.common.nginx
