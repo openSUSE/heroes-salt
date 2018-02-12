@@ -49,3 +49,9 @@ profile:
         - pnp4nagios
         - pnp4nagios-icinga
 {% endif %}
+sudoers:
+  included_files:
+    /etc/sudoers.d/group_monitoring-admins:
+      groups:
+        monitoring-admins:
+          - 'ALL=(ALL) ALL'
