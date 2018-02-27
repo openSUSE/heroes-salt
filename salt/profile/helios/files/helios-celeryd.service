@@ -1,0 +1,13 @@
+[Unit]
+Description=Celery Service
+After=network.target
+
+[Service]
+Type=simple
+User=celery
+Group=celery
+WorkingDirectory=/usr/lib/python2.7/site-packages/helios-server
+ExecStart=/usr/bin/python manage.py celeryd
+
+[Install]
+WantedBy=multi-user.target

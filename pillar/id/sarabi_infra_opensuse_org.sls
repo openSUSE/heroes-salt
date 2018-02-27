@@ -2,6 +2,8 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - future elections.o.o
+    - elections.o.o
+  roles:
+    - helios
   salt_cluster: opensuse
   virt_cluster: atreju
