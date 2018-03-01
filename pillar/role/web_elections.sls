@@ -1,7 +1,7 @@
 include:
   - role.common.nginx
   {% if salt['grains.get']('include_secrets', True) %}
-  - secrets.role.helios
+  - secrets.role.web_elections
   {% endif %}
 
 nginx:
@@ -25,7 +25,7 @@ nginx:
               - error_log: /var/log/nginx/elections.error.log
           enabled: True
 
-# postgres:users:helios:password included from pillar/secrets/role/helios.sls
+# postgres:users:helios:password included from pillar/secrets/role/web_elections.sls
 
 profile:
   helios:
@@ -43,7 +43,7 @@ profile:
       - warlordfff
     email_host: relay.infra.opensuse.org
     help_email_address: election-officials@opensuse.org
-    # secret_key included from pillar/secrets/role/helios.sls
+    # secret_key included from pillar/secrets/role/web_elections.sls
     url_host: https://elections.opensuse.org
 
 zypper:

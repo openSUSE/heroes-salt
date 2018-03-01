@@ -4,6 +4,6 @@ grains:
   hostusage:
     - elections.o.o
   roles:
-    - helios
+    - web_elections
   salt_cluster: opensuse
   virt_cluster: atreju
