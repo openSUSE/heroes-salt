@@ -9,11 +9,11 @@ helios-server-uwsgi:
     - source: salt://profile/helios/files/settings.py
     - template: jinja
 
-celery:
+helios-celeryd:
   group.present:
     - system: True
   user.present:
-    - gid: celery
+    - gid: helios-celeryd
     - system: True
 
 /etc/systemd/system/helios-celeryd.service:
