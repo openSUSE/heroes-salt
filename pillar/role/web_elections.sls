@@ -47,9 +47,6 @@ profile:
     url_host: https://elections.opensuse.org
 
 zypper:
-  packages:
-    helios-server: {}
-    helios-server-uwsgi: {}
   repositories:
     openSUSE:infrastructure:elections.opensuse.org:
       baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/elections.opensuse.org/openSUSE_Leap_{{ salt['grains.get']('osrelease') }}/

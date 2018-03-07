@@ -1,3 +1,9 @@
+helios:
+  pkg.installed:
+    - pkgs:
+      - helios-server
+      - helios-server-uwsgi
+
 helios-server-uwsgi:
   service.running:
     - enable: True
