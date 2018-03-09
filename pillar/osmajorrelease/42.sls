@@ -14,3 +14,7 @@ limits:
       - limit_type: soft
         limit_item: nproc
         limit_value: 1850
+
+zypper:
+  packages:
+    mlocate: {}
