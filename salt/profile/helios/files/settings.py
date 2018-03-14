@@ -42,6 +42,9 @@ DATABASES = {
         'HOST': '{{ helios.database_host }}',
         'USER': '{{ helios.database_user }}',
         'PASSWORD': '{{ salt['pillar.get']('postgres:users:helios:password') }}',
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
     }
 }
 
