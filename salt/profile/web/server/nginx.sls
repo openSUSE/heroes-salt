@@ -3,6 +3,10 @@
 include:
   - nginx.ng
 
+nginx_vim_plugin:
+  pkg.installed:
+    - name: vim-plugin-nginx
+
 {% for domain, csr in csr_dict.items() %}
 /etc/nginx/ssl/{{ domain }}.csr:
   file.managed:
