@@ -155,6 +155,7 @@ zypper:
   packages:
     abuild-online-update: {}
     ca-certificates-freeipa-opensuse: {}
+    command-not-found: {}
     curl: {}
     dhcp-client: {}
     less: {}
