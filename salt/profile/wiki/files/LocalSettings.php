@@ -108,6 +108,7 @@ $wgRightsIcon = "";
 
 # $wgDefaultSkin = 'bento';
 wfLoadSkin('bento');
+wfLoadSkin('Chameleon');
 
 # $wgLocalTZoffset = date("Z") / 3600; # 3600 is obviously wrong, since the value is expected in minutes
 $wgGroupPermissions['*']['edit'] = false;

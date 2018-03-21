@@ -32,6 +32,3 @@ $wgDBmysql5 = true;
 {%- endif %}
 
 $wgDefaultSkin = "{{ data.get('skin', 'bento') }}";
-{%- if 'skin' in data %}
-wfLoadSkin('Chameleon');
-{%- endif %}
