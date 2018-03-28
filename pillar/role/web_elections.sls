@@ -29,6 +29,9 @@ nginx:
 
 profile:
   helios:
+    allowed_hosts:
+      - elections.opensuse.org
+      - localhost
     database_host: postgresql.infra.opensuse.org
     database_name: helios
     database_user: helios
