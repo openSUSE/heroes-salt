@@ -1,0 +1,2 @@
+include:
+  - profile.crtmgr.dehydrated
