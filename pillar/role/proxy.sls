@@ -22,11 +22,11 @@ keepalived:
         - 172.16.42.103/24 dev login
         # mirrordb.opensuse.org
         - 195.135.221.138/25 dev external
-        - 2001:67c:2178:8::15/64 dev external
+        - 2620:113:80c0:8::15/64 dev external
         # proxy-nue.opensuse.org
         - 195.135.221.140/25 dev external
-        - 2001:67c:2178:8::16/64 dev external
+        - 2620:113:80c0:8::16/64 dev external
         # static.opensuse.org
         - 195.135.221.143/25 dev external
-        - 2001:67c:2178:8::18/64 dev external
+        - 2620:113:80c0:8::18/64 dev external
       virtual_router_id: 51
