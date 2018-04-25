@@ -23,7 +23,7 @@ keepalived:
         # external IPs
         # login2.opensuse.org
         - 195.135.221.161/25 dev external
-        - 2001:67c:2178:8::161/64 dev external
+        - 2620:113:80c0:8::161/64 dev external
         # login IPs
         # daffy.login.infra.opensuse.org.
         - 172.16.42.3/24 dev login
