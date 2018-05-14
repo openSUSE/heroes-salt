@@ -9,5 +9,9 @@ Group=helios-celeryd
 WorkingDirectory=/usr/lib/python2.7/site-packages/helios-server
 ExecStart=/usr/bin/python manage.py celeryd
 
+# celeryd crashes (unfortunately with $? = 0) if it looses the database connection, so auto-restart it
+Restart=always
+RestartSec=10
+
 [Install]
 WantedBy=multi-user.target
