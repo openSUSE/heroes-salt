@@ -31,4 +31,4 @@ $wgDBmysql5 = false;  # old-en and old-de don't work with utf8 DB connection
 $wgDBmysql5 = true;
 {%- endif %}
 
-$wgDefaultSkin = "{{ data.get('skin', 'bento') }}";
+$wgDefaultSkin = "{{ data.get('skin', 'chameleon') }}";
