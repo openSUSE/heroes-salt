@@ -2,6 +2,7 @@ memcached:
   pkg.installed:
     - pkgs:
       - memcached
+      - monitoring-plugins-memcached
   service.running:
     - enable: True
 

@@ -111,5 +111,6 @@ zypper:
     apache2-prefork: {}
     mediawiki_1_27-openSUSE: {}
     mariadb-client: {}
+    check_mk-agent-apache_status: {}
     # needed for migration to unpack tarballs
     tar: {}
