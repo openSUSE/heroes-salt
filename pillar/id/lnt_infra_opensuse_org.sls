@@ -2,8 +2,8 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - future replacement of gcc.o.o / gcc-stats.i.o.o
+    - lnt.o.o
   roles:
-    - web_gcc
+    - web_lnt
   salt_cluster: opensuse
   virt_cluster: atreju
