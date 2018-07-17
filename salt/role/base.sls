@@ -6,4 +6,5 @@ include:
   - profile.monitoring
   - profile.regional
   - profile.salt.minion
+  - profile.sysctl
   - profile.zypper
