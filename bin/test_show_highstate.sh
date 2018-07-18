@@ -18,6 +18,7 @@ ALL_VIRTUAL=(
     kvm
 )
 ALL_OS=(
+    Leap,15,0
     Leap,42,3
     SLES,11,4
     SLES,12,3
