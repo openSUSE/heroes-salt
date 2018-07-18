@@ -3,8 +3,10 @@
 # For description and usage, see the argparse options at the end of the file
 
 from copy import copy
+from pygit2.errors import GitError
 import argparse
 import os
+import pygit2
 import sys
 import yaml
 
@@ -26,7 +28,7 @@ def check_open_pull_requests():
 
 
 def git(cmd, cwd=None):
-    # pygit2 is not available for python3 in Leap, use plain git instead
+    # TODO migrate to pygit2
 
     import subprocess
 
@@ -35,20 +37,13 @@ def git(cmd, cwd=None):
         sys.exit(status)
 
 
-def clone(CLONE_FROM, CLONE_BRANCH, DEST, USE_PYGIT2):
+def clone(CLONE_FROM, CLONE_BRANCH, DEST):
     def clone_repo():
         FULL_PATH = '%s/%s-formula' % (DEST, formula)
         if os.path.isdir(FULL_PATH):
             return
 
-        if USE_PYGIT2:
-            import pygit2
-
-            pygit2.clone_repository(url, FULL_PATH, bare=False)
-        else:
-            if not os.path.exists(DEST):
-                os.mkdir(DEST)
-            git(['clone', '-q', url, FULL_PATH] + branch_opts)
+        pygit2.clone_repository(url, FULL_PATH, bare=False)
 
     branch_opts = []
     if CLONE_BRANCH:
@@ -80,9 +75,6 @@ def remove_symlinks():
 
 
 def fetch_remote(remote, formula):
-    from pygit2.errors import GitError
-    import pygit2
-
     remotecallbacks = None
     if not remote.url.startswith(('http://', 'https://', 'git://', 'ssh://', 'git+ssh://')):
         username = remote.url.split('@')[0]
@@ -95,8 +87,6 @@ def fetch_remote(remote, formula):
 
 
 def add_remote(REMOTES, DEST):
-    import pygit2
-
     for remote in REMOTES:
         namespace = None
         if len(remote) == 4:
@@ -131,8 +121,6 @@ def add_remote(REMOTES, DEST):
 
 
 def update(REMOTES, DEST):
-    import pygit2
-
     for formula in FORMULAS.keys():
         FULL_PATH = '%s/%s-formula' % (DEST, formula)
         repo = pygit2.Repository(FULL_PATH)
@@ -144,8 +132,6 @@ def update(REMOTES, DEST):
 
 
 def push(REMOTES, DEST):
-    import pygit2
-
     for formula in FORMULAS.keys():
         FULL_PATH = '%s/%s-formula' % (DEST, formula)
         repo = pygit2.Repository(FULL_PATH)
@@ -191,7 +177,6 @@ Examples:
 parser.add_argument('-u', '--update', nargs='*', help='Switch to origin/master and git pull. Optionally it can accept a list of remotes as arguments, that will be fetched.')
 parser.add_argument('-p', '--push', nargs='+', help='Pushes (with --force) to the given list of remotes from origin/master to their master and production branch, and then fetches them.')
 parser.add_argument('--checkout', nargs=1, help='Checkout to the specified remote/branch.')
-parser.add_argument('--use-pygit2', action='store_true', help='Use pygit2 instead of invoking git whenever possible.')
 args = parser.parse_args()
 
 will_run = False
@@ -247,7 +232,7 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
             clone_from = args.clone_from[0]
         if args.clone_branch:
             clone_branch = args.clone_branch[0]
-        clone(clone_from, clone_branch, args.destination[0], args.use_pygit2)
+        clone(clone_from, clone_branch, args.destination[0])
 
     if args.symlink:
         create_symlinks(args.destination[0])

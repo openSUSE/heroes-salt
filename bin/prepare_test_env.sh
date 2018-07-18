@@ -40,7 +40,7 @@ done
 
 [[ -n $HIGHSTATE ]] && HIGHSTATE_PKGS=( git python3-PyYAML )
 
-$SUDO zypper -qn in --no-recommends salt ${HIGHSTATE_PKGS[@]} ${PKG[@]}
+$SUDO zypper -qn in --no-recommends salt python3-pygit2 ca-certificates-freeipa-opensuse ${HIGHSTATE_PKGS[@]} ${PKG[@]}
 $SUDO rm -rf /srv/{salt,pillar}
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
