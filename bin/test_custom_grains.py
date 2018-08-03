@@ -53,6 +53,8 @@ for sls in all_ids:
 
     try:
         valid_localized_grains = all_valid_localized_grains[mygrains['country']]
+        for ignored_key in ['domains', 'default_domain', 'default_virt_cluster']:
+            valid_localized_grains.pop(ignored_key, None)
         for key, valid_values in valid_localized_grains.items():
             status = test_custom_grain(mygrains, sls, key, valid_values, status)
     except KeyError:

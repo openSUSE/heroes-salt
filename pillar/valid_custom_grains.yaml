@@ -5,7 +5,13 @@ global:
 localized:
   de:
     city: nuremberg
+    default_domain: infra.opensuse.org
+    default_virt_cluster: atreju
+    domains: infra.opensuse.org
     virt_cluster: atreju
   us:
     city: provo
+    default_domain: infra.opensuse.org
+    default_virt_cluster: bryce
+    domains: infra.opensuse.org
     virt_cluster: bryce
