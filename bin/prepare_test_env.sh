@@ -20,6 +20,7 @@ help() {
     echo
     echo "-p <pkg1,pkg2> Comma-separated list of additional packages to be installed"
     echo "-i <instance>  Choose gitlab instance. Choices: opensuse, suse"
+    echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,42,3\", \"SLES,12,3\""
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
     echo
@@ -31,10 +32,11 @@ help() {
 SECRETS="False"
 #REPO_URL=${PRETTY_NAME// /_}
 
-while getopts p:i:gsh arg; do
+while getopts p:i:o:gsh arg; do
     case ${arg} in
         p) PKG=(${OPTARG//,/ }) ;;
         i) INSTANCE=${OPTARG} ;;
+        o) OS=(${OPTARG//,/ }) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
         h) help && exit ;;
@@ -67,5 +69,6 @@ ID=$(hostname -f)
 printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  salt_cluster: $SALT_CLUSTER\n  virt_cluster: $VIRT_CLUSTER\n" > pillar/id/${ID//./_}.sls
 if [[ -n $HIGHSTATE ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
-    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\nosfullname:\nosmajorrelease:\nosrelease_info:\n$ROLES\nsalt_cluster: $SALT_CLUSTER\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
+    [[ -n $OS ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]\n"
+    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS$ROLES\nsalt_cluster: $SALT_CLUSTER\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
 fi
