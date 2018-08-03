@@ -18,6 +18,7 @@ ALL_VIRTUAL=(
     kvm
 )
 ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
+PHYSICAL_ONLY_VIRT_CLUSTER=( $(bin/get_valid_custom_grains.py -p) )
 
 write_grains() {
     $SUDO sed -i -e "s/\(city:\).*/\1 $2/" -e "s/\(country:\).*/\1 $1/" -e "s/\(virt_cluster:\).*/\1 $3/" -e "s/\(virtual:\).*/\1 $4/" /etc/salt/grains
@@ -26,6 +27,9 @@ write_grains() {
 
 for location in ${ALL_LOCATIONS[@]}; do
     for virtual in ${ALL_VIRTUAL[@]}; do
+        if [[ $virtual == 'kvm' ]] && [[ ${PHYSICAL_ONLY_VIRT_CLUSTER[@]} =~ ${location##*,} ]]; then
+            continue
+        fi
         write_grains ${location//,/ } ${virtual}
         $RUN_TEST > /dev/null
         _STATUS=$(echo $?)
