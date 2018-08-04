@@ -10,7 +10,6 @@ TESTS=(
     secrets.sh
     roles.py
     custom_grains.py
-    show_highstate.sh
 )
 
 for _test in ${TESTS[@]}; do

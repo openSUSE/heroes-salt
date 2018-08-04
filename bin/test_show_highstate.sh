@@ -17,36 +17,54 @@ RUN_TEST="salt-call --local --retcode-passthrough state.show_highstate"
 ALL_VIRTUAL=(
     kvm
 )
-ALL_OS=(
-    Leap,15,0
-    Leap,42,3
-    SLES,11,4
-    SLES,12,3
-)
-ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
+PHYSICAL_ONLY_VIRT_CLUSTER=( $(bin/get_valid_custom_grains.py -p) )
 
 write_grains() {
-    $SUDO sed -i -e "s/\(city:\).*/\1 $2/" -e "s/\(country:\).*/\1 $1/" -e "s/\(osfullname:\).*/\1 $4/" -e "s/\(osmajorrelease:\).*/\1 $5/" \
-        -e "s/\(osrelease_info:\).*/\1 [$5, $6]/" -e "s/\(virt_cluster:\).*/\1 $3/" -e "s/\(virtual:\).*/\1 $7/" /etc/salt/grains
-    echo_INFO "Grains: osfullname: $4, osmajorrelease: $5, city: $2, country: $1, virt_cluster: $3, virtual: $7"
+    $SUDO sed -i -e "s/\(city:\).*/\1 $2/" -e "s/\(country:\).*/\1 $1/" -e "s/\(domain:\).*/\1 $5/" -e "s/\(virt_cluster:\).*/\1 $3/" -e "s/\(virtual:\).*/\1 $4/" /etc/salt/grains
+    echo_INFO "Grains: city: $2, country: $1, domain: $5, virt_cluster: $3, virtual: $4"
 }
 
-for os in ${ALL_OS[@]}; do
-    for location in ${ALL_LOCATIONS[@]}; do
-        for virtual in ${ALL_VIRTUAL[@]}; do
-            write_grains ${location//,/ } ${os//,/ } ${virtual}
-            $RUN_TEST > /dev/null
-            _STATUS=$(echo $?)
-            # We ignore exit code 2 as it means that an empty file is produced
-            # See https://github.com/saltstack/salt/issues/39172
-            if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
-                echo_PASSED
-            else
-                echo_FAILED
-                STATUS=1
-            fi
-            echo
-        done
+show_highstate() {
+    write_grains $country $city $virt_cluster $virtual $domain
+    $RUN_TEST > /dev/null
+    _STATUS=$?
+    # We ignore exit code 2 as it means that an empty file is produced
+    # See https://github.com/saltstack/salt/issues/39172
+    if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
+        echo_PASSED
+    else
+        echo_FAILED
+        STATUS=1
+    fi
+    echo
+}
+
+ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
+for location in ${ALL_LOCATIONS[@]}; do
+    LOCATION=(${location//,/ })
+    country=${LOCATION[0]}
+    city=${LOCATION[1]}
+    virt_cluster=${LOCATION[2]}
+    domain=$(bin/get_valid_custom_grains.py --default-domain $country)
+    for virtual in ${ALL_VIRTUAL[@]}; do
+        if [[ $virtual == 'kvm' ]] && [[ ${PHYSICAL_ONLY_VIRT_CLUSTER[@]} =~ $virt_cluster ]]; then
+            continue
+        fi
+        show_highstate
+    done
+done
+
+ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py -v) )
+for location in ${ALL_LOCATIONS[@]}; do
+    LOCATION=(${location//,/ })
+    country=${LOCATION[0]}
+    city=${LOCATION[1]}
+    virt_cluster=${LOCATION[2]}
+    default_domain=$(bin/get_valid_custom_grains.py --default-domain $country)
+    virtual='kvm'
+    DOMAINS=( $(bin/get_valid_custom_grains.py -d $country) )
+    for domain in ${DOMAINS[@]}; do
+        [[ $domain == $default_domain ]] || show_highstate
     done
 done
 
