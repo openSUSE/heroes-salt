@@ -27,7 +27,7 @@ write_grains() {
 show_highstate() {
     write_grains $country $city $virt_cluster $virtual $domain
     $RUN_TEST > /dev/null
-    _STATUS=$(echo $?)
+    _STATUS=$?
     # We ignore exit code 2 as it means that an empty file is produced
     # See https://github.com/saltstack/salt/issues/39172
     if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
