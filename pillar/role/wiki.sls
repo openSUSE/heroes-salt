@@ -109,6 +109,8 @@ zypper:
     apache2: {}
     apache2-mod_apparmor: {}
     apache2-prefork: {}
+    # needed for deploying en-test without going through packaging
+    git: {}
     mediawiki_1_27-openSUSE: {}
     mariadb-client: {}
     check_mk-agent-apache_status: {}

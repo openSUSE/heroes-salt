@@ -161,7 +161,9 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /srv/www/{{wiki}}.opensuse.org/secrets.php r,
     /srv/www/{{wiki}}.opensuse.org/wiki_settings.php r,
     /usr/share/mediawiki_1_27/** r,
-
+    # {% if wiki == 'en-test' %}
+    /usr/share/mediawiki_1_27--git/** r,
+    # {% endif %}
   }
   #  {% endfor %}
 
