@@ -27,7 +27,14 @@
 
 /srv/www/{{ wiki }}.opensuse.org/public/mediawiki_src:
   file.symlink:
+    {% if wiki == 'en-test' %}
+    # /usr/share/mediawiki_1_27--git/ is `git clone https://github.com/openSUSE/wiki/`
+    # + symlinks to /usr/share/mediawiki_1_27/ for everything not in the git repo
+    # (git clone and creating these symlinks needs to be done manually!)
+    - target: /usr/share/mediawiki_1_27--git/
+    {% else %}
     - target: /usr/share/mediawiki_1_27/
+    {% endif %}
 
 {% set mediawiki_1_27_symlinks = [ 'api.php', 'autoload.php', 'extensions', 'img_auth.php', 'includes', 'index.php', 'languages', 'load.php', 'maintenance',
                                    'opensearch_desc.php', 'resources', 'serialized', 'skins', 'thumb_handler.php', 'thumb.php', 'vendor', ] %}
