@@ -68,6 +68,15 @@ test_nginx:
   tags:
     - docker
 
+test_sudo:
+  stage: test
+  before_script:
+    - bin/prepare_test_env.sh -i opensuse -g -p sudo
+    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
+  script: bin/test_sudo.sh
+  tags:
+    - docker
+
 deploy_job:
   stage: deploy
   script: sudo salt-call event.fire_master $CI_DEPLOY_PASSWORD salt/fileserver/gitfs/update
