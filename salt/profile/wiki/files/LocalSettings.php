@@ -25,7 +25,7 @@ if ( $wgCommandLineMode ) {
     if( !ini_get( 'zlib.output_compression' ) ) @ob_start( 'ob_gzhandler' );
 }
 
-$wgSitename         = "openSUSE";
+$wgSitename         = "openSUSE Wiki";
 
 $wgScriptPath       = "";
 $wgScript           = "$wgScriptPath/index.php";
