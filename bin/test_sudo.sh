@@ -26,6 +26,7 @@ run_tests() {
         echo_FAILED
     fi
     echo
+    return $STATUS
 }
 
 echo_INFO "Testing virtual: physical"
@@ -43,12 +44,14 @@ SUDO_ROLES=(
 )
 popd > /dev/null
 
+ALL_STATUS=0
+
 for _role in ${SUDO_ROLES[@]}; do
     _role=${_role##*/}
     role=${_role%%.*}
     echo_INFO "Testing role: $role"
     reset_sudo
-    run_tests
+    run_tests || ALL_STATUS=$?
 done
 
-exit $STATUS
+exit $ALL_STATUS
