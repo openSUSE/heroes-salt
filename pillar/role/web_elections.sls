@@ -39,11 +39,13 @@ profile:
     default_from_name: openSUSE Election Officials
     election_creators:
       # admins
-      - cboltz
+      # cboltz
       - tampakrap
-      # election commitee 2018
-      - terrorpup
-      - warlordfff
+      # election commitee 2019
+      - ishwon
+      - medwin
+      - fraser_bell
+      - Fraser_Bell
     email_host: relay.infra.opensuse.org
     help_email_address: election-officials@opensuse.org
     # secret_key included from pillar/secrets/role/web_elections.sls
