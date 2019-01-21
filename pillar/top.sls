@@ -49,7 +49,7 @@
   'salt_cluster:(opensuse|suse_external)':
     - match: grain_pcre
     - salt_cluster.opensuse_or_suse_external
-  {% if salt_cluster == 'opensuse' %}
+  {% if salt_cluster in ['opensuse', 'geeko'] %}
   'salt_cluster:{{ salt_cluster }}':
     - match: grain
     - salt_cluster.{{ salt_cluster }}
