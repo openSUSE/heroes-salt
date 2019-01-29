@@ -43,6 +43,7 @@ profile:
       - tampakrap
       # election commitee 2019
       - ishwon
+      - Ishwon
       - medwin
       - fraser_bell
       - Fraser_Bell
