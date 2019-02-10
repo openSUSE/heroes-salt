@@ -44,7 +44,7 @@ echo "$EXPECTED_SHA256" | sha256sum -c --quiet --strict || {
 cd $BASEDIR || exit 1
 for dir in *.opensuse.org ; do
     for server in $SERVERS ; do
-        rsync -az -C --delete-after "$@" -e ssh "$BASEDIR/$dir/" "web_static@$server:/srv/www/vhosts/$dir/"
+        rsync -az --exclude '.git' --delete-after "$@" -e ssh "$BASEDIR/$dir/" "web_static@$server:/srv/www/vhosts/$dir/"
     done
 done
 
