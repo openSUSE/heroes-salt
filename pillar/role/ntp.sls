@@ -10,10 +10,3 @@ chrony:
     - ntp2.opensuse.org
   otherparams:
     - makestep -1 1
-    {% for ip in ipv4 %}
-    # filter only the priv IPs and exclude the VRRPs
-    {% if ip.startswith('192.168') and not ip.endswith('.4') %}
-    - bindaddress {{ ip }}
-    {% endif %}
-    {% endfor %}
-    - bindaddress 127.0.0.1
