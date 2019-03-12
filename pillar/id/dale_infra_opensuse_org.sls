@@ -2,7 +2,7 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - future events.o.o replacement
+    - events.o.o
   roles:
     - web_osem
   salt_cluster: opensuse
