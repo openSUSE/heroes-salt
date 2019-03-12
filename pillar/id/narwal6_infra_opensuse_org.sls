@@ -2,6 +2,8 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - future static.o.o replacement
+    - static.o.o
+  roles:
+    - web_static
   salt_cluster: opensuse
   virt_cluster: atreju
