@@ -17,7 +17,6 @@ keepalived:
       promote_secondaries: ''
       smtp_alert: ''
       virtual_ipaddress:
-        - 192.168.254.4/24 dev private
         - 192.168.47.4/24 dev private
         - 172.16.42.103/24 dev login
         # mirrordb.opensuse.org
