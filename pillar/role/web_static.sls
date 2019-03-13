@@ -56,5 +56,5 @@ nginx:
 
 profile:
   web_static:
-    ssh_pubkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILIJnMpF8wUQ57rhnipQYisbRh8t34Y7HHLdJN5uCK3Y web_static@salt'
+    ssh_pubkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVddqh51YNoPglOnSZ9BpYH1nXzBV5ahbu0yncyL+6s web_static@salt'
     websites: {{ websites }}
