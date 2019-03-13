@@ -35,3 +35,6 @@ case "$(declare -p PS1 2> /dev/null)" in
     PS1="${_t}${_u}:\w${_p} "
 ;;
 esac
+
+alias highstate="salt-call state.highstate --state-output=changes --output-diff"
+alias testhighstate="salt-call state.highstate --state-output=changes --output-diff test=True"
