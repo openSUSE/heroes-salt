@@ -51,6 +51,8 @@ nginx:
                 - error_page: 500 502 503 504 /50x.html
                 - location = /50x.html:
                     - root: /srv/www/htdocs
+                - access_log: /var/log/nginx/{{ website }}.access.log combined
+                - error_log: /var/log/nginx/{{ website }}.error.log
           enabled: True
         {% endfor %}
 
