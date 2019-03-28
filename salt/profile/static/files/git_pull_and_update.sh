@@ -23,7 +23,7 @@ EXPECTED_SHA256="$(echo '{%- for file, sha256 in expected_gitmodules.items() %}
 # update all git repos, exit if one of them fails (better outdated than inconsistent)
 cd "$BASEDIR" || exit 1
 for dir in $GIT_DIRS ; do
-    cd "$BASEDIR/$dir" && git fetch -q && git reset -q --hard || exit 1
+    cd "$BASEDIR/$dir" && git pull -q || exit 1
 done
 
 # check if any .gitmodules appeared or disappeared
