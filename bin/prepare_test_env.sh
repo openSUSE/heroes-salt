@@ -66,7 +66,7 @@ $SUDO rm -rf /srv/{salt,pillar}
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
 ID=$(hostname -f)
-printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  salt_cluster: $SALT_CLUSTER\n  virt_cluster: $VIRT_CLUSTER\n" > pillar/id/${ID//./_}.sls
+printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n  salt_cluster: $SALT_CLUSTER\n  virt_cluster: $VIRT_CLUSTER\n" > pillar/id/${ID//./_}.sls
 if [[ -n $HIGHSTATE ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
     [[ -n $OS ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]\n"
