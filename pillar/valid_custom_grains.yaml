@@ -1,6 +1,10 @@
 ---
 global:
   hostusage: []
+  reboot_safe:
+    - yes
+    - no
+    - unknown
   salt_cluster: opensuse
 localized:
   de:
