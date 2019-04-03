@@ -5,6 +5,6 @@ grains:
     - elections.o.o
   roles:
     - web_elections
-  reboot_safe: unknown
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
