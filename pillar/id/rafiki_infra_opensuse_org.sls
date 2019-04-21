@@ -5,5 +5,6 @@ grains:
     - future login3.o.o (provo login proxy)
   roles:
     - login
+  reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: bryce

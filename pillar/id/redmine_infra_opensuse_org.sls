@@ -5,5 +5,6 @@ grains:
     - progress.o.o
   roles:
     - web_progress
+  reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju

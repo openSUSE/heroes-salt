@@ -8,5 +8,6 @@ grains:
     - studioexpress.o.o
   roles:
     - web_static
+  reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju

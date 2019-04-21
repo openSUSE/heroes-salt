@@ -3,6 +3,7 @@ grains:
   country: de
   hostusage:
     - icc.o.o
+  reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
 
