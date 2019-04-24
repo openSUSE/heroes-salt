@@ -5,5 +5,6 @@ grains:
     - en.o.o (all *.o.o wikis)
   roles:
     - wiki
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju

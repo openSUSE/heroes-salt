@@ -7,5 +7,6 @@ grains:
   roles:
     - static_master
     - web_static
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju

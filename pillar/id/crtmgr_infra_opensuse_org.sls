@@ -5,6 +5,7 @@ grains:
     - crtmgr.o.o
   roles:
     - crtmgr
+  reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
 users:

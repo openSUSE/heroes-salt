@@ -7,5 +7,6 @@ grains:
     - mysql
     - wiki
     - wiki_readonly
+  reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: bryce
