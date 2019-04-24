@@ -7,4 +7,4 @@ include:
   - profile.regional
   - profile.salt.minion
   - profile.sysctl
-  - profile.zypper
+  - zypper
