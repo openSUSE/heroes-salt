@@ -33,6 +33,10 @@ show_highstate() {
     if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
         echo_PASSED
     else
+		echo
+		# errors like conflicting IDs get displayed on stdout, not stderr, see https://github.com/saltstack/salt/issues/52653
+		echo "== running test again without /dev/null'ing stdout =="
+		$RUN_TEST
         echo_FAILED
         STATUS=1
     fi

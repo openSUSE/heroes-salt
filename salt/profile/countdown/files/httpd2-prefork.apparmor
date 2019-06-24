@@ -1,0 +1,127 @@
+# managed by salt - do not edit!
+
+# $Id: usr.sbin.httpd2-prefork 12 2006-04-12 21:35:41Z steve-beattie $
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2005 Novell/SUSE
+#    Copyright (C) 2017 Christian Boltz
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_disconnected) {
+  #include <abstractions/base>
+  #include <abstractions/bash>
+  #include <abstractions/consoles>
+  #include <abstractions/kerberosclient>
+  #include <abstractions/nameservice>
+  #include <abstractions/perl>
+  #include <abstractions/ssl_keys>
+
+  capability dac_override,
+  capability kill,
+  capability net_admin,
+  capability net_bind_service,
+  capability setgid,
+  capability setuid,
+  capability sys_ptrace,
+  capability sys_tty_config,
+
+  / rw,
+  /bin/bash rix,
+  /dev/random r,
+  /etc/apache2/*.conf r,
+  owner /etc/apache2/conf.d/ r,
+  /etc/apache2/magic r,
+  /etc/apache2/mod_perl-startup.pl r,
+  /etc/apache2/sysconfig.d/ r,
+  /etc/apache2/vhosts.d/ r,
+  /etc/apache2/vhosts.d/hostings/ r,
+  /etc/apache2/{conf,sysconfig,vhosts}.d/* r,
+  /etc/fstab r,
+  /etc/mime.types r,
+  /etc/mtab r,
+  /etc/odbcinst.ini r,
+  /proc/*/attr/current rw,
+  /proc/meminfo r,
+  /proc/sys/kernel/ngroups_max r,
+  /run/httpd.pid rw,
+  /tmp/magic* rw,
+  /usr/apache2/error/* r,
+  /usr/lib/apache2-leader/{lib,mod_}*.so* mr,
+  /usr/lib/apache2-metuxmpm/{lib,mod_}*.so* mr,
+  /usr/lib/apache2-prefork/{lib,mod_}*.so* mr,
+  /usr/lib/apache2-worker/{lib,mod_}*.so* mr,
+  /usr/lib/apache2/modules/{lib,mod_}*.so* mr,
+  /usr/lib/apache2/{lib,mod_}*.so mr,
+  /usr/lib64/apache2-leader/{lib,mod_}*.so* mr,
+  /usr/lib64/apache2-metuxmpm/{lib,mod_}*.so* mr,
+  /usr/lib64/apache2-prefork/{lib,mod_}*.so* mr,
+  /usr/lib64/apache2-worker/{lib,mod_}*.so* mr,
+  /usr/lib64/apache2/modules/{lib,mod_}*.so* mr,
+  /usr/lib64/apache2/{lib,mod_}*.so* mr,
+  /usr/sbin/httpd{,2}-prefork mr,
+  /usr/sbin/suexec2 mrix,
+  /usr/share/apache2/error/** r,
+  /usr/share/apache2/icons/** r,
+  /usr/share/misc/magic.mime r,
+  /usr/share/snmp/mibs r,
+  /usr/share/snmp/mibs/*.{txt,mib} r,
+  /usr/share/snmp/mibs/.index rw,
+  /var/lib/apache2/ssl_mutex w,
+  /var/log/apache2/* rwl,
+
+  ^DEFAULT_URI flags=(complain,attach_disconnected) {
+    #include <abstractions/apache2-common>
+
+    /proc/meminfo r,
+    /usr/share/zoneinfo/ r,
+    /usr/share/zoneinfo/** r,
+    /var/log/apache2/access_log w,
+    /var/log/apache2/error_log w,
+
+  }
+
+  ^HANDLING_UNTRUSTED_INPUT flags=(complain,attach_disconnected) {
+    #include <abstractions/nameservice>
+
+    /**/.htaccess r,
+    /dev/urandom r,
+    /proc/*/attr/current w,
+    /var/lib/apache2/ssl_mutex wk,
+    /var/log/apache2/access_log w,
+    /var/log/apache2/error_log w,
+    /var/log/apache2/error_log-20[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/ssl_request_log w,
+
+    # strange, but happens in practise
+    /var/log/apache2/countdown-access_log w,
+
+  }
+
+  ^vhost_countdown flags=(complain,attach_disconnected) {
+    #include <abstractions/apache2-common>
+    #include <abstractions/base>
+
+    / r,
+#   /bin/bash rix,
+#   /dev/tty rw,
+#   /proc/meminfo r,
+#   /usr/bin/timeout rix,
+    /var/log/apache2/countdown-access_log w,
+    /var/log/apache2/countdown-access_log-21[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/error_log w,
+
+    /srv/www/countdown.opensuse.org/ r,
+    /srv/www/countdown.opensuse.org/** r,
+  }
+
+}
+
+# vim: ft=apparmor expandtab
+
