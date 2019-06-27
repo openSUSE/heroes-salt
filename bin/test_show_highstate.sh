@@ -14,6 +14,9 @@ if [[ $(whoami) != 'root' ]]; then
 fi
 
 RUN_TEST="salt-call --local --retcode-passthrough state.show_highstate"
+## in case of problems feel free to temporally enable line 18 and commend out line 16.
+#RUN_TEST="salt-call --local --retcode-passthrough --log-level=debug state.show_highstate"
+
 ALL_VIRTUAL=(
     kvm
 )
