@@ -4,6 +4,7 @@ include:
   - profile.ldap.client
   - profile.log
   - profile.monitoring
+  - profile.postfix
   - profile.regional
   - profile.salt.minion
   - profile.sysctl
