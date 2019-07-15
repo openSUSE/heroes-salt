@@ -30,3 +30,8 @@ keepalived:
         - 195.135.221.143/25 dev external
         - 2620:113:80c0:8::18/64 dev external
       virtual_router_id: 51
+
+profile:
+  postfix:
+    maincf:
+      relayhost: ''

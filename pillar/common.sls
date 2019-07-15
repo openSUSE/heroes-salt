@@ -57,6 +57,11 @@ profile:
   monitoring:
     checks:
       check_zypper: '/usr/lib/nagios/plugins/check_zypper -vrst 120 -ui /etc/monitoring-plugins/check_zypper-ignores.txt'
+  postfix:
+    aliases:
+      root: admin-auto@opensuse.org
+    maincf:
+      relayhost: '[relay.infra.opensuse.org]'
 rsyslog:
   custom:
     - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja
