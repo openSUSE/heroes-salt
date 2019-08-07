@@ -5,6 +5,7 @@ grains:
     - events.o.o
   roles:
     - web_osem
-  reboot_safe: unknown
+  reboot_safe: yes
+  # Henne created zypper locks for ruby2.5 because a version change breaks osem (needs a Gemfile update when the version changes)
   salt_cluster: opensuse
   virt_cluster: atreju
