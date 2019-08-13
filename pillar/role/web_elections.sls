@@ -55,6 +55,6 @@ profile:
 zypper:
   repositories:
     openSUSE:infrastructure:elections.opensuse.org:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/elections.opensuse.org/openSUSE_Leap_{{ salt['grains.get']('osrelease') }}/
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/elections.opensuse.org/openSUSE_Leap_$releasever/
       priority: 100
       refresh: True
