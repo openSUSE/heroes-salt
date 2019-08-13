@@ -35,6 +35,6 @@ zypper:
     monitoring-plugins-postgres: {}
   repositories:
     server_database_postgresql:
-      baseurl: http://download.infra.opensuse.org/repositories/server:/database:/postgresql/openSUSE_Leap_{{ salt['grains.get']('osrelease') }}/
+      baseurl: http://download.infra.opensuse.org/repositories/server:/database:/postgresql/openSUSE_Leap_$releasever/
       priority: 99
       refresh: True
