@@ -1,5 +1,3 @@
-{% set osrelease = salt['grains.get']('osrelease') %}
-
 zypper:
   repositories:
     repo-oss:
