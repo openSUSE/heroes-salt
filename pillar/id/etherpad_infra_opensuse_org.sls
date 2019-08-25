@@ -3,6 +3,6 @@ grains:
   country: de
   hostusage:
     - etherpad.o.o
-  reboot_safe: unknown
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
