@@ -32,11 +32,11 @@ mail_reminder_cron_mailto:
     - identifier: git_pull
     - user: mail_reminder
     - minute: 40
-    - hour: 0
+    - hour: 11
 
 '/home/mail_reminder/git/mail-reminder --no-debug':
   cron.present:
     - identifier: mailer
     - user: mail_reminder
     - minute: 42
-    - hour: 0
+    - hour: 11
