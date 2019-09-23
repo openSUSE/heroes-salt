@@ -7,3 +7,4 @@ grains:
     - monitoring
   reboot_safe: yes
   salt_cluster: opensuse
+  virt_cluster: bare-metal
