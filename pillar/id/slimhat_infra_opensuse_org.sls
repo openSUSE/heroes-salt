@@ -3,7 +3,8 @@ grains:
   country: de
   roles:
     - monitoring
-  hostusage: []
+  hostusage:
+    - IPMI access
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bare-metal
