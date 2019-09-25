@@ -39,7 +39,7 @@ profile:
     default_from_name: openSUSE Election Officials
     election_creators:
       # admins
-      # cboltz
+      - cboltz
       - tampakrap
       # election commitee 2019
       - ishwon
