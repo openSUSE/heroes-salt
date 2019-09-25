@@ -8,7 +8,7 @@ import yaml
 
 def get_valid_custom_grains():
     with open('pillar/valid_custom_grains.yaml', 'r') as f:
-        VALID_CUSTOM_GRAINS = yaml.load(f)
+        VALID_CUSTOM_GRAINS = yaml.safe_load(f)
 
     return VALID_CUSTOM_GRAINS
 

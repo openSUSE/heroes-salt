@@ -150,7 +150,7 @@ def checkout_remote_and_branch(REMOTE_BRANCH, DEST):
 
 
 with open('pillar/FORMULAS.yaml', 'r') as f:
-    FORMULAS_YAML = yaml.load(f)
+    FORMULAS_YAML = yaml.safe_load(f)
 
 FORMULAS = copy(FORMULAS_YAML)
 
