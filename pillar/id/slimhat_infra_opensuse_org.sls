@@ -1,8 +1,7 @@
 grains:
   city: QSC-nuremberg
   country: de
-  roles:
-    - monitoring
+  roles: []
   hostusage:
     - IPMI access
   reboot_safe: yes
