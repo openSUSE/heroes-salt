@@ -46,7 +46,7 @@ all_valid_localized_grains = get_all_valid_localized_grains()
 all_ids = sorted(os.listdir('pillar/id'))
 for sls in all_ids:
     content = read_file_skip_jinja("pillar/id/%s" % sls)
-    mygrains = yaml.load(content)['grains']
+    mygrains = yaml.safe_load(content)['grains']
 
     for key, valid_values in valid_global_grains.items():
         status = test_custom_grain(mygrains, sls, key, valid_values, status)

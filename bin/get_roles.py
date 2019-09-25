@@ -23,7 +23,7 @@ def read_file_skip_jinja(filename):
 def get_roles_of_one_minion(minion):
     content = read_file_skip_jinja("pillar/id/%s" % minion)
     try:
-        roles = yaml.load(content)['grains']['roles']
+        roles = yaml.safe_load(content)['grains']['roles']
     except KeyError:
         roles = []
 
