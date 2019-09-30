@@ -7,10 +7,15 @@ global:
     - unknown
   salt_cluster: opensuse
 localized:
+  de-qsc:
+    city: QSC-nuremberg
+    default_domain: infra.opensuse.org
+    default_virt_cluster: atreju
+    domains: infra.opensuse.org
+    virt_cluster:
+      - bare-metal
   de:
-    city:
-      - nuremberg
-      - QSC-nuremberg
+    city: nuremberg
     default_domain: infra.opensuse.org
     default_virt_cluster: atreju
     domains: infra.opensuse.org
