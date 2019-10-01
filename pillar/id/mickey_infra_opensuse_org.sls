@@ -7,6 +7,6 @@ grains:
   roles:
     - web_gitlab
     - worker_gitlab
-  reboot_safe: unknown
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
