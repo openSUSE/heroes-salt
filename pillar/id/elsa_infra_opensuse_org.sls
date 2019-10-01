@@ -11,7 +11,7 @@ grains:
     - proxy
     - proxy_slave
     - ntp
-  reboot_safe: unknown
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
   subrole_ntp: ntp3
