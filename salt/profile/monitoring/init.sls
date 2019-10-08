@@ -3,7 +3,6 @@ common_monitoring_packages:
     - pkgs:
       - check_mk-agent
       - monitoring-plugins-common
-      - monitoring-plugins-zypper
       - nrpe
 
 {% for dir in ['/etc/nrpe.d', '/etc/monitoring-plugins'] %}

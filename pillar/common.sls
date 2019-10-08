@@ -54,9 +54,6 @@ openssh:
   banner_src: salt://profile/accounts/files/ssh_banner
   sshd_config_mode: 0640
 profile:
-  monitoring:
-    checks:
-      check_zypper: '/usr/lib/nagios/plugins/check_zypper -vrst 120 -ui /etc/monitoring-plugins/check_zypper-ignores.txt'
   postfix:
     aliases:
       root: admin-auto@opensuse.org
