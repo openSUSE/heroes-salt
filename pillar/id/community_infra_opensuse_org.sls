@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - bugbot
-    - counter.o.o
     - doc.o.o
     - education.o.o
     - fontinfo.o.o
