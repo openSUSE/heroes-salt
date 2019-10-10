@@ -15,3 +15,13 @@ grains:
   salt_cluster: opensuse
   virt_cluster: atreju
   subrole_ntp: ntp3
+
+  aliases:
+    - proxy-nue2.infra.opensuse.org
+  description: HAproxy and PgBouncer
+  documention: []
+  responsible: []
+  partners:
+    - anna.infra.opensuse.org
+  weburls:
+    - https://elsa.opensuse.org

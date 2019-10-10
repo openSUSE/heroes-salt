@@ -6,3 +6,10 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: NFS server for CaaSP
+  documention: []
+  responsible: []
+  partners: []
+  weburls: []

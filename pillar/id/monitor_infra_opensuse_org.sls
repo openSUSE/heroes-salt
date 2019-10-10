@@ -12,3 +12,12 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: Monitoring server running Icinga, check_mk and an IRC Bot
+  documention:
+    - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Monitorinfraopensuseorg
+  responsible: []
+  partners: []
+  weburls:
+    - https://monitor.opensuse.org

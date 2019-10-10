@@ -7,3 +7,12 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases:
+    - planet.infra.opensuse.org
+  description: PlanetPlanet RSS feed aggregator
+  documention: []
+  responsible: []
+  partners: []
+  weburls:
+    - https://planet.opensuse.org

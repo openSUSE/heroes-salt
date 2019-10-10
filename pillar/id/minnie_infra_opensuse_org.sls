@@ -8,3 +8,11 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases:
+    - salt.infra.opensuse.org
+  description: Salt Master
+  documention: []
+  responsible: []
+  partners: []
+  weburls: []

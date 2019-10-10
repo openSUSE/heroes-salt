@@ -8,3 +8,14 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: board voting system, powered by helios-server
+  documention:
+    - https://progress.opensuse.org/issues/25486
+  responsible:
+    - cboltz
+    - scarabeus_iv
+  partners: []
+  weburls:
+    - https://elections.opensuse.org
