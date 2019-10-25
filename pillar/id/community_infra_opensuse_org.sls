@@ -12,3 +12,16 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: Several old services (see hostusage) that need to be migrated to new VMs
+  documentation: []
+  responsible: []
+  partners: []
+  weburls:
+    - https://community.opensuse.org
+    - https://doc.opensuse.org
+    - https://community.opensuse.org
+    - https://education.opensuse.org
+    - https://fontinfo.opensuse.org
+    - https://webtest.opensuse.org

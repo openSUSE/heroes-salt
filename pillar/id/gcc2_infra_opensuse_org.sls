@@ -8,3 +8,10 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: future replacement of gcc.o.o / gcc-stats.i.o.o
+  documentation: []
+  responsible: []
+  partners: []
+  weburls: []

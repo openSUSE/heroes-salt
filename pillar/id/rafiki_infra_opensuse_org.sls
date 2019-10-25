@@ -8,3 +8,10 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: bryce
+
+  aliases: []
+  description: future provo login proxy
+  documentation: []
+  responsible: []
+  partners: []
+  weburls: []

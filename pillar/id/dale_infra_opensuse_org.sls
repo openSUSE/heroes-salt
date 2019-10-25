@@ -13,7 +13,8 @@ grains:
   aliases: []
   description: Conference website and management
   documentation: []
-  responsible: []
+  responsible:
+    - hennevogel
   partners: []
   weburls:
     - https://events.opensuse.org
