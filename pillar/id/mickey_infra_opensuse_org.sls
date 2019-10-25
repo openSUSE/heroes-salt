@@ -10,3 +10,11 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: GitLab server
+  documention: []
+  responsible: []
+  partners: []
+  weburls:
+    - https://gitlab.infra.opensuse.org

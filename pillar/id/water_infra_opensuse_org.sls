@@ -8,3 +8,12 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases:
+    - elasticsearch.infra.opensuse.org
+  description: Elasticsearch for the wikis
+  documention: []
+  responsible:
+    - cboltz
+  partners: []
+  weburls: []
