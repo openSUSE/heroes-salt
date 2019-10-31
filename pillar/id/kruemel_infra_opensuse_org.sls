@@ -11,7 +11,7 @@ grains:
   aliases:
     - planet.infra.opensuse.org
   description: PlanetPlanet RSS feed aggregator
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls:

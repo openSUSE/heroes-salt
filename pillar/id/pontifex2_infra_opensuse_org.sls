@@ -12,7 +12,7 @@ grains:
   aliases:
     - tracker.opensuse.org
   description: download.opensuse.org master server
-  documention:
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Pontifex3infraopensuseorg
   responsible: []
   partners: []

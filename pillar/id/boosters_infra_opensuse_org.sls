@@ -9,7 +9,7 @@ grains:
 
   aliases: []
   description: connect.opensuse.org platform, travel support
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls:

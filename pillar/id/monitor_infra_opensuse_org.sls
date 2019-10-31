@@ -15,7 +15,7 @@ grains:
 
   aliases: []
   description: Monitoring server running Icinga, check_mk and an IRC Bot
-  documention:
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Monitorinfraopensuseorg
   responsible: []
   partners: []

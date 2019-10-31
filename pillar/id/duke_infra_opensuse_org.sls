@@ -9,7 +9,7 @@ grains:
 
   aliases: []
   description: NFS server for CaaSP
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls: []

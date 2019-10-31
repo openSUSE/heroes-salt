@@ -11,7 +11,7 @@ grains:
 
   aliases: []
   description: Mailinglists and their archives
-  documention: []
+  documentation: []
   responsible:
     - pjessen
   partners: []

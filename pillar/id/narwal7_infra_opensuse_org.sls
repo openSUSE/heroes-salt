@@ -11,7 +11,7 @@ grains:
 
   aliases: []
   description: Provider of static content like CSS and Javascript for openSUSE Webservers (slave)
-  documention: []
+  documentation: []
   responsible:
     - cboltz
   partners:

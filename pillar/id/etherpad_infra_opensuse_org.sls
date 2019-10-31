@@ -9,7 +9,7 @@ grains:
 
   aliases: []
   description: openSUSE Etherpad
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls:

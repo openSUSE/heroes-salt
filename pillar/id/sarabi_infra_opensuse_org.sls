@@ -11,7 +11,7 @@ grains:
 
   aliases: []
   description: board voting system, powered by helios-server
-  documention:
+  documentation:
     - https://progress.opensuse.org/issues/25486
   responsible:
     - cboltz

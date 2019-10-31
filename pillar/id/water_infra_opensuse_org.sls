@@ -12,7 +12,7 @@ grains:
   aliases:
     - elasticsearch.infra.opensuse.org
   description: Elasticsearch for the wikis
-  documention: []
+  documentation: []
   responsible:
     - cboltz
   partners: []

@@ -9,7 +9,7 @@ grains:
 
   aliases: []
   description: openSUSE download and usage statistics
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls:

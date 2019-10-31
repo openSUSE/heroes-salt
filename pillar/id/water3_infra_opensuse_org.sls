@@ -11,7 +11,7 @@ grains:
 
   aliases: []
   description: Elasticsearch for the wikis
-  documention: []
+  documentation: []
   responsible:
     - cboltz
   partners: []

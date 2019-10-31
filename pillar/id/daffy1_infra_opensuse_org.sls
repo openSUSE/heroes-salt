@@ -13,7 +13,7 @@ grains:
 
   aliases: []
   description: Login proxy for servers with authentication
-  documention:
+  documentation:
     # should/will be moved to a "loginproxy" page (or to the login role ;-)
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Daffy1infraopensuseorg
   responsible: []

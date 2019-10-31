@@ -16,7 +16,7 @@ users:
 
   aliases: []
   description: Certificate Manager getting certificates from Let's Encrypt
-  documention:
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Crtmgrinfraopensuseorg
   responsible: tbro
   partners: []

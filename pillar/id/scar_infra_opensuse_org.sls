@@ -14,7 +14,7 @@ grains:
     - gate.opensuse.org
     - scar.opensuse.org
   description: OpenVPN gateway and central outgoing gateway for infra.opensuse.org hosts
-  documention:
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/VPN
   responsible: []
   partners: []
