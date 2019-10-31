@@ -12,7 +12,7 @@ grains:
 
   aliases: []
   description: Conference website and management
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls:

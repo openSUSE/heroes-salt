@@ -12,7 +12,7 @@ grains:
   aliases:
     - wiki.infra.opensuse.org
   description: $lang.opensuse.org wiki pages
-  documention: []
+  documentation: []
   responsible:
     - cboltz
   partners: []

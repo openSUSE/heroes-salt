@@ -13,7 +13,7 @@ grains:
 
   aliases: []
   description: GitLab server
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls:

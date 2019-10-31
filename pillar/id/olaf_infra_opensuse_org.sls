@@ -14,7 +14,7 @@ grains:
     - scanner.infra.opensuse.org
     - scanner.opensuse.org
   description: MirrorBrain scanner machine for download.opensuse.org
-  documention:
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Olafinfraopensuseorg
   responsible: []
   partners: []

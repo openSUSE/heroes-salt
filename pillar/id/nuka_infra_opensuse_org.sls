@@ -12,7 +12,7 @@ grains:
   aliases:
     - l10n.infra.opensuse.org
   description: Weblate server, for translating software projects
-  documention: []
+  documentation: []
   responsible:
     - sbrabec
   partners: []

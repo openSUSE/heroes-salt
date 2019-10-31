@@ -19,7 +19,7 @@ grains:
   aliases:
     - proxy-nue2.infra.opensuse.org
   description: HAproxy and PgBouncer
-  documention: []
+  documentation: []
   responsible: []
   partners:
     - anna.infra.opensuse.org

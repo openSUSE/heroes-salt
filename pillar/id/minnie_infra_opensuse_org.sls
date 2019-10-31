@@ -12,7 +12,7 @@ grains:
   aliases:
     - salt.infra.opensuse.org
   description: Salt Master
-  documention: []
+  documentation: []
   responsible: []
   partners: []
   weburls: []
