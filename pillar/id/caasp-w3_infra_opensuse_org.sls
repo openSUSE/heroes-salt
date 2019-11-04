@@ -2,10 +2,11 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - Worker node node of CaaSP cluster
+    - Worker node of CaaSP cluster
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
   aliases: []
   description: Worker node of CaaSP cluster running actual application containers
   documentation:
@@ -15,5 +16,7 @@ grains:
     - rklein
     - fbergmann
     - lcavajani
-  partners: []
+  partners:
+    - caasp-w1.infra.opensuse.org
+    - caasp-w2.infra.opensuse.org
   weburls: []

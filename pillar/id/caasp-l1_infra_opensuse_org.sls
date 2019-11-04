@@ -6,6 +6,7 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
   aliases: []
   description: Load balancing node of CaaSP cluster
   documentation:

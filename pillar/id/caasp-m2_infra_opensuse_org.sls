@@ -6,8 +6,9 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
   aliases: []
-  description: Master node of CaaSP cluster monitoring and controlling cluster
+  description: Master node of CaaSP cluster monitoring and controlling the cluster
   documentation:
     - https://documentation.suse.com/suse-caasp/4/single-html/caasp-deployment/#_master_nodes
   responsible:
@@ -15,5 +16,7 @@ grains:
     - rklein
     - fbergmann
     - lcavajani
-  partners: []
+  partners:
+    - caasp-m1.infra.opensuse.org
+    - caasp-m3.infra.opensuse.org
   weburls: []
