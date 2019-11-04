@@ -10,3 +10,10 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: bryce
+
+  aliases: []
+  description: read-only copy of en.o.o (as of October 2017) in Provo
+  documentation: []
+  responsible: []
+  partners: []
+  weburls: []

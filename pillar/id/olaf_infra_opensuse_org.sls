@@ -18,4 +18,6 @@ grains:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Olafinfraopensuseorg
   responsible: []
   partners: []
-  weburls: []
+  weburls:
+    - https://mirrordb.opensuse.org
+    - https://mirrors.opensuse.org

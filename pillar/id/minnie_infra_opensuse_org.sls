@@ -12,7 +12,8 @@ grains:
   aliases:
     - salt.infra.opensuse.org
   description: Salt Master
-  documentation: []
+  documentation:
+    - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Saltmaster
   responsible: []
   partners: []
   weburls: []

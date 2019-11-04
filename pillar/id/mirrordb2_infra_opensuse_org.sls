@@ -8,3 +8,11 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: postgreSQL cluster
+  documentation: []
+  responsible: []
+  partners:
+    - mirrordb1.infra.opensuse.org
+  weburls: []

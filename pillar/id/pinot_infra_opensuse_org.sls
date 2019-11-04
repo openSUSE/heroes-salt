@@ -9,3 +9,13 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: countdown.opensuse.org, board meeting reminder mailer
+  documentation: []
+  responsible:
+    - cboltz
+  partners: []
+  weburls:
+    - https://counter.opensuse.org
+    - https://countdown.opensuse.org

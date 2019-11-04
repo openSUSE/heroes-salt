@@ -6,3 +6,12 @@ grains:
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: Build check statistics
+  documentation: []
+  responsible:
+    - lnussel
+  partners: []
+  weburls:
+    - https://rpmlint.opensuse.org
