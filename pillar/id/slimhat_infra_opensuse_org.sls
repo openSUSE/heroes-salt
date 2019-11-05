@@ -12,9 +12,8 @@ grains:
   description: IPMI backdoor for widehat.infra.opensuse.org (Remote access)
   documentation: []
   responsible:
-    - kbabioch@suse.de
-    - mcaj@suse.cz
-    - rklein@suse.com
-  partners:
-    - widehat.infra.opensuse.org
+    - kbabioch
+    - mcaj
+    - rklein
+  partners: []
   weburls: []
