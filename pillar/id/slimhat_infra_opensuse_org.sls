@@ -1,6 +1,6 @@
 grains:
   city: QSC-nuremberg
-  country: de
+  country: de-qsc
   roles: []
   hostusage:
     - IPMI access

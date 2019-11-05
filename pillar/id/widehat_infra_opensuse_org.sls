@@ -1,6 +1,6 @@
 grains:
   city: QSC-nuremberg
-  country: de
+  country: de-qsc
   hostusage:
     - rsync.o.o
   roles: []
