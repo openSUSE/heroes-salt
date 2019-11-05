@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - Galera node (MySQL)
-  description: Node of the MySQL cluster based on Galera
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
