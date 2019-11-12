@@ -1,6 +1,7 @@
 ---
 chrony: {}
 elasticsearch: {}
+firewalld: {}
 git: {}
 grains:
   namespace: 'tampakrap'
