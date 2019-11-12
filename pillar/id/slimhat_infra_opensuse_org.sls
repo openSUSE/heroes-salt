@@ -41,7 +41,14 @@ firewalld:
         guarantee that we have public access to SSH in case VPN goes down, but
         without exposing SSH to the internet.
       sources:
-        - 195.135.221.151
+        # SUSE's public networks (Nuremberg)
+        - 195.135.220.0/24
+        - 195.135.221.0/24
+        # SUSE's public network (Prague)
+        - 213.151.88.128/25
+        # QSC public networks (i.e. widehat)
+        - 62.146.92.200/29
+        - 62.146.92.208/29
         # Backdoor of @kbabioch for the time being
         - 24.134.156.21
         # Backdoor of @rklein for the time being
