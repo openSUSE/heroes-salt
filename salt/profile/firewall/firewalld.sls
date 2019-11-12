@@ -3,5 +3,6 @@
 include:
   {% if osmajorrelease == 15.1 %}
   - firewalld
+  { else }
+  []
   {% endif %}
-
