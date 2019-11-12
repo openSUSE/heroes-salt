@@ -59,8 +59,6 @@ firewalld:
     # interface or sources and without any service declared.
     public:
       short: Public
-      services:
-        - ssh
     internal:
       short: Internal
     work:
