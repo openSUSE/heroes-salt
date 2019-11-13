@@ -34,6 +34,10 @@ firewalld:
         - tun0
       services:
         - ssh
+      ports:
+        tcp:
+          - 5666
+          - 6556
     heroes-external:
       short: heroes-external
       description: >-
@@ -55,6 +59,10 @@ firewalld:
         - 72.14.176.247
       services:
         - ssh
+      ports:
+        tcp:
+          - 5666
+          - 6556
     # NOT USED ZONES -- let it be to keep them clear and not attached to any
     # interface or sources and without any service declared.
     public:
