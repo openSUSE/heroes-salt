@@ -25,6 +25,16 @@ firewalld:
   LogDenied: 'off'
   default_zone: public
 
+  services:
+    monitoring:
+      short: monitoring
+      description: >-
+        These ports are required for monitoring based on check_mk & NRPE.
+      ports:
+        tcp:
+          - 5665
+          - 6556
+
   zones:
     heroes-internal:
       short: heroes-internal
@@ -34,10 +44,7 @@ firewalld:
         - tun0
       services:
         - ssh
-      ports:
-        tcp:
-          - 5666
-          - 6556
+        - monitoring
     heroes-external:
       short: heroes-external
       description: >-
