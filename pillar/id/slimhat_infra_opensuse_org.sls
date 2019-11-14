@@ -34,6 +34,10 @@ firewalld:
         - tun0
       services:
         - ssh
+      ports:
+        tcp:
+          - 5666
+          - 6556
     heroes-external:
       short: heroes-external
       description: >-
