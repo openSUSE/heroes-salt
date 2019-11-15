@@ -29,7 +29,7 @@ firewalld:
     monitoring:
       short: monitoring
       description: >-
-        These ports are required for monitoring based on check_mk & NRPE.
+        These ports are required for monitoring based on check_mk and NRPE.
       ports:
         tcp:
           - 5665
