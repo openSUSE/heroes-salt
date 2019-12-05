@@ -7,3 +7,12 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: AE-Dir master server / test provider
+  documentation: []
+  responsible:
+    - mstroeder
+  partners: []
+  weburls:
+    - https://aedir.infra.opensuse.org

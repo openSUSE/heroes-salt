@@ -7,3 +7,11 @@ grains:
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
+
+  aliases: []
+  description: AE-Dir client / test consumer
+  documentation: []
+  responsible:
+    - mstroeder
+  partners: []
+  weburls: []
