@@ -10,7 +10,7 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: postgreSQL cluster
+  description: postgreSQL cluster (slave)
   documentation: []
   responsible: []
   partners:
