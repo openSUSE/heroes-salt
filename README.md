@@ -33,7 +33,7 @@ Merge requests that **require a review**:
 * changes that might affect a bigger amount of machines - especially, if this affects machines maintained by others
 * potentially dangerous stuff that might break existing setups
 
-Merge requests, that **could be self-merged**:
+Merge requests that **could be self-merged**:
 * emergency updates fixing something that is already broken (think about a new Gateway IP as example)
 * typo fixes (includes whitespace fixes)
 * stuff that is interesting only for machines that the requester maintains
