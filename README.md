@@ -25,14 +25,18 @@ The general workflow should be to create a branch (either directly in this repos
 
 On the other side, we do not want to block anyone from being productive. So here are the general rules:
 
-Always use merge requests. We allow to merge those requests on your own - but we want to make use of the benefits of merge requests (notifications, tests, visibility).
+* **Always use merge requests.** 
+* We allow to merge those requests on your own - but we want to make use of the benefits of merge requests (notifications, tests, visibility).
 
-Merge requests, that require a submit request and review:
-* changes, that might affect a bigger amount of machines - especially, if this affects machines maintained by others
-* potentially dangerous stuff, that might break existing setups
 
-Merge requests, that could be self-merged:
+Merge requests that **require a review**:
+* changes that might affect a bigger amount of machines - especially, if this affects machines maintained by others
+* potentially dangerous stuff that might break existing setups
+
+Merge requests, that **could be self-merged**:
 * emergency updates fixing something that is already broken (think about a new Gateway IP as example)
-* typos
+* typo fixes (includes whitespace fixes)
 * stuff that is interesting only for machines that the requester maintains
-* stuff that nobody was able to review for more than 2 months
+* stuff that nobody was able to review for more than one week
+
+This README.md file should be reviewed every quarter during a Heroes Meeting.
