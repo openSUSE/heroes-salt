@@ -43,9 +43,6 @@
   'osmajorrelease:{{ osmajorrelease }}':
     - match: grain
     - osmajorrelease.{{ osmajorrelease }}
-  'osmajorrelease:(1|4)2':
-    - match: grain_pcre
-    - osmajorrelease.12_or_42
   {% if salt_cluster in ['opensuse', 'geeko'] %}
   'salt_cluster:{{ salt_cluster }}':
     - match: grain

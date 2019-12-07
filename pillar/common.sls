@@ -1,3 +1,4 @@
+{% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
 {% set osrelease = salt['grains.get']('osrelease') %}
 
 chrony:
@@ -173,3 +174,11 @@ zypper:
     withlock: {}
     wget: {}
     wgetpaste: {}
+    {% if osmajorrelease > 11 %}
+    aaa_base-extras: {}
+    ca-certificates-mozilla: {}
+    htop: {}
+    mtr: {}
+    tmux: {}
+    traceroute: {}
+    {% endif %}
