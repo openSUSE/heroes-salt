@@ -29,6 +29,7 @@ import sys
 
 RE_PGP_MESSAGE = r'[ \t]*-----BEGIN PGP MESSAGE-----[ \t]*$\n.+?\n^[ \t]*-----END PGP MESSAGE-----[ \t]*$'
 RE_PGP_RECIPIENT = r'^0x\w+'
+RE_INDENT = r'^(\s*)'
 
 class DecryptError(Exception):
     pass
@@ -72,7 +73,7 @@ def reencrypt(message, recipients):
     return message
 
 def get_indent(block):
-    return re.match('^(\s*)', block.splitlines()[0]).group(1)
+    return re.match(RE_INDENT, block.splitlines()[0]).group(1)
 
 def remove_indent(block):
     return '\n'.join([ line.lstrip() for line in block.splitlines() ])
