@@ -38,8 +38,8 @@ class EncryptError(Exception):
     pass
 
 def gpg(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
-    bin = '/usr/bin/gpg'
-    cmd = [bin] + cmd
+    gpg_bin = '/usr/bin/gpg'
+    cmd = [gpg_bin] + cmd
     logger.debug('Running: %s', cmd)
     return subprocess.Popen(cmd, stdin=stdin, stdout=stdout, stderr=stderr, encoding=sys.getdefaultencoding())
 
