@@ -13,6 +13,8 @@ grains:
   documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Crtmgrinfraopensuseorg
   responsible:
+    - kbabioch
+    - rklein
     - tbro
   partners: []
   weburls: []
