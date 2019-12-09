@@ -12,7 +12,10 @@ grains:
   description: Certificate Manager getting certificates from Let's Encrypt
   documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Crtmgrinfraopensuseorg
-  responsible: tbro
+  responsible:
+    - kbabioch
+    - rklein
+    - tbro
   partners: []
   weburls: []
 users:
