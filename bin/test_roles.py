@@ -19,7 +19,7 @@ for directory in ['salt', 'pillar']:
     for sls in os.listdir('%s/role' % directory):
         if sls.endswith('.sls'):
             if sls.split('.sls')[0] not in roles:
-                print('%s/role/%s not in roles' % (directory, sls))
+                print('Unused file %s/role/%s - not in roles' % (directory, sls))
                 status = 1
 
 for role in roles:
