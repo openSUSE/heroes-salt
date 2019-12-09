@@ -34,6 +34,9 @@ def get_roles(append=[]):
     roles = copy(append)
 
     for sls in os.listdir('pillar/id'):
+        if sls == 'README.md':
+            continue
+
         _roles = get_roles_of_one_minion(sls)
         for item in _roles:
             roles.append(item)
