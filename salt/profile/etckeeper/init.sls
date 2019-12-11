@@ -1,6 +1,8 @@
 etckeeper_install:
   pkg.installed:
-    - name: etckeeper
+    - pkgs:
+      - etckeeper
+      - etckeeper-zypp-plugin
 
 etckeeper_init:
   cmd.run:
