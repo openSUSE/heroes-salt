@@ -156,7 +156,6 @@ zypper:
         download.use_deltarpm: 'false'
         solver.onlyRequires: 'true'
   packages:
-    abuild-online-update: {}
     ca-certificates-freeipa-opensuse: {}
     command-not-found: {}
     curl: {}
@@ -167,6 +166,7 @@ zypper:
     openssh-helpers: {}
     screen: {}
     sssd-ldap: {}
+    suse-online-update: {}
     susepaste: {}
     tcpdump: {}
     vim: {}
