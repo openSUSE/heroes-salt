@@ -45,6 +45,9 @@ all_valid_localized_grains = get_all_valid_localized_grains()
 
 all_ids = sorted(os.listdir('pillar/id'))
 for sls in all_ids:
+    if sls == 'README.md':
+        continue
+
     content = read_file_skip_jinja("pillar/id/%s" % sls)
     mygrains = yaml.safe_load(content)['grains']
 
