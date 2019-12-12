@@ -9,8 +9,8 @@ keepalived:
   vrrp_sync_group:
     VRRP_OPENSUSE_PRIVATE_GROUP:
       group:
-        VRRP_OPENSUSE_PRIVATE_IPV4
-        VRRP_OPENSUSE_PRIVATE_IPV6
+        - VRRP_OPENSUSE_PRIVATE_IPV4
+        - VRRP_OPENSUSE_PRIVATE_IPV6
   vrrp_instance:
     VRRP_OPENSUSE_PRIVATE_IPV4:
       advert_int: 1
