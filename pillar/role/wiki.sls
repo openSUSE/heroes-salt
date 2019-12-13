@@ -17,7 +17,6 @@ mediawiki_1_27:
   mysql_server: mysql.infra.opensuse.org
   wikis:
     # availale options:
-      # alias: wikimove.opensuse.org
       # bento_lang: en
       # dbmysql5: False  # only needed for old-en and old-de, defaults to True
       # dbpass: not_in_salt_yet
@@ -29,7 +28,6 @@ mediawiki_1_27:
     cn:
       dbpass: not_in_salt_yet
     cs:
-      alias: cz.opensuse.org
       dbpass: not_in_salt_yet
     de:
       dbpass: not_in_salt_yet
@@ -87,7 +85,6 @@ mediawiki_1_27:
     zh:
       dbpass: not_in_salt_yet
     zh-tw:
-      alias: zh_tw.opensuse.org
       bento_lang: zh_TW
       dbpass: not_in_salt_yet
       lang: zh_TW

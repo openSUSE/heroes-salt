@@ -10,7 +10,6 @@ apache2_running:
 /etc/apache2/vhosts.d/{{ wiki }}.opensuse.org.conf:
   file.managed:
     - context:
-      alias: {{ data.get('alias', '') }}
       wiki: {{ wiki }}
     - listen_in:
       - service: apache2
