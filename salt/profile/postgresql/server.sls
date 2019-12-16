@@ -12,14 +12,14 @@
 
 /etc/postgresql/pg_ident.conf:
   file.managed:
-    - source: salt://profile/postgresql/files/postgresql/{{ id }}/pg_ident.conf
+    - source: salt://profile/postgresql/files/postgresql/pg_ident.conf
     - user: root
     - group: postgres
     - mode: 640
 
 /etc/postgresql/postgresql.auto.conf:
   file.managed:
-    - source: salt://profile/postgresql/files/postgresql/{{ id }}/postgresql.auto.conf
+    - source: salt://profile/postgresql/files/postgresql/postgresql.auto.conf
     - user: root
     - group: postgres
     - mode: 640
