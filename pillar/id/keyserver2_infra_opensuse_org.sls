@@ -1,13 +1,13 @@
 grains:
-  city: nuremberg
-  country: de
+  city: provo
+  country: us
   hostusage:
-    - keyserver1.o.o
+    - keyserver2.o.o
   roles:
     - web_keyserver
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: bryce
 
   aliases: []
   description: GPG Keyserver (shut down)
@@ -15,7 +15,6 @@ grains:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Keyserverinfraopensuseorg
   responsible: []
   partners:
-    - keyserver2.infra.opensuse.org
+    - keyserver1.infra.opensuse.org
   weburls:
-    - https://keyserver.opensuse.org
     - https://keyserver1.opensuse.org
