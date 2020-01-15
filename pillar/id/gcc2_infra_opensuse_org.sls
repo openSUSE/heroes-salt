@@ -12,6 +12,7 @@ grains:
   aliases: []
   description: future replacement of gcc.o.o / gcc-stats.i.o.o
   documentation: []
-  responsible: []
+  responsible: 
+    - michal-m
   partners: []
   weburls: []
