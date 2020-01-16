@@ -17,4 +17,4 @@ grains:
   partners:
     - keyserver1.infra.opensuse.org
   weburls:
-    - https://keyserver1.opensuse.org
+    - https://keyserver2.opensuse.org
