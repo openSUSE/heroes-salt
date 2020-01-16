@@ -71,7 +71,7 @@ $0 Usage Information:
  -d <path> | --pillardir <path>  : Path to the files with the Pillar information.
  -t        | --tableonly         : Print only the HTML table (for inclusion in Redmine).
 
- -r        | --dumpforredmine    : Print including a short manual for direct copy and past into the Redmine wiki.
+ -r        | --dumpforredmine    : Print including a short manual for direct copy and paste into the Redmine wiki.
  -h        | --help              : This help
 
 Use this script to generate a HTML page (or just a HTML table), based on the 
