@@ -5,6 +5,7 @@ grains:
     - news.o.o
     - planet.o.o
   roles:
+    - jekyll_master
     - web_jekyll
   reboot_safe: yes
   salt_cluster: opensuse
