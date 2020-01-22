@@ -9,11 +9,9 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: Public (kernel) git and svn server. Currently still running in another network.
+  description: Old (kernel) git and svn server. To be decommisioned.
   documentation: []
   responsible:
     - jdsn
   partners: []
-  weburls:
-    - https://svn.opensuse.org/
-    - https://kernel.opensuse.org/
+  weburls: []

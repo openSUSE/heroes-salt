@@ -9,9 +9,12 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: To-be-setup New public (kernel) git and svn server.
+  description: Public (kernel) git and svn server.
   documentation: []
   responsible:
     - jdsn
   partners: []
-  weburls: []
+  weburls:
+    - https://git.opensuse.org/
+    - https://svn.opensuse.org/
+    - https://kernel.opensuse.org/
