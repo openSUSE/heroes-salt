@@ -10,7 +10,7 @@ jekyll_master_pgks:
 
 /home/web_jekyll/.ssh/id_ed25519:
   file.managed:
-    - contents_pillar: profile:web_jekyll:ssh_private_key
+    - contents_pillar: profile:web_static:ssh_private_key
     - mode: 600
     - user: web_jekyll
 

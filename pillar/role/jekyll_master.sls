@@ -1,6 +1,6 @@
 {% if salt['grains.get']('include_secrets', True) %}
 include:
-  - secrets.role.jekyll_master
+  - secrets.role.static_master
 {% endif %}
 
 profile:
