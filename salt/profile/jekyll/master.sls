@@ -34,7 +34,7 @@ jekyll_master_pgks:
   file.managed:
     - context:
       git_dirs: {{ git_repos }}
-      server_list: {{ pillar['profile']['web_static']['server_list'] }}
+      server_list: {{ pillar['profile']['web_jekyll']['server_list'] }}
     - mode: 755
     - source: salt://profile/jekyll/files/git_pull_and_update.sh
     - template: jinja
