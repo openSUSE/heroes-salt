@@ -1,7 +1,8 @@
 {% set websites = salt['pillar.get']('profile:web_jekyll:websites') %}
 
-/srv/www/vhosts/:
-  file.directory
+jekyll_vhosts_dir:
+  file.directory:
+    - name: /srv/www/vhosts/
 
 {% for website in websites %}
 /srv/www/vhosts/{{ website }}.opensuse.org:
