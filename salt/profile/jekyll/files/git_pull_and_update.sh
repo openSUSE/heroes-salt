@@ -22,7 +22,10 @@ done
 # sync to all servers
 cd $BASEDIR || exit 1
 for dir in $GIT_DIRS ; do
-    cd "$BASEDIR/$dir" && rm -rf vendor && bundle install --deployment && bundle exec jekyll build -d "$DESTDIR/$dir/" || exit 1
+    cd "$BASEDIR/$dir" || exit 1
+    current_md5=$(md5sum "Gemfile.lock")
+    [[ $(cat Gemfile.lock.md5) != $current_md5 ]] && rm -rf vendor
+    bundle install --deployment && bundle exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || exit 1
 done
 
 # sync to all servers
