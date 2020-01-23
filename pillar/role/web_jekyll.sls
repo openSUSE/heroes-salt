@@ -54,5 +54,5 @@ nginx:
 
 profile:
   web_jekyll:
-    ssh_pubkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVddqh51YNoPglOnSZ9BpYH1nXzBV5ahbu0yncyL+6s web_jekyll@salt'
+    ssh_pubkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINNg3043py2Oe/LfLU0+mE+ehe7gI3e2QajbSUI6p4Zm web_jekyll@salt'
     websites: {{ websites }}

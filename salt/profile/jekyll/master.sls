@@ -1,16 +1,19 @@
 {% set git_repos = salt['pillar.get']('profile:web_jekyll:git_repos') %}
 
-# Using rubygem() provides, because the rubygem packages have the ruby version in the package name
 jekyll_master_pgks:
   pkg.installed:
     - pkgs:
       - git
       - rsync
-      - rubygem\(jekyll\)
+      # To find out the package name in the repo, run `zypper se --provides rubygem\(bundler\)`
+      - ruby2.5-rubygem-bundler
+      - ruby-devel
+      # Needed for planet to work with its database
+      - sqlite3-devel
 
 /home/web_jekyll/.ssh/id_ed25519:
   file.managed:
-    - contents_pillar: profile:web_static:ssh_private_key
+    - contents_pillar: profile:web_jekyll:ssh_private_key
     - mode: 600
     - user: web_jekyll
 
@@ -31,6 +34,7 @@ jekyll_master_pgks:
   file.managed:
     - context:
       git_dirs: {{ git_repos }}
+      server_list: {{ pillar['profile']['web_static']['server_list'] }}
     - mode: 755
     - source: salt://profile/jekyll/files/git_pull_and_update.sh
     - template: jinja

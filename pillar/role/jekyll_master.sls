@@ -1,6 +1,6 @@
 {% if salt['grains.get']('include_secrets', True) %}
 include:
-  - secrets.role.static_master
+  - secrets.role.jekyll_master
 {% endif %}
 
 profile:
@@ -10,3 +10,7 @@ profile:
         repo: https://github.com/openSUSE/news-o-o.git
       planet.opensuse.org:
         repo: https://github.com/hellcp/planet-o-o.git
+    server_list:
+      - jekyll.infra.opensuse.org
+    ssh_known_hosts: |
+        192.168.47.61,jekyll.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDIQrbRoDfhX4IYr5qALDKfslpvvJ8SJRLBqkUiHifEq05SMbsqWxoylIYrQRvHw5v0jl3UNWgISWRZ1AtBDVVQ=

@@ -5,6 +5,10 @@
 BASEDIR=/home/web_jekyll/git
 DESTDIR=/home/web_jekyll/jekyll
 
+SERVERS='{% for server in server_list %}
+    {{ server }}
+{%- endfor %}'
+
 GIT_DIRS='{% for dir in git_dirs.keys() %}
     {{ dir }}
 {%- endfor %}'
@@ -18,13 +22,15 @@ done
 # sync to all servers
 cd $BASEDIR || exit 1
 for dir in $GIT_DIRS ; do
-    cd "$BASEDIR/$dir" && rm -r vendor && bundle install --deployment && bundle exec jekyll build -d "$DESTDIR/$dir/" || exit 1
+    cd "$BASEDIR/$dir" && rm -rf vendor && bundle install --deployment && bundle exec jekyll build -d "$DESTDIR/$dir/" || exit 1
 done
 
 # sync to all servers
 cd $DESTDIR || exit 1
 for dir in *.opensuse.org ; do
-    rsync -az --exclude '.git' --delete-after "$@" -e ssh "$DESTDIR/$dir/" "web_jekyll@jekyll.infra.opensuse.org:/srv/www/vhosts/$dir/"
+    for server in $SERVERS ; do
+        rsync -az --exclude '.git' --delete-after "$@" -e ssh "$DESTDIR/$dir/" "web_jekyll@$server:/srv/www/vhosts/$dir/"
+    done
 done
 
 # vim: ts=4 expandtab
