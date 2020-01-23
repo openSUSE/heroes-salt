@@ -10,6 +10,7 @@ jekyll_master_pgks:
       - ruby-devel
       # Needed for planet to work with its database
       - sqlite3-devel
+      - libopenssl-devel
 
 /home/web_jekyll/.ssh/id_ed25519:
   file.managed:
