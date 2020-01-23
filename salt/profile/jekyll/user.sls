@@ -8,7 +8,7 @@ web_jekyll:
 
 /home/web_jekyll:
   file.directory:
-    - user: root
+    - user: web_jekyll
 
 /home/web_jekyll/.ssh:
   file.directory:
