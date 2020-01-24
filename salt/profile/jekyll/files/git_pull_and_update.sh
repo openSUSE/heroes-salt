@@ -19,13 +19,15 @@ for dir in $GIT_DIRS ; do
     cd "$BASEDIR/$dir" && git pull -q || exit 1
 done
 
-# sync to all servers
+# build all of the sites
 cd $BASEDIR || exit 1
 for dir in $GIT_DIRS ; do
     cd "$BASEDIR/$dir" || exit 1
-    current_md5=$(md5sum "Gemfile.lock")
+    current_md5=$(md5sum "Gemfile.lock" | cut -d " " -f1)
     [[ $(cat Gemfile.lock.md5) != $current_md5 ]] && rm -rf vendor
-    bundle install --deployment && bundle exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || exit 1
+    bundle install --deployment || exit 1
+    [[ -f "update.sh" ]] && ./update.sh
+    bundle exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || exit 1
 done
 
 # sync to all servers
