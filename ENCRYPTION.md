@@ -8,28 +8,36 @@ Secret information (e.g. passwords) are managed in an encrypted way to
 provide confidentiality within this repository. In particular, we're using
 OpenPGP.
 
-The Salt master has its own OpenPGP key and needs to be able to decrypt any
-secret for proper deployment. You'll find this key in the following file:
-`gpg/B9D45B4366C69C8D75CA3A08F1C33B7A1346F48E.gpg.asc`.
+## Concept
 
-You'll need to import it manually, and won't find it on any public keyserver:
+Secrets are encrypted with OpenPGP using public-key cryptography. There are
+multiple recipients able to decrypt each secret, one of which is the Salt
+master itself using its own key (`B9D45B4366C69C8D75CA3A08F1C33B7A1346F48E`).
+
+## Import of keys
+
+In order to encrypt any secrets, you'll need to have the public keys of all
+other recipients available in your own keyring. The list of recipients is
+managed in `encrypted_pillar_recipients`.
+
+You can import all keys by invoking the script `bin/import_gpg_keys.sh`.
+
+In case you want to do this manually, you need to keep in mind that the public
+key of the Salt master is not uploaded to any public keyserver. You'll find
+a copy of this key in `gpgkeys` and can import it using the following command:
 
 ```
-$ gpg --import gpg/B9D45B4366C69C8D75CA3A08F1C33B7A1346F48E.gpg.asc
+$ gpg --import gpgkeys/B9D45B4366C69C8D75CA3A08F1C33B7A1346F48E.gpg.asc
 ```
 
-You can then create new secrets using the following snippet:
+## Create new secrets
 
-```
-$ echo -n "supersecret" | gpg --armor --batch --trust-model always --encrypt -r <KEY-name>
-```
+You can easily create new secrets using the `bin/encrypt_pillar.sh` script:
 
-`<KEY-name>` should be a OpenPGP key handle and can be listed multiple times.
-For the recommended workflow (see below) you should use your own OpenPGP
-key handle, so that you will be able to decrypt the secret and can reencrypt it
-later on.
+The script will wait for some input (i.e. the secret) and encrypt it, so that
+all current recipients can access it. It will then output some OpenPGP armored
+ASCII text block, which can then be included into any pillar as block string:
 
-The output (OpenPGP armored ASCII text) can be included into any pillar:
 
 ```
 #!yaml|gpg
@@ -49,33 +57,21 @@ a-secret: |
   -----END PGP MESSAGE-----
 ```
 
-## Recommended workflow
-
-The recommended workflow for creating a new secret is as follows:
-
-1.) Make sure to have all public keys from `encrypted_pillar_recipients`
-2.) Encrypt the secret with your own public key
-3.) Run the `reencrypt_pillar.py` script to re-encrypt it for all current
-    recipients.
-
 ## Reencryption
 
 Whenever changing the list of recipients (i.e. adding new keys and/or
-removing keys) you need to reencrypt all pillar data. The recommended way
-of doing this is to use the `reencrypt_pillar.py` script in the following way:
+removing keys) you need to reencrypt all pillar data, so that existing secrets
+are reencrypted for the new list of recipients. The recommended way of doing
+this is to use the `reencrypt_pillar.py` script in the following way:
 
 ```
 $ ./bin/reencrypt_pillar.py --recipients-file encrypted_pillar_recipients -r pillar
 ```
 
-To successfully run this script, you'll need to import all public keys as
-referenced in `encrypted_pillar_recipients`.
-
-**NOTE**: Reencryption will only reencrypt the secrets in accordance with the
-current list of recipients. It will **not** change and/or update the secrets
-itself. Previous recipients might still be able to decrypt old versions of
-the encrypted pillar (version control!), so when appropriate, make sure to
-also change the secrets themselves.
+**NOTE**: Reencryption will **NOT** change and/or update the secrets itself.
+Previous recipients might still be able to decrypt old versions of the
+encrypted pillar (version control!), so when necessary, make sure to also
+change the secrets themselves.
 
 ## More information & references
 
