@@ -4,7 +4,7 @@
 # local keyring, and opens the trust menu in order to trust them ultimately
 
 RECIPIENTS=( $(egrep '^\s*0x' encrypted_pillar_recipients) )
-SALTMASTER_KEYS_PATH="salt/profile/salt/files/etc/salt/gpgkeys"
+SALTMASTER_KEYS_PATH="gpgkeys"
 
 for key in $(ls $SALTMASTER_KEYS_PATH); do
     gpg --import ${SALTMASTER_KEYS_PATH}/${key}
