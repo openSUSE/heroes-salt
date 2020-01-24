@@ -51,3 +51,8 @@ nginx:
                 - error_log: /var/log/nginx/{{ website }}.error.log
           enabled: True
         {% endfor %}
+
+profile:
+  web_jekyll:
+    ssh_pubkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINNg3043py2Oe/LfLU0+mE+ehe7gI3e2QajbSUI6p4Zm web_jekyll@salt'
+    websites: {{ websites }}
