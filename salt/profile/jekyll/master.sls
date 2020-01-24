@@ -11,6 +11,10 @@ jekyll_master_pgks:
       # Needed for planet to work with its database
       - sqlite3-devel
       - libopenssl-devel
+      - gcc
+      - gcc-c++
+      - make
+      - tar
 
 /home/web_jekyll/.ssh/id_ed25519:
   file.managed:
