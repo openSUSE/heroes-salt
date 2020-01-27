@@ -26,7 +26,7 @@ for dir in $GIT_DIRS ; do
     current_md5=$(md5sum "Gemfile.lock" | cut -d " " -f1)
     [[ $(cat Gemfile.lock.md5) != $current_md5 ]] && rm -rf vendor
     bundle install --deployment || exit 1
-    [[ -f "update.sh" ]] && ./update.sh
+    [[ -f "Rakefile" ]] && bundle exec rake
     bundle exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || exit 1
 done
 
