@@ -6,8 +6,6 @@ grains:
     # bugbot writes IRC meeting logs to community.o.o/meetings/
     - community.o.o
     - doc.o.o
-    - education.o.o
-    - fontinfo.o.o
     - webtest.o.o
   reboot_safe: unknown
   salt_cluster: opensuse
@@ -21,7 +19,4 @@ grains:
   weburls:
     - https://community.opensuse.org
     - https://doc.opensuse.org
-    - https://community.opensuse.org
-    - https://education.opensuse.org
-    - https://fontinfo.opensuse.org
     - https://webtest.opensuse.org
