@@ -1,16 +1,16 @@
 {% set roles = salt['grains.get']('roles', []) %}
 
-synapse-service:
+synapse_service:
   service.running:
     - name: synapse
     - enable: True
 
-synapse-restart:
+synapse_restart:
   module.wait:
     - name: service.restart
     - m_name: synapse
     - require:
-      - service: synapse-service
+      - service: synapse_service
 
 discord_service:
   service.running:

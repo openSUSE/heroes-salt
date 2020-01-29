@@ -14,7 +14,7 @@ synapse_conf_file:
     - source: salt://profile/matrix/files/homeserver.yaml
     - template: jinja
     - require:
-      - file: synapse-conf-dir
+      - file: synapse_conf_dir
     - require_in:
       - service: synapse_service
     - watch_in:
@@ -26,7 +26,7 @@ discord_conf_file:
     - source: salt://profile/matrix/files/config-discord.yaml
     - template: jinja
     - require:
-      - file: synapse-conf-dir
+      - file: synapse_conf_dir
     - require_in:
       - service: synapse_service
     - watch_in:
@@ -41,7 +41,7 @@ synapse_appservice_discord_file:
     - watch_in:
       - module: discord_restart
 
-synapse-log-conf-file:
+synapse_log_conf_file:
   file.managed:
     - name: /etc/matrix-synapse/log.yaml
     - source: salt://profile/matrix/files/log_config
