@@ -28,7 +28,7 @@ discord_build:
     - cwd: /var/lib/matrix-synapse/discord
     - user: synapse
 
-synapse_systemd_file:
+discord_systemd_file:
   file.managed:
     - name: /etc/systemd/system/discord.service
     - source: salt://profile/matrix/files/discord.service
