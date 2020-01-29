@@ -1,0 +1,12 @@
+[Unit]
+Description=Matrix Appservice Discord
+
+[Service]
+Type=simple
+User=synapse
+Group=synapse
+WorkingDirectory=/var/lib/matrix-synapse/discord/
+ExecStart=npm start
+
+[Install]
+WantedBy=multi-user.target

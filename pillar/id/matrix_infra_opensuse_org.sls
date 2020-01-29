@@ -3,7 +3,8 @@ grains:
   country: de
   hostusage:
     - matrix.o.o
-  roles: []
+  roles:
+    - matrix
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
