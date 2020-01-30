@@ -2,15 +2,16 @@ grains:
   city: provo
   country: us
   hostusage:
-    - proxy-prv.o.o
+    - proxy
   roles:
     - proxy
-  reboot_safe: unknown
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
 
-  aliases: []
-  description: HAproxy and PgBouncer in Provo
+  aliases:
+    - mufasa.infra.opensuse.org
+  description: HAproxy and PgBouncer in Provo. Currently not HA.
   documentation: []
   responsible: []
   partners: []
