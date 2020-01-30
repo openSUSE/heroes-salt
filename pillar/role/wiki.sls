@@ -14,7 +14,7 @@ apparmor:
 # list of wikis running MediaWiki 1.27 (this will allow us to migrate to a new version one by one later)
 mediawiki_1_27:
   elasticsearch_server: water.infra.opensuse.org
-  mysql_server: mysql.infra.opensuse.org
+  mysql_server: 192.168.47.4:3307
   wikis:
     # availale options:
       # bento_lang: en
