@@ -1,5 +1,4 @@
 {% from "macros.jinja" import valid_virt_cluster with context %}
-{% set country = salt['grains.get']('country') %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
 {% set osfullname = salt['grains.get']('osfullname') %}
@@ -29,9 +28,6 @@
   'virtual:{{ virtual }}':
     - match: grain
     - virtual.{{ virtual }}
-  'country:{{ country }}':
-    - match: grain
-    - country.{{ country }}
   {% if domain and domain == 'infra.opensuse.org' %}
   'domain:{{ domain }}':
     - match: grain
