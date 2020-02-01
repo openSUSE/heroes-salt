@@ -46,7 +46,7 @@ synapse_log_conf_file:
     - name: /etc/matrix-synapse/log.yaml
     - source: salt://profile/matrix/files/log_config
     - require:
-      - file: synapse-conf-dir
+      - file: synapse_conf_dir
     - require_in:
       - service: synapse_service
     - watch_in:
