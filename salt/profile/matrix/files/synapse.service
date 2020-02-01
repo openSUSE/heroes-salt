@@ -3,6 +3,9 @@ Description=Synapse Matrix homeserver
 
 [Service]
 Type=simple
+Restart=on-failure
+RestartSec=3
+
 User=synapse
 Group=synapse
 WorkingDirectory=/var/lib/matrix-synapse/
