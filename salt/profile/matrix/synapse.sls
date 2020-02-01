@@ -6,6 +6,12 @@ synapse_dependencies:
       - python3-matrix-synapse
       - python3-matrix-synapse-ldap3
 
+synapse:
+  group.present:
+    - system: True
+    - members:
+      - synapse
+
 synapse_systemd_file:
   file.managed:
     - name: /etc/systemd/system/synapse.service
