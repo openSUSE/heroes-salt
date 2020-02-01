@@ -1,11 +1,9 @@
-{% from "macros.jinja" import valid_virt_cluster with context %}
 {% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
 {% set osfullname = salt['grains.get']('osfullname') %}
 {% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
 {% set roles = salt['grains.get']('roles', []) %}
 {% set salt_cluster = salt['grains.get']('salt_cluster') %}
-{% set virt_cluster = salt['grains.get']('virt_cluster') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
 {{ saltenv }}:
@@ -17,14 +15,6 @@
     - ignore_missing: True
     - role.{{ role }}
   {% endfor %}
-  {% if virt_cluster in valid_virt_cluster() %}
-  'virt_cluster:{{ virt_cluster }}':
-    - match: grain
-    - virt_cluster.{{ virt_cluster }}
-  'G@virt_cluster:{{ virt_cluster }} and G@virtual:{{ virtual }}':
-    - match: compound
-    - virt_cluster.{{ virt_cluster }}.{{ virtual }}
-  {% endif %}
   'virtual:{{ virtual }}':
     - match: grain
     - virtual.{{ virtual }}
