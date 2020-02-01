@@ -1,4 +1,3 @@
-{% set domain = salt['grains.get']('domain') %}
 {% set id = salt['grains.get']('id') %}
 {% set osfullname = salt['grains.get']('osfullname') %}
 {% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
@@ -18,11 +17,6 @@
   'virtual:{{ virtual }}':
     - match: grain
     - virtual.{{ virtual }}
-  {% if domain and domain == 'infra.opensuse.org' %}
-  'domain:{{ domain }}':
-    - match: grain
-    - domain.{{ domain.replace('.', '_') }}
-  {% endif %}
   'osfullname:{{ osfullname }}':
     - match: grain
     - osfullname.{{ osfullname }}
