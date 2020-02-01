@@ -1,6 +1,7 @@
 include:
   - profile.accounts
   - profile.apparmor
+  - profile.cron
   - profile.ldap.client
   - profile.log
   - profile.monitoring
