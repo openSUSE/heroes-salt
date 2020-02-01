@@ -5,6 +5,7 @@ discord_pgks:
     - pkgs:
       - git
       - nodejs10
+      - nodejs-common
 
 /var/lib/matrix-synapse/discord:
   file.directory:
