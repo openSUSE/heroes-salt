@@ -5,10 +5,18 @@ discord_pgks:
     - pkgs:
       - git
       - nodejs10
+      - npm10
       - nodejs-common
 
 /var/lib/matrix-synapse/discord:
   file.directory:
+    - user: synapse
+
+https://github.com/Half-Shot/matrix-appservice-discord.git:
+  git.latest:
+    - branch: master
+    - target: /var/lib/matrix-synapse/discord/
+    - rev: master
     - user: synapse
 
 discord_conf_file:
@@ -23,26 +31,21 @@ discord_conf_file:
     - watch_in:
       - module: discord_restart
 
-https://github.com/Half-Shot/matrix-appservice-discord.git:
-  git.latest:
-    - branch: master
-    - target: /var/lib/matrix-synapse/discord/
-    - rev: master
-    - user: synapse
-
 discord_boostrap:
   cmd.run:
     - name: npm install
     - cwd: /var/lib/matrix-synapse/discord
     - user: synapse
-    - env: "NODE_VERSION=10"
+    - env:
+      - "NODE_VERSION=10"
 
 discord_build:
   cmd.run:
     - name: npm run build
     - cwd: /var/lib/matrix-synapse/discord
     - user: synapse
-    - env: "NODE_VERSION=10"
+    - env:
+      - "NODE_VERSION=10"
 
 discord_systemd_file:
   file.managed:
