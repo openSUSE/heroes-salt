@@ -11,6 +11,18 @@ discord_pgks:
   file.directory:
     - user: synapse
 
+discord_conf_file:
+  file.managed:
+    - name: /var/lib/matrix-synapse/discord/config.yaml
+    - source: salt://profile/matrix/files/config-discord.yaml
+    - template: jinja
+    - require:
+      - file: /var/lib/matrix-synapse/discord
+    - require_in:
+      - service: discord_service
+    - watch_in:
+      - module: discord_restart
+
 https://github.com/Half-Shot/matrix-appservice-discord.git:
   git.latest:
     - branch: master

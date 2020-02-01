@@ -20,18 +20,6 @@ synapse_conf_file:
     - watch_in:
       - module: synapse_restart
 
-discord_conf_file:
-  file.managed:
-    - name: /var/lib/matrix-synapse/discord/config.yaml
-    - source: salt://profile/matrix/files/config-discord.yaml
-    - template: jinja
-    - require:
-      - file: synapse_conf_dir
-    - require_in:
-      - service: synapse_service
-    - watch_in:
-      - module: synapse_restart
-
 synapse_appservice_discord_file:
   file.managed:
     - name: /etc/matrix-synapse/appservices/appservice-discord.yaml
