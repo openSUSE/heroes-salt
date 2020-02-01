@@ -6,7 +6,7 @@ Type=simple
 User=synapse
 Group=synapse
 WorkingDirectory=/var/lib/matrix-synapse/
-ExecStart=/bin/python3 -m synapse.app.homeserver --config-path=/etc/matrix-synapse/homeserver.yaml
+ExecStart=/usr/bin/python3 -m synapse.app.homeserver --config-path=/etc/matrix-synapse/homeserver.yaml
 
 [Install]
 WantedBy=multi-user.target

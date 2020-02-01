@@ -31,15 +31,18 @@ https://github.com/Half-Shot/matrix-appservice-discord.git:
     - user: synapse
 
 discord_boostrap:
-  npm.bootstrap:
-    - name: /var/lib/matrix-synapse/discord
+  cmd.run:
+    - name: npm install
+    - cwd: /var/lib/matrix-synapse/discord
     - user: synapse
+    - env: "NODE_VERSION=10"
 
 discord_build:
   cmd.run:
     - name: npm run build
     - cwd: /var/lib/matrix-synapse/discord
     - user: synapse
+    - env: "NODE_VERSION=10"
 
 discord_systemd_file:
   file.managed:
