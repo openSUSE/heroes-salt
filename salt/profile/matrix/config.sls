@@ -24,6 +24,7 @@ synapse_appservice_discord_file:
   file.managed:
     - name: /etc/matrix-synapse/appservices/appservice-discord.yaml
     - source: salt://profile/matrix/files/appservice-discord.yaml
+    - template: jinja
     - require:
       - file: /var/lib/matrix-synapse/discord
     - watch_in:

@@ -40,6 +40,7 @@ discord_appservice_file:
     - name: /var/lib/matrix-synapse/discord/discord-registration.yaml
     - source: salt://profile/matrix/files/appservice-discord.yaml
     - user: synapse
+    - template: jinja
     - require:
       - file: /var/lib/matrix-synapse/discord
     - watch_in:
