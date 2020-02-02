@@ -39,6 +39,7 @@ discord_appservice_file:
   file.managed:
     - name: /var/lib/matrix-synapse/discord/discord-registration.yaml
     - source: salt://profile/matrix/files/appservice-discord.yaml
+    - user: synapse
     - require:
       - file: /var/lib/matrix-synapse/discord
     - watch_in:
