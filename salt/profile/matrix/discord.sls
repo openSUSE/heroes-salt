@@ -7,6 +7,9 @@ discord_pgks:
       - nodejs10
       - npm10
       - nodejs-common
+      - make
+      - gcc
+      - gcc-c++
 
 /var/lib/matrix-synapse/discord:
   file.directory:
@@ -24,6 +27,7 @@ discord_conf_file:
     - name: /var/lib/matrix-synapse/discord/config.yaml
     - source: salt://profile/matrix/files/config-discord.yaml
     - template: jinja
+    - user: synapse
     - require:
       - file: /var/lib/matrix-synapse/discord
     - require_in:
@@ -31,11 +35,21 @@ discord_conf_file:
     - watch_in:
       - module: discord_restart
 
+discord_appservice_file:
+  file.managed:
+    - name: /var/lib/matrix-synapse/discord/discord-registration.yaml
+    - source: salt://profile/matrix/files/appservice-discord.yaml
+    - user: synapse
+    - require:
+      - file: /var/lib/matrix-synapse/discord
+    - watch_in:
+      - module: discord_restart
+
 discord_boostrap:
   cmd.run:
     - name: npm install
     - cwd: /var/lib/matrix-synapse/discord
-    - user: synapse
+    - runas: synapse
     - env:
       - NODE_VERSION: 10
 
@@ -43,7 +57,7 @@ discord_build:
   cmd.run:
     - name: npm run build
     - cwd: /var/lib/matrix-synapse/discord
-    - user: synapse
+    - runas: synapse
     - env:
       - NODE_VERSION: 10
 
