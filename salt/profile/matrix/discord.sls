@@ -37,7 +37,7 @@ discord_boostrap:
     - cwd: /var/lib/matrix-synapse/discord
     - user: synapse
     - env:
-      - "NODE_VERSION=10"
+      - NODE_VERSION: 10
 
 discord_build:
   cmd.run:
@@ -45,7 +45,7 @@ discord_build:
     - cwd: /var/lib/matrix-synapse/discord
     - user: synapse
     - env:
-      - "NODE_VERSION=10"
+      - NODE_VERSION: 10
 
 discord_systemd_file:
   file.managed:
