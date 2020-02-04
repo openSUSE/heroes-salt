@@ -2,7 +2,8 @@ grains:
   city: nuremberg
   country: de
   hostusage: osc-collab
-  roles: []
+  roles:
+    - osc-collab
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
