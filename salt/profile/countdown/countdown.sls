@@ -26,10 +26,6 @@ countdown:
     - contents:
       - '0 * * * *     countdown   /srv/www/countdown.opensuse.org/svg/cron.sh -G -E && rsync -a --delete-after /srv/www/countdown.opensuse.org/output/ /srv/www/countdown.opensuse.org/public/'
 
-cron:
-  service.running:
-    - enable: True
-
 countdown_git:
   git.latest:
     - name: https://github.com/openSUSE/countdown.o.o.git
