@@ -1,7 +1,8 @@
 grains:
   city: nuremberg
   country: de
-  hostusage: osc-collab
+  hostusage: 
+    - osc-collab
   roles:
     - osc-collab
   reboot_safe: yes
