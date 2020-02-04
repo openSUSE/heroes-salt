@@ -10,12 +10,13 @@ grains:
   virt_cluster: bare-metal
 
   aliases: []
-  description: IPMI backdoor for widehat.infra.opensuse.org (Remote access)
+  description: IPMI backdoor for widehat.infra.opensuse.org (Remote access) and hypervisor for VMs (use slimhat as virt_cluster entry)
   documentation: []
   responsible:
     - kbabioch
     - mcaj
     - rklein
+    - lrupp
   partners: []
   weburls: []
 
