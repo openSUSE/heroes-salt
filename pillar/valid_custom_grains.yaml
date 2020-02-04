@@ -12,7 +12,9 @@ localized:
     default_domain: infra.opensuse.org
     default_virt_cluster: atreju
     domains: infra.opensuse.org
-    virt_cluster: bare-metal
+    virt_cluster:
+      - bare-metal
+      - slimhat
   de:
     city: nuremberg
     default_domain: infra.opensuse.org

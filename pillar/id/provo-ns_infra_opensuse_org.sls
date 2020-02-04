@@ -2,18 +2,21 @@ grains:
   city: provo
   country: us
   hostusage:
-    - ns3.o.o
+    - DNS
   roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
 
-  aliases: []
+  aliases:
+    - ns3.infra.opensuse.org
   description: Public DNS server for the opensuse.org domain (not reverse)
-  documentation: []
+  documentation:
+    - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/DNS
   responsible:
     - lrupp
   partners:
     - nue-ns1.infra.opensuse.org
     - nue-ns2.infra.opensuse.org
+    - qsc-ns4.infra.opensuse-org
   weburls: []
