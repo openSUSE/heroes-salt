@@ -10,6 +10,8 @@ profile:
         repo: https://github.com/openSUSE/news-o-o.git
       planet.opensuse.org:
         repo: https://github.com/openSUSE/planet-o-o.git
+      search.opensuse.org:
+        repo: https://github.com/openSUSE/search-o-o.git
     server_list:
       - jekyll.infra.opensuse.org
     ssh_known_hosts: |
