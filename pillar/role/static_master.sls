@@ -15,6 +15,9 @@ profile:
       html5test.opensuse.org:
         branch: opensuse
         repo: https://github.com/openSUSE/HTML5test.git
+      people.opensuse.org:
+        branch: gh-pages
+        repo: https://github.com/openSUSE/people.git
       shop.opensuse.org:
         repo: https://github.com/openSUSE/shop.o.o.git
       static.opensuse.org:
