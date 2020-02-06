@@ -1,4 +1,4 @@
-{% set websites = ['news', 'planet', 'search'] %}
+{% set websites = ['news', 'planet', 'search', 'yast'] %}
 
 include:
   - role.common.nginx
