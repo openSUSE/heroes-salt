@@ -15,6 +15,8 @@ jekyll_master_pgks:
       - gcc-c++
       - make
       - tar
+      - aspell-devel
+      - aspell-en
 
 /home/web_jekyll/.ssh/id_ed25519:
   file.managed:

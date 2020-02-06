@@ -12,6 +12,8 @@ profile:
         repo: https://github.com/openSUSE/planet-o-o.git
       search.opensuse.org:
         repo: https://github.com/openSUSE/search-o-o.git
+      yast.opensuse.org:
+        repo: https://github.com/yast/yast.github.io.git
     server_list:
       - jekyll.infra.opensuse.org
     ssh_known_hosts: |
