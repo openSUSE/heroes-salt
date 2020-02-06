@@ -20,6 +20,7 @@ grains:
   weburls:
     - https://fontinfo.opensuse.org
     - https://html5test.opensuse.org
+    - https://people.opensuse.org
     - https://shop.opensuse.org
     - https://static.opensuse.org
     - https://studioexpress.opensuse.org
