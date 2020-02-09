@@ -1,6 +1,4 @@
 # managed by salt - do not edit!
-
-# description: NRPE (Nagios Remote Plugin Executor)
 service nrpe
 {
     disable         = no
