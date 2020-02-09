@@ -1,3 +1,5 @@
+{% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
+
 etckeeper_install:
   pkg.installed:
     - pkgs:
@@ -9,7 +11,9 @@ etckeeper_init:
     - name: etckeeper init
     - creates: /etc/.git
 
+{% if osmajorrelease > 12 %}
 etckeeper_timer:
   service.running:
     - name: etckeeper.timer
     - enable: True
+{% endif %}
