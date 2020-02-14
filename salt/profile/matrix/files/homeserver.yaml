@@ -553,13 +553,23 @@ acme:
 
 ## Database ##
 
-database:
+#database:
   # The database engine name
-  name: "sqlite3"
+  #name: "sqlite3"
   # Arguments to pass to the engine
-  args:
+  #args:
     # Path to the database
-    database: "/var/lib/matrix-synapse/homeserver.db"
+    #database: "/var/lib/matrix-synapse/homeserver.db"
+
+database:
+    name: psycopg2
+    args:
+        user: {{ pillar['profile']['matrix']['database_user'] }}
+        password: {{ pillar['postgres']['users']['matrix']['password'] }}
+        database: {{ pillar['profile']['matrix']['database_name'] }}
+        host: {{ pillar['profile']['matrix']['database_host'] }}
+        cp_min: 5
+        cp_max: 10
 
 # Number of events to cache in memory.
 #
