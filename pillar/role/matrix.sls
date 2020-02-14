@@ -16,3 +16,10 @@ sudoers:
       groups:
         matrix-admins:
           - 'ALL=(ALL) ALL'
+
+zypper:
+  repositories:
+    openSUSE:infrastructure:matrix:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/matrix/openSUSE_Leap_$releasever/
+      priority: 100
+      refresh: True
