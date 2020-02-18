@@ -6,6 +6,7 @@ Type=simple
 Restart=on-failure
 RestartSec=3
 
+AppArmorProfile=matrix-synapse
 User=synapse
 Group=synapse
 WorkingDirectory=/var/lib/matrix-synapse/
