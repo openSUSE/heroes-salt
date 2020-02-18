@@ -17,6 +17,11 @@ sudoers:
         matrix-admins:
           - 'ALL=(ALL) ALL'
 
+apparmor:
+  profiles:
+    matrix-synapse:
+      source: salt://profile/matrix/files/matrix-synapse.apparmor
+
 zypper:
   repositories:
     openSUSE:infrastructure:matrix:

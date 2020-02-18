@@ -1,0 +1,32 @@
+profile matrix-synapse {
+    include <abstractions/base>
+    include <abstractions/python>
+    include <abstractions/ssl_certs>
+    include <abstractions/openssl>
+
+    network inet stream,
+    network inet6 stream,
+
+    /etc/gai.conf r,
+    /etc/host.conf r,
+    /etc/hosts r,
+    /etc/mime.types r,
+    /etc/nsswitch.conf r,
+    /etc/passwd r,
+    /etc/resolv.conf r,
+
+    owner @{PROC}/@{pid}/{fd/,limits,mounts,stat} r,
+
+    /etc/matrix-synapse/** r,
+    owner /var/lib/matrix-synapse/ r,
+    owner /var/{lib,log}/matrix-synapse/** rw,
+
+    /usr/bin/bash Cx -> bash,
+
+    profile bash {
+        include <abstractions/base>
+
+        /usr/bin/bash r,
+        /usr/bin/uname PUx,
+    }
+}
