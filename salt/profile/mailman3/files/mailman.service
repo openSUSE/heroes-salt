@@ -1,0 +1,15 @@
+[Unit]
+Description=GNU Mailman Service
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=3
+
+User=mailman
+Group=mailman
+WorkingDirectory=/var/lib/mailman_webui/
+ExecStart=uwsgi --ini /etc/mailman_webui/uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target
