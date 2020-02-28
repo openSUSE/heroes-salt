@@ -41,7 +41,7 @@ nginx:
                         - index.html
                         - index.htm
                 {% if website == 'news' %}
-                - rewrite: ^/feed=rss2$ /feed.xml redirect
+                - rewrite: ^/?feed=rss2$ /feed.xml redirect
                 {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
