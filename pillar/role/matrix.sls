@@ -21,3 +21,10 @@ apparmor:
   profiles:
     matrix-synapse:
       source: salt://profile/matrix/files/matrix-synapse.apparmor
+
+zypper:
+  repositories:
+    openSUSE:infrastructure:matrix:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/matrix/openSUSE_Leap_$releasever/
+      priority: 100
+      refresh: True
