@@ -11,37 +11,10 @@ validate:
   tags:
     - docker
 
-leap15.0_show_highstate:
+leap15.1_show_highstate:
   stage: validate
   before_script:
-    - bin/prepare_test_env.sh -i opensuse -g
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
-  script: bin/test_show_highstate.sh
-  tags:
-    - docker
-
-leap42.3_show_highstate:
-  stage: validate
-  before_script:
-    - bin/prepare_test_env.sh -i opensuse -g -o Leap,42,3
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
-  script: bin/test_show_highstate.sh
-  tags:
-    - docker
-
-sle12sp3_show_highstate:
-  stage: validate
-  before_script:
-    - bin/prepare_test_env.sh -i opensuse -g -o SLES,12,3
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
-  script: bin/test_show_highstate.sh
-  tags:
-    - docker
-
-sle11sp4_show_highstate:
-  stage: validate
-  before_script:
-    - bin/prepare_test_env.sh -i opensuse -g -o SLES,11,4
+    - bin/prepare_test_env.sh -i opensuse -g -o Leap,15.1
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
   script: bin/test_show_highstate.sh
   tags:
