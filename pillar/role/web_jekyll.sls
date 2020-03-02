@@ -41,14 +41,16 @@ nginx:
                         - index.html
                         - index.htm
                 {% if website == 'news' %}
-                - rewrite: ^/?feed=rss2$ /feed.xml redirect
+                - if ($args ~* "feed=rss2"):
+                    - set: $args ""
+                    - rewrite: ^.*$ /feed.xml redirect;
                 - rewrite: ^/feed/$ /feed.xml redirect
                 {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
                 - location ~* \.(?:xml)$:
                     - add_header: Access-Control-Allow-Origin "*"
-                    - charset utf-8;
+                    - charset: utf-8;
                 - error_page: 405 = $uri
                 - error_page: 405 =200 $uri
                 - error_page: 500 502 503 504 /50x.html
