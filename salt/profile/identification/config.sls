@@ -1,27 +1,23 @@
 {% set roles = salt['grains.get']('roles', []) %}
 
-ipsilon_wellknown_dir:
-  file.directory:
-    - name: /etc/ipsilon/wellknown
-    - mode: 755
-    - user: ipsilon
-
 ipsilon_saml2_dir:
   file.directory:
     - name: /etc/ipsilon/saml2
     - mode: 700
     - user: ipsilon
 
-ipsilon_configuration_file:
-  file.managed:
-    - name: /etc/ipsilon/configuration.conf
-    - source: salt://profile/identification/files/configuration.conf
-    - template: jinja
-    - mode: 600
-    - require_in:
-      - service: id_apache_service
-    - watch_in:
-      - module: id_apache_restart
+# # This will be exported from the UI once we set everything up there
+#
+# ipsilon_configuration_file:
+#   file.managed:
+#     - name: /etc/ipsilon/configuration.conf
+#     - source: salt://profile/identification/files/configuration.conf
+#     - template: jinja
+#     - mode: 600
+#     - require_in:
+#       - service: id_apache_service
+#     - watch_in:
+#       - module: id_apache_restart
 
 ipsilon_conf_file:
   file.managed:
@@ -48,18 +44,6 @@ ipsilon_oidc_conf_file:
       - service: id_apache_service
     - watch_in:
       - module: id_apache_restart
-
-/etc/ipsilon/persona.key:
-  file.managed:
-    - contents_pillar: profile:matrix:persona_priv_key
-    - mode: 600
-    - user: ipsilon
-
-/etc/ipsilon/wellknown/browserid:
-  file.managed:
-    - contents_pillar: profile:matrix:persona_pub_key
-    - mode: 644
-    - user: ipsilon
 
 /etc/ipsilon/openidc.key:
   file.managed:

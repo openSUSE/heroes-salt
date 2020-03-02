@@ -3,10 +3,10 @@
 ipsilon_dependencies:
   pkg.installed:
     - pkgs:
+      - apache2
       - ipsilon
-      - ipsilon-openid
+      - ipsilon-tools-ipa
       - ipsilon-saml2
-      - ipsilon-persona
-      - ipsilon-authgssapi
+      - ipsilon-openid
       - ipsilon-openidc
-
+      - ipsilon-theme-openSUSE
