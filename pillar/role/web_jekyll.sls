@@ -46,6 +46,8 @@ nginx:
                 {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
+                - location ~* \.(?:xml)$:
+                    - add_header: Access-Control-Allow-Origin "https://www.opensuse.org"
                 - error_page: 405 = $uri
                 - error_page: 405 =200 $uri
                 - error_page: 500 502 503 504 /50x.html
