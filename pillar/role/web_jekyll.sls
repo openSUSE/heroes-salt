@@ -50,7 +50,7 @@ nginx:
                     - add_header: Access-Control-Allow-Origin "*"
                 - location ~* \.(?:xml)$:
                     - add_header: Access-Control-Allow-Origin "*"
-                    - charset: utf-8;
+                    - charset: utf-8
                 - error_page: 405 = $uri
                 - error_page: 405 =200 $uri
                 - error_page: 500 502 503 504 /50x.html
