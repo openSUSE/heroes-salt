@@ -45,6 +45,7 @@ nginx:
                     - set: $args ""
                     - rewrite: ^.*$ /feed.xml redirect;
                 - rewrite: ^/feed/$ /feed.xml redirect
+                - rewrite: ^.*/feed/$ /feed.xml redirect
                 {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
