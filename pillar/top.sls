@@ -19,7 +19,7 @@
     - virtual.{{ virtual }}
   'osfullname:{{ osfullname }}':
     - match: grain
-    - osfullname.{{ osfullname }}
+    - osfullname.{{ osfullname.replace(' ', '_') }}
   'osmajorrelease:{{ osmajorrelease }}':
     - match: grain
     - osmajorrelease.{{ osmajorrelease }}
@@ -27,7 +27,7 @@
   'salt_cluster:{{ salt_cluster }}':
     - match: grain
     - salt_cluster.{{ salt_cluster }}
-    - salt_cluster.{{ salt_cluster }}.osfullname.{{ osfullname }}
+    - salt_cluster.{{ salt_cluster }}.osfullname.{{ osfullname.replace(' ', '_') }}
   '{{ id }}':
     - id.{{ id.replace('.', '_') }}
   {% endif %}
