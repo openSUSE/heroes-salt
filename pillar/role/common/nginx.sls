@@ -34,4 +34,4 @@ nginx:
             {% endif %}
           real_ip_header: X-Forwarded-For
           real_ip_recursive: 'on'
-        worker_processes: 1
+        worker_processes: auto
