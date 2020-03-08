@@ -1,5 +1,7 @@
-include:
-  - git
+gitlab_runner_packages:
+  pkg.installed:
+    - pkgs:
+      - git
 
 gitlab_runner:
   pkg.installed:
