@@ -15,7 +15,7 @@ nginx:
                 - image/x-icon: 90d
                 - ~application/: 28d
                 - ~font/: 28d
-                - ~text/: 28d
+                - ~text/: 1d
                 - ~image/: 28d
             - server:
                 - server_name: {{ website }}.opensuse.org
@@ -46,6 +46,9 @@ nginx:
                     - rewrite: ^.*$ /feed.xml redirect;
                 - rewrite: ^/feed/$ /feed.xml redirect
                 - rewrite: ^.*/feed/$ /feed.xml redirect
+                {% endif %}
+                {% if website == 'planet' %}
+                - rewrite: ^.*/global/$ / redirect
                 {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
