@@ -35,6 +35,8 @@ profile:
         repo: https://github.com/opensuse/searchPage.git
       studioexpress.opensuse.org:
         repo: https://github.com/openSUSE/studioexpress-landing.git
+      lizards.opensuse.org:
+        repo: https://github.com/openSUSE/lizards.git
     server_list:
       - narwal5.infra.opensuse.org
       - narwal6.infra.opensuse.org
