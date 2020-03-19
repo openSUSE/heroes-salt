@@ -40,6 +40,10 @@ nginx:
                     - index:
                         - index.html
                         - index.htm
+                    - try_files:
+                        - $uri
+                        - $uri/index.html
+                        - $uri.html
                 {% if website == 'news' %}
                 - if ($args ~* "feed=rss2"):
                     - set: $args ""
