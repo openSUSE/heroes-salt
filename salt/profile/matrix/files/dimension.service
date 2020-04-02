@@ -1,0 +1,16 @@
+[Unit]
+Description=Matrix Dimension
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=3
+
+User=synapse
+Group=synapse
+WorkingDirectory=/var/lib/matrix-synapse/dimension/
+Environment="NODE_VERSION=10 NODE_ENV=production"
+ExecStart=/usr/bin/npm run start:app
+
+[Install]
+WantedBy=multi-user.target

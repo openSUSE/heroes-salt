@@ -4,6 +4,8 @@ appservice_pgks:
   pkg.installed:
     - pkgs:
       - python3-mautrix-telegram
+      # Required for webm for stickers
+      - ffmpeg
 
 /var/lib/matrix-synapse/telegram:
   file.directory:

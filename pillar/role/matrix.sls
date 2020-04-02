@@ -26,6 +26,51 @@ profile:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 
 
+include:
+  - role.common.nginx
+
+nginx:
+  ng:
+    servers:
+      managed:
+        chat.opensuse.org.conf:
+          config:
+            - server:
+                - server_name: chat.opensuse.org
+                - listen:
+                    - 80
+                    - default_server
+                - root: /var/www/riot-web
+                - gzip_vary: 'on'
+                - gzip_min_length: 1000
+                - gzip_comp_level: 5
+                - gzip_types:
+                    - text/plain
+                    - text/xml text/x-js
+                    - application/json
+                    - text/css
+                    - application/x-javascript
+                    - application/javascript
+                - expires: $expires
+                - location /:
+                    - index:
+                        - index.html
+                        - index.htm
+                - location ~* \.(?:ttf|otf|eot|woff)$:
+                    - add_header: Access-Control-Allow-Origin "*"
+                - access_log: /var/log/nginx/chat.access.log combined
+                - error_log: /var/log/nginx/chat.error.log
+            - server:
+                - server_name: dimension.opensuse.org
+                - listen:
+                    - 80
+                - root: /var/www/html
+                - index: index.html
+                - location /:
+                    - proxy_set_header X-Forwarded-For: $proxy_add_x_forwarded_for
+                    - proxy_pass: http://localhost:8184
+          enabled: True
+
 sudoers:
   included_files:
     /etc/sudoers.d/group_matrix-admins:
