@@ -24,7 +24,7 @@ profile:
         appservice_id: 1deb544b666b3aba1d9d49d3d4785eeb2fb2befa24e0743c91e6290866003c33
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
-      api_id: 
+      api_id: 1331253
 
 include:
   - role.common.nginx
