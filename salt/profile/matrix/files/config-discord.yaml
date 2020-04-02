@@ -33,8 +33,8 @@ bridge:
   disableHereMentions: true
 # Authentication configuration for the discord bot.
 auth:
-  clientID: "{{ pillar['profile']['matrix']['discord_client_id'] }}"
-  botToken: "{{ pillar['profile']['matrix']['discord_bot_token'] }}"
+  clientID: "{{ pillar['profile']['matrix']['appservices']['discord']['client_id'] }}"
+  botToken: "{{ pillar['profile']['matrix']['appservices']['discord']['bot_token'] }}"
 logging:
   # What level should the logger output to the console at.
   console: "warn" #silly, verbose, info, http, warn, error, silent
@@ -57,7 +57,7 @@ database:
   # If you are migrating, see https://github.com/Half-Shot/matrix-appservice-discord/blob/master/docs/howto.md#migrate-to-postgres-from-sqlite
   # WARNING: You will almost certainly be fine with sqlite unless your bridge
   # is in heavy demand and you suffer from IO slowness.
-  filename: "discord.db"
+  # filename: "discord.db"
   # connString: "postgresql://user:password@localhost/database_name"
 room:
   # Set the default visibility of alias rooms, defaults to "public".

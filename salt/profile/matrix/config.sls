@@ -20,16 +20,6 @@ synapse_conf_file:
     - watch_in:
       - module: synapse_restart
 
-synapse_appservice_discord_file:
-  file.managed:
-    - name: /etc/matrix-synapse/appservices/appservice-discord.yaml
-    - source: salt://profile/matrix/files/appservice-discord.yaml
-    - template: jinja
-    - require:
-      - file: /var/lib/matrix-synapse/discord
-    - watch_in:
-      - module: discord_restart
-
 synapse_log_conf_file:
   file.managed:
     - name: /etc/matrix-synapse/log.yaml
@@ -44,5 +34,11 @@ synapse_log_conf_file:
 /etc/matrix-synapse/signing.key:
   file.managed:
     - contents_pillar: profile:matrix:signing_key
+    - mode: 600
+    - user: synapse
+
+/etc/matrix-synapse/irc_password.pem:
+  file.managed:
+    - contents_pillar: profile:matrix:appservices:irc:pass_enc_key
     - mode: 600
     - user: synapse

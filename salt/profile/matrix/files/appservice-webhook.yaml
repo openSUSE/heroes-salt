@@ -1,0 +1,13 @@
+id: {{ pillar['profile']['matrix']['appservices']['webhook']['appservice_id'] }}
+hs_token: {{ pillar['profile']['matrix']['appservices']['webhook']['homeserver_token'] }}
+as_token: {{ pillar['profile']['matrix']['appservices']['webhook']['appservice_token'] }}
+namespaces:
+  users:
+    - exclusive: true
+      regex: '@_webhook.*'
+  aliases: []
+  rooms: []
+url: 'http://localhost:9002'  # you may need to change this (this should point at the bridge)
+sender_localpart: _webhook
+rate_limited: false
+protocols: null
