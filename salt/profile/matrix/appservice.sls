@@ -1,6 +1,6 @@
-{% set roles = salt['grains.get']('roles', []) %}
+{% set appservices = salt['pillar.get']('profile:matrix:appservices') %}
 
-discord_pgks:
+appservice_pgks:
   pkg.installed:
     - pkgs:
       - git
@@ -11,60 +11,92 @@ discord_pgks:
       - gcc
       - gcc-c++
 
-/var/lib/matrix-synapse/discord:
+{% for dir, data in appservices.items() %}
+/var/lib/matrix-synapse/{{ dir }}:
   file.directory:
     - user: synapse
 
-https://github.com/Half-Shot/matrix-appservice-discord.git:
+{{ data.repo }}:
   git.latest:
-    - branch: master
-    - target: /var/lib/matrix-synapse/discord/
-    - rev: master
+    - branch: {{ data.get('branch', 'master') }}
+    - target: /var/lib/matrix-synapse/{{ dir }}
+    - rev: {{ data.get('branch', 'master') }}
     - user: synapse
 
-discord_conf_file:
+
+{{ dir }}_conf_file:
   file.managed:
-    - name: /var/lib/matrix-synapse/discord/config.yaml
-    - source: salt://profile/matrix/files/config-discord.yaml
+    - name: /var/lib/matrix-synapse/{{ dir }}/config.yaml
+    - source: salt://profile/matrix/files/config-{{ dir }}.yaml
     - template: jinja
     - user: synapse
     - require:
-      - file: /var/lib/matrix-synapse/discord
+      - file: /var/lib/matrix-synapse/{{ dir }}
     - require_in:
-      - service: discord_service
+      - service: {{ dir }}_service
     - watch_in:
-      - module: discord_restart
+      - module: {{ dir }}_restart
 
-discord_appservice_file:
+{{ dir }}_appservice_file:
   file.managed:
-    - name: /var/lib/matrix-synapse/discord/discord-registration.yaml
-    - source: salt://profile/matrix/files/appservice-discord.yaml
+    - name: /var/lib/matrix-synapse/{{ dir }}/{{ dir }}-registration.yaml
+    - source: salt://profile/matrix/files/appservice-{{ dir }}.yaml
     - user: synapse
     - template: jinja
     - require:
-      - file: /var/lib/matrix-synapse/discord
+      - file: /var/lib/matrix-synapse/{{ dir }}
     - watch_in:
-      - module: discord_restart
+      - module: {{ dir }}_restart
 
-discord_boostrap:
+synapse_appservice_{{ dir }}_file:
+  file.managed:
+    - name: /etc/matrix-synapse/appservices/appservice-{{ dir }}.yaml
+    - source: salt://profile/matrix/files/appservice-{{ dir }}.yaml
+    - template: jinja
+    - require:
+      - file: /var/lib/matrix-synapse/{{ dir }}
+    - watch_in:
+      - module: {{ dir }}_restart
+
+{{ dir }}_boostrap:
   cmd.run:
     - name: npm install
-    - cwd: /var/lib/matrix-synapse/discord
+    - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
     - env:
       - NODE_VERSION: 10
 
-discord_build:
+{{ dir }}_build:
   cmd.run:
     - name: npm run build
-    - cwd: /var/lib/matrix-synapse/discord
+    - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
     - env:
       - NODE_VERSION: 10
 
-discord_systemd_file:
+{{ dir }}_systemd_file:
   file.managed:
-    - name: /etc/systemd/system/discord.service
-    - source: salt://profile/matrix/files/discord.service
+    - name: /etc/systemd/system/{{ dir }}.service
+    - template: jinja
+    - context:
+      dir: {{ dir }}
+      port: {{ data.get('port') }}
+    - source: salt://profile/matrix/files/appservice.service
     - require_in:
-      - service: discord_service
+      - service: {{ dir }}_service
+
+{{ dir }}_service:
+  service.running:
+    - name: {{ dir }}
+    - enable: True
+    - require:
+      - service: synapse_service
+
+{{ dir }}_restart:
+  module.wait:
+    - name: service.restart
+    - m_name: {{ dir }}
+    - require:
+      - service: synapse_service
+      - service: {{ dir }}_service
+{% endfor %}

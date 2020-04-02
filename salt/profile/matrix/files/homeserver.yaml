@@ -1105,10 +1105,15 @@ report_stats: true
 #  - "m.room.name"
 
 
+{% set appservices = salt['pillar.get']('profile:matrix:appservices') %}
+
 # A list of application service config files to use
 #
 app_service_config_files:
-  - /etc/matrix-synapse/appservices/appservice-discord.yaml
+  {% for dir, data in appservices.items() %}
+  - /etc/matrix-synapse/appservices/appservice-{{ dir }}.yaml
+  {% endfor %}
+  - /etc/matrix-synapse/appservices/appservice-telegram.yaml
 
 # Uncomment to enable tracking of application service IP addresses. Implicitly
 # enables MAU tracking for application service users.

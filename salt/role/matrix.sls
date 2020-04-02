@@ -1,5 +1,6 @@
 include:
   - profile.matrix.synapse
   - profile.matrix.init
-  - profile.matrix.discord
+  - profile.matrix.appservice
+  - profile.matrix.telegram
   - profile.matrix.config
