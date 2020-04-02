@@ -1,10 +1,5 @@
 {% set roles = salt['grains.get']('roles', []) %}
 
-riot_dependencies:
-  pkg.installed:
-    - pkgs:
-      - riot-web
-
 synapse_service:
   service.running:
     - name: synapse
