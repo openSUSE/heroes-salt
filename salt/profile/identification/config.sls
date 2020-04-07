@@ -1,5 +1,3 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 ipsilon_saml2_dir:
   file.directory:
     - name: /etc/ipsilon/saml2

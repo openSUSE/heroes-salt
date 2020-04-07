@@ -1,5 +1,3 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 id_apache_service:
   service.running:
     - name: apache2

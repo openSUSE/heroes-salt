@@ -1,5 +1,3 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 ipsilon_dependencies:
   pkg.installed:
     - pkgs:

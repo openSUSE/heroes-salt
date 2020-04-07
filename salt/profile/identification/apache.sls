@@ -1,5 +1,3 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 /etc/apache2/vhosts.d/sso.opensuse.org.conf:
   file.managed:
     - listen_in:
