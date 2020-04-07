@@ -28,9 +28,9 @@ ipsilon_conf_file:
     - watch_in:
       - module: id_apache_restart
 
-/etc/ipsilon/ipsilon.conf:
+/var/lib/ipsilon/ipsilon.conf:
   file.symlink:
-    - target: /var/lib/ipsilon/ipsilon.conf
+    - target: /etc/ipsilon/ipsilon.conf
 
 ipsilon_oidc_conf_file:
   file.managed:
