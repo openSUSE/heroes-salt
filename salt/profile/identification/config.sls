@@ -36,7 +36,6 @@ ipsilon_oidc_conf_file:
   file.managed:
     - name: /etc/ipsilon/openidc.static.cfg
     - source: salt://profile/identification/files/openidc.static.cfg
-    - template: jinja
     - mode: 600
     - require_in:
       - service: id_apache_service
