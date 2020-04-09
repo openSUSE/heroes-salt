@@ -29,8 +29,10 @@ help() {
 [[ $1 == '--help' ]] && help && exit
 
 #source /etc/os-release
+source /etc/os-release
 SECRETS="False"
 #REPO_URL=${PRETTY_NAME// /_}
+REPO_URL=${PRETTY_NAME// /_}
 
 while getopts p:i:o:gsh arg; do
     case ${arg} in
@@ -52,6 +54,7 @@ if [[ $INSTANCE == 'opensuse' ]]; then
     SALT_CLUSTER='opensuse'
     VIRT_CLUSTER='atreju'
     #$SUDO zypper -q ar -p 100 -fG http://download.opensuse.org/repositories/openSUSE:/infrastructure/${REPO_URL}/ openSUSE:infrastructure > /dev/null 2>&1
+    $SUDO zypper -q ar -p 100 -fG http://download.opensuse.org/repositories/openSUSE:/infrastructure/${REPO_URL}/ openSUSE:infrastructure > /dev/null 2>&1
     CERT_PKG='ca-certificates-freeipa-opensuse'
 elif [[ $INSTANCE == 'suse' ]]; then
     DOMAIN='suse.de'
@@ -62,6 +65,7 @@ elif [[ $INSTANCE == 'suse' ]]; then
 fi
 
 #$SUDO zypper -qn in --no-recommends salt python3-pygit2 $CERT_PKG ${HIGHSTATE_PKGS[@]} ${PKG[@]}
+$SUDO zypper -qn in --no-recommends salt python3-pygit2 $CERT_PKG ${HIGHSTATE_PKGS[@]} ${PKG[@]}
 $SUDO rm -rf /srv/{salt,pillar}
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
