@@ -7,5 +7,3 @@ id_apache_restart:
   module.wait:
     - name: service.restart
     - m_name: apache2
-    - require:
-      - service: synapse_service
