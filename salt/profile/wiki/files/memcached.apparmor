@@ -14,7 +14,7 @@
 
 #include <tunables/global>
 
-profile memcached /usr/sbin/memcached flags=(complain) {
+profile memcached /usr/sbin/memcached {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 
