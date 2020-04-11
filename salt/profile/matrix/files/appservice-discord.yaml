@@ -1,6 +1,6 @@
-id: {{ pillar['profile']['matrix']['discord_appservice_id'] }}
-hs_token: {{ pillar['profile']['matrix']['discord_homeserver_token'] }}
-as_token: {{ pillar['profile']['matrix']['discord_appservice_token'] }}
+id: {{ pillar['profile']['matrix']['appservices']['discord']['appservice_id'] }}
+hs_token: {{ pillar['profile']['matrix']['appservices']['discord']['homeserver_token'] }}
+as_token: {{ pillar['profile']['matrix']['appservices']['discord']['appservice_token'] }}
 namespaces:
   users:
     - exclusive: true
@@ -9,7 +9,7 @@ namespaces:
     - exclusive: true
       regex: '#_discord_.*'
   rooms: []
-url: 'http://localhost:9005'
+url: 'http://localhost:9001'
 sender_localpart: _discord_bot
 rate_limited: false
 protocols:

@@ -1,0 +1,37 @@
+# Configuration specific to the application service. All fields (unless otherwise marked) are required.
+homeserver:
+  # The domain for the client-server API calls.
+  url: "https://matrix.opensuse.org:8448"
+
+  # The domain part for user IDs on this home server. Usually, but not always, this is the same as the
+  # home server's URL.
+  domain: "opensuse.org"
+
+# Configuration specific to the bridge. All fields (unless otherwise marked) are required.
+webhookBot:
+  # The localpart to use for the bot. May require re-registering the application service.
+  localpart: "_webhook"
+
+  # Appearance options for the Matrix bot
+  appearance:
+    displayName: "Webhooks"
+    avatarUrl: "https://i.imgur.com/IDOBtEJ.png" # webhook icon
+
+# Provisioning API options
+provisioning:
+  # Your secret for the API. Required for all provisioning API requests.
+  secret: '{{ pillar['profile']['matrix']['appservices']['webhook']['secret'] }}'
+
+# Configuration related to the web portion of the bridge. Handles the inbound webhooks
+web:
+  hookUrlBase: 'http://localhost:9002/'
+
+logging:
+  file: logs/webhook.log
+  console: true
+  consoleLevel: info
+  fileLevel: verbose
+  writeFiles: true
+  rotate:
+    size: 52428800 # bytes, default is 50mb
+    count: 5

@@ -1,0 +1,16 @@
+[Unit]
+Description=Matrix Appservice {{ dir }}
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=3
+
+User=synapse
+Group=synapse
+WorkingDirectory=/var/lib/matrix-synapse/{{ dir }}/
+Environment="NODE_VERSION=10"
+ExecStart=/usr/bin/npm start -c config.yaml -f {{ dir }}-registration.yaml -p {{ port }}
+
+[Install]
+WantedBy=multi-user.target

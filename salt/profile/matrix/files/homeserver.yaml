@@ -553,13 +553,23 @@ acme:
 
 ## Database ##
 
-database:
+#database:
   # The database engine name
-  name: "sqlite3"
+  #name: "sqlite3"
   # Arguments to pass to the engine
-  args:
+  #args:
     # Path to the database
-    database: "/var/lib/matrix-synapse/homeserver.db"
+    #database: "/var/lib/matrix-synapse/homeserver.db"
+
+database:
+    name: psycopg2
+    args:
+        user: {{ pillar['profile']['matrix']['database_user'] }}
+        password: {{ pillar['postgres']['users']['matrix']['password'] }}
+        database: {{ pillar['profile']['matrix']['database_name'] }}
+        host: {{ pillar['profile']['matrix']['database_host'] }}
+        cp_min: 5
+        cp_max: 10
 
 # Number of events to cache in memory.
 #
@@ -1095,10 +1105,15 @@ report_stats: true
 #  - "m.room.name"
 
 
+{% set appservices = salt['pillar.get']('profile:matrix:appservices') %}
+
 # A list of application service config files to use
 #
 app_service_config_files:
-  - /etc/matrix-synapse/appservices/appservice-discord.yaml
+  {% for dir, data in appservices.items() %}
+  - /etc/matrix-synapse/appservices/appservice-{{ dir }}.yaml
+  {% endfor %}
+  - /etc/matrix-synapse/appservices/appservice-telegram.yaml
 
 # Uncomment to enable tracking of application service IP addresses. Implicitly
 # enables MAU tracking for application service users.
@@ -1365,11 +1380,11 @@ password_config:
 email:
   # The hostname of the outgoing SMTP server to use. Defaults to 'localhost'.
   #
-  #smtp_host: mail.server
+  smtp_host: localhost
 
   # The port on the mail server for outgoing SMTP. Defaults to 25.
   #
-  #smtp_port: 587
+  smtp_port: 25
 
   # Username/password for authentication to the SMTP server. By default, no
   # authentication is attempted.
