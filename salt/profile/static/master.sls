@@ -22,6 +22,12 @@ static_master_pgks:
   file.directory:
     - user: root
 
+static_master_cron_mailto:
+  cron.env_present:
+    - name: MAILTO
+    - value: admin-auto@opensuse.org
+    - user: web_static
+
 /home/web_static/bin/fetch_and_rsync_static:
   cron.present:
     - user: web_static
