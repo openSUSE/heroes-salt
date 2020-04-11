@@ -1,3 +1,9 @@
+{% if salt['grains.get']('include_secrets', True) %}
+include:
+  - secrets.role.identification
+{% endif %}
+
+
 profile:
   identification:
     database_user: identification
