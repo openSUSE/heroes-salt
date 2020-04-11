@@ -1,5 +1,3 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 riot_dependencies:
   pkg.installed:
     - pkgs:

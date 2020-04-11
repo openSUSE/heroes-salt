@@ -1,6 +1,4 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
-appservice_pgks:
+telegram_pgks:
   pkg.installed:
     - pkgs:
       - python3-mautrix-telegram

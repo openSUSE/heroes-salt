@@ -1,5 +1,3 @@
-{% set roles = salt['grains.get']('roles', []) %}
-
 synapse_service:
   service.running:
     - name: synapse

@@ -1,5 +1,3 @@
-{% set appservices = salt['pillar.get']('profile:matrix:appservices') %}
-
 /var/lib/matrix-synapse/dimension:
   file.directory:
     - user: synapse
