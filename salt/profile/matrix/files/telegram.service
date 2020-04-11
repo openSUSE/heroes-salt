@@ -9,7 +9,7 @@ RestartSec=3
 User=synapse
 Group=synapse
 WorkingDirectory=/var/lib/matrix-synapse/telegram/
-ExecStart=python3 -m mautrix_telegram -c config.yaml -f telegram-registration.yaml
+ExecStart=/usr/bin/python3 -m mautrix_telegram -c config.yaml -f telegram-registration.yaml
 
 [Install]
 WantedBy=multi-user.target

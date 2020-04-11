@@ -1,7 +1,7 @@
 synapse_dependencies:
   pkg.installed:
     - pkgs:
-      - python3-matrix-synapse
+      - matrix-synapse
       - python3-matrix-synapse-ldap3
 
 synapse:

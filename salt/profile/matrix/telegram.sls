@@ -3,7 +3,7 @@ telegram_pgks:
     - pkgs:
       - python3-mautrix-telegram
       # Required for webm for stickers
-      - ffmpeg
+      - ffmpeg-3
 
 /var/lib/matrix-synapse/telegram:
   file.directory:
