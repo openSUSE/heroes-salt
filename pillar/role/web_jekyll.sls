@@ -50,6 +50,7 @@ nginx:
                     - rewrite: ^.*$ /feed.xml redirect;
                 - rewrite: ^/feed/$ /feed.xml redirect
                 - rewrite: ^.*/feed/$ /feed.xml redirect
+                - rewrite: ^/feed$ /feed.xml redirect
                 {% endif %}
                 {% if website == 'planet' %}
                 - rewrite: ^.*/global/$ / redirect
