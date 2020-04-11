@@ -15,7 +15,7 @@ nginx:
                 - image/x-icon: 90d
                 - ~application/: 28d
                 - ~font/: 28d
-                - ~text/: 28d
+                - ~text/: 1d
                 - ~image/: 28d
             - server:
                 - server_name: {{ website }}.opensuse.org
@@ -40,8 +40,26 @@ nginx:
                     - index:
                         - index.html
                         - index.htm
+                    - try_files:
+                        - $uri
+                        - $uri/index.html
+                        - $uri.html
+                {% if website == 'news' %}
+                - if ($args ~* "feed=rss2"):
+                    - set: $args ""
+                    - rewrite: ^.*$ /feed.xml redirect
+                - rewrite: ^/feed/$ /feed.xml redirect
+                - rewrite: ^.*/feed/$ /feed.xml redirect
+                - rewrite: ^/feed$ /feed.xml redirect
+                {% endif %}
+                {% if website == 'planet' %}
+                - rewrite: ^/global/$ / redirect
+                {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
+                - location ~* \.(?:xml)$:
+                    - add_header: Access-Control-Allow-Origin "*"
+                    - charset: utf-8
                 - error_page: 405 = $uri
                 - error_page: 405 =200 $uri
                 - error_page: 500 502 503 504 /50x.html
