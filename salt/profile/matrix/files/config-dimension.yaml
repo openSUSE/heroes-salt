@@ -2,7 +2,7 @@
 # It is best to have this run on localhost and use a reverse proxy to access Dimension.
 web:
   port: 8184
-  address: '0.0.0.0'
+  address: '127.0.0.1'
 
 # Homeserver configuration
 homeserver:
@@ -27,7 +27,7 @@ homeserver:
   # for tracking custom sticker pack updates. This should be a user configured on the homeserver
   # and be dedicated to Dimension (create a user named "dimension" on your homeserver). For
   # information on how to acquire an access token, visit https://t2bot.io/docs/access_tokens
-  accessToken: "something"
+  # accessToken: "something"
 
 # These users can modify the integrations this Dimension supports.
 # To access the admin interface, open Dimension in Riot and click the settings icon.
