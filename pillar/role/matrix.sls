@@ -1,7 +1,8 @@
-{% if salt['grains.get']('include_secrets', True) %}
 include:
+  {% if salt['grains.get']('include_secrets', True) %}
   - secrets.role.matrix
-{% endif %}
+  {% endif %}
+  - role.common.nginx
 
 profile:
   matrix:
@@ -26,9 +27,6 @@ profile:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253
 
-include:
-  - role.common.nginx
-
 nginx:
   ng:
     servers:
@@ -46,7 +44,8 @@ nginx:
                 - gzip_comp_level: 5
                 - gzip_types:
                     - text/plain
-                    - text/xml text/x-js
+                    - text/xml
+                    - text/x-js
                     - application/json
                     - text/css
                     - application/x-javascript
