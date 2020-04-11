@@ -53,7 +53,7 @@ nginx:
                 - rewrite: ^/feed$ /feed.xml redirect
                 {% endif %}
                 {% if website == 'planet' %}
-                - rewrite: ^.*/global/$ / redirect
+                - rewrite: ^/global/$ / redirect
                 {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
