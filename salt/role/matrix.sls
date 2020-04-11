@@ -1,4 +1,5 @@
 include:
+  - profile.web.server.nginx
   - profile.matrix.synapse
   - profile.matrix.init
   - profile.matrix.appservice
