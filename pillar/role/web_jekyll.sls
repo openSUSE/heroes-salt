@@ -47,7 +47,7 @@ nginx:
                 {% if website == 'news' %}
                 - if ($args ~* "feed=rss2"):
                     - set: $args ""
-                    - rewrite: ^.*$ /feed.xml redirect;
+                    - rewrite: ^.*$ /feed.xml redirect
                 - rewrite: ^/feed/$ /feed.xml redirect
                 - rewrite: ^.*/feed/$ /feed.xml redirect
                 - rewrite: ^/feed$ /feed.xml redirect
