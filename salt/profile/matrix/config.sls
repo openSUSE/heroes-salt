@@ -59,11 +59,13 @@ synapse_log_conf_file:
 /etc/matrix-synapse/signing.key:
   file.managed:
     - contents_pillar: profile:matrix:signing_key
-    - mode: 600
-    - user: synapse
+    - mode: 640
+    - user: root
+    - group: synapse
 
 /etc/matrix-synapse/irc_password.pem:
   file.managed:
     - contents_pillar: profile:matrix:appservices:irc:pass_enc_key
-    - mode: 600
-    - user: synapse
+    - mode: 640
+    - user: root
+    - group: synapse
