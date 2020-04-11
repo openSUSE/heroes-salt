@@ -287,7 +287,7 @@ bridge:
         # "public.example.com": "user"
         # "example.com": "full"
         # "@admin:example.com": "admin"
-        "@hellcp:opensuse.org"
+        "@hellcp:opensuse.org": "admin"
 
     # Options related to the message relay Telegram bot.
     relaybot:
