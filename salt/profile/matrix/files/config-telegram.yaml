@@ -284,9 +284,10 @@ bridge:
     #     mxid - Specific user
     permissions:
         "*": "relaybot"
-        "public.example.com": "user"
-        "example.com": "full"
-        "@admin:example.com": "admin"
+        # "public.example.com": "user"
+        # "example.com": "full"
+        # "@admin:example.com": "admin"
+        "@hellcp:opensuse.org"
 
     # Options related to the message relay Telegram bot.
     relaybot:
