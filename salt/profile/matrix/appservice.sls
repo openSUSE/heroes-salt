@@ -16,7 +16,7 @@ appservice_pgks:
   file.directory:
     - user: synapse
 
-{{ data.repo }}:
+{{ data.get('repo') }}:
   git.latest:
     - branch: {{ data.get('branch', 'master') }}
     - target: /var/lib/matrix-synapse/{{ dir }}
