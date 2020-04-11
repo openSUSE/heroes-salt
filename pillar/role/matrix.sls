@@ -15,14 +15,17 @@ profile:
         port: 9001
         client_id: 672058964707377152
         appservice_id: 330d1b6dcdf6a2217454f8227d2a960030d341a8baca5fa5c40f4081b6f40acd
+        build: True
       webhook:
         repo: https://github.com/turt2live/matrix-appservice-webhooks
         port: 9002
         appservice_id: f4de7550133374c703c4cd64c5898cf1b82b65d4a5c2aca93863ee1fb859df91
+        build: False
       irc:
         repo: https://github.com/matrix-org/matrix-appservice-irc
         port: 9003
         appservice_id: 1deb544b666b3aba1d9d49d3d4785eeb2fb2befa24e0743c91e6290866003c33
+        build: True
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253

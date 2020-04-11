@@ -66,6 +66,7 @@ synapse_appservice_{{ dir }}_file:
     - env:
       - NODE_VERSION: 10
 
+{% if data.get('build') == True %}
 {{ dir }}_build:
   cmd.run:
     - name: npm run build
@@ -73,6 +74,7 @@ synapse_appservice_{{ dir }}_file:
     - runas: synapse
     - env:
       - NODE_VERSION: 10
+{% endif %}
 
 {{ dir }}_systemd_file:
   file.managed:
