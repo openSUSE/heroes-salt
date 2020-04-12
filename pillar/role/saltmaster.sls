@@ -4,10 +4,8 @@ include:
 {% endif %}
 
 salt:
-  gitfs:
-    pygit2:
-      git:
-        require_state: git
+  # salt on 15.1 uses py3, therefore different package name
+  pygit2: python3-pygit2
   master:
     cli_summary: True
     default_top: production
