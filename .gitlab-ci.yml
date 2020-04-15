@@ -56,4 +56,4 @@ deploy_job:
   only:
     - production@infra/salt
   tags:
-    - shell
+    - salt-deploy
