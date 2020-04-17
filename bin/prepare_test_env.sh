@@ -65,7 +65,7 @@ elif [[ $INSTANCE == 'suse' ]]; then
 fi
 
 #$SUDO zypper -qn in --no-recommends salt python3-pygit2 $CERT_PKG ${HIGHSTATE_PKGS[@]} ${PKG[@]}
-$SUDO zypper -qn in --no-recommends hostname sudo salt python3-pygit2 $CERT_PKG ${HIGHSTATE_PKGS[@]} ${PKG[@]}
+$SUDO zypper -qn in --no-recommends hostname salt python3-pygit2 $CERT_PKG ${HIGHSTATE_PKGS[@]} ${PKG[@]}
 $SUDO rm -rf /srv/{salt,pillar}
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
