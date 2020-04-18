@@ -8,7 +8,7 @@ profile:
     expected_gitmodules:
       # expected .gitmodules files and their sha256sum
       # this ensures we notice .gitmodules changes and can update the salt code accordingly
-      ./static.opensuse.org/.gitmodules: 19479ebe1afda2dd4ba774f572546ef6c549822c0ebd4983b644bf4ea8183930
+      ./static.opensuse.org/.gitmodules: 5d97f0f6b006e16ba39223d7c67c79aad47458f2f3c3408c9d42c503d21fd043
       ./static.opensuse.org/hosts/www.o.o/.gitmodules: e2da74eed7fcfed7f08669f6bff9d89e0d5f2f02ee8f2c6ad43afe4996cc57f1
     git_repos:
       # branch defaults to 'master' if not specified
@@ -29,7 +29,10 @@ profile:
       static.opensuse.org/themes:
         repo: https://github.com/openSUSE/opensuse-themes
       static.opensuse.org/chameleon:
-        repo: https://github.com/openSUSE/opensuse-theme-chameleon
+        repo: https://github.com/openSUSE/chameleon.git
+      static.opensuse.org/chameleon-2.0:
+        branch: rel-2.0
+        repo: https://github.com/openSUSE/chameleon.git
       static.opensuse.org/hosts/www.o.o/searchPage:
         branch: gh-pages
         repo: https://github.com/opensuse/searchPage.git
