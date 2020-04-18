@@ -48,7 +48,7 @@ static_master_cron_mailto:
 
 # clone git repos
 {% for dir, data in git_repos.items() %}
-{{ data.repo }}:
+{{ data.repo }}-{{ data.get('branch', 'master') }}:
   # salt 2018.3.3 introduced git.cloned - switch once our salt is new enough
   git.latest:
     - branch: {{ data.get('branch', 'master') }}
