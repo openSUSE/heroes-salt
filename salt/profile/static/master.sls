@@ -51,6 +51,7 @@ static_master_cron_mailto:
 {{ data.repo }}-{{ data.get('branch', 'master') }}:
   # salt 2018.3.3 introduced git.cloned - switch once our salt is new enough
   git.latest:
+    - name: {{ data.repo }}
     - branch: {{ data.get('branch', 'master') }}
     - target: /home/web_static/git/{{ dir }}
     # When checking out a non-default branch, salt will create a local branch based on HEAD by default.
