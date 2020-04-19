@@ -15,7 +15,7 @@ webhookBot:
   # Appearance options for the Matrix bot
   appearance:
     displayName: "Webhooks"
-    avatarUrl: "https://i.imgur.com/IDOBtEJ.png" # webhook icon
+    avatarUrl: "https://static.opensuse.org/chat/integrations/webhook.png" # webhook icon
 
 # Provisioning API options
 provisioning:

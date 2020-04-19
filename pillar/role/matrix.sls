@@ -61,16 +61,15 @@ nginx:
                     - add_header: Access-Control-Allow-Origin "*"
                 - access_log: /var/log/nginx/chat.access.log combined
                 - error_log: /var/log/nginx/chat.error.log
+          enabled: True
         dimension.opensuse.org:
           config:
             - server:
                 - server_name: dimension.opensuse.org
                 - listen:
                     - 80
-                - root: /var/www/html
-                - index: index.html
                 - location /:
-                    - proxy_set_header X-Forwarded-For: $proxy_add_x_forwarded_for
+                    - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8184
           enabled: True
         matrix.opensuse.org:
