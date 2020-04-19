@@ -1,7 +1,7 @@
 # Configuration specific to the application service. All fields (unless otherwise marked) are required.
 homeserver:
   # The domain for the client-server API calls.
-  url: "https://matrix.opensuse.org:8448"
+  url: "https://matrix.opensuse.org"
 
   # The domain part for user IDs on this home server. Usually, but not always, this is the same as the
   # home server's URL.

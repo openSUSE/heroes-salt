@@ -3,25 +3,28 @@
         "m.homeserver": {
             "base_url": "https://matrix.opensuse.org",
             "server_name": "opensuse.org"
-        },
-        "m.identity_server": {
-            "base_url": "https://vector.im"
         }
     },
-    "disable_custom_urls": false,
+    "disable_custom_urls": true,
     "disable_guests": false,
     "disable_login_language_selector": false,
-    "disable_3pid_login": false,
+    "disable_3pid_login": true,
     "brand": "Riot",
-    "integrations_ui_url": "https://scalar.vector.im/",
-    "integrations_rest_url": "https://scalar.vector.im/api",
-    "integrations_widgets_urls": [
-        "https://scalar.vector.im/_matrix/integrations/v1",
-        "https://scalar.vector.im/api",
-        "https://scalar-staging.vector.im/_matrix/integrations/v1",
-        "https://scalar-staging.vector.im/api",
-        "https://scalar-staging.riot.im/scalar/api"
-    ],
+    "branding": {
+        "welcomeBackgroundUrl": "//static.opensuse.org/chat/pine.png",
+        "authHeaderLogoUrl": "//static.opensuse.org/chat/openSUSE-Chat-black-text.svg",
+        "authFooterLinks": [
+            {"hosted by openSUSE": "https://opensuse.org"},
+            {"powered by Matrix": "https://matrix.org"}
+        ]
+    },
+    "embeddedPages": {
+        "welcomeUrl": "//static.opensuse.org/chat/welcome.html"
+    },
+    "integrations_ui_url": "https://dimension.opensuse.org/riot",
+    "integrations_rest_url": "https://dimension.opensuse.org/api/v1/scalar",
+    "integrations_widgets_urls": ["https://dimension.opensuse.org/widgets"],
+    "integrations_jitsi_widget_url": "https://dimension.opensuse.org/widgets/jitsi",
     "bug_report_endpoint_url": "https://riot.im/bugreports/submit",
     "defaultCountryCode": "GB",
     "showLabsSettings": true,
@@ -38,21 +41,12 @@
             "opensuse.org"
         ]
     },
-    "welcomeUserId": "@riot-bot:matrix.org",
     "piwik": {
-        "url": "https://beans.opensuse.org/",
+        "url": "https://beans.opensuse.org/matomo/",
         "whitelistedHSUrls": ["https://opensuse.org"],
-        "whitelistedISUrls": ["https://vector.im", "https://opensuse.org"],
         "siteId": 1
     },
-    "enable_presence_by_hs_url": {
-        "https://opensuse.org": false,
-        "https://matrix.opensuse.org": false
-    },
-    "settingDefaults": {
-        "breadcrumbs": true
-    },
     "jitsi": {
-        "preferredDomain": "jitsi.opensuse.org"
+        "preferredDomain": "meet.opensuse.org"
     }
 }

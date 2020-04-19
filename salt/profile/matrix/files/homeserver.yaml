@@ -24,7 +24,7 @@ pid_file: /var/lib/matrix-synapse/homeserver.pid
 # use synapse with a reverse proxy, this should be the URL to reach
 # synapse via the proxy.
 #
-public_baseurl: https://opensuse.org/
+public_baseurl: https://matrix.opensuse.org/
 
 # Set the soft limit on the number of file descriptors synapse can use
 # Zero is used to indicate synapse should set the soft limit to the
@@ -1491,7 +1491,7 @@ password_providers:
         attributes:
            uid: "uid"
            mail: "mail"
-           name: "displayName"
+           name: "displayname"
 #        #bind_dn:
 #        #bind_password:
 #        #filter: "(objectClass=posixAccount)"
