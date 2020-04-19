@@ -93,7 +93,7 @@ dimension:
 
 # Settings for controlling how logging works
 logging:
-  file: logs/dimension.log
+  file: /var/log/matrix-synapse/dimension/dimension.log
   console: true
   consoleLevel: info
   fileLevel: verbose

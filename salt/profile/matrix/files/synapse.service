@@ -4,7 +4,7 @@ Description=Synapse Matrix homeserver
 [Service]
 Type=simple
 Restart=on-failure
-RestartSec=3
+RestartSec=3600
 
 AppArmorProfile=matrix-synapse
 User=synapse

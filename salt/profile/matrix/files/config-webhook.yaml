@@ -27,7 +27,7 @@ web:
   hookUrlBase: 'http://localhost:9002/'
 
 logging:
-  file: logs/webhook.log
+  file: /var/log/matrix-synapse/webhook/webhook.log
   console: true
   consoleLevel: info
   fileLevel: verbose

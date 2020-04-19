@@ -4,12 +4,12 @@ Description=Matrix Appservice Telegram
 [Service]
 Type=simple
 Restart=on-failure
-RestartSec=3
+RestartSec=3600
 
 User=synapse
 Group=synapse
 WorkingDirectory=/var/lib/matrix-synapse/telegram/
-ExecStart=/usr/bin/python3 -m mautrix_telegram -c config.yaml -f telegram-registration.yaml -b /etc/mautrix-telegram/example-config.yaml
+ExecStart=/usr/bin/python3 -m mautrix_telegram -c config.yaml -r telegram-registration.yaml -b /etc/mautrix-telegram/example-config.yaml
 
 [Install]
 WantedBy=multi-user.target
