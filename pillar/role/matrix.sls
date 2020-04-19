@@ -58,7 +58,7 @@ nginx:
                         - index.html
                         - index.htm
                 - location /vector-icons/:
-                    - proxy_set_header: X-Forwarded-For $remote_addr
+                    - proxy_set_header: Host static.opensuse.org
                     - proxy_pass: https://static.opensuse.org/chat/favicons/
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
@@ -75,7 +75,7 @@ nginx:
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8184
                 - location /img/avatars/:
-                    - proxy_set_header: X-Forwarded-For $remote_addr
+                    - proxy_set_header: Host static.opensuse.org
                     - proxy_pass: https://static.opensuse.org/chat/integrations/
           enabled: True
         matrix.opensuse.org:
