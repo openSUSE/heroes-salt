@@ -14,11 +14,8 @@ telegram_pgks:
     - target: /usr/share/alembic
 
 /var/lib/matrix-synapse/telegram/alembic.ini:
-  file.managed:
-    - source: salt://profile/matrix/files/alembic.ini
-    - user: synapse
-    - require:
-      - file: /var/lib/matrix-synapse/telegram/alembic
+  file.symlink:
+    - target: /etc/alembic/alembic.ini
 
 telegram_conf_file:
   file.managed:
