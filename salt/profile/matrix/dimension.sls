@@ -22,21 +22,21 @@ dimension_conf_file:
     - watch_in:
       - module: dimension_restart
 
-dimension_boostrap:
-  cmd.run:
-    - name: npm install
-    - cwd: /var/lib/matrix-synapse/dimension
-    - runas: synapse
-    - env:
-      - NODE_VERSION: 10
+# dimension_boostrap:
+#   cmd.run:
+#     - name: npm install
+#     - cwd: /var/lib/matrix-synapse/dimension
+#     - runas: synapse
+#     - env:
+#       - NODE_VERSION: 10
 
-dimension_build:
-  cmd.run:
-    - name: npm run build
-    - cwd: /var/lib/matrix-synapse/dimension
-    - runas: synapse
-    - env:
-      - NODE_VERSION: 10
+# dimension_build:
+#   cmd.run:
+#     - name: npm run build
+#     - cwd: /var/lib/matrix-synapse/dimension
+#     - runas: synapse
+#     - env:
+#       - NODE_VERSION: 10
 
 dimension_systemd_file:
   file.managed:

@@ -7,7 +7,7 @@ namespaces:
       regex: '@_webhook.*'
   aliases: []
   rooms: []
-url: 'http://localhost:9002'  # you may need to change this (this should point at the bridge)
+url: 'http://localhost:9002'
 sender_localpart: _webhook
 rate_limited: false
 protocols: null

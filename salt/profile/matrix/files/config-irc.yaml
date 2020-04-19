@@ -3,7 +3,7 @@
 homeserver:
   # The URL to the home server for client-server API calls, also used to form the
   # media URLs as displayed in bridged IRC channels:
-  url: "https://matrix.opensuse.org:8448"
+  url: "https://matrix.opensuse.org"
   #
   # The URL of the homeserver hosting media files. This is only used to transform
   # mxc URIs to http URIs when bridging m.room.[file|image] events. Optional. By
@@ -34,11 +34,11 @@ homeserver:
 
   # Which port should the appservice bind to. Takes priority over the one provided in the
   # command line! Optional.
-  # bindPort: 9999
+  bindPort: 9003
 
   # Use this option to force the appservice to listen on another hostname for transactions.
   # This is NOT your synapse hostname. E.g. use 127.0.0.1 to only listen locally. Optional.
-  # bindHostname: 0.0.0.0
+  bindHostname: 127.0.0.1
 
 # Configuration specific to the IRC service
 ircService:
@@ -63,7 +63,7 @@ ircService:
 
       # URL to an icon used as the network icon whenever this network appear in
       # a network list. (Like in the riot room directory, for instance.)
-      # icon: https://example.com/images/hash.png
+      icon: https://static.opensuse.org/chat/integrations/irc.png
 
       # The port to connect to. Optional.
       port: 6697
@@ -432,9 +432,9 @@ ircService:
   # GET /_matrix/provision/unlink
   # GET /_matrix/provision/listlinks
   #
-  # provisioning:
+  provisioning:
     # True to enable the provisioning HTTP endpoint. Default: false.
-    # enabled: false
+    enabled: true
     # The number of seconds to wait before giving up on getting a response from
     # an IRC channel operator. If the channel operator does not respond within the
     # allotted time period, the provisioning request will fail.
