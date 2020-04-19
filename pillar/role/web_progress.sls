@@ -12,6 +12,7 @@ nginx:
                 - server_name: progress.opensuse.org
                 - server_tokens: 'off'
                 - client_max_body_size: 20m
+                # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
                 - add_header: Strict-Transport-Security max-age=15768000
                 - access_log: /var/log/nginx/redmine.access.log combined
                 - error_log: /var/log/nginx/redmine.error.log
