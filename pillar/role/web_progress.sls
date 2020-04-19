@@ -9,7 +9,7 @@ nginx:
           config:
             - upstream redmine:
                 - server:
-                    - unix:/srv/www/vhosts/redmine/tmp/sockets/redmine.socket
+                    - http://127.0.0.1:3000
                     - fail_timeout=0
             - server:
                 - listen: 80
