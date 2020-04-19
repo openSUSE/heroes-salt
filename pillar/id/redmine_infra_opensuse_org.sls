@@ -10,11 +10,8 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: redmine (progress.o.o) server
+  description: old redmine (progress.o.o) server - to be shut down
   documentation: []
   responsible: []
   partners: []
-  weburls:
-    - https://admin.opensuse.org
-    - https://progress.opensuse.org
-    - https://tickets.opensuse.org
+  weburls: []
