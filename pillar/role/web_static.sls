@@ -42,9 +42,9 @@ nginx:
                         - index.htm
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
+                {% if website == 'static' %}
                 - location ^/chat/:
                     - add_header: Access-Control-Allow-Origin "chat.opensuse.org"
-                {% if website == 'static' %}
                 - location ~ ^/themes/:
                     - autoindex: 'on'
                 {% endif %}
