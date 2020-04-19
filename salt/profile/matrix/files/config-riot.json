@@ -9,7 +9,7 @@
     "disable_guests": false,
     "disable_login_language_selector": false,
     "disable_3pid_login": true,
-    "brand": "Riot",
+    "brand": "openSUSE Chat",
     "branding": {
         "welcomeBackgroundUrl": "//static.opensuse.org/chat/pine.png",
         "authHeaderLogoUrl": "//static.opensuse.org/chat/openSUSE-Chat-black-text.svg",
