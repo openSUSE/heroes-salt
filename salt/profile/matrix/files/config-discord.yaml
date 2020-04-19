@@ -40,12 +40,12 @@ logging:
   console: "warn" #silly, verbose, info, http, warn, error, silent
   lineDateFormat: "MMM-D HH:mm:ss.SSS" # This is in moment.js format
   files:
-    - file: "debug.log"
+    - file: "/var/log/matrix-synapse/discord/debug.log"
       disable:
         - "PresenceHandler" # Will not capture presence logging
-    - file: "warn.log" # Will capture warnings
+    - file: "/var/log/matrix-synapse/discord/warn.log" # Will capture warnings
       level: "warn"
-    - file: "botlogs.log" # Will capture logs from DiscordBot
+    - file: "/var/log/matrix-synapse/discord/botlogs.log" # Will capture logs from DiscordBot
       level: "info"
       enable:
         - "DiscordBot"
