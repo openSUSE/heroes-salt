@@ -43,7 +43,7 @@ nginx:
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
                 {% if website == 'static' %}
-                - location ^/chat/:
+                - location ~ ^/chat/:
                     - add_header: Access-Control-Allow-Origin "*"
                 - location ~ ^/themes/:
                     - autoindex: 'on'
