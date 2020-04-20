@@ -17,4 +17,4 @@ grains:
     - hellcp
   partners: []
   weburls:
-    - https://lists.opensuse.org
+    - http://mailman3.infra.opensuse.org
