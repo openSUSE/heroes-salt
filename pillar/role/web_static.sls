@@ -44,7 +44,7 @@ nginx:
                     - add_header: Access-Control-Allow-Origin "*"
                 {% if website == 'static' %}
                 - location ^/chat/:
-                    - add_header: Access-Control-Allow-Origin "chat.opensuse.org"
+                    - add_header: Access-Control-Allow-Origin "https://chat.opensuse.org"
                 - location ~ ^/themes/:
                     - autoindex: 'on'
                 {% endif %}
