@@ -29,7 +29,7 @@ mailman_webui_static_dir:
 mailman_conf_file:
   file.managed:
     - name: /etc/mailman/mailman.cfg
-    - source: salt://profile/lists/files/mailman.cfg
+    - source: salt://profile/mailman3/files/mailman.cfg
     - template: jinja
     - require:
       - file: mailman_conf_dir
@@ -41,7 +41,7 @@ mailman_conf_file:
 mailman_webui_manage_file:
   file.managed:
     - name: /var/lib/mailman_webui/manage.py
-    - source: salt://profile/lists/files/manage.py
+    - source: salt://profile/mailman3/files/manage.py
     - template: jinja
     - require:
       - file: mailman_webui_dir
@@ -53,7 +53,7 @@ mailman_webui_manage_file:
 mailman_webui_settings_file:
   file.managed:
     - name: /var/lib/mailman_webui/settings.py
-    - source: salt://profile/lists/files/settings.py
+    - source: salt://profile/mailman3/files/settings.py
     - template: jinja
     - require:
       - file: mailman_webui_dir
@@ -65,7 +65,7 @@ mailman_webui_settings_file:
 mailman_webui_urls_file:
   file.managed:
     - name: /var/lib/mailman/urls.py
-    - source: salt://profile/lists/files/urls.py
+    - source: salt://profile/mailman3/files/urls.py
     - template: jinja
     - require:
       - file: mailman_webui_dir
@@ -77,7 +77,7 @@ mailman_webui_urls_file:
 mailman_webui_wsgi_file:
   file.managed:
     - name: /var/lib/mailman_webui/wsgi.py
-    - source: salt://profile/lists/files/wsgi.py
+    - source: salt://profile/mailman3/files/wsgi.py
     - template: jinja
     - require:
       - file: mailman_webui_dir
@@ -89,14 +89,14 @@ mailman_webui_wsgi_file:
 mailman_disable_signup:
   file.managed:
     - name: /var/lib/mailman_webui/django_fedora_nosignup.py
-    - source: salt://profile/lists/files/django_fedora_nosignup.py
+    - source: salt://profile/mailman3/files/django_fedora_nosignup.py
     - require:
       - file: mailman_webui_dir
 
 mailman_uwsgi_conf:
   file.managed:
     - name: /etc/mailman/uwsgi.ini
-    - source: salt://profile/lists/files/uwsgi.ini
+    - source: salt://profile/mailman3/files/uwsgi.ini
     - template: jinja
     - require:
       - file: mailman_conf_dir
@@ -108,7 +108,7 @@ mailman_uwsgi_conf:
 mailman_hyperkitty_conf:
   file.managed:
     - name: /etc/mailman/hyperkitty.cfg
-    - source: salt://profile/lists/files/hyperkitty.cfg
+    - source: salt://profile/mailman3/files/hyperkitty.cfg
     - template: jinja
     - require:
       - file: mailman_conf_dir
