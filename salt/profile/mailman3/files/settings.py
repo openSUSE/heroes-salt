@@ -30,7 +30,7 @@ from mailman_web.settings.base import *
 from mailman_web.settings.mailman import *
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '{{ pillar['profile']['lists']['secret_key'] }}'
+SECRET_KEY = '{{ pillar['profile']['mailman3']['secret_key'] }}'
 
 ADMINS = (
      ('openSUSE Mailing Lists Admins', 'admin@opensuse.org'),

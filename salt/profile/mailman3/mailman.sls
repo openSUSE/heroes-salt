@@ -66,7 +66,7 @@ django-admin runjobs yearly  --pythonpath /var/lib/mailman --settings settings:
     - minute: 0
     - hour: 0
     - daymonth: 1
-    - month: 0
+    - month: 1
 
 django-admin runjobs minutely  --pythonpath /var/lib/mailman --settings settings:
  cron.present:
