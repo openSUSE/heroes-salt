@@ -9,6 +9,10 @@ telegram_pgks:
   file.directory:
     - user: synapse
 
+/var/log/matrix-synapse/telegram:
+  file.directory:
+    - user: synapse
+
 /var/lib/matrix-synapse/telegram/alembic:
   file.symlink:
     - target: /usr/share/alembic

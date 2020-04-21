@@ -2,6 +2,10 @@
   file.directory:
     - user: synapse
 
+/var/log/matrix-synapse/dimension:
+  file.directory:
+    - user: synapse
+
 https://github.com/turt2live/matrix-dimension.git:
   git.latest:
     - branch: master
