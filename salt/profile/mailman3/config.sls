@@ -42,7 +42,6 @@ mailman_webui_manage_file:
   file.managed:
     - name: /var/lib/mailman_webui/manage.py
     - source: salt://profile/mailman3/files/manage.py
-    - template: jinja
     - require:
       - file: mailman_webui_dir
     - require_in:
@@ -66,7 +65,6 @@ mailman_webui_urls_file:
   file.managed:
     - name: /var/lib/mailman/urls.py
     - source: salt://profile/mailman3/files/urls.py
-    - template: jinja
     - require:
       - file: mailman_webui_dir
     - require_in:
@@ -78,7 +76,6 @@ mailman_webui_wsgi_file:
   file.managed:
     - name: /var/lib/mailman_webui/wsgi.py
     - source: salt://profile/mailman3/files/wsgi.py
-    - template: jinja
     - require:
       - file: mailman_webui_dir
     - require_in:
@@ -97,7 +94,6 @@ mailman_uwsgi_conf:
   file.managed:
     - name: /etc/mailman/uwsgi.ini
     - source: salt://profile/mailman3/files/uwsgi.ini
-    - template: jinja
     - require:
       - file: mailman_conf_dir
     - require_in:
