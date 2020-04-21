@@ -3,7 +3,6 @@ profile:
   postfix:
     maincf:
       recipient_delimiter: '+'
-      unknown_local_recipient_reject_code: '550'
       owner_request_special: 'no'
       transport_maps: 'hash://var/lib/mailman/data/postfix_lmtp'
       local_recipient_maps: 'hash://var/lib/mailman/data/postfix_lmtp'

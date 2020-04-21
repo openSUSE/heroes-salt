@@ -1,3 +1,7 @@
+include:
+  - profile.mailman3.mailman
+  - profile.mailman3.config
+
 mailman_service:
   service.running:
     - name: mailman
