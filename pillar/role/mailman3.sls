@@ -14,3 +14,10 @@ profile:
     server_list:
       - lists.opensuse.org
       - mailman3.infra.opensuse.org
+
+sudoers:
+  included_files:
+    /etc/sudoers.d/group_mailman3-admins:
+      groups:
+        mailman3-admins:
+          - 'ALL=(ALL) ALL'
