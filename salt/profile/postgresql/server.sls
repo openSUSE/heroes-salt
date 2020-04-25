@@ -5,7 +5,7 @@
 
 /etc/postgresql/pg_hba.conf:
   file.managed:
-    - source: salt://profile/postgresql/files/postgresql/{{ id }}/pg_hba.conf
+    - source: salt://profile/postgresql/files/postgresql/pg_hba.conf
     - user: root
     - group: postgres
     - mode: 640
@@ -26,7 +26,7 @@
 
 /etc/postgresql/postgresql.conf:
   file.managed:
-    - source: salt://profile/postgresql/files/postgresql/{{ id }}/postgresql.conf
+    - source: salt://profile/postgresql/files/postgresql/postgresql.conf
     - user: root
     - group: postgres
     - mode: 640
