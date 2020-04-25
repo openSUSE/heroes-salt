@@ -41,27 +41,27 @@ django-admin runjobs hourly  --pythonpath /var/lib/mailman --settings settings:
     - minute: 0
 
 django-admin runjobs daily   --pythonpath /var/lib/mailman --settings settings:
- cron.present:
+  cron.present:
     - user: mailman
     - minute: 0
     - hour: 0
 
 django-admin runjobs weekly  --pythonpath /var/lib/mailman --settings settings:
- cron.present:
+  cron.present:
     - user: mailman
     - minute: 0
     - hour: 0
     - dayweek: 0
 
 django-admin runjobs monthly --pythonpath /var/lib/mailman --settings settings:
- cron.present:
+  cron.present:
     - user: mailman
     - minute: 0
     - hour: 0
     - daymonth: 1
 
 django-admin runjobs yearly  --pythonpath /var/lib/mailman --settings settings:
- cron.present:
+  cron.present:
     - user: mailman
     - minute: 0
     - hour: 0
@@ -69,10 +69,10 @@ django-admin runjobs yearly  --pythonpath /var/lib/mailman --settings settings:
     - month: 1
 
 django-admin runjobs minutely  --pythonpath /var/lib/mailman --settings settings:
- cron.present:
+  cron.present:
     - user: mailman
 
 django-admin runjobs quarter_hourly --pythonpath /var/lib/mailman --settings settings:
- cron.present:
+  cron.present:
     - user: mailman
     - minute: '0,15,30,45'
