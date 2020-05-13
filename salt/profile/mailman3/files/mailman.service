@@ -9,7 +9,7 @@ RestartSec=3
 User=mailman
 Group=mailman
 WorkingDirectory=/var/lib/mailman_webui/
-ExecStart=uwsgi --ini /etc/mailman_webui/uwsgi.ini
+ExecStart=/usr/sbin/uwsgi --ini /etc/mailman/uwsgi.ini
 
 [Install]
 WantedBy=multi-user.target

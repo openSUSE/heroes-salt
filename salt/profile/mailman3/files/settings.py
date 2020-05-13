@@ -58,7 +58,6 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR + '/templates/',
         ],
-        'APP_DIRS': True,
         'OPTIONS': {
             'loaders': [
                 ('django.template.loaders.cached.Loader', [
