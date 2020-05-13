@@ -106,20 +106,12 @@ mailman_uwsgi_conf:
     - watch_in:
       - module: mailman_restart
 
-mailman_log_file:
-  file.managed:
-    - name: /var/log/mailman/uwsgi.log
-    - user: mailman
-    - require:
-      - file: mailman_log_dir
-    - require_in:
-      - service: mailman_service
-    - watch_in:
-      - module: mailman_restart
+{% set logfiles = ['uwsgi', 'uwsgi-cron', 'uwsgi-error', 'uwsgi-qcluster'] %}
 
-mailman_error_log_file:
+{% for logfile in logfiles %}
+mailman_{{ logfile }}_file:
   file.managed:
-    - name: /var/log/mailman/uwsgi-error.log
+    - name: /var/log/mailman/{{ logfile }}.log
     - user: mailman
     - require:
       - file: mailman_log_dir
@@ -127,28 +119,7 @@ mailman_error_log_file:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
-
-mailman_cron_log_file:
-  file.managed:
-    - name: /var/log/mailman/uwsgi-cron.log
-    - user: mailman
-    - require:
-      - file: mailman_log_dir
-    - require_in:
-      - service: mailman_service
-    - watch_in:
-      - module: mailman_restart
-
-mailman_qcluster_log_file:
-  file.managed:
-    - name: /var/log/mailman/uwsgi-qcluster.log
-    - user: mailman
-    - require:
-      - file: mailman_log_dir
-    - require_in:
-      - service: mailman_service
-    - watch_in:
-      - module: mailman_restart
+{% endfor %}
 
 mailman_hyperkitty_conf:
   file.managed:
