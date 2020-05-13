@@ -1,6 +1,7 @@
 mailman_pgks:
   pkg.installed:
     - pkgs:
+      - uwsgi
       - python3-xapian
       - python3-psycopg2
       - python3-mailman

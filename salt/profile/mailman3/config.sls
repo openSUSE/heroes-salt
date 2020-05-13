@@ -16,6 +16,11 @@ mailman_webui_dir:
   file.directory:
     - name: /var/lib/mailman_webui/
 
+mailman_log_dir:
+  file.directory:
+    - name: /var/log/mailman/
+    - user: mailman
+
 # Preparation for when we have a theme for hyperkitty
 
 mailman_webui_template_dir:
@@ -63,7 +68,7 @@ mailman_webui_settings_file:
 
 mailman_webui_urls_file:
   file.managed:
-    - name: /var/lib/mailman/urls.py
+    - name: /var/lib/mailman_webui/urls.py
     - source: salt://profile/mailman3/files/urls.py
     - require:
       - file: mailman_webui_dir
@@ -100,6 +105,21 @@ mailman_uwsgi_conf:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
+
+{% set logfiles = ['uwsgi', 'uwsgi-cron', 'uwsgi-error', 'uwsgi-qcluster'] %}
+
+{% for logfile in logfiles %}
+mailman_{{ logfile }}_file:
+  file.managed:
+    - name: /var/log/mailman/{{ logfile }}.log
+    - user: mailman
+    - require:
+      - file: mailman_log_dir
+    - require_in:
+      - service: mailman_service
+    - watch_in:
+      - module: mailman_restart
+{% endfor %}
 
 mailman_hyperkitty_conf:
   file.managed:

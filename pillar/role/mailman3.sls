@@ -15,10 +15,24 @@ profile:
   mailman3:
     admin_user: mailman
     database_user: mailman
-    database_host: postgres.infra.opensuse.org
+    database_host: 192.168.47.4
     server_list:
       - lists.opensuse.org
       - mailman3.infra.opensuse.org
+
+nginx:
+  ng:
+    servers:
+      managed:
+        lists.opensuse.org.conf:
+          config:
+            - server:
+                - server_name: lists.opensuse.org
+                - listen:
+                    - 80
+                    - default_server
+                - server: unix:///var/lib/mailman/server.sock
+          enabled: True
 
 sudoers:
   included_files:
