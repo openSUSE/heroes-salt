@@ -106,7 +106,7 @@ mailman_uwsgi_conf:
     - watch_in:
       - module: mailman_restart
 
-mailman_log_files:
+mailman_log_file:
   file.managed:
     - name: /var/log/mailman/uwsgi.log
     - user: mailman
@@ -116,6 +116,8 @@ mailman_log_files:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
+
+mailman_error_log_file:
   file.managed:
     - name: /var/log/mailman/uwsgi-error.log
     - user: mailman
@@ -125,6 +127,8 @@ mailman_log_files:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
+
+mailman_cron_log_file:
   file.managed:
     - name: /var/log/mailman/uwsgi-cron.log
     - user: mailman
@@ -134,6 +138,8 @@ mailman_log_files:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
+
+mailman_qcluster_log_file:
   file.managed:
     - name: /var/log/mailman/uwsgi-qcluster.log
     - user: mailman
