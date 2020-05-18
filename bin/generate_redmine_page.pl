@@ -219,63 +219,50 @@ if ( "$sls_files" ne "0" ){
 	if ( $dumpforredmine ){
 		print "$redmine_header\n";	
 	}
-	print "$javascript\n";
-    print "<table id='machines' $table_style>\n";
-	print "<thead>\n";
-	print "<tr bgcolor='#e5e5e5'>";
-	print "<th onclick='sortTable(0)' $td_style width='30px'><center><strong>#</strong></center></th>\n";
-	print "<th onclick='sortTable(1)' $td_style width='220px'><center><strong>Hostname</strong></center></th>\n";
+  # print "$javascript\n";
+    # print "<table id='machines' $table_style>\n";
+	print "|# ";
+	print "|Hostname ";
 	my $td=1;
     foreach my $entry (sort(@wanted)){
-		my $width='';
-		if ("$entry" =~ m/responsible/){
-			$width="width='150px'";
-		}
-		if ("$entry" =~ m/virt_cluster/){
-            $width="width='50px'";
-        }
-		$td++;
-	    print "<th onclick='sortTable($td)' $td_style $width><strong>$entry</strong></th>\n";
+	    print "|$entry ";
     }
-    print "</tr>\n";
-    print "</thead>\n";
+        print "|\n";
+        print "|---:|--- ";
+    foreach my $entry (sort(@wanted)){
+            print "|--- ";
+    }
+        print "|\n";
 
     for my $file (sort (@$sls_files)){
-	my $bgcolor="bgcolor='$td_color_odd'";
-	if ($i % 2){
-		$bgcolor="bgcolor='$td_color_even'";
-	}
-	print "<tr $bgcolor>";
 	my $hostname=basename("$file",'.sls');
 	$hostname=~ s/_/./g;
-   	print "<td $td_style>$i</td><td $td_style><p id='$hostname'>$hostname</p></td>\n";
+   	print "|$i |$hostname ";
 	my $yaml = YAML::Tiny->read("$pillar_id_path/$file");
 	my $grains=$yaml->[0];
 	# print Data::Dumper->Dump([$grains])."\n";
 	foreach my $entry (sort(@wanted)){
-		print "<td $td_style>";
+		print "|";
 		if (defined($grains->{'grains'}->{$entry})){
 			my $type=reftype $grains->{'grains'}->{$entry};
 			if (defined($type) && "$type" eq 'ARRAY'){
 				if (@{$grains->{'grains'}->{$entry}} > 0){
-					print "<ul style='padding-left:1.5em'>\n";
 					foreach my $string (sort(@{$grains->{'grains'}->{$entry}})){
 						if ("$string" =~ m/^http.*/){
-							print "<li><a href='$string'>$string</a></li>";
+							print "[$string]($string) ";
 						} 
 						else {
 							if ("$entry" eq "partners"){
-								print "<li><a href='#$string'>$string</a></li>\n";
+								print "[$string](#$string) ";
 							}
 							elsif ("$entry" eq "responsible"){
-								print "<li><a href='$freeipa_user_url/$string'>$string</a></li>\n";
+								print "[$string]($freeipa_user_url/$string) ";
 							}
 							else {
-								print "<li>$string</li>\n";
+								print "$string ";
 							}
 						}
 					}
-					print "</ul>\n";
 				}
 			}
 			else {
@@ -285,12 +272,10 @@ if ( "$sls_files" ne "0" ){
 		else {
 			print "&nbsp;";
 		}
-		print "</td>\n";
 	}
-	print "</tr>\n";
+	print "|\n";
 	$i++;
     }
-    print "</table>\n";
 }
 print "$footer";
 
