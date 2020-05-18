@@ -197,6 +197,8 @@ $wgAllowExternalImages = true; // Enable links to external images
 $wgFileExtensions = array( 'doc', 'docx', 'gif', 'jpg', 'jpeg', 'odp', 'ods', 'odt', 'pdf', 'png', 'ppt', 'pptx', 'svg', 'sxc', 'sxw', 'xls', 'xlsx' );
 # Add XMPP functionality
 $wgUrlProtocols[] = 'xmpp:';
+# Add AppStream functionality
+$wgUrlProtocols[] = 'appstream:';
 
 # To be removed once the wiki transition is finished
 $wgGroupPermissions['user']['import'] = true;
