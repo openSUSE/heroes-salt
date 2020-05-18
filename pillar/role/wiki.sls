@@ -27,19 +27,19 @@ mediawiki_1_27:
       # site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     cn:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     cs:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     de:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     el:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     en:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     en-test:
       bento_lang: en
       dbpass: not_in_salt_yet
@@ -49,25 +49,25 @@ mediawiki_1_27:
       site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
     es:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     fr:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     hu:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     it:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     ja:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     languages:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     nl:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     old-de:
       bento_lang: de
       dbpass: not_in_salt_yet
@@ -86,26 +86,26 @@ mediawiki_1_27:
       site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
     pl:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     pt:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     ru:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     sv:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     tr:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     zh:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
     zh-tw:
       bento_lang: zh_TW
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis will switch to the new authentication system on 2020-05-18 at 7:00 UTC.<br>If you did not migrate your account yet, see https://idp-portal-info.suse.com/</div>'
+      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       lang: zh_TW
 
 # special cases for bento_lang:
