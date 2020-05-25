@@ -252,6 +252,7 @@ include("$IP/extensions/intersection/DynamicPageList.php");
 # RSS -----------------------
 include("$IP/extensions/RSS/RSS.php");
 $wgRSSUrlWhitelist = array('*');
+$wgRSSUrlNumberOfAllowedRedirects = 2;  # poo#67195
 
 # InputBox -------------------------
 require_once($IP.'/extensions/InputBox/InputBox.php');
