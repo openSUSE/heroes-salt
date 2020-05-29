@@ -37,4 +37,4 @@ profile:
       - tw
       - wa
       - zh
-    redirect_target: 'Portal:15.1'
+    redirect_target: 'Portal:15.2'
