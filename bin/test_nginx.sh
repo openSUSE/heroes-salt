@@ -47,7 +47,7 @@ create_fake_certs() {
 
 cp -a /etc/nginx /etc/nginx_orig
 
-WEB_ROLES=( $(bin/get_roles.py | grep web_) )
+WEB_ROLES=( $(bin/get_roles.py) )
 
 for role in ${WEB_ROLES[@]}; do
     if grep nginx salt/role/$role.sls > /dev/null; then
