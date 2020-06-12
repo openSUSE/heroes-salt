@@ -15,6 +15,4 @@ grains:
     - jdsn
   partners: []
   weburls:
-    - https://git.opensuse.org/
     - https://svn.opensuse.org/
-    - https://kernel.opensuse.org/
