@@ -96,7 +96,7 @@ bridge:
     alias_template: telegram_{groupname}
     # Displayname template for Telegram users.
     # {displayname} is replaced with the display name of the Telegram user.
-    displayname_template: '{displayname} [Telegram]'
+    displayname_template: '{displayname}'
 
     # Set the preferred order of user identifiers which to use in the Matrix puppet display name.
     # In the (hopefully unlikely) scenario that none of the given keys are found, the numeric user
