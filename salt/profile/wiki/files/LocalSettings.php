@@ -112,7 +112,19 @@ wfLoadSkin('Chameleon');
 
 # $wgLocalTZoffset = date("Z") / 3600; # 3600 is obviously wrong, since the value is expected in minutes
 $wgGroupPermissions['*']['edit'] = false;
-$wgFavicon = "//www.opensuse.org/favicon.ico";
+
+#-------------------------------------------------------------------------------
+# Logo & Icon
+#-------------------------------------------------------------------------------
+
+$wgLogo           = "https://static.opensuse.org/favicon.svg";
+$wgFavicon        = "https://static.opensuse.org/favicon.ico";
+$wgAppleTouchIcon = "https://static.opensuse.org/favicon-192.png";
+
+#-------------------------------------------------------------------------------
+# Misc
+#-------------------------------------------------------------------------------
+
 $wgDiff3 = "/usr/bin/diff3";
 
 #--------------------------------------------------------------
