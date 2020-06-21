@@ -18,6 +18,12 @@ synapse_conf_dir:
   file.directory:
     - name: /etc/matrix-synapse/
 
+/data/matrix:
+  file.directory
+
+/data/matrix/media_store:
+  file.directory
+
 synapse_appservices_dir:
   file.directory:
     - name: /etc/matrix-synapse/appservices

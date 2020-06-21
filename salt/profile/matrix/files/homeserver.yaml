@@ -675,7 +675,7 @@ log_config: "/etc/matrix-synapse/log.yaml"
 
 # Directory where uploaded images and attachments are stored.
 #
-media_store_path: "/var/lib/matrix-synapse/media_store"
+media_store_path: "/data/matrix/media_store"
 
 # Media storage providers allow media to be stored in different
 # locations.
