@@ -5,6 +5,7 @@ namespaces:
   users:
     - exclusive: true
       regex: '@_discord_.*'
+      group_id: '+discord:opensuse.org'
   aliases:
     - exclusive: true
       regex: '#_discord_.*'

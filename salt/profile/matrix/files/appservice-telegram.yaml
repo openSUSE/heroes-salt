@@ -5,7 +5,7 @@ namespaces:
     users:
     - exclusive: true
       regex: '@telegram_.+:opensuse.org'
-      group_id: +telegram:opensuse.org
+      group_id: '+telegram:opensuse.org'
     aliases:
     - exclusive: true
       regex: '#telegram_.+:opensuse.org'

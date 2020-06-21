@@ -5,6 +5,7 @@ namespaces:
   users:
     - exclusive: true
       regex: '@freenode_.*:opensuse\.org'
+      group_id: '+freenode:opensuse.org'
   aliases: []
   rooms: []
 url: 'http://localhost:9003'
