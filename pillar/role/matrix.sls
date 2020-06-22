@@ -93,6 +93,8 @@ nginx:
                 - listen:
                     - 80
                 - location /:
+                    - return: 301 https://chat.opensuse.org
+                - location ~ "/.{1}.*":
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8184
                 - location /img/avatars/:
@@ -105,6 +107,8 @@ nginx:
                 - server_name: matrix.opensuse.org
                 - listen:
                     - 80
+                - location /:
+                    - return: 301 https://chat.opensuse.org
                 - location /_matrix:
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8008
@@ -116,6 +120,8 @@ nginx:
                 - listen:
                     - 80
                 - location /:
+                    - return: 301 https://chat.opensuse.org
+                - location ~ "/.{1}.*":
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:9002
           enabled: True

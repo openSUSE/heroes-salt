@@ -58,7 +58,7 @@ appservice:
     # Display name and avatar for bot. Set to "remove" to remove display name/avatar, leave empty
     # to leave display name/avatar as-is.
     bot_displayname: Telegram
-    bot_avatar: mxc://maunium.net/tJCRmUyJDsgRNgqhOgoiHWbX
+    bot_avatar: mxc://opensuse.org/OTofIzFVeUOfQTGCwPiWpnYr
 
     # Community ID for bridged users (changes registration file) and rooms.
     # Must be created manually.

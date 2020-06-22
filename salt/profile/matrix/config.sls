@@ -40,17 +40,6 @@ synapse_conf_file:
     - watch_in:
       - module: synapse_restart
 
-synapse_log_conf_file:
-  file.managed:
-    - name: /etc/matrix-synapse/log.yaml
-    - source: salt://profile/matrix/files/log_config
-    - require:
-      - file: synapse_conf_dir
-    - require_in:
-      - service: synapse_service
-    - watch_in:
-      - module: synapse_restart
-
 /etc/matrix-synapse/signing.key:
   file.managed:
     - contents_pillar: profile:matrix:signing_key
