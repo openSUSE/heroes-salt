@@ -19,14 +19,14 @@ synapse_conf_dir:
     - name: /etc/matrix-synapse/
 
 /data/matrix:
-  file.directory
+  file.directory:
     - user: synapse
-      group: synapse
+    - group: synapse
 
 /data/matrix/media_store:
-  file.directory
+  file.directory:
     - user: synapse
-      group: synapse
+    - group: synapse
 
 synapse_appservices_dir:
   file.directory:
