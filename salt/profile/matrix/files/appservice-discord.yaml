@@ -4,10 +4,11 @@ as_token: {{ pillar['profile']['matrix']['appservices']['discord']['appservice_t
 namespaces:
   users:
     - exclusive: true
-      regex: '@_discord_.*'
+      regex: '@_discord_.*:opensuse\.org'
+      group_id: '+discord:opensuse.org'
   aliases:
     - exclusive: true
-      regex: '#_discord_.*'
+      regex: '#_discord_.*:opensuse\.org'
   rooms: []
 url: 'http://localhost:9001'
 sender_localpart: _discord_bot

@@ -261,12 +261,15 @@ ircService:
               # initial: false
               # incremental: false
 
-      # mappings:
+      mappings:
         # 1:many mappings from IRC channels to room IDs on this IRC server.
         # The matrix room must already exist. Your matrix client should expose
         # the room ID in a "settings" page for the room.
-        # "#thepub":
-          # roomIds: ["!kieouiJuedJoxtVdaG:localhost"]
+{% set channels = salt['pillar.get']('profile:matrix:appservices:irc:channels') %}
+{% for ircchannel, matrixroom in channels.items() %}
+        "#{{ ircchannel }}":
+          roomIds: ["{{ matrixroom }}"]
+{% endfor %}
           # Channel key/password to use. Optional. If provided, matrix users do
           # not need to know the channel key in order to join the channel.
           # key: "secret"
@@ -285,7 +288,7 @@ ircService:
         # $NICK somewhere in it if it is specified. Can also use $SERVER to
         # insert the IRC domain.
         # Optional. Default: "$NICK (IRC)". Example: "Alice (IRC)"
-        displayName: "$NICK [Freenode]"
+        displayName: "$NICK"
         # Number of tries a client can attempt to join a room before the request
         # is discarded. You can also use -1 to never retry or 0 to never give up.
         # Optional. Default: -1

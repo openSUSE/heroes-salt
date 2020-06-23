@@ -22,6 +22,8 @@ profile matrix-synapse {
     /etc/matrix-synapse/** r,
     owner /var/lib/matrix-synapse/ r,
     owner /var/{lib,log}/matrix-synapse/** rw,
+    owner /data/matrix/ r,
+    owner /data/matrix/** rw,
 
     /usr/bin/bash Cx -> bash,
 

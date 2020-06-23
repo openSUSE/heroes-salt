@@ -43,7 +43,7 @@
     },
     "piwik": {
         "url": "https://beans.opensuse.org/matomo/",
-        "whitelistedHSUrls": ["https://opensuse.org"],
+        "whitelistedHSUrls": ["https://matrix.opensuse.org"],
         "siteId": 1
     },
     "jitsi": {

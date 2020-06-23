@@ -26,6 +26,26 @@ profile:
         appservice_id: 1deb544b666b3aba1d9d49d3d4785eeb2fb2befa24e0743c91e6290866003c33
         build: True
         script: /usr/bin/node app.js -c config.yaml -f irc-registration.yaml -p 9003
+        channels:
+          opensuse-admin: "!dtmDwTTVitcYDllXZn:opensuse.org"
+          opensuse-artwork: "!zIlpRhiuCFurTrRGTI:opensuse.org"
+          opensuse-buildservice: "!ZeJCIwZKbFFzktVvWp:opensuse.org"
+          opensuse-chat: "!riGlxrjzOIHgGlIGos:opensuse.org"
+          opensuse-de: "!iyjTumFmGgEikQQyVC:opensuse.org"
+          opensuse-e: "!heRZBdlbnMhPjahHgI:opensuse.org"
+          opensuse-es: "!uHCDVQZZRWYRoDNfNU:opensuse.org"
+          opensuse-factory: "!iWpqtEOwekzNzpVeSM:opensuse.org"
+          opensuse-forums: "!mmNpuXfcgsVHuXobRC:opensuse.org"
+          opensuse-gnome: "!eoCPAqTPlTGhaLnxsM:opensuse.org"
+          opensuse-kde: "!BKlmFyoGcfAagcoayL:opensuse.org"
+          opensuse-marketing: "!yjTrErlhnCKDIipjsl:opensuse.org"
+          opensuse-packaging: "!yPRwRTpSOmBKdinXpb:opensuse.org"
+          opensuse-project: "!bDgeVulahMoLwBJWCR:opensuse.org"
+          opensuse-xfce: "!MtdBFLUSbaEUoqnYbD:opensuse.org"
+          suse: "!OFmVrtbLqDWBDXvEQQ:opensuse.org"
+          suse.pl: "!zgkwQNAwMeGZZaPlUj:opensuse.org"
+          uyuni: "!IFFLVfxiJMcHGRWIgL:opensuse.org"
+          yast: "!nZWUAYlmvqtubDPLps:opensuse.org"
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253
@@ -58,6 +78,7 @@ nginx:
                         - index.html
                         - index.htm
                 - location /vector-icons/:
+                    - rewrite: ^(.*?)\..*?(\..*?)$ $1$2 last
                     - proxy_set_header: Host static.opensuse.org
                     - proxy_pass: https://static.opensuse.org/chat/favicons/
                 - location ~* \.(?:ttf|otf|eot|woff)$:
@@ -72,6 +93,8 @@ nginx:
                 - listen:
                     - 80
                 - location /:
+                    - return: 301 https://chat.opensuse.org
+                - location ~ "/..*":
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8184
                 - location /img/avatars/:
@@ -84,6 +107,8 @@ nginx:
                 - server_name: matrix.opensuse.org
                 - listen:
                     - 80
+                - location /:
+                    - return: 301 https://chat.opensuse.org
                 - location /_matrix:
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8008
@@ -95,6 +120,8 @@ nginx:
                 - listen:
                     - 80
                 - location /:
+                    - return: 301 https://chat.opensuse.org
+                - location ~ "/..*":
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:9002
           enabled: True

@@ -4,11 +4,11 @@ hs_token: {{ pillar['profile']['matrix']['telegram']['homeserver_token'] }}
 namespaces:
     users:
     - exclusive: true
-      regex: '@telegram_.+:opensuse.org'
-      group_id: +telegram:opensuse.org
+      regex: '@telegram_.+:opensuse\.org'
+      group_id: '+telegram:opensuse.org'
     aliases:
     - exclusive: true
-      regex: '#telegram_.+:opensuse.org'
+      regex: '#telegram_.+:opensuse\.org'
 url: http://localhost:29317
 sender_localpart: telegrambot
 rate_limited: false

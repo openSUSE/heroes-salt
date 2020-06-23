@@ -58,7 +58,7 @@ appservice:
     # Display name and avatar for bot. Set to "remove" to remove display name/avatar, leave empty
     # to leave display name/avatar as-is.
     bot_displayname: Telegram
-    bot_avatar: mxc://maunium.net/tJCRmUyJDsgRNgqhOgoiHWbX
+    bot_avatar: mxc://opensuse.org/OTofIzFVeUOfQTGCwPiWpnYr
 
     # Community ID for bridged users (changes registration file) and rooms.
     # Must be created manually.
@@ -96,7 +96,7 @@ bridge:
     alias_template: telegram_{groupname}
     # Displayname template for Telegram users.
     # {displayname} is replaced with the display name of the Telegram user.
-    displayname_template: '{displayname} [Telegram]'
+    displayname_template: '{displayname}'
 
     # Set the preferred order of user identifiers which to use in the Matrix puppet display name.
     # In the (hopefully unlikely) scenario that none of the given keys are found, the numeric user

@@ -18,6 +18,16 @@ synapse_conf_dir:
   file.directory:
     - name: /etc/matrix-synapse/
 
+/data/matrix:
+  file.directory:
+    - user: synapse
+    - group: synapse
+
+/data/matrix/media_store:
+  file.directory:
+    - user: synapse
+    - group: synapse
+
 synapse_appservices_dir:
   file.directory:
     - name: /etc/matrix-synapse/appservices
@@ -27,17 +37,6 @@ synapse_conf_file:
     - name: /etc/matrix-synapse/homeserver.yaml
     - source: salt://profile/matrix/files/homeserver.yaml
     - template: jinja
-    - require:
-      - file: synapse_conf_dir
-    - require_in:
-      - service: synapse_service
-    - watch_in:
-      - module: synapse_restart
-
-synapse_log_conf_file:
-  file.managed:
-    - name: /etc/matrix-synapse/log.yaml
-    - source: salt://profile/matrix/files/log_config
     - require:
       - file: synapse_conf_dir
     - require_in:
