@@ -1416,11 +1416,11 @@ oidc_config:
         # Defaults to `sub`, which OpenID Connect compliant providers should provide.
         #
         #subject_claim: "sub"
-
+{% raw %}
         # Jinja2 template for the localpart of the MXID
         #
         localpart_template: "{{ user.preferred_username }}"
-
+{% endraw %}
         # Jinja2 template for the display name to set on first login. Optional.
         #
         #display_name_template: "{{ user.given_name }} {{ user.last_name }}"
