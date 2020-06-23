@@ -1420,10 +1420,11 @@ oidc_config:
         # Jinja2 template for the localpart of the MXID
         #
         localpart_template: "{{ user.preferred_username }}"
-{% endraw %}
+
         # Jinja2 template for the display name to set on first login. Optional.
         #
         #display_name_template: "{{ user.given_name }} {{ user.last_name }}"
+{% endraw %}
 
 
 
