@@ -94,7 +94,7 @@ nginx:
                     - 80
                 - location /:
                     - return: 301 https://chat.opensuse.org
-                - location ~ "/.{1}.*":
+                - location ~ "/..*":
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8184
                 - location /img/avatars/:
@@ -121,7 +121,7 @@ nginx:
                     - 80
                 - location /:
                     - return: 301 https://chat.opensuse.org
-                - location ~ "/.{1}.*":
+                - location ~ "/..*":
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:9002
           enabled: True

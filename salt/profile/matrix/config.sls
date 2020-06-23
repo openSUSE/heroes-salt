@@ -20,9 +20,13 @@ synapse_conf_dir:
 
 /data/matrix:
   file.directory
+    - user: synapse
+      group: synapse
 
 /data/matrix/media_store:
   file.directory
+    - user: synapse
+      group: synapse
 
 synapse_appservices_dir:
   file.directory:
