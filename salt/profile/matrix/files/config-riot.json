@@ -44,7 +44,7 @@
     "piwik": {
         "url": "https://beans.opensuse.org/matomo/",
         "whitelistedHSUrls": ["https://matrix.opensuse.org"],
-        "siteId": 1
+        "siteId": 52
     },
     "jitsi": {
         "preferredDomain": "meet.opensuse.org"
