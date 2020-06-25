@@ -7,6 +7,10 @@ countdown_packages:
       - inkscape
       - optipng
       - rsync
+      - noto-sans-jp-regular-fonts
+      - noto-sans-kr-regular-fonts
+      - noto-sans-sc-regular-fonts
+      - noto-sans-tc-regular-fonts
 
 countdown:
   user.present:
