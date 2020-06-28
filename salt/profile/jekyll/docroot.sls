@@ -5,7 +5,8 @@ jekyll_vhosts_dir:
     - name: /srv/www/vhosts/
 
 {% for website in websites %}
-/srv/www/vhosts/{{ website }}.opensuse.org:
+jekyll_vhosts_dir_{{website}}:
   file.directory:
+    - name: /srv/www/vhosts/{{ website }}.opensuse.org
     - user: web_jekyll
 {% endfor %}
