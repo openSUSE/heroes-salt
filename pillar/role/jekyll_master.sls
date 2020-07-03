@@ -16,6 +16,9 @@ profile:
         repo: https://github.com/openSUSE/www.opensuse.org.git
       yast.opensuse.org:
         repo: https://github.com/yast/yast.github.io.git
+      101.opensuse.org:
+        repo: https://github.com/openSUSE/mentoring.git
+        branch: gh-pages
     server_list:
       - jekyll.infra.opensuse.org
     ssh_known_hosts: |
