@@ -21,6 +21,8 @@ profile:
         branch: gh-pages
       monitor.opensuse.org:
         repo: https://github.com/openSUSE/monitor-o-o.git
+      debuginfod.opensuse.org:
+        repo: https://github.com/openSUSE/debuginfod-o-o.git
     server_list:
       - jekyll.infra.opensuse.org
     ssh_known_hosts: |
