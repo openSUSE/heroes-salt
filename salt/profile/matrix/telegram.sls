@@ -62,6 +62,14 @@ telegram_systemd_file:
     - require_in:
       - service: telegram_service
 
+telegram_database_migration:
+  cmd.run:
+    - name: alembic upgrade head
+    - cwd: /var/lib/matrix-synapse/telegram/
+    - runas: synapse
+    - require_in:
+      - service: telegram_service
+
 telegram_service:
   service.running:
     - name: telegram

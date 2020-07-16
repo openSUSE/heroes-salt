@@ -50,7 +50,7 @@ logging:
       enable:
         - "DiscordBot"
 database:
-  connString: "postgresql://{{ pillar['profile']['matrix']['database_user'] }}:{{ pillar['postgres']['users']['matrix']['password'] }}@{{ pillar['profile']['matrix']['database_host'] }}/discord_bridge"
+  connString: "postgresql://{{ pillar['profile']['matrix']['database_user'] }}:{{ pillar['postgres']['users']['matrix']['password'] }}@localhost/discord_bridge"
   # You may either use SQLite or Postgresql for the bridge database, which contains
   # important mappings for events and user puppeting configurations.
   # Use the filename option for SQLite, or connString for Postgresql.
