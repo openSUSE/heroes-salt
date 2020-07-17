@@ -21,7 +21,7 @@
     "embeddedPages": {
         "welcomeUrl": "//static.opensuse.org/chat/welcome.html"
     },
-    "integrations_ui_url": "https://dimension.opensuse.org/riot",
+    "integrations_ui_url": "https://dimension.opensuse.org/element",
     "integrations_rest_url": "https://dimension.opensuse.org/api/v1/scalar",
     "integrations_widgets_urls": ["https://dimension.opensuse.org/widgets"],
     "integrations_jitsi_widget_url": "https://dimension.opensuse.org/widgets/jitsi",

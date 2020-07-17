@@ -13,6 +13,9 @@ homeserver:
 appservice:
     # The address that the homeserver can use to connect to this appservice.
     address: http://localhost:29317
+    # When using https:// the TLS certificate and key files for the address.
+    tls_cert: false
+    tls_key: false
 
     # The hostname and port where this appservice should listen.
     hostname: 127.0.0.1
@@ -26,7 +29,7 @@ appservice:
     # Format examples:
     #   SQLite:   sqlite:///filename.db
     #   Postgres: postgres://username:password@hostname/dbname
-    database: postgresql://{{ pillar['profile']['matrix']['database_user'] }}:{{ pillar['postgres']['users']['matrix']['password'] }}@{{ pillar['profile']['matrix']['database_host'] }}/telegram_bridge
+    database: postgresql://{{ pillar['profile']['matrix']['database_user'] }}:{{ pillar['postgres']['users']['matrix']['password'] }}@localhost/telegram_bridge
 
     # Public part of web server for out-of-Matrix interaction with the bridge.
     # Used for things like login if the user wants to make sure the 2FA password isn't stored in
@@ -58,7 +61,7 @@ appservice:
     # Display name and avatar for bot. Set to "remove" to remove display name/avatar, leave empty
     # to leave display name/avatar as-is.
     bot_displayname: Telegram
-    bot_avatar: mxc://opensuse.org/OTofIzFVeUOfQTGCwPiWpnYr
+    bot_avatar: mxc://opensuse.org/FPGLmCfsZtwRHKeRITyGvtoQ
 
     # Community ID for bridged users (changes registration file) and rooms.
     # Must be created manually.
@@ -71,20 +74,20 @@ appservice:
     hs_token: {{ pillar['profile']['matrix']['telegram']['homeserver_token'] }}
 
 # Prometheus telemetry config. Requires prometheus-client to be installed.
-# metrics:
-    # enabled: false
-    # listen_port: 8000
+metrics:
+    enabled: false
+    listen_port: 8000
 
 # Manhole config.
 # manhole:
     # Whether or not opening the manhole is allowed.
-    # enabled: false
+    enabled: false
     # The path for the unix socket.
-    # path: /var/tmp/mautrix-telegram.manhole
+    path: /var/tmp/mautrix-telegram.manhole
     # The list of UIDs who can be added to the whitelist.
     # If empty, any UIDs can be specified in the open-manhole command.
-    # whitelist:
-    # - 0
+    whitelist:
+    - 0
 
 # Bridge config
 bridge:
@@ -118,6 +121,10 @@ bridge:
     - phone number
     # Maximum length of displayname
     displayname_max_length: 100
+    # Remove avatars from Telegram ghost users when removed on Telegram. This is disabled by default
+    # as there's no way to determine whether an avatar is removed or just hidden from some users. If
+    # you're on a single-user instance, this should be safe to enable.
+    allow_avatar_remove: false
 
     # Maximum number of members to sync per portal when starting up. Other members will be
     # synced when they send messages. The maximum is 10000, after which the Telegram server
@@ -161,7 +168,7 @@ bridge:
     # If set, custom puppets will be enabled automatically for local users
     # instead of users having to find an access token and run `login-matrix`
     # manually.
-    login_shared_secret: null
+    login_shared_secret:
     # Set to false to disable link previews in messages sent to Telegram.
     telegram_link_preview: true
     # Use inline images instead of a separate message for the caption.
@@ -192,6 +199,22 @@ bridge:
             width: 256
             height: 256
             fps: 30
+
+    # Overrides for base power levels.
+    encryption:
+        # Allow encryption, work in group chat rooms with e2ee enabled
+        allow: false
+        # Default to encryption, force-enable encryption in all portals the bridge creates
+        # This will cause the bridge bot to be in private chats for the encryption to work properly.
+        default: false
+    # Whether or not to explicitly set the avatar and room name for private
+    # chat portal rooms. This will be implicitly enabled if encryption.default is true.
+    private_chat_portal_meta: false
+    # Whether or not the bridge should send a read receipt from the bridge bot when a message has
+    # been sent to Telegram.
+    delivery_receipts: false
+    # Whether or not delivery errors should be reported as messages in the Matrix room.
+    delivery_error_reports: false
 
     # Overrides for base power levels.
     initial_power_level_overrides:
@@ -283,8 +306,8 @@ bridge:
     #   domain - All users on that homeserver
     #     mxid - Specific user
     permissions:
-        '*': 'relaybot'
-        '@hellcp:opensuse.org': 'admin'
+        '*': relaybot
+        '@hellcp:opensuse.org': admin
 
     # Options related to the message relay Telegram bot.
     relaybot:
@@ -311,6 +334,10 @@ bridge:
         # Whether or not to ignore incoming events sent by the relay bot.
         ignore_own_incoming_events: true
         # List of usernames/user IDs who are also allowed to use the bot commands.
+        whitelist:
+        # - myusername
+        # - 12345678
+
 
 # Telegram config
 telegram:
@@ -376,8 +403,8 @@ telegram:
         # Whether or not to perform DNS resolving remotely. Only for socks/http proxies.
         rdns: true
         # Proxy authentication (optional). Put MTProxy secret in password field.
-        # username: ""
-        # password: ""
+        username: ''
+        password: ''
 
 # Python logging configuration.
 #
