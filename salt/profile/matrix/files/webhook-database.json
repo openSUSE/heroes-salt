@@ -1,0 +1,13 @@
+{
+  "defaultEnv": {
+    "ENV": "NODE_ENV"
+  },
+  "development": {
+    "driver": "sqlite3",
+    "filename": "/data/matrix/webhook/development.db"
+  },
+  "production": {
+    "driver": "sqlite3",
+    "filename": "/data/matrix/webhook/production.db"
+  }
+}

@@ -106,3 +106,15 @@ synapse_appservice_{{ dir }}_file:
       - service: synapse_service
       - service: {{ dir }}_service
 {% endfor %}
+
+webhook_database_file:
+  file.managed:
+    - name: /var/lib/matrix-synapse/webhook/config/database.json
+    - source: salt://profile/matrix/files/webhook-database.json
+    - user: synapse
+    - require:
+      - file: /var/lib/matrix-synapse/webhook
+    - require_in:
+      - service: webhook_service
+    - watch_in:
+      - module: webhook_restart
