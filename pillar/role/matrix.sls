@@ -27,6 +27,8 @@ profile:
         build: True
         script: /usr/bin/node app.js -c config.yaml -f irc-registration.yaml -p 9003
         channels:
+          kubic: "!qjMfuyGrjKwlSeLAih:opensuse.org"
+          microos-desktop: "!rJKcfgIndKVMvmgntJ:opensuse.org"
           opensuse-admin: "!kpNvJLdolgoCuqsSje:opensuse.org"
           opensuse-artwork: "!GxqKblgYnbXkqKjBAA:opensuse.org"
           opensuse-buildservice: "!ghfRmaAVDgHndflhuK:opensuse.org"
