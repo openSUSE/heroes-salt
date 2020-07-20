@@ -11,6 +11,10 @@ tsp_user:
   user.present:
     - name: tsp
 
+/srv/www/travel-support-program:
+  file.directory:
+    - user: tsp
+
 https://github.com/openSUSE/travel-support-program.git:
   git.latest:
     - branch: master
