@@ -7,18 +7,22 @@ tsp_dependencies:
       - ruby2.5-rubygem-pg
       - ruby2.5-rubygem-puma
 
+tsp_user:
+  user.present:
+    - name: tsp
+
 https://github.com/openSUSE/travel-support-program.git:
   git.latest:
     - branch: master
     - target: /srv/www/travel-support-program
     - rev: master
-    - user: wwwrun
+    - user: tsp
 
 tsp_ruby_dependencies:
   cmd.run:
     - name: bundler install --deployment
     - cwd: /srv/www/travel-support-program
-    - runas: wwwrun
+    - runas: tsp
 
 /etc/systemd/system/tsp.service:
   file.managed:
@@ -30,7 +34,7 @@ tsp_ruby_dependencies:
   file.managed:
     - source: salt://profile/tsp/files/site.yml
     - template: jinja
-    - user: wwwrun
+    - user: tsp
     - require_in:
       - service: tsp_service
     - watch_in:
@@ -40,7 +44,7 @@ tsp_ruby_dependencies:
   file.managed:
     - source: salt://profile/tsp/files/database.yml
     - template: jinja
-    - user: wwwrun
+    - user: tsp
     - require_in:
       - service: tsp_service
     - watch_in:
