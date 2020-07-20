@@ -1,5 +1,13 @@
 include:
+  {% if salt['grains.get']('include_secrets', True) %}
+  - secrets.role.web_tsp
+  {% endif %}
   - role.common.nginx
+
+profile:
+  web_tsp:
+    database_host: 192.168.47.4
+    database_user: web_tsp
 
 nginx:
   ng:

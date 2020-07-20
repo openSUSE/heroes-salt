@@ -1,0 +1,17 @@
+[Unit]
+Description=Travel Support Program Rails application
+After=network.target
+
+[Service]
+Type=simple
+
+User=wwwrun
+
+WorkingDirectory=/srv/www/travel-support-program
+
+ExecStart=/usr/bin/bundler exec puma -C /srv/www/travel-support-program/config/puma.rb ../config.ru
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

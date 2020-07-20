@@ -1,0 +1,118 @@
+common: &common
+  program_name: "openSUSE Travel Support Program"
+
+  secret:
+    devise: '{{ pillar['profile']['web_tsp']['devise'] }}'
+    token: '{{ pillar['profile']['web_tsp']['token'] }}'
+    key_base: '{{ pillar['profile']['web_tsp']['key_base'] }}'
+
+  budget_limits: false
+
+  reimbursement_reminder:
+    days_after_event: 5
+    days_before_deadline: 5
+  async_emails: true
+  email_from: "Travel Support Program <noreply@opensuse.org>"
+  email_footer: "openSUSE Travel Support Program"
+  email_default_url_options:
+    host: 'tsp.opensuse.org'
+
+  theme: "bento"
+
+  authentication:
+    ichain:
+      enabled: true
+      base_url: "https://tsp.opensuse.org"
+    database:
+      enabled: false
+
+  opensuse_connect:
+    enabled: false
+    api_key: "{{ pillar['profile']['web_tsp']['api_key'] }}"
+    base_url: "http://connect.opensuse.org"
+
+  check_request_template: "check_request_2pages.pdf"
+  check_request_layout: "check_request_2pages.yml"
+
+  external_links:
+    - title: "Travel Support Program"
+      url: "http://en.opensuse.org/openSUSE:Travel_Support_Program"
+    - title: "Source Code"
+      url: "https://github.com/openSUSE/travel-support-program"
+    - title: "Video: Travel Support Program Howto"
+      url: "https://www.youtube.com/watch?v=gDA4ccqp570"
+
+  travel_sponsorships:
+    enabled: true
+    expenses_subjects:
+      - Plane
+      - Train
+      - Bus
+      - Lodging
+      - Other
+
+  currencies_for_approved:
+    - EUR
+    - USD
+  payment_methods:
+    - Transfer
+    - Check
+  relevant_profile_fields:
+    - full_name
+    - country_code
+    - location
+    - zip_code
+    - postal_address
+    - phone_number
+
+  shipments:
+    enabled: true
+    types:
+      - Big booth box
+      - Small booth box
+
+production:
+  <<: *common
+
+development:
+  <<: *common
+
+test:
+  <<: *common
+  async_emails: false
+
+  budget_limits: true
+
+  authentication:
+    ichain:
+      enabled: false
+    database:
+      enabled: true
+
+  opensuse_connect:
+    enabled: false
+
+  check_request_template: "check_request.example.pdf"
+  check_request_layout: "check_request.example.yml"
+
+  currencies_for_approved:
+    - EUR
+    - USD
+  relevant_profile_fields:
+    - full_name
+    - location
+    - zip_code
+
+  travel_sponsorships:
+    enabled: true
+    expenses_subjects:
+      - Gas
+      - Droid rental
+      - Lodging
+      - Other
+
+  shipments:
+    enabled: true
+    types:
+      - Wookiee customes box
+      - Death Star destruction kit
