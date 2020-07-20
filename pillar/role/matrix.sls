@@ -25,7 +25,7 @@ profile:
         repo: https://github.com/matrix-org/matrix-appservice-irc
         appservice_id: 1deb544b666b3aba1d9d49d3d4785eeb2fb2befa24e0743c91e6290866003c33
         build: True
-        script: /usr/bin/node app.js -c config.yaml -f irc-registration.yaml -p 9003
+        script: /usr/bin/node --experimental-worker app.js -c config.yaml -f irc-registration.yaml -p 9003
         channels:
           kubic: "!qjMfuyGrjKwlSeLAih:opensuse.org"
           microos-desktop: "!rJKcfgIndKVMvmgntJ:opensuse.org"
