@@ -1,0 +1,8 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: tsp
+  pool: 5
+  host: {{ pillar['profile']['web_tsp']['database_host'] }}
+  username: {{ pillar['profile']['web_tsp']['database_user'] }}
+  password: {{ pillar['postgres']['users']['web_tsp']['password'] }}

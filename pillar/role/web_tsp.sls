@@ -1,5 +1,13 @@
 include:
+  {% if salt['grains.get']('include_secrets', True) %}
+  - secrets.role.web_tsp
+  {% endif %}
   - role.common.nginx
+
+profile:
+  web_tsp:
+    database_host: 192.168.47.4
+    database_user: web_tsp
 
 nginx:
   ng:
@@ -21,3 +29,10 @@ nginx:
                 - access_log: /var/log/nginx/tsp.access.log combined
                 - error_log: /var/log/nginx/tsp.error.log
           enabled: True
+
+sudoers:
+  included_files:
+    /etc/sudoers.d/group_tsp-admins:
+      groups:
+        tsp-admins:
+          - 'ALL=(ALL) ALL'
