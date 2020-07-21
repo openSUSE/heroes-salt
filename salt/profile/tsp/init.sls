@@ -26,11 +26,11 @@ tsp_user:
 
 /var/cache/tsp:
   file.directory:
-    - user: tsp
+    - user: wwwrun
 
 /var/log/tsp:
   file.directory:
-    - user: tsp
+    - user: wwwrun
 
 https://github.com/openSUSE/travel-support-program.git:
   git.latest:
