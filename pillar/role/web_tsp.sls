@@ -15,14 +15,27 @@ nginx:
       managed:
         tsp.opensuse.org.conf:
           config:
+            - upstream tsp:
+              - server: unix:///var/cache/tsp/puma.socket
             - server:
                 - listen:
                     - 80
                     - default_server
                 - server_name: tsp.opensuse.org
-                - root: /srv/www/htdocs
+                - root: /srv/www/travel-support-program/public
+                - keepalive_timeout: 5
                 - location /:
-                    - proxy_pass: http://127.0.0.1:3000
+                    - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                    - proxy_set_header: Host $http_host
+                    - if (-f $request_filename):
+                      - break
+                    - if (-f $request_filename/index.html):
+                      - rewrite: (.*) $1/index.html break
+                    - if (-f $request_filename.html):
+                      - rewrite: (.*) $1.html break
+                    - if (!-f $request_filename):
+                      - proxy_pass http://tsp
+                      - break
                 - error_page: 500 502 503 504 /50x.html
                 - location = /50x.html:
                     - root: /srv/www/htdocs

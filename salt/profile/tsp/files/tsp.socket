@@ -1,0 +1,14 @@
+[Unit]
+Description=Travel Support Program Socket
+
+[Socket]
+SocketUser=wwwrun
+SocketGroup=www
+ListenStream=/var/cache/tsp/puma.socket
+
+NoDelay=true
+ReusePort=true
+Backlog=1024
+
+[Install]
+WantedBy=sockets.target

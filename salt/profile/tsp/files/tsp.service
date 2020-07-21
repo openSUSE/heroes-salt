@@ -5,11 +5,11 @@ After=network.target
 [Service]
 Type=simple
 
-User=wwwrun
+User=tsp
 
 WorkingDirectory=/srv/www/travel-support-program
 
-ExecStart=/usr/bin/bundler exec puma -C /srv/www/travel-support-program/config/puma.rb ../config.ru
+ExecStart=/usr/bin/bundler exec puma -C /srv/www/travel-support-program/config/puma.rb ./config.ru
 
 Restart=always
 

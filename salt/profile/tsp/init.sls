@@ -8,6 +8,8 @@ tsp_dependencies:
       - zlib-devel
       - libqt4-devel
       - libQtWebKit4-devel
+      - postgresql-devel
+      - postgresql-server-devel
       - ruby-devel
       - ruby2.5-rubygem-bundler
       - ruby2.5-rubygem-pg
@@ -18,6 +20,14 @@ tsp_user:
     - name: tsp
 
 /srv/www/travel-support-program:
+  file.directory:
+    - user: tsp
+
+/var/cache/tsp:
+  file.directory:
+    - user: tsp
+
+/var/log/tsp:
   file.directory:
     - user: tsp
 
