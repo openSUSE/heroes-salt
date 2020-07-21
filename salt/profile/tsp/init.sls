@@ -57,14 +57,16 @@ tsp_db_migration:
   cmd.run:
     - name: rake db:migrate
     - cwd: /srv/www/travel-support-program
-    - env: RAILS_ENV=production
+    - env:
+      - RAILS_ENV: 'production'
     - runas: tsp
 
 tsp_assets_precompile:
   cmd.run:
     - name: rake assets:precompile
     - cwd: /srv/www/travel-support-program
-    - env: RAILS_ENV=production
+    - env:
+      - RAILS_ENV: 'production'
     - runas: tsp
 
 /etc/systemd/system/tsp.service:
