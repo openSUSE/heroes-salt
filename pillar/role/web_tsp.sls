@@ -15,14 +15,20 @@ nginx:
       managed:
         tsp.opensuse.org.conf:
           config:
+            - upstream tsp:
+              - server: unix:///var/cache/tsp/puma.socket
             - server:
                 - listen:
                     - 80
                     - default_server
                 - server_name: tsp.opensuse.org
-                - root: /srv/www/htdocs
-                - location /:
-                    - proxy_pass: http://127.0.0.1:3000
+                - root: /srv/www/travel-support-program/public
+                - keepalive_timeout: 5
+                - try_files $uri/index.html $uri @app
+                - location @tsp:
+                    - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                    - proxy_set_header: Host $http_host
+                    - proxy_pass http://tsp
                 - error_page: 500 502 503 504 /50x.html
                 - location = /50x.html:
                     - root: /srv/www/htdocs
@@ -36,3 +42,10 @@ sudoers:
       groups:
         tsp-admins:
           - 'ALL=(ALL) ALL'
+
+zypper:
+  repositories:
+    openSUSE:infrastructure:tsp:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/tsp/openSUSE_Leap_$releasever/
+      priority: 100
+      refresh: True

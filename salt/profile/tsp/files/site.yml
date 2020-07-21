@@ -28,7 +28,7 @@ common: &common
 
   opensuse_connect:
     enabled: false
-    api_key: "{{ pillar['profile']['web_tsp']['api_key'] }}"
+    api_key: "{{ pillar['profile']['web_tsp']['connect_api_key'] }}"
     base_url: "http://connect.opensuse.org"
 
   check_request_template: "check_request_2pages.pdf"
