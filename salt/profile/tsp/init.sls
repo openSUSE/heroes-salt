@@ -50,6 +50,19 @@ tsp_ruby_dependencies:
     - require_in:
       - service: tsp_service
 
+/etc/systemd/system/tsp.socket:
+  file.managed:
+    - source: salt://profile/tsp/files/tsp.socket
+    - require_in:
+      - service: tsp_service
+
+/srv/www/travel-support-program/config/puma.rb:
+  file.managed:
+    - source: salt://profile/tsp/files/puma.rb
+    - user: tsp
+    - require_in:
+      - service: tsp_service
+
 /srv/www/travel-support-program/config/site.yml:
   file.managed:
     - source: salt://profile/tsp/files/site.yml
