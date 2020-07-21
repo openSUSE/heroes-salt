@@ -60,6 +60,13 @@ tsp_db_migration:
     - env: RAILS_ENV=production
     - runas: tsp
 
+tsp_assets_precompile:
+  cmd.run:
+    - name: rake assets:precompile
+    - cwd: /srv/www/travel-support-program
+    - env: RAILS_ENV=production
+    - runas: tsp
+
 /etc/systemd/system/tsp.service:
   file.managed:
     - source: salt://profile/tsp/files/tsp.service
