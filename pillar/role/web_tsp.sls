@@ -24,7 +24,7 @@ nginx:
                 - server_name: tsp.opensuse.org
                 - root: /srv/www/travel-support-program/public
                 - keepalive_timeout: 5
-                - try_files $uri/index.html $uri @app
+                - try_files $uri/index.html $uri @tsp
                 - location @tsp:
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: Host $http_host
