@@ -14,6 +14,7 @@ tsp_dependencies:
       - ruby2.5-rubygem-bundler
       - ruby2.5-rubygem-pg
       - ruby2.5-rubygem-puma
+      - system-user-wwwrun
 
 tsp_user:
   user.present:
@@ -38,10 +39,25 @@ https://github.com/openSUSE/travel-support-program.git:
     - rev: master
     - user: tsp
 
+/srv/www/travel-support-program/tmp:
+  file.directory:
+    - user: wwwrun
+
+/srv/www/travel-support-program/log:
+  file.directory:
+    - user: wwwrun
+
 tsp_ruby_dependencies:
   cmd.run:
     - name: bundler install --deployment
     - cwd: /srv/www/travel-support-program
+    - runas: tsp
+
+tsp_db_migration:
+  cmd.run:
+    - name: rake db:migrate
+    - cwd: /srv/www/travel-support-program
+    - env: RAILS_ENV=production
     - runas: tsp
 
 /etc/systemd/system/tsp.service:
