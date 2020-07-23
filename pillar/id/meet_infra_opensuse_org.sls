@@ -15,3 +15,5 @@ grains:
   responsible:
     - lethliel 
   partners: []
+  weburls:
+    - https://meet.opensuse.org
