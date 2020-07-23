@@ -54,7 +54,7 @@ keepalived:
       virtual_ipaddress:
         # external IPs
         # login2.opensuse.org
-        - 2620:113:80c0:8::161/64 dev external
+        - 2001:67c:2178:8::161/64 dev external
       virtual_router_id: 60
 openldap:
   tls_reqcert: allow
