@@ -40,9 +40,9 @@ keepalived:
       smtp_alert: ''
       virtual_ipaddress:
         # proxy-nue.opensuse.org
-        - 2620:113:80c0:8::16/64 dev external
+        - 2001:67c:2178:8::16/64 dev external
         # static.opensuse.org
-        - 2620:113:80c0:8::18/64 dev external
+        - 2001:67c:2178:8::18/64 dev external
       virtual_router_id: 51
 
 profile:
