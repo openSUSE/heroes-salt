@@ -23,6 +23,9 @@ profile:
         repo: https://github.com/openSUSE/monitor-o-o.git
       debuginfod.opensuse.org:
         repo: https://github.com/openSUSE/debuginfod-o-o.git
+      get.opensuse.org:
+        repo: https://github.com/openSUSE/get-o-o.git
+        branch: main
     server_list:
       - jekyll.infra.opensuse.org
     ssh_known_hosts: |
