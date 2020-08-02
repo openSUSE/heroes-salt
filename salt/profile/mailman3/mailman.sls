@@ -24,56 +24,65 @@ mailman:
     - members:
       - mailman
 
-/usr/bin/mailman digests --periodic:
+mailman_digest:
   cron.present:
+    - name: /usr/bin/mailman digests --periodic
     - user: mailman
     - minute: 0
     - hour: 0
 
-/path/to/mailman notify:
+mailman_notify:
   cron.present:
+    - name: /usr/bin/mailman notify
     - user: mailman
     - minute: 0
     - hour: 8
 
-django-admin runjobs hourly  --pythonpath /var/lib/mailman --settings settings:
+mailman_hourly:
   cron.present:
+    - name: django-admin runjobs hourly --pythonpath /var/lib/mailman --settings settings
     - user: mailman
     - minute: 0
 
-django-admin runjobs daily   --pythonpath /var/lib/mailman --settings settings:
+mailman_daily:
   cron.present:
+    - name: django-admin runjobs daily --pythonpath /var/lib/mailman --settings settings
     - user: mailman
     - minute: 0
     - hour: 0
 
-django-admin runjobs weekly  --pythonpath /var/lib/mailman --settings settings:
+mailman_weekly:
   cron.present:
+    - name: django-admin runjobs weekly --pythonpath /var/lib/mailman --settings settings
     - user: mailman
     - minute: 0
     - hour: 0
     - dayweek: 0
 
-django-admin runjobs monthly --pythonpath /var/lib/mailman --settings settings:
+mailman_monthly:
   cron.present:
+    - name: django-admin runjobs monthly --pythonpath /var/lib/mailman --settings settings
     - user: mailman
     - minute: 0
     - hour: 0
     - daymonth: 1
 
-django-admin runjobs yearly  --pythonpath /var/lib/mailman --settings settings:
+mailman_yearly:
   cron.present:
+    - name: django-admin runjobs yearly --pythonpath /var/lib/mailman --settings settings
     - user: mailman
     - minute: 0
     - hour: 0
     - daymonth: 1
     - month: 1
 
-django-admin runjobs minutely  --pythonpath /var/lib/mailman --settings settings:
+mailman_minutely:
   cron.present:
+    - name: django-admin runjobs minutely --pythonpath /var/lib/mailman --settings settings
     - user: mailman
 
-django-admin runjobs quarter_hourly --pythonpath /var/lib/mailman --settings settings:
+mailman_quarter_hourly:
   cron.present:
+    - name: django-admin runjobs quarter_hourly --pythonpath /var/lib/mailman --settings settings
     - user: mailman
     - minute: '0,15,30,45'
