@@ -6,12 +6,6 @@ mailman_var_dir:
   file.directory:
     - name: /var/lib/mailman/
 
-# Preparation for when we have a set of templates for mailman core
-
-mailman_template_dir:
-  file.directory:
-    - name: /var/lib/mailman/templates/
-
 mailman_webui_dir:
   file.directory:
     - name: /var/lib/mailman_webui/
@@ -20,16 +14,6 @@ mailman_log_dir:
   file.directory:
     - name: /var/log/mailman/
     - user: mailman
-
-# Preparation for when we have a theme for hyperkitty
-
-mailman_webui_template_dir:
-  file.directory:
-    - name: /var/lib/mailman_webui/templates/
-
-mailman_webui_static_dir:
-  file.directory:
-    - name: /var/lib/mailman_webui/static-openSUSE/
 
 mailman_conf_file:
   file.managed:
