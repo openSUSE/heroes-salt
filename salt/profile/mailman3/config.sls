@@ -6,12 +6,6 @@ mailman_var_dir:
   file.directory:
     - name: /var/lib/mailman/
 
-# Preparation for when we have a set of templates for mailman core
-
-mailman_template_dir:
-  file.directory:
-    - name: /var/lib/mailman/templates/
-
 mailman_webui_dir:
   file.directory:
     - name: /var/lib/mailman_webui/
@@ -21,15 +15,20 @@ mailman_log_dir:
     - name: /var/log/mailman/
     - user: mailman
 
-# Preparation for when we have a theme for hyperkitty
-
-mailman_webui_template_dir:
+mailman_lock_dir:
   file.directory:
-    - name: /var/lib/mailman_webui/templates/
+    - name: /var/lock/mailman/
+    - user: mailman
 
-mailman_webui_static_dir:
+mailman_run_dir:
   file.directory:
-    - name: /var/lib/mailman_webui/static-openSUSE/
+    - name: /var/run/mailman/
+    - user: mailman
+
+mailman_spool_dir:
+  file.directory:
+    - name: /var/spool/mailman/
+    - user: mailman
 
 mailman_conf_file:
   file.managed:
@@ -42,6 +41,16 @@ mailman_conf_file:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
+
+mailman_conf_symlink_var:
+  file.symlink:
+    - name: /var/lib/mailman/var/etc/mailman.cfg
+    - target: /etc/mailman/mailman.cfg
+
+mailman_conf_symlink_etc:
+  file.symlink:
+    - name: /etc/mailman.cfg
+    - target: /etc/mailman/mailman.cfg
 
 mailman_webui_manage_file:
   file.managed:
@@ -62,9 +71,9 @@ mailman_webui_settings_file:
     - require:
       - file: mailman_webui_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 mailman_webui_urls_file:
   file.managed:
@@ -73,9 +82,9 @@ mailman_webui_urls_file:
     - require:
       - file: mailman_webui_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 mailman_webui_wsgi_file:
   file.managed:
@@ -84,9 +93,9 @@ mailman_webui_wsgi_file:
     - require:
       - file: mailman_webui_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 mailman_disable_signup:
   file.managed:
@@ -102,9 +111,9 @@ mailman_uwsgi_conf:
     - require:
       - file: mailman_conf_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 {% set logfiles = ['uwsgi', 'uwsgi-cron', 'uwsgi-error', 'uwsgi-qcluster'] %}
 
@@ -113,6 +122,7 @@ mailman_{{ logfile }}_file:
   file.managed:
     - name: /var/log/mailman/{{ logfile }}.log
     - user: mailman
+    - replace: False
     - require:
       - file: mailman_log_dir
     - require_in:
@@ -129,6 +139,13 @@ mailman_hyperkitty_conf:
     - require:
       - file: mailman_conf_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
+
+/var/lib/mailman_webui/secret.txt:
+  file.managed:
+    - contents_pillar: profile:mailman3:secret_txt
+    - mode: 640
+    - user: mailman
+    - group: mailman
