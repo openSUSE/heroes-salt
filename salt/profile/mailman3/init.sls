@@ -23,3 +23,24 @@ mailman_restart:
     - m_name: mailman
     - require:
       - service: mailman_service
+
+mailman_webui_service_file:
+  file.managed:
+    - name: /etc/systemd/system/mailman_webui.service
+    - source: salt://profile/mailman3/files/mailman_webui.service
+    - require_in:
+      - service: mailman_webui_service
+    - watch_in:
+      - module: mailman_webui_restart
+
+mailman_webui_service:
+  service.running:
+    - name: mailman_webui
+    - enable: True
+
+mailman_webui_restart:
+  module.wait:
+    - name: service.restart
+    - m_name: mailman_webui
+    - require:
+      - service: mailman_webui_service

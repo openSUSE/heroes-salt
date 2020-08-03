@@ -20,6 +20,11 @@ mailman_lock_dir:
     - name: /var/lock/mailman/
     - user: mailman
 
+mailman_run_dir:
+  file.directory:
+    - name: /var/run/mailman/
+    - user: mailman
+
 mailman_spool_dir:
   file.directory:
     - name: /var/spool/mailman/
@@ -66,9 +71,9 @@ mailman_webui_settings_file:
     - require:
       - file: mailman_webui_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 mailman_webui_urls_file:
   file.managed:
@@ -77,9 +82,9 @@ mailman_webui_urls_file:
     - require:
       - file: mailman_webui_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 mailman_webui_wsgi_file:
   file.managed:
@@ -88,9 +93,9 @@ mailman_webui_wsgi_file:
     - require:
       - file: mailman_webui_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 mailman_disable_signup:
   file.managed:
@@ -106,9 +111,9 @@ mailman_uwsgi_conf:
     - require:
       - file: mailman_conf_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 {% set logfiles = ['uwsgi', 'uwsgi-cron', 'uwsgi-error', 'uwsgi-qcluster'] %}
 
@@ -134,9 +139,9 @@ mailman_hyperkitty_conf:
     - require:
       - file: mailman_conf_dir
     - require_in:
-      - service: mailman_service
+      - service: mailman_webui_service
     - watch_in:
-      - module: mailman_restart
+      - module: mailman_webui_restart
 
 /var/lib/mailman_webui/secret.txt:
   file.managed:
