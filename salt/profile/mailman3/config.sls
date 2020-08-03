@@ -117,3 +117,10 @@ mailman_hyperkitty_conf:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
+
+/var/lib/mailman_webui/secret.txt:
+  file.managed:
+    - contents_pillar: profile:mailman3:secret_txt
+    - mode: 640
+    - user: mailman
+    - group: mailman
