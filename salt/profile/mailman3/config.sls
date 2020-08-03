@@ -15,6 +15,16 @@ mailman_log_dir:
     - name: /var/log/mailman/
     - user: mailman
 
+mailman_lock_dir:
+  file.directory:
+    - name: /var/lock/mailman/
+    - user: mailman
+
+mailman_spool_dir:
+  file.directory:
+    - name: /var/spool/mailman/
+    - user: mailman
+
 mailman_conf_file:
   file.managed:
     - name: /etc/mailman/mailman.cfg
@@ -26,6 +36,16 @@ mailman_conf_file:
       - service: mailman_service
     - watch_in:
       - module: mailman_restart
+
+mailman_conf_symlink_var:
+  file.symlink:
+    - name: /var/lib/mailman/var/etc/mailman.cfg
+    - target: /etc/mailman/mailman.cfg
+
+mailman_conf_symlink_etc:
+  file.symlink:
+    - name: /etc/mailman.cfg
+    - target: /etc/mailman/mailman.cfg
 
 mailman_webui_manage_file:
   file.managed:

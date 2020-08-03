@@ -1,7 +1,8 @@
-{% if salt['grains.get']('include_secrets', True) %}
 include:
+{% if salt['grains.get']('include_secrets', True) %}
   - secrets.role.mailman3
 {% endif %}
+  - role.common.nginx
 
 # Special config for mailman in the postfix relay
 profile:
