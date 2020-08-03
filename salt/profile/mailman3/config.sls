@@ -97,6 +97,7 @@ mailman_{{ logfile }}_file:
   file.managed:
     - name: /var/log/mailman/{{ logfile }}.log
     - user: mailman
+    - replace: False
     - require:
       - file: mailman_log_dir
     - require_in:
