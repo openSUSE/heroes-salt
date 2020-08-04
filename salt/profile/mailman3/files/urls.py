@@ -24,9 +24,9 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(
-        url=reverse_lazy('list_index'),
+        url=reverse_lazy('hk_root'),
         permanent=True)),
-    url(r'^mailman3/', include('postorius.urls')),
+    url(r'^manage/', include('postorius.urls')),
     url(r'^archives/', include('hyperkitty.urls')),
     url(r'', include('django_mailman3.urls')),
     url(r'^accounts/', include('allauth.urls')),
