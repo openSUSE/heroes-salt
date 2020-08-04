@@ -2,7 +2,7 @@
 Description=GNU Mailman Service
 
 [Service]
-Type=simple
+Type=forking
 Restart=on-failure
 RestartSec=3
 
