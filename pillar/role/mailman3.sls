@@ -32,7 +32,11 @@ nginx:
                 - listen:
                     - 80
                     - default_server
-                - server: unix:///var/lib/mailman/server.sock
+                - location /static/:
+                  - alias: /var/lib/mailman_webui/static/
+                - location /:
+                  - include: /etc/nginx/uwsgi_params
+                  - uwsgi_pass: 0.0.0.0:8000
           enabled: True
 
 sudoers:
