@@ -18,4 +18,4 @@ grains:
     - hellcp
   partners: []
   weburls: 
-    - tsp.opensuse.org
+    - https://tsp.opensuse.org
