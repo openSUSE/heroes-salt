@@ -33,7 +33,7 @@ from mailman_web.settings.mailman import *
 SECRET_KEY = '{{ pillar['profile']['mailman3']['secret_key'] }}'
 
 ADMINS = (
-     ('openSUSE Mailing Lists Admins', 'admin@opensuse.org'),
+     ('openSUSE Mailing Lists Admins', 'ml-admin@opensuse.org'),
 )
 
 SITE_ID = 1
@@ -85,6 +85,42 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wsgi.application'
 
+INSTALLED_APPS = [
+    'hyperkitty',
+    'postorius',
+    'django_mailman3',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'django_gravatar',
+    'compressor',
+    'haystack',
+    'django_extensions',
+    'django_q',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.gitlab',
+    'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.google',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'openid': {
+        'SERVERS': [
+            dict(id='opensuse',
+                 name='openSUSE',
+                 openid_url='https://www.opensuse.org/openid/'),
+            ]
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -173,7 +209,8 @@ GRAVATAR_DEFAULT_SECURE = True
 #
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'xapian_backend.XapianEngine'
+        'ENGINE': 'xapian_backend.XapianEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index')
     },
 }
 

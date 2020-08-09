@@ -32,6 +32,8 @@ nginx:
                 - listen:
                     - 80
                     - default_server
+                - location /static/django-mailman3/img/login/opensuse.png:
+                  - return: 301 https://static.opensuse.org/favicon-24.png
                 - location /static/:
                   - alias: /var/lib/mailman_webui/static/
                 - location /:
