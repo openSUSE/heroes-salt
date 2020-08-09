@@ -2,7 +2,7 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - future travel support program webapp replacement
+    - Travel Support Program webapp
   roles:
     - web_tsp
   reboot_safe: unknown
@@ -10,10 +10,12 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: future travel support program webapp server
+  description: Travel Support Program (tsp) webapp server
   documentation: []
   responsible:
     - ancorgs
     # IGonzalezSosa (no heroes account yet)
+    - hellcp
   partners: []
-  weburls: []
+  weburls: 
+    - tsp.opensuse.org

@@ -8,7 +8,7 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: connect.opensuse.org platform, travel support
+  description: connect.opensuse.org platform
   documentation: []
   responsible: []
   partners: []
