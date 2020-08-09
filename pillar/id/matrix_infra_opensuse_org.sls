@@ -16,3 +16,8 @@ grains:
   responsible:
     - hellcp
   partners: []
+  weburls:
+    - https://matrix.opensuse.org/
+    - https://chat.opensuse.org/
+    - https://webhook.opensuse.org/
+    - https://dimension.opensuse.org/
