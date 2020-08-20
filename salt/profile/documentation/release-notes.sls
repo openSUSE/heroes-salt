@@ -25,7 +25,7 @@ relsync:
   cron.present:
     - user: relsync
     - minute: 0
-    - hour: */6
+    - hour: "*/6"
   file.managed:
     - mode: 755
     - source: salt://profile/documentation/files/update_release_notes
