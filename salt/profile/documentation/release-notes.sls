@@ -15,6 +15,11 @@ relsync:
     - user: relsync
 {% endfor %}
 
+/etc/apache2/vhosts.d/002-doc.conf:
+  file.managed:
+    - mode: 755
+    - source: salt://profile/documentation/files/002-doc.conf
+
 /home/relsync/etc/releasenotes:
   file.managed:
     - mode: 755
