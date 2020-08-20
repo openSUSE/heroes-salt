@@ -5,6 +5,7 @@ grains:
     - countdown.o.o
   roles:
     - countdown
+    - documentation
     - mail_reminder
   reboot_safe: yes
   salt_cluster: opensuse
