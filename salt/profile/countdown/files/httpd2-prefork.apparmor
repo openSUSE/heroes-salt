@@ -101,6 +101,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
 
     # strange, but happens in practise
     /var/log/apache2/countdown-access_log w,
+    /var/log/apache2/doc-access_log w,
 
   }
 
@@ -119,6 +120,23 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
 
     /srv/www/countdown.opensuse.org/ r,
     /srv/www/countdown.opensuse.org/** r,
+  }
+
+  ^vhost_doc flags=(complain,attach_disconnected) {
+    #include <abstractions/apache2-common>
+    #include <abstractions/base>
+
+    / r,
+#   /bin/bash rix,
+#   /dev/tty rw,
+#   /proc/meminfo r,
+#   /usr/bin/timeout rix,
+    /var/log/apache2/doc-access_log w,
+    /var/log/apache2/doc-access_log-21[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/error_log w,
+
+    /srv/www/vhosts/doc.opensuse.org/ r,
+    /srv/www/vhosts/doc.opensuse.org/** r,
   }
 
 }
