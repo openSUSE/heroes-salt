@@ -76,7 +76,7 @@ get_package_from_obs() {
     local url=$(echo $3 | sed "s|:/|:|g")
     local packagename="$4"
     local archs="$5"
-    local attempt=$6 || 0
+    local attempt=$6 || local attempt=0
     attempt=$((attempt+1))
     if [ $attempt -gt 2 ]; then
         echo "Could not find a valid RPM at ${server}/build/$url/$arch/_repository/${packagename} after $attempt attempts - giving up." >&2
@@ -104,7 +104,7 @@ get_package_from_obs() {
             ;;
          esac
          if [ "$FOUND" == "no" ]; then
-             LOG "Did not found the wanted RPM at $url - trying different repos now"
+             LOG "Did not find the wanted RPM at $url - trying different repos now"
              case "$url" in
                  *:Update/standard)
                      url=${url/:Update/}
