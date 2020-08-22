@@ -276,8 +276,7 @@ while read line; do
                 test -f "$relrpm" || continue
                 RPM_NAME=$(rpm -qp --nosignature --nodigest --qf "%{NAME}" "$relrpm")
                 if [ "$RPM_NAME" = "$RELEASENOTES_NAME" ]; then
-                    CHECKED=$(rpm --checksig "$relrpm" | grep -vE "md5 gpg OK|pgp md5 OK")
-                    test -n "$CHECKED" && { echo "ERROR: $relrpm not signed" >&2 ; LOG "ERROR: $relrpm not signed"; continue ; }
+                    CHECKED=$(rpm --checksig "$relrpm") || { echo "ERROR: $relrpm not signed: $CHECKED" >&2 ; LOG "ERROR: $relrpm not signed: $CHECKED"; continue ; }
                     PRODUKT_ARCH=$arch
                     output_package "$relrpm" "$RELNOTESDIR/$arch/$PRODUKT_NAME/$PRODUKT_VERSION"
         #            create_index_file "$RELNOTESDIR/$BUILDMACHINETYPE/$PRODUKT_NAME"
