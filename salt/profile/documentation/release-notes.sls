@@ -7,7 +7,7 @@ relsync:
   user.present:
     - home: /home/relsync
 
-{% set relsync_dirs = ['/home/relsync/bin', '/home/relsync/etc', '/srv/www/vhosts/doc.opensuse.org', '/srv/www/vhosts/doc.opensuse.org/release-notes'] %}
+{% set relsync_dirs = ['/home/relsync/bin', '/home/relsync/etc', '/srv/www/vhosts', '/srv/www/vhosts/doc.opensuse.org', '/srv/www/vhosts/doc.opensuse.org/release-notes'] %}
 
 {% for dir in relsync_dirs %}
 {{ dir }}:
