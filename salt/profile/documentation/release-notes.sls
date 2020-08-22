@@ -9,6 +9,10 @@ relsync:
 
 {% set relsync_dirs = ['/home/relsync/bin', '/home/relsync/etc', '/srv/www/vhosts/doc.opensuse.org', '/srv/www/vhosts/doc.opensuse.org/release-notes'] %}
 
+pinot_srv_www_vhosts_dir:
+  file.directory:
+    - name: /srv/www/vhosts
+
 {% for dir in relsync_dirs %}
 {{ dir }}:
   file.directory:
