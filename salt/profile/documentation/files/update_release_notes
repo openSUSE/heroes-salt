@@ -297,4 +297,4 @@ while read line; do
 done < "$RELEASENOTES_DATA"
 
 # Only after everything suceeds, we rsync the contents to /srv
-rsync -arz --delete-after "$@" "$RELNOTESDIR/*" "$DESTDIR"
+rsync -arz --delete-after "$@" "$RELNOTESDIR/"* "$DESTDIR"
