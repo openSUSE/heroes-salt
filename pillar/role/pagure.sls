@@ -4,6 +4,15 @@ include:
 {% endif %}
   - role.common.nginx
 
+sshd_config:
+  matches:
+    git_user:
+      type:
+        User: git
+      options:
+        AuthorizedKeysCommand /usr/lib/pagure/keyhelper.py "%u" "%h" "%t" "%f"
+        AuthorizedKeysCommandUser git
+
 profile:
   pagure:
     database_user: pagure
@@ -33,7 +42,32 @@ nginx:
                     - try_files: $uri @pagure
                 - location /releases:
                     - alias: /srv/www/pagure-releases/
-                    - autoindex: on
+                    - autoindex: 'on'
+          enabled: True
+        releases.opensuse.org.conf:
+          config:
+            - server:
+                - server_name: releases.opensuse.org
+                - listen:
+                    - 80
+                - location /:
+                    - alias: /srv/www/pagure-releases/
+                    - autoindex: 'on'
+          enabled: True
+        ev.opensuse.org.conf:
+          config:
+            - server:
+                - server_name: ev.opensuse.org
+                - listen:
+                    - 80
+                - location @pagure_ev:
+                    - proxy_set_header: Host $http_host
+                    - proxy_set_header: X-Real-IP $remote_addr
+                    - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                    - proxy_set_header: X-Forwarded-Proto $scheme
+                    - proxy_pass: http://localhost:8080
+                - location /:
+                    - try_files: $uri @pagure_ev
           enabled: True
         pages.opensuse.org.conf:
           config:

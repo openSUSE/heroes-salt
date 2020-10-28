@@ -14,7 +14,10 @@ grains:
   documentation: []
   responsible:
     - hellcp
+    - Pharaoh_Atem
   partners: []
   weburls:
     - https://code.opensuse.org
     - https://pages.opensuse.org
+    - https://releases.opensuse.org
+    - https://ev.opensuse.org
