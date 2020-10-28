@@ -7,6 +7,13 @@ pagure_pgks:
       - pagure
       - pagure-web-nginx
       - pagure-theme-chameleon
+      - pagure-ci
+      - pagure-ev
+      - pagure-loadjson
+      - pagure-logcom
+      - pagure-milters
+      - pagure-mirror
+      - pagure-webhook
 
 pagure_conf:
   file.managed:
@@ -20,8 +27,8 @@ pagure_conf:
 
 pagure_alembic_conf:
   file.managed:
-    - name: /etc/pagure/alembic.cfg
-    - source: salt://profile/pagure/files/alembic.cfg
+    - name: /etc/pagure/alembic.ini
+    - source: salt://profile/pagure/files/alembic.ini
     - template: jinja
     - require_in:
       - service: pagure_web_service

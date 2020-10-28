@@ -42,7 +42,7 @@ nginx:
                     - try_files: $uri @pagure
                 - location /releases:
                     - alias: /srv/www/pagure-releases/
-                    - autoindex: on
+                    - autoindex: 'on'
           enabled: True
         releases.opensuse.org.conf:
           config:
@@ -52,7 +52,7 @@ nginx:
                     - 80
                 - location /:
                     - alias: /srv/www/pagure-releases/
-                    - autoindex: on
+                    - autoindex: 'on'
           enabled: True
         ev.opensuse.org.conf:
           config:
