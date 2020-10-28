@@ -10,8 +10,8 @@ sshd_config:
       type:
         User: git
       options:
-        AuthorizedKeysCommand /usr/lib/pagure/keyhelper.py "%u" "%h" "%t" "%f"
-        AuthorizedKeysCommandUser git
+        AuthorizedKeysCommand: /usr/lib/pagure/keyhelper.py "%u" "%h" "%t" "%f"
+        AuthorizedKeysCommandUser: git
 
 profile:
   pagure:
