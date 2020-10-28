@@ -6,6 +6,7 @@ pagure_pgks:
     - pkgs:
       - pagure
       - pagure-web-nginx
+      - pagure-theme-chameleon
 
 pagure_conf:
   file.managed:
