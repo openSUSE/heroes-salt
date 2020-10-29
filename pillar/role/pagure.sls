@@ -34,7 +34,7 @@ nginx:
                     - proxy_set_header: X-Real-IP $remote_addr
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: X-Forwarded-Proto $scheme
-                    - proxy_pass: http://unix:/tmp/pagure_web.sock
+                    - proxy_pass: http://unix:/srv/gitolite/.pagure_web.sock
                 - location /:
                     - try_files: $uri @pagure
                 - location /releases:
@@ -77,7 +77,7 @@ nginx:
                     - proxy_set_header: X-Real-IP $remote_addr
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: X-Forwarded-Proto $scheme
-                    - proxy_pass: http://unix:/tmp/pagure_docs_web.sock
+                    - proxy_pass: http://unix:/srv/gitolite/.pagure_docs_web.sock
                 - location /:
                     - try_files: $uri @pagure_docs
           enabled: True
