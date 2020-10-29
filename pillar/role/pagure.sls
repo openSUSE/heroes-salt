@@ -17,9 +17,6 @@ profile:
   pagure:
     database_user: pagure
     database_host: 192.168.47.4
-    server_list:
-      - code.opensuse.org
-      - pagure01.infra.opensuse.org
 
 nginx:
   ng:
@@ -37,7 +34,7 @@ nginx:
                     - proxy_set_header: X-Real-IP $remote_addr
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: X-Forwarded-Proto $scheme
-                    - proxy_pass: http://unix:/srv/gitolite/.pagure_web.sock
+                    - proxy_pass: http://unix:/tmp/pagure_web.sock
                 - location /:
                     - try_files: $uri @pagure
                 - location /releases:
@@ -80,7 +77,14 @@ nginx:
                     - proxy_set_header: X-Real-IP $remote_addr
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: X-Forwarded-Proto $scheme
-                    - proxy_pass: http://unix:/srv/gitolite/.pagure_docs_web.sock
+                    - proxy_pass: http://unix:/tmp/pagure_docs_web.sock
                 - location /:
                     - try_files: $uri @pagure_docs
           enabled: True
+
+zypper:
+  repositories:
+    openSUSE:infrastructure:pagure:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/openSUSE_Leap_$releasever/
+      priority: 100
+      refresh: True

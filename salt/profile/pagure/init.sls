@@ -37,7 +37,7 @@ pagure_alembic_conf:
 
 pagure_database_setup:
   cmd.run:
-    - name: python3 /usr/share/pagure/pagure_createdb.py -c /etc/pagure/pagure.cfg -i /etc/pagure/alembic.ini
+    - name: python3 /usr/share/pagure/pagure_createdb.py -c /etc/pagure/pagure.cfg
 
 {% set services = ['pagure_web', 'pagure_docs_web', 'pagure_worker', 'pagure_authorized_keys_worker', 'pagure_api_key_expire_mail.timer', 'pagure_mirror_project_in.timer'] %}
 
