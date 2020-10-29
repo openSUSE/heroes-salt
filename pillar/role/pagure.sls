@@ -17,9 +17,6 @@ profile:
   pagure:
     database_user: pagure
     database_host: 192.168.47.4
-    server_list:
-      - code.opensuse.org
-      - pagure01.infra.opensuse.org
 
 nginx:
   ng:
@@ -84,3 +81,10 @@ nginx:
                 - location /:
                     - try_files: $uri @pagure_docs
           enabled: True
+
+zypper:
+  repositories:
+    openSUSE:infrastructure:pagure:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/openSUSE_Leap_$releasever/
+      priority: 100
+      refresh: True
