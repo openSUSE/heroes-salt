@@ -4,8 +4,9 @@ appservice_pgks:
   pkg.installed:
     - pkgs:
       - git
-      - nodejs10
-      - npm10
+      - nodejs12
+      - nodejs12-devel
+      - npm12
       - nodejs-common
       - make
       - gcc
@@ -68,7 +69,7 @@ synapse_appservice_{{ dir }}_file:
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
     - env:
-      - NODE_VERSION: 10
+      - NODE_VERSION: 12
 
 {% if data.get('build') == True %}
 {{ dir }}_build:
@@ -77,7 +78,7 @@ synapse_appservice_{{ dir }}_file:
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
     - env:
-      - NODE_VERSION: 10
+      - NODE_VERSION: 12
 {% endif %}
 
 {{ dir }}_systemd_file:

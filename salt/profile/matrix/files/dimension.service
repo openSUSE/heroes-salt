@@ -9,6 +9,7 @@ RestartSec=3600
 User=synapse
 Group=synapse
 WorkingDirectory=/var/lib/matrix-synapse/dimension/
+Environment="NODE_VERSION=10"
 Environment="NODE_ENV=production"
 ExecStart=/usr/bin/node build/app/index.js
 
