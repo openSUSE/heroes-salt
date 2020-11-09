@@ -1,3 +1,10 @@
+dimension_pgks:
+  pkg.installed:
+    - pkgs:
+      - nodejs10
+      - nodejs10-devel
+      - npm10
+
 /var/lib/matrix-synapse/dimension:
   file.directory:
     - user: synapse
