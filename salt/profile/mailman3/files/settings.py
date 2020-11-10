@@ -45,6 +45,8 @@ ALLOWED_HOSTS = [
     {%- endfor %}
 ]
 
+POSTORIUS_TEMPLATE_BASE_URL='0.0.0.0:8000'
+
 # Mailman API credentials
 MAILMAN_REST_API_USER = '{{ pillar['profile']['mailman3']['admin_user'] }}'
 MAILMAN_REST_API_PASS = '{{ pillar['profile']['mailman3']['admin_pass'] }}'
