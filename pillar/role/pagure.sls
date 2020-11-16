@@ -14,7 +14,10 @@ sshd_config:
         AuthorizedKeysCommandUser: git
     proxy:
       type:
-        Address: 192.168.47.4,192.168.47.101,192.168.47.102
+        Address:
+          - 192.168.47.4
+          - 192.168.47.101
+          - 192.168.47.102
       options:
         AllowUsers:
           - git
