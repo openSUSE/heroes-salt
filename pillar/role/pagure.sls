@@ -12,6 +12,11 @@ sshd_config:
       options:
         AuthorizedKeysCommand: /usr/lib/pagure/keyhelper.py "%u" "%h" "%t" "%f"
         AuthorizedKeysCommandUser: git
+    proxy:
+      type:
+        Address: 192.168.47.4
+      options:
+        AllowUsers: git
 
 profile:
   pagure:
