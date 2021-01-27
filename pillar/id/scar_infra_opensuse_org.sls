@@ -16,6 +16,8 @@ grains:
   description: OpenVPN gateway and central outgoing gateway for infra.opensuse.org hosts
   documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/VPN
-  responsible: []
+  responsible:
+    - mcaj
+    - rklein
   partners: []
   weburls: []
