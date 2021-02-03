@@ -18,7 +18,7 @@ profile:
         repo: https://github.com/yast/yast.github.io.git
       101.opensuse.org:
         repo: https://github.com/openSUSE/mentoring.git
-        branch: gh-pages
+        branch: main
       monitor.opensuse.org:
         repo: https://github.com/openSUSE/monitor-o-o.git
       debuginfod.opensuse.org:
