@@ -9,7 +9,7 @@ grains:
   virt_cluster: slimhat
 
   aliases: 
-    - ns4.infra.opensuse.org
+    - ns3.infra.opensuse.org
   description: Public DNS server for the opensuse.org domain (not reverse)
   documentation: 
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/DNS

@@ -9,7 +9,7 @@ grains:
   virt_cluster: bryce
 
   aliases:
-    - ns3.infra.opensuse.org
+    - ns4.infra.opensuse.org
   description: Public DNS server for the opensuse.org domain (not reverse)
   documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/DNS
@@ -18,5 +18,5 @@ grains:
   partners:
     - nue-ns1.infra.opensuse.org
     - nue-ns2.infra.opensuse.org
-    - qsc-ns4.infra.opensuse-org
+    - qsc-ns3.infra.opensuse-org
   weburls: []
