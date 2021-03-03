@@ -36,9 +36,6 @@ profile:
       static.opensuse.org/chameleon-3.0:
         branch: rel-3.0
         repo: https://github.com/openSUSE/chameleon.git
-      static.opensuse.org/hosts/www.o.o/searchPage:
-        branch: gh-pages
-        repo: https://github.com/opensuse/searchPage.git
       studioexpress.opensuse.org:
         repo: https://github.com/openSUSE/studioexpress-landing.git
       lizards.opensuse.org:
