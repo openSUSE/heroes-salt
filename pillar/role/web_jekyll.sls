@@ -47,10 +47,10 @@ nginx:
                 {% if website == 'news' %}
                 - if ($args ~* "feed=rss2"):
                     - set: $args ""
-                    - rewrite: ^.*$ /feed.xml redirect
-                - rewrite: ^/feed/$ /feed.xml redirect
-                - rewrite: ^.*/feed/$ /feed.xml redirect
-                - rewrite: ^/feed$ /feed.xml redirect
+                    - rewrite: ^.*$ https://news.opensuse.org/feed.xml redirect
+                - rewrite: ^/feed/$ https://news.opensuse.org/feed.xml redirect
+                - rewrite: ^.*/feed/$ https://news.opensuse.org/feed.xml redirect
+                - rewrite: ^/feed$ https://news.opensuse.org/feed.xml redirect
                 {% endif %}
                 {% if website == 'planet' %}
                 - rewrite: ^/global/$ / redirect
