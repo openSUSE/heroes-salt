@@ -13,6 +13,8 @@ profile:
       transport_maps: 'hash://var/lib/mailman/data/postfix_lmtp'
       local_recipient_maps: 'hash://var/lib/mailman/data/postfix_lmtp'
       relay_domains: 'hash://var/lib/mailman/data/postfix_domains'
+    aliases:
+      mailman: root
   mailman3:
     admin_user: mailman
     database_user: mailman
