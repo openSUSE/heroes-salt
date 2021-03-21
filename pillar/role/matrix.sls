@@ -22,36 +22,179 @@ profile:
         appservice_id: f4de7550133374c703c4cd64c5898cf1b82b65d4a5c2aca93863ee1fb859df91
         build: False
         script: /usr/bin/node index.js -c config.yaml -f webhook-registration.yaml -p 9002
-      irc:
-        repo: https://github.com/matrix-org/matrix-appservice-irc.git
-        appservice_id: 1deb544b666b3aba1d9d49d3d4785eeb2fb2befa24e0743c91e6290866003c33
-        build: True
-        script: /usr/bin/node --experimental-worker app.js -c config.yaml -f irc-registration.yaml -p 9003
-        channels:
-          kubic: "!qjMfuyGrjKwlSeLAih:opensuse.org"
-          microos-desktop: "!rJKcfgIndKVMvmgntJ:opensuse.org"
-          opensuse-admin: "!kpNvJLdolgoCuqsSje:opensuse.org"
-          opensuse-artwork: "!GxqKblgYnbXkqKjBAA:opensuse.org"
-          opensuse-buildservice: "!ghfRmaAVDgHndflhuK:opensuse.org"
-          opensuse-chat: "!BztzbuZFDtphuMYLVs:opensuse.org"
-          opensuse-de: "!jQjhzBeKVYPtWlzdrx:opensuse.org"
-          opensuse-e: "!pFZNcfFkaiwdHZdHHW:opensuse.org"
-          opensuse-es: "!MYMIZKowibauTQkKvY:opensuse.org"
-          opensuse-factory: "!UosUniyBpwshLxmZYz:opensuse.org"
-          opensuse-forums: "!bbQEanSTDAsvNOTEbo:opensuse.org"
-          opensuse-gnome: "!hnSuvZKLxoaIOFdVIV:opensuse.org"
-          opensuse-kde: "!qHXhpDSdPPIvbaoNJt:opensuse.org"
-          opensuse-marketing: "!lWLaDZklhUUUKyTwfk:opensuse.org"
-          opensuse-packaging: "!yVnleprfBKABxCWKYt:opensuse.org"
-          opensuse-project: "!xQdKOkWDATFaXEfQwh:opensuse.org"
-          opensuse-xfce: "!HLNQEdCCObKVwUbeEd:opensuse.org"
-          suse: "!uWULbDNSWAMUOqTylN:opensuse.org"
-          suse.pl: "!CxGTCHixBaYAhCWmpX:opensuse.org"
-          uyuni: "!VpvFUuPwOggMxpfHJh:opensuse.org"
-          yast: "!DEXmxaamJYZKRHbaHY:opensuse.org"
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253
+    matterbridge:
+      servers:
+        irc:
+          freenode:
+            Server: "chat.freenode.net:6697"
+            UseTLS: true
+            Nick: "openSUSEBot"
+            RemoteNickFormat: "<{NICK}> "
+        matrix:
+          openSUSE:
+            Server: "https://matrix.opensuse.org"
+            Login: "matterbridge"
+            RemoteNickFormat: "<{NICK}> "
+        discord:
+          openSUSE:
+            Server: "ID:366985425371398146"
+            AutoWebhooks: true
+            UseUserName: true
+            RemoteNickFormat: "{NICK}"
+        telegram:
+          default:
+            UseFirstName: true
+            RemoteNickFormat: "**{NICK}**: "
+            MessageFormat: "MarkdownV2"
+      gateways:
+        kiwi:
+          matrix.openSUSE: "#kiwi:matrix.org"
+          discord.openSUSE: "ID:669467339158454283"
+        kubic:
+          irc.freenode: "#kubic"
+          matrix.openSUSE: "#kubic:opensuse.org"
+          discord.openSUSE: "ID:734445719825416216"
+        microos-desktop:
+          irc.freenode: "microos-desktop"
+          matrix.openSUSE: "#microos-desktop:opensuse.org"
+          discord.openSUSE: "ID:734445753975570563"
+          telegram.default: ""
+        openqa:
+          matrix.openSUSE: "#openqa:opensuse.org"
+          discord.openSUSE: "ID:817367056956653621"
+        opensuse-admin:
+          irc.freenode: "#opensuse-admin"
+          matrix.openSUSE: "#admin:opensuse.org"
+          discord.openSUSE: "ID:700799844754784420"
+        opensuse-artwork:
+          irc.freenode: "#opensuse-artwork"
+          matrix.openSUSE: "#artwork:opensuse.org"
+          discord.openSUSE: "ID:496049131928682506"
+        opensuse-buildservice:
+          irc.freenode: "#opensuse-buildservice"
+          matrix.openSUSE: "#obs:opensuse.org"
+          discord.openSUSE: "ID:723545727816433664"
+        opensuse-chat:
+          irc.freenode: "#opensuse-chat"
+          matrix.openSUSE: "#chat:opensuse.org"
+          discord.openSUSE: "ID:366989996101730304"
+          telegram.default: ""
+        opensuse-de:
+          irc.freenode: "#opensuse-de"
+          matrix.openSUSE: "#de:opensuse.org"
+          discord.openSUSE: "ID:561164428939100160"
+          telegram.default: ""
+        opensuse-docs:
+          matrix.openSUSE: "#docs:opensuse.org"
+          discord.openSUSE: "ID:570871796132478976"
+          telegram.default: ""
+        opensuse-e:
+          irc.freenode: "#opensuse-e"
+          matrix.openSUSE: "#e:opensuse.org"
+          discord.openSUSE: "ID:582568672196034570"
+        opensuse-es:
+          irc.freenode: "#opensuse-es"
+          matrix.openSUSE: "#es:opensuse.org"
+          discord.openSUSE: "ID:561190353030348810"
+          telegram.default: ""
+        opensuse-factory:
+          irc.freenode: "#opensuse-factory"
+          matrix.openSUSE: "#factory:opensuse.org"
+          discord.openSUSE: "ID:523947864439914496"
+        opensuse-forums:
+          irc.freenode: "#opensuse-forums"
+          matrix.openSUSE: "#forums:opensuse.org"
+          discord.openSUSE: "ID:700825520668934284"
+        opensuse-fr:
+          matrix.openSUSE: "#fr:opensuse.org"
+          discord.openSUSE: "ID:664012710597492737"
+        opensuse-gaming:
+          matrix.openSUSE: "#gaming:opensuse.org"
+          discord.openSUSE: "ID:570871874481815572"
+        opensuse-gnome:
+          irc.freenode: "#opensuse-gnome"
+          matrix.openSUSE: "#gnome:opensuse.org"
+          discord.openSUSE: "ID:523949043110379530"
+        opensuse-haskell:
+          matrix.openSUSE: "#haskell:opensuse.org"
+          discord.openSUSE: "ID:760556011395874856"
+        opensuse-it:
+          matrix.openSUSE: "#it:opensuse.org"
+          discord.openSUSE: "ID:561194459619000321"
+          telegram.default: ""
+        opensuse-kde:
+          irc.freenode: "#opensuse-kde"
+          matrix.openSUSE: "#kde:opensuse.org"
+          discord.openSUSE: "ID:523949061674369024"
+        opensuse-marketing:
+          irc.freenode: "#opensuse-marketing"
+          matrix.openSUSE: "#marketing:opensuse.org"
+          discord.openSUSE: "ID:660902159910567966"
+          telegram.default: ""
+        opensuse-newscom:
+          matrix.openSUSE: "#newscom:opensuse.org"
+          discord.openSUSE: "ID:806162338188361728"
+          telegram.default: ""
+        opensuse-news:
+          matrix.openSUSE: "#news:opensuse.org"
+          discord.openSUSE: "ID:376527321869451271"
+        opensuse-nl:
+          matrix.openSUSE: "#nl:opensuse.org"
+          discord.openSUSE: "ID:605150216965849107"
+        opensuse-packaging:
+          irc.freenode: "#opensuse-packaging"
+          matrix.openSUSE: "#packaging:opensuse.org"
+          discord.openSUSE: "ID:496005129959374868"
+        opensuse-pine:
+          matrix.openSUSE: "#pine:opensuse.org"
+          discord.openSUSE: "ID:794874055043710996"
+          telegram.default: ""
+        opensuse-pl:
+          irc.freenode: "#suse.pl"
+          matrix.openSUSE: "#pl:opensuse.org"
+          discord.openSUSE: "ID:561164407560863755"
+          telegram.default: ""
+        opensuse-project:
+          irc.freenode: "#opensuse-project"
+          matrix.openSUSE: "#project:opensuse.org"
+          discord.openSUSE: "ID:407993213425680384"
+          telegram.default: ""
+        opensuse-reddit:
+          matrix.openSUSE: "#reddit:opensuse.org"
+          discord.openSUSE: "ID:619283903571820555"
+        opensuse-support:
+          irc.freenode: "#suse"
+          matrix.openSUSE: "#support:opensuse.org"
+          discord.openSUSE: "ID:366987951734784012"
+        opensuse-telegram:
+          matrix.openSUSE: "#telegram:opensuse.org"
+          discord.openSUSE: "ID:557298959765209108"
+          telegram.default: ""
+        opensuse-tumbleweed:
+          matrix.openSUSE: "#snapshots:opensuse.org"
+          discord.openSUSE: "ID:619284844865650698"
+        opensuse-twitter:
+          matrix.openSUSE: "#twitter:opensuse.org"
+          discord.openSUSE: "ID:619283940318117953"
+        opensuse-xfce:
+          irc.freenode: "#opensuse-xfce"
+          matrix.openSUSE: "#xfce:opensuse.org"
+          discord.openSUSE: "ID:523949083241742336"
+          telegram.default: ""
+        software-o-o:
+          matrix.openSUSE: "#software-o-o:opensuse.org"
+          discord.openSUSE: "ID:733713878055256155"
+        uyuni:
+          irc.freenode: "#uyuni"
+          matrix.openSUSE: "#uyuni:opensuse.org"
+          discord.openSUSE: "ID:723546275915628585"
+        yast:
+          irc.freenode: "#yast"
+          matrix.openSUSE: "#yast:opensuse.org"
+          discord.openSUSE: "ID:545922654570414090"
 
 nginx:
   ng:
@@ -64,7 +207,7 @@ nginx:
                 - listen:
                     - 80
                     - default_server
-                - root: /var/www/riot-web
+                - root: /usr/share/element-web
                 - gzip_vary: 'on'
                 - gzip_min_length: 1000
                 - gzip_comp_level: 5
