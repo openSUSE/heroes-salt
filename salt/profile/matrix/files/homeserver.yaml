@@ -1343,7 +1343,7 @@ saml2_config:
 oidc_config:
     # enable OpenID Connect. Defaults to false.
     #
-    #enabled: true
+    enabled: true
 
     # use the OIDC discovery mechanism to discover endpoints. Defaults to true.
     #
@@ -1351,15 +1351,15 @@ oidc_config:
 
     # the OIDC issuer. Used to validate tokens and discover the providers endpoints. Required.
     #
-    #issuer: "https://accounts.example.com/"
+    issuer: "https://www.opensuse.org/openidc/"
 
     # oauth2 client id to use. Required.
     #
-    #client_id: "provided-by-your-issuer"
+    client_id: "S-matrix.opensuse.org"
 
     # oauth2 client secret to use. Required.
     #
-    #client_secret: "provided-by-your-issuer"
+    client_secret: "{{ pillar['profile']['matrix']['oidc_secret'] }}"
 
     # auth method to use when exchanging the token.
     # Valid values are "client_secret_basic" (default), "client_secret_post" and "none".
@@ -1368,7 +1368,7 @@ oidc_config:
 
     # list of scopes to ask. This should include the "openid" scope. Defaults to ["openid"].
     #
-    #scopes: ["openid"]
+    scopes: ["openid", "profile"]
 
     # the oauth2 authorization endpoint. Required if provider discovery is disabled.
     #
@@ -1423,7 +1423,7 @@ oidc_config:
 
         # Jinja2 template for the display name to set on first login. Optional.
         #
-        #display_name_template: "{{ user.given_name }} {{ user.last_name }}"
+        display_name_template: "{{ user.given_name }} {{ user.last_name }}"
 {% endraw %}
 
 
@@ -1456,7 +1456,7 @@ password_config:
    # database. This is ignored if `enabled` is false, and is only useful
    # if you have other password_providers.
    #
-   localdb_enabled: false
+   #localdb_enabled: false
 
    # Uncomment and change to a secret random string for extra security.
    # DO NOT CHANGE THIS AFTER INITIAL SETUP!
@@ -1570,17 +1570,17 @@ email:
   #template_dir: "res/templates"
 
 
-password_providers:
-    - module: "ldap_auth_provider.LdapAuthProvider"
-      config:
-        enabled: true
-        uri: "ldaps://freeipa.infra.opensuse.org"
-        start_tls: true
-        base: "cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org"
-        attributes:
-           uid: "uid"
-           mail: "mail"
-           name: "displayname"
+#password_providers:
+#    - module: "ldap_auth_provider.LdapAuthProvider"
+#      config:
+#        enabled: true
+#        uri: "ldaps://freeipa.infra.opensuse.org"
+#        start_tls: true
+#        base: "cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org"
+#        attributes:
+#           uid: "uid"
+#           mail: "mail"
+#           name: "displayname"
 #        #bind_dn:
 #        #bind_password:
 #        #filter: "(objectClass=posixAccount)"

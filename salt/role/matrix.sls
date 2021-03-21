@@ -6,3 +6,4 @@ include:
   - profile.matrix.telegram
   - profile.matrix.dimension
   - profile.matrix.config
+  - profile.matrix.matterbridge
