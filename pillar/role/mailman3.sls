@@ -10,7 +10,7 @@ profile:
     maincf:
       recipient_delimiter: '+'
       owner_request_special: 'no'
-      transport_maps: 'hash://var/lib/mailman/data/postfix_lmtp'
+      transport_maps: 'hash://var/lib/mailman/data/postfix_lmtp,hash:/etc/postfix/transport,hash:/etc/postfix/ratelimit'
       local_recipient_maps: 'hash://var/lib/mailman/data/postfix_lmtp'
       relay_domains: 'hash://var/lib/mailman/data/postfix_domains'
     aliases:
