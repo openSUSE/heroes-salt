@@ -66,3 +66,6 @@ profile:
   web_static:
     ssh_pubkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVddqh51YNoPglOnSZ9BpYH1nXzBV5ahbu0yncyL+6s web_static@salt'
     websites: {{ websites }}
+  postfix:
+    aliases:
+      web_static: root
