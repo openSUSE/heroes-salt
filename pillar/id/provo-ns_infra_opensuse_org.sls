@@ -3,7 +3,8 @@ grains:
   country: us
   hostusage:
     - DNS
-  roles: []
+  roles: 
+    - dns
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
