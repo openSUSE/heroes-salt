@@ -17,7 +17,7 @@
 name="{{gateway}}"
 enable=true
 inout = [
-    {%- for account, channel in servers.items() %}
+    {%- for account, channel in accounts.items() %}
     { account="{{account}}", channel="{{channel}}" },
     {%- endfor %}
 ]
