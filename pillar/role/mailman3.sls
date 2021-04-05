@@ -50,6 +50,8 @@ nginx:
                     - rewrite: ^(.*)$ $feeds_rewrite:map permanent
                 - if ($mboxs_rewrite:map):
                     - rewrite: ^(.*)$ $mboxs_rewrite:map permanent
+                - location /archive/:
+                    - return: 301 /archives/
                 - location /cgi-bin/search.cgi:
                     - return: 301 /archives/search
                 - location /stats:
