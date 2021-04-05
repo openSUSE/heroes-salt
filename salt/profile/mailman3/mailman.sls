@@ -13,6 +13,7 @@ mailman_pgks:
       # html => text for mailman
       - lynx
       - memcached
+      - nginx-rewrite-lists-openSUSE
 
 mailman:
   user.present:

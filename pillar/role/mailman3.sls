@@ -29,18 +29,40 @@ nginx:
       managed:
         lists.opensuse.org.conf:
           config:
+            - map $request_uri $mails_rewritemap:
+                - include /etc/nginx/mails.rewritemap
+            - map $request_uri $lists_rewritemap:
+                - include /etc/nginx/lists.rewritemap
+            - map $request_uri $feeds_rewritemap:
+                - include /etc/nginx/feeds.rewritemap
+            - map $request_uri $mboxs_rewritemap:
+                - include /etc/nginx/mboxs.rewritemap
             - server:
                 - server_name: lists.opensuse.org
                 - listen:
                     - 80
                     - default_server
+                - if ($mails_rewrite:map):
+                    - rewrite: ^(.*)$ $mails_rewrite:map permanent
+                - if ($lists_rewrite:map):
+                    - rewrite: ^(.*)$ $lists_rewrite:map permanent
+                - if ($feeds_rewrite:map):
+                    - rewrite: ^(.*)$ $feeds_rewrite:map permanent
+                - if ($mboxs_rewrite:map):
+                    - rewrite: ^(.*)$ $mboxs_rewrite:map permanent
+                - location /archive/:
+                    - return: 301 /archives/
+                - location /cgi-bin/search.cgi:
+                    - return: 301 /archives/search
+                - location /stats:
+                    - return: 301 /
                 - location /static/django-mailman3/img/login/opensuse.png:
-                  - return: 301 https://static.opensuse.org/favicon-24.png
+                    - return: 301 https://static.opensuse.org/favicon-24.png
                 - location /static/:
-                  - alias: /var/lib/mailman_webui/static/
+                    - alias: /var/lib/mailman_webui/static/
                 - location /:
-                  - include: /etc/nginx/uwsgi_params
-                  - uwsgi_pass: 0.0.0.0:8000
+                    - include: /etc/nginx/uwsgi_params
+                    - uwsgi_pass: 0.0.0.0:8000
           enabled: True
 
 sudoers:

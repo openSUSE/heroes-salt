@@ -149,3 +149,48 @@ mailman_hyperkitty_conf:
     - mode: 640
     - user: mailman
     - group: mailman
+
+mailman_nginx_conf:
+  file.managed:
+    - name: /etc/nginx/conf.d/lists.opensuse.org.conf
+    - source: salt://profile/mailman3/files/nginx.conf
+    - require_in:
+      - service: mailman_webui_service
+    - watch_in:
+      - module: mailman_webui_restart
+
+mailman_nginx_mails_rewritemap:
+  file.managed:
+    - name: /etc/nginx/mails.rewritemap
+    - source: salt://profile/mailman3/files/mails.rewritemap
+    - require_in:
+      - service: mailman_webui_service
+    - watch_in:
+      - module: mailman_webui_restart
+
+mailman_nginx_lists_rewritemap:
+  file.managed:
+    - name: /etc/nginx/lists.rewritemap
+    - source: salt://profile/mailman3/files/lists.rewritemap
+    - require_in:
+      - service: mailman_webui_service
+    - watch_in:
+      - module: mailman_webui_restart
+
+mailman_nginx_feeds_rewritemap:
+  file.managed:
+    - name: /etc/nginx/feeds.rewritemap
+    - source: salt://profile/mailman3/files/feeds.rewritemap
+    - require_in:
+      - service: mailman_webui_service
+    - watch_in:
+      - module: mailman_webui_restart
+
+mailman_nginx_mboxs_rewritemap:
+  file.managed:
+    - name: /etc/nginx/mboxs.rewritemap
+    - source: salt://profile/mailman3/files/mboxs.rewritemap
+    - require_in:
+      - service: mailman_webui_service
+    - watch_in:
+      - module: mailman_webui_restart
