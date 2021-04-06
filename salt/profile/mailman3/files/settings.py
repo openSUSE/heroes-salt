@@ -224,3 +224,6 @@ HAYSTACK_CONNECTIONS = {
 #         'LOCATION': '127.0.0.1:11211',
 #     }
 # }
+
+USE_L10N = False
+TIME_FORMAT = 'H:i'
