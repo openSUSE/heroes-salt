@@ -21,6 +21,7 @@ profile:
     database_host: 192.168.47.4
     server_list:
       - lists.opensuse.org
+      - lists.uyuni-project.org
       - mailman3.infra.opensuse.org
 
 nginx:
@@ -38,7 +39,7 @@ nginx:
             - map $request_uri $mboxs_rewritemap:
                 - include /etc/nginx/mboxs.rewritemap
             - server:
-                - server_name: lists.opensuse.org
+                - server_name: lists.opensuse.org lists.uyuni-project.org
                 - listen:
                     - 80
                     - default_server
