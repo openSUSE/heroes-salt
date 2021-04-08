@@ -20,14 +20,14 @@ while getopts mh arg; do
 done
 
 if [[ -n $MULTILINE ]]; then
-    echo "Please type the lines that you want to encrypt, and press CTRL+D when done"
+    echo "Please type the lines that you want to encrypt, and press CTRL+D when done:" >/dev/stderr
     STRING=$(cat)
 else
-    echo "Please type the string that you want to encrypt"
+    echo "Please type the string that you want to encrypt:" >/dev/stderr
     read STRING
 fi
 
-[[ -z $STRING ]] && echo "ERROR: Input was empty" && exit 1
+[[ -z $STRING ]] && echo "ERROR: Input was empty" >/dev/stderr && exit 1
 
 RECIPIENTS=$(egrep '^\s*0x' encrypted_pillar_recipients | while read i; do echo "-r $i"; done | xargs)
 echo -n "${STRING}" | gpg --armor --batch --trust-model always --encrypt ${RECIPIENTS}
