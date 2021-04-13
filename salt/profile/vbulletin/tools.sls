@@ -2,24 +2,24 @@
 
 {% set tools = salt['pillar.get']('vbulletin:tools', False) %}
 
-{% if tools %}
 /srv/www/vhosts/forums/htdocs/vb_test.php:
+{% if tools %}
   file.managed:
     - source: salt://profile/vbulletin/files/vb_test.php
 {% else %}
   file.absent
 {% endif %}
 
-{% if tools %}
 /srv/www/vhosts/forums/htdocs/info.php:
+{% if tools %}
   file.managed:
     - contents: "<?php phpinfo(); ?>"
 {% else %}
   file.absent
 {% endif %}
 
-{% if tools %}
 /srv/www/vhosts/forums/db-tweak.sql:
+{% if tools %}
   file.managed:
     - source: salt://profile/vbulletin/files/db-tweak.sql
     - template: jinja

@@ -2,7 +2,7 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - on vBulletin5
+    - vBulletin
   roles:
     - web_forum
   reboot_safe: yes
@@ -10,7 +10,7 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: Webserver running forums.opensuse.org on vBulletin5
+  description: Webserver running forums.opensuse.org on vBulletin
   documentation:
     - https://www.vbulletin.com/en/manual
   responsible:
