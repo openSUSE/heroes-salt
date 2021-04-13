@@ -58,7 +58,7 @@ nginx:
 vbulletin:
   config:
     Database:
-      dbname: webforums5
+      dbname: webforums2
       technicalemail: admin-auto@opensuse.org
       tableprefix: vb_
     MasterServer:
