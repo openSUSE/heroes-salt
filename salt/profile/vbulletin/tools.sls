@@ -24,6 +24,7 @@
     - source: salt://profile/vbulletin/files/db-tweak.sql
     - template: jinja
     - defaults:
+        dbname: {{ pillar.vbulletin.config.Database.dbname }}
         host: {{ pillar.vbulletin.config.MasterServer.servername }}
         username: {{ pillar.vbulletin.config.MasterServer.username }}
         password: {{ pillar.vbulletin.config.MasterServer.password }}
