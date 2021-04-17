@@ -55,3 +55,7 @@ configure vBulletin {{key1}}-{{key2}}:
     - recurse:
       - user
 
+/srv/www/vhosts/forums/sitemap:
+  file.directory:
+    - user: nginx
+
