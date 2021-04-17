@@ -1,9 +1,20 @@
 # vBulletin 5 Setup for openSUSE Forums
 
-## Setup tools
+Brief setup instructions:
+
+ 1. Prepare the binaries as instructed in [init.sls](init.sls).
+ 1. ``salt-call state.apply grains``
+ 1. ``salt-call state.apply pillar='{"vbulletin":{"tools":"yes"}}'``
+ 1. ``cd /srv/www/vhosts/forums/``
+ 1. ``(cd htdocs/core/install; sudo -u nginx php -f upgrade.php)``
+ 1. `` mysql webforums <db-tweaks.sql``
+ 1. ``(cd htdocs/core/install; sudo -u nginx php -f upgrade.php)``
+ 1. ``salt-call state.apply``
+
+## vBulletin setup tools
 
 If the pillar ``vbulletin.tools`` is truthy, the extra files described below
-are available to aid with setup of the new forums.
+are available to aid with setup of vBulletin.
 
 **It is important to disable the ``vbulletin.tools`` pillar and running
 ``highstate`` again to remove the files before production use.**
@@ -38,5 +49,5 @@ Enable the _Default vB5 Style_, then customize these style variables:
  * ``global_palette_accent_02`` = #73ba25
  * ``global_palette_text_04`` = #5a911d
 
-Finally, change the site logo using the file ``logo_color_90.png``.
+Finally, change the [site logo](files/logo-color-90.png).
 
