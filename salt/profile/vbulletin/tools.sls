@@ -1,6 +1,18 @@
-# NB: do not enable these tools in production
+# NB: these tools should not be enabled in production
 
 {% set tools = salt['pillar.get']('vbulletin:tools', False) %}
+
+/srv/www/vhosts/forums/htdocs/core/install:
+{% if tools %}
+  file.copy:
+    - source: /srv/www/vhosts/forums/upload/core/install
+    - preserve: True
+    - user: root
+    - group: nginx
+    - mode: 644
+{% else %}
+  file.absent
+{% endif %}
 
 /srv/www/vhosts/forums/htdocs/vb_test.php:
 {% if tools %}
