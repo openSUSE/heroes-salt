@@ -4,6 +4,7 @@
 {% set roles = salt['grains.get']('roles', []) %}
 {% set salt_cluster = salt['grains.get']('salt_cluster') %}
 {% set virtual = salt['grains.get']('virtual') %}
+{% set virt_cluster = salt['grains.get']('virt_cluster') %}
 
 {{ saltenv }}:
   '*':
@@ -28,6 +29,11 @@
     - match: grain
     - salt_cluster.{{ salt_cluster }}
     - salt_cluster.{{ salt_cluster }}.osfullname.{{ osfullname.replace(' ', '_') }}
+  {% endif %}
+  {% if virt_cluster %}
+  'virt_cluster:{{ virt_cluster }}':
+    - match: grain
+    - virt_cluster.{{ virt_cluster }}
+  {% endif %}
   '{{ id }}':
     - id.{{ id.replace('.', '_') }}
-  {% endif %}

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+for hostname in "$@" ; do
+  echo "Handling host $hostname ... pinging first ... output following:"
+  if salt "$hostname" test.ping ; then
+    echo "Clear all other caches on minion $hostname ... output following:"
+    salt "$hostname" saltutil.clear_cache
+    echo "Sync modules to minion $hostname ... output following:"
+    salt "$hostname" saltutil.sync_modules ;
+    echo "Sync states to minion $hostname ... output following:"
+    salt "$hostname" saltutil.sync_states ;
+    echo "Refreshing grains cache on minion $hostname ... output following:"
+    salt "$hostname" saltutil.refresh_grains
+    echo "Refreshing pillar cache on minion $hostname ... output following:"
+    salt "$hostname" saltutil.refresh_pillar
+    echo "Refreshing mine data on minion $hostname ... output following:"
+    salt "$hostname" mine.update
+  fi
+done
+
