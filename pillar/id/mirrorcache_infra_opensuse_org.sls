@@ -9,7 +9,7 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: Development server for MirrorBrain
+  description: Development server for MirrorCache
   documentation:
     - https://mirrorbrain.org/
   responsible:

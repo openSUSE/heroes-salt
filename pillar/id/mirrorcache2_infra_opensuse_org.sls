@@ -9,7 +9,7 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: Productive server for MirrorBrain in the EU
+  description: Productive server for MirrorCache in the EU
   documentation:
     - https://mirrorbrain.org/
   responsible:

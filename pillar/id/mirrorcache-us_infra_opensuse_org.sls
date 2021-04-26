@@ -9,7 +9,7 @@ grains:
   virt_cluster: bryce
 
   aliases: []
-  description: Productive server for MirrorBrain in the US
+  description: Productive server for MirrorCache in the US
   documentation:
     - https://mirrorbrain.org/
   responsible:
