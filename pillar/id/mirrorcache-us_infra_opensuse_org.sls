@@ -1,0 +1,19 @@
+grains:
+  city: provo
+  country: us
+  hostusage:
+    - mirrorcache
+  roles: []
+  reboot_safe: yes
+  salt_cluster: opensuse
+  virt_cluster: bryce
+
+  aliases: []
+  description: Productive server for MirrorBrain in the US
+  documentation:
+    - https://mirrorbrain.org/
+  responsible:
+    - anikitin
+  partners: []
+  weburls:
+    - https://mirrorcache-us.opensuse.org/

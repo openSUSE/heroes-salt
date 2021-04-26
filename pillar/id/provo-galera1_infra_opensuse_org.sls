@@ -1,20 +1,22 @@
 grains:
-  city: nuremberg
-  country: de
+  city: provo
+  country: us
   hostusage:
     - Galera node (MySQL)
+  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: bryce
 
-  aliases: []
-  description: Node of the MySQL cluster based on Galera
-  documentation:
+  aliases: 
+    - galera4.infra.opensuse.org
+  description: Node for the MySQL cluster in Provo based on Galera
+  documentation: 
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Galera_Cluster
   responsible:
-    - kbabioch
     - lrupp
   partners:
+    - galera1.infra.opensuse.org
     - galera2.infra.opensuse.org
-    - galera3.infra.opensuse.org
+    - galera3.infra.opensuse-org
   weburls: []

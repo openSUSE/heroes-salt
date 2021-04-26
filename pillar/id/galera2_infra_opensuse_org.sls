@@ -9,9 +9,11 @@ grains:
 
   aliases: []
   description: Node of the MySQL cluster based on Galera
-  documentation: []
+  documentation:
+    - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Galera_Cluster
   responsible:
     - kbabioch
+    - lrupp
   partners:
     - galera1.infra.opensuse.org
     - galera3.infra.opensuse.org

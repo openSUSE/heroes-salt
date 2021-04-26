@@ -2,16 +2,18 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - kubic.o.o
+    - idp proxy server
+  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []
-  description: kubic.opensuse.org server
+  description: openID login proxy paired with the new IDP services
   documentation: []
   responsible:
-    - rbrownsuse
+    - bmwiedemann 
   partners: []
   weburls:
-    - https://kubic.opensuse.org
+    - https://www.opensuse.org/openid
+    - https://id.opensuse.org/
