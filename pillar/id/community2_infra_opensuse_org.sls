@@ -2,16 +2,14 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - kubic.o.o
+    - factory-dashboard
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []
-  description: kubic.opensuse.org server
+  description: New machine for several old services (see community) that need to be migrated to new VMs
   documentation: []
-  responsible:
-    - rbrownsuse
+  responsible: []
   partners: []
-  weburls:
-    - https://kubic.opensuse.org
+  weburls: []

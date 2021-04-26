@@ -1,17 +1,17 @@
 grains:
   city: nuremberg
   country: de
-  hostusage:
-    - kubic.o.o
+  hostusage: []
+  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []
-  description: kubic.opensuse.org server
+  description: Testing machine for the new SingleSingOn system.
   documentation: []
   responsible:
-    - rbrownsuse
+    - hellcp
+    - Pharaoh_Atem
   partners: []
-  weburls:
-    - https://kubic.opensuse.org
+  weburls: []

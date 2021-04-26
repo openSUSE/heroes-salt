@@ -1,7 +1,7 @@
 gitlab_runner_packages:
   pkg.installed:
     - pkgs:
-      - git
+      - git-core
 
 gitlab_runner:
   pkg.installed:
