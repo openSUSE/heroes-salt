@@ -55,12 +55,12 @@ public_baseurl: https://matrix.opensuse.org/
 # public rooms directory through the client API, meaning that anyone can
 # query the room directory. Defaults to 'false'.
 #
-#allow_public_rooms_without_auth: true
+allow_public_rooms_without_auth: true
 
 # If set to 'true', allows any other homeserver to fetch the server's public
 # rooms directory via federation. Defaults to 'false'.
 #
-#allow_public_rooms_over_federation: true
+allow_public_rooms_over_federation: true
 
 # The default room version for newly created rooms.
 #
@@ -208,11 +208,12 @@ listeners:
     tls: false
     type: http
     x_forwarded: true
-    bind_addresses: ['::1', '127.0.0.1']
+    bind_addresses: ['::']
 
     resources:
-      - names: [client, federation]
-        compress: false
+      - names: [client]
+        compress: true
+      - names: [federation]
 
     # example additional_resources:
     #
@@ -1048,6 +1049,7 @@ account_threepid_delegates:
 #
 auto_join_rooms:
   - "#support:opensuse.org"
+  - '#space:opensuse.org'
 
 # Where auto_join_rooms are specified, setting this flag ensures that the
 # the rooms exist by creating them when the first user on the
@@ -1340,7 +1342,11 @@ saml2_config:
 
 # Enable OpenID Connect for registration and login. Uses authlib.
 #
-oidc_config:
+oidc_providers:
+  - idp_id: "openSUSE"
+    idp_name: "openSUSE Login"
+    idp_icon: "mxc://opensuse.org/KSTlFzuiXjVlynwiyCLYDPxy"
+
     # enable OpenID Connect. Defaults to false.
     #
     enabled: true
@@ -1364,11 +1370,11 @@ oidc_config:
     # auth method to use when exchanging the token.
     # Valid values are "client_secret_basic" (default), "client_secret_post" and "none".
     #
-    #client_auth_method: "client_auth_basic"
+    client_auth_method: "client_secret_post"
 
     # list of scopes to ask. This should include the "openid" scope. Defaults to ["openid"].
     #
-    scopes: ["openid", "profile"]
+    scopes: ["openid", "profile", "email"]
 
     # the oauth2 authorization endpoint. Required if provider discovery is disabled.
     #
@@ -1391,6 +1397,8 @@ oidc_config:
     # Avoid this in production.
     #
     #skip_verification: false
+
+    user_profile_method: "userinfo_endpoint"
 
 
     # An external module can be provided here as a custom solution to mapping
@@ -1415,7 +1423,7 @@ oidc_config:
         # name of the claim containing a unique identifier for the user.
         # Defaults to `sub`, which OpenID Connect compliant providers should provide.
         #
-        #subject_claim: "sub"
+        subject_claim: "sub"
 {% raw %}
         # Jinja2 template for the localpart of the MXID
         #
@@ -1424,6 +1432,8 @@ oidc_config:
         # Jinja2 template for the display name to set on first login. Optional.
         #
         display_name_template: "{{ user.given_name }} {{ user.last_name }}"
+
+        email_template: "{{ user.email }}"
 {% endraw %}
 
 
@@ -1450,13 +1460,13 @@ oidc_config:
 password_config:
    # Uncomment to disable password login
    #
-   #enabled: false
+   enabled: false
 
    # Uncomment to disable authentication against the local password
    # database. This is ignored if `enabled` is false, and is only useful
    # if you have other password_providers.
    #
-   #localdb_enabled: false
+   localdb_enabled: false
 
    # Uncomment and change to a secret random string for extra security.
    # DO NOT CHANGE THIS AFTER INITIAL SETUP!
@@ -1840,3 +1850,5 @@ opentracing:
     #
     #  logging:
     #    false
+
+experimental_features: { spaces_enabled: true }
