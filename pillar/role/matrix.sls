@@ -36,7 +36,7 @@ profile:
         matrix:
           openSUSE:
             Server: "https://matrix.opensuse.org"
-            Login: "matterbridge"
+            MxId: "@matterbridge:opensuse.org"
             RemoteNickFormat: "<{NICK}> "
         discord:
           openSUSE:
