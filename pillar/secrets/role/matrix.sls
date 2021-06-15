@@ -1533,7 +1533,7 @@ profile:
     matterbridge:
       servers:
         irc:
-          freenode:
+          libera:
             Password: |
                 -----BEGIN PGP MESSAGE-----
 
