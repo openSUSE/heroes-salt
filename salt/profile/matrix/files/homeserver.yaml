@@ -214,6 +214,7 @@ listeners:
       - names: [client]
         compress: true
       - names: [federation]
+      - names: [metrics]
 
     # example additional_resources:
     #
