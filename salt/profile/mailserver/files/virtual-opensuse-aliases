@@ -1,0 +1,33 @@
+#
+# this is the list of permanent/systems aliases
+# 20200713 pjessen
+#
+postmaster		admin-auto@opensuse.org
+postmaster@opensuse.org admin-auto@opensuse.org
+abuse@opensuse.org      admin-auto@opensuse.org
+hostmaster@opensuse.org admin-auto@opensuse.org
+webmaster@opensuse.org  admin-auto@opensuse.org
+noc@opensuse.org        admin-auto@opensuse.org
+
+postmaster@opensuse.de  admin-auto@opensuse.org
+abuse@opensuse.de       admin-auto@opensuse.org
+hostmaster@opensuse.de  admin-auto@opensuse.org
+webmaster@opensuse.de   admin-auto@opensuse.org
+noc@opensuse.de         admin-auto@opensuse.org
+
+postmaster@opensuse.fr  admin-auto@opensuse.org
+abuse@opensuse.fr       admin-auto@opensuse.org
+hostmaster@opensuse.fr  admin-auto@opensuse.org
+webmaster@opensuse.fr   admin-auto@opensuse.org
+noc@opensuse.fr         admin-auto@opensuse.org
+
+# 20200810 this is a kludge
+ml-admin@opensuse.org	per@opensuse.org
+
+# 20201210 i want to see what this is
+mailer-daemon           per@opensuse.org
+
+# 20200902
+#redmine@opensuse.org    admin@opensuse.org
+# 20200916 https://progress.opensuse.org/issues/70891
+redmine@opensuse.org    redmine+admin@progress.infra.opensuse.org

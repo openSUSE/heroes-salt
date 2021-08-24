@@ -1,0 +1,55 @@
+#!/bin/sh
+tmp=$(mktemp -d memberaliases.XXXXXXXXXX)
+cd "$tmp" || exit 1
+
+nsca_client_name='mx1.infra.opensuse.org'
+nsca_client_service='openSUSE virtual_users'
+nsca_server_ip='192.168.47.7'
+nsca_config='/etc/send_nsca.cfg'
+#status_code=3
+#status_message='unknown'
+
+send_nsca_message(){
+	local status_code="$1"
+	local status_message="$2"
+	echo -e "$nsca_client_name\t$nsca_client_service\t$status_code\t$status_message" | send_nsca -H $nsca_server_ip -c "$nsca_config"
+}
+
+wget -q --timeout=15 --tries=3 -O member.aliases.new \
+	'https://connect.opensuse.org/services/api/rest/txt/?method=connect.membersadmin.maildump&api_key=e28d9177fdc1268bc003f2ba6cdbb221ef8f24d8'
+
+# need to make sure it is ordered
+LC_ALL=C sort -d -k1 member.aliases.new >member.aliases.ordered
+
+added=$(diff -B /etc/postfix/virtual-opensuse-users member.aliases.ordered | grep ^\> | wc -l)
+removed=$(diff -B /etc/postfix/virtual-opensuse-users member.aliases.ordered | grep ^\< | wc -l)
+total=$(wc -l <member.aliases.ordered)
+
+# if too many would be removed, something's probably wrong.
+if test $removed -gt 20
+then
+        printf "New member-aliases list (%u entries) would remove %u aliases ?\n" $total $removed
+	send_nsca_message "1" "New member-aliases list ($total entries)  would remove $removed aliases | total=$total; added=$added; removed=$removed;"
+	# tidy up
+	rm -Rf "$tmp"
+        exit 1
+fi
+
+# if we had any changes, update our alias list
+if test $added -gt 0 -o $removed -gt 0
+then
+        printf "virtual-opensuse-users updated: %u additions, %u removals, now %u entries\n" $added $removed $total
+        send_nsca_message "0" "virtual-opensuse-users updated: $added additions, $removed removals, now $total entries | total=$total; added=$added; removed=$removed;"
+	# debug
+	diff -B /etc/postfix/virtual-opensuse-users member.aliases.ordered
+
+	mv member.aliases.ordered /etc/postfix/virtual-opensuse-users
+        postmap /etc/postfix/virtual-opensuse-users
+        postfix reload
+else
+#        printf "virtual-opensuse-users not updated, no changes found.\n"
+        send_nsca_message "0" "virtual-opensuse-users not updated, no changes found | total=$total; added=$added; removed=$removed;" >/dev/null
+fi
+
+# tidy up
+rm -Rf "$tmp"

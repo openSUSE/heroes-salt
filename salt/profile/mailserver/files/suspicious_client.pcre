@@ -1,0 +1,2868 @@
+# host patterns that are never greylisted
+# these need to be fairly specific so we don't catch something that
+# we would later want to greylist
+#
+# rbc - feldm04.rcb.ch
+/^194\.209\.147\.34$/							dunno
+# 2008/04/24 casadelsol.net emails
+/^62\.141\.51\.216$/							dunno
+# mails from mailhub.doruk.net.tr
+/^212\.58\.5\.105$/							dunno
+/^212\.58\.5\.106$/							dunno
+# syrian mail-servers, smtp1.190.sy, smtp3.mail.sy
+/^63\.243\.163\.3$/							dunno
+/^66\.198\.41\.22$/							dunno
+# temp: eberhard mailserver in oberglatt
+/^195\.49\.30\.94$/							dunno
+# chinafastprint
+/^59\.37\.14\.10$/							dunno
+# anytek.com.cn
+/^211\.96\.109\.53$/							dunno
+# cf-verlag
+/^157\.161\.131\.194$/							dunno
+# ceams.ch
+/^62\.2\.88\.210$/							dunno
+# 190.sy
+/^66\.198\.41\.23$/							dunno
+# hostdominicano.com or something like that
+/^67\.228\.57\.26$/							dunno
+# mails from dvdw.nl
+/^77\.61\.180\.210$/							dunno
+# mails from logistics@ghalioungui.com
+/^74\.50\.85\.114$/							dunno
+# 2013/03/26 mail.tgw.ch
+/^193\.5\.173\.89$/							dunno
+# asgharali.com
+/^207\.45\.186\.69$/							dunno
+# 20150915 coex.co.kr - weird setup
+/^203\.233\.200\.63$/							dunno
+
+# postfix will also try just the IP-address
+/^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/					dunno
+# ipv6 addresses are the only ones that contain a ':'
+/:/                                                                     dunno   
+
+# domain names consisting entirely of numerics.
+/^[^.]+\.[0-9]+(\.net?|\.com?)?\.[a-z]+$/				dunno
+# swiss providers; they'll retry anyway
+/^[^.]{1,8}\.vtx\.ch$/							dunno
+/^[^.]{1,8}+\.datacomm\.ch$/						dunno
+/\.mail\.hostpoint\.ch$/						dunno
+# shared hosting server or some such?
+/^server-p002\.hostpoint\.ch$/						dunno
+/^[^.]+\.agrinet\.ch$/							dunno
+# US ISP, they'll retry anyway
+/^[^.]+\.netlojix\.com$/						dunno
+# vistaprint is often greylisted, but we don't know why
+/^mta.*\.vistaprint\.com$/						dunno
+# yahoo
+/\.yahoo\.(com|co\.jp)$/						dunno
+# postini
+/\.psmtp\.com$/								dunno
+/\.obsmtp\.com$/							dunno
+# Eircom Ltd (Irish broadband provider)
+/^mail[0-9]+.*\.eircom\.net$/						dunno
+# not sure who these guys are
+/^mta[0-9]+.*\.dartmail\.net$/						dunno
+# 
+/^[0-9.]+\.omessage\.com$/						dunno
+# google outbound mail servers
+/^[a-z]+-out-[0-9]+\.google\.com$/					dunno
+/^mail-[^.]+\.google\.com$/						dunno
+# blackberry
+/^smtp.*\.blackberry\.(com|net)$/					dunno
+/[0-9]+-[0-9]+\.blackberry\.net$/					dunno
+# hertz
+/^[^.]+\.hertz\.com$/							dunno
+# 
+/^ironport[0-9]*\.cable\.net\.co$/					dunno
+# dhl.com
+/^gateway[^.]*\.dhl\.com$/						dunno
+# mhs.ch
+/^[^.]+\.mhs\.ch$/							dunno
+# secureserver.net
+/\.secureserver\.net$/							dunno
+# sunrise
+/^mta[^.]+\.sunrise\.ch$/						dunno
+/^mail[^.]+\.sunrise\.ch$/						dunno
+/^mx[^.]+\.sunrise\.ch$/						dunno
+/^sm[0-9]+\.sunrise\.net$/						dunno
+# cybernet
+/^[^.]+\.cybernet\.ch$/							dunno
+# abraxas
+/^mta[0-9]\.abxsec\.com$/						dunno
+# bluewin
+/^mail[0-9]+\.bluewin\.ch$/						dunno
+# mx0.advfn.com
+/^mx[0-9]\.advfn\.com$/							dunno
+# enidan.ch
+/\.enidan\.(ch|com)$/							dunno
+# ctek.ch
+/^mail[0-9]*\.ctek\.ch$/						dunno
+# mail2.schuler.ch
+/^mail[0-9]*\.schuler\.ch$/						dunno
+# citigroup
+/^smtp[0-9]*\.citigroup\.com$/						dunno
+# UN
+/^mx[^.]+\.un\.org$/							dunno
+# orange
+/^smtp[0-9]*\.orange\.fr$/						dunno
+#
+/parmail[0-9]+\.bnpparibas\.fr$/					dunno
+# AWL
+/^websrv[0-9]*\.q-x\.ch$/						dunno
+# these guys are stupid. Their mailserver IP has four PTR records ... and it
+# doesn't do retries ...
+/^[^.]+\.digilan\.ch$/							dunno
+
+# 2007/07/12 locher-bau
+/^zux221-012-186\.adsl\.green\.ch$/					dunno
+# webroe.ch
+/^zux221-119-074\.adsl\.green\.ch$/					dunno
+# bosscom.ch
+/^zux221-008-154\.adsl\.green\.ch$/					dunno
+
+# 2007/11/18
+/^[^.]+\.sourceforge\.net$/						dunno
+/^[^.]+\.ieee\.org$/							dunno
+/^[^.]+\.btconnect\.com$/						dunno
+/\.cec\.eu\.int$/							dunno
+/^[^.]+\.genotec\.ch$/							dunno
+# 2007/11/23
+/^[^.]+\.chello\.at$/							dunno
+/\.national\.inria\.fr$/						dunno
+/^[^.]+\.acm\.org$/							dunno
+/^[^.]+\.bigfootinteractive\.com$/					dunno
+
+# Bente Rugaard, weird hoster
+/^84-246-246-57\.unalloc\.logiqit\.net$/				dunno
+# 2007/11/28
+/\.mail\.comcast\.net$/							dunno
+/^mail[^.]+\.credit-suisse\.com$/					dunno
+# www01.ch.easynet.net
+/^[^.]+\.ch\.easynet\.net$/						dunno 
+# 2007/11/29
+/^[^.]+\.amazon\.com$/							dunno
+# 2007/12/04
+/^[^.]+\.helvetas\.org$/						dunno
+/^mail[0-9]*\.messagelabs\.com$/					dunno
+/^mail[^.]*\.srv2\.de$/							dunno
+# 2007/12/05
+/\.hotmail\.com$/							dunno
+/^[^.]+\.naver\.com$/							dunno
+/^www\.digitec\.ch$/							dunno
+# 2007/12/07
+/^[^.]+\.kodakgallery\.com$/						dunno
+/^[^.]+\.netvigator\.com$/						dunno
+# 2007/12/14
+/\.mta\.exacttarget\.com$/						dunno
+/^mc[0-9]+\.lon\.server\.colt\.net$/					dunno
+# 2008/01/02
+/^[^.]+\.carmamail\.com$/						dunno
+# 2008/01/05
+/^[^.]+\.solnet\.ch$/							dunno
+/^[^.]+\.emailserver3\.com$/						dunno
+# 2008/01/07
+/^[^.]+\.yahoo\.co\.kr$/						dunno
+# 2008/01/11
+/^[^.]+\.ewadmin\.ch$/							dunno
+# 2008/01/16
+/\.static-adsl\.customer\.ch\.easynet\.net$/				dunno
+# 20080207
+/^[^.]+\.datatrans\.ch$/						dunno
+# 2008/03/25 reo0025.wsbox.ch
+/^[^.]+\.wsbox\.ch$/							dunno
+# cm120.sigma43.maxonline.com.sg
+/^cm[0-9]+\.[a-z]+[0-9]+\.maxonline\.com\.sg$/				dunno
+# xmgw04.ag.ch.
+/^xmgw[0-9]+\.ag\.ch$/							dunno
+# g5t0009.atlanta.hp.com
+# g4t0014.houston.hp.com
+/^g[^.]+\.[a-z]+\.hp\.com$/						dunno
+# mail2003ss0.csd.ch.
+/^mail[[^.]+\.csd\.ch$/							dunno
+# u0115.intx.ch.netstream.com
+/^u[0-9]+\..*\.netstream\.com$/						dunno
+# sv0016.suedostschweiz.ch
+/^[^.]+\.suedostschweiz\.ch$/						dunno
+/^nzz[^.]*\.nzz\.ch$/							dunno
+# cuf6-001.facility.netdanmark.com
+/\.facility\.netdanmark\.com$/					dunno
+/^omnicom\.ath\.forthnet\.gr$/					dunno
+# 2008/04/15
+/^[^.]+\.loh-optic\.com$/						dunno
+/^[^.]+\.momail\.org$/							dunno
+/^[^.]+\.css\.ch$/							dunno
+/^[^.]+\.telekurs\.com$/						dunno
+/^[^.]+\.mta\.terra\.com\.br$/						dunno
+# 2008/04/17
+/^vmail-inbound-[0-9]+\.impulse\.net$/					dunno
+/^vmail-inbound-[0-9]+\.netlojix\.com$/					dunno
+# 2008/04/22
+/^mailgw[0-9]+\.transcom\.com$/						dunno
+/^mta[^.]*\.isprit2\.de$/						dunno
+# 2008/04/25
+/^[^.]+\.mcs\.data-dynamics\.de$/					dunno
+# 2008/05/02
+/^[^.]+\.tin\.it$/							dunno
+# 2008/05/06
+/^server[0-9]+\.cyon\.ch$/						dunno
+/^s[0-9]+\.cyon\.(ch|net)$/                                               dunno
+# 2008/05/08
+/^(smtp|mail)[0-9]?\.[^.]+\.ch$/					dunno
+# host11.bomm.ch doesnt do retries.
+/^host11\.bomm\.ch$/							dunno
+#
+/^[^.]+\.opentransfer\.com$/						dunno
+/^[^.]+\.avaloq\.com$/							dunno
+# metalplasma.it
+/^host146-90-static\.32-85-b\.business\.telecomitalia\.it$/		dunno
+# mh4.mail.rice.edu
+/^[^.]+\.mail\.rice\.edu$/						dunno
+# moneycab.com
+/^cable-static-22-250\.rsnweb\.ch$/					dunno
+# mailhost.vaudoise.ch
+/^mailhost\.vaudoise\.ch$/						dunno
+# host-103-240.hostmax.ch
+/^host-103-240\.hostmax\.ch$/						dunno
+# zux006-058-126.adsl.green.ch
+/^zux006-058-126\.adsl\.green\.ch$/					dunno
+# vedprod124.server.vedior.ch
+/\.server\.vedior\.ch$/							dunno
+# appriver.com
+/^[^.]+\.appriver\.com$/						dunno
+# ruag.com
+/^[^.]+\.mail\.ruag\.com$/						dunno
+# gw-col004.uk.fid-intl.com
+/^[^.]+\.[^.]+\.fid-intl\.com$/						dunno
+# mailfirewall2.csis.dk
+/^[^.]+\.csis\.dk$/							dunno
+#
+/^[^.]+\.tele2\.se$/							dunno
+/^[^.]+\.(hy|fre)\.skanova\.net/					dunno
+# kamino.com
+/^207-209\.bbned\.dsl\.internl\.net$/					dunno
+#
+/^[^.]+\.37signals\.com$/						dunno
+/^[^.]+\.swisslinx\.com$/						dunno
+#
+/^[^.]+\.lindt\.net$/							dunno
+# mailcontrol.com
+/\.mailcontrol\.com$/							dunno
+# server1.ahja.ch
+/^[^.]+\.ahja\.ch$/							dunno
+# allicancesud.ch
+/^gw\.ptr-80-238-130-199\.customer\.ch\.netstream\.com$/		dunno
+# officeatwork
+/^[^.]+\.exch[0-9]+\.intermedia\.net$/					dunno
+# blackbery coinfig mails
+/\.eu\.blackberry\.net$/						dunno
+/^mail\.petrobras\.com\.br$/						dunno
+#
+/^[^.]+\.swiss-web\.com$/                                               dunno
+# anytek.com.tw
+/^61-219-199-222\.HINET-IP\.hinet\.net$/				dunno
+# e093.en25.com
+/^[^.]+\.en25\.com$/							dunno
+# srv71.mailer-service.de
+/^[^.]+\.mailer-service\.de$/						dunno
+# mailgw.secomp.de
+/^[^.]+\.secomp\.de$/							dunno
+# outbound-mail-114.bluehost.com
+/^[^.]+\.bluehost\.com$/						dunno
+# e3pmta103.emarsys.net
+/^[^.]+\.emarsys\.net$/							dunno
+# eurocentre50.com 
+/^90\.37\.96-84\.rev\.gaoland\.net$/					dunno
+# smtp0001.bern.ch
+/^smtp[^.]+\.bern\.ch$/							dunno
+# managedns.org
+/^[^.]+\.managedns\.org$/						dunno
+/^emailpool\.garantie\.ch$/						dunno
+/^smtp[^.]*\.doruk\.net\.tr$/						dunno
+#
+/^fw\.cellere\.ch$/							dunno
+/^[^.]+\.aweber\.com$/							dunno
+/^mail[^.]+\.it\.volvo\.com$/						dunno
+/^[^.]+\.pwc\.com$/							dunno
+/^[^.]+\.ebay\.com$/							dunno
+# oksys.it
+/^host-145-134\.consiagnet\.it$/					dunno
+#
+/^mta[0-9]+\.unyk\.com$/						dunno
+/^[^.]+\.mailhop\.org$/							dunno
+#
+/^[^.]+\.decisionnewsmedia\.com$/					dunno
+# rotronic.co.uk
+/^87-194-161-248\.dsl\.cnl\.uk\.net$/					dunno
+# 
+/\.kunder\.linpro\.no$/							dunno
+# altec-ag.ch
+/^gate\.altec-ag\.ch$/							dunno
+#
+/^gate\.ecomedia\.ch$/							dunno
+# tkconsult.ch
+/^s15267724\.onlinehome-server\.info$/					dunno
+# flima.pt
+/^195-23-5-196\.net\.novis\.pt$/					dunno
+# kabadishankarsa.net
+/^smtpserver\.rdsindia\.com$/						dunno
+#
+/^[^.]+\.danahermail\.com$/						dunno
+#
+/^[^.]+\.emirates\.net\.ae$/						dunno
+# bucher-group.com
+/^gw\.ptr-80-238-195-186\.customer\.ch\.netstream\.com$/		dunno
+#
+/^[^.]+\.mso\.ch$/							dunno
+/^[^.]+\.exacttarget\.com$/						dunno
+# 2009/01/29
+# all provider static addresses without reverse mapping. if they had the right
+# reverse mapping, we wouldn't be greylisting them anyway.
+/\.static\.cablecom\.ch$/						dunno
+/^cust\.static\.[0-9-]+\.cybernet\.ch$/					dunno
+/\.fix\.magnet\.ch$/							dunno
+/\.stat\.fixnetdata\.ch$/						dunno
+/\.fix\.bluewin\.ch$/							dunno
+/\.static\.adslpremium\.ch$/						dunno
+/\.cust\.static\.gepowernet\.ch$/					dunno
+/^static[^.]+\.customer\.ggaweb\.ch$/					dunno
+/\.static-adsl\.customer\.ch\.easynet\.net$/				dunno
+/^gw\.ptr[0-9-]+\.customer\.ch\.netstream\.com$/			dunno
+/^cust\.static\.[0-9-]+\.swisscomdata\.ch$/				dunno
+/^adsl[0-9-]+fixip\.tiscali\.ch$/					dunno
+#
+/^[^.]+\.infomaniak\.ch$/						dunno
+/^smtp[^.]\.mail\.infomaniak\.ch$/					dunno
+/^[^.]+\.usilu\.net$/							dunno
+# addon-ag.ch
+/^port[0-9-]+\.static\.qsc\.de$/					dunno
+# honda.ch
+/^[^.]+\.honda-eu\.com$/						dunno
+# jp.dk
+/\.static\.peytz\.dk$/							dunno
+# unibluenews
+/^[^.]+\.unibluenews\.com$/						dunno
+/^mail2\.ssm\.ch$/							dunno
+/^[^.]+\.bg-21\.com$/							dunno
+/^[^.]+\.vip\.163\.com$/						dunno
+/^[^.]+\.mail\.chinahr\.com$/						dunno
+# ryffeluster.ch
+/^zux006-054-177\.adsl\.green\.ch$/					dunno
+# mailversand.nest-info.ch?
+/^zux173-098\.adsl\.green\.ch$/						dunno
+#
+/^campaignserver2\.co\.uk$/						dunno
+# foxfilm.at, itpm.at
+/^62-99-235-178\.afrikanergasse\.xdsl-line\.inode\.at$/			dunno
+# 
+/^mailserver\.doerigfenster\.com$/					dunno
+#
+/^[^.]+\.be3a\.com$/							dunno
+# poorly configured mail servers
+/^host[0-9-]+static\.[^.]+\.business\.telecomitalia\.it$/		dunno
+# 
+/^smtpgw[0-9]*\.world4you\.com$/					dunno
+/^server\.domainandspace\.net$/						dunno
+/^[^.]+\.topica-diamond-y\.com$/					dunno
+#
+/^[^.]+\.rediffmail(pro)?\.com$/					dunno
+/^\.mxout\.rediffmail(pro)?\.com$/					dunno
+/outbound\.net\.avaya\.com$/						dunno
+#
+/^node-[0-9]+\.minx\.net\.uk$/						dunno
+#
+/^[^.]+\.dmx[0-9]+\.bfi0\.com$/						dunno
+/^[^.]+\.batelco\.com\.bh$/						dunno
+#
+/^mail[^.]*\.ims-firmen\.de$/						dunno
+/^www14\.jnb2\.host-h\.net$/						dunno
+/^dime[0-9]+\.dizinc\.com$/						dunno
+/^mailhost\.jasfrance\.com$/						dunno
+/^[^.]+\.softline\.kiev\.ua$/						dunno
+/^www\.bitflux\.ch$/							dunno
+/^[^.]+\.emailfiltering\.com$/						dunno
+/^[^.]+\.trx\.com$/							dunno
+/^smtprelay[^.]*\.[a-z]\.hostedemail\.com$/				dunno
+/^mailgw[0-9]*\.sunriseoffice\.ch$/					dunno
+/^[^.]+\.pgp\.com$/							dunno
+/^expofloors\.force9\.co\.uk$/						dunno
+/^inputjoinery\.force9\.co\.uk$/					dunno
+
+/^ha-fw[0-9]\.ko\.com$/							dunno
+# fixed addresses
+/\.adsl-fix\.skynet\.be$/						dunno
+# 2009/09/10 sodaclub.ch really weird setup
+# have sent email to postmaster@sodaclub
+/^adsl-entr-8-c13-p242\.vtx\.ch$/					dunno
+/^[^.]+\.mail2000\.com\.tw$/						dunno
+/\.mail\.saunalahti\.fi$/						dunno
+/^[^.]+\.ra\.rockwell\.com$/						dunno
+/^mailhost\.publisuisse\.ch$/						dunno
+/^mail[0-9]*\.mxmfb\.com$/						dunno 
+/^[^.]+\.intnet\.mu$/							dunno
+/^smtp[^.]*\.ptcl\.net$/						dunno
+# heavy email marketing site.
+/^[^.]+\.emm02\.net$/							dunno
+# email.dilbert.com
+/^[^.]+\.smtp\.com$/							dunno
+/^[^.]+\.symantecmail\.net$/						dunno
+/^krasitel\.lg\.ua$/							dunno
+/^bulkmail[^.]*\.fastweb\.com$/						dunno
+/^ictmailer[0-9]*\.itd\.rl\.ac\.uk$/					dunno
+/^gateway[0-9]*\.websitewelcome\.com$/					dunno
+/^[^.]+\.ventos\.com$/							dunno
+
+/^qmta.*\.comcast\.net$/						dunno
+
+/^mailhost\.azursoft\.fr$/						dunno
+/^asmtpout[0-9]*\.mac\.com$/						dunno
+/asmtp[0-9]*\.mac\.com$/						dunno
+/^[^.]+\.cnczone\.com$/							dunno
+/^[^.]+\.mailplug\.co\.kr$/						dunno
+/^server[0-9]*\.sb\.atlasworks\.com$/					dunno
+/^f[0-9]+\.mail\.ru$/							dunno
+/^[^.]+\.hostbridge\.com$/						dunno
+/^mailhost-outgoing\.ea\.com$/						dunno
+/^CPQ3806\.herzog-kuechen\.ch$/						dunno
+/^ro-gw-smtp-[0-9]+\.viel\.com$/					dunno
+/^[^.]+\.itt\.com$/							dunno
+/^[^.]+\.datadns[0-9][0-9]\.com$/					dunno
+
+/^[^.]+\.server\.18mail\.cn$/						dunno
+/^smtpgw[0-9]*\.myhostguy\.com$/					dunno
+/^mail[^.]*\.csloxinfo\.com$/						dunno
+/^outmail[0-9]+\.authsmtp\.co\.uk$/					dunno
+/^mail[^.]+\.mailing\.greenpeace\.org$/					dunno
+/^emailer[^.]+\.emv2\.net$/						dunno
+/^gw\.kontorsspecial\.se$/						dunno
+/^mail[^.]*\.superhost\.pl$/						dunno
+/^mx[^.]*\.codetel\.net\.do$/						dunno
+/^server[0-9]*\.accessitalia\.com$/					dunno
+/^mta[0-9]+\.cheetahmail\.com$/						dunno
+/^thaligw[0-9]*\.thali\.ch$/						dunno
+/^[^.]+\.autodesk\.com$/						dunno
+/^mailhost\.ticino-online\.ch$/						dunno
+/^mailhost\.dataviz\.com$/						dunno
+/^server[0-9]+\.zitrox\.com$/						dunno
+/^\.srb-group\.com$/							dunno
+/^skyfw[0-9]*\.skypro\.ch$/						dunno
+# qmail.gmail14.cn4e.com, mail.mail156.cn4e.com, mail.umail24.cn4e.com
+/^[^.]?mail\.[^.]?mail[0-9]+\.cn4e\.com$/						dunno
+# hungarian registrar
+/^www\.nic\.hu$/							dunno
+/^client[0-9-]+\.delivery\.net$/					dunno
+/^mgw[0-9]*\.in4u\.ch$/							dunno
+/^[^.]+\.oracleeblast\.com$/						dunno
+/^gate\.burkardmeyer\.ch$/						dunno
+/^[^.]+\.provo\.novell\.com$/						dunno
+/^www\.redskill\.com$/							dunno
+# 20110420 temporary
+/^36-75-72-193\.adsl\.switzerland\.net$/				dunno
+/^outmail[0-9]+\.swisscom\.com$/					dunno
+/^mailout[0-9]+\.swisscom\.com$/					dunno
+# wstsrv242.steubing.com
+/^[^.]+\.steubing\.com$/						dunno
+#
+/badger[0-9]+\.apple\.com$/						dunno
+# incamail ?
+/^im[0-9]+\.swisssign\.net$/							dunno
+/^[^.]+mta[^.]+\.mailcontroller\.co\.uk$/				dunno
+/^mx[^.]+\.netlogmail\.com$/						dunno
+
+/^212-203-109-51\.thf4it\.net$/						dunno
+/^212-203-109-65\.thf4it\.net$/						dunno
+
+# qualidesign / scheifele.com
+/^host-103-210\.hostmax\.ch$/						dunno
+# 20120201
+/^mailer[0-9]*\.agnitas\.de$/						dunno
+# 2012/06/27
+/^mail[0-9]*\.fmlinks\.net$/						dunno
+#
+/^server[0-9]*\.nodecc\.com$/						dunno
+#
+/^lvps87-230-94-102\.dedicated\.hosteurope\.de$/			dunno
+# 2012/11/02 ssm problem with uniontdg.corp.com.hk
+/^[^.]+\.hkbn\.net$/						dunno
+
+/^smtp[^.]*\.telkom\.net$/						dunno
+/^mx[^.]*\.xing\.com$/							dunno
+/^mailout[^.]*\.xing\.com$/						dunno
+
+/^smtp[^.]*\.hostedemail\.com$/						dunno
+
+/\.outbound\.messaging\.microsoft\.com$/				dunno
+/\.outbound\.protection\.outlook\.(com|de)$/				dunno
+/^business[0-9-]+\.static\.arcor-ip\.net$/				dunno
+/^mtaout[^.]*\.sendlabs\.com$/						dunno
+/^splex001\.gmg\.ch$/							dunno
+/^mailgw[0-9]*\.stgag\.ch$/						dunno
+# outbound from telkomsa
+/^wblv-ip-smtp[0-9-]+\.saix\.net$/					dunno
+
+/\.mail-out\.ovh\.net$/							dunno
+
+/^[^.]+\.mailengine[0-9]+\.com$/					dunno
+
+/^hosting\.comnet\.uz$/							dunno
+
+/^[^.]+\.trustwave\.com$/						dunno
+/^mta[^.]+\.infusionmail\.com$/						dunno
+/\.smtp-out\.amazonses\.com$/						dunno
+/^[^.]+\.bmlout\.tstechnology\.net$/					dunno
+# doesn't do retries ....
+/^mail.*\.activeby\.net$/						dunno
+# 2014/05/12 some ssm client
+/^iguard[0-9-]+\.static\.hkbn\.net$/					dunno
+/asmtp[0-9]+\.mac\.com$/						dunno
+
+/^srv-mail-[0-9]+\.zhaw\.ch$/						dunno
+/^mx[^.]+\.pphosted\.com$/						dunno
+
+/^[^.]+ext\.carlson\.com$/						dunno
+
+/^[^.]+\.smtproutes\.com$/						dunno
+
+/^mail.+\.mandrillapp\.com$/						dunno
+
+# 2014/12/19 mailchimp
+/^mail[0-9]+\.[^.]+\.mcsv\.net$/					dunno
+/^mail[0-9]+\.[^.]+\.mcdlv\.net$/					dunno
+/^mail[0-9]+\.[^.]+\.rsgsv\.net$/					dunno
+
+# 20150131
+/^mail[0-9]+\.[^.]+\.mkt[0-9]+\.com$/					dunno
+
+/^mxgw[0-9]+\.unicornuniverse\.eu$/					dunno
+
+/^[0-9]+\.[^.]+\.crsend\.com$/						dunno
+
+/^[^.]+\.smtp-out\.[^.]+\.amazonses\.com$/				dunno
+/^[^.]+\.mailgun\.net$/							dunno
+/^mail[0-9-]+\.mailgun\.info$/						dunno
+
+/^mail[0-9]*\.phonak\.com$/						dunno
+/^[^.]+\.outbound-mail\.sendgrid\.net$/					dunno
+
+/^mailhost\.unicos\.ch$/						dunno
+/\.mta\.peytzmail\.com$/						dunno
+/^mailhost\.[^.]+\.ch$/							dunno
+
+/^hugmailout[0-9]*\.globenewswire\.com$/				dunno
+/^mgw[0-9]+\.previs\.ch$/						dunno
+/^smtp[^.]+\.mmm\.com$/							dunno
+/^mail.*\.gridhost\.co\.uk$/						dunno
+/^mda[0-9]+\.sendnode\.com$/						dunno
+/^mail[^.]+\.slack\.com$/						dunno
+/^mgw[0-9]+\.aspakis\.ch$/						dunno
+/smtp-delivery-[0-9]+\.mimecast\.com$/				dunno
+/smtp-delivery-[0-9]+\.mimecast\.co\.za$/			dunno
+# 20160112 mxhost seems to be a popular hostname.
+/^mx-?host/								dunno
+/^vmta[0-9-]+\.sfcampaigns\.net$/					dunno
+# s12p02o141.mxlogic.net
+# mxl144v222.mxlogic.net
+# p01c11o148.mxlogic.net
+# p02c11o147.mxlogic.net
+# s12p02o141.mxlogic.net
+/^[a-z][a-z0-9]+[0-9]\.mxlogic\.net$/					dunno
+/\.mail\.alibaba\.com$/							dunno
+
+/shopware\.rox\.net$/							dunno
+/\.relay\.mailchannels\.net$/						dunno
+/^server\.disclog\.ch$/							dunno
+/^tcmail[0-9]+\.telekom\.de$/						dunno
+/\.srv\.ezbase\.net$/						dunno
+/^[^.]+\.mailgun\.us$/						dunno
+/^mailer\.[^.]+\.rackontop\.com$/				dunno
+/^mta[0-9]*\.tripolis\.com$/					dunno
+/^outbound[^.]*\.reflexion\.net$/				dunno
+/\.maila\.powerelay\.com$/					dunno
+/^smail[0-9]*\.cn4e\.com$/						dunno
+/^[^.]+\.mathworks\.com$/						dunno
+/\.outmail\.facebook\.com$/					dunno
+/\.mail-mail\.facebook\.com$/					dunno
+/\.mx\.upcmail\.net$/						dunno
+/^mta.*\.lemonde\.fr$/						dunno
+/^[^.]+\.ppsmtp\.net$/						dunno
+/^smarthost\.nine\.ch$/						dunno
+/^[^.]+\.emsmtp\.com$/ 						dunno
+/^[^.]+\.emsmtp\.us$/                                          dunno
+/^gate\.central-park-shoes\.com$/				dunno
+/^mail[^.]*\.untappd\.com$/					dunno
+/^outbound.*\.pinterest\.com$/					dunno
+/^smtp[^.]+\.eyepinsmtp\.com$/					dunno
+/\.mailjet\.com$/						dunno
+/^edge[0-9]+\.ethz\.ch$/					dunno
+/^[^.-]+-[^.-]+\.me\.com$/					dunno
+/^ccm[0-9]+\.constantcontact\.com$/				dunno
+/^[^.]+\.mailcleaner\.net$/					dunno
+/^lls[^.]+\.servidoresdns\.net$/				dunno
+/^node[^.]+\.datacenter[^.]+\.realize\.ch$/			dunno
+#$ for the sswef website
+/^m23s20-6-39db\.ispgateway\.de$/				dunno
+/^edge[^.]+\.rhomberg\.com$/					dunno
+# 20180426
+/^hm[0-9].*\.locaweb\.com\.br$/				dunno
+/^mail[0-9].*\.locaweb\.com\.br$/			dunno
+/^mx\.[^.]+\.locaweb\.com\.br$/				dunno
+/^mta[0-9]+\.ems01\.eu$/				dunno
+/^dd[0-9]+\.kasserver\.com$/				dunno
+/^mail[0-9]*\.teamviewer\.com$/				dunno
+/^mail[^.]+\.coop\.ch$/					dunno
+/^mailgw[0-9]*\.gimsx\.ch$/					dunno
+/^server[0-9]*\.noc-c\.com$/				dunno
+/^[^.]+\.n2g3[0-9]\.com$/					dunno
+/^server\.send-it\.ch$/					dunno
+/^mail[^.]+\.elca\.ch$/					dunno
+/^outbound-mail[0-9-]+\.avgcloud\.net$/			dunno
+/^mail[^.]+\.e2ma\.net$/				dunno
+/^mp[0-9]+\.e2ma\.net$/					dunno
+/^host[0-9]+\.marriott\.com$/				dunno
+/^wagerenhof[0-9]+\.nine\.ch$/				dunno
+# af.import@insynergyindia.com
+/^vps38299\.inmotionhosting\.com$/			dunno
+/^[^.]+\.voipgateway\.org$/				dunno
+/^[^.]+\.cloudhosting\.co\.uk$/			dunno
+/^[^.]+\.e\.hyatt\.com$/			dunno
+/^[^.]+\.smtp2go\.com$/				dunno
+/^[^.]+\.swatchgroup\.com$/			dunno
+/^relay\.sh13-1031\.sui-inter\.net$/		dunno
+/^mta[^.]+\.sparkpostmail\.com$/		dunno
+/^[^.]+\.expediamail.com$/			dunno
+/\.dsv\.netgroup\.dk$/				dunno
+/^[^.]+\.antispamcloud\.com$/			dunno
+/^o[0-9]+\.ptr[0-9]+\.kitag\.com$/		dunno
+
+#/^fake[^.]+\.helsana\.ch$/				dunno
+/^relay[0-9-]+\.msgfocus\.com$/			dunno
+/\.email\.eurobank-communication\.gr$/		dunno
+
+/^landsend\.outbound[^.]+.postdirect\.com$/	dunno
+/^mailout[^.]+\.booking\.com$/			dunno
+#/^wwwold\.elixseri\.com$/			dunno
+/^mx[^.]+\.smtp-engine\.com$/			dunno
+
+# 20200810 new entries
+/\.opensuse\.org$/			dunno
+/\.mail\.zen\.net\.uk$/				dunno
+/^mx.*\.discourse\.cloud$/                      dunno
+/\.suse\.com$/					dunno
+/\.suse\.de$/                                  dunno
+/\.opensuse\.org$/                                  dunno
+/^vm[^.]+\.documentfoundation\.org$/		dunno
+/\.smtp\.github\.com$/                          dunno
+/^smtp[^.]*\.steampowered\.com$/                dunno
+/^mail[^.]*\.protonmail\.ch$/                   dunno
+/^srv[0-9]+\.ypclistmanager\.com$/		dunno
+/^mx[^.]*\.cc\.ic\.ac\.uk$/                     dunno
+/^o[0-9]+\.ptr[0-9]+\.discordapp\.com$/         dunno
+
+# clients with IP-addresses that didn't resolve properly
+/unknown/								greylist
+
+# clients with addresses/names that look like dialup-style address are greylisted
+/([0-9]{1,3}[x._-][0-9]{1,3}[x._-][0-9]{1,3}[x._-][0-9]{1,3})[x._-]/	greylist
+
+# AccelerateBiz Inc. ACCELERATEBIZ-3-20 (NET-64-187-96-0-1) 64.187.96.0 - 64.187.127.255
+# Group One Media AB-GROUPONEMEDIA (NET-64-187-121-0-1) 64.187.121.0 - 64.187.121.255
+/^64\.187\.121\.[0-9]+$/						greylist
+
+# some of these TLD have a subdivision of co.xx, com.xx, net.xx, org.xx, some even with
+# geographical subdivisions (seems to former eastern block, and former soviet republics),
+# some with subdivision and some without. 
+# for instance '.ge' could have  
+# 1) a plain version "<xxxx>.ge"
+# 2) a co/org/net version "<xxxx>.net.ge"
+# 3) a geographical version "<xxxx>.<gggg>.ge"
+#/(ppp|dsl|dial|cpe|dhcp|cable).*\.[^.]+\.(com|net|de|ru|ch|nl|no|pt|hu|at|ca|bg|ro|pl|lv|lt|su|by|sk|dk|se|gr|fr|es|be|is|co\.uk|com\.br|it|cz|fi|cl|net\.au|com\.au|yu|co\.nz|net\.br|si|am|ge|com\.ua|com\.fj|net\.ua|net\.mk|hr|co\.il|com\.ar)$/	greylist
+/(isdn|ip[0-9-]|pool|gateway|firewall|ppp|dsl|dial|cpe|dhcp|cable|nat|masq|host|server|ras|wlan|wifi|wireless|gw-|-gw|gw[0-9]+|fw-|-fw|fw[0-9]+|broadband|bredband|client|catv|node|user|dynip).*(\.[^.]+){2}$/		greylist
+
+# any domain name with at least four consecutive digits and/or hyphens
+/[0-9-]{4}/								greylist
+
+/^0x[0-9a-f]{8}\./							greylist
+
+# 2005/08/11: dial-up catch-all.
+/dial-?(up|in)/                                                         greylist
+
+# these seem to be throwaway domain names
+/^mx[0-9]+\.[a-z0-9]{12,}\.com$/                        greylist
+
+# gw = gateway; these are suspected NAT gateways, so not mail-servers
+/^gw\./									greylist
+/^gate\./								greylist
+
+# domain names with a a qualifier consisting only of numerics
+# this will also catch some client names where the domain name itself is
+# entirely numeric. 02.net, 012.net.il ....
+# 2007/11/20 Yeah, this will also unintentionally catch plain IP-addresses ... duh!
+/\.[0-9]+\.[a-z-]/								greylist
+/^[0-9]+\.[a-z-]/								greylist
+
+# domain namnes with 6 or more qualifiers
+/([^.]+\.){5}/								greylist
+
+# 2006/12/07 - #5 on gl stats
+# rima-tde.net clients (Telefonica)
+/(dynamicip|staticip)\.rima-tde\.net$/					greylist
+
+# 2006/12/07 - #6 on gl stats
+/\.dip[0-9]\.t-ipconnect\.de$/						greylist
+
+# 2006/12/07 - #7 on gl stats
+# Poland, Russia
+/[0-9-]{3}\.[^.]+\.(pl|ru)$/						greylist
+
+# 3 digits, one qualifier plus .com .net
+# 2006/12/08 - #10 on gl stats
+/[0-9-]{3}\.[^.]+\.(com|net)$/                                          greylist
+
+# 2006/12/08 - #11 on gl stats
+# Shaw Communications Canada
+/shawcable\.net$/                                                       greylist
+
+/^ns[1-9][0-9]+\./							greylist
+
+/\.static\./								greylist
+
+# 2006/12/08 - #9 on gl stats
+# japanese networks catch-all.
+/([^.]+\.){2}ne\.jp$/                                                   greylist
+
+# 2006/12/08 - #13 on gl stats
+# telemar.com.br (whois was refused)
+/\.user\.veloxzone\.com\.br$/                                           greylist
+
+# 2006/12/08 - #15
+/\.[a-z0-9-]+\.pppool\.de$/						greylist
+
+# 2006/12/08 - #16
+/\.upc-[a-z]\.chello\.nl$/						greylist
+
+# 2006/12/08 - #18 
+/\.[a-z]{2}\.home\.nl$/							greylist
+
+# 2006/12/08 - #19
+# Auna Telecomunicaciones, S.A.
+# 204.red-62-117-160.user.auna.net
+/\.user\.auna\.net$/                                                    greylist
+
+/[0-9]{2}\.[^.]+\.(com|net)\.br$/					greylist
+
+/-ext\.prodigy\.net$/ 							greylist
+
+/^([^.]+\.){2}maxonline\.com\.sg$/					greylist
+
+/[0-9A-F]{2}\.versanet\.de$/						greylist
+
+/\.in-addr\./								greylist
+
+# seem to be clients with throw-away domain names
+# also seems to catch a lot of innocent servers ....
+#/mx[0-9]+\.[a-z0-9]{4,}\.(com|info)$/					greylist
+
+/\.(dynamic|static)\.orange\.es$/					greylist
+
+# chello080108241062.16.14.vie.surfer.at
+/\.surfer\.at$/                                                         greylist
+
+/\.bb\.(online\.no|sky\.com)$/						greylist
+
+/ip.+\.direct-adsl\.nl$/						greylist
+
+/\.speed\.planet\.nl$/							greylist
+
+
+# Internet/broadband provider in the UAE.
+/[0-9]\.alshamil\.net\.ae$/                                             greylist
+
+/([^.]+\.){2}ctm\.net$/							greylist
+
+# highly unusual form - probably misconfigured
+# www.esrin.esa.it is ok though.
+/^www/                                                                  greylist
+
+/\.sbcis\.sbc\.com$/							greylist
+
+/^[0-9]+[a-z]+[0-9]+\./							greylist
+
+/pub\.verizon\.net$/							greylist
+
+/([^.]+\.){2}virtua\.com\.br$/						greylist
+
+#
+/([^.]+\.){2}ac\.jp$/							greylist
+# Japanese provider? catch-all
+/([^.]+\.){3}(co|or)\.jp$/                                              greylist
+/[0-9]{3}\.[^.]+\.or\.jp$/						greylist
+
+# russian NAT'ing services
+/nat.*\.[^.]+\.ru$/							greylist
+
+# ukrainian something with at least 3 qualifiers
+/([^.]+\.){3}ua$/							greylist
+
+# russian/british/korean academic catchall
+/([^.]+\.){3}ac\.(kr|uk|ru|th|at)$/					greylist
+
+# taiwanese .edu.tw catch-all.
+/\.edu\.tw$/								greylist
+# thai academic institutions catch-all
+/\.ac\.th$/								greylist
+
+# korean academic institutions catch-all	
+/[0-9-]{2}\.[^.]+\.ac\.kr$/						greylist
+
+# turkish educational institutions catch-all
+/([^.]+\.){2}edu\.tr$/							greylist
+
+/[0-9-]{3}\.[^.]+\.hu$/							greylist
+
+# australian educational institutions catch-all
+/([^.]+\.){3}edu\.au$/							greylist
+
+# Polish educational catch-all
+/([^.]+\.){2}edu\.pl$/							greylist
+
+# North-American .edu catch-all. at least 3 qualifiers and .edu
+/([^.]+\.){3}edu$/							greylist
+
+# North American local schools
+/\.k12\.[a-z][a-z]\.us$/						greylist
+
+
+/ppp.*\.[^.]+\.ne\.jp$/							greylist
+/ppp.*\.[^.]+\.ad\.jp$/							greylist
+/ppp.*\.[^.]+\.or\.jp$/							greylist
+/ppp.*\.[^.]+\.net\.th$/						greylist
+
+/^lgh[^.]*\.([^.]+\.)+(ac|se)$/						greylist
+
+# very common patterns
+# Russian Federation
+/[0-9-]{3}\.[^.]+\.ru$/							greylist
+# Soviet Union (being phased out)
+/[0-9-]{3}\.[^.]+\.su$/							greylist
+# Czech Republic
+/[0-9-]{3}\.[^.]+\.cz$/							greylist
+# Bulgaria
+/[0-9-]{3}\.[^.]+\.bg$/							greylist
+# Romania
+/[0-9-]{3}\.[^.]+\.ro$/                                                 greylist
+/([^.]+\.){3}ro$/							greylist
+# Portugal
+/[0-9-]{3}\.[^.]+\.pt$/							greylist
+# Poland
+/[0-9-]{3}\.[^.]+\.(com|net)\.pl$/					greylist
+# Latvia
+/[0-9-]{3}\.[^.]+\.lv$/							greylist
+# Hungary
+/[0-9-]{3}\.[^.]+\.hu$/							greylist
+# Lithuania
+/[0-9-]{3}\.[^.]+\.lt$/							greylist
+# Croatia/Hrvatska
+/[0-9-]{3}\.[^.]+\.hr$/							greylist
+# Brazil
+/[0-9-]{3}\.[^.]+\.(com|net)\.br$/					greylist
+
+
+# hongkong hosting?
+/pc[0-9]+\.[0-9a-z-]+\.com\.hk$/					greylist
+
+# very common patterns
+# British Columbia, Canada plus 3 qualifiers.
+# Alberta, British Columbia, Manitoba, New Brunswick, Newfoundland and Labrador, Nova Scotia, Ontario, Prince Edward Island, Quebec, and Saskatchewan. The three territories are the Northwest Territories, Nunavut, and Yukon Territory.
+/([^.]+\.){3}(ab|bc|mb|qc|on)\.ca$/					greylist
+# american states
+/([^.]+\.){3}[a-z][a-z]\.us$/			greylist
+
+/[0-9]{2}\.(svoboda|lom|compro|clnet|nwt|station|wms)\.cz$/             greylist
+
+# interbusiness.it (Telecom Italia)
+/host.*interbusiness\.it$/						greylist
+# NOOS (Lyonnaise Communications, cybercable.fr)
+/\.noos\.fr$/								greylist
+# Comcast Corporation
+/\.[a-z]{2}\.comcast\.net$/						greylist
+# (whois timed out, but presumably turkish)
+# Adelphia Communications Corp.
+/.adelphia\.net$/							greylist
+# 
+/\.cablenet-va\.com$/							greylist
+# Pacific Internet (Singapore), pacnet.com
+/\.pacific\.net\.sg$/							greylist
+# bellsouth
+/\.[a-z]{3}\.bellsouth\.net$/						greylist
+# ip-165.net-82-216-157.suresnes3.rev.numericable.fr
+/\.rev\.numericable\.fr$/						greylist
+# pop-be-5-2-dialup-167.freesurf.ch
+/\.freesurf\.ch$/							greylist
+# cpe.atm2-0-51279.0x50c7ab06.esnxx2.customer.tele.dk
+/\.customer\.tele\.dk$/							greylist
+# usen-221x251x146x195.ap-US01.usen.ad.jp
+/\.usen\.ad\.jp$/							greylist
+#
+/\.retevision\.es$/							greylist
+#
+/\.dialog\.net\.pl$/							greylist
+#
+/\.kund\.k-netnorr\.se$/						greylist
+# Telepac II - Comunicacoes Interactivas S.A.
+# gb.ja.59.216.revip.asianet.co.th
+/\.revip\.asianet\.co\.th$/						greylist
+# 242676hfc204.tampabay.res.rr.com
+/\.[a-z]+\.rr\.com$/							greylist
+# h0000948f3a25.ne.client2.attbi.com
+/\.client[0-9]\.attbi\.com$/						greylist
+# clickfollowing.com
+/\.clickfollowing\.com$/						greylist
+# d150-170-112.home.cgocable.net
+/\.home[0-9]*\.cgocable\.net$/						greylist
+# FLH1Aat058.hkd.mesh.ad.jp				
+/\.mesh\.ad\.jp$/							greylist
+#
+/Yahoo.+\.bbtec\.net$/							greylist
+# Boots Helsker, Nottingham ??
+/mail.+\.bp7\.net$/							greylist
+/\.bpb\.bigpond\.com$/							greylist
+/smtp.+\.finance\.lycos\.com$/						greylist
+/smtp[0-9]+\.tamsmtp\.com$/						greylist
+/\.fibertel\.com\.ar$/							greylist
+/\.xnet\.hr$/								greylist
+/\.abo\.wanadoo\.fr$/							greylist
+/\.codetel\.net\.do$/							greylist
+/[0-9-]{3}\.chello\.(pl|fr|sk|at)$/					greylist
+/\.dsl-verizon\.net$/							greylist
+/\.futuresouls\.com$/							greylist
+/home.+\.astral\.ro$/							greylist
+/\.nttpc\.ne\.jp$/							greylist
+/\.clientes\.euskaltel\.es$/						greylist
+/\.inter\.net\.il$/							greylist
+/ip.+\.ygnition\.net$/							greylist
+/\.[a-z0-9-]+\.cablelynx\.com$/						greylist
+# cm-virtua-cwb-C8B03D59.dynamic.brdterra.com.br
+/([^.]+\.){2,}brdterra\.com\.br$/					greylist
+/[0-9]\.enjoy\.ne\.jp$/							greylist
+/\.[a-z]+\.zcu\.cz$/							greylist
+/\.impsat\.com\.co$/							greylist
+/\.dip[0-9]\.t-ipconnect\.de$/						greylist
+/pc.+\.[a-z]+\.detwiler\.tv$/						greylist
+# c8d0887c.static.sts.virtua.com.br
+/[a-z0-9]+\.virtua\.com\.br$/						greylist
+/\.[a-z0-9-]+\.club-internet\.fr$/					greylist
+/\.[a-z0-9-]+\.twt1\.com\.tw$/						greylist
+/([^.]+\.){2,}wirt\.pl$/						greylist
+/\.[a-z0-9]+\.bonet\.se$/						greylist
+/\.gotadsl\.co\.uk$/							greylist
+# bzq-84-108-155-1.cablep.bezeqint.net
+/\.[a-z0-9-]+\.bezeqint\.net$/						greylist
+/\.[a-z0-9-]+\.so-net\.ne\.jp$/						greylist
+/client.+\.ifxnetworks\.net\.ve$/					greylist
+/\.cm\.vtr\.net$/							greylist
+/\.ipt\.aol\.com$/							greylist
+/\.accesscable\.net$/							greylist
+/\.yoyogi\.mopera\.ne\.jp$/						greylist
+/\.crnagora\.net$/							greylist
+/dyn.+\.dnainternet\.fi$/						greylist
+/\.giga\.net\.tw$/							greylist
+/ip.+\.ish\.de$/							greylist
+/\.fibernet\.bacs-net\.hu$/						greylist
+/comodoro\.sinectis\.com\.ar$/						greylist
+# 12/03/2005
+/\.red[0-9-]*\.mundo-r\.com$/						greylist
+# 12/03/2005 - from aluminium
+/\.sth\.bostream\.se$/							greylist
+/\.usuarios\.retecal\.es$/						greylist
+/\.mc\.onolab\.com$/							greylist
+/\.emirates\.net\.ae$/							greylist
+/\.tiki\.ne\.jp$/							greylist
+/\.ztv\.ne\.jp$/							greylist
+/[0-9]+\.teleton.pl$/							greylist
+/\.icpnet\.pl$/								greylist
+/cab.+\.1scom\.net$/							greylist
+/\.ul\.warwick\.net$/							greylist
+/\.ncv\.ne\.jp$/							greylist
+/\.roadrunner\.nf\.net$/						greylist
+# 2005/03/15
+/\.resnet\.ubc\.ca$/							greylist
+#/\.resnet\.colorado\.edu$/						greylist
+/[^.]{5,}\.zaq\.ne\.jp$/						greylist
+# 2005/03/17
+/\.ip\.e-nt\.net$/							greylist
+# kabelsignal-Gruppe, ein Konzernunternehmen der EVN. (www.evn.at)
+/\.dyn\.cm\.kabsi\.at$/							greylist
+/\.cmu\.carnet\.hr$/							greylist
+/\.amigo2\.ne\.jp$/							greylist
+/\.pwr\.wroc\.pl$/							greylist
+/\.toshima\.ne\.jp$/							greylist
+/\.elpos\.net$/								greylist
+/\.customer\.alfanett\.no$/						greylist
+/\.mohawk\.golden\.net$/						greylist
+/kctv.+\.ccnw\.ne\.jp$/							greylist
+/\.flatrate\.dk$/							greylist
+# Bostadsrättsföreningen Torpet, Anderstorp i Skellefteå.
+# .ac = Ascension Island 
+/lgh.+\.torpet\.ac$/							greylist
+# 2005/03/19
+# University of Warmia and Mazury
+/uwm-.+\.uwm\.edu\.pl$/							greylist
+/kbl-.+\.zeelandnet\.nl$/						greylist
+# Monarch Communications Inc., cable operator in California.
+/mnet.+\.monarch\.net$/							greylist
+/mdoc.+\.monarch\.net$/							greylist
+# KagawaTV Broadcast Network 
+/[a-z][0-9]+\.kbn\.ne\.jp$/						greylist
+# 2005/03/20
+/cm.+\.liwest\.at$/							greylist
+# 2005/03/21
+/chello.+\.teleweb\.at$/						greylist
+/[0-9]{4,}\.teleweb\.at$/						greylist
+# 2005/03/22
+/\.dyn\.optonline.net$/							greylist
+/ai[0-9]{1,4}\.netis\.net\.pl$/						greylist
+/pcp[0-9]{4,}.+\.comcast\.net$/						greylist
+/airspan.+\.radom\.pilicka\.pl$/					greylist
+/\.city\.tvnet\.hu$/							greylist
+/abo.+\.modulonet\.fr$/							greylist
+# 2005/03/25
+# Alliance Entertainment Corp.
+/allflws[0-9]+\.aent\.com$/						greylist
+# 2005/03/27
+/user-.+\.kanetti\.fi$/							greylist
+# 2005/03/31 - Umeaa Kommun, Sweden.
+/[a-z][0-9]{3,}.+\.kommunicera\.umea\.se$/				greylist
+# 2005/04/01
+/user.+\.udn\.pl$/							greylist
+/\.[a-z0-9]+\.centurytel\.net$/						greylist
+#/r[0-9]+\.resnet\.cornell\.edu$/					greylist
+/user[0-9]+\.newres\.utoronto\.ca$/					greylist
+/\.res-com\.wayinternet\.com\.br$/					greylist
+# 2005/04/15
+/\.hfc\.datazug\.ch$/							greylist
+/-int\.chello\.at$/							greylist
+/plan.+\.icsincorporated\.com$/						greylist
+/[0-9-]{3,}\.icsincorporated\.com$/					greylist
+/ip.+\.piotrkow\.net\.pl$/						greylist
+# 2005/04/20
+/ip.+\.evc\.net$/							greylist
+/ak.+\.netis\.net\.pl$/							greylist
+/([^.]+\.){2,}astral\.ro$/						greylist
+# 2005/04/25
+/tsk-.+\.tm\.net\.my$/							greylist
+#/\.loxinfo\.net\.th$/							greylist
+#/\.loxinfo\.co\.th$/							greylist
+# Kuwait provider
+/as.+\.qualitynet\.net$/						greylist
+# superfluous doesn't even have a proper website
+/\.superfluous\.com$/							greylist
+/\.chello\.upc\.cz$/							greylist
+# utfors seesm to be a telenor owned subsidiary
+/\.utfors\.se$/								greylist
+# 2005/04/26
+/\.cnt\.entelchile\.net$/						greylist
+# 2005/04/27
+/customer.+\.livas\.lv$/						greylist
+/c.+\.bostream\.se$/							greylist
+/ip-.+\.eutelia\.it$/							greylist
+/host[0-9]+.+\.fcibroadband\.com$/					greylist
+/([a-z0-9-]+\.){2,}point\.ne\.jp$/					greylist
+/\.acesso\.oni\.pt$/							greylist
+/bc[0-9]+\.02sv\.com$/							greylist
+/cmu.+\.cncm\.ne\.jp$/							greylist
+/ap.+\.netis\.net\.pl$/							greylist
+/pc.+\.metropolis-inter\.com$/						greylist
+/host.+\.telpol\.net\.pl$/						greylist
+/visitor.+\.birdie15\.se$/						greylist
+/user.+\.satfilm\.net\.pl$/						greylist
+/[0-9]{2}\.hinocatv\.ne\.jp$/						greylist
+/host.+\.elsat\.net\.pl$/						greylist
+/p.+\.acedsl\.com$/							greylist
+/([a-z0-9-]+\.){2}unina\.it$/						greylist
+/cm.+\.kabelnet\.hu$/							greylist
+/dpc[0-9]+\.direcpc\.com$/						greylist
+/fa[0-9-]+\.urban\.ne\.jp$/						greylist
+/([a-z0-9-]+\.){2}vectant\.ne\.jp$/					greylist
+/([a-z0-9-]+\.){2}catvnet\.ne\.jp$/					greylist
+/usr.+\.starcat\.ne\.jp$/						greylist
+/cable.+\.intercable\.net$/						greylist
+# 2005/05/10
+/static.+\.pilicka\.pl$/						greylist
+/reverse.+\.alabanana\.com$/						greylist
+/pcp[0-9]{4,}.*\.unl\.edu$/						greylist
+/^[0-9].+\.compnet\.com\.pl$/						greylist
+/blk.*\.eastlink\.ca$/							greylist
+/server.+\.mywebsitecontrolpanel\.com$/					greylist
+/osd\.concentric\.net$/							greylist
+/\.wavenet\.ro$/							greylist
+/\.userreverse\.dion\.ne\.jp$/						greylist
+#/([a-z0-9-]+\.){2}sunyit\.edu$/					greylist
+/([a-z0-9-]+\.){2,}ncable\.com\.au$/					greylist
+# university of sao paolo.
+/([a-z0-9-]+\.){2}usp\.br$/						greylist
+/([a-z0-9-]+\.){2,}link\.si$/						greylist
+/kouka\.or\.jp$/							greylist
+/static.+\.cytanet\.com\.cy$/						greylist
+/([a-z0-9-]+\.){2}onvol\.net$/						greylist
+/\.du\.onolab\.com$/							greylist
+/[a-z0-9-]{6,}\.ccnw\.ne\.jp$/						greylist
+/mail[0-9]+\.rm02\.net$/						greylist
+/\.cablelink\.de$/							greylist
+/\.port33\.ru$/								greylist
+/hs[0-9]+\.singnet\.com\.sg$/						greylist
+/qtas[0-9]+\.singnet\.com\.sg$/						greylist
+/\.osmata\.com\.ar$/							greylist
+/\.netfirms\.com$/							greylist
+/\.parago\.com$/							greylist
+/([a-z0-9-]+\.){2,}owari\.ne\.jp$/					greylist
+/\.skylan\.hu$/								greylist
+/\.adsl\.no$/								greylist
+/\.cipherkey\.net$/							greylist
+/\.ip\.musicmatch\.com$/						greylist
+/pc.+\.interpc\.pl$/							greylist
+/line.+\.velocom\.com\.ar$/						greylist
+/line.+\.mx-net\.net$/							greylist
+/([a-z0-9-]+\.){2,}bbiq\.jp$/						greylist
+/([a-z0-9-]+\.){2,}netikka\.fi$/					greylist
+/\.ltk.lv$/								greylist
+/[a-z0-9-]{8,}\.otenet\.gr$/						greylist
+/\.home\.otenet\.gr$/							greylist
+/([a-z0-9-]+\.){2,}unam\.mx$/						greylist
+# c-a7c0e455.94-128-64736c10.cust.bredbandsbolaget.se
+/\.cust\.bredbandsbolaget\.se$/						greylist
+/([a-z0-9-]+\.){2,}comporium\.net$/					greylist
+/ip.+\.netvigator\.com$/						greylist
+/[a-z]+[0-9]{8,}\.netvigator\.com$/					greylist
+/cdu.+\.cncm\.ne\.jp$/							greylist
+/[a-z0-9-]{8,}\.kos\.net$/						greylist
+/([a-z0-9-]+\.){2,}tds\.net$/						greylist
+/([a-z0-9-]+\.){2,}easeful.com$/					greylist
+# internet provider in Iowa.
+/([^.]+\.){2,}netins\.net$/						greylist
+/\.da\.uu\.net$/							greylist
+/\.belvoir\.army\.mil$/							greylist
+/\.visp\.energis\.pl$/							greylist
+/\.fastwebserver\.de$/							greylist
+/\.csucs\.hu$/								greylist
+/[a-z0-9-]{8,}\.onshore\.net$/						greylist
+/\.rnmk\.com$/								greylist
+/\.hospes\.it$/								greylist
+/\.murray-ky\.net$/							greylist
+/([^.]+\.){2,}col\.ru$/						greylist
+/([^.]+\.){2,}vectranet\.pl$/					greylist
+/\.bendcable\.com$/							greylist
+/\.fastxdsl\.nl$/							greylist
+/\.ims-firmen\.de$/							greylist
+/\.cisbg\.com$/								greylist
+/\.tm\.net\.my$/							greylist
+/spoo.+\.gatesgroup\.hu$/						greylist
+/inet.+\.gmpexpress\.net$/						greylist
+/\.tvsergipe\.com$/							greylist
+/[0-9]{6}\.ctinets\.com$/						greylist
+/\.users\.cubicnet\.net$/						greylist
+/\.SPEEDe\.golden\.net$/						greylist
+/\.mtm-info\.pl$/							greylist
+/ip.+\.chouteautel\.com$/						greylist
+#/inre\.asu\.edu$/							greylist 
+/[^.]{5}\.media4\.pl$/						greylist
+/\.interaktif\.net\.tr$/						greylist
+/[^.]{6,}\.cinergycom\.net$/					greylist
+/([a-z0-9-]+\.){2,}bostream\.se$/					greylist
+/([a-z0-9-]+\.){2,}aaanet\.ru$/						greylist
+/[^.]{6}\.ufg\.br$/						greylist
+/[a-z][0-9]{4,}\.host\.wavenet\.at$/					greylist
+/cmodem.+\.tricom\.net$/						greylist
+/netrun.+\.cytanet\.com\.cy$/						greylist
+/([a-z0-9-]+\.){2,}dragon.cz$/						greylist
+/([a-z0-9-]+\.){2,}jaring\.my$/						greylist
+/([a-z0-9-]+\.){2,}vnet\.ee$/						greylist
+/iputra\.edu\.my$/							greylist
+/advance.+\.infovia\.com\.ar$/						greylist
+/\.aster\.pl$/								greylist
+/\.indire\.it$/								greylist
+/\.priocom\.com$/							greylist
+/\.mmcnet\.ro$/								greylist
+/lan.+\.skynet\.lt$/							greylist
+/([a-z0-9-]+\.){2,}snt\.ru$/						greylist
+/\.fakat\.net$/								greylist
+/\.utsc-res\.utoronto\.ca$/						greylist
+/([a-z0-9-]+\.){2,}iinet\.net\.au$/					greylist
+/\.ns\.aliant\.net$/							greylist
+/\.tvsatbg\.net$/							greylist
+/([a-z0-9-]+\.){2,}shentel\.net$/					greylist
+/csd.+\.communicomm\.com$/						greylist
+/\.tin\.it$/								greylist
+/\.univie\.ac\.at$/							greylist
+#/\.microbio\.sunysb\.edu$/						greylist
+/\.vamberk-city\.cz$/							greylist
+#/dyn.+\.purdue\.edu$/							greylist
+/\.client\.atlantech\.net$/						greylist
+/\.onebb\.com$/								greylist
+#/\.resnet\.uga\.edu$/							greylist
+/([a-z0-9-]+\.){2,}kielce\.pl$/						greylist
+/host.+\.ipowerweb\.com$/ 						greylist
+#/([a-z0-9-]+\.){2,}usu\.edu$/						greylist
+/agenceharmonie\.com$/							greylist
+#/smtp[0-9+]\.sms\.at$/							greylist
+#/\.user\.msu\.edu$/							greylist
+/pc.+\.kopnet\.pl$/							greylist
+/\.autocom\.pl$/							greylist
+/([a-z0-9-]+\.){2,}petrotel\.pl$/					greylist
+/([a-z0-9-]+\.){2,}it\.pl$/						greylist
+/ad.+\.magix\.com\.sg$/							greylist
+/\.psit35\.net$/							greylist
+/\.onlinexpress\.net$/							greylist
+/mp.+\.daxnet\.no$/							greylist
+/hipernet.+\.brda\.net$/						greylist
+/\.exacttarget\.com$/							greylist
+/\.wnetrj\.com\.br$/							greylist
+/\.rev\.inter-c\.pl$/							greylist
+/\.backiel\.com\.pl$/							greylist
+/\.sowilo\.pl$/								greylist
+/cnet.+\.petrus\.pl$/							greylist
+/([a-z0-9-]+\.){2,}3s\.pl$/						greylist
+/[0-9]+\.bigserwer\.pl$/						greylist
+/\.abp\.pl$/								greylist
+/([a-z0-9-]+\.){2,}nextra\.sk$/						greylist
+/([a-z0-9-]+\.){2,}digi\.pl$/						greylist
+/([a-z0-9-]+\.){2,}krakow\.pl$/						greylist
+/\.fairgamemail\.us$/							greylist
+/\.wmc\.net\.pl$/							greylist
+/\.brzesko\.net\.pl$/							greylist
+/\.meep\.cz$/								greylist
+/cbl.+\.aster\.com\.do$/						greylist
+/\.macomnet\.net$/							greylist
+/pc.+\.skjoldhoej\.dk$/							greylist
+/\.doruk\.net\.tr$/							greylist
+/northalliance\.rmt.ru$/						greylist
+/\.udn\.pl$/								greylist
+/\.163\.com$/								greylist
+/([a-z0-9-]+\.){2,}microlink\.com\.br$/					greylist
+/([a-z0-9-]+\.){2,}uni-koeln\.de$/					greylist
+/\.alphabeton\.gr$/							greylist
+/\.pipelinecomputers\.com$/						greylist
+/\.telkonet\.pl$/							greylist
+/\.tmodns\.net$/							greylist
+/\.laczpol.net.pl$/							greylist
+/([a-z0-9-]+\.){2,}prospect\.pl$/					greylist
+/\.prodigy\.net\.mx$/							greylist
+/p[0-9]+\.net\.upc\.nl$/						greylist
+/sealcomm\.com$/							greylist
+/prinpictures\.com$/							greylist	
+/sealfilms\.com$/							greylist
+/\.micasaeap\.com$/							greylist
+/([a-z0-9-]+\.){2,}satnet\.net$/					greylist
+/host.+\.edu\.jonkoping\.se$/						greylist
+/\.univag\.com\.br$/							greylist
+/\.user\.lvcbi\.com$/							greylist
+/\.grupa-a5\.com\.pl$/							greylist
+/cable.+\.lodz\.pl$/							greylist
+/([a-z0-9-]+\.){2,}ckt\.net$/						greylist
+/\.tu-sofia\.bg$/							greylist
+/([a-z0-9-]+\.){2,}superonline\.com$/					greylist
+/[a-z][0-9]+\.myclearwave\.net$/					greylist
+/\.ntvk\.com\.pl$/							greylist
+/host.+\.tvkdiana\.net\.pl$/						greylist
+/\.stih4e\.com$/							greylist
+/[a-z0-9-]{15,}\.nf\.sympatico\.ca$/					greylist
+/\.sti\.net\.pl$/							greylist
+/\.gawex\.pl$/								greylist
+/([a-z0-9-]+\.){2,}gin\.cz$/						greylist
+/Leased.+\.tricom\.net$/						greylist
+/\.blizz\.at$/								greylist
+/([a-z0-9-]+\.){2,}concentric\.net$/					greylist
+/\.bellnexxia\.net$/							greylist
+/[0-9]\.ptt\.yu$/							greylist
+/([a-z0-9-]+\.){2,}unict\.it$/	 					greylist
+/\.krsn\.ru$/								greylist
+/h[0-9]+\.serverkompetenz\.net$/					greylist
+/\.telincom\.ru$/							greylist
+/mg[0-9]+\.armadahosting\.com$/						greylist
+/[0-9]\.rupert\.net$/							greylist
+/catv.+\.rkocom\.ch$/							greylist
+/sd[0-9]+\.sivit\.org$/							greylist
+/host.+\.wireless\.com\.py$/						greylist
+/[0-9.]+\.kam-telecom\.ru$/						greylist
+/\.unipv\.it$/								greylist
+/hus.+\.bobbnet\.com$/							greylist
+/([a-z0-9-]+\.){2,}telstra\.net$/					greylist
+/g[0-9-]+\.citenet\.net$/						greylist
+/\.amadeo-com\.ru$/							greylist
+/\.dtr\.fr$/		 						greylist
+/\.acisgroup\.gr$/							greylist
+/\.cts\.com\.er$/							greylist
+/\.asg\.jp$/								greylist 
+/\.b2bnewsportal\.com$/							greylist
+/\.servertweak\.com$/							greylist
+/\.adtechsysinc\.com$/							greylist
+/imgez\.com$/								greylist
+/\.instantdomainsales\.com$/						greylist 
+/node-[0-9a-f]+.*\.uu\.net$/						greylist
+/[a-z0-9-]{6,}\.hawaiiantel\.net$/					greylist
+/pc.+\.med\.uoi\.gr$/							greylist
+/[a-z0-9-]{8,}\.[a-z0-9-]+\.msk\.pl$/					greylist
+/\.daminet\.pl$/							greylist
+/dyn.+\.connect\.com\.fj$/						greylist
+/[0-9]{8,}\.netvigator\.com$/						greylist
+/[0-9-]+\.balibg\.com$/							greylist
+/([a-z0-9-]+\.){2,}myvzw\.com$/						greylist
+/([a-z0-9-]+\.){2,}upatras\.gr$/					greylist
+/[0-9]{8,}\.bbtec\.net$/						greylist
+/[^.]{12,}\.nb\.aliant\.net$/						greylist
+/([a-z0-9-]+\.){2,}rdsnet\.ro$/						greylist
+/pub[0-9]{6,}.+\.datazug\.ch$/						greylist
+/0x[0-9a-f]+.*\.ras\.tele\.dk$/						greylist
+/line.+\.tiscali\.ch$/							greylist
+/IP.+\.TvNetWork\.Hu$/							greylist
+/[ivxlcdm]+\.[^.]+\.saunalahti\.fi$/					greylist
+/user.+\.mindspring\.com$/						greylist
+/cbl.+\.lightbound\.com$/						greylist
+/sat.+\.sattnet\.cz$/							greylist
+/([^.]+\.){2}ukrtel\.net$/						greylist
+/u[0-9-]+\.grapesc\.cz$/						greylist
+/staticline[0-9]+\.toya\.net\.pl$/					greylist
+/cd.+\.comunitel\.net$/							greylist
+/ip.+\.lightship\.net$/							greylist
+/gdp.+\.as[0-9]+\.net$/							greylist
+/[0-9]{4,}\.ip2long\.net$/						greylist
+/[0-9]{6,}\.sonofon\.dk$/						greylist
+/dyn.+\.myactv\.net$/							greylist
+# a49.net133.okay.pl
+/\.net[0-9]+\.okay\.pl$/						greylist
+/lan.+\.mns\.ru$/							greylist
+/pc.+\.brewet\.pl$/							greylist
+/i[0-9]+\.tsp01\.ch$/							greylist
+/[0-9-]+\.dedicado\.com\.uy$/						greylist
+/wap.+\.brightlightning\.net$/						greylist
+/bek.+\.bektel\.com$/							greylist
+# Rush University Medical Center, Chicago, Illinois
+/\.rush\.edu$/								greylist
+/cli.+\.gippnet\.com$/							greylist
+/pcp.+\.pfos\.hr$/							greylist
+/client.+\.emit\.pl$/							greylist
+/pc.+\.polsl\.pl$/							greylist
+/\.mediaclub\.pl$/							greylist
+/mp.+\.daxnet\.no$/							greylist
+/\.dedicado\.com\.uy$/							greylist
+/xlate.+\.webster\.edu$/						greylist
+/([a-z0-9-]+\.){2,}ondsl\.gr$/						greylist
+/\.static\.otenet\.gr$/							greylist
+/network.+\.wctc\.net$/							greylist
+/remote.+\.gua\.net$/							greylist
+/[0-9-]+\.evj-kabel\.net$/						greylist
+/\.leased\.lanck\.net$/							greylist
+/\.ip\.tps\.uz$/							greylist
+/hst.+\.telelanas\.lt$/							greylist
+/BREDBAND.*\.songnetworks\.se$/						greylist
+/vlan.*\.comnet\.bg$/							greylist
+/vp[0-9]+.*\.hknet\.com$/						greylist
+/^[0-9]+.*\.astinet\.telkom\.net\.id$/					greylist
+/nat.*\.northhempstead\.net$/						greylist
+/dsl\.compuage\.net$/							greylist 
+/ad.+\.net\.t-com\.hr$/							greylist
+/gateway\.nirel\.org\.il$/						greylist
+/astra\.go\.com\.jo$/							greylist
+/mars.*\.szivarvanynet\.hu$/						greylist
+/\.air\.tehnicom\.net$/							greylist
+/\.m\.strato-dslnet\.de$/						greylist
+/([^.]+\.){2,}strato-dslnet\.de$/					greylist
+/[0-9-]{3,}\.strato\.net$/						greylist
+/[0-9-]+\.racc2000\.com$/						greylist
+/[0-9]{8,}\.host\.telemar\.net\.br$/					greylist
+/[a-z]+[0-9]+.*\.psci\.net$/						greylist
+/worklan[0-9]+\.netvigator\.com$/					greylist
+/([^.]+\.){3,}bih\.net\.ba$/						greylist
+/isf[0-9]+\.spat\.at$/							greylist
+/\.cm\.sunflower\.com$/							greylist
+/den[0-9-]+\.nortex\.net$/						greylist
+/toancausoft\.com\.vn$/							greylist
+/hst[0-9-]+\.union-net\.net$/						greylist
+/[0-9-]+\.nclxtn\.lexcominc\.net$/					greylist
+/\.pochta\.ru$/								greylist
+/\.cld\.brightok\.net$/							greylist
+/gk[0-9+]\.leo-net\.jp$/						greylist
+/\.tea\.bg$/								greylist
+/host.+\.edu\.on\.ca$/							greylist
+/terminal.+\.retsat1\.com\.pl$/						greylist
+/([^.]+\.){2}bydgoszcz\.pl$/						greylist
+/([^.]+\.){2}hosting\.co\.za$/						greylist
+/dede1.ch$/								greylist
+/web.+\.web-cafe\.gr$/							greylist
+/public.+\.centertel\.pl$/						greylist
+/gtwyn\.fishersci\.com$/						greylist 
+/dsl.+\.tricom\.net$/							greylist
+/webhostingmail\.bravehost\.com$/					greylist
+/radius\.parks\.lv$/							greylist
+/[0-9+]\.agilitypartners\.com$/						greylist
+# ip-224-186.kabelszatnet-2002.hu
+/ip.+\.kabelszatnet.+\.hu$/						greylist
+/ip[0-9-]+\.northwestlexus\.com$/					greylist
+/[0-9a-f]+\.cst\.lightpath\.net$/					greylist
+/r[0-9]+d[0-9]+\.net\.upc\.cz$/						greylist
+/alpha[0-9]+\.server4you\.de$/						greylist
+/\.cust\.blixtvik\.net$/						greylist
+/[a-z][0-9]+\.b2b2c\.ca$/						greylist
+/ip[0-9-]+\.ct\.co\.cr$/						greylist
+/paralleltk\.ru$/							greylist
+/[a-z][0-9]+\.ciscom\.ru$/						greylist
+/\.zory\.msk\.pl$/							greylist
+/n[0-9]+\.satfilm\.pl$/							greylist
+/\.static\.uni2\.es$/							greylist
+/\.dynamic\.uni2\.es$/							greylist 
+/[0-9]+.*\.sm-rozstaje\.pl$/						greylist
+/[a-z][0-9]+\.osiedle\.net\.pl$/					greylist
+/stm.*\.brightohio\.net$/						greylist
+/ar.*\.net\.t-com\.hr$/							greylist
+/[0-9]+\.static\.mls\.com\.br$/						greylist
+/ww.*\.winsdns\.com$/							greylist 
+/[0-9-]+\.area.*\.spcsdns\.net$/					greylist
+/server[0-9]+\.adrom\.net$/						greylist
+/\.static\.theplanet\.com$/						greylist
+/host[0-9]+\.kinja\.com$/						greylist
+/\.dca2\.superb\.net$/							greylist
+/dsl\.melsa\.net\.id$/							greylist
+/vdp.*\.cas\.hol\.gr$/							greylist
+/mt.*\.tepsalan\.pl$/							greylist
+/client.*\.bbs\.ro$/							greylist
+/\.rev\.vline\.pl$/							greylist
+/max.*\.cmd\.cei\.net$/							greylist
+/[a-z]{6,}.*\.enterpol\.pl$/						greylist
+/catv.*\.vtx\.ch$/							greylist
+/dsl.*\.ptd\.net$/							greylist
+/[0-9]+\.net\.upc\.cz$/							greylist
+/host[0-9]+\.khb\.ru$/							greylist
+/server[0-9]+\.remax2000\.net$/						greylist
+/lan[0-9]+\.wancom\.pl$/						greylist
+/dedi.*\.dhivehinet\.net\.mv$/						greylist
+# Cambridge Housing Society
+/\.cambridgehs\.org\.uk$/						greylist
+/pc[0-9]+\.ebeskidy\.pl$/						greylist
+/[0-9]+\.vip-net\.pl$/							greylist
+/nat[0-9]+\.hell\.net\.pl$/						greylist
+/nat.*\.szczecin\.pl$/							greylist
+/cus.*\.tstt\.net\.tt$/							greylist
+/dsl.*\.heliweb\.de$/							greylist
+/dhcp.*\.en-tel\.net$/							greylist
+/\.[^.]+\.mediatti\.net$/						greylist
+/lan\.welnowiec\.net$/							greylist
+/\.immt\.net\.ua$/							greylist
+/\.koszecin\.net\.pl$/							greylist
+/[0-9+]\.mysite4now\.com$/						greylist
+/\.spray\.net\.pl$/							greylist
+/\.ppp-pool\.de$/							greylist
+/[0-9]+\.onlinehome-server\.info$/					greylist
+/\.meri\.net\.pl$/							greylist
+/[0-9-]+\.users\.colocall\.net$/					greylist
+/[0-9-]+\.cnt\.nerim\.net$/						greylist 
+/dsl.*\.network-i\.net$/						greylist
+/[0-9-]+\.communicomm\.com$/						greylist
+/[0-9]+\.directconnect\.no$/						greylist
+/[0-9]+\.amsnet\.pl$/							greylist
+/[0-9]+\.mailer-service\.de$/						greylist
+/[0-9]+\.nationalgeographic\.com$/					greylist 
+/\.client\.across\.or\.jp$/						greylist
+/[0-9-]+\.telecable\.com\.do$/						greylist
+/[0-9-]+\.zonasa\.com$/							greylist
+/\.amg\.gda\.pl$/							greylist
+/[0-9-]+\.dnslinks\.net$/						greylist
+/[0-9a-f]+\.kam\.pl$/							greylist
+/ppp.*\.telesat\.com\.co$/						greylist
+/[0-9-]+\.leo-net\.jp$/							greylist
+/[0-9-]+\.ezpublishing\.com$/						greylist
+/dsl\.kielnet\.net$/							greylist
+/\.gu\.kiev\.ua$/							greylist
+/vpn\.TeNeT\.Odessa\.UA$/						greylist
+/\.dstm\.polimi\.it$/							greylist
+/\.tartarnet\.cz$/							greylist
+/\.onspeed\.com$/							greylist
+/[0-9-]+\.cipherkey\.com$/						greylist
+/[0-9a-f]+\.flatrate\.dk$/						greylist
+/\.bk\.cz$/								greylist
+/dsl.*\.iam\.net\.ma$/							greylist
+/[a-z]dsl\.co\.za$/							greylist
+/dsl\.brightview\.com$/							greylist
+/cablenet\.tvk\.lt$/							greylist
+/atm\.krak\.tke\.pl$/							greylist
+/[0-9-]+\.kbtelecom\.net\.tw$/						greylist
+/dsl\.cistron\.nl$/							greylist
+/[0-9]{6,}\.ptvk\.pl$/							greylist
+/[0-9-]\.rampant\.com$/							greylist 
+/[0-9]\.abaks\.pl$/							greylist
+/[0-9-]+orange\.orange\.sk$/						greylist
+# not really right, but there's a pattern here
+/^mx\.([^.]+\.){2}ar$/							greylist
+# Internet/broadband provider in the UAE.
+/[0-9]\.alshamil\.net\.ae$/						greylist
+/[0-9]\.amsterdam\.dataweb\.net$/					greylist
+/\.stud\.uni-goettingen\.de$/						greylist
+/[0-9]+\.km\.gov\.al$/							greylist
+/[0-9]+\.pentagroup\.com$/						greylist
+/hotel\.infopact\.nl$/							greylist
+/dsl[0-9-]+\.qualitynet\.net$/						greylist
+/[0-9-]+\.leased\.cust\.tie\.cl$/					greylist
+/[0-9]+\.zabrze\.net\.pl$/						greylist
+# 2006/11/10 new entries from aluminium
+/\.dyn-ip\.SPb\.SkyLink\.RU$/		greylist
+/[0-9]+\.inetc\.net$/		greylist
+/[a-z][0-9]+[a-z]\.cdcfibre\.com$/		greylist
+/[0-9]+\.warzymice\.net$/		greylist
+/static[0-9]+\.kutno[0-9]+\.tnp\.pl$/		greylist
+/([^.]+\.){2,}internl\.net$/		greylist
+/[0-9]+\.telkom-ipnet\.co\.za$/		greylist
+/dsl.+\.united\.net$/		greylist
+/([^.]+\.){2,}kabsi\.at$/		greylist
+# Testengeer Internet Services Division		greylist
+/ip[0-9-]+\.tisd\.net$/		greylist
+/cab[0-9-]+\.compascable\.net$/		greylist
+/dsl.+\.shawneelink\.net$/		greylist
+/dhcp.+\.fau\.edu$/		greylist
+/[0-9]+\.diegoman\.hyatthsiagx\.com$/		greylist
+/wireless\.venturenet\.co\.za$/		greylist
+/du[0-9-]+\.omnitelcom\.com$/		greylist
+/\.dsl\.alink\.net$/		greylist
+/dcmp[0-9]+\.goeaston\.net$/		greylist
+/[0-9]+\.ds\.nac\.net$/		greylist
+/cable[0-9-]+\.ljk\.voljatel\.net$/		greylist
+/^[0-9]+\.datalane\.net$/		greylist
+/\.clnt\.kht\.ru$/		greylist
+/[0-9-]+\.bih\.net\.ba$/		greylist
+/ipd[0-9.]+\.tellas\.gr$/		greylist
+/[0-9]+\.beipcs\.bellsouth\.net$/		greylist
+/[0-9]+\.mmj\.pl$/		greylist
+/ip.+\.uiwtx\.edu$/		greylist
+/ip.+\.bevcomm\.net$/		greylist
+/[0-9-]+\.mc\.ccapcable\.com$/		greylist
+/[0-9]+-net\.sccoast\.net$/		greylist
+/[0-9]+\.t-bird\.edu$/		greylist
+/[0-9]+\.dhaka\.net$/		greylist
+/pc[0-9-]+.*\.szczecin\.pl$/		greylist
+/dyn[0-9-]+.*\.uni-kassel\.de$/		greylist
+# Gone.With.The.Sin.evo.bg		greylist
+/([^.]+\.){3,}evo\.bg$/		greylist
+/([^.]+\.){3,}core\.ttnet\.cz$/		greylist
+/[0-9-]+\.phlpa\.fast\.net$/		greylist
+/\.customers\.net-surf\.net$/		greylist
+/[0-9-]+\.coara\.or\.jp$/		greylist
+/[0-9]+\.net\.t-com\.hr$/		greylist
+/[0-9-]+\.nt\.net$/		greylist
+/[0-9-]+\.vianet\.ca$/		greylist
+/[0-9-]+\.wavesystem\.com\.br$/		greylist
+/[a-z][0-9a-f-]+\.area[0-9]+\.spcsdns\.net$/		greylist
+/[0-9]+\.itsnpt\.com$/		greylist
+/([^.]+\.){3,}ncn\.net$/		greylist
+/port[0-9]+.*\.industryinet\.com$/		greylist
+/[0-9]+\.ruraltel\.net$/		greylist
+/[0-9-]+\.lewisweb\.net$/		greylist
+/[0-9]+\.unitednetworx\.com$/		greylist
+/s[0-9]+\.viskase\.com$/		greylist
+/dyn[0-9]+.*\.panafonet\.gr$/		greylist
+/\.access\.telenet\.be$/		greylist
+/[0-9-]+\.aircanopy\.net$/		greylist
+/[0-9]+\.webperoni\.de$/		greylist
+/[0-9]+\.al\.neoline\.com\.br$/		greylist
+/([^.]+\.){2,}nerim\.net$/		greylist
+/\.cust\.umeaenergi\.com$/		greylist
+/pc[0-9]+.*\.banban\.jp$/		greylist
+/ws[0-9]+\.flopinfo\.com\.br$/		greylist
+/[0-9-]+\.trifle\.net$/		greylist
+/[0-9-]+\.col\.wideopenwest\.com$/		greylist
+/[0-9-]{4,}\.prontonet\.com\.br$/		greylist
+/[0-9-]+\.orlandonet\.net$/		greylist
+/([^.]+\.){3,}uia\.net$/		greylist
+/[0-9]{4,}\.3web\.net$/		greylist
+# 2006/11/11
+/[0-9a-f]{4,}\.click-network\.com$/	greylist
+/[0-9-]+\.arn\.net$/		greylist
+/[0-9-]+\.cytanet\.com\.cy$/		greylist
+/pc[0-9-]+\.scpe\.powergate\.ca$/		greylist
+/user[0-9]+\.mtnet\.com\.pl$/		greylist
+/[0-9]{3,}\.helios\.ru$/		greylist
+/[0-9-]{3,}\.tartu\.stv\.ee/		greylist
+/[0-9]{3,}\.pureserver\.info$/		greylist
+/host[0-9]+\.burgasnet\.com$/		greylist
+/[0-9]+\.ext\.nbuilder\.nl$/		greylist
+/\.[0-9]+\.eunet\.yu$/		greylist
+/dyn.*\.accessatc\.net$/		greylist
+/[0-9-]{3,}\.city-lan\.org$/		greylist
+/\.net\.tvtrinec\.cz$/		greylist
+/[0-9]{2,}\.citykom\.de$/		greylist
+/[0-9-]{3,}\.sprintlink\.net$/		greylist
+/ip[0-9-]+\.telesat\.com\.co$/		greylist
+/\.vpn\.aichyna\.com$/		greylist
+/[0-9-]{3,}\.wmx\.sk$/		greylist
+/pc[0-9]+.*\.langame\.net$/	greylist
+/tvsat[0-9]+\.lodz\.pl$/	greylist
+/[0-9]{2,}\.tvk-gaj\.pl$/		greylist
+/([0-9]+\.){2,}htg.net$/		greylist
+/mpe[0-9-]+\.mpe\.lv$/		greylist
+/resnet[0-9-]+\.ucr\.edu$/		greylist
+/ra[0-9]+\.radioalfa\.pl$/		greylist
+/host[0-9-]+.*\.tvcconnect\.net$/		greylist
+/\.d-ip\.sc\.ru$/		greylist
+/[0-9-]{3,}\.amen-pro\.com$/		greylist
+/[0-9-]{3,}\.airbites\.bg$/		greylist
+/[0-9-]{3,}.*\.evo\.bg$/		greylist
+/dsl\.ch\.inter\.net$/		greylist
+/cust[0-9-]+.*\.accesscomm\.ca$/		greylist
+/[0-9]{2,}\.lycoming\.edu$/		greylist
+/\.dsl\.vianetworks\.de$/		greylist
+/[0-9-]{3,}\.neasonline\.no$/           greylist
+/[0-9-]{3,}\.ladpc\.co\.il$/            greylist
+/[0-9-]{3,}\.gulftel\.com$/             greylist
+/[0-9-]{3,}\.mtc\.net$/                 greylist
+/[0-9]{3,}\.enter-net\.com$/            greylist
+/cust.*\.dataco\.com\.au$/              greylist
+/ip[0-9-]+\.cbn\.net\.id$/              greylist
+/mrtg.*\.grnet\.gr$/                    greylist
+/[0-9-]{3,}\.finet\.se$/                greylist
+/wl[0-9-]+.*\.psci\.net$/               greylist
+/[0-9]{3,}\.zapsurf\.com\.sg$/          greylist
+/homeusers\.fast-net\.ro$/              greylist
+/cust\.bahnhof\.se$/                    greylist
+/gw.*\.rinet\.ru$/                      greylist
+/vs[0-9]+\.ole\.net$/                   greylist
+/wireless[0-9-]+\.crosswind\.net$/      greylist
+/[0-9-]{3,}\.vinet\.t3\.se$/            greylist
+/([0-9]+\.){2,}basnet\.lv$/             greylist
+# UTA Telekom AG - Tele2 associated.
+/[0-9-]{3,}\.utaonline\.at$/            greylist
+/dsl.*\.utaonline\.at$/			greylist
+
+/[0-9-]{3,}\.jbc\.edu$/                 greylist
+/[0-9]{3,}.*\.lonngarden\.se$/          greylist
+/ip[0-9-]+\.cbn\.net\.id$/              greylist
+/([0-9]+\.){2,}wmc.com.pl$/             greylist
+/p[0-9]+.*\.sinor\.ru$/                 greylist
+/0-9]+\.lom\.netster\.pl$/              greylist
+/[0-9-]{3,}\.slic\.com$/                greylist
+/[0-9-]{3,}\.us\.ool\.fr$/              greylist
+/[0-9-]{3,}\.harvard\.edu$/             greylist
+/([^.]+\.){3,}globetrotter\.net$/       greylist
+/[0-9-]{3,}\.netconx\.net$/             greylist
+/[0-9]{3}\.net\.pulawy\.pl$/		greylist
+# 2006/11/14
+/\.access\.ntelos\.net$/        greylist
+/midtown\.bigcity\.net$/        greylist
+/[0-9]{3,}\.popsite\.net$/      greylist
+/[0-9]{2,}\.sakhanet\.ru$/      greylist
+/users\.student\.utc\.sk$/      greylist
+/[0-9]{6,}.*\.rain\.fr$/        greylist
+/[0-9-]{3,}\.beotel\.net$/      greylist
+/[0-9]{6,}.*\.telering\.at$/    greylist
+/[0-9]{5,}\.baiamare\.ipn\.ro$/ greylist
+/[0-9_]{3,}\.interdom\.net\.pl$/        greylist
+/condo[0-9]+\.redemeta\.com\.br$/       greylist
+/[0-9-]{3,}\.vodatel\.hr$/      greylist
+# 2006/11/15
+/[0-9]{2,}\.traco\.pl$/         greylist
+/[0-9]{2,}\.streamcn\.pl$/      greylist
+/[0-9-]{3,}\.us\.ool\.fr$/      greylist
+/wh[0-9]+\.tu-dresden\.de$/     greylist
+/\.cpc\.entelchile\.net$/       greylist
+/[0-9]{2,}\.gesnet\.ru$/        greylist
+/[0-9]{2,}\.cilas\.net$/        greylist
+/[0-9]{2,}\.airix\.fi$/         greylist
+/([0-9]+\.){2}basnet\.lv$/      greylist
+# Argentinian University - Universidad Nacional de Rosario
+/([^.]+\.){2,}unr\.edu\.ar$/    greylist
+/[0-9]{2,}.*\.lama\.net\.pl$/   greylist
+/host[0-9]+\.vno\.com$/         greylist
+/[0-9]{2,}\.atif\.hu$/          greylist
+/[0-9]{3,}.*\.speede\.com$/     greylist
+/\.[0-9]+\.tellas\.gr$/		greylist
+# 2006/11/16
+# host02.ascips.a.subnet.rcn.com
+/([^.]+\.){4,}rcn.com$/		greylist
+/([^.]+\.){2,}aaisp\.net\.uk$/	greylist
+# public library? Hidalgo County Library System
+/\.hcls\.lib\.tx\.us$/		greylist
+/[0-9-]{3,}\.vdial\.verat\.net$/	greylist
+/[0-9]{2,}\.sinor\.ru$/		greylist
+/dip[0-9]+.*\.kc\.ru$/		greylist
+# 2006/11/17
+/hotspot.*\.o2\.com$/		greylist
+/([^.]+\.){2,}emva\.ro$/	greylist
+/[0-9]{2,}\.itcnet\.nu$/	greylist
+# hungarian adsl provider
+/eth\.externet\.hu$/		greylist
+/[0-9-]{3,}\.evhr\.net$/	greylist
+/net[0-9]+\.pai\.net\.pl$/	greylist
+/[0-9-]{3,}\.dot\.net\.au$/	greylist
+/nat[0-9]+\.srtnet\.com$/	greylist
+/([^.]+\.){3,}iprimus\.net\.au$/	greylist
+/coder[0-9]+\.loxinfo\.co\.th$/	greylist
+/pop.*\.azeronline\.com$/	greylist
+/[0-9-]{3,}\.diciv\.unisa\.it$/	greylist
+/[0-9]{2,}\.skekraft\.net$/	greylist
+/[0-9]{2,}\.stetson\.edu$/	greylist
+/[0-9a-f]{4,}.*\.concepts\.nl$/	greylist
+/static\.hol\.gr$/		greylist
+/[0-9]{2,}\.skylogicnet\.it$/	greylist
+/dhcp.*\.zapol\.com\.pl$/	greylist
+/pc[0-9]+.*\.theweb\.gr$/	greylist
+/[0-9]{2,}\.maxcom-bg\.com$/	greylist
+/[0-9-]{3,}\.usachoice\.net$/	greylist
+/eth.*\.natm\.ru$/		greylist
+/[0-9]{2,}\.doubleroute\.jp$/	greylist
+/[0-9]{2,}\.oec-net\.or\.jp$/	greylist
+/dsl\.strencom\.net$/		greylist
+# 2006/11/18
+/dsl\.wf\.net$/			greylist
+/[0-9-]{3,}\.statesman\.com$/	greylist
+# Catapulsion Broadband
+/[0-9]{2,}\.catapulsion\.net$/	greylist
+/[0-9-]{3,}\.airyork\.yorku\.ca$/	greylist
+/dsl.*\.southslope\.net$/	greylist
+/[0-9-]{3,}\.anet\.lt$/		greylist
+/[0-9]{2,}\.ycinet\.net$/	greylist
+/[0-9-]{3,}\.static\.grapesc\.cz$/	greylist
+/[0-9]{2,}\.wislaNET\.pl$/	greylist
+/[0-9-]{3,}\.lulin-bg\.net$/	greylist
+/([^.]+\.){2,}broadband\.pl$/	greylist
+/([0-9]+\.){2,}ozerki\.net$/	greylist
+/([^.]+\.){3,}poznan\.pl$/	greylist
+/ppp.*\.smapontocom\.com\.br$/	greylist
+/[0-9]{2,}\.cass\.net$/		greylist
+/([^.]+\.){3,}airmail\.net$/	greylist
+/\.cust\.sloane\.cz$/		greylist
+/[0-9-]{3,}\.ttc-cmc\.net$/	greylist
+/[^.]{10,}.*\.embratel\.net\.br$/	greylist
+/[0-9]{3,}.*\.fenics\.jp$/	greylist
+/[0-9-]{3,}\.dedibox\.fr$/	greylist
+/\.ddns\.nbis\.net$/		greylist
+/[0-9]{4,}\.newtel\.com$/	greylist
+/\.ddns\.easy-lan\.net$/	greylist
+/[0-9-]{3,}\.molalla\.net$/	greylist
+/[0-9]{2,}\.bmv\.com\.mx$/	greylist
+# Swedish broadband company - AB Gavlegaardarna
+/\.gavlegardarna\.gavle\.to$/	greylist
+/[0-9-]{3,}\.keymachine\.de$/	greylist
+/catv[0-9-]+\.scheferag\.ch$/	greylist
+/[0-9-]{3,}\.ucdavis\.edu$/	greylist
+/[0-9]{2,}\.erols\.com$/	greylist
+/ip[0-9]+\.siubuk\.com$/	greylist
+/ip[0-9]+.*\.community\.co\.uk$/	greylist
+/[0-9]{2,}\.stavtelekom\.ru$/	greylist
+/wlan.*\.lanzona\.hu$/	greylist
+/(sdi|dsl)\.tpnet\.pl$/                                                 greylist
+# 
+/[0-9]{2,}\.neoline\.com\.br$/		greylist
+/ip.*\.fastnet\.lv$/			greylist
+/[0-9]{2,}\.in\.tarnow\.pl$/		greylist
+/nat[0-9]+\.tychy\.msk\.pl$/		greylist
+/[0-9-]{3,}\.globonet\.hu$/		greylist
+/[0-9-]{3,}\.lakeheadu\.ca$/		greylist
+/[0-9]{2,}\.ssau\.ru$/			greylist
+/\.ddns\.cablebg\.net$/			greylist
+/vlan.*\.iptel\.by$/			greylist
+/[0-9-]{3,}\.parnu\.stv\.ee$/		greylist
+/\.cable\.tolna\.net$/			greylist
+/[0-9]{2,}\.dixie-net\.com$/		greylist
+/[0-9]{2,}\.tnp\.pl$/			greylist
+/[0-9-]{3,}\.mncable\.net$/		greylist
+/ip[0-9]+\.gmk\.net\.pl$/		greylist
+/[^.]{10,}\.saol-net\.com$/		greylist
+/[0-9-]{3,}\.cne\.de$/			greylist
+/\.chem\.TU-Berlin\.DE$/		greylist
+/[0-9]{2,}\.sptelek\.com\.pl$/		greylist
+/[0-9]{3,}\.netvigator\.com$/		greylist
+/[0-9-]{3,}\.wetternet\.net$/		greylist
+/dsl[0-9-]+\.mclink\.it$/		greylist
+/[0-9]{3,}\.ovh\.net$/			greylist
+/[0-9]+\.ivosoft\.po\.gtsi\.sk$/	greylist
+/\.hr\.state\.or\.us$/			greylist
+/nat[0-9-]+\.lifethc\.org$/		greylist
+/[0-9-]{3,}\.etanet\.se$/		greylist
+/([^.]+\.){2,}gcn\.net\.tw$/		greylist
+/dsl\.szeptel\.net\.pl$/		greylist
+/[0-9]{2,}\.racsa\.co\.cr$/		greylist
+/[0-9]{2,}\.websud\.ch$/		greylist
+/Dorm-OffCampus\.Fullerton\.EDU$/	greylist
+/NAT.*\.BGMreja\.com$/			greylist
+/[0-9-]{3,}\.blueridge\.net$/		greylist
+/[0-9]{2,}\.nordnet\.net$/		greylist
+/catv.*\.xpress\.se$/			greylist
+/dsl.*\.hcinet\.net$/			greylist
+/dsl\.cheapnet\.it$/			greylist
+/[0-9]{2,}\.edu\.sochitel\.ru$/		greylist
+/[0-9-]{3,}\.ip\.adsl\.hu$/		greylist
+/nat.*\.UkrWest\.Net$/			greylist
+
+/\.dhcp.*\.irishbroadband\.ie$/		greylist
+/[0-9]{3,}.*\.stansat\.pl$/		greylist
+/nat\.imarabe\.org$/			greylist
+/[0-9]{3,}.*\.elartnet\.pl$/		greylist
+/[0-9-]{3,}\.mab\.km3\.de$/		greylist
+/wire.*\.tu-bs\.de$/			greylist
+/[0-9]{2,}\.osnanet\.de$/		greylist
+/[0-9-]{3,}\.ldapalm\.com\.br$/		greylist
+/[0-9]{2,}\.unime\.it$/			greylist
+/[0-9-]{3,}\.immaculata\.edu$/		greylist
+/[0-9]{2,}\.gtec\.net$/			greylist
+/[0-9]{2,}\.tru\.ca$/			greylist
+/[0-9]{2,}\.nrel\.gov$/			greylist
+/[0-9]{2,}\.netit\.se$/			greylist
+/[0-9]{2,}\.netpark\.pl$/		greylist
+/dsl.*\.bluegrass\.net$/		greylist
+/[0-9]{2,}\.sfc\.pl$/			greylist
+/vlan[0-9]+.*\.lubman\.net\.pl$/	greylist
+/[0-9]{2,}\.tkdami\.pl$/		greylist
+/wireless[0-9-]+\.ccis\.com$/		greylist
+/dsl.*\.estpak\.ee$/			greylist
+/[0-9]{2,}\.activecom\.net$/		greylist
+/([^.]+\.){3,}core\.com$/		greylist
+/nat\.wieszowa\.pl$/			greylist
+/[0-9-]{3,}\.iti\.lt$/			greylist
+/[0-9]{2,}\.indianafiber\.net$/		greylist
+/\.static\.korbank\.pl$/		greylist
+/[0-9-]{3,}\.the-beach\.net$/		greylist
+/\.resnet\.cuhk\.edu\.hk$/		greylist
+/[0-9]{2,}\.ask\.gda\.pl$/		greylist
+/[0-9]{2,}\.alcoa\.com$/		greylist
+/[0-9-]{3,}\.netpath\.net$/		greylist
+/nat[0-9]+\.mnc\.pl$/			greylist
+/[0-9]{4,}\.surfer\.cnh\.at$/		greylist
+/[0-9]{2,}\.nasicnet\.com$/		greylist
+/\.commercial[0-9]+\.cgocable\.net$/	greylist
+/[0-9]{2,}\.iung\.pulawy\.pl$/		greylist
+/[0-9-]{3,}\.sps\.net\.sa$/		greylist
+
+/[^.]{8,}\.med\.utoronto\.ca$/		greylist
+/[0-9-]{3,}\.coastalnow\.net$/		greylist
+/[0-9]{4,}\.rivernet\.com\.au$/		greylist
+/([^.]+\.){2,}cyberia\.jo$/		greylist
+/([^.]+\.){3,}nolnet\.net$/		greylist
+/dsl\.destination\.ca$/			greylist
+/[0-9-]{3,}\.ra\.donobi\.net$/		greylist
+/[0-9-]{3,}\.msk\.skylink\.ru$/		greylist
+/\.cable\.triera\.net$/			greylist
+/([^.]+\.){2,}tvnet\.hu$/		greylist
+/[0-9]{2,}\.telenec\.de$/		greylist
+/[0-9]{2,}\.tkk\.pl$/			greylist
+/\.dhcp\.inet\.fi$/			greylist
+/cable.*\.cgates\.lt$/			greylist
+/[0-9]{3,}\.mis\.net$/			greylist
+# X66X21X26.jaskom.pl
+/[0-9X]{4,}\.jaskom\.pl$/		greylist
+/\.cust\.skycom\.se$/			greylist
+/([^.]+\.){3,}citilinktech\.net$/	greylist
+/\.static\.pacific\.net\.au$/		greylist
+/wireless.*\.fornet\.com\.br$/		greylist
+/[0-9]{2,}\.kodunet\.webs\.ee$/		greylist
+/([^.]+\.){2,}exwire\.com$/		greylist
+/\.radio\.wavenet\.com\.br$/		greylist
+/[0-9-]{3,}\.rutgers\.edu$/		greylist
+/[0-9-]{3,}\.aknet\.it$/		greylist
+/[0-9]{2,}\.reliablehosting\.com$/	greylist
+/\.clients\.easynet\.fr$/		greylist
+/[0-9]{2,}\.magnolia-net\.com$/		greylist
+/\.dsl\.i-set\.ru$/			greylist
+/[0-9-]{3,}\.studieaccess\.nl$/		greylist
+/[0-9-]{3,}\.pip\.digsys\.bg$/		greylist
+/([^.]+\.){4,}numeri\.cz$/		greylist
+/[0-9a-f]{2,}\.ji\.cz$/			greylist
+/[0-9]{4,}\.3s\.pl$/			greylist
+/\.pptp\.ggew-net\.de$/			greylist
+/([^.]+\.){2,}csystems\.net$/		greylist
+/[0-9]{2,}\.sil\.at$/			greylist
+
+/[0-9-]{3,}cbl\.betuwe\.net$/		greylist
+/[0-9]{2,}\.g9lan\.com$/		greylist
+/[0-9]{2,}\.across\.or\.jp$/		greylist
+/[0-9-]{3,}\.siapi\.es$/		greylist
+/([^.]+\.){2,}omne\.uk\.net$/		greylist
+/[0-9]{2,}\.noma\.pl$/			greylist
+/[0-9]{2,}\.1blu\.de$/			greylist
+/[0-9-]{3,}\.ccl\.perm\.ru$/		greylist
+/[0-9]{2,}\.interklub\.pl$/		greylist
+/[0-9-]{3,}\.sala\.or\.jp$/		greylist
+/[0-9]{2,}\.zato\.ru$/			greylist
+/[0-9-]{3,}\.aviso\.ci$/		greylist
+/([^.]+\.){2,}tu-ilmenau\.de$/		greylist
+/([^.]+\.){3,}aueb\.gr$/		greylist
+/[0-9]{2,}\.voltronik\.pl$/		greylist
+/[0-9-]{3,}\.mts\.net$/			greylist
+/[0-9-]{3,}\.bbs\.surfcity\.net$/	greylist
+/([^.]+\.){3,}lpoy\.fi$/		greylist
+/\.static-cust\.acn\.gr$/		greylist
+/[0-9-]{3,}\.ipAddr\.multilink-ht\.net$/	greylist
+/[0-9]{2,}\.amt\.ru$/			greylist
+/host.*\.sileman\.net\.pl$/		greylist
+/[0-9-]{3,}\.huronpointe\.net$/		greylist
+/[0-9]{2,}\.server4you\.de$/		greylist
+/[0-9]{2,}\.sisna\.com$/		greylist
+/[0-9-]{3,}\.brinet\.com$/		greylist
+/[0-9-]{3,}\.hopeservices\.org$/	greylist
+/[0-9-]{3,}\.k-lan\.satnet-bg\.com$/	greylist
+/[0-9-]{3,}\.petro\.tvoe\.tv$/		greylist
+/\.cust\.smartspb\.net$/		greylist
+/DSL.*\.progressivetel\.com$/		greylist
+/ip.*\.indo\.net\.id$/			greylist
+/[0-9]{2,}\.bitnet\.nu$/			greylist
+/dsl[0-9]+\.bmtc\.net$/			greylist
+/\.cust\.termsnet\.cz$/			greylist
+/([^.]+\.){2,}rppp\.jp$/		greylist
+/[0-9]{2,}\.antsatgor\.pl$/		greylist
+/vpn.*\.bu\.edu$/			greylist
+/[0-9-]{3,}\.(al|bc)\.cgocable\.ca$/	greylist
+/([^.]+\.){3,}cnett\.com\.br$/		greylist
+/[^.]{10}\.MIT\.EDU$/			greylist
+
+/dsl\.udm\.net$/			greylist
+/[0-9]{3,}.*\.synergydsl\.com$/		greylist
+/[0-9]{4,}\.zalau\.ipn\.ro$/		greylist
+/[0-9]{2,}\.saroch\.net$/		greylist
+/CPE.*\.essex1\.com$/			greylist
+/[0-9]{2,}\.mtx\.pl$/			greylist
+/[0-9-]{3,}\.fikas\.no$/		greylist
+/([^.]+\.){2,}tktelekom\.pl$/		greylist
+/[0-9-]{3,}\.cbl\.duo-county\.com$/	greylist
+/[0-9-]{3,}\.jesenice\.net$/		greylist
+/dsl\.kamloops\.net$/			greylist
+/[0-9-]{3,}\.tpgi\.com\.au$/		greylist
+/[0-9-]{3,}\.2geton\.net$/		greylist
+/[0-9-]{3,}\.ozonline\.com\.au$/	greylist
+/[0-9-]{3,}.*\.scnet\.cz$/		greylist
+/[0-9-]{3,}\.idi-bg\.com$/		greylist
+/[0-9-]{3,}\.brunet\.bn$/		greylist
+/[0-9-]{3,}\.servidoresdns\.net$/	greylist
+/[0-9-]{3,}\.commercial\.cgocable\.net$/	greylist
+/[0-9-]{3,}\.scnet\.yu$/		greylist
+/[0-9-]{3,}\.skynetworks\.net$/		greylist
+/ip[0-9]+.*\.vf\.pl$/			greylist
+/[0-9-]{3,}\.tsi\.tychy\.pl$/		greylist
+/[0-9-]{3,}\.skbbip\.com$/	greylist
+/[0-9-]{3,}\.btc-bci\.com$/	greylist
+/dsl.*\.deep\.ch$/		greylist
+/([^.]+\.)hl\.no$/		greylist
+/[0-9-]{3,}\.timplus\.net$/	greylist
+/[0-9-]{3,}\.mptelco\.com$/		greylist
+/dsl\.intratec\.it$/			greylist
+/[0-9-]{3,}\.ibw\.com\.ni$/		greylist
+/[0-9-]{3,}\.bmts\.com$/		greylist
+/[0-9-]{3,}\.linzag\.net$/		greylist
+/[0-9-]{3,}\.tricom\.net$/		greylist
+/[0-9]{2,}\.gogtt\.net$/		greylist
+/[0-9-]{3,}\.NMSU\.Edu$/		greylist
+/[0-9-]{3,}\.sulross\.edu$/		greylist
+/[0-9-]{3,}\.rpt\.pmt\.org$/		greylist
+/[0-9]{4,}\.net-htp\.de$/		greylist
+/[0-9]{4,}\.swm\.uni-mannheim\.de$/	greylist
+/[0-9-]{3,}\.monroeaccess\.net$/	greylist
+/[0-9]{2,}\.interq\.pl$/		greylist
+
+# 2006/11/20
+/[0-9]{2,}\.tfn\.x-systems\.ru$/	greylist
+/([^.]+\.){3,}localnet\.com$/		greylist
+/slip[0-9]+\.pop\.com\.br$/		greylist
+/dsl.*\.jetzweb\.de$/			greylist
+/([^.]+\.){3,}wroc\.pl$/		greylist
+/([^.]+\.){2,}nbiserv\.de$/		greylist
+# spb.ru = geographical domain St. Petersburg
+/[0-9]+.*\.telegraph\.spb\.ru$/		greylist
+# Entel Bolivia - webmail ?
+/huayna[0-9]+\.entelnet\.bo$/		greylist
+/ras[0-9]+\.bcc\.com\.uz$/		greylist
+/[0-9-]{3,}\.loyno\.edu$/		greylist
+
+/dsl\.toua\.net$/			greylist
+/cable\.execulink\.com$/		greylist
+/pppoe\.execulink\.com$/		greylist
+/dsl\.net1\.cc$/			greylist
+/[0-9-]{3,}\.dsn\.jp$/			greylist
+/ds1.*\.fullrate\.dk$/			greylist
+
+# 2006/11/22
+/ascend[0-9-]+\.hutchtel\.net$/		greylist
+/\.res\.uvic\.ca$/			greylist
+/([^.]+\.){2,}fortalnet\.com\.br$/	greylist
+# Victory Christian School, Alberta, Canada
+/vc.*\.vcschool\.ab\.ca$/		greylist
+/-pc\.uncc\.edu$/			greylist
+/\.static\.szczecinek\.net\.pl$/	greylist
+/office[0-9]+.*\.unl\.edu$/		greylist
+/[0-9-]{3,}\.schoolconnect\.nu$/	greylist
+/[0-9-]{3,}\.intnet\.mu$/		greylist
+/[0-9]{2,}\.zugernet\.ch$/		greylist
+/[0-9-]{3,}\.powerdsl\.com\.au$/	greylist
+# Telecom Italia San Marino SpA 
+/[0-9-]{3,}\.intelcom\.sm$/		greylist
+/[0-9]{3,}\.metrored\.net\.ar$/		greylist
+/[0-9-]{3,}\.travedsl\.de$/		greylist
+/[0-9-]{3,}\.aspentech\.com$/		greylist
+/([^.]+\.){3,}chello\.at$/		greylist
+/[0-9-]{3,}\.wireless\.com\.py$/	greylist
+/[0-9-]{3,}\.gibconnect\.com$/		greylist
+/[0-9-]{3,}\.bornet\.net$/		greylist
+/\.[0-9]+\.onewest\.net$/		greylist
+/[0-9]{2,}\.demax\.sk$/			greylist
+/\.customer\.ntelos\.net$/		greylist
+/\.dsl\.pipex\.com$/			greylist
+/[0-9-]{3,}\.xtn\.net$/			greylist
+/([^.]+\.){3,}garlic\.net$/		greylist
+/\.customer\.0rbitel\.net$/		greylist
+# Berbee Information Networks Corporation
+/\.coloc\.binc\.net$/			greylist
+# Lars Poulsen is also on this network?
+/\.wrl\.impulse\.net$/			greylist
+/[0-9-]{3,}.*\.sunshinecable\.com$/	greylist
+/\.users\.bzimage\.us$/			greylist
+/[0-9-]{3,}\.kuhncom\.net$/		greylist
+/[0-9-]{3,}\.plainsnet\.net$/		greylist
+# Foreningen Bryggenet
+/ip.*\.brygge\.net$/			greylist
+/ras.*\.csloxinfo\.net$/		greylist
+/[0-9-]{3,}\.teledomenet\.gr$/		greylist
+/\.cust\.imagine\.ie$/			greylist
+/([^.]+\.){2,}speede\.com$/		greylist
+/([^.]+\.){2,}PNeT\.Ro$/		greylist
+/([^.]+\.){2,}kalety\.net$/		greylist
+/[0-9]{2,}\.plus\.com$/			greylist
+/[0-9]{2,}\.oasisbb\.net$/		greylist
+/([^.]+\.){2,}c-cor\.com$/		greylist
+/cable.*\.voljatel\.net$/		greylist
+/\.wireless\.utoronto\.ca$/		greylist
+/dhcp.*\.brynmawr\.edu$/		greylist
+/dsl\.vsp\.fi$/				greylist
+/[0-9-]{3,}\.norlight\.net$/		greylist
+# 2006/11/23
+/[0-9]{3,}\.unizd\.hr$/		greylist
+/Cable[0-9]+\.onlink\.net$/	greylist
+/Cable[0-9]+\.ontera\.net$/     greylist
+/\.vsat\.telkom-ipnet\.co\.za$/	greylist
+# stavropol.ru = Geographical Domain for Stavropol region
+/[0-9]{2,}\.csun\.edu$/		greylist
+/\.cust\.inethome\.cz$/		greylist
+/[0-9-]{3,}\.telecom\.by$/	greylist
+/dsl\.[^.]+\.edu\.pt$/		greylist
+/host.*\.nagoyakankohotel\.co\.jp$/	greylist
+/[0-9-]{3,}\.bvunet\.net$/	greylist
+/student[0-9]+\.umsl\.edu$/	greylist
+/[0-9-]{3,}\.ripe\.net$/	greylist
+/[0-9-]{3,}\.cecomet\.net$/	greylist
+/\.user\.cosmostv\.jp$/		greylist
+/\.host\.ukw\.edu\.pl$/		greylist
+/[0-9-]{3,}\.talkadsl\.com$/	greylist
+# Lebanese provider - http://www.thisiscyberia.com/
+/ppp.*\.cyberia\.net\.lb$/	greylist
+# Burkina Faso telco
+/pc.*\.smrw\.lodz\.pl$/		greylist
+# 2006/11/24
+/[0-9-]{3,}\.carr\.org$/		greylist
+/[0-9]{2,}\.janis\.or\.jp$/		greylist
+/ip[0-9]+\.bcn\.altecom\.net$/		greylist
+/[0-9-]{3,}\.gazinter\.net$/		greylist
+/([^.]+\.){2,}1000lecie\.pl$/		greylist
+/([^.]+\.){2,}wightcablenorth\.net$/	greylist
+
+/([^.]+\.){3,}wcoil\.com$/		greylist
+/([^.]+\.){2,}univ\.gda\.pl$/		greylist
+# 2006/11/25
+/([^.]+\.){2,}connect\.com\.au$/	greylist
+/ppp.*\.zhongshan\.gd\.cn$/		greylist
+# Burkina Faso telco
+/st[0-9]+\.onatel\.bf$/			greylist
+/DSL\.mnsi\.net$/			greylist
+/[0-9]{2,}\.asia\.info\.net$/		greylist
+/([^.]+\.){2,}cytanet\.com\.cy$/	greylist
+# Broadband4U, Ghana Telecom 
+/dhcp.*\.4u\.com\.gh$/			greylist
+/[0-9-]{3,}\.subisu\.net\.np$/		greylist
+/[0-9]{6,}\.a1\.net$/			greylist
+/[0-9-]{3,}\.net\.euron\.pl$/		greylist
+# 2006/11/27
+# suffusing-furbelows-coagulants-beginners.traznet.net
+/[^.]{24}\.traznet\.net$/		greylist
+/dsl.*\.neunet\.com\.ar$/	greylist
+/\.cust\.bit\.net\.au$/		greylist
+/([^.]+\.){2}pris\.bc\.ca$/	greylist
+/[0-9-]{3}\.cvhsa\.com$/	greylist
+/([^.]+\.){2}tulsarealtors\.com$/	greylist
+/dsl\.netsonic\.fi$/		greylist
+/([^.]+\.){2}metromax\.ru$/	greylist
+/[0-9-]{3}\.BiG\.net\.id$/	greylist
+/[0-9-]{2}\.netguru\.com$/	greylist
+# some russian republic
+/[0-9]{2}\.unica\.by$/		greylist
+/[0-9-]{3}\.merlin\.mb\.ca$/	greylist
+/[0-9-]{3}\.ovid\.com$/		greylist
+/([^.]+\.){2}kct\.ad\.jp$/	greylist
+/[0-9-]{3}\.bctel\.ca$/		greylist
+/[0-9-]{3}\.globalnet\.hr$/	greylist
+# Earthlink Inc, Atlanta
+/[0-9-]{2}\.thegrid\.net$/	greylist
+/[0-9-]{3}\.homerun\.telia\.com$/	greylist
+/\.cust\.pocketinet\.com$/	greylist
+/[0-9-]{3}\.prairienet\.org$/	greylist
+# 2006/11/28
+/[0-9-]{3}\.flexabit\.net$/		greylist
+/\.dsl\.visi\.com$/		greylist
+/[0-9-]{3}\.pamamm\.wpa\.net$/	greylist
+/[^.]{10}\.cnt\.ru$/		greylist
+/dsl.*\.cyb\.it$/		greylist
+# Loxley Information Services; loxinfo.co.th
+/\.tnet\.co\.th$/		greylist
+# University of Ioannina, Greece.
+/([^.]+\.){2}uoi\.gr$/		greylist
+/[0-9-]{3}\.essentkabel\.com$/	greylist
+/[0-9]{2}\.mviewcc\.com$/	greylist
+/([^.]+\.){2}g1\.pl$/		greylist
+/[0-9]{2}\.eurotherm\.co\.uk$/	greylist
+# Swedish bostadsrättsförening, Umeå.
+/\.skogsglantan\.ac$/		greylist
+# some telco/provider in Bruxelles
+/_[^.]*\.mactelecom\.net$/	greylist
+/\.cablevision\.net\.mx$/	greylist
+/([^.]+\.){2}wincom\.net$/	greylist
+# .su = Soviet Union 
+/DSL.*\.soes\.su$/		greylist
+/[0-9]\.dawsoncollege\.qc\.ca$/	greylist
+/([^.]+\.){2}iquest\.net$/	greylist
+/([^.]+\.){2}avci\.net$/	greylist
+
+/[0-9]{3}\.cisp\.com$/		greylist
+/[0-9]{3}\.kuzelnet\.org$/	greylist
+/wlan\.bestsave\.hu$/		greylist
+
+# 2006/11/29
+# not the right kind of entry, but these guys are persistent.
+/\.toppan\.com\.cn$/		greylist
+/([^.]+\.){2}pacific\.net\.hk$/	greylist
+/([^.]+\.){2}n-sk\.ru$/		greylist
+# Brazilian National Institute of Space Research
+/([^.]+\.){2}inpe\.br$/		greylist
+# Kansas State University
+/reshall\.k-state\.net$/	greylist
+/[0-9-]{3}\.ephone\.se$/	greylist
+/([^.]+\.){2}waw\.pl$/		greylist
+/cm[0-9-]+.*\.m-real\.net$/	greylist
+/\.dsl-comm\.vsi\.ru$/		greylist
+/wlan.*\.netonne\.com\.br$/	greylist
+/[0-9]{3}\.iae\.nl$/		greylist
+/([^.]+\.){2}uowm\.gr$/		greylist
+/[0-9-]{3}\.maulderenou\.com$/	greylist
+/([^.]+\.){2}tver\.ru$/		greylist
+/([^.]+\.){2}sinectis\.com\.ar$/	greylist
+/[0-9A-F]{3}\.state\.nj\.us$/		greylist
+/([^.]+\.){2}UQUEBEC\.CA$/	greylist
+/([^.]+\.){2}sarocom\.net$/	greylist
+/([^.]+\.){2}iinet\.com$/	greylist
+/[0-9-]{3}\.worldinternetworkcorporation\.com$/		greylist
+# 2006/11/30
+/[0-9]{2}\.nsys\.by$/					greylist
+/[0-9-]{3}\.uth\.gr$/					greylist
+/([^.]+\.){2}meriplex\.com$/				greylist
+/([^.]+\.){2}tvoe\.tv$/					greylist
+# Italian Space Agency
+/([^.]+\.){2}asi\.it$/					greylist
+/ip.*\.campustech\.net$/				greylist
+/dsl.*\.wvnet\.at$/					greylist
+/[0-9-]{3}\.TnCLiving\.com$/				greylist
+/[0-9-]{3}\.mobifonika\.com$/				greylist
+/[0-9-]{3}\.pacific\.net\.ph$/				greylist
+# Croatian Academic and Research Network
+/[0-9-]{3}\.mobile\.carnet\.hr$/			greylist
+/wlan.*\.vali\.bg$/					greylist
+/([^.]+\.){2}vtbg\.com$/				greylist
+/([^.]+\.){2}koping\.net$/				greylist
+/([^.]+\.){2}RDSBz\.Ro$/				greylist
+/\.cable\.soderhamn-net\.com$/				greylist
+/([^.]+\.){2}totel\.ru$/				greylist
+/\.access\.maltanet\.net$/				greylist
+/([^.]+\.){2}awesomenet\.net$/				greylist
+/([^.]+\.){2}tu-clausthal\.de$/				greylist
+/\.cust\.vannastv\.net$/				greylist
+/[0-9-]{3}\.elon\.edu$/					greylist
+/([^.]+\.){2}nanaskabel\.hu$/				greylist
+/([^.]+\.){2}GlobalNET\.ba$/				greylist
+/\.cable\.ucc-net\.ca$/					greylist
+# 2006/12/01
+/[0-9]{3}\.peak\.org$/		greylist
+/[0-9]\.wmis\.net$/		greylist
+/DSL.*\.bytehead\.com$/		greylist
+/[^.]{8}\.kuzbass\.net$/	greylist
+/[0-9-]{3}\.lanset\.com$/	greylist
+/[0-9-]{3}\.jvlnet\.com$/	greylist
+/([^.]+\.){2}e-vei\.no$/	greylist
+/[^.]{8}\.highspeed\.look\.ca$/	greylist
+/([^.]+\.){2}sotline\.ru$/	greylist
+/([^.]+\.){2}mhtc\.net$/	greylist
+/[0-9-]{3}\.imctv\.com$/	greylist
+/[0-9-]{3}\.media-link\.ro$/	greylist
+/([^.]+\.){2}nsk\.su$/		greylist
+/([^.]+\.){2}uni-linz\.ac\.at$/	greylist
+/([^.]+\.){2}netwave\.or\.jp$/	greylist
+/val[0-9-]+\.pfri\.hr$/		greylist
+/\.dsl\.westcall\.net$/		greylist
+/([^.]+\.){2}elvisdk\.sk$/	greylist
+/([^.]+\.){2}opole\.pl$/	greylist
+/\.host4u\.net$/		greylist
+/[^.]{6}\.free-online\.co\.uk$/	greylist
+/[0-9-]{3}\.net3-tv\.net$/	greylist
+/([^.]+\.){2}kramnet\.se$/	greylist
+/[0-9]{3}\.aspadmin\.net$/	greylist
+/[0-9-]{3}\.adsl\.co\.ru$/	greylist
+/[^.]{12}\.host\.net$/	greylist
+/host.*\.mapleleaffarms\.com$/	greylist
+/\.customers\.d1-online\.com$/	greylist
+/([^.]+\.){2}fone\.net$/	greylist
+/[0-9-]{3}\.ideaone\.net$/	greylist
+/dsl\.totalweb\.net\.uk$/	greylist
+/([^.]+\.){2}silesianet\.pl$/	greylist
+/[0-9]{3}\.pshift\.net$/	greylist
+/([^.]+\.){2}attens\.net$/	greylist
+/[^.]{6}\.claranet\.co\.uk$/	greylist
+/[0-9]{3}\.ttx-net\.sk$/	greylist
+/([^.]+\.){2}uqam\.ca$/		greylist
+/nat[0-9]+\.gress\.com\.pl$/	greylist
+/[0-9]{2}\.nuaccess\.net$/	greylist
+/[0-9-]{3}\.public\.free\.net$/	greylist
+/([^.]+\.){2}unicamp\.br$/	greylist
+/cable.*\.soderhamn-net\.com$/	greylist
+/([^.]+\.){2}cvinternet\.net$/	greylist
+/\.pptp\.artx\.ru$/		greylist
+/pip[0-9]+\.ptt\.js\.cn$/	greylist
+/\.cust\.fastvibe\.com$/	greylist
+/[^.]{10}\.cenara\.com$/	greylist
+/[0-9]{3}\.hosting-ie\.com$/	greylist
+/[0-9-]{3}\.kotopas\.fi$/	greylist
+/([^.]+\.){2}netcom\.no$/	greylist
+/[0-9-]{3}\.teorema\.info$/	greylist
+# 2006/12/02
+# PageMail Wireless
+/([^.]+\.){2}page\.ca$/                 greylist
+/([^.]+\.){2}lightpower\.net$/          greylist
+/([^.]+\.){2}za\.net$/                  greylist
+/[^.]{14}\.ethz\.ch$/                   greylist
+/([^.]+\.){2}redcom\.ru$/                       greylist
+/([^.]+\.){2}hyatthsiagx\.com$/                 greylist
+/([^.]+\.){2}catch\.no$/                        greylist
+/[0-9-]{3}\.btconline\.net$/                    greylist
+/[0-9]{3}\.fireboxhosting\.com$/                        greylist
+/dsl.*\.k-dsl\.de$/                                     greylist
+/([^.]+\.){2}aha\.ru$/                                  greylist
+/([^.]+\.){2}dcf\.nl$/                                  greylist
+/([^.]+\.){2}golden\.net$/                              greylist
+/\.cust\.rinet\.ru$/                                    greylist
+/([^.]+\.){2}mplik\.ru$/                                greylist
+/([^.]+\.){2}supermedia\.pl$/                           greylist
+/([^.]+\.){2}auth\.gr$/                                 greylist
+/([^.]+\.){2}neva\.ru$/                                 greylist
+/dsl\.vntc\.ru$/                                        greylist
+/[0-9]+\.yomogi\.or\.jp$/                                greylist
+/([^.]+\.){2}gxn\.net$/                                 greylist
+/[0-9]{2}\.mindspring\.co\.za$/                         greylist
+/[0-9-]{3}\.ukrtel\.com$/                               greylist
+/([^.]+\.){2}obninsk\.com$/                             greylist
+/([^.]+\.){2}ivnet\.ru$/                                greylist
+/([^.]+\.){2}briworks\.net$/                            greylist
+/[0-9-]{3}\.utic\.net\.ba$/                             greylist
+/([^.]+\.){2}nidhog\.net$/			greylist
+/([^.]+\.){2}jgora\.pl$/			greylist
+/[0-9]{2}\.locaweb\.com\.br$/			greylist
+/[0-9-]{3}\.ioc\.ac\.ru$/			greylist
+/[^.]{8}\.dybb\.com$/				greylist
+/([^.]+\.){2}inetia\.pl$/			greylist
+/[0-9-]{3}\.gicable\.com$/			greylist
+/[0-9]{2}\.Mines\.EDU$/				greylist
+/[0-9]{2}\.xmcnc\.net$/				greylist
+/\.brfstorstugan\.se$/				greylist
+/([^.]+\.){2}ac-grenoble\.fr$/			greylist
+/[0-9-]{3}\.rea-alp\.com$/			greylist
+/([^.]+\.){2}ceron\.pl$/			greylist
+/([^.]+\.){3}ga\.us$/				greylist
+/[0-9-]{3}\.sintmaarten\.net$/			greylist
+/[0-9-]{3}\.mounet\.com$/			greylist
+/[0-9-]{3}\.incentre\.net$/			greylist
+/[^.]{10}\.tauzen\.net$/			greylist
+/([^.]+\.){2}manet\.de$/			greylist
+# SkellefteÃ¥hus 3 och 13
+/\.uranus\.nu$/					greylist
+/[0-9]{2}\.pmfst\.hr$/				greylist
+/([^.]+\.){2}olsztyn\.pl$/			greylist
+/([^.]+\.){2}classcom\.pl$/			greylist
+/[0-9-]{3}\.c0msys\.net$/			greylist
+/[0-9-]{3}\.umbc\.edu$/				greylist
+/[0-9-]{3}\.cvtv\.net$/				greylist
+/([^.]+\.){2}rcanaria\.es$/			greylist
+/^[0-9]+.*\.online\.bg$/			greylist
+/([^.]+\.){2}introweb\.nl$/			greylist
+/[0-9-]{3}\.vivodi\.gr$/			greylist
+/[0-9-]{3}\.wustl\.edu$/			greylist
+/[0-9]{3}[a-z]?\.a-berga\.net$/			greylist
+/[0-9-]{3}\.nfdc\.net$/				greylist
+/[0-9-]{3}\.socket\.net$/			greylist
+/([^.]+\.){2}telconet\.net$/			greylist
+/[0-9-]{3}\.stargate\.ca$/			greylist
+/ktv.*\.netel\.cz$/				greylist
+/([^.]+\.){2}bezdrat\.net$/			greylist
+/[^.]{12}\.dnttm\.ro$/				greylist
+/([^.]+\.){2}zlinedu\.cz$/			greylist
+/\.[0-9]+\.ru$/					greylist
+/([^.]+\.){2}gldn\.net$/			greylist
+/([^.]+\.){2}ignum\.cz$/			greylist
+/([^.]+\.){2}mtit\.hu$/				greylist
+/([^.]+\.){2}one\.pl$/				greylist
+/ppp.*\.ats\.it$/				greylist
+/[0-9]{3}\.nw\.com\.tr$/			greylist
+/([^.]+\.){2}gazsvyaz\.ru$/			greylist
+/[0-9]{2}\.cctc\.net$/				greylist
+/([^.]+\.){2}idealan\.pl$/			greylist
+/pc[0-9-]+\.lincoln\.ac\.uk$/			greylist
+/([^.]+\.){2}PeterStar\.net$/			greylist
+/([^.]+\.){2}euroweb\.sk$/			greylist
+/([^.]+\.){2}plusgsm\.pl$/			greylist
+# 2006/12/03
+# zirclellc.com, bhinc.com
+/^a-abq-isa/					greylist
+/[^.]{10}\.ualberta\.com$/			greylist
+/([^.]+\.){2}avalon\.net$/			greylist
+/([^.]+\.){2}osi\.pl/				greylist
+/[0-9-]{3}open\.by$/				greylist
+/([^.]+\.){2}missouri\.org$/			greylist
+/[0-9_-]{3}\.up-link\.net$/			greylist
+/([^.]+\.){2}ubc\.ca$/				greylist
+/([^.]+\.){2}lipetsk\.ru$/			greylist
+/([^.]+\.){2}cable4u\.nl$/			greylist
+/[0-9]{3}\.dacor\.net$/				greylist
+/([^.]+\.){2}wayport\.net$/			greylist
+/dhcp.*\.cmc-comcast\.com$/			greylist
+/([^.]+\.){2}mgn\.ru$/				greylist
+/[0-9-]{3}\.wctc\.net$/				greylist
+/dsl\.sakhalin\.ru$/				greylist
+/[0-9]{2}\.wowrack\.com$/			greylist
+/([^.]+\.){2}csloxinfo\.net$/			greylist
+/([^.]+\.){2}kmv\.ru$/				greylist
+/[0-9_-]{3}\.grm\.net$/				greylist
+/[0-9]{2}\.sum\.net$/				greylist
+/[0-9-]{3}\.rurallink\.net$/			greylist
+/([^.]+\.){2}eutelia\.it$/			greylist
+/[0-9-]{3}\.plasmanetinc\.com$/			greylist
+/[0-9]+\.icc\.co\.za$/				greylist
+/([^.]+\.){3}ktbac\.net$/			greylist
+/[0-9-]{3}\.netwings\.ch$/			greylist
+/([^.]+\.){2}datacomsa\.pl$/			greylist
+/[0-9-]{3}\.mystarhub\.com\.sg$/		greylist
+/[0-9-]{3}\.iquest\.net$/			greylist
+/[0-9]{2}\.vachev\.net$/			greylist
+/[0-9-]{3}\.beloslav\.net$/			greylist
+/([^.]+\.){2}str\.ru$/				greylist
+/[0-9-]{3}\.nortex\.net$/			greylist
+/[0-9-]{3}\.b2b2c\.ca$/				greylist
+/[0-9-]{3}\.fortlewis\.edu$/			greylist
+/pc.*\.dabnet\.pl$/				greylist
+/vz[0-9]+\.evanzo-server\.de$/			greylist
+/[0-9-]{3}\.parcorleans\.net$/			greylist
+/\.dyn\.comteck\.com$/				greylist
+/[0-9-]{3}\.stratuswave\.net$/			greylist
+/[0-9-]{3}\.zzptt\.fj\.cn$/			greylist
+# Egmont H. Petersens Kollegium
+/drxphil\.egmont-kol\.dk$/			greylist
+/[0-9-]{3}\.netnet\.net$/			greylist
+/\.kok\.globesurfer\.net$/			greylist
+/([^.]+\.){2}dcns\.jp$/				greylist
+/[0-9-]{3}\.wcnet\.org$/			greylist
+/[^.]{12}\.rmt\.ru$/				greylist
+/([^.]+\.){2}prairieinet\.net$/			greylist
+/kabel[0-9]+\.mobiel\.utwente\.nl$/		greylist
+/[0-9]{3}\.hkicable\.com$/			greylist
+/^[0-9]+.*\.cosmostv\.by$/			greylist
+/([^.]+\.){2}tuwien\.ac\.at$/			greylist
+/[0-9]{2}\.netpower\.pl$/			greylist
+/\.dynamic\.mts\.net$/				greylist
+/[0-9-]{3}\.vo\.lu$/				greylist
+/gprs[0-9-]+\.orange\.pl$/			greylist
+/[0-9-]{3}\.nildram\.co\.uk$/			greylist
+/([^.]+\.){2}Uni-Osnabrueck\.DE$/		greylist
+/([^.]+\.){2}phpoy\.fi$/			greylist
+/([^.]+\.){2}wpa\.net$/				greylist
+/^[0-9]+.*\.orn\.ru$/				greylist
+/([^.]+\.){2}kponet\.fi$/			greylist
+/([^.]+\.){2}vcn\.com$/				greylist
+/[0-9-]{3}\.seark\.net$/			greylist
+/([^.]+\.){2}fbcom\.net$/			greylist
+/[0-9-]{3}\.mainstream\.co\.yu$/		greylist
+/([^.]+\.){2}btconline\.net$/			greylist
+/([^.]+\.){2}t3\.se$/				greylist
+/[^.]{8}\.donet\.co\.yu$/			greylist
+# 2006/12/05
+/[0-9-]{3}\.svoge\.org$/			greylist
+/([^.]+\.){2}forthnet\.gr$/			greylist
+/([^.]+\.){2}blazenet\.net$/			greylist
+/([^.]+\.){2}uoc\.gr$/				greylist
+/([^.]+\.){2}umanitoba\.ca$/			greylist
+/ppp.*\.serv\.net\.mx$/				greylist
+/[0-9-]{3}\.ust\.hk$/				greylist
+/([^.]+\.){2}foratec\.net$/			greylist
+/[0-9]{3}\.elkhouse\.de$/			greylist
+/[0-9-]{3}\.pratt\.edu$/			greylist
+/[0-9-]{3}\.aua\.gr$/				greylist
+/([^.]+\.){2}powertech\.net$/			greylist
+/host.*\.razaoinfo\.com\.br$/			greylist
+/^[0-9]+.*\.vdx\.lt$/				greylist
+/([^.]+\.){2}cl-neva\.ru$/			greylist
+/[0-9-]{3}\.BVCOM\.NET$/			greylist
+/([^.]+\.){2}uff\.br$/				greylist
+/([^.]+\.){2}easynet\.net$/			greylist
+/[^.]{10}\.netpower\.pl$/			greylist
+# Saint-Petersburg Polytechnic Institute
+/([^.]+\.){2}spbstu\.ru$/			greylist
+/([^.]+\.){2}alter\.net$/			greylist
+/([^.]+\.){2}4nets\.lv$/			greylist
+/[0-9]{3}\.sdtnet\.de$/				greylist
+/[0-9]{3}\.netos\.com$/				greylist
+/[0-9]{3}\.airbornedatalink\.com$/		greylist
+/^[0-9]+.*\.wms\.cz$/				greylist
+/[0-9-]{6}\.dominionvalleycc\.com$/		greylist
+/[0-9-]{3}\.pioneernet\.net$/			greylist
+/([^.]+\.){2}murka\.net$/			greylist
+/([^.]+\.){2}lubman\.net\.pl$/			greylist
+# 2006/12/07
+/\.wlan\.ucalgary\.ca$/				greylist
+/[0-9-]{3}\.kctc\.net$/				greylist
+/\.members\.linode\.com$/			greylist
+/[0-9-]{3}\.ez-net\.com$/			greylist
+/[0-9-]{3}\.[^.]+\.edunet\.ru$/			greylist
+/([^.]+\.){3}charter\.com$/			greylist
+/wmail.*\.netvigator\.com$/			greylist
+/[0-9_-]{3}\.ktkadan\.cz$/			greylist
+/([^.]+\.){2}bme\.hu$/				greylist
+/[0-9]{2}\.barnaul\.ru$/			greylist
+/[0-9-]{3}\.open\.by$/				greylist
+/[0-9]{3}\.pool-ihk\.de$/			greylist
+/([^.]+\.){2}nigol\.net\.ng$/			greylist
+/([^.]+\.){2}fer\.hr$/				greylist
+/([^.]+\.){2}louisiana\.gov$/			greylist
+/([^.]+\.){2}captelco\.com$/			greylist
+/[^.]{8}\.tele\.net\.ru$/			greylist
+/\.static\.alkar\.net$/				greylist
+/\.isp\.tvkg\.net$/				greylist
+/[0-9]{2}\.perimeterdefense\.com$/		greylist
+/([^.]+\.){3}gov\.br$/				greylist
+/[^.]{10}\.mcleodusa\.net/			greylist
+/[0-9]{2}\.aanekoski\.fi$/			greylist
+/([^.]+\.){2}visp\.ru$/				greylist
+/rtr[0-9]+\.fill\.ee$/				greylist
+/[0-9]{2}\.ncez\.net$/				greylist
+/[^.]{8}\.bendbroadband\.net$/			greylist
+/dsl\.start\.no$/				greylist
+/([^.]+\.){2}InterArena\.pl$/			greylist
+/[^.]{8}\.wvi\.com$/				greylist
+/([^.]+\.){2}htv\.fi$/				greylist
+/[^.]{8}\.inext\.cz$/				greylist
+/\.pub\.malmo\.se$/				greylist
+/([^.]+\.){2}verio\.net$/			greylist
+/[0-9-]{3}\.razzolink\.com$/			greylist
+/([^.]+\.){2}martel\.pl$/			greylist
+/([^.]+\.){2}itam\.mx$/				greylist
+/[0-9]{2}\.hnet\.net$/				greylist
+/[0-9]{2}\.frostburg\.edu$/			greylist
+/[0-9-]{3}\.redred\.com$/			greylist
+/([^.]+\.){2}kis\.ru$/				greylist
+/\.static\.ew\.hu$/				greylist
+/([^.]+\.){2}pulawy\.pl$/			greylist
+/([^.]+\.){2}t-online\.hu$/			greylist
+/[0-9]{2}\.uznam\.net\.pl$/			greylist
+/([^.]+\.){2}indos\.cz$/			greylist
+/\.nap\.wideopenwest\.com$/			greylist
+/[0-9-]{3}\.cotelcam\.net\.ar$/			greylist
+/([^.]+\.){3}mirotel\.net$/			greylist
+/[0-9-]{3}\.neark\.net$/			greylist
+/[^.]{10}\.jbnets\.net$/			greylist
+/([^.]+\.){2}aria-bg\.net$/			greylist
+/[0-9-]{2}\.ttx-net\.sk$/			greylist
+/([^.]+\.){3}edu\.ee$/				greylist
+/[0-9-]{3}\.axtelecom\.com\.br$/		greylist
+/[0-9-]{3}\.adamant\.ua$/			greylist
+/([^.]+\.){2}synnet\.net$/			greylist
+/([^.]+\.){2}mountaincable\.net$/		greylist
+/([^.]+\.){2}bah\.com$/				greylist
+/[0-9-]{3}\.supersonico\.com\.br$/		greylist
+/([^.]+\.){2}bial\.pl$/				greylist
+/[0-9-]{3}\.eushc\.org$/			greylist
+/([^.]+\.){2}radom\.pl$/			greylist
+/([^.]+\.){2}gryfino\.net$/			greylist
+/[0-9-]{3}\.belmontcc\.com$/			greylist
+/[0-9-]{3}\.idcomm\.com$/			greylist
+/([^.]+\.){2}goinet\.com$/			greylist
+/dsl\.ligado\.de$/				greylist
+/([^.]+\.){2}martel\.pl$/			greylist
+/[0-9]{2}\.aruba\.it$/				greylist
+/[0-9]{2}\.warynski\.net$/			greylist
+/[0-9-]{3}\.Renome-I\.Net$/			greylist
+/([^.]+\.){2}tstar\.net$/			greylist
+/[^.]{12}\.blue4\.cz$/				greylist
+/([^.]+\.){2}pbtcomm\.net$/			greylist
+/([^.]+\.){2}donet\.com$/			greylist
+/[0-9]{2}\.uwa\.edu$/				greylist
+/[0-9]{2}\.amenworld\.com$/			greylist
+/[0-9]{2}\.comtel-vologda\.ru$/			greylist
+# 2006/12/08
+/[0-9]{2}\.aptea\.com$/				greylist
+/[^.]{8}\.odshp\.com$/				greylist
+/[0-9-]{3}\.cablenet\.com\.ni$/			greylist
+/([^.]+\.){2}tsnz\.net$/			greylist
+/[0-9-]{3}\.ils\.net$/				greylist
+/[0-9]{2}\.cajunnet\.com$/			greylist
+/[0-9-]{3}\.roadlynx\.net$/			greylist
+/[0-9-]{3}\.nbnet\.nb\.ca$/			greylist
+/[0-9-]{3}\.kaplantel\.net$/			greylist
+/([^.]+\.){2}\.delo-group\.ru$/			greylist
+/[0-9-]{3}\.piggott\.net$/			greylist
+/([^.]+\.){2}psg\.sk$/				greylist
+/[^.]{8}\.coxmail\.com$/			greylist
+/([^.]+\.){2}farlep\.net$/			greylist
+/[0-9-]{3}\.sterlingstudents\.net$/		greylist
+/[0-9-]{3}\.imconline\.net$/			greylist
+/[0-9]{2}\.fh-luebeck\.de$/			greylist
+/[0-9]{2}\.spmh\.com$/				greylist
+/[0-9-]{3}\.kilinet\.co\.tz$/			greylist
+/[0-9]{2}\.hkabc\.net$/				greylist
+/lnet2inet\.tmxnet\.pl$/			greylist
+/[0-9a-f]{4}\.datahighways\.de$/		greylist
+/[0-9-]{3}\.qualitynet\.net$/			greylist
+/([^.]+\.){2}ptd\.net$/				greylist
+/([^.]+\.){2}opintanner\.fi$/			greylist
+/^[0-9]+.*\.tnet\.cz$/				greylist
+/([^.]+\.){2}intrex\.net$/			greylist
+/([^.]+\.){2}frii\.net$/			greylist
+/[0-9-]{3}\.sergipenet\.com\.br$/		greylist
+/[0-9-]{3}\.dobrich\.net$/			greylist
+/[0-9-]{2}\.elliemail\.com$/			greylist
+/([^.]+\.){2}udm\.net$/				greylist
+/([^.]+\.){2}logoslink\.ru$/			greylist
+/([^.]+\.){2}neoline\.com\.br$/			greylist
+/([^.]+\.){2}nbox\.cz$/				greylist
+/([^.]+\.){2}telia\.net$/			greylist
+/([^.]+\.){3}earthlink\.net$/                                           greylist
+/[0-9-]{3}\.invision\.com$/			greylist
+# 2006/12/11
+/[0-9-]{3}\.unbc\.ca$/			greylist
+/[0-9-]{3}\.lynx\.net\.lb$/		greylist
+/[0-9]{6}\.sns\.hk$/			greylist
+/^gw.*\.rudolf-net\.cz$/		greylist
+/^gw.*\.spisnet\.sk$/			greylist
+/[0-9-]{3}\.umd\.edu$/			greylist
+/[0-9-]{3}\.ica-net\.it$/		greylist
+/([^.]+\.){2}gda\.pl$/			greylist
+/^[0-9].*\.kuban\.tv$/			greylist
+/([^.]+\.){2}infoave\.net$/		greylist
+/dsl.*\.worldcom\.ch$/			greylist
+/([^.]+\.){2}shinbiro\.com$/		greylist
+/[0-9-]{3}\.skyrr\.is$/			greylist
+/[^.]{8}\.eranet\.pl$/			greylist
+/[0-9]{2}\.dorotea\.se$/		greylist
+/([^.]+\.){2}netvision\.net\.il$/	greylist
+/[0-9-]{3}\.drake\.edu$/		greylist
+/FIRE50D\.rtkl\.com$/			greylist
+/([^.]+\.){2}flink\.no$/		greylist
+/[0-9]{2}\.unl\.edu$/			greylist
+/[^.]{8}\.velocom\.net\.ar$/		greylist
+# some sort of NAT'ing gateway?
+/sten[0-9]+-ipex\.sten\.cz$/		greylist
+/([^.]+\.){2}unicity\.pl$/		greylist
+/[^.]{8}\.aoltw\.net$/			greylist
+/([^.]+\.){2}\.euro-lan\.pl$/		greylist
+/^[0-9].*\.onsnetstudenten\.nl$/	greylist
+/[^.]{12}\.Princeton\.EDU$/		greylist
+/([^.]+\.){2}bbtel\.com$/		greylist
+/[0-9-]{3}\.cv-net\.jp$/		greylist
+/([^.]+\.){2}beotel\.net$/		greylist
+/[0-9]{2}\.izones\.net$/		greylist
+/([^.]+\.){2}p80\.net$/			greylist
+/([^.]+\.){2}zsttk\.ru$/		greylist
+/[0-9]{2}\.dialog-it\.ru$/		greylist
+/[0-9-]{3}\.kpn-gprs\.nl$/		greylist
+/([^.]+\.){2}sochi\.ru$/		greylist
+/\.dynamic\.ziplink\.net$/		greylist
+/^[0-9]{6}.*\.zednet\.nu$/		greylist
+/[^.]{12}\.9bit\.qc\.ca$/		greylist
+/[0-9-]{3}\.unm\.edu$/			greylist
+/([^.]+\.){2}stalcom\.net$/		greylist
+/([^.]+\.){2}tvujnet\.cz$/		greylist
+/dsl\.eastport\.ru$/			greylist
+/ip[0-9]+\.seaport\.spb\.ru$/		greylist
+/[^.]{12}\.jjs\.pl$/			greylist
+/([^.]+\.){2}sczg\.hr$/			greylist
+/([^.]+\.){2}lodz\.pl$/			greylist
+/([^.]+\.){2}tche\.br$/			greylist
+/^gw.*\.rochelle\.net$/			greylist
+/[0-9-]{3}\.uniserve\.ca$/		greylist
+/[0-9]{2}\.shockware\.com$/		greylist
+/^[0-9]{6}.*\.francetelecom\.net$/	greylist
+/[0-9]{2}\.etechinc\.com$/		greylist
+/[0-9-]{3}\.hsc\.edu$/			greylist
+/gw\.wctc\.net$/			greylist
+/gw\.dwbp\.com$/			greylist
+/[0-9]{2}\.cedrus\.com\.pl$/		greylist
+/([^.]+\.){2}relan\.ru$/		greylist
+/[0-9-]{3}\.minx\.net\.uk$/		greylist
+/([^.]+\.){2}pu\.ru$/			greylist
+/[0-9]+[a-z]?\.fagerdal\.net$/		greylist
+/dsl\.telecet\.ru$/			greylist
+/\.djghb\.be$/				greylist
+/([^.]+\.){2}noria\.pl$/		greylist
+/[0-9-]{3}\.terra\.net\.lb$/		greylist
+/[0-9]{2}\.chessington\.co\.uk$/	greylist
+/([^.]+\.){2}outokumpu\.com$/		greylist
+/([^.]+\.){2}nh\.is$/			greylist
+/([^.]+\.){2}nowytarg\.pl$/		greylist
+/[0-9]{2}\.unikey\.com\.br$/		greylist
+/[^.]{8}\.eranet\.pl$/			greylist
+/[0-9]{2}\.marketorg\.hu$/		greylist
+/([^.]+\.){2}gigabit\.net\.pl$/		greylist
+/[0-9-]{3}.*\.subotica\.net$/		greylist
+/[^.]{8}\.prima\.net\.ar$/		greylist
+# 2006/12/12
+/dsl.*\.indo\.net\.id$/			greylist
+/([^.]+\.){2}valueweb\.com$/		greylist
+/[^.]{10}\.17dangan\.cn$/		greylist
+/([^.]+\.){2}rsk\.pl$/			greylist
+/([^.]+\.){2}smartconnect\.net$/	greylist
+/[0-9-]{3}\.ispdr\.net\.au$/		greylist
+/vpn.*\.fh-trier\.de$/			greylist
+/[0-9-]{3}\.UCHSC\.EDU$/		greylist
+/([^.]+\.){2}nni\.com$/			greylist
+/[0-9]+\.puntoweb\.cl$/			greylist
+/([^.]+\.){2}onvoy\.net$/		greylist
+/[0-9-]{3}\.pointpark\.edu$/		greylist
+/([^.]+\.){2}uam\.es$/			greylist
+/blok[0-9]+\.euro-lan\.pl$/		greylist
+/cafe\.marwit\.gliwice\.pl$/		greylist
+/[^.]{12}\.ucdavis\.edu$/		greylist
+/[^.]{12}\.wm\.com$/			greylist
+/[^.]{10}\.xtreme\.net\.nz$/		greylist
+# 2006/12/13
+/([^.]+\.){2}brasiltelecom\.net\.br$/		greylist
+/([^.]+\.){2}infonet\.com$/			greylist
+/[0-9-]{3}\.cnknet\.jp$/			greylist
+/[^.]{8}\.mediaways\.net$/			greylist
+/\.bexter-network\.net$/			greylist
+/[0-9-]{3}\.intergga\.ch$/			greylist
+/[^.]{8}\.u-bourgogne\.fr$/			greylist
+/([^.]+\.){2}alfalinks\.lv$/			greylist
+/[0-9-]{3}\.vnn\.vn$/				greylist
+/([^.]+\.){2}kardjali\.com$/			greylist
+/([^.]+\.){2}opennet\.cz$/			greylist
+/[^.]{8}\.vlz\.ru$/				greylist
+/([^.]+\.){2}ilimburgdsl\.nl$/			greylist
+/[0-9-]{3}\.m-link\.be$/			greylist
+/[^.]{12}\.rev\.net$/				greylist
+/[0-9]{2}\.gsu\.edu$/				greylist
+/gw\.entc\.ru$/					greylist
+/^gw.*\.telsten\.com$/				greylist
+/([^.]+\.){2}UMontreal\.CA$/			greylist
+/\.static\.optonline\.net$/			greylist
+/[^.]{12}\.jupiterhosting\.com$/		greylist
+/([^.]+\.){2}iasl\.com$/			greylist
+/([^.]+\.){2}flex\.ru$/				greylist
+/[0-9]{2}\.ups\.edu$/				greylist
+/[0-9]{2}\.donbass\.net$/			greylist
+/[0-9]{2}\.star\.net\.pl$/			greylist
+# 2006/12/14
+/[0-9]{3}\.bluelink\.as$/			greylist
+/[0-9-]{3}\.movinet\.com\.uy$/			greylist
+/ras[0-9].*\.navix\.net$/			greylist
+/([^.]+\.){2}sibintek\.net$/			greylist
+/\.usr\.hananet\.net$/				greylist
+/[0-9]{2}\.aua\.gr$/				greylist
+/\.dyn\.nic\.fi$/				greylist
+/([^.]+\.){2}rinet\.ru$/			greylist
+/^gw.*\.kuzbass\.net$/				greylist
+/([^.]+\.){2}uni-wuppertal\.de$/		greylist
+/([^.]+\.){2}gilat\.com\.pe$/			greylist
+/([^.]+\.){2}oreahotels\.cz$/			greylist
+/masq.*\.prairiestate\.edu$/			greylist
+/gw\.[^.]+\.poznan\.pl$/			greylist
+/nat.*\.pp\.com\.pl$/				greylist
+/([^.]+\.){2}unic\.com$/			greylist
+/^host.*\.agelco\.gr$/				greylist
+/([^.]+\.){2}datasync\.net$/			greylist
+/([^.]+\.){2}Netsurf\.Net$/			greylist
+/[^.]{10}\.terra\.com\.mx$/			greylist
+# 2006/12/15
+/[^.]{12}\.ica\.net$/                   greylist
+/([^.]+\.){2}luhs\.org$/                greylist
+/([^.]+\.){2}ic\.ac\.uk$/               greylist
+/([^.]+\.){2}melsa\.net\.id$/           greylist
+/[^.]{12}\.ugtel\.ru$/                  greylist
+/([^.]+\.){2}jawnet\.pl$/               greylist
+/[^.]{10}\.dominionvalleycc\.com$/      greylist
+/[0-9]{3}\.au\.poznan\.pl$/             greylist
+/\.dynamic\.hol\.net$/                  greylist
+# I think this is a Turkish school domain
+/\.k12\.tr$/                            greylist
+/([^.]+\.){2}kiae\.ru$/                 greylist
+/[0-9]{3}\.research\.novo\.dk$/         greylist
+/gw\.caucasus\.net$/                    greylist
+/\.wlan\.net\.id$/                      greylist
+/gw\.vtt\.net$/                         greylist
+/ras\.bcc\.com\.uz$/                    greylist
+/[^.]{8}\.netlandia\.pl$/               greylist
+/[^.]{8}\.rmt\.ru$/			greylist
+/([^.]+\.){2}elblag\.pl$/		greylist
+/gprs[0-9]+\.vodafone\.se$/		greylist
+/[0-9]{2}\.warwick\.net$/		greylist
+/[0-9]{2}\.bn\.by$/			greylist
+/[0-9-]{3}\.cbn\.net\.id$/		greylist
+/([^.]+\.){2}cnuninet\.net$/		greylist
+/[^.]{8}\.cordsys\.ru$/			greylist
+/([^.]+\.){2}toad\.net$/		greylist
+/([^.]+\.){2}clara\.net$/		greylist
+/([^.]+\.){2}(rsu|mi|usi)\.ru$/		greylist
+/([^.]+\.){2}pxs\.pl$/			greylist
+/[^.]{8}\.bas-net\.by$/			greylist
+/([^.]+\.){2}sccoast\.net$/		greylist
+/([^.]+\.){2}neteu\.net$/		greylist
+/[0-9]{2}\.hkabel\.no$/			greylist
+/([^.]+\.){2}brazoriainet\.com$/	greylist
+/[^.]{12}\.uninet\.com\.py$/		greylist
+/[0-9]{2}\.uprh\.edu$/			greylist
+# 2006/12/17
+/[0-9-]{3}\.delta\.edu$/		greylist
+/[0-9]+[a-z]\.skehus15\.ac$/			greylist
+/([^.]+\.){2}heros-bg\.net$/		greylist
+/([^.]+\.){2}ronus\.pl$/			greylist
+/([^.]+\.){2}kaskada\.net$/		greylist
+/([^.]+\.){2}sympatico\.ca$/		greylist
+/[0-9]{2}\.sintmaarten\.net$/		greylist
+/[^.]{10}\.cniweb\.net$/		greylist
+/([^.]+\.){2}tolna\.net$/		greylist
+/([^.]+\.){2}cidade\.com$/		greylist
+# 2006/12/18
+/([^.]+\.){2}ntnu\.no$/			greylist
+/([^.]+\.){2}sohu\.com$/		greylist
+/[0-9]{2}\.toservers\.com$/		greylist
+/([^.]+\.){2}sednet\.hu$/		greylist
+/[0-9]{2}\.mis\.net$/			greylist
+/\.cust\.multi\.fi$/			greylist
+/([^.]+\.){2}concepts\.nl$/		greylist
+/[^.]{10}\.inet\.co\.th$/		greylist
+/([^.]+\.){2}paltel\.net$/		greylist
+/[^.]{10}\.ucsf\.edu$/			greylist
+/[0-9]{2}\.netpark\.at$/		greylist
+/([^.]+\.){2}lut\.fi$/			greylist
+/[0-9]{3}\.arrakis\.es$/		greylist
+# 2006/12/20
+/([^.]+\.){2}anc\.net$/                 greylist
+/[^.]{12}\.rockriver\.net$/             greylist
+/[0-9]{2}\.MadNet\.sk$/                 greylist
+/[^.]{10}\.elitsat\.net$/               greylist
+/[0-9]{2}\.grubbehus[0-9]+\.ac\.se$/    greylist
+/([^.]+\.){2}chereda\.net$/             greylist
+/([^.]+\.){2}eunet\.yu$/                greylist
+/[0-9-]{3}\.infovia\.com\.ar$/          greylist
+/([^.]+\.){2}gtsi\.sk$/                 greylist
+/[0-9]{2}\.oho\.com\.pl$/               greylist
+/([^.]+\.){2}ll\.net$/                  greylist
+/([^.]+\.){2}saunalahti\.fi$/           greylist
+/[0-9]{2}\.iweb\.cz$/                   greylist
+/[0-9]{3}\.scarlet\.an$/                greylist
+/[0-9-]{3}\.interal\.co\.il$/			greylist
+/[0-9]{3}\.cyberia\.net\.lb$/			greylist
+/[^.]{10}\.bluebonnet\.net$/			greylist
+/^gw\..*skole\.no$/				greylist
+/([^.]+\.){2}stack\.net$/			greylist
+/[0-9]{2}\.serdi\.ru$/				greylist
+/([^.]+\.){2}wcom\.net$/			greylist
+/([^.]+\.){2}uth\.gr$/				greylist
+/[0-9-]{3}\.itandtel\.at$/			greylist
+/\.real\.kamchatka\.ru$/			greylist
+/([^.]+\.){2}qwerty\.ru$/			greylist
+/\.student-halls\.lon\.ac\.uk$/			greylist
+/([^.]+\.){2}fonet\.pl$/			greylist
+/([^.]+\.){2}cuni\.cz$/				greylist
+/([^.]+\.){2}hcn-strela\.ru$/			greylist
+/[0-9-]{3}\.allcomm\.co\.uk$/			greylist
+/([^.]+\.){2}ur\.ru$/				greylist
+/([^.]+\.){2}no-log\.org$/			greylist
+/([^.]+\.){2}uralcom\.com$/			greylist
+/([^.]+\.){2}Vaslui\.net$/			greylist
+/[0-9]{2}[a-z]\.worldchain\.com$/		greylist
+/([^.]+\.){2}pilicka\.pl$/			greylist
+/router[0-9]+\.emserv\.ru$/			greylist
+/([^.]+\.){2}riksnet\.se$/			greylist
+# 2006/12/24
+/([^.]+\.){2}algx\.net$/			greylist
+/^ipx[0-9]+\.ipxserver\.de$/			greylist
+/\.as[0-9]+\.net$/				greylist
+/([^.]+\.){2}h555\.net$/			greylist
+/\.static\.bcbnet\.dk$/				greylist
+/([^.]+\.){2}fullrate\.dk$/			greylist
+/\.dedicated\.turbodns\.co\.uk$/		greylist
+/([^.]+\.){2}carpathiahost\.net$/		greylist
+/([^.]+\.){2}aanet\.com\.au$/			greylist
+/\.fx-hfc\.datazug\.ch$/			greylist
+/^lgh[^.]*\.([^.]+\.)+(ac|se)$/			greylist
+/([^.]+\.){2}vds2000\.com$/			greylist
+/\.users\.efhbroadband\.com$/			greylist
+/\.kunden\.mk-netzdienste\.de$/			greylist
+# Telefonica
+/([^.]+\.){2}tsai\.es$/				greylist
+/([^.]+\.){2}uprr\.com$/			greylist
+/([^.]+\.){2}ya\.com$/				greylist
+/([^.]+\.){2}psigh\.com$/			greylist
+
+/\.cust-rtr\.[^.]+\.net$/  greylist
+/[0-9]\.helios\.ru$/				greylist
+/[0-9]\.sls-hosting\.com$/			greylist
+/([^.]+\.){3}co\.za$/				greylist
+/([^.]+\.){2}fcanet\.cz$/			greylist
+#/([^.]+\.){2}(tu|fh|uni)-[^.]+\.de$/		greylist
+/([^.]+\.){2}volia\.net$/			greylist
+/[^.-]-[^.-]+\.volia\.net$/                       greylist
+/-[^.-]+\.ftl\.affinity\.com$/			greylist
+/([^.]){12}\.norlight\.net$/			greylist
+/-[^.-]*\.core\.ttnet\.cz$/			greylist
+# any domain that has a -xn-xn sequence
+/(-[a-z][0-9]+){2}/		greylist
+# these seem to be throwaway domain names
+/^mx[0-9]+\.bookltd[^.]*\.info$/			greylist
+# 2007/03/22
+/([^.]+\.){3}(co|net).th$/			greylist
+/[^.]{12}\.mx-net\.cz$/				greylist
+/\.dyn\.tyfon\.se$/				greylist
+/([^.]+\.){3}\.ee$/				greylist
+/([^.]+\.){2}opaltelecom\.net$/			greylist
+/([^.]+\.){2}sloane\.cz$/			greylist
+/\.rev\.stofanet\.dk$/				greylist
+/^[0-9a-f]{8}\./				greylist
+/\.customer\.coxfiber\.net$/			greylist
+/[0-9]{3}\.greatnet\.de$/			greylist
+/([^.]+\.){2}switchworks\.net$/			greylist
+/customer-relay\.songnetworks\.se$/		greylist
+/\.zg\.xcarnet\.carnet\.hr$/			greylist
+/([^.]+\.){2}data-dynamics\.de$/		greylist
+# 2008/03/17
+/\.ast\.adamo\.es$/				greylist
+# 2008/05/24
+/\.xdsl\.centertel\.pl$/			greylist
+/\.dh-hfc\.datazug\.ch$/			greylist
+# 2009/02/02
+/[^.]{12}\.telnet\.com\.bd$/			greylist
+# 2009/03/18
+/\.vh\.cnolnic\.com$/				greylist
+/([^.]+\.){2}fastwebserver\.de$/		greylist
+# 2009/09/21
+/\.bjiasi\.ro$/					greylist
+#
+/\.cable\.virginmedia\.com$/			greylist
+/\.mgnet\.ru$/		greylist
+/^client[0-9-]+\.speedy-net\.bg$/		greylist
+/\.elcable\.tv$/				greylist
+# 20150427 from Lars poulsens spam samples
+/^[a-z][a-z]\.[a-z]{3}(\.[^.]+){2}/		greylist
+# mta-wk-2.mk1.dataineer.com
+# mta-wk-7.mk3.gigaineer.com
+# mta-wk-1.mk3.rushitect.com
+# mta-wk-2.mk0.codeitect.com
+# mta-wk-1.mk3.ratineer.com
+# mta-wk-0.mk0.gigalizer.com
+# mta-wk-1.mk1.digimiller.com
+# mta-wk-2.mk0.datamiller.com
+# mta-wk-3.mk1.digializer.com
+/^mta-[^.-]{2}-[0-9]+\.[^.]{3}\.[^.]+\.com$/		greylist
+/\.dyn\.telefonica\.de$/			greylist
+/\.generic\.sagitta\.dk$/			greylist
+/\.adsl\.cybercity\.dk$/			greylist

@@ -1,0 +1,25 @@
+# Add your own customisations to this file.  See 'man Mail::SpamAssassin::Conf'
+# for details of what can be tweaked.
+# 
+use_bayes 0
+trusted_networks 192.168.0.0/16
+
+# do not change the subject
+# to change the subject, e.g. use
+# rewrite_header Subject ****SPAM(_SCORE_)****
+#rewrite_header Subject ****SPAM(_SCORE_)****
+
+# Set the score required before a mail is considered spam.
+required_score 5.01
+
+# uncomment, if you do not want spamassassin to create a new message
+# in case of detecting spam
+report_safe 0
+
+# Enhance the uridnsbl_skip_domain list with some usefull entries
+# Do not block the web-sites of Novell and SUSE
+ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
+uridnsbl_skip_domain suse.de opensuse.org suse.com suse.org
+#uridnsbl_skip_domain novell.com novell.org novell.ru novell.de novell.hu novell.co.uk
+endif   # Mail::SpamAssassin::Plugin::URIDNSBL
+

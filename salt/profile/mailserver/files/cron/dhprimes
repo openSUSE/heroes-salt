@@ -1,0 +1,5 @@
+/etc/cron.d/dhprimes
+SHELL=/bin/sh
+PATH=/usr/bin:/usr/sbin:/sbin:/bin:/usr/local/bin/
+MAILTO=admin-auto@opensuse.org
+17 17 * * * root cd /etc/postfix && /usr/local/bin/regen_dh_primes
