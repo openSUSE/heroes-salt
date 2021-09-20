@@ -1,5 +1,2 @@
-# the mx for lists5.o.o is screwed up
-#lists5.opensuse.org     smtp:[lists5.opensuse.org]
-lists5.opensuse.org     smtp:[baloo.infra.opensuse.org]
 lists.opensuse.org	smtp:[mailman3.infra.opensuse.org]
 lists.uyuni-project.org	smtp:[mailman3.infra.opensuse.org]
