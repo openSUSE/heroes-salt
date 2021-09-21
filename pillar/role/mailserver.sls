@@ -35,6 +35,7 @@ profile:
       smtp_sasl_auth_enable: 'no'
       smtp_use_tls: 'yes'
       smtp_tls_security_level: 'may'
+      smtpd_tls_auth_only: 'yes'
       smtp_tls_loglevel: 1
       smtp_tls_CApath: '/etc/ssl/certs'
       smtpd_use_tls: 'yes'
@@ -51,11 +52,17 @@ profile:
       # 20200708 see http://www.postfix.org/SMTPUTF8_README.html
       smtputf8_enable: 'no'
       smtpd_tls_received_header: 'yes'
-      # 2016/03/03 updated due to DROWN
-      smtpd_tls_protocols: '!SSLv2, !SSLv3'
-      smtpd_tls_mandatory_protocols: '!SSLv2, !SSLv3'
-      smtp_tls_protocols: '!SSLv2, !SSLv3'
-      smtp_tls_mandatory_protocols: '!SSLv2, !SSLv3'
+      # 2021-09-16 updated by lrupp due to Vul-Scan report
+      # used https://ssl-config.mozilla.org/#server=postfix&version=3.4.7&config=intermediate&openssl=1.1.1d&guideline=5.6
+      # as reference for the configuration
+      smtpd_tls_protocols: '!SSLv2, !SSLv3, !TLSv1, !TLSv1.1'
+      smtpd_tls_mandatory_protocols: '!SSLv2, !SSLv3, !TLSv1, !TLSv1.1'
+      smtp_tls_protocols: '!SSLv2, !SSLv3, !TLSv1, !TLSv1.1'
+      smtp_tls_mandatory_protocols: '!SSLv2, !SSLv3, !TLSv1, !TLSv1.1'
+      smtpd_tls_mandatory_ciphers: 'medium'
+      tls_medium_cipherlist: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'
+      tls_preempt_cipherlist: 'no'
+
       # 20160303 forward secrecy
       smtpd_tls_dh1024_param_file: '/etc/postfix/dh2048.pem'
       smtpd_tls_dh512_param_file: '/etc/postfix/dh512.pem'
