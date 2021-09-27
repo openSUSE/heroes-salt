@@ -10,6 +10,7 @@ TESTS=(
     secrets.sh
     roles.py
     custom_grains.py
+    logrotate.sh
 )
 
 for _test in ${TESTS[@]}; do
