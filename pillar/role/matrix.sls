@@ -290,3 +290,6 @@ zypper:
       baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/matrix/openSUSE_Leap_$releasever/
       priority: 100
       refresh: True
+    devel:languages:python:backports:
+      baseurl: https://download.opensuse.org/repositories/devel:/languages:/python:/backports/openSUSE_Leap_$releasever/
+      refresh: True
