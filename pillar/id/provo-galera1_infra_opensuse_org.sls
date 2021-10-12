@@ -19,4 +19,6 @@ grains:
     - galera1.infra.opensuse.org
     - galera2.infra.opensuse.org
     - galera3.infra.opensuse-org
+    - provo-galera2.infra.opensuse.org
+    - provo-galera3.infra.opensuse-org
   weburls: []
