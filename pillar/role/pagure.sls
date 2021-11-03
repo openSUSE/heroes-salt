@@ -38,6 +38,9 @@ nginx:
                 - listen:
                     - 80
                     - default_server
+                - listen:
+                    - '[::]:80'
+                    - default_server
                 - location @pagure:
                     - client_max_body_size: 0
                     - proxy_set_header: Host $http_host
@@ -57,6 +60,9 @@ nginx:
                 - server_name: releases.opensuse.org
                 - listen:
                     - 80
+                - listen:
+                    - '[::]:80'
+                    - default_server
                 - location /:
                     - alias: /srv/www/pagure-releases/
                     - autoindex: 'on'
@@ -67,6 +73,9 @@ nginx:
                 - server_name: ev.opensuse.org
                 - listen:
                     - 80
+                - listen:
+                    - '[::]:80'
+                    - default_server
                 - location @pagure_ev:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr
@@ -82,6 +91,9 @@ nginx:
                 - server_name: pages.opensuse.org
                 - listen:
                     - 80
+                - listen:
+                    - '[::]:80'
+                    - default_server
                 - location @pagure_docs:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr
