@@ -41,6 +41,14 @@ nginx:
                 - listen:
                     - '[::]:80'
                     - default_server
+                - listen:
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location @pagure:
                     - client_max_body_size: 0
                     - proxy_set_header: Host $http_host
@@ -63,6 +71,14 @@ nginx:
                 - listen:
                     - '[::]:80'
                     - default_server
+                - listen:
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location /:
                     - alias: /srv/www/pagure-releases/
                     - autoindex: 'on'
@@ -76,6 +92,14 @@ nginx:
                 - listen:
                     - '[::]:80'
                     - default_server
+                - listen:
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location @pagure_ev:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr
@@ -94,6 +118,14 @@ nginx:
                 - listen:
                     - '[::]:80'
                     - default_server
+                - listen:
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location @pagure_docs:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr

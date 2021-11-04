@@ -1,4 +1,5 @@
 include:
+  - profile.crtmgr
   - profile.pagure.redis
 
 pagure_pgks:
