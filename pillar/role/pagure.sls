@@ -31,16 +31,20 @@ nginx:
   ng:
     servers:
       managed:
+        redirhttp.conf:
+          config:
+            - server:
+                - server_name: '_'
+                - listen:
+                    - 80
+                    - default_server
+                - location /:
+                    - return: '301 https://$host$request_uri'
+          enabled: True
         code.opensuse.org.conf:
           config:
             - server:
                 - server_name: code.opensuse.org
-                - listen:
-                    - 80
-                    - default_server
-                - listen:
-                    - '[::]:80'
-                    - default_server
                 - listen:
                     - 443
                     - ssl
@@ -67,11 +71,6 @@ nginx:
             - server:
                 - server_name: releases.opensuse.org
                 - listen:
-                    - 80
-                - listen:
-                    - '[::]:80'
-                    - default_server
-                - listen:
                     - 443
                     - ssl
                 - listen:
@@ -87,11 +86,6 @@ nginx:
           config:
             - server:
                 - server_name: ev.opensuse.org
-                - listen:
-                    - 80
-                - listen:
-                    - '[::]:80'
-                    - default_server
                 - listen:
                     - 443
                     - ssl
@@ -113,11 +107,6 @@ nginx:
           config:
             - server:
                 - server_name: pages.opensuse.org
-                - listen:
-                    - 80
-                - listen:
-                    - '[::]:80'
-                    - default_server
                 - listen:
                     - 443
                     - ssl
