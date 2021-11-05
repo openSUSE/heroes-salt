@@ -1,0 +1,52 @@
+header  OSU_ZIPPYLOAN   From:addr =~ /zippy[^\@]*loan/
+score   OSU_ZIPPYLOAN   5
+header  OSU_DOTCOMPROD  From:addr =~ /dot[^\@]*com[^\@]*product/
+score   OSU_DOTCOMPROD  5
+header  OSU_USCONCEAL   From:addr =~ /us[^\@]*concealed[^\@]*online/
+score   OSU_USCONCEAL   5
+header  OSU_GETINSTA    From:addr =~ /get[^\@]*instahard/
+score   OSU_GETINSTA    5
+header  OSU_WALLETGURU  From:addr =~ /the[^\@]*wallet[^\@]*guru/
+score   OSU_WALLETGURU  5
+header  OSU_GADGETSLAB  From:addr =~ /gadg[^\@]*labo/
+score   OSU_GADGETSLAB  5
+header  OSU_CURIOUSFIND From:addr =~ /curious[^\@]*finds/
+score   OSU_CURIOUSFIND 5
+header  OSU_CANVASPRTS  From:addr =~ /canvas[^\@]*print/
+score   OSU_CANVASPRTS  5
+header  OSU_SPLASHWINE  From:addr =~ /splash[^\@]*wine/
+score   OSU_SPLASHWINE  5
+header  OSU_FATMELTING  From:addr =~ /fat[^\@]*melting/
+score   OSU_FATMELTING  5
+header  OSU_OVERWEIGHT  From:addr =~ /overweight[^\@]*trick/
+score   OSU_OVERWEIGHT  5
+header  OSU_BEDCOCKTAIL From:addr =~ /bedtime[^\@]*cocktail/
+score   OSU_BEDCOCKTAIL 5
+header  OSU_DRINKTHIS   From:addr =~ /drink[^\@]*this/
+score   OSU_DRINKTHIS   5
+header  OSU_CARSHIELD   From:addr =~ /carshield/
+score   OSU_CARSHIELD   5
+header  OSU_HOLIDAYMIR  From:addr =~ /holiday[^\@]*miracle/
+score   OSU_HOLIDAYMIR  5
+header  OSU_CIRCAKNEE   From:addr =~ /circa[^\@]*knee/
+score   OSU_CIRCAKNEE   5
+header  OSU_MYKNEERELF  From:addr =~ /mykneerelief/
+score   OSU_MYKNEERELF  5
+header  OSU_PERSOLOAN   From:addr =~ /personal[^\@]*loan/
+score   OSU_PERSOLOAN   5
+header  OSU_GUIDELNDR   From:addr =~ /guide[^\@]*lender/
+score   OSU_GUIDELNDR   5
+header  OSU_LOANMATCH   From:addr =~ /loan[^\@]*match/
+score   OSU_LOANMATCH   5
+header  OSU_GOLDTRUST   From:addr =~ /gold[^\@]*trust/
+score   OSU_GOLDTRUST   5
+header  OSU_WINELADIES  From:addr =~ /wineladies/
+score   OSU_WINELADIES  5
+
+header   __TWSNAPSHOT1   Subject =~ /New Tumbleweed snapshot [0-9]+ released/
+header   __TWSNAPSHOT2   From:addr =~ /(dimstar\@suse.de|dimstar\@opensuse.org)/
+header   __TWSNAPSHOT3   To:addr =~ /factory\@lists.opensuse.org/
+meta     OSU_TWSNAPSHOT   __TWSNAPSHOT1 && !__TWSNAPSHOT2 && __TWSNAPSHOT3
+describe OSU_TWSNAPSHOT  Please do not reply to the Tumbleweed snapshot messages. 
+score    OSU_TWSNAPSHOT  10
+

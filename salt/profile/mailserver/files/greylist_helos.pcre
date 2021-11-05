@@ -1,0 +1,10 @@
+# helos that have no '.' 
+/^[^.]+$/                       greylist
+/^localhost$/                   greylist
+/^localhost\.localdomain$/      greylist
+#/^dsldevice\.lan$/             greylist
+#/^speedtouch\.lan$/            greylist
+/^[^.]+\.lan$/                  greylist
+/\.vladlink\.lan$/              greylist
+# the first entry will also catch these two
+#/^lenovo-[a-f0-9]{8}$/         greylist

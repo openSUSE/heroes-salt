@@ -1,0 +1,38 @@
+blacklist_from  per+spamtest@opensuse.org
+# whitelist these mlmmj commands
+whitelist_to    *+subscribe@opensuse.org
+whitelist_to    *+subscribe-nomail@opensuse.org
+whitelist_to    *+unsubscribe@opensuse.org
+whitelist_to    *+help@opensuse.org
+whitelist_to    *+confunsub-*@opensuse.org
+whitelist_to    *+confsub-*@opensuse.org
+
+
+# ditto for mailman commands
+whitelist_to    *-confirm+*@lists.opensuse.org
+whitelist_to    *-join@lists.opensuse.org
+whitelist_to    *-leave@lists.opensuse.org
+whitelist_to    *-request@lists.opensuse.org
+whitelist_to    *-subscribe@lists.opensuse.org
+whitelist_to    *-unsubscribe@lists.opensuse.org
+
+# pjessen 20201004 
+ifplugin Mail::SpamAssassin::Plugin::AskDNS
+askdns __DMARC_POLICY_NONE   _dmarc._AUTHORDOMAIN_ TXT /^v=DMARC1;.*\bp=none;/
+askdns __DMARC_POLICY_QUAR   _dmarc._AUTHORDOMAIN_ TXT /^v=DMARC1;.*\bp=quarantine;/
+askdns __DMARC_POLICY_REJECT _dmarc._AUTHORDOMAIN_ TXT /^v=DMARC1;.*\bp=reject;/
+
+meta  DMARC_REJECT !(DKIM_VALID_AU || SPF_PASS) && __DMARC_POLICY_REJECT
+score DMARC_REJECT 0.1
+meta  DMARC_QUAR !(DKIM_VALID_AU || SPF_PASS) && __DMARC_POLICY_QUAR
+score DMARC_QUAR 0.1
+meta  DMARC_NONE !(DKIM_VALID_AU || SPF_PASS) && __DMARC_POLICY_NONE
+score DMARC_NONE 0.1
+endif
+
+# pjessen 20201204 stop using URIBL
+score URIBL_BLOCKED 0
+score URIBL_BLACK   0
+score URIBL_GREY    0
+score URIBL_RED     0
+
