@@ -1,4 +1,4 @@
-# cat /etc/cron.d/member_aliases
+# /etc/cron.d/member_aliases
 SHELL=/bin/sh
 PATH=/usr/bin:/usr/sbin:/sbin:/bin:/usr/local/bin/
 MAILTO=admin-auto@opensuse.org

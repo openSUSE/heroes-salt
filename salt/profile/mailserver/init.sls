@@ -11,6 +11,17 @@
     - watch_in:
       - service: postfix
 
+{% for crt in [
+  'star_opensuse_org_ecdsa_letsencrypt.crt',
+  'star_opensuse_org_ecdsa_letsencrypt_key.pem',
+  'star_opensuse_org_rsa_letsencrypt.crt',
+  'star_opensuse_org_rsa_letsencrypt_key.pem',
+  'LetsEncryptCA_chain.crt'
+] %}
+/etc/postfix/{{crt}}:
+  file.exists
+{% endfor %}
+
 {% for file in [
   'handling_special_recipients',
   'no-internal-tls',
@@ -136,7 +147,7 @@ spampd-out:
 
 postsrsd:
   host.present:
-    - ip: 127.0.0.91
+    - ip: 127.0.0.1
 
 # MAYBE: remove override for clamd, seems to be standard now?
 {% for svc in ['clamd', 'spampd'] %}
@@ -171,7 +182,7 @@ service {{svc}}:
     - source: salt://profile/mailserver/files/cron/{{file}}
     - user: root
     - group: root
-    - mode: 0644
+    - mode: {{ '0755' if dir.endswith('/bin') else '0644' }}
     - replace: True
 {% endfor %}
 
