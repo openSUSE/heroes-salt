@@ -1002,7 +1002,7 @@
 /\.mohawk\.golden\.net$/						greylist
 /kctv.+\.ccnw\.ne\.jp$/							greylist
 /\.flatrate\.dk$/							greylist
-# Bostadsrättsföreningen Torpet, Anderstorp i Skellefteå.
+# BostadsrÃ¤ttsfÃ¶reningen Torpet, Anderstorp i SkellefteÃ¥.
 # .ac = Ascension Island 
 /lgh.+\.torpet\.ac$/							greylist
 # 2005/03/19
@@ -2109,7 +2109,7 @@
 /[0-9]{2}\.mviewcc\.com$/	greylist
 /([^.]+\.){2}g1\.pl$/		greylist
 /[0-9]{2}\.eurotherm\.co\.uk$/	greylist
-# Swedish bostadsrättsförening, Umeå.
+# Swedish bostadsrÃ¤ttsfÃ¶rening, UmeÃ¥.
 /\.skogsglantan\.ac$/		greylist
 # some telco/provider in Bruxelles
 /_[^.]*\.mactelecom\.net$/	greylist
