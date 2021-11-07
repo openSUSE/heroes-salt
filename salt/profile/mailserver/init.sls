@@ -171,7 +171,7 @@ service {{svc}}:
     - source: salt://profile/mailserver/files/cron/{{file}}
     - user: root
     - group: root
-    - mode: 0644
+    - mode: {{ '0755' if dir.endswith('/bin') else '0644' }}
     - replace: True
 {% endfor %}
 
