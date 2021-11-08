@@ -31,13 +31,28 @@ nginx:
   ng:
     servers:
       managed:
+        redirhttp.conf:
+          config:
+            - server:
+                - server_name: '_'
+                - listen:
+                    - 80
+                    - default_server
+                - location /:
+                    - return: '301 https://$host$request_uri'
+          enabled: True
         code.opensuse.org.conf:
           config:
             - server:
                 - server_name: code.opensuse.org
                 - listen:
-                    - 80
-                    - default_server
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location @pagure:
                     - client_max_body_size: 0
                     - proxy_set_header: Host $http_host
@@ -56,7 +71,13 @@ nginx:
             - server:
                 - server_name: releases.opensuse.org
                 - listen:
-                    - 80
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location /:
                     - alias: /srv/www/pagure-releases/
                     - autoindex: 'on'
@@ -66,7 +87,13 @@ nginx:
             - server:
                 - server_name: ev.opensuse.org
                 - listen:
-                    - 80
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location @pagure_ev:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr
@@ -81,7 +108,13 @@ nginx:
             - server:
                 - server_name: pages.opensuse.org
                 - listen:
-                    - 80
+                    - 443
+                    - ssl
+                - listen:
+                    - '[::]:443'
+                    - ssl
+                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
+                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
                 - location @pagure_docs:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr
