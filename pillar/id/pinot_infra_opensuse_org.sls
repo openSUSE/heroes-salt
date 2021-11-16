@@ -2,7 +2,7 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - countdown.o.o
+    - countdown.o.o, release-notes etc.
   roles:
     - countdown
     - documentation
@@ -13,7 +13,7 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: countdown.opensuse.org, board meeting reminder mailer, phpMyAdmin
+  description: countdown.opensuse.org, board meeting reminder mailer, release notes, phpMyAdmin
   documentation: []
   responsible:
     - cboltz
@@ -21,4 +21,5 @@ grains:
   weburls:
     - https://counter.opensuse.org
     - https://countdown.opensuse.org
+    - https://doc.opensuse.org/release-notes/
     - https://pmya.opensuse.org
