@@ -32,6 +32,8 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   capability sys_ptrace,
   capability sys_tty_config,
 
+  signal send set=usr1 peer=httpd2-prefork//*,
+
   / rw,
   /bin/bash rix,
   /dev/random r,
@@ -79,6 +81,8 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   ^DEFAULT_URI flags=(complain,attach_disconnected) {
     #include <abstractions/apache2-common>
 
+    signal receive set=usr1 peer=httpd2-prefork,
+
     /proc/meminfo r,
     /usr/share/zoneinfo/ r,
     /usr/share/zoneinfo/** r,
@@ -90,9 +94,11 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   ^HANDLING_UNTRUSTED_INPUT flags=(complain,attach_disconnected) {
     #include <abstractions/nameservice>
 
+    signal receive set=usr1 peer=httpd2-prefork,
+
     /**/.htaccess r,
     /dev/urandom r,
-    /proc/*/attr/current w,
+    /proc/*/attr/current rw,
     /var/lib/apache2/ssl_mutex wk,
     /var/log/apache2/access_log w,
     /var/log/apache2/error_log w,
@@ -129,13 +135,15 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     #include <abstractions/apache2-common>
     #include <abstractions/base>
 
+    signal receive set=usr1 peer=httpd2-prefork,
+
     / r,
 #   /bin/bash rix,
 #   /dev/tty rw,
 #   /proc/meminfo r,
 #   /usr/bin/timeout rix,
     /var/log/apache2/countdown-access_log w,
-    /var/log/apache2/countdown-access_log-21[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/countdown-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
     /var/log/apache2/error_log w,
 
     /srv/www/countdown.opensuse.org/ r,
@@ -146,13 +154,16 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     #include <abstractions/apache2-common>
     #include <abstractions/base>
 
+    signal receive set=usr1 peer=httpd2-prefork,
+
     / r,
+    /proc/loadavg r,
 #   /bin/bash rix,
 #   /dev/tty rw,
 #   /proc/meminfo r,
 #   /usr/bin/timeout rix,
     /var/log/apache2/doc-access_log w,
-    /var/log/apache2/doc-access_log-21[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/doc-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
     /var/log/apache2/error_log w,
 
     /srv/www/vhosts/doc.opensuse.org/ r,
