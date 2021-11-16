@@ -7,12 +7,13 @@ grains:
     - countdown
     - documentation
     - mail_reminder
+    - phpmyadmin
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []
-  description: countdown.opensuse.org, board meeting reminder mailer
+  description: countdown.opensuse.org, board meeting reminder mailer, phpMyAdmin
   documentation: []
   responsible:
     - cboltz
@@ -20,3 +21,4 @@ grains:
   weburls:
     - https://counter.opensuse.org
     - https://countdown.opensuse.org
+    - https://pmya.opensuse.org

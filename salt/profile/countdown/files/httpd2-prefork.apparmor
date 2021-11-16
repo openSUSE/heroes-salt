@@ -105,6 +105,26 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
 
   }
 
+  ^vhost_phpmyadmin flags=(complain,attach_disconnected) {
+    #include <abstractions/base>
+    #include <abstractions/mysql>
+    #include <abstractions/nameservice>
+    #include <abstractions/php>
+
+    signal receive set=usr1 peer=httpd2-prefork,
+
+    /etc/apache2/conf.d/phpMyAdmin.htpass r,
+    /etc/phpMyAdmin/config.inc.php r,
+    /proc/*/attr/current rw,
+    /srv/www/htdocs/phpMyAdmin/** r,
+    /usr/lib64/gconv/* r,
+    /usr/share/zoneinfo/ r,
+    /var/log/apache2/phpmyadmin-access_log w,
+    /var/log/apache2/phpmyadmin-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/error_log w,
+
+  }
+
   ^vhost_countdown flags=(complain,attach_disconnected) {
     #include <abstractions/apache2-common>
     #include <abstractions/base>
