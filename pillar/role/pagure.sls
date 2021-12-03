@@ -21,6 +21,14 @@ sshd_config:
       options:
         AllowUsers:
           - git
+    external:
+      type:
+        Address:
+          - 195.135.221.144
+          - 2001:67c:2178:8::144
+      options:
+        AllowUsers:
+          - git
 
 profile:
   pagure:
