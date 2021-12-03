@@ -42,6 +42,7 @@ nginx:
         redirhttp.conf:
           config:
             - server:
+                - include: acme-challenge
                 - server_name: '_'
                 - listen:
                     - 80
