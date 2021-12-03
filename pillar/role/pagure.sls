@@ -35,8 +35,8 @@ profile:
     database_user: pagure
     database_host: 192.168.47.4
 
-{% set listenhttps4=['443', 'ssl'] %}
-{% set listenhttps6=['[::]:443', 'ssl'] %}
+{% set listenhttps4=['443', 'ssl', 'http2'] %}
+{% set listenhttps6=['[::]:443', 'ssl', 'http2'] %}
 
 nginx:
   ng:
