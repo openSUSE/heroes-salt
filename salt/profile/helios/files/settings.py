@@ -1,26 +1,26 @@
 {% set helios = salt['pillar.get']('profile:helios', {}) %}
 
-import os, json
-
 # a massive hack to see if we're testing, in which case we use different settings
 import sys
+
+import json
+import os
+
 TESTING = 'test' in sys.argv
 
 # go through environment variables and override them
 def get_from_env(var, default):
-    if not TESTING and os.environ.has_key(var):
+    if not TESTING and var in os.environ:
         return os.environ[var]
     else:
         return default
 
 DEBUG = (get_from_env('DEBUG', '1') == '1')
-TEMPLATE_DEBUG = DEBUG
 
 # add admins of the form: 
 #    ('Ben Adida', 'ben@adida.net'),
 # if you want to be emailed about errors.
-ADMINS = (
-)
+ADMINS = (get_from_env('ADMIN_NAME', ''), get_from_env('ADMIN_EMAIL', ''))
 
 MANAGERS = ADMINS
 
@@ -38,24 +38,24 @@ SHOW_USER_INFO = (get_from_env('SHOW_USER_INFO', '1') == '1')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'CONN_MAX_AGE': 600,
         'NAME': '{{ helios.database_name }}',
         'HOST': '{{ helios.database_host }}',
         'USER': '{{ helios.database_user }}',
         'PASSWORD': '{{ salt['pillar.get']('postgres:users:helios:password') }}',
+        {% if helios.database_sslmode %}
         'OPTIONS': {
             'sslmode': 'require',
         }
+        {% endif %}
     }
 }
-
-SOUTH_DATABASE_ADAPTERS = {'default':'south.db.postgresql_psycopg2'}
 
 # override if we have an env variable
 if get_from_env('DATABASE_URL', None):
     import dj_database_url
-    DATABASES['default'] =  dj_database_url.config()
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
-    DATABASES['default']['CONN_MAX_AGE'] = 600
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -97,7 +97,7 @@ SECRET_KEY = get_from_env('SECRET_KEY', '{{ helios.secret_key }}')
 ALLOWED_HOSTS = [ {% for allowed_host in helios.allowed_hosts %}'{{ allowed_host }}', {% endfor %} ]
 
 # Secure Stuff
-if (get_from_env('SSL', '0') == '1'):
+if get_from_env('SSL', '0') == '1':
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
 
@@ -108,7 +108,7 @@ SESSION_COOKIE_HTTPONLY = True
 
 # let's go with one year because that's the way to do it now
 STS = False
-if (get_from_env('HSTS', '0') == '1'):
+if get_from_env('HSTS', '0') == '1':
     STS = True
     # we're using our own custom middleware now
     # SECURE_HSTS_SECONDS = 31536000
@@ -118,50 +118,59 @@ if (get_from_env('HSTS', '0') == '1'):
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader'
-)
+SILENCED_SYSTEM_CHECKS = ['urls.W002']
 
-MIDDLEWARE_CLASSES = (
-    # make all things SSL
-    #'sslify.middleware.SSLifyMiddleware',
-
+MIDDLEWARE = [
     # secure a bunch of things
-    'djangosecure.middleware.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'helios.security.HSTSMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware'
-)
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+]
 
 ROOT_URLCONF = 'urls'
 
 ROOT_PATH = os.path.dirname(__file__)
-TEMPLATE_DIRS = (
-    ROOT_PATH,
-    os.path.join(ROOT_PATH, 'templates')
-)
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [
+            ROOT_PATH,
+            os.path.join(ROOT_PATH, 'templates'),
+            # os.path.join(ROOT_PATH, 'helios/templates'),  # covered by APP_DIRS:True
+            # os.path.join(ROOT_PATH, 'helios_auth/templates'),  # covered by APP_DIRS:True
+            # os.path.join(ROOT_PATH, 'server_ui/templates'),  # covered by APP_DIRS:True
+        ],
+        'OPTIONS': {
+            'debug': DEBUG
+        }
+    },
+]
 
 INSTALLED_APPS = (
-#    'django.contrib.auth',
-#    'django.contrib.contenttypes',
-    'djangosecure',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
-    ## needed for queues
-    'djcelery',
-    'kombu.transport.django',
-    ## in Django 1.7 we now use built-in migrations, no more south
-    ## 'south',
+    'django.contrib.sites',
+#   'anymail',
     ## HELIOS stuff
     'helios_auth',
     'helios',
     'server_ui',
 )
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": get_from_env('MAILGUN_API_KEY', None),
+}
+
+if ANYMAIL["MAILGUN_API_KEY"]:
+    EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
 ##
 ## HELIOS
@@ -184,7 +193,6 @@ LOGOUT_ON_CONFIRMATION = True
 
 # The two hosts are here so the main site can be over plain HTTP
 # while the voting URLs are served over SSL.
-#URL_HOST = get_from_env("URL_HOST", "http://localhost:8000").rstrip("/")
 URL_HOST = get_from_env("URL_HOST", "{{ helios.url_host }}").rstrip("/")
 
 # IMPORTANT: you should not change this setting once you've created
@@ -215,10 +223,9 @@ HELIOS_VOTERS_EMAIL = True
 HELIOS_PRIVATE_DEFAULT = False
 
 # authentication systems enabled
-#AUTH_ENABLED_AUTH_SYSTEMS = ['password','facebook','twitter', 'google', 'yahoo']
-AUTH_ENABLED_AUTH_SYSTEMS = 'opensuse'
-# AUTH_DEFAULT_AUTH_SYSTEM = get_from_env('AUTH_DEFAULT_AUTH_SYSTEM', None)
-AUTH_DEFAULT_AUTH_SYSTEM = 'opensuse'
+# AUTH_ENABLED_SYSTEMS = ['password','facebook','twitter', 'google', 'yahoo']
+AUTH_ENABLED_SYSTEMS = 'opensuse'
+AUTH_DEFAULT_SYSTEM = 'opensuse'
 
 # who can create an election?
 # (parameter specific to openSUSE auth)
@@ -256,8 +263,12 @@ CAS_ELIGIBILITY_REALM = get_from_env('CAS_ELIGIBILITY_REALM', "")
 CLEVER_CLIENT_ID = get_from_env('CLEVER_CLIENT_ID', "")
 CLEVER_CLIENT_SECRET = get_from_env('CLEVER_CLIENT_SECRET', "")
 
+# GitHub
+GH_CLIENT_ID = get_from_env('GH_CLIENT_ID', '')
+GH_CLIENT_SECRET = get_from_env('GH_CLIENT_SECRET', '')
+
 # email server
-EMAIL_HOST = get_from_env('EMAIL_HOST', '{{ helios.email_host }}')
+EMAIL_HOST = get_from_env('EMAIL_HOST', 'localhost')
 EMAIL_PORT = int(get_from_env('EMAIL_PORT', "25"))
 EMAIL_HOST_USER = get_from_env('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = get_from_env('EMAIL_HOST_PASSWORD', '')
@@ -271,29 +282,23 @@ if get_from_env('EMAIL_USE_AWS', '0') == '1':
 
 # set up logging
 import logging
+
 logging.basicConfig(
-    level = logging.DEBUG,
-    format = '%(asctime)s %(levelname)s %(message)s'
+    level=logging.DEBUG if TESTING else logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s'
 )
 
-
-# set up django-celery
-# BROKER_BACKEND = "kombu.transport.DatabaseTransport"
-BROKER_URL = "django://"
-CELERY_RESULT_DBURI = DATABASES['default']
-import djcelery
-djcelery.setup_loader()
-
-
-# for testing
-TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
-# this effectively does CELERY_ALWAYS_EAGER = True
+# set up celery
+CELERY_BROKER_URL = get_from_env('CELERY_BROKER_URL', 'amqp://localhost')
+if TESTING:
+    CELERY_TASK_ALWAYS_EAGER = True
+#database_url = DATABASES['default']
 
 # Rollbar Error Logging
 ROLLBAR_ACCESS_TOKEN = get_from_env('ROLLBAR_ACCESS_TOKEN', None)
 if ROLLBAR_ACCESS_TOKEN:
-  print "setting up rollbar"
-  MIDDLEWARE_CLASSES += ('rollbar.contrib.django.middleware.RollbarNotifierMiddleware',)
+  print("setting up rollbar")
+  MIDDLEWARE += ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware',]
   ROLLBAR = {
     'access_token': ROLLBAR_ACCESS_TOKEN,
     'environment': 'development' if DEBUG else 'production',  
