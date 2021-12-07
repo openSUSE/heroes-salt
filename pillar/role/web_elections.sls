@@ -35,19 +35,16 @@ profile:
     database_host: postgresql.infra.opensuse.org
     database_name: helios
     database_user: helios
+    database_sslmode: True
     default_from_email: election-officials@opensuse.org
     default_from_name: openSUSE Election Officials
     election_creators:
       # admins
       - cboltz
-      - tampakrap
-      # election commitee 2019
+      # election officials
       - ishwon
       - Ishwon
       - medwin
-      - fraser_bell
-      - Fraser_Bell
-    email_host: relay.infra.opensuse.org
     help_email_address: election-officials@opensuse.org
     # secret_key included from pillar/secrets/role/web_elections.sls
     url_host: https://elections.opensuse.org
