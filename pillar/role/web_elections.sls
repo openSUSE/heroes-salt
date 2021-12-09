@@ -42,7 +42,7 @@ profile:
       # admins
       - cboltz
       # election officials
-      - ishwon
+      - AJV
       - Ishwon
       - medwin
     help_email_address: election-officials@opensuse.org

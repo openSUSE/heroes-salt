@@ -10,13 +10,12 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: New board voting system, powered by helios-server - currently in development
+  description: board voting system, powered by helios-server
   documentation:
     - https://progress.opensuse.org/issues/25486
   responsible:
     - cboltz
     - scarabeus_iv
-  partners:
-    - sarabi.infra.opensuse.org
+  partners: []
   weburls:
-    - https://elections-test.opensuse.org
+    - https://elections.opensuse.org
