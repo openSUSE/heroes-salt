@@ -41,5 +41,5 @@ rabbitmq-server:
   service.running:
     - enable: True
 
-# manual steps for database setup:
-# run the two "python manage.py" commands listed in /usr/lib/python*/site-packages/helios-server/reset.sh
+# manual steps for database setup (also after upgrades):
+# run the two "python3 manage.py" commands listed in /usr/lib/python*/site-packages/helios-server/reset.sh
