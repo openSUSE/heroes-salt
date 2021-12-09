@@ -21,11 +21,22 @@ sshd_config:
       options:
         AllowUsers:
           - git
+    external:
+      type:
+        Address:
+          - 195.135.221.144
+          - 2001:67c:2178:8::144
+      options:
+        AllowUsers:
+          - git
 
 profile:
   pagure:
     database_user: pagure
     database_host: 192.168.47.4
+
+{% set listenhttps4=['443', 'ssl', 'http2'] %}
+{% set listenhttps6=['[::]:443', 'ssl', 'http2'] %}
 
 nginx:
   ng:
@@ -34,6 +45,7 @@ nginx:
         redirhttp.conf:
           config:
             - server:
+                - include: acme-challenge
                 - server_name: '_'
                 - listen:
                     - 80
@@ -45,14 +57,9 @@ nginx:
           config:
             - server:
                 - server_name: code.opensuse.org
-                - listen:
-                    - 443
-                    - ssl
-                - listen:
-                    - '[::]:443'
-                    - ssl
-                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
-                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
+                - listen: {{ listenhttps4 }}
+                - listen: {{ listenhttps6 }}
+                - include: ssl-config
                 - location @pagure:
                     - client_max_body_size: 0
                     - proxy_set_header: Host $http_host
@@ -70,14 +77,9 @@ nginx:
           config:
             - server:
                 - server_name: releases.opensuse.org
-                - listen:
-                    - 443
-                    - ssl
-                - listen:
-                    - '[::]:443'
-                    - ssl
-                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
-                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
+                - listen: {{ listenhttps4 }}
+                - listen: {{ listenhttps6 }}
+                - include: ssl-config
                 - location /:
                     - alias: /srv/www/pagure-releases/
                     - autoindex: 'on'
@@ -86,14 +88,9 @@ nginx:
           config:
             - server:
                 - server_name: ev.opensuse.org
-                - listen:
-                    - 443
-                    - ssl
-                - listen:
-                    - '[::]:443'
-                    - ssl
-                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
-                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
+                - listen: {{ listenhttps4 }}
+                - listen: {{ listenhttps6 }}
+                - include: ssl-config
                 - location @pagure_ev:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr
@@ -107,14 +104,9 @@ nginx:
           config:
             - server:
                 - server_name: pages.opensuse.org
-                - listen:
-                    - 443
-                    - ssl
-                - listen:
-                    - '[::]:443'
-                    - ssl
-                - ssl_certificate: /etc/dehydrated/certs/code.opensuse.org/fullchain.crt
-                - ssl_certificate_key: /etc/dehydrated/certs/code.opensuse.org/privkey.key
+                - listen: {{ listenhttps4 }}
+                - listen: {{ listenhttps6 }}
+                - include: ssl-config
                 - location @pagure_docs:
                     - proxy_set_header: Host $http_host
                     - proxy_set_header: X-Real-IP $remote_addr

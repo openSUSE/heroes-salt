@@ -26,6 +26,15 @@ pagure_conf:
     - watch_in:
       - module: pagure_web_restart
 
+pagure_ssl_conf:
+  file.managed:
+    - name: /etc/nginx/ssl-config
+    - source: salt://profile/pagure/files/ssl-config
+    - require_in:
+      - service: pagure_web_service
+    - watch_in:
+      - module: pagure_web_restart
+
 pagure_alembic_conf:
   file.managed:
     - name: /etc/pagure/alembic.ini
