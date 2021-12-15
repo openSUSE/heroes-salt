@@ -367,3 +367,9 @@ $wgCirrusSearchNamespaceWeights = array(
 );
 
 # ----------------------------------
+
+# hotfix from 2021-12-15 security announcement to disable vulnerable code
+  $wgActions['mcrundo'] = false;
+  $wgActions['mcrrestore'] = false;
+  $wgWhitelistRead = [];
+  $wgWhitelistReadRegexp = [];
