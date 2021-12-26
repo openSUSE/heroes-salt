@@ -4,12 +4,13 @@ apache2_running:
     - enable: True
     - name: apache2
 
-{% set mediawiki_1_27 = salt['pillar.get']('mediawiki_1_27:wikis', {}) %}
-{% for wiki, data in mediawiki_1_27.items() %}
+{% set mediawiki = salt['pillar.get']('mediawiki:wikis', {}) %}
+{% for wiki, data in mediawiki.items() %}
 
 /etc/apache2/vhosts.d/{{ wiki }}.opensuse.org.conf:
   file.managed:
     - context:
+      version: '{{ data.get('version', salt['pillar.get']('mediawiki:default_version')) }}'
       wiki: {{ wiki }}
     - listen_in:
       - service: apache2
