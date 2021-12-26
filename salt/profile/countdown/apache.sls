@@ -27,9 +27,4 @@ sysconfig_apache2_countdown:
 # This is handled in /etc/logrotate.d/apache2 since Leap 15.x (same/duplicate entry there)
 # removing the file on newer Leap versions to avoid  errors in logrotate (duplicate entry...)
 /etc/logrotate.d/apache2-vhosts:
-{% if salt['grains.get']('osfullname') == "Leap" and salt['grains.get']('osmajorrelease')|int >= 15 %}
   file.absent
-{% else %}
-  file.managed:
-    - source: salt://profile/wiki/files/apache2-wiki.logrotate
-{% endif %}
