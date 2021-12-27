@@ -12,7 +12,7 @@
 
 #include <tunables/global>
 
-profile pygmentize /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize flags=(complain) {
+profile pygmentize /usr/share/mediawiki_*/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/python>
 
@@ -28,11 +28,11 @@ profile pygmentize /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/py
   /usr/local/lib/ r,
   /usr/local/lib64/ r,
   /usr/share/ r,
-  /usr/share/mediawiki_1_27/ r,
-  /usr/share/mediawiki_1_27/extensions/ r,
-  /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/ r,
-  /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/ r,
-  /usr/share/mediawiki_1_27/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize r,
+  /usr/share/mediawiki_1_*/ r,
+  /usr/share/mediawiki_1_*/extensions/ r,
+  /usr/share/mediawiki_1_*/extensions/SyntaxHighlight_GeSHi/ r,
+  /usr/share/mediawiki_1_*/extensions/SyntaxHighlight_GeSHi/pygments/ r,
+  /usr/share/mediawiki_1_*/extensions/SyntaxHighlight_GeSHi/pygments/pygmentize r,
 
 }
 

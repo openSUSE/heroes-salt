@@ -2,7 +2,7 @@
 
 # Note that wiki_readonly also uses a different elasticsearch and mysql server
 
-mediawiki_1_27:
+mediawiki:
   # 192.168.67.9 is water2.infra.opensuse.org
   elasticsearch_server: 192.168.67.9
   mysql_server: 127.0.0.1

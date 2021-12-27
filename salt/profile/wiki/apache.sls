@@ -4,12 +4,13 @@ apache2_running:
     - enable: True
     - name: apache2
 
-{% set mediawiki_1_27 = salt['pillar.get']('mediawiki_1_27:wikis', {}) %}
-{% for wiki, data in mediawiki_1_27.items() %}
+{% set mediawiki = salt['pillar.get']('mediawiki:wikis', {}) %}
+{% for wiki, data in mediawiki.items() %}
 
 /etc/apache2/vhosts.d/{{ wiki }}.opensuse.org.conf:
   file.managed:
     - context:
+      version: '{{ data.get('version', salt['pillar.get']('mediawiki:default_version')) }}'
       wiki: {{ wiki }}
     - listen_in:
       - service: apache2
@@ -29,9 +30,4 @@ apache2_running:
 # This is handled in /etc/logrotate.d/apache2 since Leap 15.x (same/duplicate entry there)
 # removing the file on newer Leap versions to avoid  errors in logrotate (duplicate entry...)
 /etc/logrotate.d/apache2-wiki:
-{% if salt['grains.get']('osfullname') == "Leap" and salt['grains.get']('osmajorrelease')|int >= 15 %}
   file.absent
-{% else %}
-  file.managed:
-    - source: salt://profile/wiki/files/apache2-wiki.logrotate
-{% endif %}

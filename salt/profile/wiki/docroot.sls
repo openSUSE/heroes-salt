@@ -2,10 +2,12 @@
 # create the DocumentRoot and the directories and symlinks needed for all wikis
 #
 
-{% set mediawiki_1_27 = salt['pillar.get']('mediawiki_1_27:wikis', {}) %}
+{% set mediawiki = salt['pillar.get']('mediawiki:wikis', {}) %}
 
 # create /srv/www/$lang.opensuse.org and all symlinks and directories needed in it
-{% for wiki, data in mediawiki_1_27.items() %}
+{% for wiki, data in mediawiki.items() %}
+
+{% set version = data.get('version', salt['pillar.get']('mediawiki:default_version')) %}
 
 /srv/www/{{ wiki }}.opensuse.org/public:
   file.directory:
@@ -14,9 +16,9 @@
     - mode: 755
     - makedirs: True
 
-{% set mediawiki_1_27_wwwrun_dirs = [ 'cache', 'tmp', 'public/images' ] %}
+{% set mediawiki_wwwrun_dirs = [ 'cache', 'tmp', 'public/images' ] %}
 
-{% for dir in mediawiki_1_27_wwwrun_dirs %}
+{% for dir in mediawiki_wwwrun_dirs %}
 /srv/www/{{ wiki }}.opensuse.org/{{ dir }}:
   file.directory:
     - user: wwwrun
@@ -27,18 +29,15 @@
 
 /srv/www/{{ wiki }}.opensuse.org/public/mediawiki_src:
   file.symlink:
-    {% if wiki == 'en-test' %}
-    # /usr/share/mediawiki_1_27--git/ is `git clone https://github.com/openSUSE/wiki/`
-    # + symlinks to /usr/share/mediawiki_1_27/ for everything not in the git repo
+    - target: /usr/share/mediawiki_{{ version }}/
+    # Note for en-test:
+    # /usr/share/mediawiki_1_*-git/ is `git clone https://github.com/openSUSE/wiki/`
+    # + symlinks to /usr/share/mediawiki_1_*/ for everything not in the git repo
     # (git clone and creating these symlinks needs to be done manually!)
-    - target: /usr/share/mediawiki_1_27--git/
-    {% else %}
-    - target: /usr/share/mediawiki_1_27/
-    {% endif %}
 
-{% set mediawiki_1_27_symlinks = [ 'api.php', 'autoload.php', 'extensions', 'img_auth.php', 'includes', 'index.php', 'languages', 'load.php', 'maintenance',
+{% set mediawiki_symlinks = [ 'api.php', 'autoload.php', 'extensions', 'img_auth.php', 'includes', 'index.php', 'languages', 'load.php', 'maintenance',
                                    'opensearch_desc.php', 'resources', 'serialized', 'skins', 'thumb_handler.php', 'thumb.php', 'vendor', ] %}
-{% for symlink in mediawiki_1_27_symlinks %}
+{% for symlink in mediawiki_symlinks %}
 /srv/www/{{ wiki }}.opensuse.org/public/{{ symlink }}:
   file.symlink:
     - target: mediawiki_src/{{ symlink }}
@@ -52,8 +51,8 @@
   file.managed:
     - context:
       data: {{ data }}
-      mysql_server: {{ pillar['mediawiki_1_27']['mysql_server'] }}
-      elasticsearch_server: {{ pillar['mediawiki_1_27']['elasticsearch_server'] }}
+      mysql_server: {{ pillar['mediawiki']['mysql_server'] }}
+      elasticsearch_server: {{ pillar['mediawiki']['elasticsearch_server'] }}
       wiki: {{ wiki }}
     - source: salt://profile/wiki/files/wiki_settings.php
     - template: jinja

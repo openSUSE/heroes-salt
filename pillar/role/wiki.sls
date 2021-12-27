@@ -12,7 +12,8 @@ apparmor:
       source: salt://profile/wiki/files/pygmentize.apparmor
 
 # list of wikis running MediaWiki 1.27 (this will allow us to migrate to a new version one by one later)
-mediawiki_1_27:
+mediawiki:
+  default_version: '1_37'
   elasticsearch_server: water.infra.opensuse.org
   mysql_server: 192.168.47.4:3307
   wikis:
@@ -28,18 +29,23 @@ mediawiki_1_27:
     cn:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     cs:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     de:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     el:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     en:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     en-test:
       bento_lang: en
       dbpass: not_in_salt_yet
@@ -47,27 +53,35 @@ mediawiki_1_27:
       skin: Chameleon
       robots: robots-disallow.txt
       site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
+      version: '1_27-git'
     es:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     fr:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     hu:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     it:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     ja:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     languages:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     nl:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     old-de:
       bento_lang: de
       dbpass: not_in_salt_yet
@@ -76,6 +90,7 @@ mediawiki_1_27:
       readonly_msg: 'Dieses Wiki ist ein Archiv und kann nicht bearbeitet werden.'
       robots: robots-disallow.txt
       site_notice: 'Dieses Wiki ist ein Archiv (Stand: 2011) des alten openSUSE-Wikis. Das aktuelle openSUSE-Wiki finden Sie unter [https://de.opensuse.org de.opensuse.org].'
+      version: '1_27'
     old-en:
       bento_lang: en
       dbmysql5: False
@@ -84,29 +99,37 @@ mediawiki_1_27:
       readonly_msg: 'This wiki is an archive and cannot be edited.'
       robots: robots-disallow.txt
       site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
+      version: '1_27'
     pl:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     pt:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     ru:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     sv:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     tr:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     zh:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
+      version: '1_27'
     zh-tw:
       bento_lang: zh_TW
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       lang: zh_TW
+      version: '1_27'
 
 # special cases for bento_lang:
 # cz    -> bento_lang cs
