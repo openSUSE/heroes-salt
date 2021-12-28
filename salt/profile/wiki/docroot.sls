@@ -43,6 +43,7 @@
     - target: mediawiki_src/{{ symlink }}
 {%endfor%}
 
+{% if version != '1_27' %}  # don't deploy LocalSettings.php and wiki_settings.php for wikis still using 1_27
 /srv/www//{{ wiki }}.opensuse.org/public/LocalSettings.php:
   file.managed:
     - source: salt://profile/wiki/files/LocalSettings.php
@@ -53,9 +54,11 @@
       data: {{ data }}
       mysql_server: {{ pillar['mediawiki']['mysql_server'] }}
       elasticsearch_server: {{ pillar['mediawiki']['elasticsearch_server'] }}
+      wgserver: {{ data.get('wgserver', 'https://' + wiki + '.opensuse.org') }}
       wiki: {{ wiki }}
     - source: salt://profile/wiki/files/wiki_settings.php
     - template: jinja
+{% endif %}
 
 /srv/www//{{ wiki }}.opensuse.org/public/robots.txt:
   file.managed:

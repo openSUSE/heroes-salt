@@ -101,8 +101,8 @@ $wgLocalInterwiki   = $wgSitename;
 ## License and Creative Commons licenses are supported so far.
 # $wgEnableCreativeCommonsRdf = true;
 $wgRightsPage = ""; # Set to the title of a wiki page that describes your license/copyright
-$wgRightsUrl = "";
-$wgRightsText = "";
+$wgRightsUrl = "https://www.gnu.org/licenses/fdl-1.2.html";
+$wgRightsText = "GNU Free Documentation License 1.2";
 $wgRightsIcon = "";
 # $wgRightsCode = ""; # Not yet used
 
@@ -248,33 +248,33 @@ $wgGroupPermissions['*']['createaccount'] = false;
 $wgGroupPermissions['*']['autocreateaccount'] = true;
 
 # UserMerge ------------------------
-require_once( "$IP/extensions/UserMerge/UserMerge.php" );
+wfLoadExtension('UserMerge');
 // By default nobody can use this function, enable for bureaucrat?
 $wgGroupPermissions['bureaucrat']['usermerge'] = true;
 
 # WikiEditor -----------------------
-require_once("$IP/extensions/WikiEditor/WikiEditor.php");
+wfLoadExtension('WikiEditor');
 $wgDefaultUserOptions['usebetatoolbar'] = 1;
 $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 $wgDefaultUserOptions['wikieditor-preview'] = 1;
 
-# Intersection ---------------------
-include("$IP/extensions/intersection/DynamicPageList.php");
+# Intersection / DynamicPageList  ---------------------
+wfLoadExtension('intersection');
 
 # RSS -----------------------
-include("$IP/extensions/RSS/RSS.php");
+wfLoadExtension('RSS');
 $wgRSSUrlWhitelist = array('*');
 $wgRSSUrlNumberOfAllowedRedirects = 2;  # poo#67195
 
 # InputBox -------------------------
-require_once($IP.'/extensions/InputBox/InputBox.php');
+wfLoadExtension('InputBox');
 
 # ParserFunctions -----------------
-require_once( "$IP/extensions/ParserFunctions/ParserFunctions.php" );
+wfLoadExtension('ParserFunctions');
 
 # CategoryTree.php ----------------
-require_once("$IP/extensions/CategoryTree/CategoryTree.php");
-$wgCategoryTreeMaxDepth = array(CT_MODE_PAGES => 2, CT_MODE_ALL => 2, CT_MODE_CATEGORIES => 3);
+wfLoadExtension('CategoryTree');
+$wgCategoryTreeMaxDepth = array(/*CT_MODE_PAGES*/ 10 => 2, /*CT_MODE_ALL*/ 20 => 2, /*CT_MODE_CATEGORIES*/ 0 => 3);
 
 # EventCountdown ------------------
 require_once("$IP/extensions/EventCountdown.php");
@@ -285,10 +285,10 @@ $wgMultiBoilerplateOptions = false;
 $wgMultiBoilerplatePerNamespace = true;
 
 # Replace Text ----------------------------------------------
-require_once( "$IP/extensions/ReplaceText/ReplaceText.php" );
+wfLoadExtension('ReplaceText');
 
 # Interwiki links management ----------------------------------
-require_once("$IP/extensions/Interwiki/Interwiki.php");
+wfLoadExtension('Interwiki');
 $wgInterwikiMagic=true;
 $wgHideInterlanguageLinks=false;
 $wgGroupPermissions['*']['interwiki'] = false;
@@ -298,7 +298,7 @@ $wgGroupPermissions['sysop']['interwiki'] = true;
 require_once("extensions/videoflash.php");
 
 # Syntax highlighting ----------------------------------
-require_once("$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php");
+wfLoadExtension('SyntaxHighlight_GeSHi');
 
 # Hide page title ----------------------------------
 require_once("$IP/extensions/notitle.php");
@@ -314,7 +314,7 @@ $GLOBALS['egMapsGMaps3ApiKey'] = $google_maps_key;
 #$GLOBALS['egMapsDefaultService'] = 'leaflet';
 
 # protect user pages ----------------------------------
-include_once( "$IP/extensions/UserPageEditProtection/UserPageEditProtection.php" );
+wfLoadExtension('UserPageEditProtection');
 $wgOnlyUserEditUserPage = true; /* Set this to true to turn on user page protection */
 $wgGroupPermissions['sysop']['editalluserpages'] = true; /* Set this to allow sysops to edit all user pages */
 
@@ -322,10 +322,10 @@ $wgGroupPermissions['sysop']['editalluserpages'] = true; /* Set this to allow sy
 include("$IP/extensions/google-coop.php");
 
 # mass deletion ----------------------------------
-include_once( "$IP/extensions/Nuke/Nuke.php");
+wfLoadExtension('Nuke');
 
 # spam filter ----------------------------------
-include_once( "$IP/extensions/AbuseFilter/AbuseFilter.php");
+wfLoadExtension('AbuseFilter');
 # set higher EmergencyDisable limits to prevent spam filter from getting disabled with
 # "Warning: This filter was automatically disabled as a safety measure. It reached the limit of matching more than 5.00% of actions."
 $wgAbuseFilterEmergencyDisableThreshold['default'] = 0.50; # default 0.05
@@ -347,7 +347,7 @@ require_once("$IP/extensions/GitHub/GitHub.php");
 
 # search ----------------------------------
 wfLoadExtension( 'Elastica' );
-require_once "$IP/extensions/CirrusSearch/CirrusSearch.php";
+wfLoadExtension('CirrusSearch');
 $wgCirrusSearchServers = array($elasticsearch_server);
 $wgSearchType = 'CirrusSearch';
 
@@ -367,9 +367,3 @@ $wgCirrusSearchNamespaceWeights = array(
 );
 
 # ----------------------------------
-
-# hotfix from 2021-12-15 security announcement to disable vulnerable code
-  $wgActions['mcrundo'] = false;
-  $wgActions['mcrrestore'] = false;
-  $wgWhitelistRead = [];
-  $wgWhitelistReadRegexp = [];

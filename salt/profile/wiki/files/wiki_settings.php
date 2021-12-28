@@ -32,3 +32,5 @@ $wgDBmysql5 = true;
 {%- endif %}
 
 $wgDefaultSkin = "{{ data.get('skin', 'chameleon') }}";
+
+$wgServer = '{{ wgserver }}';
