@@ -35,6 +35,8 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   capability sys_ptrace,
   capability sys_tty_config,
 
+  signal send set=usr1 peer=httpd2-prefork//*,
+
   / rw,
   /bin/bash rix,
   /dev/random r,
@@ -83,7 +85,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   /var/lib/apache2/ssl_mutex w,
   /var/log/apache2/* rwl,
 
-  ^DEFAULT_URI flags=(complain,attach_disconnected) {
+  ^DEFAULT_URI flags=(attach_disconnected) {
     #include <abstractions/apache2-common>
 
     /proc/meminfo r,
@@ -96,6 +98,8 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
 
   ^HANDLING_UNTRUSTED_INPUT flags=(complain,attach_disconnected) {
     #include <abstractions/nameservice>
+
+    signal receive set=usr1 peer=httpd2-prefork,
 
     /**/.htaccess r,
     /dev/urandom r,
@@ -112,8 +116,16 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
 
   }
 
-  ^vhost_files flags=(complain,attach_disconnected) {
+  ^localhost flags=(complain,attach_disconnected) {
+    /proc/*/attr/current rw,
+    /proc/loadavg r,
+    /var/log/apache2/access_log w,
+  }
+
+  ^vhost_files flags=(attach_disconnected) {
     #include <abstractions/apache2-common>
+
+    signal receive set=usr1 peer=httpd2-prefork,
 
     /var/log/apache2/files-access_log w,
     /var/log/apache2/files-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
@@ -127,6 +139,8 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   ^vhost_{{wiki}}wiki flags=(complain,attach_disconnected) {
     #include <abstractions/apache2-common>
     #include <abstractions/base>
+
+    signal receive set=usr1 peer=httpd2-prefork,
 
     / r,
     /bin/bash rix,
@@ -159,7 +173,9 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /srv/www/{{wiki}}.opensuse.org/tmp/php* rw,
     /srv/www/{{wiki}}.opensuse.org/secrets.php r,
     /srv/www/{{wiki}}.opensuse.org/wiki_settings.php r,
+    /usr/share/icu/*/icudt*l.dat r,
     /usr/share/mediawiki_1_*/** r,
+    /usr/bin/magick Px -> magick-{{wiki}},
   }
   #  {% endfor %}
 

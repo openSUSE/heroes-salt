@@ -16,6 +16,10 @@ profile pygmentize /usr/share/mediawiki_*/extensions/SyntaxHighlight_GeSHi/pygme
   #include <abstractions/base>
   #include <abstractions/python>
 
+# file_inherit
+  audit deny network inet stream,
+  audit deny /srv/www/*.opensuse.org/cache/l10n_cache-*.cdb r,
+
   /etc/nsswitch.conf r,
   /etc/passwd r,
   /proc/meminfo r,

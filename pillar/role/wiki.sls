@@ -6,6 +6,9 @@ apparmor:
     httpd2-prefork:
       source: salt://profile/wiki/files/httpd2-prefork.apparmor
       template: jinja
+    magick:
+      source: salt://profile/wiki/files/magick.apparmor
+      template: jinja
     memcached:
       source: salt://profile/wiki/files/memcached.apparmor
     pygmentize:
@@ -14,7 +17,7 @@ apparmor:
 # list of wikis running MediaWiki 1.27 (this will allow us to migrate to a new version one by one later)
 mediawiki:
   default_version: '1_37'
-  elasticsearch_server: water.infra.opensuse.org
+  elasticsearch_server: water4.infra.opensuse.org
   mysql_server: 192.168.47.4:3307
   wikis:
     # availale options:
@@ -53,7 +56,6 @@ mediawiki:
       skin: Chameleon
       robots: robots-disallow.txt
       site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
-      version: '1_27-git'
     es:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
@@ -150,7 +152,8 @@ zypper:
     apache2-prefork: {}
     # needed for deploying en-test without going through packaging
     git: {}
-    mediawiki_1_27-openSUSE: {}
+    ImageMagick: {}
+    mediawiki_1_37-openSUSE: {}
     mariadb-client: {}
     check_mk-agent-apache_status: {}
     # needed for migration to unpack tarballs

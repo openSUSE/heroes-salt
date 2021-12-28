@@ -1,0 +1,33 @@
+#include <tunables/global>
+
+# {% for wiki in pillar['mediawiki']['wikis']|sort %}
+
+profile magick-{{wiki}} flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+
+  deny network inet stream,
+
+  deny /var/cache/fontconfig/ w,
+
+  /bin/bash mrix,
+  /dev/tty rw,
+  /etc/ImageMagick-7-SUSE/*.xml r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /proc/filesystems r,
+  /usr/bin/magick mr,
+  /usr/lib64/ImageMagick-7.0.7/modules-7_Q16HDRI6/coders/png.so mr,
+  /usr/lib64/ImageMagick-7.0.7/modules-7_Q16HDRI6/coders/svg.so mr,
+  owner /srv/www/{{wiki}}.opensuse.org/cache/l10n_cache-en.cdb r,
+  owner /srv/www/{{wiki}}.opensuse.org/public/?????? w,
+  owner /srv/www/{{wiki}}.opensuse.org/public/images/**.svg r,
+  owner /srv/www/{{wiki}}.opensuse.org/public/images/temp/transform_*.png rw,
+  owner /tmp/magick-* rw,
+  owner /var/lib/wwwrun/.cache/ w,
+
+}
+
+# {% endfor %}
+
+# vim: ft=apparmor expandtab
