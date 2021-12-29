@@ -143,7 +143,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     signal receive set=usr1 peer=httpd2-prefork,
 
     / r,
-    /bin/bash rix,
+    /{usr/,}bin/bash rix,
     /dev/tty rw,
     /proc/meminfo r,
     /usr/bin/timeout rix,
