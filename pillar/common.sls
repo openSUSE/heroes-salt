@@ -182,7 +182,3 @@ zypper:
     tmux: {}
     traceroute: {}
     {% endif %}
-    {% if osmajorrelease == 15 %}
-    # workaround for https://progress.opensuse.org/issues/62204 / https://bugzilla.opensuse.org/show_bug.cgi?id=1161850
-    which: {}
-    {% endif %}
