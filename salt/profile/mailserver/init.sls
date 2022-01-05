@@ -149,7 +149,7 @@ spampd-out:
 
 postsrsd:
   host.present:
-    - ip: 127.0.0.1
+    - ip: 127.0.0.91
 
 # MAYBE: remove override for clamd, seems to be standard now?
 {% for svc in ['clamd', 'spampd'] %}

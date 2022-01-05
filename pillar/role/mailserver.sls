@@ -10,7 +10,7 @@ profile:
       inet_interfaces: 'all'
       mydestination: '$myhostname, localhost.$mydomain'
       myhostname: '{{grains.host}}.opensuse.org'
-      mynetwork_style: 'subnet'
+      mynetworks_style: 'subnet'
       alias_maps: ''
       canonical_maps: ''
       relocated_maps: ''
