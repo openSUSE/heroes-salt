@@ -72,6 +72,9 @@ profile:
       smtpd_restriction_classes: 'greylist'
       greylist: 'check_policy_service unix:/var/spool/postfix/postgrey/socket'
       virtual_alias_domains: 'lmdb:/etc/postfix/virtual-domains'
+      # please note:
+      # the order of virtual alias lists is important. By keeping our "own" aliases
+      # at the top, we make sure they are never overwritten by e.g. a user alias.
       virtual_alias_maps: >
         lmdb:/etc/postfix/virtual-opensuse-aliases,
         pcre:/etc/postfix/virtual-opensuse-mm3-bounces.pcre,
