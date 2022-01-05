@@ -19,7 +19,9 @@
   'LetsEncryptCA_chain.crt'
 ] %}
 /etc/postfix/{{crt}}:
-  file.exists
+  file.exists:
+    - require_in:
+      - service: postfix
 {% endfor %}
 
 {% for file in [
