@@ -173,6 +173,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /srv/www/{{wiki}}.opensuse.org/tmp/php* rw,
     /srv/www/{{wiki}}.opensuse.org/secrets.php r,
     /srv/www/{{wiki}}.opensuse.org/wiki_settings.php r,
+    /tmp/.ZendSem.* wk,
     /usr/share/icu/*/icudt*l.dat r,
     /usr/share/mediawiki_1_*/** r,
     /usr/bin/magick Px -> magick-{{wiki}},
