@@ -19,7 +19,7 @@ profile:
       strict_rfc821_envelopes: 'no'
       smtpd_client_restrictions: ''
       smtpd_helo_restrictions: ''
-      # smtpd_sender_restrictions: ''
+      smtpd_sender_restrictions: 'check_sender_access lmdb:/etc/postfix/manually-blocked-users,permit'
       smtpd_recipient_restrictions: >
         reject_unauth_destination,
         reject_non_fqdn_sender,

@@ -26,6 +26,7 @@
 
 {% for file in [
   'handling_special_recipients',
+  'manually-blocked-users',
   'no-internal-tls',
   'ratelimit',
   'transport',
