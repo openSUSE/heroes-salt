@@ -1,4 +1,13 @@
+{% if salt['grains.get']('include_secrets', True) %}
+include:
+  - secrets.role.mailserver
+{% endif %}
+
+
 profile:
+  mailserver:
+    members:
+      user: 'mbr_postfix'
   postfix:
     aliases:
       root: admin-auto@opensuse.org
@@ -103,6 +112,7 @@ profile:
       # 20210401 back off
       soft_bounce: 'no'
 
+
 zypper:
   packages:
     postsrsd: {}
@@ -110,3 +120,5 @@ zypper:
     clamav: {}
     spamassassin: {}
     mailgraph: {}
+    mariadb-client: {}
+    nsca-client: {}

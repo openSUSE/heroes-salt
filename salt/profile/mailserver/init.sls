@@ -187,5 +187,26 @@ service {{svc}}:
     - group: root
     - mode: {{ '0755' if dir.endswith('/bin') else '0644' }}
     - replace: True
+    - template: jinja
 {% endfor %}
 
+/root/.my.cnf:
+  file.managed:
+    - contents:
+      - '[client]'
+      - 'user={{ pillar.profile.mailserver.members.user }}'
+      - 'password={{ salt['pillar.get']('profile:mailserver:members:password', '') }}'
+    - user: root
+    - group: root
+    - mode: 0600
+
+# make sure the user database exists and is ready to use
+/etc/postfix/virtual-opensuse-users:
+  cmd.run:
+    - name: /usr/local/bin/get_member_aliases
+    - runas: root
+    - unless:
+      - test -f /etc/postfix/virtual-opensuse-users
+    - require:
+      - pkg: mariadb-client
+      - file: /root/.my.cnf
