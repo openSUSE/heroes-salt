@@ -1,4 +1,13 @@
+{% if salt['grains.get']('include_secrets', True) %}
+include:
+  - secrets.role.mailserver
+{% endif %}
+
+
 profile:
+  mailserver:
+    members:
+      user: 'mbr_postfix'
   postfix:
     aliases:
       root: admin-auto@opensuse.org
@@ -10,7 +19,7 @@ profile:
       inet_interfaces: 'all'
       mydestination: '$myhostname, localhost.$mydomain'
       myhostname: '{{grains.host}}.opensuse.org'
-      mynetwork_style: 'subnet'
+      mynetworks_style: 'subnet'
       alias_maps: ''
       canonical_maps: ''
       relocated_maps: ''
@@ -19,7 +28,7 @@ profile:
       strict_rfc821_envelopes: 'no'
       smtpd_client_restrictions: ''
       smtpd_helo_restrictions: ''
-      # smtpd_sender_restrictions: ''
+      smtpd_sender_restrictions: 'check_sender_access lmdb:/etc/postfix/manually-blocked-users,permit'
       smtpd_recipient_restrictions: >
         reject_unauth_destination,
         reject_non_fqdn_sender,
@@ -72,6 +81,9 @@ profile:
       smtpd_restriction_classes: 'greylist'
       greylist: 'check_policy_service unix:/var/spool/postfix/postgrey/socket'
       virtual_alias_domains: 'lmdb:/etc/postfix/virtual-domains'
+      # please note:
+      # the order of virtual alias lists is important. By keeping our "own" aliases
+      # at the top, we make sure they are never overwritten by e.g. a user alias.
       virtual_alias_maps: >
         lmdb:/etc/postfix/virtual-opensuse-aliases,
         pcre:/etc/postfix/virtual-opensuse-mm3-bounces.pcre,
@@ -100,6 +112,7 @@ profile:
       # 20210401 back off
       soft_bounce: 'no'
 
+
 zypper:
   packages:
     postsrsd: {}
@@ -107,3 +120,5 @@ zypper:
     clamav: {}
     spamassassin: {}
     mailgraph: {}
+    mariadb-client: {}
+    nsca-client: {}
