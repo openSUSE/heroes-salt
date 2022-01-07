@@ -3,7 +3,8 @@ grains:
   country: de
   hostusage:
     - wiki search backend
-  roles: []
+  roles:
+    - wikisearch
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
