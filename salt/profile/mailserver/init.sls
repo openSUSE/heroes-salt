@@ -152,6 +152,12 @@ postsrsd:
   host.present:
     - ip: 127.0.0.91
 
+/etc/default/postsrsd:
+  file.line:
+    - match: ^SRS_LISTEN_ADDR=
+    - content: SRS_LISTEN_ADDR=postsrsd
+    - mode: replace
+
 # MAYBE: remove override for clamd, seems to be standard now?
 {% for svc in ['clamd', 'spampd'] %}
 /etc/systemd/system/{{svc}}.service.d/override.conf:
