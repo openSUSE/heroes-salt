@@ -365,5 +365,6 @@ $wgCirrusSearchNamespaceWeights = array(
     NS_ARCHIVE  => 0.2,
     NS_HCL      => 0.2,
 );
+$wgCirrusSearchPhraseSuggestUseText = true; # use fulltext (not only page titles) for "did you mean?" language model
 
 # ----------------------------------
