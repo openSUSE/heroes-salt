@@ -3,7 +3,8 @@ grains:
   country: de
   hostusage:
     - mx2.o.o
-  roles: []
+  roles:
+    - mailserver
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
