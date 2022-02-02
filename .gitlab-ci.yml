@@ -1,8 +1,5 @@
 image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing:latest
 
-variables:
-  DOCKER_DRIVER: overlay2
-
 stages:
   - validate
   - test
@@ -16,7 +13,7 @@ validate:
   tags:
     - docker
 
-leap15.2_show_highstate:
+leap15.3_show_highstate:
   stage: validate
   before_script:
     - bin/prepare_test_env.sh -i opensuse -g -o Leap,15,3

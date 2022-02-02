@@ -66,7 +66,8 @@ fi
 $SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
-ID=$(hostname -f)
+
+ID=$(/usr/bin/hostname -f)
 
 printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n  salt_cluster: $SALT_CLUSTER\n  virt_cluster: $VIRT_CLUSTER\n" > pillar/id/${ID//./_}.sls
 
