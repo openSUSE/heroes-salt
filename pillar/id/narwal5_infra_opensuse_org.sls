@@ -17,6 +17,7 @@ grains:
   responsible:
     - cboltz
   partners:
+    - narwal4.infra.opensuse.org
     - narwal6.infra.opensuse.org
     - narwal7.infra.opensuse.org
   weburls:
