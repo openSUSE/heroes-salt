@@ -2,14 +2,17 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - future OBS related service
-  reboot_safe: unknown
+    - future OBS reviews
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []
-  description: future OBS related service
-  documentation: []
-  responsible: []
+  description: OBS ReviewLab
+  documentation: 
+    - https://github.com/openSUSE/open-build-service/wiki/Review-apps
+  responsible:
+    - hennevogel
   partners: []
-  weburls: []
+  weburls: 
+    - https://obs-reviewlab.opensuse.org/dashboard/
