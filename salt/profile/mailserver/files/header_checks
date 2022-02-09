@@ -1,3 +1,8 @@
 /^X-Spam-Virus:[\s\t]+yes[\s]+(.+)/     reject Virus identified $1
 /^X-Spam-Status:[\s\t]+yes.*score=([0-9.]+).*required=([0-9.]+)/        reject Spam identified ($1/$2)
 
+if /^Subject:.*New Tumbleweed snapshot.*released/
+if /^To:.*(factory@lists.|opensuse-factory@)opensuse.org/
+!/^From:.*dimstar@(opensuse.org|suse.de)/  REJECT  please dont do that
+endif
+endif
