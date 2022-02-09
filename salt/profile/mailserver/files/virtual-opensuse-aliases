@@ -32,11 +32,9 @@ mailer-daemon           per@opensuse.org
 # 20200916 https://progress.opensuse.org/issues/70891
 redmine@opensuse.org    redmine+admin@progress.infra.opensuse.org
 
-
 # https://progress.opensuse.org/issues/99726
 tweet-os@opensuse.org   social.media@opensuse.org
 social.media@opensuse.org       ddemaio@opensuse.org henne.vogelsang@opensuse.org
 
 # 20211215 pjessen, cboltz
 security@opensuse.org   admin-auto@opensuse.org, security@suse.de
-
