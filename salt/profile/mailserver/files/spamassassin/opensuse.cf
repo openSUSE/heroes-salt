@@ -7,7 +7,6 @@ whitelist_to    *+help@opensuse.org
 whitelist_to    *+confunsub-*@opensuse.org
 whitelist_to    *+confsub-*@opensuse.org
 
-
 # ditto for mailman commands
 whitelist_to    *-confirm+*@lists.opensuse.org
 whitelist_to    *-join@lists.opensuse.org
