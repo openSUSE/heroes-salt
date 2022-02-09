@@ -119,6 +119,7 @@ zypper:
     postgrey: {}
     clamav: {}
     spamassassin: {}
+    perl-razor-agents: {}
     mailgraph: {}
     mariadb-client: {}
     nsca-client: {}
