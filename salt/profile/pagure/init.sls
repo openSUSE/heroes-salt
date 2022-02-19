@@ -21,6 +21,8 @@ pagure_conf:
     - name: /etc/pagure/pagure.cfg
     - source: salt://profile/pagure/files/pagure.cfg
     - template: jinja
+    - group: git
+    - mode: '0640'
     - require_in:
       - service: pagure_web_service
     - watch_in:
@@ -40,6 +42,8 @@ pagure_alembic_conf:
     - name: /etc/pagure/alembic.ini
     - source: salt://profile/pagure/files/alembic.ini
     - template: jinja
+    - group: git
+    - mode: '0640'
     - require_in:
       - service: pagure_web_service
     - watch_in:
