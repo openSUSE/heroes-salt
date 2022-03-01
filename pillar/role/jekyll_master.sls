@@ -37,3 +37,7 @@ zypper:
       baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/jekyll/openSUSE_Leap_$releasever/
       priority: 100
       refresh: True
+    devel:languages:ruby:
+      baseurl: http://download.infra.opensuse.org/repositories/devel:/languages:/ruby/openSUSE_Leap_$releasever/
+      priority: 100
+      refresh: True
