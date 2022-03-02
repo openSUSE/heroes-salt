@@ -8,6 +8,13 @@ homeserver:
     # Only applies if address starts with https://
     verify_ssl: true
     asmux: false
+    # Number of retries for all HTTP requests if the homeserver isn't reachable.
+    http_retry_count: 4
+    # The URL to push real-time bridge status to.
+    # If set, the bridge will make POST requests to this URL whenever a user's Telegram connection state changes.
+    # The bridge will use the appservice as_token to authorize requests.
+    status_endpoint:
+
 
 # Application service host/registration related details
 # Changing these values requires regeneration of the registration.
@@ -194,8 +201,11 @@ bridge:
         example.com: foobar
     # Set to false to disable link previews in messages sent to Telegram.
     telegram_link_preview: true
+    # Whether or not the !tg join command should do a HTTP request
+    # to resolve redirects in invite links.
+    invite_link_resolve: false
     # Use inline images instead of a separate message for the caption.
-    # N.B. Inline images are not supported on all clients (e.g. Riot iOS).
+    # N.B. Inline images are not supported on all clients (e.g. Element iOS/Android).
     inline_images: true
     # Maximum size of image in megabytes before sending to Telegram as a document.
     image_as_file_size: 10
@@ -204,6 +214,7 @@ bridge:
     # Enable experimental parallel file transfer, which makes uploads/downloads much faster by
     # streaming from/to Matrix and using many connections for Telegram.
     # Note that generating HQ thumbnails for videos is not possible with streamed transfers.
+    # This option uses internal Telethon implementation details and may break with minor updates.
     parallel_file_transfer: false
     # Whether or not created rooms should have federation enabled.
     # If false, created portal rooms will never be federated.
@@ -250,7 +261,7 @@ bridge:
             require_cross_signing: false
             # Require devices to be verified by the bridge?
             # Verification by the bridge is not yet implemented.
-            require_verification: tru
+            require_verification: true
     # Whether or not to explicitly set the avatar and room name for private
     # chat portal rooms. This will be implicitly enabled if encryption.default is true.
     private_chat_portal_meta: false
@@ -263,6 +274,15 @@ bridge:
     # This field will automatically be changed back to false after it,
     # except if the config file is not writable.
     resend_bridge_info: false
+    # When using double puppeting, should muted chats be muted in Matrix?
+    mute_bridging: false
+    # When using double puppeting, should pinned chats be moved to a specific tag in Matrix?
+    # The favorites tag is `m.favourite`.
+    pinned_tag:
+    # Same as above for archived chats, the low priority tag is `m.lowpriority`.
+    archive_tag:
+    # Whether or not mute status and tags should only be bridged when the portal room is created.
+    tag_only_on_create: true
     # Settings for backfilling messages from Telegram.
     backfill:
         # Whether or not the Telegram ghosts of logged in Matrix users should be
@@ -292,7 +312,6 @@ bridge:
         # Normal groups have numerous technical problems in Telegram, and backfilling normal groups
         # will likely cause problems if there are multiple Matrix users in the group.
         normal_groups: false
-
 
     # Overrides for base power levels.
     initial_power_level_overrides:
@@ -386,7 +405,7 @@ bridge:
     permissions:
         '*': relaybot
         '@hellcp:opensuse.org': admin
-        '@pontaoski:tchncs.de': admin
+        '@pontaoski:kde.org': admin
         '@carl:kde.org': user
     relaybot:
         private_chat:
