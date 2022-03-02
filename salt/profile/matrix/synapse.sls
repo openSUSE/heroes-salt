@@ -9,7 +9,7 @@ synapse:
     - members:
       - synapse
 
-synapse_systemd_file:
+synapse_systemd_override:
   file.managed:
     - name: /etc/systemd/system/matrix-synapse.service.d/override.conf
     - source: salt://profile/matrix/files/synapse.service
@@ -23,7 +23,7 @@ synapse_systemd_file:
     - require_in:
       - service: synapse_service
 
-synapse_systemd_file:
+synapse_worker_systemd_file:
   file.managed:
     - name: /etc/systemd/system/matrix-synapse-worker@.taget
     - source: salt://profile/matrix/files/synapse@.target
