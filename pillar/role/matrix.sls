@@ -112,7 +112,7 @@ profile:
             - federation_sender1: 8571
             - federation_sender2: 8572
       media_repository:
-        - media_repository
+        - media_repository:
           - rest:
               - ^/_matrix/media/
             workers:
