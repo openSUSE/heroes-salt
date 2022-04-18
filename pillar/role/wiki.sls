@@ -39,7 +39,8 @@ mediawiki:
       version: '1_27'
     de:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">This wiki was updated to MediaWiki 1.37. If you notice any issues, please report them to admin[at]opensuse.org</div>'
+      # site_notice: '<div class="alert alert-warning">This wiki was updated to MediaWiki 1.37. If you notice any issues, please report them to admin[at]opensuse.org</div>'
+      version: '1_27'
     el:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
