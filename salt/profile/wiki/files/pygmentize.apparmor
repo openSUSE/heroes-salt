@@ -28,6 +28,7 @@ profile pygmentize /usr/share/mediawiki_*/extensions/SyntaxHighlight_GeSHi/pygme
   /usr/bin/env rix,
   /usr/bin/python r,
   /usr/bin/python2.7 rix,
+  /usr/bin/python3.6 rix,
   /usr/lib/ r,
   /usr/local/lib/ r,
   /usr/local/lib64/ r,
