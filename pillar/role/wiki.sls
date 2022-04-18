@@ -100,7 +100,6 @@ mediawiki:
       readonly_msg: 'This wiki is an archive and cannot be edited.'
       robots: robots-disallow.txt
       site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
-      version: '1_27'
     pl:
       dbpass: not_in_salt_yet
       site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
