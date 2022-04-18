@@ -25,7 +25,7 @@ mediawiki:
       # dbmysql5: False  # only needed for old-en and old-de, defaults to True
       # dbpass: not_in_salt_yet
       # lang: en
-      # skin: Chameleon  # defaults to 'bento' if not set. Explicitely setting it to 'bento' will load 'Chameleon' as alternative/user-selectable skin
+      # skin: Chameleon  # defaults to 'Chameleon' if not set. Explicitely setting it to 'bento' will load 'Chameleon' as alternative/user-selectable skin
       # readonly_msg: 'This wiki is in read-only mode for maintenance!'
       # robots: robots-disallow.txt  # filename in salt/profile/wiki/files/, defaults to 'robots.txt'
       # site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
@@ -47,8 +47,7 @@ mediawiki:
       version: '1_27'
     en:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
-      version: '1_27'
+      site_notice: '<div class="alert alert-warning">This wiki was updated to MediaWiki 1.37. If you notice any issues, please report them to admin[at]opensuse.org</div>'
     en-test:
       bento_lang: en
       dbpass: not_in_salt_yet
