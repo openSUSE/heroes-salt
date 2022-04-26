@@ -2,18 +2,22 @@
 #
 # managed by salt - do not edit
 # 
-# DISTVERSION|PRODUKT_NAME|PRODUKT_VERSION|RELEASE_NOTES_NAME|PRODUKT_ARCHS
-# DISTVERSION        : openSUSE version (from OBS download tree like: obs://openSUSE:13.1:Update/standard )
-# PRODUKT_NAME       : Name of the product (will appear in tree)
-# PRODUKT_VERSION    : official Version number (12.3 or 13.1 - will appear in tree) 
+# Format:
+# DISTVERSION|PRODUCT_NAME|PRODUCT_VERSION|RELEASE_NOTES_NAME|PRODUKT_ARCHS
+# DISTVERSION        : openSUSE version (from OBS download tree like: obs://openSUSE:13.1:Update/standard)
+# PRODUCT_NAME       : Name of the product (will appear in tree)
+# PRODUCT_VERSION    : official Version number (12.3 or 13.1 - will appear in tree)
 # RELEASE_NOTES_NAME : the name of the release-notes RPM
 # PRODUKT_ARCHS      : supported architectures (space separated)
 # TARGET_REL_DIRS    : target base directory where release notes should be unpacked (can/should stay empty)
 #
 # TODO: phase out factory and only provide Tumbleweed
-obs://Documentation:Auto/openSUSE_Factory|openSUSE|factory|release-notes-openSUSE|x86_64|
-obs://Documentation:Auto/openSUSE_Factory|openSUSE|Tumbleweed|release-notes-openSUSE|x86_64|
+obs://Documentation:Auto/openSUSE_Factory|openSUSE|factory|release-notes-openSUSE-TW|x86_64|
+obs://Documentation:Auto/openSUSE_Factory|openSUSE|Tumbleweed|release-notes-openSUSE-TW|x86_64|
 obs://Documentation:Auto/openSUSE_Leap_42.3|openSUSE|Leap/42.3|release-notes-openSUSE|x86_64|
 obs://Documentation:Auto/openSUSE_Leap_15.0|openSUSE|Leap/15.0|release-notes-openSUSE|x86_64|
 obs://Documentation:Auto/openSUSE_Leap_15.1|openSUSE|Leap/15.1|release-notes-openSUSE|x86_64|
-obs://Documentation:Auto/openSUSE_Leap_15.2|openSUSE|Leap/15.2|release-notes-openSUSE|x86_64|
+obs://Documentation:Auto/openSUSE_Leap_15.2|openSUSE|Leap/15.2|release-notes-openSUSE-L152|x86_64|
+obs://Documentation:Auto/openSUSE_Leap_15.3|openSUSE|Leap/15.3|release-notes-openSUSE-L153|x86_64|
+obs://Documentation:Auto/15.4|openSUSE|Leap/15.4|release-notes-openSUSE-L154|x86_64|
+obs://Documentation:Auto/openSUSE_Leap_Micro_5.2|openSUSE|LeapMicro/5.2|release-notes-leap-micro|x86_64
