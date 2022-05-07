@@ -17,7 +17,7 @@ profile:
             - ^/_matrix/client/(api/v1|r0|v3)/initialSync$
             - ^/_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync$
           workers:
-            - sync1: 8501
+            sync1: 8501
         - rest:
             - ^/_matrix/federation/v1/event/
             - ^/_matrix/federation/v1/state/
@@ -45,8 +45,8 @@ profile:
             - ^/_matrix/federation/v1/send/
             - ^/_matrix/federation/v1/groups/
           workers:
-            - federation_requests1: 8511
-            - federation_requests2: 8512
+            federation_requests1: 8511
+            federation_requests2: 8512
           upstream_balancing: ip_hash;
         - rest:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/createRoom$
@@ -71,8 +71,8 @@ profile:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/joined_rooms$
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/search$
           workers:
-            - client1: 8521
-            - client2: 8522
+            client1: 8521
+            client2: 8522
         - rest:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/login$
             - ^/_matrix/client/(r0|v3|unstable)/register$
@@ -86,7 +86,7 @@ profile:
             - ^/_synapse/client/saml2/authn_response$
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/login/cas/ticket$
           workers:
-            - login: 8531 # There can be only one login worker
+            login: 8531 # There can be only one login worker
         - rest:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/redact
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/send
@@ -95,45 +95,39 @@ profile:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/join/
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/profile/
           workers:
-            - event1: 8541
-            - event2: 8542
+            event1: 8541
+            event2: 8542
       pusher:
-        - pusher:
-          - workers:
-            - pusher1: 8551
-            - pusher2: 8552
+        - workers:
+            pusher1: 8551
+            pusher2: 8552
       appservice:
-        - appservice:
-          - workers:
-            - appservice: 8561
+        - workers:
+            appservice: 8561
       federation_sender:
-        - federation_sender:
-          - workers:
-            - federation_sender1: 8571
-            - federation_sender2: 8572
+        - workers:
+            federation_sender1: 8571
+            federation_sender2: 8572
       media_repository:
-        - media_repository:
-          - rest:
-              - ^/_matrix/media/
-            workers:
-              - media1: 8581
-              - media2: 8582
-            resources:
-            - media
+        - rest:
+            - ^/_matrix/media/
+          workers:
+            media1: 8581
+            media2: 8582
+          resources:
+          - media
       user_dir:
-        - user_dir:
-          - rest:
-              - ^/_matrix/client/(api/v1|r0|v3|unstable)/user_directory/search$
-            workers:
-              - user_dir: 8591
+        - rest:
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/user_directory/search$
+          workers:
+            user_dir: 8591
       frontend_proxy:
-        - frontend_proxy:
-          - rest:
-              - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/upload
-            workers:
-              - frontend_proxy: 8601
-            config: 
-              - worker_main_http_uri: http://127.0.0.1:8008
+        - rest:
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/upload
+          workers:
+            frontend_proxy: 8601
+          config:
+            - worker_main_http_uri: http://127.0.0.1:8008
 
       
     appservices:

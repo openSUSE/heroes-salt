@@ -5,7 +5,7 @@
 
 upstream {{ app }}_{{ loop.index }} {
     {{ type.get('upstream_balancing') }}
-    {%- for worker, port in type.get('workers') %}
+    {%- for worker, port in type.get('workers').items() %}
     server 127.0.0.1:{{ port }}; # {{ worker }}
     {%- endfor %}
 }

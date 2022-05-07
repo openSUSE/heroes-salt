@@ -14,7 +14,7 @@ synapse_restart:
 
 {% for app, types in workers.items() %}
 {% for type in types %}
-{% for worker, port in type.get('workers') %}
+{% for worker, port in type.get('workers').items() %}
 
 {{worker}}_service:
   service.running:
