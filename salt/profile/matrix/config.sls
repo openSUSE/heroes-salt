@@ -77,7 +77,7 @@ workers_nginx_file:
         port: {{ port }}
         app: {{ app }}
         resources: {{ type.get('resources') }}
-        config {{ type.get('config') }}
+        config: {{ type.get('config') }}
     - require:
       - file: workers_conf_dir
     - require_in:
