@@ -67,7 +67,7 @@ workers_nginx_file:
 
 {% for app, types in workers.items() %}
 {% for type in types %}
-{% for worker, port in type.get('workers').items() %}
+{% for worker, port in type.get('workers') %}
 /etc/matrix-synapse/workers/{{worker}}.yaml:
   file.managed:
     - source: salt://profile/matrix/files/worker.yaml

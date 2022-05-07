@@ -5,12 +5,12 @@
 
 upstream {{ app }}_{{ loop.index }} {
     {{ type.get('upstream_balancing') }}
-    {%- for worker, port in type.get('workers').items() %}
+    {%- for worker, port in type.get('workers') %}
     server 127.0.0.1:{{ port }}; # {{ worker }}
     {%- endfor %}
 }
 
-{%- for uri in type.get('rest').items() %}
+{%- for uri in type.get('rest') %}
 location ~ {{ uri }} {
     proxy_pass http://{{ app }}_{{ loop.index }}$request_uri;
     proxy_set_header X-Forwarded-For $remote_addr;
