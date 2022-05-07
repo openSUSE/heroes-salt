@@ -13,7 +13,7 @@ synapse_restart:
 {% set workers = salt['pillar.get']('profile:matrix:workers') %}
 
 {% for app, types in workers.items() %}
-{% for type in types.items() %}
+{% for type in types %}
 {% for worker, port in type.get('workers').items() %}
 
 {{worker}}_service:
