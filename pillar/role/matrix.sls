@@ -215,6 +215,7 @@ nginx:
                 - location /_matrix:
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8008
+                - include: /etc/matrix-synapse/workers/nginx.conf
           enabled: True
         webhook.opensuse.org:
           config:

@@ -1,0 +1,22 @@
+{% set workers = salt['pillar.get']('profile:matrix:workers') %}
+
+{% for app, types in workers.items() %}
+{% for type in types.items() %}
+
+upstream {{ app }}_{{ loop.index }} {
+    {{ type.get('upstream_balancing') }}
+    {%- for worker, port in type.get('workers').items() %}
+    server 127.0.0.1:{{ port }}; # {{ worker }}
+    {%- endfor %}
+}
+
+{%- for uri in type.get('rest').items() %}
+location ~ {{ uri }} {
+    proxy_pass http://{{ app }}_{{ loop.index }}$request_uri;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host $host;
+}
+{% endfor %}
+
+{% endfor %}
+{% endfor %}
