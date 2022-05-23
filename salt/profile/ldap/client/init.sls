@@ -13,6 +13,10 @@ include:
     - source: salt://profile/ldap/client/files/usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
     - mode: 0755
 
-/etc/nsswitch.conf:
-  file.managed:
-    - source: salt://profile/ldap/client/files/etc/nsswitch.conf
+{% for setting in ['passwd', 'group'] %}
+/etc/nsswitch.conf_{{setting}}:
+  file.replace:
+    - name: /etc/nsswitch.conf
+    - pattern: ^{{setting}}:.*$
+    - repl: '{{setting}}: compat sss'
+{% endfor %}
