@@ -55,7 +55,7 @@ nginx:
                         - proxy_set_header: X-Forwarded-Proto $thescheme
                         - proxy_pass: http://discourse
                         - break
-                    - location ~ ^/secure-media-uploads/
+                    - location ~ ^/secure-media-uploads/:
                         - proxy_set_header: Host $http_host
                         - proxy_set_header: X-Real-IP $remote_addr
                         - proxy_set_header: X-Request-Start "t=${msec}"
