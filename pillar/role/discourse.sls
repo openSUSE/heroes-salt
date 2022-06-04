@@ -168,3 +168,14 @@ nginx:
                     - proxy_set_header: X-Forwarded-Proto $thescheme
                     - proxy_pass: http://discourse
           enabled: True
+
+zypper:
+  repositories:
+    devel:languages:ruby:
+      baseurl: http://download.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
+      priority: 100
+      refresh: True
+    darix:apps:
+      baseurl: http://download.infra.opensuse.org/repositories/home:/darix:/apps/$releasever/
+      priority: 100
+      refresh: True
