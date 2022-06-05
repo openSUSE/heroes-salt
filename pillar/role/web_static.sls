@@ -37,9 +37,9 @@ nginx:
                     - application/javascript
                 - expires: $expires
                 - location ~ /\.svn:
-                    - return 404
+                    - return: 404
                 - location ~ /\.git:
-                    - return 404
+                    - return: 404
                 - location /:
                     - index:
                         - index.html
