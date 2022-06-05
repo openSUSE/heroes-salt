@@ -6,6 +6,8 @@
 
 source bin/get_colors.sh
 
+rpm -q nginx salt salt-master
+
 reset_nginx() {
     rm -rf /etc/nginx
     cp -a /etc/nginx_orig /etc/nginx
@@ -60,6 +62,8 @@ for role in ${WEB_ROLES[@]}; do
             echo_PASSED
         else
             echo_FAILED
+            head -n1000 /etc/nginx/vhosts.d/*
+            echo "### end of /etc/nginx/vhosts.d/* for role $role"
             STATUS=1
         fi
         echo
