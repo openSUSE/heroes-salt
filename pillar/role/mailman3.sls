@@ -31,30 +31,30 @@ nginx:
         lists.opensuse.org.conf:
           config:
             - map $request_uri $mails_rewritemap:
-                - include /etc/nginx/mails.rewritemap
+                - include: /etc/nginx/mails.rewritemap
             - map $request_uri $lists_rewritemap:
-                - include /etc/nginx/lists.rewritemap
+                - include: /etc/nginx/lists.rewritemap
             - map $request_uri $feeds_rewritemap:
-                - include /etc/nginx/feeds.rewritemap
+                - include: /etc/nginx/feeds.rewritemap
             - map $request_uri $mboxs_rewritemap:
-                - include /etc/nginx/mboxs.rewritemap
+                - include: /etc/nginx/mboxs.rewritemap
             - map $request_uri $miscs_rewritemap:
-                - include /etc/nginx/miscs.rewritemap
+                - include: /etc/nginx/miscs.rewritemap
             - server:
                 - server_name: lists.opensuse.org lists.uyuni-project.org
                 - listen:
                     - 80
                     - default_server
-                - if ($mails_rewrite:map):
-                    - rewrite: ^(.*)$ $mails_rewrite:map permanent
-                - if ($lists_rewrite:map):
-                    - rewrite: ^(.*)$ $lists_rewrite:map permanent
-                - if ($feeds_rewrite:map):
-                    - rewrite: ^(.*)$ $feeds_rewrite:map permanent
-                - if ($mboxs_rewrite:map):
-                    - rewrite: ^(.*)$ $mboxs_rewrite:map permanent
-                - if ($miscs_rewrite:map):
-                    - rewrite: ^(.*)$ $miscs_rewrite:map permanent
+                - if ($mails_rewritemap):
+                    - rewrite: ^(.*)$ $mails_rewritemap permanent
+                - if ($lists_rewritemap):
+                    - rewrite: ^(.*)$ $lists_rewritemap permanent
+                - if ($feeds_rewritemap):
+                    - rewrite: ^(.*)$ $feeds_rewritemap permanent
+                - if ($mboxs_rewritemap):
+                    - rewrite: ^(.*)$ $mboxs_rewritemap permanent
+                - if ($miscs_rewritemap):
+                    - rewrite: ^(.*)$ $miscs_rewritemap permanent
                 - location /static/django-mailman3/img/login/opensuse.png:
                     - return: 301 https://static.opensuse.org/favicon-24.png
                 - location /static/:
