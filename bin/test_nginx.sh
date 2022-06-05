@@ -47,6 +47,25 @@ create_fake_certs() {
     done
 }
 
+touch_includes() {
+    case "$1" in
+        mailman3)
+            touch /etc/nginx/mails.rewritemap
+            touch /etc/nginx/lists.rewritemap
+            touch /etc/nginx/feeds.rewritemap
+            touch /etc/nginx/mboxs.rewritemap
+            touch /etc/nginx/miscs.rewritemap
+            ;;
+        pagure)
+            touch /etc/nginx/acme-challenge
+            mkdir -p /etc/ssl/services/letsencrypt
+            cat test/fixtures/domain.{crt,key} > /etc/ssl/services/letsencrypt/code.opensuse.org.with.chain_rsa.pem
+            cat test/fixtures/domain.{crt,key} > /etc/ssl/services/letsencrypt/code.opensuse.org.with.chain_ecdsa.pem
+            sed '/ ssl_dhparam / d' -i /etc/nginx/ssl-config
+            ;;
+    esac;
+}
+
 cp -a /etc/nginx /etc/nginx_orig
 
 WEB_ROLES=( $(bin/get_roles.py) )
@@ -58,6 +77,7 @@ for role in ${WEB_ROLES[@]}; do
         reset_ip
         salt-call --local -l quiet state.apply role.$role > /dev/null
         create_fake_certs
+        touch_includes $role
         if $(nginx -tq); then
             echo_PASSED
         else
@@ -71,3 +91,5 @@ for role in ${WEB_ROLES[@]}; do
 done
 
 exit $STATUS
+
+vim:expandtab
