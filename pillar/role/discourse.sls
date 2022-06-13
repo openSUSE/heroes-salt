@@ -22,7 +22,7 @@ nginx:
                 - '::1': 1
             - server:
                 - server_name: forums.opensuse.org
-                - server_tokens: off
+                - server_tokens: "off"
                 - listen:
                     - 80
                     - default_server
@@ -37,13 +37,13 @@ nginx:
                 - keepalive_timeout: 65
                 - client_max_body_size: 10m
                 - set: $public /srv/www/vhosts/discourse/public
-                - etag: off
+                - etag: "off"
                 - location ^~ /backups/:
                     - internal
                 - location /favicon.ico:
                     - return: 204
-                    - access_log: off
-                    - log_not_found: off
+                    - access_log: "off"
+                    - log_not_found: "off"
                 - location /:
                     - root: $public
                     - add_header: ETag ""
@@ -68,8 +68,8 @@ nginx:
                         - add_header: Cache-Control public,immutable
                         - add_header: Access-Control-Allow-Origin *
                     - location = /srv/status:
-                        - access_log: off
-                        - log_not_found: off
+                        - access_log: "off"
+                        - log_not_found: "off"
                         - proxy_set_header: Host $http_host
                         - proxy_set_header: X-Real-IP $remote_addr
                         - proxy_set_header: X-Request-Start "t=${msec}"
@@ -152,7 +152,7 @@ nginx:
                         - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                         - proxy_set_header: X-Forwarded-Proto $thescheme
                         - proxy_http_version: 1.1
-                        - proxy_buffering: off
+                        - proxy_buffering: "off"
                         - proxy_pass: http://discourse
                         - break
                     - try_files: $uri @discourse
