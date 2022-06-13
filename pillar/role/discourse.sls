@@ -39,7 +39,7 @@ nginx:
                 - set: $public /srv/www/vhosts/discourse/public
                 - etag: "off"
                 - location ^~ /backups/:
-                    - internal
+                    - internal:
                 - location /favicon.ico:
                     - return: 204
                     - access_log: "off"
@@ -111,6 +111,8 @@ nginx:
                         - location ~* \.(gif|png|jpg|jpeg|bmp|tif|tiff|ico|webp)$:
                             - add_header: Access-Control-Allow-Origin *
                             - try_files: $uri =404
+                        # Intentionally left blank
+                        # https://github.com/discourse/discourse/commit/31e31ef44973dc4daaee2f010d71588ea5873b53#diff-e79d9fceaf4e304b8b83b0aa41729344b3266e90105e574b1a8cb26413c307e1
                         - location ~* \.(svg)$:
                             -
                         - location ~ /_?optimized/:
