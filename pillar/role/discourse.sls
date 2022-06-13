@@ -27,13 +27,13 @@ nginx:
                     - 80
                     - default_server
                 - access_log: /var/log/nginx/discourse.access.log log_discourse
-                - gzip: on
-                - gzip_vary: on
+                - gzip: "on"
+                - gzip_vary: "on"
                 - gzip_min_length: 1000
                 - gzip_comp_level: 5
                 - gzip_types: application/json text/css text/javascript application/x-javascript application/javascript image/svg+xml application/wasm
                 - gzip_proxied: any
-                - sendfile: on
+                - sendfile: "on"
                 - keepalive_timeout: 65
                 - client_max_body_size: 10m
                 - set: $public /srv/www/vhosts/discourse/public
@@ -83,8 +83,8 @@ nginx:
                         - add_header: Access-Control-Allow-Origin *
                     - location ~ ^/assets/(?<asset_path>.+)$:
                         - expires: 1y
-                        - brotli_static: on
-                        - gzip_static: on
+                        - brotli_static: "on"
+                        - gzip_static: "on"
                         - add_header: Cache-Control public,immutable
                         - break
                     - location ~ ^/plugins/:
