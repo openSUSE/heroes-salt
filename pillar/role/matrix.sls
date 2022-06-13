@@ -9,6 +9,127 @@ profile:
     database_host: 192.168.47.4
     database_name: matrix
     database_user: matrix
+    workers:
+      generic_worker:
+        - rest:
+            - ^/_matrix/client/(v2_alpha|r0|v3)/sync$
+            - ^/_matrix/client/(api/v1|v2_alpha|r0|v3)/events$
+            - ^/_matrix/client/(api/v1|r0|v3)/initialSync$
+            - ^/_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync$
+          workers:
+            sync1: 8501
+        - rest:
+            - ^/_matrix/federation/v1/event/
+            - ^/_matrix/federation/v1/state/
+            - ^/_matrix/federation/v1/state_ids/
+            - ^/_matrix/federation/v1/backfill/
+            - ^/_matrix/federation/v1/get_missing_events/
+            - ^/_matrix/federation/v1/publicRooms
+            - ^/_matrix/federation/v1/query/
+            - ^/_matrix/federation/v1/make_join/
+            - ^/_matrix/federation/v1/make_leave/
+            - ^/_matrix/federation/v1/send_join/
+            - ^/_matrix/federation/v2/send_join/
+            - ^/_matrix/federation/v1/send_leave/
+            - ^/_matrix/federation/v2/send_leave/
+            - ^/_matrix/federation/v1/invite/
+            - ^/_matrix/federation/v2/invite/
+            - ^/_matrix/federation/v1/query_auth/
+            - ^/_matrix/federation/v1/event_auth/
+            - ^/_matrix/federation/v1/exchange_third_party_invite/
+            - ^/_matrix/federation/v1/user/devices/
+            - ^/_matrix/federation/v1/get_groups_publicised$
+            - ^/_matrix/key/v2/query
+            - ^/_matrix/federation/unstable/org.matrix.msc2946/spaces/
+            - ^/_matrix/federation/(v1|unstable/org.matrix.msc2946)/hierarchy/
+            - ^/_matrix/federation/v1/send/
+            - ^/_matrix/federation/v1/groups/
+          workers:
+            federation_requests1: 8511
+            federation_requests2: 8512
+          upstream_balancing: ip_hash;
+        - rest:
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/createRoom$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/publicRooms$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/joined_members$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/context/.*$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/members$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state$
+            - ^/_matrix/client/unstable/org.matrix.msc2946/rooms/.*/spaces$
+            - ^/_matrix/client/(v1|unstable/org.matrix.msc2946)/rooms/.*/hierarchy$
+            - ^/_matrix/client/unstable/im.nheko.summary/rooms/.*/summary$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/account/3pid$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/devices$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/query$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/changes$
+            - ^/_matrix/client/versions$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/voip/turnServer$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/joined_groups$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/publicised_groups$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/publicised_groups/
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/event/
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/joined_rooms$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/search$
+          workers:
+            client1: 8521
+            client2: 8522
+        - rest:
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/login$
+            - ^/_matrix/client/(r0|v3|unstable)/register$
+            - ^/_matrix/client/v1/register/m.login.registration_token/validity$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
+            - ^/_synapse/client/pick_idp$
+            - ^/_synapse/client/pick_username
+            - ^/_synapse/client/new_user_consent$
+            - ^/_synapse/client/sso_register$
+            - ^/_synapse/client/oidc/callback$
+            - ^/_synapse/client/saml2/authn_response$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/login/cas/ticket$
+          workers:
+            login: 8531 # There can be only one login worker
+        - rest:
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/redact
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/send
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state/
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/(join|invite|leave|ban|unban|kick)$
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/join/
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/profile/
+          workers:
+            event1: 8541
+            event2: 8542
+      pusher:
+        - workers:
+            pusher1: 8551
+            pusher2: 8552
+      appservice:
+        - workers:
+            appservice: 8561
+      federation_sender:
+        - workers:
+            federation_sender1: 8571
+            federation_sender2: 8572
+      media_repository:
+        - rest:
+            - ^/_matrix/media/
+          workers:
+            media1: 8581
+            media2: 8582
+          resources:
+          - media
+      user_dir:
+        - rest:
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/user_directory/search$
+          workers:
+            user_dir: 8591
+      frontend_proxy:
+        - rest:
+            - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/upload
+          workers:
+            frontend_proxy: 8601
+          config:
+            - worker_main_http_uri: http://127.0.0.1:8008
+
+      
     appservices:
       discord:
         repo: https://github.com/Half-Shot/matrix-appservice-discord.git
@@ -25,176 +146,6 @@ profile:
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253
-    matterbridge:
-      servers:
-        irc:
-          libera:
-            Server: "irc.libera.chat:6697"
-            UseTLS: true
-            Nick: "openSUSEBot"
-            RemoteNickFormat: "<{NICK}> "
-        matrix:
-          openSUSE:
-            Server: "https://matrix.opensuse.org"
-            MxId: "@matterbridge:opensuse.org"
-            RemoteNickFormat: "<{NICK}> "
-        discord:
-          openSUSE:
-            Server: "ID:366985425371398146"
-            AutoWebhooks: true
-            UseUserName: true
-            RemoteNickFormat: "{NICK}"
-        telegram:
-          default:
-            UseFirstName: true
-            RemoteNickFormat: "**{NICK}**: "
-            MessageFormat: "MarkdownV2"
-      gateways:
-        # kiwi:
-        #   matrix.openSUSE: "#kiwi:matrix.org"
-        #   discord.openSUSE: "ID:669467339158454283"
-        kubic:
-          irc.libera: "#kubic"
-        #   matrix.openSUSE: "#kubic:opensuse.org"
-          discord.openSUSE: "ID:734445719825416216"
-        microos-desktop:
-          irc.libera: "microos-desktop"
-        #   matrix.openSUSE: "#microos-desktop:opensuse.org"
-          discord.openSUSE: "ID:734445753975570563"
-        #   telegram.default: ""
-        # openqa:
-        #   matrix.openSUSE: "#openqa:opensuse.org"
-        #   discord.openSUSE: "ID:817367056956653621"
-        opensuse-admin:
-          irc.libera: "#opensuse-admin"
-          matrix.openSUSE: "#admin:opensuse.org"
-          discord.openSUSE: "ID:700799844754784420"
-        opensuse-artwork:
-          irc.libera: "#opensuse-artwork"
-        #   matrix.openSUSE: "#artwork:opensuse.org"
-          discord.openSUSE: "ID:496049131928682506"
-        opensuse-buildservice:
-          irc.libera: "#opensuse-buildservice"
-        #   matrix.openSUSE: "#obs:opensuse.org"
-          discord.openSUSE: "ID:723545727816433664"
-        opensuse-chat:
-          irc.libera: "#opensuse-chat"
-        #   matrix.openSUSE: "#chat:opensuse.org"
-          discord.openSUSE: "ID:366989996101730304"
-        #   telegram.default: ""
-        opensuse-de:
-          irc.libera: "#opensuse-de"
-        #   matrix.openSUSE: "#de:opensuse.org"
-          discord.openSUSE: "ID:561164428939100160"
-        #   telegram.default: ""
-        # opensuse-docs:
-        #   matrix.openSUSE: "#docs:opensuse.org"
-        #   discord.openSUSE: "ID:570871796132478976"
-        #   telegram.default: ""
-        opensuse-e:
-          irc.libera: "#opensuse-e"
-        #   matrix.openSUSE: "#e:opensuse.org"
-          discord.openSUSE: "ID:582568672196034570"
-        opensuse-es:
-          irc.libera: "#opensuse-es"
-        #   matrix.openSUSE: "#es:opensuse.org"
-          discord.openSUSE: "ID:561190353030348810"
-        #   telegram.default: ""
-        opensuse-factory:
-          irc.libera: "#opensuse-factory"
-        #   matrix.openSUSE: "#factory:opensuse.org"
-          discord.openSUSE: "ID:523947864439914496"
-        opensuse-forums:
-          irc.libera: "#opensuse-forums"
-        #   matrix.openSUSE: "#forums:opensuse.org"
-          discord.openSUSE: "ID:700825520668934284"
-        # opensuse-fr:
-        #   matrix.openSUSE: "#fr:opensuse.org"
-        #   discord.openSUSE: "ID:664012710597492737"
-        # opensuse-gaming:
-        #   matrix.openSUSE: "#gaming:opensuse.org"
-        #   discord.openSUSE: "ID:570871874481815572"
-        opensuse-gnome:
-          irc.libera: "#opensuse-gnome"
-        #   matrix.openSUSE: "#gnome:opensuse.org"
-          discord.openSUSE: "ID:523949043110379530"
-        # opensuse-haskell:
-        #   matrix.openSUSE: "#haskell:opensuse.org"
-        #   discord.openSUSE: "ID:760556011395874856"
-        # opensuse-it:
-        #   matrix.openSUSE: "#it:opensuse.org"
-        #   discord.openSUSE: "ID:561194459619000321"
-        #   telegram.default: ""
-        opensuse-kde:
-          irc.libera: "#opensuse-kde"
-        #   matrix.openSUSE: "#kde:opensuse.org"
-          discord.openSUSE: "ID:523949061674369024"
-        opensuse-marketing:
-          irc.libera: "#opensuse-marketing"
-        #   matrix.openSUSE: "#marketing:opensuse.org"
-          discord.openSUSE: "ID:660902159910567966"
-        #   telegram.default: ""
-        # opensuse-newscom:
-        #   matrix.openSUSE: "#newscom:opensuse.org"
-        #   discord.openSUSE: "ID:806162338188361728"
-        #   telegram.default: ""
-        # opensuse-news:
-        #   matrix.openSUSE: "#news:opensuse.org"
-        #   discord.openSUSE: "ID:376527321869451271"
-        # opensuse-nl:
-        #   matrix.openSUSE: "#nl:opensuse.org"
-        #   discord.openSUSE: "ID:605150216965849107"
-        opensuse-packaging:
-          irc.libera: "#opensuse-packaging"
-        #   matrix.openSUSE: "#packaging:opensuse.org"
-          discord.openSUSE: "ID:496005129959374868"
-        # opensuse-pine:
-        #   matrix.openSUSE: "#pine:opensuse.org"
-        #   discord.openSUSE: "ID:794874055043710996"
-        #   telegram.default: ""
-        opensuse-pl:
-          irc.libera: "#suse.pl"
-        #   matrix.openSUSE: "#pl:opensuse.org"
-          discord.openSUSE: "ID:561164407560863755"
-        #   telegram.default: ""
-        opensuse-project:
-          irc.libera: "#opensuse-project"
-        #   matrix.openSUSE: "#project:opensuse.org"
-          discord.openSUSE: "ID:407993213425680384"
-        #   telegram.default: ""
-        # opensuse-reddit:
-        #   matrix.openSUSE: "#reddit:opensuse.org"
-        #   discord.openSUSE: "ID:619283903571820555"
-        opensuse-support:
-          irc.libera: "#opensuse"
-        #   matrix.openSUSE: "#support:opensuse.org"
-          discord.openSUSE: "ID:366987951734784012"
-        # opensuse-telegram:
-        #   matrix.openSUSE: "#telegram:opensuse.org"
-        #   discord.openSUSE: "ID:557298959765209108"
-        #   telegram.default: ""
-        # opensuse-tumbleweed:
-        #   matrix.openSUSE: "#snapshots:opensuse.org"
-        #   discord.openSUSE: "ID:619284844865650698"
-        # opensuse-twitter:
-        #   matrix.openSUSE: "#twitter:opensuse.org"
-        #   discord.openSUSE: "ID:619283940318117953"
-        opensuse-xfce:
-          irc.libera: "#opensuse-xfce"
-        #   matrix.openSUSE: "#xfce:opensuse.org"
-          discord.openSUSE: "ID:523949083241742336"
-        #   telegram.default: ""
-        # software-o-o:
-        #   matrix.openSUSE: "#software-o-o:opensuse.org"
-        #   discord.openSUSE: "ID:733713878055256155"
-        uyuni:
-          irc.libera: "#uyuni"
-        #   matrix.openSUSE: "#uyuni:opensuse.org"
-          discord.openSUSE: "ID:723546275915628585"
-        yast:
-          irc.libera: "#yast"
-        #   matrix.openSUSE: "#yast:opensuse.org"
-          discord.openSUSE: "ID:545922654570414090"
 
 nginx:
   ng:
@@ -258,6 +209,7 @@ nginx:
                 - location /_matrix:
                     - proxy_set_header: X-Forwarded-For $remote_addr
                     - proxy_pass: http://localhost:8008
+                - include: /etc/matrix-synapse/workers/nginx.conf
           enabled: True
         webhook.opensuse.org:
           config:

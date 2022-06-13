@@ -7,6 +7,7 @@ bridge:
   domain: "opensuse.org"
   # This should be your publically facing URL because Discord may use it to
   # fetch media from the media store.
+  port: 9001
   homeserverUrl: "https://matrix.opensuse.org"
   # Interval at which to process users in the 'presence queue'. If you have
   # 5 users, one user will be processed every 500 milliseconds according to the

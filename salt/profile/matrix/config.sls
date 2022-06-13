@@ -50,3 +50,41 @@ synapse_conf_file:
     - mode: 640
     - user: root
     - group: synapse
+
+workers_conf_dir:
+  file.directory:
+    - name: /etc/matrix-synapse/workers/
+
+workers_nginx_file:
+  file.managed:
+    - name: /etc/matrix-synapse/workers/nginx.conf
+    - source: salt://profile/matrix/files/workers.nginx
+    - template: jinja
+    - require:
+      - file: workers_conf_dir
+
+{% set workers = salt['pillar.get']('profile:matrix:workers') %}
+
+{% for app, types in workers.items() %}
+{% for type in types %}
+{% for worker, port in type.get('workers').items() %}
+/etc/matrix-synapse/workers/{{worker}}.yaml:
+  file.managed:
+    - source: salt://profile/matrix/files/worker.yaml
+    - template: jinja
+    - context:
+        worker: {{ worker }}
+        port: {{ port }}
+        app: {{ app }}
+        resources: {{ type.get('resources') }}
+        config: {{ type.get('config') }}
+    - require:
+      - file: workers_conf_dir
+    - require_in:
+      - service: {{worker}}_service
+    - watch_in:
+      - module: {{worker}}_restart
+
+{% endfor %}
+{% endfor %}
+{% endfor %}

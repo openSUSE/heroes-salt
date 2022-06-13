@@ -1,0 +1,26 @@
+worker_app: synapse.app.{{ app }}
+worker_name: {{ worker }}
+
+# The replication listener on the main synapse process.
+worker_replication_host: 127.0.0.1
+worker_replication_http_port: 9093
+
+worker_listeners:
+  - type: http
+    port: {{ port }}
+    resources:
+      - names:
+        {%- if resources %}
+        {%- for resource in resources.items() %}
+        - {{ resource }}
+        {%- endfor %}
+        {%- else %}
+        - client
+        - federation
+        {%- endif %}
+
+{% for setting, value in config.items() %}
+{{ setting }}: {{ value }}
+{% endfor %}
+
+worker_log_config: /etc/matrix-synapse/worker-log.yaml

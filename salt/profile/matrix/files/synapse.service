@@ -1,16 +1,16 @@
 [Unit]
-Description=Synapse Matrix homeserver
+PartOf=matrix-synapse.target
+ReloadPropagatedFrom=matrix-synapse.target
 
 [Service]
-Type=simple
-Restart=on-failure
-RestartSec=3600
-
+Type=notify
+Restart=always
 AppArmorProfile=matrix-synapse
-User=synapse
-Group=synapse
-WorkingDirectory=/var/lib/matrix-synapse/
-ExecStart=/usr/bin/python3 -m synapse.app.homeserver --config-path=/etc/matrix-synapse/homeserver.yaml
+WorkingDirectory=/data/var/lib/matrix-synapse/
+EnvironmentFile=-/etc/default/matrix-synapse
+ExecStartPre=/usr/bin/python3 -m synapse.app.homeserver --config-path=/etc/matrix-synapse/homeserver.yaml --config-path=/etc/matrix-synapse/conf.d/ --generate-keys
+ExecReload=/bin/kill -HUP $MAINPID
+Environment=SYNAPSE_CACHE_FACTOR=2.0
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=matrix-synapse.target
