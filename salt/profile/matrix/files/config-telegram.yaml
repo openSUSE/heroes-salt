@@ -14,7 +14,8 @@ homeserver:
     # If set, the bridge will make POST requests to this URL whenever a user's Telegram connection state changes.
     # The bridge will use the appservice as_token to authorize requests.
     status_endpoint:
-
+    # Endpoint for reporting per-message status.
+    message_send_checkpoint_endpoint:
 
 # Application service host/registration related details
 # Changing these values requires regeneration of the registration.
@@ -32,18 +33,16 @@ appservice:
     # Usually 1 is enough, but on high-traffic bridges you might need to increase this to avoid 413s
     max_body_size: 1
 
-    # The full URI to the database. SQLite and Postgres are fully supported.
-    # Other DBMSes supported by SQLAlchemy may or may not work.
+    # The full URI to the database. SQLite and Postgres are supported.
     # Format examples:
     #   SQLite:   sqlite:///filename.db
     #   Postgres: postgres://username:password@hostname/dbname
     database: postgresql://{{ pillar['profile']['matrix']['database_user'] }}:{{ pillar['postgres']['users']['matrix']['password'] }}@{{ pillar['profile']['matrix']['database_host'] }}/telegram_bridge
-    # Optional extra arguments for SQLAlchemy's create_engine
+    # Additional arguments for asyncpg.create_pool() or sqlite3.connect()
+    # https://magicstack.github.io/asyncpg/current/api/index.html#asyncpg.pool.create_pool
+    # https://docs.python.org/3/library/sqlite3.html#sqlite3.connect
+    # For sqlite, min_size is used as the connection thread pool size and max_size is ignored.
     database_opts: {}
-
-    # Public part of web server for out-of-Matrix interaction with the bridge.
-    # Used for things like login if the user wants to make sure the 2FA password isn't stored in
-    # the HS database.
     public:
         # Whether or not the public-facing endpoints should be enabled.
         enabled: false
@@ -73,12 +72,6 @@ appservice:
     bot_displayname: Telegram
     bot_avatar: mxc://opensuse.org/FPGLmCfsZtwRHKeRITyGvtoQ
 
-    # Community ID for bridged users (changes registration file) and rooms.
-    # Must be created manually.
-    #
-    # Example: "+telegram:example.com". Set to false to disable.
-    community_id: +telegram:opensuse.org
-
     # Whether or not to receive ephemeral events via appservice transactions.
     # Requires MSC2409 support (i.e. Synapse 1.22+).
     # You should disable bridge -> sync_with_custom_puppets when this is enabled.
@@ -103,8 +96,6 @@ manhole:
     # If empty, any UIDs can be specified in the open-manhole command.
     whitelist:
     - 0
-
-# Bridge config
 bridge:
     # Localpart template of MXIDs for Telegram users.
     # {userid} is replaced with the user ID of the Telegram user.
@@ -134,7 +125,6 @@ bridge:
     - full name
     - username
     - phone number
-    # Maximum length of displayname
     displayname_max_length: 100
     # Remove avatars from Telegram ghost users when removed on Telegram. This is disabled by default
     # as there's no way to determine whether an avatar is removed or just hidden from some users. If
@@ -188,7 +178,6 @@ bridge:
     # Servers to always allow double puppeting from
     double_puppet_server_map:
         example.com: https://example.com
-    # Allow using double puppeting from any server with a valid client .well-known file.
     double_puppet_allow_discovery: false
     # Shared secrets for https://github.com/devture/matrix-synapse-shared-secret-auth
     #
@@ -199,7 +188,6 @@ bridge:
     # you must also set the URL in the double_puppet_server_map.
     login_shared_secret_map:
         example.com: foobar
-    # Set to false to disable link previews in messages sent to Telegram.
     telegram_link_preview: true
     # Whether or not the !tg join command should do a HTTP request
     # to resolve redirects in invite links.
@@ -209,6 +197,8 @@ bridge:
     inline_images: true
     # Maximum size of image in megabytes before sending to Telegram as a document.
     image_as_file_size: 10
+    # Maximum number of pixels in an image before sending to Telegram as a document. Defaults to 1280x1280 = 1638400.
+    image_as_file_pixels: 1638400
     # Maximum size of Telegram documents in megabytes to bridge.
     max_document_size: 100
     # Enable experimental parallel file transfer, which makes uploads/downloads much faster by
@@ -224,31 +214,24 @@ bridge:
         # Format to which animated stickers should be converted.
         # disable - No conversion, send as-is (gzipped lottie)
         # png - converts to non-animated png (fastest),
-        # gif - converts to animated gif, but loses transparency
+        # gif - converts to animated gif
         # webm - converts to webm video, requires ffmpeg executable with vp9 codec and webm container support
         target: webm
         # Arguments for converter. All converters take width and height.
-        # GIF converter takes background as a hex color.
         args:
             width: 256
             height: 256
-            fps: 30
-
-    # Overrides for base power levels.
+            fps: 30 # only for webm and gif (2, 5, 10, 20 or 25 recommended)
+    # End-to-bridge encryption support options.
+    #
+    # See https://docs.mau.fi/bridges/general/end-to-bridge-encryption.html for more info.
     encryption:
         # Allow encryption, work in group chat rooms with e2ee enabled
         allow: false
         # Default to encryption, force-enable encryption in all portals the bridge creates
         # This will cause the bridge bot to be in private chats for the encryption to work properly.
         default: false
-        # Database for the encryption data. Currently only supports Postgres and an in-memory
-        # store that's persisted as a pickle.
-        # If set to `default`, will use the appservice postgres database
-        # or a pickle file if the appservice database is sqlite.
-        #
-        # Format examples:
-        #   Pickle:   pickle:///filename.pickle
-        #   Postgres: postgres://username:password@hostname/dbname
+        # Database for the encryption data. If set to `default`, will use the appservice database.
         database: default
         # Options for automatic key sharing.
         key_sharing:
@@ -282,6 +265,10 @@ bridge:
     # Same as above for archived chats, the low priority tag is `m.lowpriority`.
     archive_tag:
     # Whether or not mute status and tags should only be bridged when the portal room is created.
+    # Should leaving the room on Matrix make the user leave on Telegram?
+    bridge_matrix_leave: true
+    # Should the user be kicked out of all portals when logging out of the bridge?
+    kick_on_logout: true
     tag_only_on_create: true
     # Settings for backfilling messages from Telegram.
     backfill:
@@ -326,19 +313,13 @@ bridge:
         # List of user IDs for whom the previous flag is flipped.
         # e.g. if bridge_notices.default is false, notices from other users will not be bridged, but
         #      notices from users listed here will be bridged.
-        # exceptions:
-        # - "@importantbot:example.com"
+        exceptions:
+        - '@telegrambot:opensuse.org'
 
-    # Some config options related to Telegram message deduplication.
-    # The default values are usually fine, but some debug messages/warnings might recommend you
-    # change these.
-    deduplication:
-        # Whether or not to check the database if the message about to be sent is a duplicate.
-        pre_db_check: false
-        # The number of latest events to keep when checking for duplicates.
-        # You might need to increase this on high-traffic bridge instances.
-        cache_queue_length: 20
-
+    # An array of possible values for the $distinguisher variable in message formats.
+    # Each user gets one of the values here, based on a hash of their user ID.
+    # If the array is empty, the $distinguisher variable will also be empty.
+    relay_user_distinguishers: [🟦, 🟣, 🟩, ⭕️, 🔶, ⬛️, 🔵, 🟢]
     # The formats to use when sending messages to Telegram via the relay bot.
     # Text msgtypes (m.text, m.notice and m.emote) support HTML, media msgtypes don't.
     #
@@ -346,6 +327,7 @@ bridge:
     #   $sender_displayname - The display name of the sender (e.g. Example User)
     #   $sender_username    - The username (Matrix ID localpart) of the sender (e.g. exampleuser)
     #   $sender_mxid        - The Matrix ID of the sender (e.g. @exampleuser:example.com)
+    #   $distinguisher      - A random string from the options in the relay_user_distinguishers array.
     #   $message            - The message content
     message_formats:
         m.text: '<b>$sender_displayname</b>: $message'
@@ -391,6 +373,21 @@ bridge:
     # The prefix for commands. Only required in non-management rooms.
     command_prefix: '!tg'
 
+    # Messages sent upon joining a management room.
+    # Markdown is supported. The defaults are listed below.
+    management_room_text:
+        # Sent when joining a room.
+        welcome: Hello, I'm a Telegram bridge bot.
+        # Sent when joining a management room and the user is already logged in.
+        welcome_connected: Use `help` for help.
+        # Sent when joining a management room and the user is not logged in.
+        welcome_unconnected: Use `help` for help or `login` to log in.
+        # Optional extra text sent when joining a management room.
+        additional_help: ''
+
+    # Send each message separately (for readability in some clients)
+    management_room_multiple_messages: false
+
     # Permissions for using the bridge.
     # Permitted values:
     #   relaybot - Only use the bridge via the relaybot, no access to commands.
@@ -434,8 +431,6 @@ bridge:
         whitelist:
         # - myusername
         # - 12345678
-
-# Telegram config
 telegram:
     # Get your own API keys at https://my.telegram.org/apps
     api_id: {{ pillar['profile']['matrix']['telegram']['api_id'] }}

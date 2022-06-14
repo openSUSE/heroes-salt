@@ -10,7 +10,7 @@ worker_listeners:
     port: {{ port }}
     resources:
       - names:
-        {%- if resources %}
+        {%- if resources|length %}
         {%- for resource in resources.items() %}
         - {{ resource }}
         {%- endfor %}
@@ -19,8 +19,10 @@ worker_listeners:
         - federation
         {%- endif %}
 
+{%- if config|length %}
 {% for setting, value in config.items() %}
 {{ setting }}: {{ value }}
 {% endfor %}
+{%- endif %}
 
 worker_log_config: /etc/matrix-synapse/worker-log.yaml
