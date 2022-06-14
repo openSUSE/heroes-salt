@@ -3,7 +3,8 @@ grains:
   country: de
   hostusage:
     - discourse
-  roles: []
+  roles:
+    - discourse
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
