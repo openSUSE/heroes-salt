@@ -2,7 +2,7 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - transfer o.o NS to MF-IT
+    - pDNS master
   roles:
     - ns
     - ns_slave
