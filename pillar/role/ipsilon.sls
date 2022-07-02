@@ -19,6 +19,6 @@ sudoers:
 zypper:
   repositories:
     openSUSE:infrastructure:ipsilon:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/ipsilon/openSUSE_Leap_$releasever/
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/ipsilon/$releasever/
       priority: 100
       refresh: True

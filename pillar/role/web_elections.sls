@@ -52,6 +52,6 @@ profile:
 zypper:
   repositories:
     openSUSE:infrastructure:elections.opensuse.org:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/elections.opensuse.org/openSUSE_Leap_$releasever/
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/elections.opensuse.org/$releasever/
       priority: 100
       refresh: True

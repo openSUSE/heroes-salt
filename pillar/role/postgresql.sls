@@ -35,6 +35,6 @@ zypper:
     monitoring-plugins-postgres: {}
   repositories:
     server_database_postgresql:
-      baseurl: http://download.infra.opensuse.org/repositories/server:/database:/postgresql/openSUSE_Leap_$releasever/
+      baseurl: http://download.infra.opensuse.org/repositories/server:/database:/postgresql/$releasever/
       priority: 99
       refresh: True

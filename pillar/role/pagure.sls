@@ -120,6 +120,6 @@ nginx:
 zypper:
   repositories:
     openSUSE:infrastructure:pagure:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/openSUSE_Leap_$releasever/
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/$releasever/
       priority: 100
       refresh: True
