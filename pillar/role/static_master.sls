@@ -8,8 +8,7 @@ profile:
     expected_gitmodules:
       # expected .gitmodules files and their sha256sum
       # this ensures we notice .gitmodules changes and can update the salt code accordingly
-      ./static.opensuse.org/.gitmodules: 4b5edd2bade58ef6d68396213f15ed50074f05c3fd83ad1e87a9fc5c9a063dac
-      ./static.opensuse.org/hosts/www.o.o/.gitmodules: e2da74eed7fcfed7f08669f6bff9d89e0d5f2f02ee8f2c6ad43afe4996cc57f1
+      ./static.opensuse.org/.gitmodules: 18c60f122666bed4d7c105a7a3150bb3828548f05110835ad206bbac13c58ba5
     git_repos:
       # branch defaults to 'master' if not specified
       html5test.opensuse.org:
@@ -22,8 +21,6 @@ profile:
         repo: https://github.com/openSUSE/shop.o.o.git
       static.opensuse.org:
         repo: https://github.com/openSUSE/static.opensuse.org.git
-      static.opensuse.org/hosts/www.o.o:
-        repo: https://github.com/openSUSE/old-landing-page.git
       static.opensuse.org/login:
         repo: https://github.com/openSUSE/openSUSE-login
       static.opensuse.org/themes:
