@@ -18,15 +18,15 @@ synapse_systemd_override:
 
 synapse_systemd_file:
   file.managed:
-    - name: /etc/systemd/system/matrix-synapse.taget
+    - name: /etc/systemd/system/matrix-synapse.target
     - source: salt://profile/matrix/files/synapse.target
     - require_in:
       - service: synapse_service
 
 synapse_worker_systemd_file:
   file.managed:
-    - name: /etc/systemd/system/matrix-synapse-worker@.taget
-    - source: salt://profile/matrix/files/synapse@.target
+    - name: /etc/systemd/system/matrix-synapse-worker@.service
+    - source: salt://profile/matrix/files/synapse@.service
     - require_in:
       - service: synapse_service
 

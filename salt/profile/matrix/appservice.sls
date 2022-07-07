@@ -4,9 +4,9 @@ appservice_pgks:
   pkg.installed:
     - pkgs:
       - git
-      - nodejs12
-      - nodejs12-devel
-      - npm12
+      - nodejs
+      - nodejs-devel
+      - npm
       - nodejs-common
       - make
       - gcc
@@ -108,14 +108,9 @@ synapse_appservice_{{ dir }}_file:
       - service: {{ dir }}_service
 {% endfor %}
 
-webhook_database_file:
+/var/lib/matrix-synapse/webhook/passkey.pem:
   file.managed:
-    - name: /var/lib/matrix-synapse/webhook/config/database.json
-    - source: salt://profile/matrix/files/webhook-database.json
+    - contents_pillar: profile:matrix:appservices:webhook:passkey
+    - mode: 640
     - user: synapse
-    - require:
-      - file: /var/lib/matrix-synapse/webhook
-    - require_in:
-      - service: webhook_service
-    - watch_in:
-      - module: webhook_restart
+    - group: synapse

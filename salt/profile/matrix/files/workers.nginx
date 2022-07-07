@@ -10,6 +10,7 @@ upstream {{ app }}_{{ loop.index }} {
     {%- endfor %}
 }
 
+{%- if type.get('rest')|lenght %}
 {%- for uri in type.get('rest') %}
 location ~ {{ uri }} {
     proxy_pass http://{{ app }}_{{ loop.index }}$request_uri;
@@ -17,6 +18,7 @@ location ~ {{ uri }} {
     proxy_set_header Host $host;
 }
 {% endfor %}
+{% endif %}
 
 {% endfor %}
 {% endfor %}

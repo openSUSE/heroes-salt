@@ -4,7 +4,7 @@ as_token: {{ pillar['profile']['matrix']['appservices']['webhook']['appservice_t
 namespaces:
   users:
     - exclusive: true
-      regex: '@_webhook.*:opensuse\.org'
+      regex: '@_webhook_.+:opensuse\.org'
       group_id: '+webhook:opensuse.org'
   aliases: []
   rooms: []

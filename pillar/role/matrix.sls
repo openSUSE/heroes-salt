@@ -139,10 +139,10 @@ profile:
         build: True
         script: /usr/bin/node build/src/discordas.js -c config.yaml -f discord-registration.yaml -p 9001
       webhook:
-        repo: https://github.com/turt2live/matrix-appservice-webhooks.git
+        repo: https://github.com/matrix-org/matrix-hookshot.git
         appservice_id: f4de7550133374c703c4cd64c5898cf1b82b65d4a5c2aca93863ee1fb859df91
-        build: False
-        script: /usr/bin/node index.js -c config.yaml -f webhook-registration.yaml -p 9002
+        build: True
+        script: /usr/bin/node App/BridgeApp.js config.yaml webhook-registration.yaml
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253
@@ -158,7 +158,7 @@ nginx:
                 - listen:
                     - 80
                     - default_server
-                - root: /usr/share/element-web
+                - root: /usr/share/webapps/element
                 - gzip_vary: 'on'
                 - gzip_min_length: 1000
                 - gzip_comp_level: 5
@@ -221,7 +221,7 @@ nginx:
                     - return: 301 https://chat.opensuse.org
                 - location ~ "/..*":
                     - proxy_set_header: X-Forwarded-For $remote_addr
-                    - proxy_pass: http://localhost:9002
+                    - proxy_pass: http://localhost:9005
           enabled: True
 
 sudoers:
