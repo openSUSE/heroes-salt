@@ -46,6 +46,6 @@ sudoers:
 zypper:
   repositories:
     openSUSE:infrastructure:tsp:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/tsp/openSUSE_Leap_$releasever/
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/tsp/$releasever/
       priority: 100
       refresh: True
