@@ -170,6 +170,26 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /srv/www/vhosts/doc.opensuse.org/** r,
   }
 
+  ^vhost_contribute flags=(complain,attach_disconnected) {
+    #include <abstractions/apache2-common>
+    #include <abstractions/base>
+
+    signal receive set=usr1 peer=httpd2-prefork,
+
+    / r,
+    /proc/loadavg r,
+#   /bin/bash rix,
+#   /dev/tty rw,
+#   /proc/meminfo r,
+#   /usr/bin/timeout rix,
+    /var/log/apache2/contribute-access_log w,
+    /var/log/apache2/contribute-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
+    /var/log/apache2/error_log w,
+
+    /usr/share/webapps/asknot-ng/ r,
+    /usr/share/webapps/asknot-ng/** r,
+  }
+
 }
 
 # vim: ft=apparmor expandtab
