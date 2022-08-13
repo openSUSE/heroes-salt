@@ -8,12 +8,13 @@ grains:
     - documentation
     - mail_reminder
     - phpmyadmin
+    - asknot
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []
-  description: countdown.opensuse.org, board meeting reminder mailer, release notes, phpMyAdmin
+  description: countdown.opensuse.org, board meeting reminder mailer, release notes, phpMyAdmin, asknot-ng
   documentation: []
   responsible:
     - cboltz
@@ -23,3 +24,4 @@ grains:
     - https://countdown.opensuse.org
     - https://doc.opensuse.org/release-notes/
     - https://pmya.opensuse.org
+    - https://contribute.opensuse.org/
