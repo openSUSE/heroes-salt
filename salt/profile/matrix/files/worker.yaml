@@ -10,7 +10,7 @@ worker_listeners:
     port: {{ port }}
     resources:
       - names:
-        {%- if resources|length %}
+        {%- if resources is mapping %}
         {%- for resource in resources.items() %}
         - {{ resource }}
         {%- endfor %}
@@ -19,7 +19,7 @@ worker_listeners:
         - federation
         {%- endif %}
 
-{%- if config|length %}
+{%- if config is mapping %}
 {% for setting, value in config.items() %}
 {{ setting }}: {{ value }}
 {% endfor %}

@@ -10,7 +10,7 @@ upstream {{ app }}_{{ loop.index }} {
     {%- endfor %}
 }
 
-{%- if type.get('rest')|lenght %}
+{%- if type.get('rest') is mapping %}
 {%- for uri in type.get('rest') %}
 location ~ {{ uri }} {
     proxy_pass http://{{ app }}_{{ loop.index }}$request_uri;
