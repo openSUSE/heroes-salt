@@ -11,6 +11,7 @@ appservice_pgks:
       - make
       - gcc
       - gcc-c++
+      - cargo
 
 {% for dir, data in appservices.items() %}
 /var/lib/matrix-synapse/{{ dir }}:
@@ -68,8 +69,6 @@ synapse_appservice_{{ dir }}_file:
     - name: npm install
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
-    - env:
-      - NODE_VERSION: 12
 
 {% if data.get('build') == True %}
 {{ dir }}_build:
@@ -77,8 +76,6 @@ synapse_appservice_{{ dir }}_file:
     - name: npm run build
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
-    - env:
-      - NODE_VERSION: 12
 {% endif %}
 
 {{ dir }}_systemd_file:

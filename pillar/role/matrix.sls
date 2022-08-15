@@ -6,7 +6,7 @@ include:
 
 profile:
   matrix:
-    database_host: 192.168.47.4
+    database_host: 192.168.47.27
     database_name: matrix
     database_user: matrix
     workers:
@@ -101,9 +101,6 @@ profile:
         - workers:
             pusher1: 8551
             pusher2: 8552
-      appservice:
-        - workers:
-            appservice: 8561
       federation_sender:
         - workers:
             federation_sender1: 8571
@@ -116,11 +113,6 @@ profile:
             media2: 8582
           resources:
           - media
-      user_dir:
-        - rest:
-            - ^/_matrix/client/(api/v1|r0|v3|unstable)/user_directory/search$
-          workers:
-            user_dir: 8591
       frontend_proxy:
         - rest:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/upload
@@ -143,7 +135,7 @@ profile:
         branch: main
         appservice_id: f4de7550133374c703c4cd64c5898cf1b82b65d4a5c2aca93863ee1fb859df91
         build: True
-        script: /usr/bin/node App/BridgeApp.js config.yaml webhook-registration.yaml
+        script: /usr/bin/node --require source-map-support/register lib/App/BridgeApp.js config.yaml webhook-registration.yaml
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253
