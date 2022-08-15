@@ -140,6 +140,7 @@ profile:
         script: /usr/bin/node build/src/discordas.js -c config.yaml -f discord-registration.yaml -p 9001
       webhook:
         repo: https://github.com/matrix-org/matrix-hookshot.git
+        branch: main
         appservice_id: f4de7550133374c703c4cd64c5898cf1b82b65d4a5c2aca93863ee1fb859df91
         build: True
         script: /usr/bin/node App/BridgeApp.js config.yaml webhook-registration.yaml
