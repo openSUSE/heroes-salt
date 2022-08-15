@@ -236,6 +236,8 @@ listeners:
   #  bind_addresses: ['::1', '127.0.0.1']
   #  type: manhole
 
+send_federation: false
+start_pushers: false
 
 worker_replication_secret: "{{ pillar['profile']['matrix']['worker_replication_secret'] }}"
 

@@ -9,8 +9,6 @@ RestartSec=3600
 User=synapse
 Group=synapse
 WorkingDirectory=/var/lib/matrix-synapse/{{ dir }}/
-Environment="WEBHOOKS_USER_STORE_PATH=/data/matrix/webhook/user-store.db"
-Environment="WEBHOOKS_ROOM_STORE_PATH=/data/matrix/webhook/room-store.db"
 Environment="NODE_ENV=production"
 ExecStart={{ script }}
 
