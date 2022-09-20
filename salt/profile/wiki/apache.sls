@@ -31,3 +31,11 @@ apache2_running:
 # removing the file on newer Leap versions to avoid  errors in logrotate (duplicate entry...)
 /etc/logrotate.d/apache2-wiki:
   file.absent
+
+# Should we move to PHP-FPM in the future, it would make sense to remove this in favour of a wiki.php profile
+/etc/php7/conf.d/salt.ini:
+  file.managed:
+   - context:
+     max_upload_size: {{ pillar['mediawiki']['max_upload_size'] }}
+   - source: salt://profile/wiki/files/salt.ini
+   - template: jinja
