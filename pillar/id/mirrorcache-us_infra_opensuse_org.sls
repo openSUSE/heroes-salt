@@ -1,3 +1,6 @@
+include:
+  ssh_keys.groups.download_infra
+
 grains:
   city: provo
   country: us
