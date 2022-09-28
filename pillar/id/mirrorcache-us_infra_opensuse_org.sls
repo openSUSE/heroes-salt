@@ -1,5 +1,5 @@
 include:
-  ssh_keys.groups.download_infra
+  - ssh_keys.groups.download_infra
 
 grains:
   city: provo
