@@ -15,26 +15,14 @@ mailman_restart:
     - require:
       - service: mailman_service
 
-mailman_hyperkitty_service:
+mailman_web_service:
   service.running:
-    - name: hyperkitty
+    - name: mailman-web.target
     - enable: True
 
-mailman_hyperkitty_restart:
+mailman_web_restart:
   module.wait:
     - name: service.restart
-    - m_name: hyperkitty
+    - m_name: mailman-web.target
     - require:
-      - service: mailman_hyperkitty_service
-
-mailman_postorius_service:
-  service.running:
-    - name: postorius
-    - enable: True
-
-mailman_postorius_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: postorius
-    - require:
-      - service: mailman_postorius_service
+      - service: mailman_web_service

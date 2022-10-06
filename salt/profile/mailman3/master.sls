@@ -15,19 +15,11 @@ https://github.com/openSUSE/lists-o-o.git:
   file.symlink:
     - target: /var/lib/mailman/lists-o-o/mailman-templates
 
-/srv/www/webapps/mailman/hyperkitty/templates:
+/srv/www/webapps/mailman/web/templates:
   file.symlink:
     - target: /var/lib/mailman/lists-o-o/webui-templates
 
-/srv/www/webapps/mailman/hyperkitty/static-openSUSE:
-  file.symlink:
-    - target: /var/lib/mailman/lists-o-o/webui-assets
-
-/srv/www/webapps/mailman/postorius/templates:
-  file.symlink:
-    - target: /var/lib/mailman/lists-o-o/webui-templates
-
-/srv/www/webapps/mailman/postorius/static-openSUSE:
+/srv/www/webapps/mailman/web/static-openSUSE:
   file.symlink:
     - target: /var/lib/mailman/lists-o-o/webui-assets
 
