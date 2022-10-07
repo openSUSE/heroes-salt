@@ -58,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR + '/templates/',
+            os.path.join(BASE_DIR, 'templates/'),
         ],
         'OPTIONS': {
             'loaders': [
@@ -170,7 +170,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    BASE_DIR + '/static-openSUSE/',
+    os.path.join(BASE_DIR, 'static-openSUSE/'),
 )
 
 # If you enable internal authentication, this is the address that the emails

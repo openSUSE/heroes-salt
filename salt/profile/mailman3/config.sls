@@ -10,7 +10,7 @@ mailman_conf_file:
 
 mailman_web_settings_file:
   file.managed:
-    - name: /srv/www/webapps/mailman/web/settings.py
+    - name: /etc/mailman3/settings.py
     - source: salt://profile/mailman3/files/settings.py
     - template: jinja
     - require_in:

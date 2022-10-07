@@ -1,5 +1,6 @@
 mailman_pgks:
   pkg.installed:
+    - resolve_capabilities: True
     - pkgs:
       - uwsgi
       - python3-xapian

@@ -40,6 +40,8 @@ nginx:
                 - include: /etc/nginx/mboxs.rewritemap
             - map $request_uri $miscs_rewritemap:
                 - include: /etc/nginx/miscs.rewritemap
+            - upstream mailmanweb:
+                - server: 127.0.0.1:8000 fail_timeout=0
             - server:
                 - server_name: lists.opensuse.org lists.uyuni-project.org
                 - listen:
@@ -58,10 +60,16 @@ nginx:
                 - location /static/django-mailman3/img/login/opensuse.png:
                     - return: 301 https://static.opensuse.org/favicon-24.png
                 - location /static/:
-                    - alias: /var/lib/mailman_webui/static/
+                    - alias: /srv/www/webapps/mailman/web/static/
                 - location /:
-                    - include: /etc/nginx/uwsgi_params
-                    - uwsgi_pass: 0.0.0.0:8000
+                    - try_files $uri @mailmanweb
+                - location @mailmanweb:
+                    - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                    - proxy_set_header: X-Forwarded-Proto https
+                    - proxy_set_header: X-Forwarded-Protocol ssl
+                    - proxy_set_header: Host $http_host
+                    - proxy_redirect: off
+                    - proxy_pass: http://mailmanweb
           enabled: True
 
 sudoers:

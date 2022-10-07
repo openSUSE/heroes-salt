@@ -1,9 +1,3 @@
-lists-o-o_pgks:
-  pkg.installed:
-    - pkgs:
-      - make
-      - python3-libsass
-
 https://github.com/openSUSE/lists-o-o.git:
   git.latest:
     - branch: master
@@ -22,9 +16,3 @@ https://github.com/openSUSE/lists-o-o.git:
 /srv/www/webapps/mailman/web/static-openSUSE:
   file.symlink:
     - target: /var/lib/mailman/lists-o-o/webui-assets
-
-lists-o-o_build:
-  cmd.run:
-    - name: make
-    - cwd: /var/lib/mailman/lists-o-o
-    - runas: mailman
