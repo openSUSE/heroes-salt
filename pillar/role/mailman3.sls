@@ -62,7 +62,7 @@ nginx:
                 - location /static/:
                     - alias: /srv/www/webapps/mailman/web/static/
                 - location /:
-                    - try_files $uri @mailmanweb
+                    - try_files: $uri @mailmanweb
                 - location @mailmanweb:
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: X-Forwarded-Proto https
