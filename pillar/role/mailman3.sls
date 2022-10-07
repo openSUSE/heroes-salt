@@ -68,7 +68,7 @@ nginx:
                     - proxy_set_header: X-Forwarded-Proto https
                     - proxy_set_header: X-Forwarded-Protocol ssl
                     - proxy_set_header: Host $http_host
-                    - proxy_redirect: off
+                    - proxy_redirect: "off"
                     - proxy_pass: http://mailmanweb
           enabled: True
 
