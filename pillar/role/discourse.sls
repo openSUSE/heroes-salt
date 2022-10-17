@@ -26,6 +26,7 @@ profile:
     database_host: mirrordb2.infra.opensuse.org
     hostname: discourse.opensuse.org
     smtp_domain: opensuse.org
+    # secret_key, maxmind and db password live in secrets/role/discourse.sls
 
 nginx:
   ng:
