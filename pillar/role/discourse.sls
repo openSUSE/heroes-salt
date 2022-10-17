@@ -1,6 +1,32 @@
 include:
   - role.common.nginx
 
+profile:
+  postfix:
+    maincf:
+	  maillog_file: /dev/stdout
+	  smtputf8_enable: no
+	  compatibility_level: 2
+	  export_environment: 'TZ LANG'
+	  append_dot_mydomain: no
+	  mydestination: localhost
+	  mynetworks: '127.0.0.0/8 [::1]/128 [fe80::]/64'
+	  transport_maps: hash:/etc/postfix/transport
+	  smtpd_recipient_restrictions: check_policy_service unix:private/policy
+    mastercf:
+      smtp: inet smtp inet n - n - - smtpd
+	  discourse: unix discourse unix - n n - - pipe user=nobody:nogroup argv=/usr/bin/receive-mail ${recipient}
+	  policy: unix policy unix - n n - - spawn user=nobody argv=/usr/bin/discourse-smtp-fast-rejection
+    aliases:
+      discourse: root
+    # We need to set up transport map with `$domain discourse:` line for every domain
+  discourse:
+    database_user: discourse
+    database_name: discourse
+    database_host: mirrordb2.infra.opensuse.org
+    hostname: discourse.opensuse.org
+    smtp_domain: opensuse.org
+
 nginx:
   ng:
     servers:
