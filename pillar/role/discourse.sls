@@ -5,10 +5,10 @@ profile:
   postfix:
     maincf:
       maillog_file: /dev/stdout
-      smtputf8_enable: no
+      smtputf8_enable: 'no'
       compatibility_level: 2
       export_environment: 'TZ LANG'
-      append_dot_mydomain: no
+      append_dot_mydomain: 'no'
       mydestination: localhost
       mynetworks: '127.0.0.0/8 [::1]/128 [fe80::]/64'
       transport_maps: hash:/etc/postfix/transport
