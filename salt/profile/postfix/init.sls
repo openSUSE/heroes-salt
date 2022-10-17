@@ -32,7 +32,7 @@ postfix_alias_present_{{ user }}:
 /etc/postfix/master.cf_{{ option }}:
   file.replace:
     - name: /etc/postfix/master.cf
-    - pattern: '^{{ option }}.*$'
+    - pattern: '^{{ option }}\s.*$'
     - repl: '{{ option }} {{ value }}'
     - append_if_not_found: True
     - require:
