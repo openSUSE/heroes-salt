@@ -24,6 +24,15 @@ discourse_mail_receiver_settings:
     - watch_in:
       - module: discourse_target
 
+discourse_mail_transport:
+  file.managed:
+    - name: /etc/postfix/transport
+    - contents: 'forums.opensuse.org  discourse:'
+    - require_in:
+      - service: discourse_target
+    - watch_in:
+      - module: discourse_target
+
 discourse_target:
   service.running:
     - name: discourse.target
