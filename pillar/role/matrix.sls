@@ -6,7 +6,7 @@ include:
 
 profile:
   matrix:
-    database_host: 192.168.47.27
+    database_host: 192.168.47.4
     database_name: matrix
     database_user: matrix
     workers:
