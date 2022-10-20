@@ -157,7 +157,6 @@ zypper:
         solver.onlyRequires: 'true'
   packages:
     ca-certificates-freeipa-opensuse: {}
-    command-not-found: {}
     curl: {}
     dhcp-client: {}
     less: {}
@@ -174,6 +173,11 @@ zypper:
     withlock: {}
     wget: {}
     wgetpaste: {}
+    {% if osmajorrelease > 15 %}
+    scout-command-not-found: {}
+    {% else %}
+    command-not-found: {}
+    {% endif %}
     {% if osmajorrelease > 11 %}
     aaa_base-extras: {}
     ca-certificates-mozilla: {}
