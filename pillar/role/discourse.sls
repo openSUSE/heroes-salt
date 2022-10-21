@@ -1,4 +1,7 @@
 include:
+  {% if salt['grains.get']('include_secrets', True) %}
+  - secrets.role.discourse
+  {% endif %}
   - role.common.nginx
 
 profile:
