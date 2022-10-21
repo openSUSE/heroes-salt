@@ -3,6 +3,7 @@ discourse_pgks:
     - pkgs:
       - discourse
       - ruby2.7-rubygem-discourse_mail_receiver
+      - nginx-module-brotli
 
 discourse_config:
   file.managed:
