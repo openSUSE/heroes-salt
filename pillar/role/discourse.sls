@@ -17,9 +17,9 @@ profile:
       transport_maps: hash:/etc/postfix/transport
       smtpd_recipient_restrictions: check_policy_service unix:private/policy
     mastercf:
-      smtp: inet smtp inet n - n - - smtpd
-      discourse: unix discourse unix - n n - - pipe user=nobody:nogroup argv=/usr/bin/receive-mail ${recipient}
-      policy: unix policy unix - n n - - spawn user=nobody argv=/usr/bin/discourse-smtp-fast-rejection
+      smtp: inet n - n - - smtpd
+      discourse: unix - n n - - pipe user=nobody:nogroup argv=/usr/bin/receive-mail ${recipient}
+      policy: unix - n n - - spawn user=nobody argv=/usr/bin/discourse-smtp-fast-rejection
     aliases:
       discourse: root
     # We need to set up transport map with `$domain discourse:` line for every domain
