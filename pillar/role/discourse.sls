@@ -69,7 +69,7 @@ nginx:
                 - set: $public /srv/www/vhosts/discourse/public
                 - etag: "off"
                 - location ^~ /backups/:
-                    - internal:
+                    - internal: ''
                 - location /favicon.ico:
                     - return: 204
                     - access_log: "off"
@@ -189,7 +189,7 @@ nginx:
                         - break
                     - try_files: $uri @discourse
                 - location /downloads/:
-                    - internal
+                    - internal: ''
                     - alias: $public/
                 - location @discourse:
                     - root: $public
