@@ -37,6 +37,8 @@ nginx:
       managed:
         forums.opensuse.org.conf:
           config:
+            - upstream discourse:
+                - server: 'unix:/srv/www/vhosts/discourse/tmp/sockets/puma.sock'
             - types:
                 - text/csv: csv
                 - application/wasm: wasm
