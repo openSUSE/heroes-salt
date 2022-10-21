@@ -1,0 +1,14 @@
+id: {{ pillar['profile']['matrix']['appservices']['hookshot']['appservice_id'] }}
+hs_token: {{ pillar['profile']['matrix']['appservices']['hookshot']['homeserver_token'] }}
+as_token: {{ pillar['profile']['matrix']['appservices']['hookshot']['appservice_token'] }}
+namespaces:
+  users:
+    - exclusive: true
+      regex: '@_hookshot.*:opensuse\.org'
+      group_id: '+hookshot:opensuse.org'
+  aliases: []
+  rooms: []
+url: 'http://localhost:9002'
+sender_localpart: _hookshot
+rate_limited: false
+protocols: null
