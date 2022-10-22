@@ -16,7 +16,6 @@ profile:
       transport_maps: hash:/etc/postfix/transport
       smtpd_recipient_restrictions: check_policy_service unix:private/policy
     mastercf:
-      smtp: inet n - n - - smtpd
       discourse: unix - n n - - pipe user=nobody:nogroup argv=/usr/bin/receive-mail ${recipient}
       policy: unix - n n - - spawn user=nobody argv=/usr/bin/discourse-smtp-fast-rejection
     aliases:
