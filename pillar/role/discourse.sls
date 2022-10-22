@@ -7,6 +7,7 @@ include:
 profile:
   postfix:
     maincf:
+      inet_interfaces: all
       smtputf8_enable: 'no'
       compatibility_level: 2
       export_environment: 'TZ LANG'
