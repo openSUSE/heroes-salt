@@ -7,7 +7,6 @@ include:
 profile:
   postfix:
     maincf:
-      maillog_file: /dev/stdout
       smtputf8_enable: 'no'
       compatibility_level: 2
       export_environment: 'TZ LANG'
