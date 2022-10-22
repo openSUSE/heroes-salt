@@ -7,13 +7,14 @@ include:
 profile:
   postfix:
     maincf:
+      inet_interfaces: all
       smtputf8_enable: 'no'
       compatibility_level: 2
       export_environment: 'TZ LANG'
       append_dot_mydomain: 'no'
       mydestination: localhost
       mynetworks: '127.0.0.0/8 [::1]/128 [fe80::]/64'
-      transport_maps: hash:/etc/postfix/transport
+      transport_maps: lmdb:/etc/postfix/transport
       smtpd_recipient_restrictions: permit_mynetworks, check_policy_service unix:private/policy
     mastercf:
       discourse: unix - n n - - pipe user=nobody:nogroup argv=/usr/bin/receive-mail ${recipient}
