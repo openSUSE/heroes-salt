@@ -11,3 +11,5 @@ grains:
     - https://www.freeipa.org/page/Documentation
   responsible:
     - hellcp
+  partners: []
+  weburls: []
