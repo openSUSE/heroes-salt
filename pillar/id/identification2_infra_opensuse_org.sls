@@ -3,6 +3,7 @@ grains:
   country: de
   hostusage:
     - freeIPA
+  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -13,4 +14,3 @@ grains:
     - hellcp
   partners: []
   weburls: []
-  roles: []
