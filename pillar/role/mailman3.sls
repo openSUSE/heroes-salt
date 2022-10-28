@@ -10,9 +10,9 @@ profile:
     maincf:
       recipient_delimiter: '+'
       owner_request_special: 'no'
-      transport_maps: 'hash://var/lib/mailman/data/postfix_lmtp,hash:/etc/postfix/transport,hash:/etc/postfix/ratelimit'
-      local_recipient_maps: 'hash://var/lib/mailman/data/postfix_lmtp'
-      relay_domains: 'hash://var/lib/mailman/data/postfix_domains'
+      transport_maps: 'lmdb://var/lib/mailman/data/postfix_lmtp,lmdb:/etc/postfix/transport,hash:/etc/postfix/ratelimit'
+      local_recipient_maps: 'lmdb://var/lib/mailman/data/postfix_lmtp'
+      relay_domains: 'lmdb://var/lib/mailman/data/postfix_domains'
     aliases:
       mailman: root
   mailman3:
@@ -69,6 +69,7 @@ nginx:
                     - proxy_set_header: X-Forwarded-Protocol ssl
                     - proxy_set_header: Host $http_host
                     - proxy_redirect: "off"
+                    - client_max_body_size: 400M
                     - proxy_pass: http://mailmanweb
           enabled: True
 
