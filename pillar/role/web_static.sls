@@ -40,10 +40,15 @@ nginx:
                     - return: 404
                 - location ~ /\.git:
                     - return: 404
+                {% if website == 'community' %}
+                - location /:
+                    - return: 301 https://www.opensuse.org/
+                {% else %}
                 - location /:
                     - index:
                         - index.html
                         - index.htm
+                {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
                     - add_header: Access-Control-Allow-Origin "*"
                 {% if website == 'static' %}
@@ -55,10 +60,6 @@ nginx:
                 {% if website == 'www' %}
                 - location ~ "^/\.well-known/":
                     - add_header: Access-Control-Allow-Origin "*"
-                {% endif %}
-                {% if website == 'community' %}
-                - location /:
-                    - return: 301 https://www.opensuse.org/
                 {% endif %}
                 - error_page: 405 = $uri
                 - error_page: 405 =200 $uri
