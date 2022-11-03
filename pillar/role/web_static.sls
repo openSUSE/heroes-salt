@@ -1,4 +1,4 @@
-{% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www'] %}
+{% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community'] %}
 
 include:
   - role.common.nginx
@@ -55,6 +55,10 @@ nginx:
                 {% if website == 'www' %}
                 - location ~ "^/\.well-known/":
                     - add_header: Access-Control-Allow-Origin "*"
+                {% endif %}
+                {% if website == 'community' %}
+                - location ~ ^/$:
+                    - return: 301 https://www.opensuse.org/
                 {% endif %}
                 - error_page: 405 = $uri
                 - error_page: 405 =200 $uri
