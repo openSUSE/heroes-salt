@@ -48,6 +48,7 @@ nginx:
                         - $uri
                         - $uri/index.html
                         - $uri.html
+                        - =404
                 {% if website == 'news' %}
                 - if ($args ~* "feed=rss2"):
                     - set: $args ""
@@ -58,9 +59,9 @@ nginx:
                 {% endif %}
                 {% if website == 'planet' %}
                 - rewrite: ^/global/$ / redirect
-                - location ~ /tw:
+                - location ~ /tw(|/.*)$:
                     - rewrite: ^/tw(.*)$ /zh_TW$1 redirect
-                - location ~ /gr:
+                - location ~ /gr(|/.*)$:
                     - rewrite: ^/gr(.*)$ /el$1 redirect
                 {% endif %}
                 - location ~* \.(?:ttf|otf|eot|woff)$:
