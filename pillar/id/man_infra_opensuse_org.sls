@@ -3,7 +3,8 @@ grains:
   country: de
   hostusage:
     - manpages.o.o
-  roles: []
+  roles:
+    - manpages
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
