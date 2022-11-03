@@ -42,8 +42,10 @@ profile:
         # www.o.o/openid/ is not handled by narwal*, haproxy forwards /openid/ to a different server
       community.opensuse.org/ebooks:
         repo: https://github.com/openSUSE/ebooks-archives.git
+        branch: main
       community.opensuse.org/meetings:
         repo: https://github.com/openSUSE/meetings-archives.git
+        branch: main
     server_list:
       - narwal4.infra.opensuse.org
       - narwal5.infra.opensuse.org
