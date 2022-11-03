@@ -57,7 +57,7 @@ nginx:
                     - add_header: Access-Control-Allow-Origin "*"
                 {% endif %}
                 {% if website == 'community' %}
-                - location ~ ^/$:
+                - location /:
                     - return: 301 https://www.opensuse.org/
                 {% endif %}
                 - error_page: 405 = $uri
