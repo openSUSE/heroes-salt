@@ -26,6 +26,9 @@ profile:
       get.opensuse.org:
         repo: https://github.com/openSUSE/get-o-o.git
         branch: main
+      universe.opensuse.org:
+        repo: https://github.com/openSUSE/universe-o-o.git
+        branch: main
     server_list:
       - jekyll.infra.opensuse.org
     ssh_known_hosts: |
