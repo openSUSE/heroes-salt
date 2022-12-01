@@ -46,6 +46,9 @@ profile:
       community.opensuse.org/meetings:
         repo: https://github.com/openSUSE/meetings-archives.git
         branch: main
+      ignite.opensuse.org:
+        repo: https://github.com/openSUSE/fuel-ignition.git
+        branch: gh-pages
     server_list:
       - narwal4.infra.opensuse.org
       - narwal5.infra.opensuse.org
