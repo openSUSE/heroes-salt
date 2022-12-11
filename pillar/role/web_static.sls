@@ -1,4 +1,4 @@
-{% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community'] %}
+{% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community', 'ignite'] %}
 
 include:
   - role.common.nginx
