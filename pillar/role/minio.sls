@@ -2,6 +2,7 @@ include:
   {% if salt['grains.get']('include_secrets', True) %}
   - secrets.role.minio
   {% endif %}
+  - role.common.nginx
 
 nginx:
   ng:

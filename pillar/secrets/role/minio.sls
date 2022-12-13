@@ -1,7 +1,7 @@
 #!yaml|gpg
 
 profile:
-  matrix:
+  minio:
     heroes_password: |
         -----BEGIN PGP MESSAGE-----
 
