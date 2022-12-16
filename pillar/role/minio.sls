@@ -8,7 +8,7 @@ nginx:
   ng:
     servers:
       managed:
-        minio.opensuse.gen.tr.conf:
+        s3.opensuse-project.net:
           config:
             - upstream minio:
                 - server: 127.0.0.1:9000 fail_timeout=0

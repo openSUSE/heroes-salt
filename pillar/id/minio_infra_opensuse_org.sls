@@ -15,4 +15,4 @@ grains:
     - hellcp
   partners: []
   weburls:
-    - minio.opensuse.gen.tr
+    - s3.opensuse-project.net
