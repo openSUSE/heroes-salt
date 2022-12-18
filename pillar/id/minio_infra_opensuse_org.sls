@@ -2,7 +2,8 @@ grains:
   city: nuremberg
   country: de
   hostusage: []
-  roles: []
+  roles:
+    - minio
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -13,4 +14,5 @@ grains:
   responsible:
     - hellcp
   partners: []
-  weburls: []
+  weburls:
+    - s3.opensuse-project.net
