@@ -13,7 +13,7 @@ nginx:
             - upstream minio:
                 - server: 127.0.0.1:9000 fail_timeout=0
             - server:
-                - server_name: minio.opensuse.gen.tr
+                - server_name: s3.opensuse-project.net
                 - listen:
                     - 80
                     - default_server
