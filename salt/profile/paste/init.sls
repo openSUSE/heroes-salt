@@ -60,35 +60,17 @@ paste_assets_precompile:
     - require_in:
       - service: paste_service
 
-/srv/www/paste-o-o/config/site.yml:
+{% for config in ['site', 'storage', 'database'] %}
+/srv/www/paste-o-o/config/{{ config }}.yml:
   file.managed:
-    - source: salt://profile/paste/files/site.yml
+    - source: salt://profile/paste/files/{{ config }}.yml
     - template: jinja
     - user: paste
     - require_in:
       - service: paste_service
     - watch_in:
       - module: paste_restart
-
-/srv/www/paste-o-o/config/storage.yml:
-  file.managed:
-    - source: salt://profile/paste/files/storage.yml
-    - template: jinja
-    - user: paste
-    - require_in:
-      - service: paste_service
-    - watch_in:
-      - module: paste_restart
-
-/srv/www/paste-o-o/config/database.yml:
-  file.managed:
-    - source: salt://profile/paste/files/database.yml
-    - template: jinja
-    - user: paste
-    - require_in:
-      - service: paste_service
-    - watch_in:
-      - module: paste_restart
+{% endfor %}
 
 paste_service:
   service.running:
