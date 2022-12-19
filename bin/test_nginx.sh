@@ -71,6 +71,7 @@ cp -a /etc/nginx /etc/nginx_orig
 WEB_ROLES=( $(bin/get_roles.py) )
 
 for role in ${WEB_ROLES[@]}; do
+    rolestatus=0
     if grep nginx salt/role/$role.sls > /dev/null; then
         echo_INFO "Testing role: $role"
         reset_nginx
@@ -78,7 +79,20 @@ for role in ${WEB_ROLES[@]}; do
         salt-call --local -l quiet state.apply role.$role > /dev/null
         create_fake_certs
         touch_includes $role
-        if $(nginx -tq); then
+
+        # test config file syntax
+        nginx -tq || rolestatus=1
+
+        # make sure all vhost config files are named *.conf (without that suffix, they get ignored)
+        for file in /etc/nginx/vhosts.d/* ; do
+            test "$file" == "/etc/nginx/vhosts.d/*" && continue  # skip loop if no file exists in vhosts.d/
+            echo "$file" | grep -q '\.conf$' || {
+                echo "ERROR: $file is not named *.conf"
+                rolestatus=1
+            }
+        done
+
+        if test $rolestatus = 0; then
             echo_PASSED
         else
             echo_FAILED
