@@ -1,0 +1,17 @@
+[Unit]
+Description=Paste Rails application
+After=network.target
+
+[Service]
+Type=simple
+
+User=paste
+
+WorkingDirectory=/srv/www/paste-o-o
+
+ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/paste-o-o/config/puma.rb ./config.ru
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
