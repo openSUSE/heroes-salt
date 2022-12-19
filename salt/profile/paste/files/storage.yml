@@ -1,0 +1,8 @@
+local:
+  service: S3
+  access_key_id: "{{ pillar['profile']['paste']['s3']['access_key_id'] }}"
+  secret_access_key: "{{ pillar['profile']['paste']['s3']['secret_access_key'] }}"
+  region: us-east-1
+  bucket: paste-o-o
+  endpoint: https://s3.opensuse-project.net
+  force_path_style: true

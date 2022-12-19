@@ -2,7 +2,8 @@ grains:
   city: nuremberg
   country: de
   hostusage: []
-  roles: []
+  roles:
+  - paste
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
