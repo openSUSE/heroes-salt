@@ -6,6 +6,6 @@ MINIO_VOLUMES=/data
 # Root credentials for the server.
 # Uncomment both lines before starting the server.
 MINIO_ROOT_USER=heroes
-MINIO_ROOT_PASSWORD={{ pillar['profile']['minio']['hereoes_password'] }}
+MINIO_ROOT_PASSWORD={{ pillar['profile']['minio']['heroes_password'] }}
 
 MINIO_OPTS="--certs-dir /etc/minio/certs"
