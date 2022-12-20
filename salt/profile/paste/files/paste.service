@@ -9,6 +9,8 @@ User=paste
 
 WorkingDirectory=/srv/www/paste-o-o
 
+Environment="RAILS_ENV=production"
+
 ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/paste-o-o/config/puma.rb ./config.ru
 
 Restart=always
