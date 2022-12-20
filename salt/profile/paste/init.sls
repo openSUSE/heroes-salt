@@ -25,7 +25,7 @@ https://github.com/openSUSE/paste-o-o.git:
   git.latest:
     - branch: main
     - target: /srv/www/paste-o-o
-    - rev: master
+    - rev: main
     - user: paste
 
 paste_ruby_dependencies:
