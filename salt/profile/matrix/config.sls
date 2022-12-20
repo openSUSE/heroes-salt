@@ -63,6 +63,14 @@ workers_nginx_file:
     - require:
       - file: workers_conf_dir
 
+upstreams_nginx_file:
+  file.managed:
+    - name: /etc/matrix-synapse/workers/upstreams.conf
+    - source: salt://profile/matrix/files/upstreams.nginx
+    - template: jinja
+    - require:
+      - file: workers_conf_dir
+
 {% set workers = salt['pillar.get']('profile:matrix:workers') %}
 
 {% for app, types in workers.items() %}

@@ -193,6 +193,7 @@ nginx:
           enabled: True
         matrix.opensuse.org.conf:
           config:
+            - include: /etc/matrix-synapse/workers/upstreams.conf
             - server:
                 - server_name: matrix.opensuse.org
                 - listen:

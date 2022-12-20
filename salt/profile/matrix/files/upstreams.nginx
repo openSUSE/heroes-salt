@@ -1,0 +1,14 @@
+{% set workers = salt['pillar.get']('profile:matrix:workers') %}
+
+{% for app, types in workers.items() %}
+{% for type in types %}
+
+upstream {{ app }}_{{ loop.index }} {
+    {{ type.get('upstream_balancing') }}
+    {%- for worker, port in type.get('workers').items() %}
+    server 127.0.0.1:{{ port }}; # {{ worker }}
+    {%- endfor %}
+}
+
+{% endfor %}
+{% endfor %}
