@@ -11,7 +11,6 @@ paste_dependencies:
       - postgresql-devel
       - postgresql-server-devel
       - {{ ruby }}-devel
-      - {{ ruby }}-rubygem-bundler
       - system-user-wwwrun
 
 paste_user:

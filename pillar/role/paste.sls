@@ -37,3 +37,10 @@ nginx:
                 - access_log: /var/log/nginx/paste.access.log combined
                 - error_log: /var/log/nginx/paste.error.log
           enabled: True
+
+zypper:
+  repositories:
+    openSUSE:infrastructure:tsp:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/tsp/$releasever/
+      priority: 100
+      refresh: True
