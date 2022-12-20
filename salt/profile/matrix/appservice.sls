@@ -105,9 +105,9 @@ synapse_appservice_{{ dir }}_file:
       - service: {{ dir }}_service
 {% endfor %}
 
-/var/lib/matrix-synapse/webhook/passkey.pem:
+/var/lib/matrix-synapse/hookshot/passkey.pem:
   file.managed:
-    - contents_pillar: profile:matrix:appservices:webhook:passkey
+    - contents_pillar: profile:matrix:appservices:hookshot:passkey
     - mode: 640
     - user: synapse
     - group: synapse

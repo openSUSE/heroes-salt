@@ -3,13 +3,6 @@
 {% for app, types in workers.items() %}
 {% for type in types %}
 
-upstream {{ app }}_{{ loop.index }} {
-    {{ type.get('upstream_balancing') }}
-    {%- for worker, port in type.get('workers').items() %}
-    server 127.0.0.1:{{ port }}; # {{ worker }}
-    {%- endfor %}
-}
-
 {%- if type.get('rest') is mapping %}
 {%- for uri in type.get('rest') %}
 location ~ {{ uri }} {

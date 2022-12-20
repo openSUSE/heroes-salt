@@ -1,18 +1,18 @@
-riot_dependencies:
+element_dependencies:
   pkg.installed:
     - pkgs:
-      - riot-web
+      - element-web
 
-riot_conf_dir:
+element_conf_dir:
   file.directory:
     - name: /etc/riot-web/
 
-riot_conf_file:
+element_conf_file:
   file.managed:
     - name: /etc/riot-web/config.json
-    - source: salt://profile/matrix/files/config-riot.json
+    - source: salt://profile/matrix/files/config-element.json
     - require:
-      - file: riot_conf_dir
+      - file: element_conf_dir
 
 synapse_conf_dir:
   file.directory:
@@ -59,6 +59,14 @@ workers_nginx_file:
   file.managed:
     - name: /etc/matrix-synapse/workers/nginx.conf
     - source: salt://profile/matrix/files/workers.nginx
+    - template: jinja
+    - require:
+      - file: workers_conf_dir
+
+upstreams_nginx_file:
+  file.managed:
+    - name: /etc/matrix-synapse/workers/upstreams.conf
+    - source: salt://profile/matrix/files/upstreams.nginx
     - template: jinja
     - require:
       - file: workers_conf_dir

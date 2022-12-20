@@ -6,7 +6,7 @@ include:
 
 profile:
   matrix:
-    database_host: 192.168.47.27
+    database_host: 192.168.47.4
     database_name: matrix
     database_user: matrix
     workers:
@@ -130,12 +130,12 @@ profile:
         appservice_id: 330d1b6dcdf6a2217454f8227d2a960030d341a8baca5fa5c40f4081b6f40acd
         build: True
         script: /usr/bin/node build/src/discordas.js -c config.yaml -f discord-registration.yaml -p 9001
-      webhook:
+      hookshot:
         repo: https://github.com/matrix-org/matrix-hookshot.git
         branch: main
-        appservice_id: f4de7550133374c703c4cd64c5898cf1b82b65d4a5c2aca93863ee1fb859df91
-        build: True
-        script: /usr/bin/node --require source-map-support/register lib/App/BridgeApp.js config.yaml webhook-registration.yaml
+        appservice_id: 752272fc2ad36c461fb148792d197040668adda278cc3e4a247eb977519f58e5
+        build: False # It uses yarn instead of npm
+        script: /usr/bin/node lib/App/BridgeApp.js config.yaml hookshot-registration.yaml
     telegram:
       appservice_id: oepzkscngbyqvopzn773ns7whfxyfslgjhy7mumy7syurqp3f4kvb4sgufz9nfsw
       api_id: 1331253
@@ -176,7 +176,7 @@ nginx:
                 - access_log: /var/log/nginx/chat.access.log combined
                 - error_log: /var/log/nginx/chat.error.log
           enabled: True
-        dimension.opensuse.org:
+        dimension.opensuse.org.conf:
           config:
             - server:
                 - server_name: dimension.opensuse.org
@@ -191,8 +191,9 @@ nginx:
                     - proxy_set_header: Host static.opensuse.org
                     - proxy_pass: https://static.opensuse.org/chat/integrations/
           enabled: True
-        matrix.opensuse.org:
+        matrix.opensuse.org.conf:
           config:
+            - include: /etc/matrix-synapse/workers/upstreams.conf
             - server:
                 - server_name: matrix.opensuse.org
                 - listen:
@@ -204,7 +205,7 @@ nginx:
                     - proxy_pass: http://localhost:8008
                 - include: /etc/matrix-synapse/workers/nginx.conf
           enabled: True
-        webhook.opensuse.org:
+        webhook.opensuse.org.conf:
           config:
             - server:
                 - server_name: webhook.opensuse.org

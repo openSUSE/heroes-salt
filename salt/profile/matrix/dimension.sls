@@ -39,8 +39,6 @@ dimension_conf_file:
 #     - name: npm run build
 #     - cwd: /var/lib/matrix-synapse/dimension
 #     - runas: synapse
-#     - env:
-#       - NODE_VERSION: 10
 
 dimension_systemd_file:
   file.managed:
