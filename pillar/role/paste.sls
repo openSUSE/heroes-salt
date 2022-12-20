@@ -40,7 +40,7 @@ nginx:
 
 zypper:
   repositories:
-    openSUSE:infrastructure:tsp:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/tsp/$releasever/
+    devel:languages:ruby:
+      baseurl: http://download.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
       priority: 100
       refresh: True
