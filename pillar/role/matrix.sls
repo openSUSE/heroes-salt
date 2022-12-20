@@ -176,7 +176,7 @@ nginx:
                 - access_log: /var/log/nginx/chat.access.log combined
                 - error_log: /var/log/nginx/chat.error.log
           enabled: True
-        dimension.opensuse.org:
+        dimension.opensuse.org.conf:
           config:
             - server:
                 - server_name: dimension.opensuse.org
@@ -191,7 +191,7 @@ nginx:
                     - proxy_set_header: Host static.opensuse.org
                     - proxy_pass: https://static.opensuse.org/chat/integrations/
           enabled: True
-        matrix.opensuse.org:
+        matrix.opensuse.org.conf:
           config:
             - server:
                 - server_name: matrix.opensuse.org
@@ -204,7 +204,7 @@ nginx:
                     - proxy_pass: http://localhost:8008
                 - include: /etc/matrix-synapse/workers/nginx.conf
           enabled: True
-        webhook.opensuse.org:
+        webhook.opensuse.org.conf:
           config:
             - server:
                 - server_name: webhook.opensuse.org
