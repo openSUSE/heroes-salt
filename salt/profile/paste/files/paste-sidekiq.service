@@ -1,0 +1,17 @@
+[Unit]
+Description=Paste Sidekiq job queue
+After=network.target
+
+[Service]
+Type=simple
+
+User=paste
+
+WorkingDirectory=/srv/www/paste-o-o
+
+ExecStart=/usr/bin/bundler.{{ ruby }} exec sidekiq
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
