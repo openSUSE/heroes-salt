@@ -37,3 +37,10 @@ nginx:
                 - access_log: /var/log/nginx/paste.access.log combined
                 - error_log: /var/log/nginx/paste.error.log
           enabled: True
+
+zypper:
+  repositories:
+    devel:languages:ruby:
+      baseurl: http://download.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
+      priority: 100
+      refresh: True
