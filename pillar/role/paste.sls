@@ -23,7 +23,7 @@ nginx:
                 - listen:
                     - 80
                     - default_server
-                - server_name: paste-test.opensuse.org
+                - server_name: paste.opensuse.org
                 - root: /srv/www/paste-o-o/public
                 - keepalive_timeout: 5
                 - try_files $uri/index.html $uri @paste
