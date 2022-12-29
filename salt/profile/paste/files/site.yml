@@ -16,5 +16,5 @@ production:
         host: id.opensuse.org
         identifier: "{{ pillar['profile']['paste']['openidc']['client_id'] }}"
         secret: "{{ pillar['profile']['paste']['openidc']['secret'] }}"
-        redirect_uri: https://paste-test.opensuse.org/auth/oidc/callback
+        redirect_uri: https://paste.opensuse.org/auth/oidc/callback
   sign_up_link: "https://idp-portal.suse.com/univention/self-service/#page=createaccount"
