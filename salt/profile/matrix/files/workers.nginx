@@ -3,7 +3,7 @@
 {% for app, types in workers.items() %}
 {% for type in types %}
 
-{%- if type.get('rest') is mapping %}
+{%- if type.get('rest') %}
 {%- for uri in type.get('rest') %}
 location ~ {{ uri }} {
     proxy_pass http://{{ app }}_{{ loop.index }}$request_uri;
