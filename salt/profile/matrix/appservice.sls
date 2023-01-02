@@ -2,6 +2,7 @@
 
 appservice_pgks:
   pkg.installed:
+    - resolve_capabilities: True
     - pkgs:
       - git
       - nodejs

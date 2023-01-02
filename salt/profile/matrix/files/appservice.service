@@ -4,7 +4,7 @@ Description=Matrix Appservice {{ dir }}
 [Service]
 Type=simple
 Restart=on-failure
-RestartSec=3600
+RestartSec=1
 
 User=synapse
 Group=synapse

@@ -1,9 +1,10 @@
 telegram_pgks:
   pkg.installed:
+    - resolve_capabilities: True
     - pkgs:
       - python3-mautrix-telegram
       # Required for webm for stickers
-      - ffmpeg-3
+      - ffmpeg
 
 telegram_conf_file:
   file.managed:
