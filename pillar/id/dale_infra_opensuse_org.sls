@@ -18,3 +18,4 @@ grains:
   partners: []
   weburls:
     - https://events.opensuse.org
+    - https://hackweek.opensuse.org
