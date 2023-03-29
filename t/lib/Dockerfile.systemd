@@ -1,0 +1,30 @@
+FROM registry.opensuse.org/opensuse/leap
+ENV container podman
+
+ENV LANG en_US.UTF-8
+
+RUN test ! -f /var/log/zypper.log || mv /var/log/zypper.log /var/log/zypper.log.preinstalled
+
+# these are needed to run test
+RUN zypper -vvvn install systemd salt-minion curl sudo iputils
+RUN zypper -vvvn install python3-pygit2 # needed for get_formulas.py
+
+##DUMMY
+
+RUN mkdir -p /srv/salt/ && \
+  sed -i 's^\#*\s*file_client: .*$^file_client: local\nsystemd.scope: False\nenable_fqdns_grains: False^' /etc/salt/minion && \
+  sed -i '/pam_systemd.so/d' /etc/pam.d/common-session-pc # delete pam_systemd , otherwise sudo will hang
+
+
+
+ADD bin /test/bin
+ADD pillar /test/pillar
+WORKDIR /test
+RUN bin/get_formulas.py -c -d /srv/formula -s
+
+ADD pillar/role /srv/pillar/role
+COPY t/lib/*.sls /srv/pillar/
+ADD salt   /srv/salt
+WORKDIR /opt/project
+
+ENTRYPOINT ["/usr/lib/systemd/systemd"]

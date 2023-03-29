@@ -3,19 +3,20 @@ include:
   - secrets.mirrorcache
 
 mirrorcache:
-  proxy_url: https://mirrorcache.opensuse.org
+  root: /mnt
+  backstage_workers: 12
 
 grains:
   city: nuremberg
   country: de
   hostusage:
-    - mirrorcache
+    - mirrorcache-backstage
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []
-  description: Development server for MirrorCache
+  description: MirrorCache Background jobs
   documentation:
     - https://mirrorcache.org/
   responsible:
@@ -24,4 +25,4 @@ grains:
   weburls:
     - https://mirrorcache.opensuse.org/
 roles:
-  - mirrorcache-webui
+  - mirrorcache-backstage
