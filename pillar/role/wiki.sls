@@ -90,6 +90,7 @@ mediawiki:
       readonly_msg: 'This wiki is an archive and cannot be edited.'
       robots: robots-disallow.txt
       site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
+      version: '1_27'
     pl:
       dbpass: not_in_salt_yet
       version: '1_27'
