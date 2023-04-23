@@ -107,7 +107,7 @@ $wgRightsIcon = "";
 # $wgRightsCode = ""; # Not yet used
 
 # $wgDefaultSkin = 'bento';
-wfLoadSkin('bento');
+# wfLoadSkin('bento');  # broken with MediaWiki 1.37+: "Error: Call to undefined function wfRestoreWarnings()"
 wfLoadSkin('Chameleon');
 
 # $wgLocalTZoffset = date("Z") / 3600; # 3600 is obviously wrong, since the value is expected in minutes
