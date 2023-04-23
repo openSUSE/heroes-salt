@@ -10,7 +10,7 @@ profile magick-{{wiki}} flags=(complain) {
 
   deny /var/cache/fontconfig/ w,
 
-  /bin/bash mrix,
+  /{usr/,}bin/bash mrix,
   /dev/tty rw,
   /etc/ImageMagick-7-SUSE/*.xml r,
   /etc/nsswitch.conf r,
