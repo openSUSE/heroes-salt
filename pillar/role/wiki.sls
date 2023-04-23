@@ -32,11 +32,9 @@ mediawiki:
       # site_notice: 'This wiki has been moved and updated recently. If you encounter any issue, please let us know by mail to admin@opensuse.org.'
     cn:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     cs:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     de:
       dbpass: not_in_salt_yet
@@ -44,11 +42,9 @@ mediawiki:
       version: '1_27'
     el:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     en:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">This wiki was updated to MediaWiki 1.37. If you notice any issues, please report them to admin[at]opensuse.org</div>'
     en-test:
       bento_lang: en
       dbpass: not_in_salt_yet
@@ -58,31 +54,24 @@ mediawiki:
       site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
     es:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     fr:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     hu:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     it:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     ja:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     languages:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     nl:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     old-de:
       bento_lang: de
@@ -101,34 +90,28 @@ mediawiki:
       readonly_msg: 'This wiki is an archive and cannot be edited.'
       robots: robots-disallow.txt
       site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
+      version: '1_27'
     pl:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     pt:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     ru:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     sv:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     tr:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     zh:
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       version: '1_27'
     zh-tw:
       bento_lang: zh_TW
       dbpass: not_in_salt_yet
-      site_notice: '<div class="alert alert-warning">The wikis are now using the new authentication system.<br>If you did not migrate your account yet, visit https://idp-portal-info.suse.com/</div>'
       lang: zh_TW
       version: '1_27'
 
