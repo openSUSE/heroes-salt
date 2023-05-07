@@ -1,0 +1,30 @@
+---
+- code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_staticpages
+- code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_www
+- code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_mailman3
+- code 301 location https://search.opensuse.org if is_www is_slash_searchpage
+- code 301 location https://sso.opensuse.org/openidlegacy if is_www is_slash_openidlegacy
+- code 301 prefix   https://www.opensuse.org if is_mainpage !is_kubic_registry
+- code 301 prefix   https://events.opensuse.org if is_redirect_events
+- code 301 location https://www.youtube.com/user/opensusetv if is_tube
+- code 301 prefix   https://connect.opensuse.org if is_users
+- code 301 location https://gitlab.com/apparmor/apparmor/wikis/home if is_apparmor
+- code 301 location https://progress.opensuse.org/projects/opensuse-board if is_board
+- code 301 location https://en.opensuse.org/Portal:Support if is_help
+- code 301 location https://en.opensuse.org/openSUSE:Submitting_bug_reports if is_bugs
+- code 301 location https://en.opensuse.org/Upgrade if is_upgrade
+- code 301 location https://github.com/openSUSE/obs-service-format_spec_file/blob/master/README.md if is_license
+- code 301 prefix   https://en.opensuse.org if is_wiki
+- code 301 prefix   https://de.opensuse.org if is_dewiki
+- code 301 prefix   https://cs.opensuse.org if is_mediawiki_cz
+- code 301 prefix   https://languages.opensuse.org if is_wiki_gone
+- code 301 location https://studioexpress.opensuse.org if is_susestudio
+- code 301 location https://www.opensuse.org if is_redirect_itsself
+- code 301 location https://doc.opensuse.org if is_redirect_doc
+- code 301 location https://features.opensuse.org if is_redirect_features
+- code 301 location https://en.opensuse.org/Portal:Education if is_education
+- code 301 location https://en.opensuse.org/Git if is_redirect_git
+- code 302 location https://manpages.opensuse.org if is_man
+- code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite
+- code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite_stage
+

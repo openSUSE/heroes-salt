@@ -1,0 +1,35 @@
+{%- set backendopts = ['forwardfor', 'tcpka'] -%}
+{%- macro bind(addresses, port, options=None) -%}
+        {%- for address in addresses %}
+        - '{{ address }}:{{ port }}{{ ' ' ~ options if options is not none else '' }}'
+        {%- endfor %}
+{%- endmacro -%}
+{%- macro extra(extramap) -%}
+        {%- for extra, extra_config in extramap.items() %}
+        {%- for action, headers in extra_config.items() %}
+        {%- for header in headers %}
+        - {{ extra }} {{ action }} {{ header }}
+        {%- endfor %}
+        {%- endfor %}
+        {%- endfor %}
+{%- endmacro -%}
+{%- macro options(append=None) -%}
+      options:
+        {%- for option in backendopts %}
+        - {{ option }}
+        {%- endfor %}
+{#- this is a workaround, {{ backendopts + ['foo\rbar\nHost:\ foo'] }} destroys the last backslash #}
+        {%- if append is not none %}
+        - {{ append.replace('\n', '\\n').replace('\r', '\\r') }}
+        {%- endif %}
+{%- endmacro -%}
+{%- macro server(server, host, port=80, check='check', extra_extra=None, extra_check=None) -%}
+      servers:
+        {{ server }}:
+          host: {{ host }}
+          port: {{ port }}
+          {%- if check is not none %}
+          check: {{ check }}{{ ' ' ~ extra_check if extra_check is not none else '' }}
+          extra: port {{ port }}{{ ' ' ~ extra_extra if extra_extra is not none else '' }}
+          {%- endif %}
+{%- endmacro -%}
