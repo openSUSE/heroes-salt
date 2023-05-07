@@ -1,9 +1,4 @@
-{% set osrelease_info = salt['grains.get']('osrelease_info') %}
-
-{% set version = osrelease_info[0]|string %}
-{% if osrelease_info|length == 2 %}
-    {% set version = version + '-SP' + osrelease_info[1]|string %}
-{% endif %}
+{%- from slspath ~ '/map.j2' import version -%}
 
 zypper:
   repositories:
