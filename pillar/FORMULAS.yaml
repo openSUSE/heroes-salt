@@ -4,6 +4,7 @@ elasticsearch: {}
 firewalld: {}
 grains:
   namespace: 'tampakrap'
+haproxy: {}
 keepalived: {}
 limits:
   namespace: 'ryancurrah'
