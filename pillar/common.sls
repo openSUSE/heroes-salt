@@ -186,3 +186,4 @@ zypper:
     tmux: {}
     traceroute: {}
     {% endif %}
+  refreshdb_force: false
