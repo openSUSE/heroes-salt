@@ -1,6 +1,5 @@
 {%- from slspath ~ '/macros.jinja' import bind, extra, options, server -%}
 {%- set bind = bind -%}{%- set extra = extra -%}{%- set options = options -%}{%- set server = server -%}
-{%- import_yaml slspath ~ '/redirects.yaml' as redirects -%}
 
 {%- set errorfiles = '/etc/haproxy/errorfiles/' %}
 {%- set narwals = {
