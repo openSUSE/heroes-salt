@@ -5,6 +5,14 @@ haproxy_sysconfig:
   file.managed:
     - name: /etc/sysconfig/haproxy
     - mode: '0640'
+    - replace: false
+
+haproxy_dhparam:
+  cmd.run:
+    - name: openssl dhparam -out /etc/haproxy/dhparam 2048
+    - unless: test -f /etc/haproxy/dhparam
+    - watch:
+      - service: haproxy.service
 
 {%- if salt['grains.get']('include_secrets', True) %}
 {%- set secrets = salt['pillar.get']('profile:proxy:haproxy:secrets') %}
