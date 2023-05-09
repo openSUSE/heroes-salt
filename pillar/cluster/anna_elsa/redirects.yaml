@@ -1,4 +1,5 @@
 ---
+- scheme https code 301  if !is_ssl !is_conncheck !is_static_o_o !is_mirrorcache !is_mirrorcache_eu !is_get_o_o !is_download_o_o !is_pagure
 - code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_staticpages
 - code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_www
 - code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_mailman3

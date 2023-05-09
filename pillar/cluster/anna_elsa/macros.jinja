@@ -23,13 +23,22 @@
         - {{ append.replace('\n', '\\n').replace('\r', '\\r') }}
         {%- endif %}
 {%- endmacro -%}
-{%- macro server(server, host, port=80, check='check', extra_extra=None, extra_check=None) -%}
+{%- macro server(server, host, port=80, check='check', extra_extra=None, extra_check=None, header=True) -%}
+      {%- set extra = 'extra: ' %}
+      {%- if header %}
       servers:
+      {%- endif %}
         {{ server }}:
           host: {{ host }}
           port: {{ port }}
           {%- if check is not none %}
           check: {{ check }}{{ ' ' ~ extra_check if extra_check is not none else '' }}
-          extra: port {{ port }}{{ ' ' ~ extra_extra if extra_extra is not none else '' }}
+          {%- set extra = extra ~ 'port ' ~ port %}
+          {%- endif %}
+          {%- if extra_extra %}
+          {%- set extra = extra ~ ' ' ~ extra_extra %}
+          {%- endif %}
+          {%- if check or extra_extra %}
+          {{ extra }}
           {%- endif %}
 {%- endmacro -%}

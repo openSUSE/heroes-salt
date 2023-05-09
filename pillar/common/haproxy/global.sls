@@ -32,3 +32,4 @@ haproxy:
       - ssl-default-server-options no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets
       - nbproc 1
       - nbthread {{ grains['num_cpus'] }}
+      - cpu-map auto:1/1-4 0-3

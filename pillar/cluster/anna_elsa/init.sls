@@ -1,4 +1,4 @@
-{%- from slspath ~ '/map.jinja' import bind, extra, options, server, redirects, narwals, check_txt -%}
+{%- from slspath ~ '/map.jinja' import bind, extra, options, server, redirects, narwals, galeras, check_txt -%}
 
 include:
   - common.haproxy
@@ -7,22 +7,25 @@ haproxy:
   listens:
     ssl-ext:
       bind:
-        {%- set bindopts = 'tfo ssl alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
+        {%- set bindopts = 'tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
         {{ bind(['195.135.221.145', '195.135.221.139', '62.146.92.205', '195.135.221.140', '195.135.221.143'], 443, bindopts) }}
         {{ bind(['2a01:138:a004::205', '2001:67C:2178:8::16', '2620:113:80c0:8::16', '2001:67C:2178:8::18', '2620:113:80c0:8::18'], 443, 'v6only ' ~ bindopts) }}
-      option: tcp-smart-connect
-      server: 'http-ext-in 127.0.0.1:82 send-proxy-v2'
+      options:
+        - tcp-smart-connect
+      {{ server('http-ext-in', '127.0.0.1', 82, check=None, extra_extra='send-proxy-v2') }}
     ssl-int:
       bind:
         {%- set bindopts = 'tfo ssl alpn h2,http/1.1 npn h2,http/1.1 crt /etc/ssl/services/star_opensuse_org_letsencrypt_fullchain_key_dh.pem' %}
         {{ bind(['192.168.47.4', '192.168.87.5'], 443, bindopts) }}
-      option: tcp-smart-connect
-      server: 'http-int-in 127.0.0.1:83 send-proxy-v2'
+      options:
+        - tcp-smart-connect
+      {{ server('http-int-in', '127.0.0.1', 83, check=None, extra_extra='send-proxy-v2') }}
     {%- for galera_block, galera_port in {'galera': 3307, 'galera-slave': 3308}.items() %}
     {{ galera_block }}:
       bind:
         {{ bind(['192.168.47.4'], galera_port) }}
       mode: tcp
+      balance: source
       options:
         - tcplog
         - tcpka
@@ -32,7 +35,7 @@ haproxy:
         - client 30m
         - server 30m
       servers:
-        {%- for host, append in {'galera1': 'weight 100', 'galera2': 'weight 90 backup', 'galera3': 'weight 80 backup'}.items() %}
+        {%- for host, append in galeras[galera_block].items() %}
         {{ host }}:
           host: {{ host }}.infra.opensuse.org
           port: 3306
@@ -67,10 +70,10 @@ haproxy:
         {%- set bindopts = 'tfo' %}
         {%- set bindopts_proxy = bindopts ~ ' accept-proxy' %}
         {%- set bindopts_v6 = bindopts ~ ' v6only' %}
-        {{ bind(['127.0.0.1', '195.135.221.145', '62.146.92.205', '195.135.221.140', '195.135.221.143'], 80, bindopts) }}
+        {{ bind(['127.0.0.1', '62.146.92.205', '195.135.221.139', '195.135.221.140', '195.135.221.143', '195.135.221.145'], 80, bindopts) }}
         {{ bind(['127.0.0.1'], 82, bindopts_proxy) }}
         {{ bind(['192.168.47.101', '192.168.47.102'], 443, bindopts_proxy) }}
-        {{ bind(['2a01:138:a004::205', '2001:67C:2178:8::16', '2620:113:80c0:8::16', '2001:67C:2178:8::18', '2620:113:80c0:8::18'], 443, bindopts_v6) }}
+        {{ bind(['2a01:138:a004::205', '2001:67C:2178:8::16', '2620:113:80c0:8::16', '2001:67C:2178:8::18', '2620:113:80c0:8::18'], 80, bindopts_v6) }}
       acls:
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
         - no_x-frame-option var(txn.host) -m str meet.opensuse.org
@@ -206,7 +209,8 @@ haproxy:
         - is_wiki_gone           hdr(host)     -i fi.opensuse.org
         - is_wiki_gone           hdr(host)     -i is.opensuse.org
         - is_wiki_gone           hdr(host)     -i vi.opensuse.org
-      option: http-server-close
+      options:
+        - http-server-close
       redirects: {{ redirects }}
       extra:
         {{ extra({
@@ -215,7 +219,7 @@ haproxy:
                   'X-Forwarded-For', '^X-Forwarded-(Proto|Ssl).*', '^HTTPS.*'
                 ],
                 'add-header': [
-                  'HTTPS on if is_ssl', 'X-Forwarded-Ssl on if is_ssl', 'X-Forwarded-Ssl on if is_ssl', 'X-Forwarded-Proto https if is_ssl !is_www',
+                  'HTTPS on if is_ssl', 'X-Forwarded-Ssl on if is_ssl', 'X-Forwarded-Proto https if is_ssl !is_www',
                   'X-Forwarded-Protocol https if is_ssl', 'X-Forwarded-Proto http unless is_ssl', 'X-Forwarded-Protocol http unless is_ssl'
                 ],
                 'deny': [
@@ -227,7 +231,6 @@ haproxy:
                 ],
                 'set-header': [
                   'X-Frame-Options SAMEORIGIN if is_ssl !no_x-frame-option', 'X-XSS-Protection "1; mode=block" if is_ssl', 'X-Content-Type-Options nosniff if is_ssl',
-                  'X-Content-Type-Options nosniff if is_ssl', 'X-Content-Type-Options nosniff if is_ssl', 'X-Content-Type-Options nosniff if is_ssl',
                   'Referrer-Policy no-referrer-when-downgrade if is_ssl', 'Strict-Transport-Security max-age=15768000'
                 ] }
         }) }}
@@ -291,7 +294,8 @@ haproxy:
       bind:
         {{ bind(['127.0.0.1'], 83, bindopts_proxy) }}
         {{ bind(['192.168.47.4', '192.168.87.5'], 80, bindopts) }}
-      option: http-server-close
+      options:
+        - http-server-close
       acls:
         - is_dot_scm             path_beg      /.git/
         - is_dot_scm             path_beg      /.svn/
@@ -356,17 +360,14 @@ haproxy:
       default_backend: redirect_www_o_o
   backends:
     redirect_www_o_o:
-      redirect: code 301 location https://www.opensuse.org/
+      redirects: code 301 location https://www.opensuse.org/
     staticpages:
       {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ fontinfo.opensuse.org') }}
       balance: roundrobin
       mode: http
       servers:
-        {%- for server, address in narwals.items() %}
-        {{ server }}:
-          host: {{ address }}
-          port: 80
-          check: check
+        {%- for static_server, address in narwals.items() %}
+        {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
     www_openid_ldap:
       {{ options() }}
@@ -376,7 +377,15 @@ haproxy:
       {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ factory-dashboard.opensuse.org') }}
       mode: http
       {{ server('community2', '192.168.47.79') }}
-    bugzilla-devel:
+    status:
+      mode: tcp
+      options:
+        - ssl-hello-chk
+      servers:
+        {%- for status_server, status_config in {'status1': '100', 'status2': '80 backup', 'status3': '90 backup'}.items() %}
+        {{ server(status_server, status_server ~ '.opensuse.org', 443, extra_extra='inter 60000 weight ' ~ status_config, header=False) }}
+        {%- endfor %}
+    bugzilla-devel: {#- unused ? #}
       options:
         - tcpka
         - httpchk GET /index.cgi
@@ -386,13 +395,8 @@ haproxy:
       balance: roundrobin
       mode: http
       servers:
-        {%- for server, address in narwals.items() %}
-        {%- if not server == 'narwal4' %} {#- why ??? #}
-        {{ server }}:
-          host: {{ address }}
-          port: 80
-          check: check
-        {%- endif %}
+        {%- for bugzilla_server, address in narwals.items() %}
+        {{ server(bugzilla_server, address, 80, header=False) }}
         {%- endfor %}
     community:
       {{ options ('httpchk OPTIONS / HTTP/1.1\r\nHost:\ community.opensuse.org') }}
@@ -410,19 +414,20 @@ haproxy:
       {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ monitor.opensuse.org') }}
       {{ server('monitor', '192.168.47.7', extra_extra='inter 30000') }}
     monitor_grafana:
-      {{ options(check_txt) }}
-      {{ server('limesurvey', '192.168.47.12', extra_extra='inter 5000') }}
+      {{ options() }}
+      {{ server('grafana', '192.168.47.7', 3000, extra_extra='inter 30000') }}
     limesurvey:
       {{ options(check_txt) }}
       {{ server('limesurvey', '192.168.47.12', extra_extra='inter 5000') }}
     mailman3:
       acls:
         - is_lists_test hdr_reg(host) -i (.*)-test\.opensuse\.org
+      httprequests: {#- is lists-test.o.o still needed ? #}
+        - replace-header HOST (.*)-test(.*) \1\2 if is_lists_test
       {{ options() }}
       {{ server('mailman3', '192.168.47.80', extra_extra='inter 30000') }}
     rpmlint:
-      errorfiles:
-        503: /etc/haproxy/errorfiles/downtime.xml
+      extra: errorfile 503 /etc/haproxy/errorfiles/downtime.xml
       timeouts:
         - check 30s
         - server 30m
@@ -431,14 +436,14 @@ haproxy:
     error_403:
       mode: http
       options: ['tcpka']
-      extra: http-request set-log-level silent
-      errorfiles:
-        503: /etc/haproxy/errorfiles/403.html
+      httprequests: set-log-level silent
+      extra:
+        - errorfile 503 /etc/haproxy/errorfiles/403.html
     etherpad:
       {{ options() }}
-      errorfiles:
-        503: /etc/haproxy/errorfiles/downtime.html
-      extra: http-request del-header X-Frame-Options
+      extra:
+        - errorfile 503 /etc/haproxy/errorfiles/downtime.html
+        - http-response del-header X-Frame-Options
       timeouts:
         - check 30s
         - server 30m
@@ -498,14 +503,15 @@ haproxy:
     conncheck:
       mode: http
       options: ['tcpka']
-      extra: 'http-request set-log-level silent'
-      errorfiles:
-        503: /etc/haproxy/errorfiles/conncheck.reply.txt
+      httprequests: set-log-level silent
+      extra:
+        - errorfile 503 /etc/haproxy/errorfiles/conncheck.reply.txt
     deadservices:
       options: ['tcpka']
       mode: http
-      errorfiles:
-        503: /etc/haproxy/errorfiles/deprecated.html.http
+      httprequests: set-log-level silent
+      extra:
+        - errorfile 503 /etc/haproxy/errorfiles/deprecated.html.http
     hackweek:
       mode: http
       {{ options() }}
@@ -515,7 +521,7 @@ haproxy:
       {{ server('olaf', '192.168.47.17') }}
     mirrorcache:
       {{ options() }}
-      {{ server('mirrorcache', '192.168.47.73') }}
+      {{ server('mirrorcache', '192.168.47.23', 3000) }}
     mirrorcache-eu:
       {{ options() }}
       {{ server('mirrorcache2', '192.168.47.28', 3000) }}
@@ -532,7 +538,7 @@ haproxy:
       {{ server('pinot', '192.168.47.11') }}
     riesling:
       {{ options() }}
-      {{ server('riesling', '192.168.47.42', check=None) }}
+      {{ server('riesling', '192.168.47.42') }}
     forums:
       {{ options() }}
       {{ server('discourse01', '192.168.47.83') }}
@@ -552,11 +558,12 @@ haproxy:
       {{ server('metrics', '192.168.47.31', 3000) }}
     lnt:
       {{ options() }}
-      {{ server('lnt', '192.168.47.35') }}
+      {{ server('lnt', '192.168.47.35', 8080) }}
       httprequests:
       - set-header X-Forwarded-Host %[req.hdr(Host)]
       - set-header X-Forwarded-Proto https
-    obsreview:
+      extra: timeout server 300s
+    obsreview: {#- to-do: investigate; port 80 only serves 404 #}
       {{ options() }}
       {{ server('obsreview', '192.168.47.39') }}
     os_rt:
@@ -566,9 +573,9 @@ haproxy:
       mode: http
       options:
         - tcpka
-      errorfiles:
-        503: /etc/haproxy/errorfiles/security.txt
-      extra: http-request set-log-level silent
+      httprequests: set-log-level silent
+      extra:
+        - errorfile 503 /etc/haproxy/errorfiles/security.txt
     jekyll:
       {{ options('httpchk OPTIONS / HTTP/1.1\r\nHOST:\ search.opensuse.org') }}
       {{ server('jekyll', '192.168.47.61') }}
@@ -586,9 +593,8 @@ haproxy:
       {{ server('fedora-sso', '192.168.47.81') }}
     wip:
       mode: http
-      errorfiles:
-        503: /etc/haproxy/fourohfour.html.response
-      extra: http-request set-log-level silent
+      extra: errorfile 503 /etc/haproxy/fourohfour.html.response
+      httprequests: set-log-level silent
     man:
       {{ options() }}
       {{ server('man', '192.168.47.29') }}
