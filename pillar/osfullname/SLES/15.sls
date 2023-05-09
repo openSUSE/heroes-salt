@@ -1,4 +1,4 @@
-{%- from slspath ~ '/map.j2' import version, osarch -%}
+{%- from slspath ~ '/map.jinja' import version, osarch -%}
 
 zypper:
   repositories:
