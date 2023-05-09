@@ -1,0 +1,6 @@
+HTTP/1.0 204 No Content
+Cache-Control: no-cache
+X-NetworkManager-Status: online
+Connection: close
+Content-Type: text/plain
+

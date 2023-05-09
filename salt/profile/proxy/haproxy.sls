@@ -14,6 +14,14 @@ haproxy_dhparam:
     - watch:
       - service: haproxy.service
 
+haproxy_errorfiles:
+  file.recurse:
+    - name: /etc/haproxy/errorfiles
+    - source: salt://{{ slspath }}/files/etc/haproxy/errorfiles
+    - clean: true
+    - require:
+      - haproxy.install
+
 {%- if salt['grains.get']('include_secrets', True) %}
 {%- set secrets = salt['pillar.get']('profile:proxy:haproxy:secrets') %}
 haproxy_sysconfig_variables:

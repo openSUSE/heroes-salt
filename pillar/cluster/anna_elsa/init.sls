@@ -1,4 +1,4 @@
-{%- from slspath ~ '/map.jinja' import bind, extra, options, server, redirects, narwals, galeras, check_txt -%}
+{%- from slspath ~ '/map.jinja' import bind, extra, options, server, redirects, errorfiles, narwals, galeras, check_txt -%}
 
 include:
   - common.haproxy
@@ -427,7 +427,7 @@ haproxy:
       {{ options() }}
       {{ server('mailman3', '192.168.47.80', extra_extra='inter 30000') }}
     rpmlint:
-      extra: errorfile 503 /etc/haproxy/errorfiles/downtime.xml
+      extra: errorfile 503 {{ errorfiles }}downtime.xml.http {#- why a xml for api.o.o ? #}
       timeouts:
         - check 30s
         - server 30m
@@ -438,11 +438,11 @@ haproxy:
       options: ['tcpka']
       httprequests: set-log-level silent
       extra:
-        - errorfile 503 /etc/haproxy/errorfiles/403.html
+        - errorfile 503 {{ errorfiles }}403.html.http
     etherpad:
       {{ options() }}
       extra:
-        - errorfile 503 /etc/haproxy/errorfiles/downtime.html
+        - errorfile 503 {{ errorfiles }}downtime.html.http
         - http-response del-header X-Frame-Options
       timeouts:
         - check 30s
@@ -505,13 +505,13 @@ haproxy:
       options: ['tcpka']
       httprequests: set-log-level silent
       extra:
-        - errorfile 503 /etc/haproxy/errorfiles/conncheck.reply.txt
+        - errorfile 503 {{ errorfiles }}conncheck.txt.http
     deadservices:
       options: ['tcpka']
       mode: http
       httprequests: set-log-level silent
       extra:
-        - errorfile 503 /etc/haproxy/errorfiles/deprecated.html.http
+        - errorfile 503 {{ errorfiles }}deprecated.html.http
     hackweek:
       mode: http
       {{ options() }}
@@ -575,7 +575,7 @@ haproxy:
         - tcpka
       httprequests: set-log-level silent
       extra:
-        - errorfile 503 /etc/haproxy/errorfiles/security.txt
+        - errorfile 503 {{ errorfiles }}security.txt.http
     jekyll:
       {{ options('httpchk OPTIONS / HTTP/1.1\r\nHOST:\ search.opensuse.org') }}
       {{ server('jekyll', '192.168.47.61') }}
@@ -593,7 +593,7 @@ haproxy:
       {{ server('fedora-sso', '192.168.47.81') }}
     wip:
       mode: http
-      extra: errorfile 503 /etc/haproxy/fourohfour.html.response
+      extra: errorfile 503 {{ errorfiles }}fourohfour.html.http
       httprequests: set-log-level silent
     man:
       {{ options() }}

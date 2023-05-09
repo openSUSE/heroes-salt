@@ -1,0 +1,17 @@
+HTTP/1.0 200 Found
+Cache-Control: no-cache
+Connection: close
+Content-Length: 276
+Content-Type: text/html
+
+<!doctype html>
+<html xml:lang="en" lang="en">
+  <head>
+    <title>We are working on it</title>
+  </head>
+  <body>
+    <h1>We are working on it</h1>
+    <p>You are seeing this page because Lars and darix are working on the DB server. Please stay tuned.</p>
+  </body>
+</html>
+

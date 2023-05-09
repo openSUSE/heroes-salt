@@ -2,6 +2,7 @@
 {%- set bind = bind -%}{%- set extra = extra -%}{%- set options = options -%}{%- set server = server -%}
 {%- import_yaml slspath ~ '/redirects.yaml' as redirects -%}
 
+{%- set errorfiles = '/etc/haproxy/errorfiles/' %}
 {%- set narwals = {
       'narwal1': '192.168.87.6', 'narwal4': '192.168.67.5', 'narwal5': '192.168.47.68', 'narwal6': '192.168.47.69', 'narwal7': '192.168.47.70'
     }

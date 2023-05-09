@@ -18,7 +18,7 @@ haproxy:
       - server 300s
       - http-keep-alive 30m
     errorfiles:
-      503: /etc/haproxy/errorfiles/downtime.html
+      503: /etc/haproxy/errorfiles/downtime.html.http
     extra:
       - compression algo gzip
       - compression type text/html text/plain text/css text/xml application/xhtml+xml image/svg+xml application/javascript application/json
