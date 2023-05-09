@@ -4,7 +4,7 @@ include:
 haproxy_sysconfig:
   file.managed:
     - name: /etc/sysconfig/haproxy
-    - mode: '0640'
+    - mode: '0600'
     - replace: false
 
 haproxy_dhparam:
