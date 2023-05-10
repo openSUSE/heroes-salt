@@ -1,7 +1,8 @@
-{% if salt['grains.get']('include_secrets', True) %}
 include:
+  - common.haproxy
+{%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.proxy
-{% endif %}
+{%- endif %}
 
 keepalived:
   global_defs:

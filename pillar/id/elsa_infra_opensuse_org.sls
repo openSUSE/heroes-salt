@@ -1,3 +1,6 @@
+include:
+  - cluster.anna_elsa
+
 grains:
   city: nuremberg
   country: de
