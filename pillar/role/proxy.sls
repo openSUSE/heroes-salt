@@ -24,7 +24,6 @@ keepalived:
       smtp_alert: ''
       virtual_ipaddress:
         - 192.168.47.4/24 dev private
-        - 172.16.42.103/24 dev login
         # proxy-nue.opensuse.org
         - 195.135.221.140/25 dev external
         # static.opensuse.org
