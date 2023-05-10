@@ -70,7 +70,7 @@ rsyslog:
 salt:
   minion:
     backup_mode: minion
-    environment: production
+    saltenv: production
     hash_type: sha512
     ipv6: false
 sshd_config:
