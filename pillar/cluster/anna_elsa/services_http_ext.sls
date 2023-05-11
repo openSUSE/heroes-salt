@@ -213,6 +213,7 @@ haproxy:
         - moodle           if is_moodle
         - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
+        - www_openid_ldap  if is_www is_slash_openid
         - www_openid_ldap  if is_www is_slash_openid_ldap
         - staticpages      if is_www || is_staticpages || is_static_o_o
         - osccollab        if is_osccollab
