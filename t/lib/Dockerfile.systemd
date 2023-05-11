@@ -5,9 +5,12 @@ ENV LANG en_US.UTF-8
 
 RUN test ! -f /var/log/zypper.log || mv /var/log/zypper.log /var/log/zypper.log.preinstalled
 
+
+
 # these are needed to run test
-RUN zypper -vvvn install systemd salt-minion curl sudo iputils
-RUN zypper -vvvn install python3-pygit2 # needed for get_formulas.py
+RUN zypper ar https://download.opensuse.org/repositories/openSUSE:/infrastructure/\$releasever/ infra && \
+    zypper --gpg-auto-import-keys ref
+RUN ( zypper -vvvn ref || zypper -vvvn ref || zypper -vvvn ref ) && zypper -vvvn install systemd salt-minion curl sudo iputils python3-pygit2 ca-certificates-suse ca-certificates-freeipa-opensuse zypper-formula # needed for get_formulas.py
 
 ##DUMMY
 
@@ -15,12 +18,15 @@ RUN mkdir -p /srv/salt/ && \
   sed -i 's^\#*\s*file_client: .*$^file_client: local\nsystemd.scope: False\nenable_fqdns_grains: False^' /etc/salt/minion && \
   sed -i '/pam_systemd.so/d' /etc/pam.d/common-session-pc # delete pam_systemd , otherwise sudo will hang
 
-
-
 ADD bin /test/bin
 ADD pillar /test/pillar
 WORKDIR /test
-RUN bin/get_formulas.py -c -d /srv/formula -s
+RUN bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production || bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
+RUN ( echo $'file_roots:\n\
+  base:\n\
+    - /srv/salt\n\
+    - /usr/share/salt-formulas/states' \
+  ) >> /etc/salt/minion.d/roots.conf
 
 ADD pillar/role /srv/pillar/role
 COPY t/lib/*.sls /srv/pillar/

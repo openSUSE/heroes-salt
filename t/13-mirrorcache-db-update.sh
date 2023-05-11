@@ -4,7 +4,7 @@ set -ex
 
 ping -c1 download.infra.opensuse.org || echo 195.135.221.134 download.infra.opensuse.org >> /etc/hosts
 
-salt-call --local grains.setval roles '["test-mysql-server","mirrorcache-db-server","mirrorcache-webui","mirrorcache-backstage"]'
+salt-call --local grains.setval roles '["test-mysql-server"]'
 
 PASS=mypass12
 

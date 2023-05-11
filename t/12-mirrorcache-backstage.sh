@@ -12,7 +12,7 @@ mirrorcache:
   zsync_collect: dat
 " > /srv/pillar/role/test-mirrorcache-backstage.sls
 
-salt-call --local grains.setval roles '["test-mirrorcache-backstage","mirrorcache-db-server","mirrorcache-backstage"]'
+salt-call --local grains.setval roles '["test-mirrorcache-backstage"]'
 salt-call --local state.apply 'role/mirrorcache-db-server'
 salt-call --local state.apply 'role/mirrorcache-backstage'
 

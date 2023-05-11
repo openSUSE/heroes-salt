@@ -10,7 +10,7 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-    - mirrorcache DB and workers
+    - mirrorcache-stats
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju

@@ -9,13 +9,7 @@ grains:
   city: nuremberg
   country: de
   hostusage:
-<<<<<<< HEAD
-    - mirrorcache
-=======
-    - mirrorcache2
-  roles:
-    - mirrorcache-webui
->>>>>>> f23fa68 (Adjust MirrorCache states, add container tests)
+    - mirrorcache-eu
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -29,4 +23,5 @@ grains:
   partners: []
   weburls:
     - https://mirrorcache-eu.opensuse.org/
-roles: []
+roles:
+  - mirrorcache-webui

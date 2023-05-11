@@ -1,6 +1,6 @@
 include:
   - ssh_keys.groups.download_infra
-  - secrets.mirrorcache-us
+  - secrets.mirrorcache
 
 mirrorcache:
   proxy_url: https://mirrorcache-us.opensuse.org

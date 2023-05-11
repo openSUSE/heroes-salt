@@ -2,7 +2,7 @@
 
 set -ex
 
-salt-call --local grains.setval roles '["test-mysql-server","mirrorcache-db-server"]'
+salt-call --local grains.setval roles '["test-mysql-server"]'
 
 # hack the pillar
 echo "
