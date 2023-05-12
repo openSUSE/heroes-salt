@@ -37,5 +37,5 @@ haproxy_sysconfig_variables:
     - watch:
       - service: haproxy.service
 {%- else %}
-{%- do salt.log.warning('Skipping management of HAProxy secrets!') %}
+{%- do salt.log.debug('Skipping management of HAProxy secrets!') %}
 {%- endif %}
