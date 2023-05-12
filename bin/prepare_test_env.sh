@@ -50,7 +50,6 @@ while getopts p:i:o:gsh arg; do
 done
 
 [[ -z "$INSTANCE" ]] && help && exit 1
-[[ -n "$HIGHSTATE" ]] && HIGHSTATE_PKGS=( git-core python3-PyYAML )
 
 if [[ "$INSTANCE" == 'opensuse' ]]; then
     DOMAIN='infra.opensuse.org'
