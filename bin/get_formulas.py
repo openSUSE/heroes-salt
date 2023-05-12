@@ -152,7 +152,7 @@ def checkout_remote_and_branch(REMOTE_BRANCH, DEST):
 with open('pillar/FORMULAS.yaml', 'r') as f:
     FORMULAS_YAML = yaml.safe_load(f)
 
-FORMULAS = copy(FORMULAS_YAML)
+FORMULAS = copy(FORMULAS_YAML)['git']
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the formulas from FORMULAS.yaml and performs one or more of the operations specified at the arguments.')
 parser.add_argument('-q', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
@@ -204,7 +204,7 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
 
         for formula in args_formulas:
             try:
-                FORMULAS[formula] = FORMULAS_YAML[formula]
+                FORMULAS[formula] = FORMULAS_YAML['git'][formula]
             except KeyError:
                 unknown_formulas.append(formula)
         if unknown_formulas:

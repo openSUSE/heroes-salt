@@ -28,7 +28,7 @@ salt:
           - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
           - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
       {% import_yaml "FORMULAS.yaml" as formulas_yaml %}
-      {% set formulas = formulas_yaml.keys()|sort %}
+      {% set formulas = formulas_yaml['git'].keys()|sort %}
       {% for formula in formulas %}
       - https://gitlab.infra.opensuse.org/saltstack-formulas/{{ formula }}-formula.git
       {% endfor %}
