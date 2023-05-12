@@ -28,18 +28,21 @@ write_grains() {
 }
 
 show_highstate() {
+    local outfile="$domain.txt"
     write_grains $country $city $virt_cluster $virtual $domain
-    $RUN_TEST > /dev/null
+    $RUN_TEST > "$outfile" 2>&1
     _STATUS=$?
     # We ignore exit code 2 as it means that an empty file is produced
     # See https://github.com/saltstack/salt/issues/39172
     if [[ $_STATUS -eq 0 ]] || [[ $_STATUS -eq 2 ]]; then
         echo_PASSED
     else
-		echo
-		# errors like conflicting IDs get displayed on stdout, not stderr, see https://github.com/saltstack/salt/issues/52653
-		echo "== running test again without /dev/null'ing stdout =="
-		$RUN_TEST
+	cat /etc/salt/grains >> "$outfile"
+	salt-call --local grains.get id >> "$outfile"
+	salt-call --local grains.get domain >> "$outfile"
+	salt-call --local grains.get virtual >> "$outfile"
+	echo 'Dumping the last 100 log lines - the full output can be found in the CI artifacts'
+	tail -n100 "$outfile"
         echo_FAILED
         STATUS=1
     fi

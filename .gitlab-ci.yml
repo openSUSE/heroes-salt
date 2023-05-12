@@ -13,14 +13,18 @@ validate:
   tags:
     - docker
 
-leap15.3_show_highstate:
+show_highstate:
   stage: validate
   before_script:
-    - bin/prepare_test_env.sh -i opensuse -g -o Leap,15,3
+    - bin/prepare_test_env.sh -i opensuse -g -o Leap,15,4
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
   script: bin/test_show_highstate.sh
   tags:
     - docker
+  artifacts:
+    #when: on_failure
+    paths:
+      - '*.txt'
 
 upstream_formulas_show_highstate:
   stage: validate
