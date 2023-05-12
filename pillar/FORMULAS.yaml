@@ -33,3 +33,4 @@ git:
   timezone: {}
   zypper:
     namespace: 'tampakrap'
+package: []
