@@ -1,34 +1,36 @@
 ---
-chrony: {}
-elasticsearch: {}
-firewalld: {}
-grains:
-  namespace: 'tampakrap'
-haproxy: {}
-keepalived: {}
-limits:
-  namespace: 'ryancurrah'
-locale: {}
-mysql: {}
-nginx: {}
-ntp: {}
-openldap: {}
-openssh: {}
-powerdns: {}
-rsyslog:
-  namespace: 'tampakrap'
-  pending:
-    - 'https://github.com/saltstack-formulas/rsyslog-formula/pull/16'
-salt: {}
-sqlite:
-  namespace: 'tampakrap'
-sssd:
-  original_namespace: 'Spark-Networks'
-  namespace: 'tampakrap'
-  pending:
-    - 'https://github.com/Spark-Networks/salt-sssd-formula/pull/1'
-  prefix: 'salt-'
-sudoers: {}
-timezone: {}
-zypper:
-  namespace: 'tampakrap'
+git:
+  chrony: {}
+  elasticsearch: {}
+  firewalld: {}
+  grains:
+    namespace: 'tampakrap'
+  haproxy: {}
+  keepalived: {}
+  limits:
+    namespace: 'ryancurrah'
+  locale: {}
+  mysql: {}
+  nginx: {}
+  ntp: {}
+  openldap: {}
+  openssh: {}
+  powerdns: {}
+  rsyslog:
+    namespace: 'tampakrap'
+    pending:
+      - 'https://github.com/saltstack-formulas/rsyslog-formula/pull/16'
+  salt: {}
+  sqlite:
+    namespace: 'tampakrap'
+  sssd:
+    original_namespace: 'Spark-Networks'
+    namespace: 'tampakrap'
+    pending:
+      - 'https://github.com/Spark-Networks/salt-sssd-formula/pull/1'
+    prefix: 'salt-'
+  sudoers: {}
+  timezone: {}
+  zypper:
+    namespace: 'tampakrap'
+package: []

@@ -1,3 +1,4 @@
+{%- import_yaml 'FORMULAS.yaml' as formulas_yaml -%}
 {% if salt['grains.get']('include_secrets', True) %}
 include:
   - secrets.role.saltmaster
@@ -21,14 +22,17 @@ salt:
     ext_pillar_first: True
     fileserver_backend:
       - git
+      - roots
+    file_roots:
+      __env__:
+        - /usr/share/salt-formulas/states
     gitfs_provider: pygit2
     gitfs_remotes:
       - gitlab@gitlab.infra.opensuse.org:infra/salt.git:
           - root: salt
           - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
           - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
-      {% import_yaml "FORMULAS.yaml" as formulas_yaml %}
-      {% set formulas = formulas_yaml.keys()|sort %}
+      {% set formulas = formulas_yaml['git'].keys()|sort %}
       {% for formula in formulas %}
       - https://gitlab.infra.opensuse.org/saltstack-formulas/{{ formula }}-formula.git
       {% endfor %}
@@ -44,6 +48,14 @@ salt:
   reactor:
     - 'salt/fileserver/gitfs/update':
         - /srv/reactor/update_fileserver.sls
+
+{%- if formulas_yaml['package'] | length %}
+zypper:
+  packages:
+    {%- for formula in formulas_yaml['package'] %}
+    - {{ formula }}-formula
+    {%- endfor %}
+{%- endif %}
 
 sudoers:
   included_files:
