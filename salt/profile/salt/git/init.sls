@@ -11,6 +11,7 @@ salt_git_link_{{ l }}:
   file.symlink:
     - name: /srv/{{ l }}
     - target: /srv/salt-git/{{ l }}
+    - force: true
 {%- endfor %}
 
 include:
