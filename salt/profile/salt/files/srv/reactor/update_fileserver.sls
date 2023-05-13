@@ -4,5 +4,11 @@
 update_fileserver:
   runner.fileserver.update: []
   runner.git_pillar.update: []
+
+update_fileserver_ng:
+  local.state.apply:
+    - tgt: {{ grains['master'] }}
+    - args:
+      - mods: profile.salt.git.update
 {%- endif -%}
 {%- endraw -%}
