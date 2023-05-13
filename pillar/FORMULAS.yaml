@@ -3,8 +3,6 @@ git:
   chrony: {}
   elasticsearch: {}
   firewalld: {}
-  grains:
-    namespace: 'tampakrap'
   haproxy: {}
   keepalived: {}
   limits:
@@ -31,6 +29,6 @@ git:
     prefix: 'salt-'
   sudoers: {}
   timezone: {}
-  zypper:
-    namespace: 'tampakrap'
-package: []
+package:
+  - grains
+  - zypper
