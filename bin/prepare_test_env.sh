@@ -74,4 +74,15 @@ if [[ -n "$HIGHSTATE" ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
     [[ -n "$OS" ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]\n"
     printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS$ROLES\nsalt_cluster: $SALT_CLUSTER\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
+
+    if [ ! -d /etc/salt/minion.d ]
+    then
+	    mkdir /etc/salt/minion.d
+    fi
+    tee /etc/salt/minion.d/roots.conf <<-EOF
+	file_roots:
+	  base:
+	    - /srv/salt
+	    - /usr/share/salt-formulas/states
+	EOF
 fi
