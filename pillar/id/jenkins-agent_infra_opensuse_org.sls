@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - jenkins agent
-  roles:
-    - worker_jenkins
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -17,3 +15,5 @@ grains:
     - luc14n0
   partners: []
   weburls: []
+roles:
+  - worker_jenkins

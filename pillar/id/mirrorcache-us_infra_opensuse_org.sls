@@ -6,7 +6,6 @@ grains:
   country: us
   hostusage:
     - mirrorcache
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -20,3 +19,4 @@ grains:
   partners: []
   weburls:
     - https://mirrorcache-us.opensuse.org/
+roles: []

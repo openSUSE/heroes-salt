@@ -4,9 +4,6 @@ grains:
   hostusage:
     - gitlab.i.o.o
     - gitlab runner
-  roles:
-    - web_gitlab
-    - worker_gitlab
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,3 +15,6 @@ grains:
   partners: []
   weburls:
     - https://gitlab.infra.opensuse.org
+roles:
+  - web_gitlab
+  - worker_gitlab

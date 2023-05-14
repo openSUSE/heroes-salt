@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - RT
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -17,3 +16,4 @@ grains:
   partners: []
   weburls:
     - https://osrt.opensuse.org
+roles: []

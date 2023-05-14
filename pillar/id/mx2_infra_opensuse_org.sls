@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - mx2.o.o
-  roles:
-    - mailserver
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -14,3 +12,5 @@ grains:
   responsible:
     - mstrigl 
   partners: []
+roles:
+  - mailserver

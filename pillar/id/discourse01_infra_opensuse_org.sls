@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - discourse
-  roles:
-    - discourse
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -17,3 +15,5 @@ grains:
   partners: []
   weburls:
     - https://forums.opensuse.org
+roles:
+  - discourse

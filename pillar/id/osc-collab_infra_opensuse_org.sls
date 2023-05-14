@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage: 
     - osc-collab
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -16,3 +15,4 @@ grains:
   partners: []
   weburls:
     - https://osc-collab.opensuse.org/
+roles: []

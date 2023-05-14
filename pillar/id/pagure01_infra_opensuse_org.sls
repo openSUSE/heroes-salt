@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - pagure
-  roles:
-    - pagure
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -21,3 +19,5 @@ grains:
     - https://pages.opensuse.org
     - https://releases.opensuse.org
     - https://ev.opensuse.org
+roles:
+  - pagure

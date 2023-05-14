@@ -6,7 +6,6 @@ grains:
   country: de
   hostusage:
     - mb devel
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,3 +17,4 @@ grains:
   responsible:
     - anikitin
   partners: []
+roles: []

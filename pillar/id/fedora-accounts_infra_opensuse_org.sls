@@ -2,7 +2,6 @@ grains:
   city: nuremberg
   country: de
   hostusage: []
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -15,3 +14,4 @@ grains:
     - Pharaoh_Atem
   partners: []
   weburls: []
+roles: []

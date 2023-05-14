@@ -3,8 +3,6 @@ grains:
   country: us
   hostusage:
     - static.o.o
-  roles:
-    - web_static
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -23,3 +21,5 @@ grains:
     - https://shop.opensuse.org
     - https://static.opensuse.org
     - https://studioexpress.opensuse.org
+roles:
+  - web_static

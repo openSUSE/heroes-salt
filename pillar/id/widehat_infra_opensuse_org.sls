@@ -3,7 +3,6 @@ grains:
   country: de-qsc
   hostusage:
     - rsync.o.o
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bare-metal
@@ -17,3 +16,4 @@ grains:
     - rklein
   partners: []
   weburls: []
+roles: []

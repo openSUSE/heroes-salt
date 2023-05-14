@@ -3,8 +3,6 @@ grains:
   country: de-qsc
   hostusage:
     - DNS
-  roles: 
-    - dns
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: slimhat
@@ -21,3 +19,5 @@ grains:
     - nue-ns2.infra.opensuse.org
     - provo-ns.infra.opensuse.org
   weburls: []
+roles:
+  - dns

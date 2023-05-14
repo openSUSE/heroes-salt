@@ -3,7 +3,6 @@ grains:
   country: us
   hostusage:
     - status
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -18,3 +17,4 @@ grains:
     - status1.opensuse.org
   weburls:
     - https://status2.opensuse.org
+roles: []

@@ -3,9 +3,6 @@ grains:
   country: us
   hostusage:
     - login3.o.o
-  roles:
-    - login
-    - login_master
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -18,3 +15,6 @@ grains:
   partners: []
   weburls:
     - https://login3.opensuse.org
+roles:
+  - login
+  - login_master

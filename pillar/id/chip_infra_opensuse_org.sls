@@ -3,9 +3,6 @@ grains:
   country: de
   hostusage:
     - pDNS master
-  roles:
-    - ns
-    - ns_slave
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -17,3 +14,6 @@ grains:
   responsible: []
   partners: []
   weburls: []
+roles:
+  - ns
+  - ns_slave

@@ -9,11 +9,6 @@ grains:
     - ntp2.i.o.o
     - proxy-nue1.o.o
     - relay.i.o.o
-  roles:
-    - ha
-    - proxy
-    - proxy_master
-    - ntp
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -28,3 +23,8 @@ grains:
     - elsa.infra.opensuse.org
   weburls:
     - https://anna.opensuse.org
+roles:
+  - ha
+  - proxy
+  - proxy_master
+  - ntp

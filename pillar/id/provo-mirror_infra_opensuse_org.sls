@@ -3,7 +3,6 @@ grains:
   country: us
   hostusage:
     - mirror
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -20,3 +19,4 @@ grains:
   weburls:
     - http://provo-mirror.opensuse.org/
     - http://twsnapshot.opensuse.org/
+roles: []

@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - freeipa
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -19,3 +18,4 @@ grains:
   partners: []
   weburls:
     - https://freeipa.infra.opensuse.org/
+roles: []

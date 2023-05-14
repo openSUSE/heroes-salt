@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - gcc.o.o
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -16,3 +15,4 @@ grains:
   partners: []
   weburls: 
     - https://gcc.opensuse.org/
+roles: []

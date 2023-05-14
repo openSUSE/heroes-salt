@@ -5,10 +5,6 @@ grains:
     - heroes-bot
     - monitor.o.o
     - syslog.i.o.o
-  roles:
-    - ircbot
-    - syslog
-    - monitoring
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -21,3 +17,7 @@ grains:
   partners: []
   weburls:
     - https://monitor.opensuse.org
+roles:
+  - ircbot
+  - syslog
+  - monitoring

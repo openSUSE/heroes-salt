@@ -3,8 +3,7 @@ grains:
   country: de
   hostusage:
     - opi proxy
-  roles: []
-  reboot_safe: yes 
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
@@ -17,3 +16,4 @@ grains:
   partners: []
   weburls:
     - https://opi-proxy.opensuse.org
+roles: []

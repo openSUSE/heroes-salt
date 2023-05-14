@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - manpages.o.o
-  roles:
-    - manpages
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -14,3 +12,5 @@ grains:
     - kukuk
   partners: []
   weburls: []
+roles:
+  - manpages

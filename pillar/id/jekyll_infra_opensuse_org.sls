@@ -4,9 +4,6 @@ grains:
   hostusage:
     - news.o.o
     - planet.o.o
-  roles:
-    - jekyll_master
-    - web_jekyll
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -20,3 +17,6 @@ grains:
   weburls:
     - https://news.opensuse.org
     - https://planet.opensuse.org
+roles:
+  - jekyll_master
+  - web_jekyll

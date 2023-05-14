@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - gitlab runner
-  roles:
-    - gitlab_runner
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,3 +16,5 @@ grains:
   partners: 
     - gitlab-runner2.infra.opensuse.org
   weburls: []
+roles:
+  - gitlab_runner

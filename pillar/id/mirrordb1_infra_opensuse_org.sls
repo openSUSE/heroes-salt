@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - postgreSQL cluster
-  roles:
-    - postgresql
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -16,3 +14,5 @@ grains:
   partners:
     - mirrordb2.infra.opensuse.org
   weburls: []
+roles:
+  - postgresql

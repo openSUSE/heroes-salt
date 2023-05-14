@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - matrix.o.o
-  roles:
-    - matrix
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -21,3 +19,5 @@ grains:
     - https://chat.opensuse.org/
     - https://webhook.opensuse.org/
     - https://dimension.opensuse.org/
+roles:
+  - matrix

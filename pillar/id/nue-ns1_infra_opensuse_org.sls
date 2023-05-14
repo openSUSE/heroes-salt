@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - DNS
-  roles: 
-    - dns
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -22,3 +20,5 @@ grains:
     - qsc-ns3.infra.opensuse-org
     - provo-ns.infra.opensuse.org
   weburls: []
+roles:
+  - dns

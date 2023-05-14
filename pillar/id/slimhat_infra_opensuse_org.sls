@@ -1,8 +1,6 @@
 grains:
   city: QSC-nuremberg
   country: de-qsc
-  roles:
-    - firewall
   hostusage:
     - IPMI access
   reboot_safe: yes
@@ -77,3 +75,5 @@ firewalld:
       short: Work
     trusted:
       short: Trusted
+roles:
+  - firewall

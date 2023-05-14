@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - lists.o.o
-  roles:
-    - mailman3
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,3 +16,5 @@ grains:
   partners: []
   weburls:
     - http://mailman3.infra.opensuse.org
+roles:
+  - mailman3

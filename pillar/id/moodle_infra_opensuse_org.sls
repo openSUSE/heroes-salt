@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - moodle
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -16,3 +15,4 @@ grains:
   partners: []
   weburls:
     - https://moodle.opensuse.org
+roles: []

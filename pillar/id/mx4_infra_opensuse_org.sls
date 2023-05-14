@@ -2,7 +2,6 @@ grains:
   city: provo
   country: us
   hostusage: []
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -12,3 +11,4 @@ grains:
     - pjessen
   partners: []
   weburls: []
+roles: []

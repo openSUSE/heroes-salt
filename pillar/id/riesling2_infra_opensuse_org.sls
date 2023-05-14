@@ -3,10 +3,6 @@ grains:
   country: us
   hostusage:
     - en.o.o (read-only)
-  roles:
-    - mysql
-    - wiki
-    - wiki_readonly
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -17,3 +13,7 @@ grains:
   responsible: []
   partners: []
   weburls: []
+roles:
+  - mysql
+  - wiki
+  - wiki_readonly

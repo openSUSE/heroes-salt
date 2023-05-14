@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - idp proxy server
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -17,3 +16,4 @@ grains:
   weburls:
     - https://www.opensuse.org/openid
     - https://id.opensuse.org/
+roles: []

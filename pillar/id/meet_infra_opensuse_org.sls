@@ -3,8 +3,7 @@ grains:
   country: de
   hostusage:
     - meet.o.o
-  roles: []
-  reboot_safe: yes 
+  reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
 
@@ -17,3 +16,4 @@ grains:
   partners: []
   weburls:
     - https://meet.opensuse.org
+roles: []

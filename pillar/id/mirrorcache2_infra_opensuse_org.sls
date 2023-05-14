@@ -6,7 +6,6 @@ grains:
   country: de
   hostusage:
     - mirrorcache
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -20,3 +19,4 @@ grains:
   partners: []
   weburls:
     - https://mirrorcache-eu.opensuse.org/
+roles: []
