@@ -52,11 +52,11 @@ salt:
 zypper:
   packages:
     salt-keydiff: {}
-{%- if formulas_yaml['package'] | length %}
+    {%- if formulas_yaml['package'] | length %}
     {%- for formula in formulas_yaml['package'] %}
-    - {{ formula }}-formula
+    {{ formula }}-formula: {}
     {%- endfor %}
-{%- endif %}
+    {%- endif %}
 
 sudoers:
   included_files:
