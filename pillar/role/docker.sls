@@ -1,0 +1,3 @@
+zypper:
+  packages:
+    docker: {}
