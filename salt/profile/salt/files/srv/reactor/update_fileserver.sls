@@ -7,7 +7,7 @@ update_fileserver:
 
 update_fileserver_ng:
   local.state.apply:
-    - tgt: {{ grains['master'] }}
+    - tgt: minnie.infra.opensuse.org
     - args:
       - mods: profile.salt.git.update
 {%- endif -%}
