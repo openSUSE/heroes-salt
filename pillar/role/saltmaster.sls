@@ -49,9 +49,10 @@ salt:
     - 'salt/fileserver/gitfs/update':
         - /srv/reactor/update_fileserver.sls
 
-{%- if formulas_yaml['package'] | length %}
 zypper:
   packages:
+    salt-keydiff: {}
+{%- if formulas_yaml['package'] | length %}
     {%- for formula in formulas_yaml['package'] %}
     - {{ formula }}-formula
     {%- endfor %}
