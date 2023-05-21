@@ -15,11 +15,11 @@ haproxy:
         - path_relnotes          path_beg      /release-notes/
         - path_grafana           path_beg      /grafana/
         - path_kubic_registry    path_beg      /v2/
-        - is_slash_openid        path_beg      -i /openid
-        - is_slash_openid        path_beg      -i /common/app/
+        - path_openid            path_beg      -i /openid
+        - path_openid            path_beg      -i /common/app/
+        - path_openid            path_beg      -i /openid-ldap
+        - path_openid            path_beg      -i /idp
         - path_openidlegacy      path_beg      -i /openidlegacy
-        - is_slash_openid_ldap   path_beg      -i /openid-ldap
-        - is_slash_openid_ldap   path_beg      -i /idp
         - path_searchpage        path_beg      -i /searchPage
         - is_mailman3_uri        path_beg      -i /accounts/
         - is_mailman3_uri        path_beg      -i /manage/
@@ -217,8 +217,7 @@ haproxy:
         - moodle           if is_moodle
         - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
-        - www_openid_ldap  if is_www is_slash_openid
-        - www_openid_ldap  if is_www is_slash_openid_ldap
+        - www_openid_ldap  if is_www path_openid
         - staticpages      if is_www || is_staticpages || is_static_o_o
         - osccollab        if is_osccollab
         - obsreview        if is_obsreview
