@@ -8,19 +8,19 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
         - is_ssl                 fc_rcvd_proxy
-        - is_dot_scm             path_beg      /.git/
-        - is_dot_scm             path_beg      /.svn/
-        - is_dot_scm             path_beg      /.bzr/
-        - is_security            path_end      /.well-known/security.txt
-        - is_relnotes            path_beg      /release-notes/
-        - is_grafana             path_beg      /grafana/
-        - is_kubic_registry      path_beg      /v2/
+        - path_dot_scm           path_beg      /.git/
+        - path_dot_scm           path_beg      /.svn/
+        - path_dot_scm           path_beg      /.bzr/
+        - path_security          path_end      /.well-known/security.txt
+        - path_relnotes          path_beg      /release-notes/
+        - path_grafana           path_beg      /grafana/
+        - path_kubic_registry    path_beg      /v2/
         - is_slash_openid        path_beg      -i /openid
         - is_slash_openid        path_beg      -i /common/app/
-        - is_slash_openidlegacy  path_beg      -i /openidlegacy
+        - path_openidlegacy      path_beg      -i /openidlegacy
         - is_slash_openid_ldap   path_beg      -i /openid-ldap
         - is_slash_openid_ldap   path_beg      -i /idp
-        - is_slash_searchpage    path_beg      -i /searchPage
+        - path_searchpage        path_beg      -i /searchPage
         - is_mailman3_uri        path_beg      -i /accounts/
         - is_mailman3_uri        path_beg      -i /manage/
         - is_mailman3_uri        path_beg      -i /archives/
@@ -28,8 +28,8 @@ haproxy:
         - is_mailman3_uri        path_beg      -i /user-profile/
         - is_mailman3_uri        path_beg      -i /admin/
         - is_mailman3_uri        path_beg      -i /opensuse-test/
-        - is_slash               path          /
-        - is_favicon             path          /favicon.ico
+        - path_slash             path          /
+        - path_favicon           path          /favicon.ico
         - is_www                 hdr(host)     -i www.opensuse.org
         - is_apparmor            hdr(host)     -i apparmor.opensuse.org
         - is_bar                 hdr(host)     -i bar.opensuse.org
@@ -141,12 +141,12 @@ haproxy:
 
       redirects:
         - scheme https code 301  if !is_ssl !is_conncheck !is_static_o_o !is_mirrorcache !is_mirrorcache_eu !is_get_o_o !is_download_o_o !is_pagure
-        - code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_staticpages
-        - code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_www
-        - code 301 location https://static.opensuse.org/favicon.ico code 302 if is_favicon is_mailman3
-        - code 301 location https://search.opensuse.org if is_www is_slash_searchpage
-        - code 301 location https://sso.opensuse.org/openidlegacy if is_www is_slash_openidlegacy
-        - code 301 prefix   https://www.opensuse.org if is_mainpage !is_kubic_registry
+        - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_staticpages
+        - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
+        - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
+        - code 301 location https://search.opensuse.org if is_www path_searchpage
+        - code 301 location https://sso.opensuse.org/openidlegacy if is_www path_openidlegacy
+        - code 301 prefix   https://www.opensuse.org if is_mainpage !path_kubic_registry
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
         - code 301 location https://www.youtube.com/user/opensusetv if is_tube
         - code 301 prefix   https://connect.opensuse.org if is_users
@@ -174,12 +174,12 @@ haproxy:
 
       default_backend: redirect_www_o_o
       use_backends:
-        - error_403        if is_dot_scm
-        - security_txt     if is_security
+        - error_403        if path_dot_scm
+        - security_txt     if path_security
         - bugzilla-devel   if is_bugzilla_devel
         - jenkins          if is_jenkins
         - community        if is_community
-        - pinot            if is_doc is_relnotes
+        - pinot            if is_doc path_relnotes
         - community        if is_doc
         - community2       if is_community2
         - pinot            if is_counter
@@ -199,7 +199,7 @@ haproxy:
         - jekyll           if is_jekyll || is_www_test || is_get_o_o
         - kubic            if is_kubic
         - kubic            if is_microos
-        - kubic            if is_mainpage is_kubic_registry
+        - kubic            if is_mainpage path_kubic_registry
         - limesurvey       if is_limesurvey
         - mailman3         if is_mailman3
         - lnt              if is_lnt
@@ -211,8 +211,8 @@ haproxy:
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
         - mirrorcache-eu   if is_mirrorcache_eu
-        - jekyll           if is_slash is_monitor
-        - monitor_grafana  if is_grafana is_monitor
+        - jekyll           if path_slash is_monitor
+        - monitor_grafana  if path_grafana is_monitor
         - monitor          if is_monitor
         - moodle           if is_moodle
         - pagure           if is_pagure
