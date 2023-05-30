@@ -32,6 +32,7 @@ haproxy:
         - is_favicon             path          /favicon.ico
         - is_www                 hdr(host)     -i www.opensuse.org
         - is_apparmor            hdr(host)     -i apparmor.opensuse.org
+        - is_bar                 hdr(host)     -i bar.opensuse.org
         - is_bugzilla_devel      hdr(host)     -i bugzilla-devel.opensuse.org
         - is_bugs                hdr(host)     -i bugs.opensuse.org
         - is_community2          hdr(host)     -i factory-dashboard.opensuse.org
@@ -48,6 +49,7 @@ haproxy:
         - is_education           hdr(host)     -i education.opensuse.org
         - is_users               hdr(host)     -i users.opensuse.org
         - is_pmya                hdr(host)     -i pmya.opensuse.org
+        - is_coc                 hdr(host)     -i coc.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
         - is_redirect_doc        hdr_reg(host) -i (docs|activedoc|www\.activedoc|rtfm).opensuse.org
         - is_etherpad            hdr(host)     -i etherpad.opensuse.org
@@ -167,6 +169,8 @@ haproxy:
         - code 302 location https://manpages.opensuse.org if is_man
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite_stage
+        - code 302 location https://en.opensuse.org/Code_of_Conduct if is_coc
+        - code 302 location https://meet-test.opensuse.org/bar if is_bar
 
       default_backend: redirect_www_o_o
       use_backends:
