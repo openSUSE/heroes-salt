@@ -60,7 +60,7 @@ haproxy:
       {{ options() }}
       {{ server('grafana', '192.168.47.7', 3000, extra_extra='inter 30000') }}
     limesurvey:
-      {{ options(check_txt) }}
+      {{ options() }}
       {{ server('limesurvey', '192.168.47.12', extra_extra='inter 5000') }}
     mailman3:
       acls:
