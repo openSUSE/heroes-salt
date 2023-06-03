@@ -10,6 +10,7 @@ rpm -q nginx salt salt-master
 
 IDFILE="pillar/id/$(hostname).sls"
 IDFILE_BASE="$IDFILE.base.sls"
+sed -i -e '/virtual/d' -e '/virt_cluster/d' /etc/salt/grains
 cp "$IDFILE" "$IDFILE_BASE"
 
 reset_nginx() {
