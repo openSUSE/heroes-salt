@@ -1008,7 +1008,7 @@ profile:
             DleghUs/mZA7pJPn5LI5lKz+JH/lJEmOx2kaK+2c0+1Hr4KTtQ==
             =WgeA
             -----END PGP MESSAGE-----
-        passkey:
+        passkey: |
             -----BEGIN PGP MESSAGE-----
 
             hQQOA7A9CHm0S6RyEA/9HlUqbKAv6I7RNZjDY5+5+BDhEoXZKiDq+UDe7KaaCLuf

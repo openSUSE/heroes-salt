@@ -2,7 +2,7 @@
 
 profile:
   paste:
-    credentials_yml_enc:
+    credentials_yml_enc: |
       -----BEGIN PGP MESSAGE-----
 
       hQQOA7A9CHm0S6RyEA/+JeYBWcoCXmKUSB5aw1MJowRznxhp7mXYSBY5IhY86QXI
@@ -77,7 +77,7 @@ profile:
       AFJkUBKcHgnCjlQyZa2viqONzwuFYPc34KwWx+DKQJAF1nxjdTo=
       =JdRU
       -----END PGP MESSAGE-----
-    master_key:
+    master_key: |
       -----BEGIN PGP MESSAGE-----
 
       hQQOA7A9CHm0S6RyEA/+N5ZN8fTUrhL1nFxbC7TMEYSP5aZRAWsILuZjNitSZ3uU
