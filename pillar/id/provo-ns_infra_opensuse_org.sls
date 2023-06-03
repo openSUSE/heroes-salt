@@ -3,8 +3,6 @@ grains:
   country: us
   hostusage:
     - DNS
-  roles: 
-    - dns
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -21,3 +19,5 @@ grains:
     - nue-ns2.infra.opensuse.org
     - qsc-ns3.infra.opensuse-org
   weburls: []
+roles:
+  - dns

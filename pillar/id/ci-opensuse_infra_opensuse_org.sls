@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - jenkins
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,3 +17,4 @@ grains:
   partners: []
   weburls:
     - https://ci.opensuse.org
+roles: []

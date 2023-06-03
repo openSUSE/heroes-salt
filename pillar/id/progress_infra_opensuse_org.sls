@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - progress.o.o
-  roles:
-    - web_progress
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -19,3 +17,5 @@ grains:
     - https://progress.opensuse.org
     - https://progress-test.opensuse.org
     - https://tickets.opensuse.org
+roles:
+  - web_progress

@@ -3,14 +3,9 @@ grains:
   country: de
   hostusage:
     - login2.o.o
-  roles:
-    - ha
-    - login
-    - login_slave
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
-
   aliases: []
   description: Login proxy for servers with authentication
   documentation:
@@ -21,3 +16,7 @@ grains:
     - daffy1.infra.opensuse.org
   weburls:
     - https://login2.opensuse.org
+roles:
+  - ha
+  - login
+  - login_slave

@@ -1,19 +1,16 @@
-{% set id = salt['grains.get']('id') %}
-{% set osfullname = salt['grains.get']('osfullname') %}
-{% set roles = salt['grains.get']('roles', []) %}
-{% set salt_cluster = salt['grains.get']('salt_cluster') %}
-{% set virtual = salt['grains.get']('virtual') %}
-{% set virt_cluster = salt['grains.get']('virt_cluster') %}
+{%- set id = salt['grains.get']('id') -%}
+{%- set id_subst = id.replace('.', '_') -%}
+{%- set pillar_id = '/srv/pillar/id/' ~ id_subst ~ '.sls' %}
+{%- set idstruct = salt['slsutil.renderer'](pillar_id) %}
+{%- set roles = idstruct.get('roles', []) %}
+{%- set osfullname = salt['grains.get']('osfullname') -%}
+{%- set salt_cluster = salt['grains.get']('salt_cluster') -%}
+{%- set virtual = salt['grains.get']('virtual') -%}
+{%- set virt_cluster = salt['grains.get']('virt_cluster') -%}
 
 {{ saltenv }}:
   '*':
     - common
-  {% for role in roles %}
-  'roles:{{ role }}':
-    - match: grain
-    - ignore_missing: True
-    - role.{{ role }}
-  {% endfor %}
   'virtual:{{ virtual }}':
     - match: grain
     - virtual.{{ virtual }}
@@ -32,4 +29,8 @@
     - virt_cluster.{{ virt_cluster }}
   {% endif %}
   '{{ id }}':
-    - id.{{ id.replace('.', '_') }}
+    - id.{{ id_subst }}
+  {%- for role in roles %}
+    - role.{{ role }}
+  {%- endfor %}
+

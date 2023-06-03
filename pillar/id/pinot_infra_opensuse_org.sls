@@ -3,12 +3,6 @@ grains:
   country: de
   hostusage:
     - countdown.o.o, release-notes etc.
-  roles:
-    - countdown
-    - documentation
-    - mail_reminder
-    - phpmyadmin
-    - asknot
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -25,3 +19,9 @@ grains:
     - https://doc.opensuse.org/release-notes/
     - https://pmya.opensuse.org
     - https://contribute.opensuse.org/
+roles:
+  - countdown
+  - documentation
+  - mail_reminder
+  - phpmyadmin
+  - asknot

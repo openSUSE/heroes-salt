@@ -3,7 +3,6 @@ grains:
   country: us
   hostusage:
     - PostgreSQL node
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -19,3 +18,4 @@ grains:
     - mirrordb2.infra.opensuse.org
     - nala.infra.opensuse.org
   weburls: []
+roles: []

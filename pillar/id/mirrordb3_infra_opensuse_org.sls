@@ -3,8 +3,6 @@ grains:
   country: us
   hostusage:
     - postgreSQL
-  roles:
-    - postgresql
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -23,3 +21,5 @@ grains:
     - lrupp
   partners: []
   weburls: []
+roles:
+  - postgresql

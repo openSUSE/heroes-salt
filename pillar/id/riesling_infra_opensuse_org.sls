@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - en.o.o (all *.o.o wikis)
-  roles:
-    - wiki
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -23,3 +21,5 @@ grains:
     - https://$lang.opensuse.org
     - https://languages.opensuse.org
     - https://files.opensuse.org
+roles:
+  - wiki

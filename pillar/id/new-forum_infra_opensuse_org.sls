@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - vBulletin
-  roles:
-    - web_forum
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -19,3 +17,5 @@ grains:
   partners: []
   weburls:
     - https://forums.opensuse.org
+roles:
+  - web_forum

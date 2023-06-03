@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - mx1.o.o
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -13,3 +12,4 @@ grains:
   responsible:
     - mstrigl 
   partners: []
+roles: []

@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - elections.o.o
-  roles:
-    - web_elections
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -19,3 +17,5 @@ grains:
   partners: []
   weburls:
     - https://elections.opensuse.org
+roles:
+  - web_elections

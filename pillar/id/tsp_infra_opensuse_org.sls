@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - Travel Support Program webapp
-  roles:
-    - web_tsp
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -19,3 +17,5 @@ grains:
   partners: []
   weburls: 
     - https://tsp.opensuse.org
+roles:
+  - web_tsp

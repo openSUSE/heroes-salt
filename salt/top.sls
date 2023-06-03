@@ -1,10 +1,11 @@
-{% set roles = salt['grains.get']('roles', []) %}
+{% set roles = salt['pillar.get']('roles', []) %}
 
 {{ saltenv }}:
   '*':
     - role.base
-  {% for role in roles %}
-  'roles:{{ role }}':
-    - match: grain
+  {%- if roles | length %}
+  '{{ grains['id'] }}':
+  {%- for role in roles %}
     - role.{{ role }}
-  {% endfor %}
+  {%- endfor %}
+  {%- endif %}

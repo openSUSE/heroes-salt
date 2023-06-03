@@ -3,8 +3,6 @@ grains:
   country: us
   hostusage:
     - proxy
-  roles:
-    - proxy
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -17,3 +15,5 @@ grains:
   partners: []
   weburls:
     - https://proxy-prv1.opensuse.org
+roles:
+  - proxy

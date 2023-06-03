@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - download.o.o
-  roles:
-    - web_download
   reboot_safe: unknown
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -19,3 +17,5 @@ grains:
   weburls:
     - http://download.opensuse.org
     - https://download.opensuse.org
+roles:
+  - web_download

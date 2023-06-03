@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - Jenkins Containers
-  roles:
-    - docker
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,7 +16,8 @@ grains:
     - crameleon
   partners: []
   weburls: []
-
+roles:
+  - docker
 profile:
   docker:
     data_root: /data/docker

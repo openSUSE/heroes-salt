@@ -3,7 +3,6 @@ grains:
   country: de
   hostusage:
     - status
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -19,3 +18,4 @@ grains:
   weburls:
     - https://status.opensuse.org
     - https://status1.opensuse.org
+roles: []

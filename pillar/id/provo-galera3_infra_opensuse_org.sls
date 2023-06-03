@@ -3,7 +3,6 @@ grains:
   country: us
   hostusage:
     - Galera node (MySQL)
-  roles: []
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -22,3 +21,4 @@ grains:
     - provo-galera1.infra.opensuse.org
     - provo-galera2.infra.opensuse.org
   weburls: []
+roles: []

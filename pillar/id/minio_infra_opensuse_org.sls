@@ -2,8 +2,6 @@ grains:
   city: nuremberg
   country: de
   hostusage: []
-  roles:
-    - minio
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -16,3 +14,5 @@ grains:
   partners: []
   weburls:
     - s3.opensuse-project.net
+roles:
+  - minio

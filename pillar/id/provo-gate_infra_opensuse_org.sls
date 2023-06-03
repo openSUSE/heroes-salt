@@ -3,8 +3,6 @@ grains:
   country: us
   hostusage:
     - gate.o.o
-  roles:
-    - openvpn
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
@@ -19,3 +17,5 @@ grains:
   partners:
     - scar.opensuse.org
   weburls: []
+roles:
+  - openvpn

@@ -2,8 +2,6 @@ grains:
   city: nuremberg
   country: de
   hostusage: []
-  roles:
-  - paste
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -16,3 +14,5 @@ grains:
   partners: []
   weburls:
     - paste.opensuse.org
+roles:
+  - paste

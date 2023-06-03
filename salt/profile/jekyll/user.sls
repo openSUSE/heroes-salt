@@ -1,4 +1,4 @@
-{% set roles = salt['grains.get']('roles', []) %}
+{% set roles = salt['pillar.get']('roles', []) %}
 
 web_jekyll:
     user.present:

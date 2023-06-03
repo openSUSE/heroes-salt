@@ -4,9 +4,6 @@ grains:
   hostusage:
     - jenkins controller
     - jenkins agent
-  roles:
-    - web_jenkins
-    - worker_jenkins
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,3 +15,6 @@ grains:
   responsible: []
   partners: []
   weburls: []
+roles:
+  - web_jenkins
+  - worker_jenkins

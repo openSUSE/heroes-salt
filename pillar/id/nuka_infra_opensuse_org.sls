@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - l10n.o.o
-  roles:
-    - weblate
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -18,3 +16,5 @@ grains:
   partners: []
   weburls:
     - https://l10n.opensuse.org
+roles:
+  - weblate

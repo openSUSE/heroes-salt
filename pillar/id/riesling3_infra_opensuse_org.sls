@@ -3,8 +3,6 @@ grains:
   country: de
   hostusage:
     - wikis
-  roles:
-    - wiki
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -16,3 +14,5 @@ grains:
     - cboltz
   partners: []
   weburls: []
+roles:
+  - wiki
