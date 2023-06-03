@@ -62,6 +62,7 @@ if [ -n "${PKG[@]}" ]; then
     $SUDO zypper -qn install --no-recommends ${PKG[@]}
 fi
 
+bin/replace_secrets.sh
 $SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
 $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
