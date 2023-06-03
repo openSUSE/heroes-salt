@@ -16,3 +16,4 @@ salt_git_link_{{ l }}:
 
 include:
   - .base
+  - .formulas
