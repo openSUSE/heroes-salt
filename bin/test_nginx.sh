@@ -8,10 +8,15 @@ source bin/get_colors.sh
 
 rpm -q nginx salt salt-master
 
+IDFILE="pillar/id/$(hostname).sls"
+IDFILE_BASE="$IDFILE.base.sls"
+cp "$IDFILE" "$IDFILE_BASE"
+
 reset_nginx() {
+    cp "$IDFILE_BASE" "$IDFILE"
     rm -rf /etc/nginx
     cp -a /etc/nginx_orig /etc/nginx
-    printf "roles:\n- $role" > /etc/salt/grains
+    printf "roles:\n- $role" >> "$IDFILE"
 }
 
 reset_ip() {

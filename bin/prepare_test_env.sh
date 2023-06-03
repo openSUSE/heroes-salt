@@ -67,13 +67,17 @@ $SUDO ln -s $PWD/salt /srv/salt
 $SUDO ln -s $PWD/pillar /srv/pillar
 
 ID=$(/usr/bin/hostname -f)
+IDFILE="pillar/id/${ID//./_}.sls"
+IDFILE_BASE="$IDFILE.base.sls"
 
-printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n  salt_cluster: $SALT_CLUSTER\n  virt_cluster: $VIRT_CLUSTER\n" > pillar/id/${ID//./_}.sls
+printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n  salt_cluster: $SALT_CLUSTER\n  virt_cluster: $VIRT_CLUSTER\n" > "$IDFILE"
+cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
-    [[ -n "$OS" ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]\n"
-    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS$ROLES\nsalt_cluster: $SALT_CLUSTER\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
+    [[ -n "$OS" ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]"
+    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS\nsalt_cluster: $SALT_CLUSTER\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
+    printf "$ROLES" >> "$IDFILE"
 
     if [ ! -d /etc/salt/minion.d ]
     then
@@ -85,4 +89,6 @@ if [[ -n "$HIGHSTATE" ]]; then
 	    - /srv/salt
 	    - /usr/share/salt-formulas/states
 	EOF
+
+    cp "$IDFILE_BASE" "$IDFILE"
 fi
