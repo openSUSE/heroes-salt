@@ -15,4 +15,4 @@ salt_git_link_{{ l }}:
 {%- endfor %}
 
 include:
-  - .update
+  - .base

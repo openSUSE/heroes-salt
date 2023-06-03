@@ -9,6 +9,6 @@ update_fileserver_ng:
   local.state.apply:
     - tgt: minnie.infra.opensuse.org
     - args:
-      - mods: profile.salt.git.update
+      - mods: profile.salt.git.base
 {%- endif -%}
 {%- endraw -%}
