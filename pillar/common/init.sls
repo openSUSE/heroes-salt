@@ -1,5 +1,6 @@
 {% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
 {% set osrelease = salt['grains.get']('osrelease') %}
+{%- set virtual = salt['grains.get']('virtual') -%}
 
 chrony:
   driftfile: /var/lib/chrony/drift
@@ -46,6 +47,10 @@ ntp:
           - ntp3.infra.opensuse.org
         trustedkey:
           - 1
+        {%- if virtual == 'kvm' %}
+        tinker:
+          - panic 0
+        {%- endif %}
 openldap:
   base: dc=infra,dc=opensuse,dc=org
   tls_cacertdir: /etc/ssl/certs/
@@ -146,6 +151,12 @@ sudoers:
       groups:
         wheel:
           - 'ALL=(ALL) ALL'
+    {%- if virtual == 'physical' %}
+    /etc/sudoers.d/nagios_nopasswd_hypervisors:
+      users:
+        nagios:
+          - 'ALL=(ALL) NOPASSWD: /usr/lib/nagios/plugins/check_md_raid, /sbin/multipath, /usr/bin/ipmitool'
+    {%- endif %}
 timezone:
   name: UTC
   utc: True
