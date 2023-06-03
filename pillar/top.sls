@@ -5,15 +5,11 @@
 {%- set roles = idstruct.get('roles', []) %}
 {%- set osfullname = salt['grains.get']('osfullname') -%}
 {%- set salt_cluster = salt['grains.get']('salt_cluster') -%}
-{%- set virtual = salt['grains.get']('virtual') -%}
 {%- set virt_cluster = salt['grains.get']('virt_cluster') -%}
 
 {{ saltenv }}:
   '*':
     - common
-  'virtual:{{ virtual }}':
-    - match: grain
-    - virtual.{{ virtual }}
   'osfullname:{{ osfullname }}':
     - match: grain
     - osfullname.{{ osfullname.replace(' ', '_') }}
