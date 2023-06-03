@@ -1,5 +1,5 @@
 {% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
-{% set roles = salt['grains.get']('roles', []) %}
+{% set roles = salt['pillar.get']('roles', []) %}
 
 include:
   - rsyslog

@@ -23,6 +23,7 @@ grains:
     - elsa.infra.opensuse.org
   weburls:
     - https://anna.opensuse.org
+  configure_ntp: false
 roles:
   - ha
   - proxy

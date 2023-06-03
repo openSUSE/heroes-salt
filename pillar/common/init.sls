@@ -5,7 +5,7 @@ chrony:
   driftfile: /var/lib/chrony/drift
   logdir: /var/log/chrony
   otherparams:
-    {% if 'ntp' not in salt['grains.get']('roles', []) %}
+    {% if salt['grains.get']('configure_ntp', True) %}
     - logchange 0.5
     - log measurements statistics tracking rtc
     - makestep 1.0 3
