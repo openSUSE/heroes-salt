@@ -19,8 +19,6 @@ git:
     pending:
       - 'https://github.com/saltstack-formulas/rsyslog-formula/pull/16'
   salt: {}
-  sqlite:
-    namespace: 'tampakrap'
   sssd:
     original_namespace: 'Spark-Networks'
     namespace: 'tampakrap'
