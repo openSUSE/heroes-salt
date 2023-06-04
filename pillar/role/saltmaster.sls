@@ -12,26 +12,16 @@ salt:
     default_top: production
     env_order:
       - production
-    ext_pillar:
-      - git:
-          - production gitlab@gitlab.infra.opensuse.org:infra/salt.git:
-              - env: production
-              - root: pillar
-              - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
-              - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
     ext_pillar_first: True
     fileserver_backend:
       - git
       - roots
     file_roots:
       __env__:
+        - /srv/salt
         - /usr/share/salt-formulas/states
     gitfs_provider: pygit2
     gitfs_remotes:
-      - gitlab@gitlab.infra.opensuse.org:infra/salt.git:
-          - root: salt
-          - privkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt
-          - pubkey: /var/lib/salt/.ssh/salt_gitlab_ioo_infra_salt.pub
       {% set formulas = formulas_yaml['git'].keys()|sort %}
       {% for formula in formulas %}
       - https://gitlab.infra.opensuse.org/saltstack-formulas/{{ formula }}-formula.git
@@ -40,6 +30,9 @@ salt:
     hash_type: sha512
     pillar_gitfs_ssl_verify: True
     pillar_merge_lists: True
+    pillar_roots:
+      __env__:
+        - /srv/pillar
     pillar_source_merging_strategy: smart
     state_output: changes
     state_verbose: False
