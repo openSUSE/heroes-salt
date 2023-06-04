@@ -6,7 +6,7 @@ salt_repository:
     - target: /srv/salt-git
     - branch: {{ branch }}
     - rev: {{ branch }}
-    - user: salt
+    - user: cloneboy
     - force_checkout: true
     - force_clone: true
     - force_reset: true

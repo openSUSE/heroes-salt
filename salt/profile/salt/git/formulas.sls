@@ -3,7 +3,7 @@
 salt_formulas_directory:
   file.directory:
     - name: /srv/formulas
-    - user: salt
+    - user: cloneboy
     - group: salt
 
 {%- for formula in formulas_git %}
@@ -12,7 +12,7 @@ salt_formula_{{ formula }}:
     - name: https://gitlab.infra.opensuse.org/saltstack-formulas/{{ formula }}-formula.git
     - target: /srv/formulas/{{ formula }}-formula
     - branch: production
-    - user: salt
+    - user: cloneboy
     - require:
       - file: salt_formulas_directory
 {%- endfor %}
