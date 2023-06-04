@@ -12,6 +12,8 @@ validate:
   script: bin/test_validate.sh
   tags:
     - docker
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
 show_highstate:
   stage: validate
@@ -25,6 +27,8 @@ show_highstate:
     #when: on_failure
     paths:
       - '*.txt'
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
 upstream_formulas_show_highstate:
   stage: validate
@@ -33,10 +37,10 @@ upstream_formulas_show_highstate:
     - bin/get_formulas.py -c -d /srv/formula -s
   script: bin/test_show_highstate.sh
   allow_failure: true
-  except:
-    - production@infra/salt
   tags:
     - docker
+  rules:
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_REF_NAME != "production"
 
 test_nginx:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
@@ -47,6 +51,8 @@ test_nginx:
   script: bin/test_nginx.sh
   tags:
     - docker
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
 test_sudo:
   stage: test
@@ -56,11 +62,13 @@ test_sudo:
   script: bin/test_sudo.sh
   tags:
     - docker
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
 deploy_job:
   stage: deploy
   script: sudo salt-call event.fire_master $CI_DEPLOY_PASSWORD salt/fileserver/gitfs/update
-  only:
-    - production@infra/salt
   tags:
     - salt-deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "production"
