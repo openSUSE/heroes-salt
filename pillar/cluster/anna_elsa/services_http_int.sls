@@ -2,9 +2,9 @@ haproxy:
   frontends:
     http-int-in:
       acls:
-        - is_dot_scm             path_beg      /.git/
-        - is_dot_scm             path_beg      /.svn/
-        - is_dot_scm             path_beg      /.bzr/
+        - path_dot_scm           path_beg      /.git/
+        - path_dot_scm           path_beg      /.svn/
+        - path_dot_scm           path_beg      /.bzr/
         - is_ssl                 fc_rcvd_proxy
         - is_connect             hdr_reg(host) -i connect(-dev)?\.opensuse\.org
         - is_connect             hdr(host) -i users.opensuse.org
@@ -33,7 +33,7 @@ haproxy:
 
       default_backend: redirect_www_o_o
       use_backends:
-        - error_403        if is_dot_scm
+        - error_403        if path_dot_scm
         - dale             if is_dale
         - deadservices     if is_connect
         - download-private if is_download
