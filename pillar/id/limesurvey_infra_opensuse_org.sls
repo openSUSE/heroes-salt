@@ -12,8 +12,9 @@ grains:
   documentation: 
     - https://limesurvey.org/
   responsible:
-    - lrupp
+    - crameleon
   partners: []
   weburls:
     - https://survey.opensuse.org
-roles: []
+roles:
+    - limesurvey
