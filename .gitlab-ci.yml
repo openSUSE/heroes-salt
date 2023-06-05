@@ -42,6 +42,31 @@ upstream_formulas_show_highstate:
   rules:
     - if: $CI_COMMIT_BRANCH && $CI_COMMIT_REF_NAME != "production"
 
+test_haproxy:
+  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy:latest
+  stage: test
+  before_script:
+    - bin/prepare_test_env.sh -i opensuse -g -s
+    - bin/replace_secrets.sh
+    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f haproxy
+  script: bin/test_haproxy.sh
+  allow_failure:
+    exit_codes: 2
+  tags:
+    - docker
+  artifacts:
+    when: always
+    paths:
+      - '*.txt'
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      changes:
+        - bin/test_haproxy.sh
+        - pillar/cluster/*/*
+        - pillar/common/haproxy/*
+        - salt/profile/proxy/*
+        - salt/role/proxy*
+
 test_nginx:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
   stage: test

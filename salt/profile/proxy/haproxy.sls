@@ -11,7 +11,7 @@ haproxy_dhparam:
   cmd.run:
     - name: openssl dhparam -out /etc/haproxy/dhparam 2048
     - unless: test -f /etc/haproxy/dhparam
-    - watch:
+    - watch_in:
       - service: haproxy.service
 
 haproxy_errorfiles:
