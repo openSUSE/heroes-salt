@@ -57,3 +57,11 @@ sudoers:
       users:
         gitlab-runner:
           - 'ALL=(root) NOPASSWD:SETENV: /usr/bin/salt-call event.*'
+
+profile:
+  salt:
+    formulas:
+      git:
+        {%- for formula in formulas_yaml['git'].keys() %}
+        - {{ formula }}
+        {%- endfor %}

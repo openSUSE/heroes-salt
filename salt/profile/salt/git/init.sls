@@ -1,7 +1,20 @@
+salt_git_user:
+  user.present:
+    - name: cloneboy
+    - usergroup: false
+    - fullname: Git Cloney
+    - system: true
+    - home: /var/lib/cloneboy
+    - createhome: false
+    - shell: /sbin/nologin
+    - require_in:
+      - file: salt_git_directory
+      - file: salt_formulas_directory
+
 salt_git_directory:
   file.directory:
     - name: /srv/salt-git
-    - user: salt
+    - user: cloneboy
     - group: salt
     - require_in:
       - git: salt_repository
@@ -15,4 +28,5 @@ salt_git_link_{{ l }}:
 {%- endfor %}
 
 include:
-  - .update
+  - .base
+  - .formulas
