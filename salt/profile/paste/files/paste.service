@@ -13,5 +13,7 @@ ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/paste-o-o/config/pum
 
 Restart=always
 
+RuntimeDirectory=%N
+
 [Install]
 WantedBy=multi-user.target

@@ -30,7 +30,7 @@ nginx:
                 - location @paste:
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: Host $http_host
-                    - proxy_pass http://localhost:3000
+                    - proxy_pass: 'http://unix:/run/paste/puma'
                 - error_page: 500 502 503 504 /50x.html
                 - location = /50x.html:
                     - root: /srv/www/htdocs
