@@ -113,7 +113,6 @@ haproxy:
         - is_board               hdr(host)     -i board.opensuse.org
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
         - is_rpmlint             hdr(host)     -i rpmlint.opensuse.org
-        - is_rt                  hdr(host)     -i tickets-test.opensuse.org
         - is_sso                 hdr(host)     -i sso.opensuse.org
         - is_sso                 hdr_reg(host) -i .+\.sso\.opensuse\.org
         - is_susestudio          hdr_reg(host) -i (.*\.)?susestudio.com
@@ -219,4 +218,3 @@ haproxy:
         - minio            if is_minio
         - rpmlint          if is_rpmlint
         - svn              if is_svn
-        - os_rt            if is_rt
