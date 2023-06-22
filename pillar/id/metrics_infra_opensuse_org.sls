@@ -10,7 +10,8 @@ grains:
   aliases: []
   description: openSUSE download and usage statistics
   documentation: []
-  responsible: []
+  responsible:
+    - witekbedyk
   partners: []
   weburls:
     - https://metrics.opensuse.org
