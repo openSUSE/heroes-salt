@@ -209,9 +209,6 @@ haproxy:
     obsreview: {#- to-do: investigate; port 80 only serves 404 #}
       {{ options() }}
       {{ server('obsreview', '192.168.47.39') }}
-    os_rt:
-      {{ options ('httpchk HEAD /check/check.txt HTTP/1.1\r\nHost:\ tickets-test.opensuse.org') }}
-      {{ server('os-rt', '192.168.47.48') }}
     security_txt:
       mode: http
       options:
