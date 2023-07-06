@@ -228,9 +228,6 @@ haproxy:
     chat:
       {{ options() }}
       {{ server('matrix', '192.168.47.78') }}
-    fedora-sso:
-      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHOST:\ sso.opensuse.org') }}
-      {{ server('fedora-sso', '192.168.47.81') }}
     wip:
       mode: http
       extra: errorfile 503 {{ errorfiles }}fourohfour.html.http

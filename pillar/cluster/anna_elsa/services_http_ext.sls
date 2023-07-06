@@ -19,7 +19,6 @@ haproxy:
         - path_openid            path_beg      -i /common/app/
         - path_openid            path_beg      -i /openid-ldap
         - path_openid            path_beg      -i /idp
-        - path_openidlegacy      path_beg      -i /openidlegacy
         - path_searchpage        path_beg      -i /searchPage
         - path_slash             path          /
         - path_favicon           path          /favicon.ico
@@ -113,8 +112,6 @@ haproxy:
         - is_board               hdr(host)     -i board.opensuse.org
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
         - is_rpmlint             hdr(host)     -i rpmlint.opensuse.org
-        - is_sso                 hdr(host)     -i sso.opensuse.org
-        - is_sso                 hdr_reg(host) -i .+\.sso\.opensuse\.org
         - is_susestudio          hdr_reg(host) -i (.*\.)?susestudio.com
         - is_svn                 hdr(host)     -i svn.opensuse.org
         - is_redirect_git        hdr(host)     -i git.opensuse.org
@@ -137,7 +134,6 @@ haproxy:
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
         - code 301 location https://search.opensuse.org if is_www path_searchpage
-        - code 301 location https://sso.opensuse.org/openidlegacy if is_www path_openidlegacy
         - code 301 prefix   https://www.opensuse.org if is_mainpage !path_kubic_registry
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
         - code 301 location https://www.youtube.com/user/opensusetv if is_tube
@@ -180,7 +176,6 @@ haproxy:
         - conncheck        if is_conncheck
         - deadservices     if is_features || is_deadservice
         - etherpad         if is_etherpad
-        - fedora-sso       if is_sso
         - forums           if is_forums
         - freeipa          if is_freeipa
         - gccstats         if is_gcc
