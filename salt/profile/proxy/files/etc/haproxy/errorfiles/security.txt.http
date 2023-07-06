@@ -7,4 +7,5 @@ Content-Type: text/plain
 Contact: https://www.suse.com/support/security/contact/
 # Our OpenPGP key
 Encryption: https://www.suse.com/support/security/contact/
-Expires: 2022-12-30T23:00:00.000Z
+# We don't expect the above to change, therefore...
+Expires: 2099-12-31T23:00:00.000Z
