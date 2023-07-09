@@ -184,7 +184,7 @@ zypper:
     withlock: {}
     wget: {}
     wgetpaste: {}
-    {% if osmajorrelease > 15 %}
+    {% if osrelease | float > 15.4 %}
     scout-command-not-found: {}
     {% else %}
     command-not-found: {}
