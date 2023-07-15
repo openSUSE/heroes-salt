@@ -25,10 +25,10 @@ for dir in $GIT_DIRS ; do
     cd "$BASEDIR/$dir" || exit 1
     current_md5=$(md5sum "Gemfile.lock" | cut -d " " -f1)
     [[ $(cat Gemfile.lock.md5) != $current_md5 ]] && rm -rf vendor
-    bundle.ruby2.7 config set deployment 'true' || exit 1
-    bundle.ruby2.7 install || exit 1
-    [[ -f "Rakefile" ]] && bundle.ruby2.7 exec rake
-    bundle.ruby2.7 exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || exit 1
+    bundle.ruby3.1 config set deployment 'true' || exit 1
+    bundle.ruby3.1 install || exit 1
+    [[ -f "Rakefile" ]] && bundle.ruby3.1 exec rake
+    bundle.ruby3.1 exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || exit 1
 done
 
 # sync to all servers
