@@ -55,6 +55,10 @@ jekyll_master_pgks:
   file.directory:
     - user: web_jekyll
 
+/home/web_jekyll/log:
+  file.directory:
+    - user: web_jekyll
+
 # clone git repos
 {% for dir, data in git_repos.items() %}
 {{ data.repo }}:
