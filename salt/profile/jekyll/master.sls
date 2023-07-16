@@ -6,8 +6,8 @@ jekyll_master_pgks:
       - git
       - rsync
       # To find out the package name in the repo, run `zypper se --provides rubygem\(bundler\)`
-      - ruby2.7-rubygem-bundler
-      - ruby2.7-devel
+      - ruby3.1-rubygem-bundler
+      - ruby3.1-devel
       # Needed for planet to work with its database
       - sqlite3-devel
       - libopenssl-devel
