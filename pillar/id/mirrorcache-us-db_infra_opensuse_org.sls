@@ -1,23 +1,22 @@
 mirrorcache:
-  proxy_url: https://mirrorcache-us.opensuse.org
+  backstage_workers: 12
 
 grains:
   city: provo
   country: us
   hostusage:
-    - mirrorcache-us
+    - mirrorcache-us-db
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: bryce
 
   aliases: []
-  description: Productive server for MirrorCache in the US
+  description: Productive DB for MirrorCache in the US
   documentation:
     - https://mirrorcache.org/
   responsible:
     - anikitin
   partners: []
-  weburls:
-    - https://mirrorcache-us.opensuse.org/
 roles:
-  - mirrorcache-webui
+  - mirrorcache-db-server
+  - mirrorcache-backstage

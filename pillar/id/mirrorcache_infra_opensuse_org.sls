@@ -1,11 +1,11 @@
-include:
-  - ssh_keys.groups.download_infra
+mirrorcache:
+  proxy_url: https://mirrorcache.opensuse.org
 
 grains:
   city: nuremberg
   country: de
   hostusage:
-    - mb devel
+    - mirrorcache
   reboot_safe: yes
   salt_cluster: opensuse
   virt_cluster: atreju
@@ -13,8 +13,11 @@ grains:
   aliases: []
   description: Development server for MirrorCache
   documentation:
-    - https://mirrorbrain.org/
+    - https://mirrorcache.org/
   responsible:
     - anikitin
   partners: []
-roles: []
+  weburls:
+    - https://mirrorcache.opensuse.org/
+roles:
+  - mirrorcache-webui
