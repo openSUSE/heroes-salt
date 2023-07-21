@@ -1,7 +1,3 @@
-include:
-  - ssh_keys.groups.download_infra
-  - secrets.mirrorcache
-
 mirrorcache:
   backstage_workers: 12
 
@@ -21,6 +17,6 @@ grains:
   responsible:
     - anikitin
   partners: []
-roles: 
+roles:
   - mirrorcache-db-server
   - mirrorcache-backstage

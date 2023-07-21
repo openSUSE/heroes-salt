@@ -1,7 +1,3 @@
-include:
-  - ssh_keys.groups.download_infra
-  - secrets.mirrorcache
-
 mirrorcache:
   root: /mnt
   backstage_workers: 12

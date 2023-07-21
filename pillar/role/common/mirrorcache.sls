@@ -1,3 +1,6 @@
+include:
+  - ssh_keys.groups.download_infra
+  - secrets.mirrorcache
 
 zypper:
   repositories:
@@ -10,7 +13,7 @@ zypper:
 
 {% set country = salt['grains.get']('country') %}
 
-{% if country == 'de' %} 
+{% if country == 'de' %}
 
 mirrorcache:
   redirect: downloadcontent.opensuse.org
@@ -24,7 +27,7 @@ mysql:
       host: 192.168.47.%
       # password is set in pillar/secrets/mirrorcache
 
-{% elif country == 'us' %} 
+{% elif country == 'us' %}
 
 mirrorcache:
   redirect: downloadcontent-us1.opensuse.org
