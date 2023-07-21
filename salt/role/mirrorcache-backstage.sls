@@ -1,3 +1,2 @@
 include:
-  - zypper
   - mirrorcache.backstage
