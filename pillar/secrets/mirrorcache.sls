@@ -1,11 +1,11 @@
-#!yaml|gpg
+#!jinja|yaml|gpg
 {% set country = salt['grains.get']('country') %}
 
 mysql:
   user:
     mirrorcache:
       password: |
-{-% if country == 'de' %} 
+{%- if country == 'de' %}
         -----BEGIN PGP MESSAGE-----
 
         hQQOA7A9CHm0S6RyEA/+JBrG5e+5bsqWll/2Vhq7SLAWu5FxAcbETZGeQpsaoOiU
@@ -73,7 +73,7 @@ mysql:
         b4Al/ef1xEDbO7+aZQI=
         =rx9F
         -----END PGP MESSAGE-----
-{% elif country == 'us' %}
+{%- elif country == 'us' %}
         -----BEGIN PGP MESSAGE-----
 
         hQQOA7A9CHm0S6RyEA/+Ou3AGPBZPTsGxsb8T/s6LSqy/0pieUHeKeHF8mAmkFvN
