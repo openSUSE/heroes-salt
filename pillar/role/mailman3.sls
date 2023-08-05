@@ -30,8 +30,8 @@ nginx:
       managed:
         lists.opensuse.org.conf:
           config:
-            - map $request_uri $mails_rewritemap:
-                - include: /etc/nginx/mails.rewritemap
+            #- map $request_uri $mails_rewritemap:
+            #    - include: /etc/nginx/mails.rewritemap
             - map $request_uri $lists_rewritemap:
                 - include: /etc/nginx/lists.rewritemap
             - map $request_uri $feeds_rewritemap:
@@ -47,8 +47,9 @@ nginx:
                 - listen:
                     - 80
                     - default_server
-                - if ($mails_rewritemap):
-                    - rewrite: ^(.*)$ $mails_rewritemap permanent
+                - proxy_send_timeout: 600
+                - proxy_read_timeout: 600
+                - send_timeout: 600
                 - if ($lists_rewritemap):
                     - rewrite: ^(.*)$ $lists_rewritemap permanent
                 - if ($feeds_rewritemap):
@@ -57,6 +58,10 @@ nginx:
                     - rewrite: ^(.*)$ $mboxs_rewritemap permanent
                 - if ($miscs_rewritemap):
                     - rewrite: ^(.*)$ $miscs_rewritemap permanent
+                - 'location ~ "^/[^/]+/[0-9]{4}-[0-9]{2}/msg[0-9]+\.html"':
+                    - proxy_pass: 'http://[::1]:44311'
+                    - proxy_redirect: 'off'
+                    - proxy_set_header: 'Host $host'
                 - location /static/django-mailman3/img/login/opensuse.png:
                     - return: 301 https://static.opensuse.org/favicon-24.png
                 - location /static/:
@@ -69,7 +74,7 @@ nginx:
                     - proxy_set_header: X-Forwarded-Protocol ssl
                     - proxy_set_header: Host $http_host
                     - proxy_redirect: "off"
-                    - client_max_body_size: 400M
+                    - client_max_body_size: 10M
                     - proxy_pass: http://mailmanweb
           enabled: True
 
