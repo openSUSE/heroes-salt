@@ -205,6 +205,14 @@ nginx:
                     - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                     - proxy_set_header: X-Forwarded-Proto $thescheme
                     - proxy_pass: http://discourse
+                - location /showthread.php/:
+                    - rewrite: '^/showthread.php/([0-9]*) /thread/$1 permanent'
+                - location /content.php/:
+                    - rewrite '^/content.php/([0-9]*) /article/$1 permanent'
+                - location /entry.php/:
+                    - rewrite: '^/entry.php/([0-9]*) /blog/$1 permanent'
+                - if ($arg_signup = true):
+                    - return: 301 https://idp-portal.suse.com/univention/self-service/#page=createaccount
           enabled: True
 
 zypper:
