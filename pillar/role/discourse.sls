@@ -32,9 +32,11 @@ profile:
 
 nginx:
   ng:
-    config:
-      - load_module: /usr/lib64/nginx/modules/ngx_http_brotli_static_module.so
-      - load_module: /usr/lib64/nginx/modules/ngx_http_brotli_filter_module.so
+    server:
+      config:
+        load_module:
+          - /usr/lib64/nginx/modules/ngx_http_brotli_static_module.so
+          - /usr/lib64/nginx/modules/ngx_http_brotli_filter_module.so
     servers:
       managed:
         forums.opensuse.org.conf:
