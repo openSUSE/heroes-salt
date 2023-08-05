@@ -2,7 +2,7 @@ discourse_pgks:
   pkg.installed:
     - pkgs:
       - discourse
-      - ruby2.7-rubygem-discourse_mail_receiver
+      - ruby3.1-rubygem-discourse_mail_receiver
       - nginx-module-brotli
 
 discourse_config:
@@ -10,20 +10,16 @@ discourse_config:
     - name: /srv/www/vhosts/discourse/config/discourse.conf
     - source: salt://profile/discourse/files/discourse.conf
     - template: jinja
-    - require_in:
-      - service: discourse_target
     - watch_in:
-      - module: discourse_target
+      - service: discourse_target
 
 discourse_mail_receiver_settings:
   file.managed:
     - name: /etc/postfix/mail-receiver-environment.json
     - source: salt://profile/discourse/files/mail-receiver-environment.json
     - template: jinja
-    - require_in:
-      - service: discourse_target
     - watch_in:
-      - module: discourse_target
+      - service: discourse_target
 
 discourse_mail_transport:
   file.managed:
@@ -33,10 +29,8 @@ discourse_mail_transport:
     - group: root
     - mode: 0644
     - replace: True
-    - require_in:
-      - service: discourse_target
     - watch_in:
-      - module: discourse_target
+      - service: discourse_target
 
 discourse_mail_transport_postmap:
   cmd.run:
@@ -68,13 +62,3 @@ discourse_sidekiq_service:
   service.running:
     - name: discourse-puma
     - enable: True
-
-discourse_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: discourse.target
-    - require:
-      - service: discourse_update_service
-      - service: discourse_puma_service
-      - service: discourse_sidekiq_service
-      - service: discourse_target
