@@ -2,7 +2,7 @@ discourse_pgks:
   pkg.installed:
     - pkgs:
       - discourse
-      - ruby2.7-rubygem-discourse_mail_receiver
+      - ruby3.1-rubygem-discourse_mail_receiver
       - nginx-module-brotli
 
 discourse_config:
