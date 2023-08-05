@@ -3,20 +3,16 @@ mailman_conf_file:
     - name: /etc/mailman.cfg
     - source: salt://profile/mailman3/files/mailman.cfg
     - template: jinja
-    - require_in:
-      - service: mailman_service
     - watch_in:
-      - module: mailman_restart
+      - service: mailman_service
 
 mailman_web_settings_file:
   file.managed:
     - name: /etc/mailman3/settings.py
     - source: salt://profile/mailman3/files/settings.py
     - template: jinja
-    - require_in:
-      - service: mailman_web_service
     - watch_in:
-      - module: mailman_web_restart
+      - service: mailman_web_service
 
 mailman_web_disable_signup:
   file.managed:
@@ -28,10 +24,8 @@ mailman_hyperkitty_conf:
     - name: /etc/hyperkitty.cfg
     - source: salt://profile/mailman3/files/hyperkitty.cfg
     - template: jinja
-    - require_in:
-      - service: mailman_web_service
     - watch_in:
-      - module: mailman_web_restart
+      - service: mailman_web_service
 
 /srv/www/webapps/mailman/web/secret.txt:
   file.managed:
@@ -44,7 +38,5 @@ mailman_nginx_conf:
   file.managed:
     - name: /etc/nginx/conf.d/lists.opensuse.org.conf
     - source: salt://profile/mailman3/files/nginx.conf
-    - require_in:
-      - service: mailman_web_service
     - watch_in:
-      - module: mailman_web_restart
+      - service: mailman_web_service
