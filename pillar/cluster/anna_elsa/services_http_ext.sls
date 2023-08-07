@@ -101,7 +101,7 @@ haproxy:
         - is_paste               hdr(host)     -i paste-test.opensuse.org
         - is_minio               hdr(host)     -i s3.opensuse-project.net
         - is_static_o_o          hdr(host)     -i static.opensuse.org
-        {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress'] %}
+        {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress', 'oom'] %}
         - is_staticpages         hdr(host)     -i {{ host_static }}.opensuse.org
         {%- endfor %}
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
