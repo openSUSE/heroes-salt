@@ -6,7 +6,7 @@
 
 set -Ceu
 
-HEADER_REGEX='^(#!yaml\|gpg|#!gpg\|yaml)$'
+HEADER_REGEX='^(#!yaml\|gpg|#!gpg\|yaml|#!jinja\|yaml\|gpg)$'
 HEADER_EMPTY='^(# empty)$'
 STATUS=0
 
