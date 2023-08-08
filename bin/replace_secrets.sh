@@ -7,5 +7,5 @@ searchpath="pillar/secrets/"
 
 find "$searchpath" -type f -name '*.sls' -execdir \
 	gawk -i inplace -v subst="$substitute" \
-	'{if (FNR==1 && !/#!yaml\|gpg/ && !/#!gpg\|yaml/ && !/# empty/){ nextfile }}; !/\|$/{ORS="\n"}; /\|$/{ORS=""; gsub(/\|$/, "")}; /BEGIN PGP MESSAGE/{f=1} !f; /END PGP MESSAGE/{f=0; printf "%s\n", subst};' \
+	'{if (FNR==1 && !/#!yaml\|gpg/ && !/#!gpg\|yaml/ && !/#!jinja\|yaml\|gpg/ && !/# empty/){ nextfile }}; !/\|$/{ORS="\n"}; /\|$/{ORS=""; gsub(/\|$/, "")}; /BEGIN PGP MESSAGE/{f=1} !f; /END PGP MESSAGE/{f=0; printf "%s\n", subst};' \
 	{} +
