@@ -65,6 +65,7 @@ profile:
       root: admin-auto@opensuse.org
     maincf:
       relayhost: '[relay.infra.opensuse.org]'
+      myhostname: '{{ grains['host'] }}.infra.opensuse.org'
 rsyslog:
   custom:
     - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja
