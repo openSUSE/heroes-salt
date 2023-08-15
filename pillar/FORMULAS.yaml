@@ -31,4 +31,5 @@ git:
     namespace: 'andrii-suse'
 package:
   - grains
+  - redmine
   - zypper
