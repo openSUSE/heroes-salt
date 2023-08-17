@@ -1,2 +1,2 @@
 include:
-  - profile.web.server.nginx
+  - redmine
