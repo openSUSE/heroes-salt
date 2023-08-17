@@ -23,7 +23,6 @@ haproxy:
         - is_mickey              hdr(host) -i gitlab.infra.opensuse.org
         - is_openqa              hdr(host) -i openqa.opensuse.org
         - is_redmine             hdr(host) -i progress.opensuse.org
-        - is_redmine             hdr(host) -i tickets.opensuse.org
         - is_redmine_test        hdr(host) -i progress-test.opensuse.org
         - is_smt                 hdr(host) -i smt-internal.infra.opensuse.org
         - is_static_via_login    hdr(host) -i static.opensuse.org
