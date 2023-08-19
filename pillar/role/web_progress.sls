@@ -15,18 +15,19 @@ redmine:
     - reopen-issues-by-mail
   config:
     configuration:
-      email_delivery:
-        delivery_method: :smtp
-        smtp_settings:
-          address: proxy.infra.opensuse.org
-          port: 25
-      attachments_storage_path: /var/lib/redmine/files
-      private_by_default_projects:
-        - opensuse-admin
-        {#- are the ones below still used ? #}
-        - opensuse-admin-cloaks
-        - opensuse-board
-      # secret_token -> secrets.role.web_progress
+      default:
+        email_delivery:
+          delivery_method: :smtp
+          smtp_settings:
+            address: proxy.infra.opensuse.org
+            port: 25
+        attachments_storage_path: /var/lib/redmine/files
+        private_by_default_projects:
+          - opensuse-admin
+          {#- are the ones below still used ? #}
+          - opensuse-admin-cloaks
+          - opensuse-board
+        # secret_token -> secrets.role.web_progress
     database:
       production:
         adapter: mysql2
