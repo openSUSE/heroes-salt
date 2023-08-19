@@ -14,24 +14,25 @@ redmine:
     - plugin-views-revisions
     - reopen-issues-by-mail
   config:
-    email_delivery:
-      delivery_method: :smtp
-      smtp_settings:
-        address: proxy.infra.opensuse.org
-        port: 25
-    attachments_storage_path: /var/lib/redmine/files
-    private_by_default_projects:
-      - opensuse-admin
-      {#- are the ones below still used ? #}
-      - opensuse-admin-cloaks
-      - opensuse-board
-    # secret_token -> secrets.role.web_progress
-  database:
-    production:
-      adapter: mysql2
-      database: redmine
-      host: proxy.infra.opensuse.org
-      port: 3307
-      # username/password -> secrets.role.web_progress
-      encoding: utf8mb4
-      timeout: 15
+    configuration:
+      email_delivery:
+        delivery_method: :smtp
+        smtp_settings:
+          address: proxy.infra.opensuse.org
+          port: 25
+      attachments_storage_path: /var/lib/redmine/files
+      private_by_default_projects:
+        - opensuse-admin
+        {#- are the ones below still used ? #}
+        - opensuse-admin-cloaks
+        - opensuse-board
+      # secret_token -> secrets.role.web_progress
+    database:
+      production:
+        adapter: mysql2
+        database: redmine
+        host: proxy.infra.opensuse.org
+        port: 3307
+        # username/password -> secrets.role.web_progress
+        encoding: utf8mb4
+        timeout: 15
