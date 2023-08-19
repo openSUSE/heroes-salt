@@ -98,10 +98,10 @@ haproxy:
     openqa:
       {{ options() }}
       {{ server('openqa1', '192.168.47.13') }}
-    redmine:
+    redmine_test:
       {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
       {{ server('progress', '192.168.47.8', extra_extra='maxconn 16') }}
-    redmine_test:
+    redmine:
       {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
       {{ server('progressoo', '192.168.47.34', 3001, extra_extra='maxconn 16') }}
     download:
