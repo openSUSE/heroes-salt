@@ -31,11 +31,10 @@ countdown:
       - '0 * * * *     countdown   /srv/www/countdown.opensuse.org/svg/cron.sh -G -E && rsync -a --delete-after /srv/www/countdown.opensuse.org/output/ /srv/www/countdown.opensuse.org/public/'
 
 countdown_git:
-  git.latest:
+  git.cloned:
     - name: https://github.com/openSUSE/countdown.o.o.git
     - target: /srv/www/countdown.opensuse.org/git
     - user: countdown
-    - force_reset: True
     - require:
       - pkg: countdown_packages
 

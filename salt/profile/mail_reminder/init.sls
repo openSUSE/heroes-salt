@@ -15,8 +15,7 @@ mail_reminder:
     - user: mail_reminder
 
 https://github.com/openSUSE/mail-reminder:
-  # salt 2018.3.3 introduced git.cloned - switch once our salt is new enough
-  git.latest:
+  git.cloned:
     - target: /home/mail_reminder/git
     - user: mail_reminder
 

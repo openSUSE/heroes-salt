@@ -62,13 +62,9 @@ jekyll_master_pgks:
 # clone git repos
 {% for dir, data in git_repos.items() %}
 {{ data.repo }}:
-  # salt 2018.3.3 introduced git.cloned - switch once our salt is new enough
-  git.latest:
+  git.cloned:
     - branch: {{ data.get('branch', 'master') }}
     - target: /home/web_jekyll/git/{{ dir }}
-    # When checking out a non-default branch, salt will create a local branch based on HEAD by default.
-    # We need to specify "rev" to ensure we get the branch we want, and to make it tracking the branch from origin.
-    - rev: {{ data.get('branch', 'master') }}
     - user: web_jekyll
 
 /home/web_jekyll/jekyll/{{ dir }}:
