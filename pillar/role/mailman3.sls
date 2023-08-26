@@ -84,3 +84,7 @@ sudoers:
       groups:
         mailman3-admins:
           - 'ALL=(ALL) ALL'
+
+zypper:
+  packages:
+    archrwr: {}
