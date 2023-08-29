@@ -39,15 +39,23 @@ common_monitoring_packages:
     - group: root
     - mode: 444
 
-{% for xinetd_service in ['nrpe', 'check_mk'] %}
-/etc/xinetd.d/{{ xinetd_service }}:
+nrpe.service:
+  service.running:
+    - enable: True
+
+# cleanup old xinetd config for nrpe (pre-Leap 15.5)
+{% for file in ['nrpe', 'nrpe.rpmnew', 'nrpe.rpmsave'] %}
+/etc/xinetd.d/{{ file }}:
+  file.absent
+{% endfor %}
+
+/etc/xinetd.d/check_mk:
   file.managed:
     - contents:
-    - source: salt://profile/monitoring/files/xinetd-{{ xinetd_service }}
+    - source: salt://profile/monitoring/files/xinetd-check_mk
     - user: root
     - group: root
     - mode: 444
-{% endfor %}
 
 xinetd:
   pkg.installed: []
