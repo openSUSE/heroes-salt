@@ -1371,7 +1371,7 @@ oidc_providers:
 
     # the OIDC issuer. Used to validate tokens and discover the providers endpoints. Required.
     #
-    issuer: "https://www.opensuse.org/openidc/"
+    issuer: "https://id.opensuse.org/openidc/"
 
     # oauth2 client id to use. Required.
     #

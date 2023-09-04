@@ -28,10 +28,13 @@ bridge:
   # Disable sending of read receipts for Matrix events which have been
   # successfully bridged to Discord.
   disableReadReceipts: false
+  disableEveryoneMention: true
+  disableHereMention: true
   # Disable Join Leave echos from matrix
   disableJoinLeaveNotifications: true
-  disableEveryoneMetions: true
-  disableHereMentions: true
+  disableInviteNotifications: true
+  disableRoomTopicNotifications: true
+  adminMxid: '@hellcp:opensuse.org'
 # Authentication configuration for the discord bot.
 auth:
   clientID: "{{ pillar['profile']['matrix']['appservices']['discord']['client_id'] }}"
