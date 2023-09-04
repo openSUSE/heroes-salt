@@ -241,18 +241,10 @@ start_pushers: false
 
 worker_replication_secret: "{{ pillar['profile']['matrix']['worker_replication_secret'] }}"
 
-{% set workers = salt['pillar.get']('profile:matrix:workers') %}
-
 instance_map:
-{%- for app, types in workers.items() %}
-{%- for type in types %}
-{%- for worker, port in type.get('workers').items() %}
-    {{ worker }}:
+    main:
         host: 'localhost'
-        port: {{ port }}
-{%- endfor %}
-{%- endfor %}
-{%- endfor %}
+        port: 9093
 
 redis:
     enabled: true
