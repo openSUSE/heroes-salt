@@ -105,14 +105,15 @@ profile:
         - workers:
             federation_sender1: 8571
             federation_sender2: 8572
-      media_repository:
-        - rest:
-            - ^/_matrix/media/
-          workers:
-            media1: 8581
-            media2: 8582
-          resources:
-          - media
+      # Media repository endpoints are a little broken right now
+      # media_repository:
+      #   - rest:
+      #       - ^/_matrix/media/
+      #     workers:
+      #       media1: 8581
+      #       media2: 8582
+      #     resources:
+      #     - media
       frontend_proxy:
         - rest:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/upload

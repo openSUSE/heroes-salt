@@ -11,6 +11,7 @@ EnvironmentFile=-/etc/default/matrix-synapse
 ExecStartPre=/usr/bin/python3 -m synapse.app.homeserver --config-path=/etc/matrix-synapse/homeserver.yaml --config-path=/etc/matrix-synapse/conf.d/ --generate-keys
 ExecReload=/bin/kill -HUP $MAINPID
 Environment=SYNAPSE_CACHE_FACTOR=2.0
+PrivateTmp=yes
 
 [Install]
 WantedBy=matrix-synapse.target
