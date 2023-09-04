@@ -7,12 +7,12 @@ appservice_pgks:
       - git
       - nodejs
       - nodejs-devel
-      - npm
       - nodejs-common
       - make
       - gcc
       - gcc-c++
       - cargo
+      - yarn
 
 {% for dir, data in appservices.items() %}
 /var/lib/matrix-synapse/{{ dir }}:
@@ -67,14 +67,14 @@ synapse_appservice_{{ dir }}_file:
 
 {{ dir }}_boostrap:
   cmd.run:
-    - name: npm install
+    - name: yarn install
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
 
 {% if data.get('build') == True %}
 {{ dir }}_build:
   cmd.run:
-    - name: npm run build
+    - name: yarn run build
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
 {% endif %}
