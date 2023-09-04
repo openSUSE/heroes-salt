@@ -5,17 +5,9 @@ profile matrix-synapse {
     include <abstractions/python>
     include <abstractions/ssl_certs>
     include <abstractions/openssl>
+    include <abstractions/nameservice>
 
-    network inet stream,
-    network inet6 stream,
-
-    /etc/gai.conf r,
-    /etc/host.conf r,
-    /etc/hosts r,
     /etc/mime.types r,
-    /etc/nsswitch.conf r,
-    /etc/passwd r,
-    /etc/resolv.conf r,
 
     owner @{PROC}/@{pid}/{fd/,limits,mounts,stat} r,
 
