@@ -9,3 +9,7 @@ powerdns:
     only-notify: '137.65.249.1/32'
     slave: 'yes'
     slave-renotify: 'yes'
+
+zypper:
+  packages:
+    sqlite3: {}
