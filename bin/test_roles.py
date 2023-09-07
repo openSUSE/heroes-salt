@@ -22,10 +22,10 @@ for directory in ['salt', 'pillar']:
                 print('Unused file %s/role/%s - not in roles' % (directory, sls))
                 status = 1
 
-for role in roles:
-    if not os.path.isfile('salt/role/%s.sls' % role):
-        print('%s role is missing the salt/role/%s.sls file' % (role, role))
-        status = 1
+    for role in roles:
+        if not os.path.isfile(f'{directory}/role/{role}.sls'):
+            print(f'{role} role is missing the {directory}/role/{role}.sls file')
+            status = 1
 
 roles = get_roles()
 
