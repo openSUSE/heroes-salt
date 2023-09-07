@@ -25,7 +25,6 @@ haproxy:
         - is_www                 hdr(host)     -i www.opensuse.org
         - is_apparmor            hdr(host)     -i apparmor.opensuse.org
         - is_bar                 hdr(host)     -i bar.opensuse.org
-        - is_bugzilla_devel      hdr(host)     -i bugzilla-devel.opensuse.org
         - is_bugs                hdr(host)     -i bugs.opensuse.org
         - is_community2          hdr(host)     -i factory-dashboard.opensuse.org
         - is_redirect_events     hdr(host)     -i summit.opensuse.org
@@ -92,7 +91,7 @@ haproxy:
         - is_download_o_o        hdr(host)     -i download.opensuse.org
         - is_monitor             hdr(host)     -i monitor.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
-        - is_moodle              hdr(host)     -i moodle.opensuse.org
+        - is_deadservice         hdr(host)     -i moodle.opensuse.org
         - is_opi_proxy           hdr(host)     -i opi-proxy.opensuse.org
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
         - is_pagure              hdr(host)     -i {{ host_pagure }}.opensuse.org
@@ -164,7 +163,6 @@ haproxy:
       use_backends:
         - error_403        if path_dot_scm
         - security_txt     if path_security
-        - bugzilla-devel   if is_bugzilla_devel
         - jenkins          if is_jenkins
         - community        if is_community
         - pinot            if is_doc path_relnotes
@@ -201,7 +199,6 @@ haproxy:
         - jekyll           if path_slash is_monitor
         - monitor_grafana  if path_grafana is_monitor
         - monitor          if is_monitor
-        - moodle           if is_moodle
         - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
         - www_openid_ldap  if is_www path_openid

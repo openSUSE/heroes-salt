@@ -28,11 +28,6 @@ haproxy:
         {%- for status_server, status_config in {'status1': '100', 'status2': '80 backup', 'status3': '90 backup'}.items() %}
         {{ server(status_server, status_server ~ '.opensuse.org', 443, extra_extra='inter 60000 weight ' ~ status_config, header=False) }}
         {%- endfor %}
-    bugzilla-devel: {#- unused ? #}
-      options:
-        - tcpka
-        - httpchk GET /index.cgi
-      {{ server('bugzilla-devel', '195.135.220.27', 443, extra_extra='ssl verify none') }}
     bugzilla:
       {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ bugzilla.opensuse.org') }}
       balance: roundrobin
@@ -119,10 +114,6 @@ haproxy:
       {{ options() }}
       {{ server('mickey', '192.168.47.36', 443, extra_check='ssl verify none') }}
       {#- original had the mickey check port set to 80 - my macro does not support checking a different port, I assume the original was a mistake #}
-    moodle:
-      mode: http
-      {{ options ('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ moodle.opensuse.org') }}
-      {{ server('moodle', '192.168.47.58', extra_extra='inter 5000') }}
     opi_proxy:
       mode: http
       {{ options() }}
