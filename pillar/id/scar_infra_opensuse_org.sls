@@ -19,5 +19,4 @@ grains:
     - rklein
   partners: []
   weburls: []
-roles:
-  - openvpn
+roles: []

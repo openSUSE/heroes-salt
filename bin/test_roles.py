@@ -16,16 +16,16 @@ special_roles = ['base']
 roles = get_roles(append=special_roles)
 
 for directory in ['salt', 'pillar']:
-    for sls in os.listdir('%s/role' % directory):
+    for sls in os.listdir(f'{directory}/role'):
         if sls.endswith('.sls'):
             if sls.split('.sls')[0] not in roles:
-                print('Unused file %s/role/%s - not in roles' % (directory, sls))
+                print(f'Unused file {directory}/role/{role} - not in roles')
                 status = 1
 
-for role in roles:
-    if not os.path.isfile('salt/role/%s.sls' % role):
-        print('%s role is missing the salt/role/%s.sls file' % (role, role))
-        status = 1
+    for role in roles:
+        if not os.path.isfile(f'{directory}/role/{role}.sls'):
+            print(f'{role} role is missing the {directory}/role/{role}.sls file')
+            status = 1
 
 roles = get_roles()
 
@@ -34,7 +34,7 @@ for special_role in special_roles:
         for sls in os.listdir('pillar/id/'):
             _roles = get_roles_of_one_minion(sls)
             if special_role in _roles:
-                print('%s role should not be included in pillar/id/%s file' % (special_role, sls))
+                print(f'{special_role} role should not be included in pillar/id/{sls} file')
                 status = 1
 
 sys.exit(status)
