@@ -17,5 +17,4 @@ grains:
   partners:
     - scar.opensuse.org
   weburls: []
-roles:
-  - openvpn
+roles: []
