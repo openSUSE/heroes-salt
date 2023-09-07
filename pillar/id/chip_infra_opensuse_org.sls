@@ -15,5 +15,4 @@ grains:
   partners: []
   weburls: []
 roles:
-  - ns
   - ns_slave
