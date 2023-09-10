@@ -3,6 +3,17 @@ include:
   - secrets.role.jekyll_master
 {% endif %}
 
+{%- set osrelease = salt['grains.get']('osrelease') %}
+{%- if osrelease == '15.5' %}
+profile:
+  monitoring:
+    check_zypper:
+      whitelist:
+        - libruby3_1-3_1
+        - ruby3.1
+        - ruby3.1-devel
+{%- endif %}
+
 profile:
   web_jekyll:
     git_repos:
