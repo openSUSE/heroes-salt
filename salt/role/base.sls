@@ -8,6 +8,6 @@ include:
   - profile.monitoring
   - profile.postfix
   - profile.regional
-  - profile.salt.minion
+  - infrastructure.salt.minion
   - profile.sysctl
   - zypper
