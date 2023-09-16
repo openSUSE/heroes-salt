@@ -30,6 +30,7 @@ git:
   mirrorcache:
     namespace: 'andrii-suse'
 package:
+  - infrastructure
   - grains
   - redmine
   - zypper
