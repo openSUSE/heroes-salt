@@ -42,14 +42,15 @@ salt:
     - 'salt/fileserver/gitfs/update':
         - /srv/reactor/update_fileserver.sls
 
-zypper:
-  packages:
-    salt-keydiff: {}
-    {%- if formulas_yaml['package'] | length %}
-    {%- for formula in formulas_yaml['package'] %}
-    {{ formula }}-formula: {}
-    {%- endfor %}
-    {%- endif %}
+infrastructure:
+  salt:
+    formulas:
+      {%- for formula in formulas_yaml['package'] %}
+      - {{ formula }}-formula
+      {%- endfor %}
+    reactor:
+      update_fileserver_ng:
+        target: minnie.infra.opensuse.org
 
 sudoers:
   included_files:

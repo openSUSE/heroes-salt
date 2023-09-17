@@ -1,3 +1,4 @@
 include:
-  - profile.salt.master
+  - profile.salt.git
+  - infrastructure.salt.master
   - zypper.packages
