@@ -1,7 +1,8 @@
+{%- set xinetdd = '/etc/xinetd.d/' %}
+
 common_monitoring_packages:
   pkg.installed:
     - pkgs:
-      - check_mk-agent
       - monitoring-plugins-common
       - nrpe
 
@@ -39,25 +40,25 @@ common_monitoring_packages:
     - group: root
     - mode: 444
 
+# cleanup old xinetd config for nrpe (pre-Leap 15.5)
+{%- for file in ['nrpe', 'nrpe.rpmnew', 'nrpe.rpmsave', 'check_mk'] %}
+{{ xinetdd }}{{ file }}:
+  file.absent
+{%- endfor %}
+
+{%- set fe = salt['file.file_exists'] %}
+{%- if not ( fe(xinetdd ~ 'csync2') or fe(xinetdd ~ 'nsca') or fe(xinetdd ~ 'vsftpd') or fe(xinetdd ~ 'livestatus') ) %}
+xinetd:
+  pkg.removed: []
+  service.dead:
+    - enable: False
+{%- endif %}
+
 nrpe.service:
   service.running:
     - enable: True
-
-# cleanup old xinetd config for nrpe (pre-Leap 15.5)
-{% for file in ['nrpe', 'nrpe.rpmnew', 'nrpe.rpmsave'] %}
-/etc/xinetd.d/{{ file }}:
-  file.absent
-{% endfor %}
-
-/etc/xinetd.d/check_mk:
-  file.managed:
-    - contents:
-    - source: salt://profile/monitoring/files/xinetd-check_mk
-    - user: root
-    - group: root
-    - mode: 444
-
-xinetd:
-  pkg.installed: []
-  service.running:
-    - enable: True
+    - watch:
+      - file: /etc/nrpe.cfg
+      {%- for check in checks.keys() %}
+      - file: /etc/nrpe.d/{{ check }}.cfg
+      {%- endfor %}
