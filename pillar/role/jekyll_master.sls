@@ -4,17 +4,17 @@ include:
 {% endif %}
 
 {%- set osrelease = salt['grains.get']('osrelease') %}
-{%- if osrelease == '15.5' %}
+
 profile:
+  {%- if osrelease == '15.5' %}
   monitoring:
     check_zypper:
       whitelist:
         - libruby3_1-3_1
         - ruby3.1
         - ruby3.1-devel
-{%- endif %}
+  {%- endif %}
 
-profile:
   web_jekyll:
     git_repos:
       news.opensuse.org:
