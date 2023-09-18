@@ -27,3 +27,15 @@ localized:
     default_virt_cluster: bryce
     domains: infra.opensuse.org
     virt_cluster: bryce
+  cz:
+    city: prague
+    default_domain: infra.opensuse.org
+    default_virt_cluster: falkor
+    domains: infra.opensuse.org
+    virt_cluster:
+      - falkor
+      - falkor-bare
+      - orbit
+      - orbit-bare
+      - squanchy
+      - squanchy-bare

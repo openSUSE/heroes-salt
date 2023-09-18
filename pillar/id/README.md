@@ -19,9 +19,11 @@ grains:
                            ## so this is more or less obsolete, but helpful in other parts.
   virt_cluster: bare-metal ## The virtualization cluster, the machine is running on.
                            ## Possible values:
-                           ## * atreju
                            ## * bryce
                            ## * bare-metal
+                           ## * falkor
+                           ## * orbit
+                           ## * squanchy
   ## Everything below here is primarily ment for humans. 
   aliases: []              ## Mostly used for DNS aliases at the moment.
   description: you name it ## A short description that gives other admins an idea about the
