@@ -5,8 +5,7 @@ include:
 {% endif %}
 
 salt:
-  # salt on 15.1 uses py3, therefore different package name
-  pygit2: python3-pygit2
+  master_remove_config: True
   master:
     cli_summary: True
     default_top: production
@@ -20,7 +19,6 @@ salt:
       __env__:
         - /srv/salt
         - /usr/share/salt-formulas/states
-    gitfs_provider: pygit2
     gitfs_remotes:
       {% set formulas = formulas_yaml['git'].keys()|sort %}
       {% for formula in formulas %}
