@@ -32,5 +32,10 @@ git:
 package:
   - infrastructure
   - grains
+  - juniper_junos
+  - libvirt
+  - lunmap
+  - multipath
   - redmine
+  - suse_ha
   - zypper
