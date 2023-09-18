@@ -74,6 +74,7 @@ rsyslog:
   protocol: tcp
   target: syslog.infra.opensuse.org
 salt:
+  minion_remove_config: true
   minion:
     backup_mode: minion
     saltenv: production

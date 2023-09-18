@@ -5,6 +5,7 @@ include:
 {% endif %}
 
 salt:
+  master_remove_config: True
   # salt on 15.1 uses py3, therefore different package name
   pygit2: python3-pygit2
   master:
