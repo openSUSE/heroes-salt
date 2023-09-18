@@ -5,7 +5,7 @@ grains:
     - rsync.o.o
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: bare-metal
+  virt_cluster: stonehat-bare
 
   aliases: []
   description: Externally hosted mirror distribution source (HTTP/rsync) for openSUSE packages

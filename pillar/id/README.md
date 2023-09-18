@@ -17,10 +17,9 @@ grains:
   reboot_safe: yes         ## Could anyone simply reboot the machine and everything comes back as expected?
   salt_cluster: opensuse   ## Everything in this repository should belong to the 'opensuse' Salt cluster, 
                            ## so this is more or less obsolete, but helpful in other parts.
-  virt_cluster: bare-metal ## The virtualization cluster, the machine is running on.
+  virt_cluster: falkor     ## The virtualization cluster, the machine is running on.
                            ## Possible values:
                            ## * bryce
-                           ## * bare-metal
                            ## * falkor
                            ## * orbit
                            ## * squanchy

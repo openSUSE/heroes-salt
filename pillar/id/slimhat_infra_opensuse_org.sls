@@ -5,7 +5,7 @@ grains:
     - IPMI access
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: bare-metal
+  virt_cluster: slimhat-bare
 
   aliases: []
   description: IPMI backdoor for widehat.infra.opensuse.org (Remote access) and hypervisor for VMs (use slimhat as virt_cluster entry)
