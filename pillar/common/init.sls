@@ -200,3 +200,6 @@ zypper:
     traceroute: {}
     {% endif %}
   refreshdb_force: false
+
+mine_functions:
+  network.ip_addrs: []
