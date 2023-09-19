@@ -73,7 +73,6 @@ profile:
         - monitoring-plugins-pdns
         - monitoring-plugins-pgsql
         - monitoring-plugins-ping
-        - monitoring-plugins-pnp_rrds
         - monitoring-plugins-postgres
         - monitoring-plugins-procs
         - monitoring-plugins-qlogic_sanbox
