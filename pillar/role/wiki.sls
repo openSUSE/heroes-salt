@@ -137,6 +137,5 @@ zypper:
     ImageMagick: {}
     mediawiki_1_37-openSUSE: {}
     mariadb-client: {}
-    check_mk-agent-apache_status: {}
     # needed for migration to unpack tarballs
     tar: {}

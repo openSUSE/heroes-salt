@@ -10,7 +10,7 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: Monitoring server running Icinga, check_mk and an IRC Bot
+  description: Monitoring server running Icinga2 and an IRC Bot
   documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Monitorinfraopensuseorg
   responsible: []

@@ -28,11 +28,10 @@ firewalld:
     monitoring:
       short: monitoring
       description: >-
-        These ports are required for monitoring based on check_mk and NRPE.
+        This port is required for monitoring based on NRPE.
       ports:
         tcp:
           - 5665
-          - 6556
 
   zones:
     heroes-internal:
