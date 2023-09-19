@@ -31,10 +31,8 @@ use YAML::Tiny;
 my $pillar_id_path='pillar/id';
 my @wanted=qw(aliases responsible virt_cluster weburls hostusage partners description documentation);
 my $print_help='';
-my $full_html='';
 my $dumpforredmine='';
 my $header='';
-my $footer='';
 my $table_style="width='1820' border='1' style='table-layout:fixed;'";
 my $td_style="style='word-wrap:break-word; padding-left:.5em'";
 my $td_color_even='#f6f6f6';
@@ -118,7 +116,6 @@ GetOptions(
     'h|help'            => \$print_help,
     'd|pillardir=s'     => \$pillar_id_path,
     'r|dumpforredmine'  => \$dumpforredmine,
-    't|tableonly'       => \$full_html,
 );
 
 usage(0) if ($print_help);
@@ -127,146 +124,54 @@ usage(0) if ($print_help);
 
 my $sls_files=getFiles($pillar_id_path,'.sls');
 
-if (! $full_html){
-$header="<!doctype hmtl>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <title>Machine list</title>
-    <style type='text/css' media='print'>
-      \@page
-      {
-          size: auto; /* auto is the initial value */
-          margin: 2mm 4mm 2mm 4mm; /* this affects the margin in the printer settings */
-      }
-	  thead {display: table-header-group;}
-    </style>
-	<style type='text/css' media='screen'>
-      /* thead { display: block; } */
-      ul { list-style-type: disc; 
-           padding-left:1.5em; }
-    </style>
-  </head>
-  <body>\n";
-$footer="  </body>
-</html>";
-}
-
-if (! $dumpforredmine){
-	print "$header";
-}
-
-my $javascript="
-<script>
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById('machines');
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = 'asc';
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName('TD')[n];
-      y = rows[i + 1].getElementsByTagName('TD')[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == 'asc') {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == 'desc') {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is asc,
-      set the direction to desc and run the while loop again. */
-      if (switchcount == 0 && dir == 'asc') {
-        dir = 'desc';
-        switching = true;
-      }
-    }
-  }
-}
-</script>";
-
 if ( "$sls_files" ne "0" ){
     my $i=1;
 	if ( $dumpforredmine ){
 		print "$redmine_header\n";	
 	}
-  # print "$javascript\n";
-    print "<table id='machines' $table_style><theader>\n";
-#	print "|# ";
-#	print "|Hostname ";
-	print "<th>#</th><th>Hostname</th>";
+	print "|# ";
+	print "|Hostname ";
 	my $td=1;
     foreach my $entry (sort(@wanted)){
-	    print "<td>$entry";
+	    print "|$entry ";
     }
-        print "</td>\n";
-        print "</theader></tbody>\n";
-#    foreach my $entry (sort(@wanted)){
-#            print "|--- ";
-#    }
-#        print "|\n";
+        print "|\n";
+        print "|---:|--- ";
+    foreach my $entry (sort(@wanted)){
+            print "|--- ";
+    }
+        print "|\n";
 
     for my $file (sort (@$sls_files)){
 	my $hostname=basename("$file",'.sls');
 	$hostname=~ s/_/./g;
-   	print "<tr><td>$i</td></td>$hostname</td>";
+   	print "|$i |$hostname ";
 	my $yaml = YAML::Tiny->read("$pillar_id_path/$file");
 	my $grains=$yaml->[0];
 	# print Data::Dumper->Dump([$grains])."\n";
 	foreach my $entry (sort(@wanted)){
-		print "<td>";
+		print "|";
 		if (defined($grains->{'grains'}->{$entry})){
 			my $type=reftype $grains->{'grains'}->{$entry};
 			if (defined($type) && "$type" eq 'ARRAY'){
-				print "<ul>\n";
 				if (@{$grains->{'grains'}->{$entry}} > 0){
 					foreach my $string (sort(@{$grains->{'grains'}->{$entry}})){
 						if ("$string" =~ m/^http.*/){
-							print "<li>[$string]($string)</li>\n";
+							print "[$string]($string) ";
 						} 
 						else {
 							if ("$entry" eq "partners"){
-								print "<li>[$string](#$string)</li>\n";
+								print "[$string](#$string) ";
 							}
 							elsif ("$entry" eq "responsible"){
-								print "<li>[$string]($freeipa_user_url/$string)</li>\n";
+								print "[$string]($freeipa_user_url/$string) ";
 							}
 							else {
-								print "<li>$string</li>\n";
+								print "$string ";
 							}
 						}
 					}
 				}
-				print "</ul>\”";
 			}
 			else {
 				print "$grains->{'grains'}->{$entry}" if ($grains->{'grains'}->{$entry} ne "");
@@ -276,10 +181,7 @@ if ( "$sls_files" ne "0" ){
 			print "&nbsp;";
 		}
 	}
-	print "</td></tr>\n";
+	print "|\n";
 	$i++;
     }
-	print "</tbody></table>\n";
 }
-print "$footer\n";
-
