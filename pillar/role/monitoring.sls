@@ -4,26 +4,11 @@ profile:
     check_zypper:
       whitelist:
         - GeoIP-data
-        - check_mk
-        - check_mk-agent
-        - check_mk-agent-apache_status
-        - check_mk-multisite
-        - check_postgres
         - fping
-        - gearmand-server
-        - gearmand-server-sqlite3
-        - gearmand-tools
         - golang-github-prometheus-node_exporter
         - golang-github-prometheus-prometheus
         - grafana
-        - icinga
-        - icinga-doc
-        - icinga-plugins-eventhandlers
-        - icinga-www
-        - icinga-www-config
         - influxdb
-        - kohana2
-        - koseven
         - libGeoIP1
         - libdbi-drivers-dbd-mysql
         - libdbi-drivers-dbd-pgsql
@@ -31,7 +16,6 @@ profile:
         - libdbi3
         - libgearman8
         - libzmq5
-        - mk-livestatus
         - monitoring-eventhandlers-send_messages
         - monitoring-plugins
         - monitoring-plugins-all
@@ -80,7 +64,6 @@ profile:
         - monitoring-plugins-mrtgtraf
         - monitoring-plugins-mysql
         - monitoring-plugins-nagios
-        - monitoring-plugins-nagiostats
         - monitoring-plugins-nfsmounts
         - monitoring-plugins-nis
         - monitoring-plugins-nrpe
@@ -121,7 +104,6 @@ profile:
         - monitoring-plugins-zypper
         - monitoring-tools
         - mrtg
-        - nagios-business-process-addon
         - nrpe
         - percona-nagios-plugins
         - perl-Array-Unique
@@ -138,11 +120,6 @@ profile:
         - perl-Net-SNMP
         - perl-Number-Format
         - perl-Test-Exception
-        - php5-ZendFramework
-        - pnp4nagios
-        - pnp4nagios-icinga
-        - python2-pycrypto
-        - python3-pycrypto
 sudoers:
   included_files:
     /etc/sudoers.d/group_monitoring-admins:
