@@ -12,7 +12,6 @@ nginx:
           use: epoll
         http:
           gzip: 'on'
-          server_tokens: 'off'
           include:
             - mime.types
             - conf.d/*.conf

@@ -220,53 +220,50 @@ if ( "$sls_files" ne "0" ){
 		print "$redmine_header\n";	
 	}
   # print "$javascript\n";
-    print "<table id='machines' $table_style><theader>\n";
-#	print "|# ";
-#	print "|Hostname ";
-	print "<th>#</th><th>Hostname</th>";
+    # print "<table id='machines' $table_style>\n";
+	print "|# ";
+	print "|Hostname ";
 	my $td=1;
     foreach my $entry (sort(@wanted)){
-	    print "<td>$entry";
+	    print "|$entry ";
     }
-        print "</td>\n";
-        print "</theader></tbody>\n";
-#    foreach my $entry (sort(@wanted)){
-#            print "|--- ";
-#    }
-#        print "|\n";
+        print "|\n";
+        print "|---:|--- ";
+    foreach my $entry (sort(@wanted)){
+            print "|--- ";
+    }
+        print "|\n";
 
     for my $file (sort (@$sls_files)){
 	my $hostname=basename("$file",'.sls');
 	$hostname=~ s/_/./g;
-   	print "<tr><td>$i</td></td>$hostname</td>";
+   	print "|$i |$hostname ";
 	my $yaml = YAML::Tiny->read("$pillar_id_path/$file");
 	my $grains=$yaml->[0];
 	# print Data::Dumper->Dump([$grains])."\n";
 	foreach my $entry (sort(@wanted)){
-		print "<td>";
+		print "|";
 		if (defined($grains->{'grains'}->{$entry})){
 			my $type=reftype $grains->{'grains'}->{$entry};
 			if (defined($type) && "$type" eq 'ARRAY'){
-				print "<ul>\n";
 				if (@{$grains->{'grains'}->{$entry}} > 0){
 					foreach my $string (sort(@{$grains->{'grains'}->{$entry}})){
 						if ("$string" =~ m/^http.*/){
-							print "<li>[$string]($string)</li>\n";
+							print "[$string]($string) ";
 						} 
 						else {
 							if ("$entry" eq "partners"){
-								print "<li>[$string](#$string)</li>\n";
+								print "[$string](#$string) ";
 							}
 							elsif ("$entry" eq "responsible"){
-								print "<li>[$string]($freeipa_user_url/$string)</li>\n";
+								print "[$string]($freeipa_user_url/$string) ";
 							}
 							else {
-								print "<li>$string</li>\n";
+								print "$string ";
 							}
 						}
 					}
 				}
-				print "</ul>\”";
 			}
 			else {
 				print "$grains->{'grains'}->{$entry}" if ($grains->{'grains'}->{$entry} ne "");
@@ -276,10 +273,9 @@ if ( "$sls_files" ne "0" ){
 			print "&nbsp;";
 		}
 	}
-	print "</td></tr>\n";
+	print "|\n";
 	$i++;
     }
-	print "</tbody></table>\n";
 }
-print "$footer\n";
+print "$footer";
 
