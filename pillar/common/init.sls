@@ -1,3 +1,4 @@
+{%- set osfullname = salt['grains.get']('osfullname') %}
 {% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
 {% set osrelease = salt['grains.get']('osrelease') %}
 {%- set virtual = salt['grains.get']('virtual') -%}
@@ -143,6 +144,8 @@ zypper:
         solver.onlyRequires: 'true'
   packages:
     ca-certificates-freeipa-opensuse: {}
+    {%- if osfullname != 'openSUSE Leap Micro' %}
+    {#- either not available, part of the basesystem, or not needed #}
     curl: {}
     dhcp-client: {}
     less: {}
@@ -150,28 +153,29 @@ zypper:
     man: {}
     openssh-helpers: {}
     screen: {}
-    sssd-ldap: {}
-    suse-online-update: {}
-    susepaste: {}
     tcpdump: {}
+    susepaste: {}
     vim: {}
     vim-data: {}
-    withlock: {}
     wget: {}
     wgetpaste: {}
-    {% if osrelease | float > 15.4 %}
+    suse-online-update: {}
+    withlock: {}
+    {%- if osrelease | float > 15.4 %}
     scout-command-not-found: {}
-    {% else %}
+    {%- else %}
     command-not-found: {}
-    {% endif %}
-    {% if osmajorrelease > 11 %}
+    {%- endif %}
+    {%- if osmajorrelease > 11 %}
     aaa_base-extras: {}
     ca-certificates-mozilla: {}
     htop: {}
     mtr: {}
     tmux: {}
     traceroute: {}
-    {% endif %}
+    {%- endif %}
+    {%- endif %}
+    sssd-ldap: {}
   refreshdb_force: false
 
 mine_functions:
