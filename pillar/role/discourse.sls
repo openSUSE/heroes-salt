@@ -218,7 +218,7 @@ nginx:
 zypper:
   repositories:
     darix:apps:
-      baseurl: http://download.infra.opensuse.org/repositories/home:/darix:/apps/$releasever/
+      baseurl: http://download.infra.opensuse.org/repositories/home:/darix:/apps/openSUSE_Tumbleweed/
       priority: 100
       refresh: True
     openSUSE:infrastructure:discourse:
