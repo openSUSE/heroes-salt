@@ -1,4 +1,6 @@
 {% set osrelease = salt['grains.get']('osrelease') %}
+
+{%- if osrelease == '15.5' %}
 profile:
   monitoring:
     check_zypper:
@@ -113,6 +115,8 @@ profile:
         - perl-Monitoring-Plugin
         - perl-Nagios-Plugin
         - perl-Number-Format
+{%- endif %}
+
 sudoers:
   included_files:
     /etc/sudoers.d/group_monitoring-admins:
