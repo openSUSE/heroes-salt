@@ -3,17 +3,14 @@ profile:
   monitoring:
     check_zypper:
       whitelist:
-        - GeoIP-data
         - fping
         - golang-github-prometheus-node_exporter
         - golang-github-prometheus-prometheus
         - grafana
         - influxdb
-        - libGeoIP1
         - libdbi-drivers-dbd-mysql
         - libdbi-drivers-dbd-pgsql
         - libdbi-drivers-dbd-sqlite3
-        - libdbi3
         - libgearman8
         - libzmq5
         - monitoring-eventhandlers-send_messages
@@ -108,7 +105,6 @@ profile:
         - percona-nagios-plugins
         - perl-Array-Unique
         - perl-CGI
-        - perl-Class-Accessor
         - perl-Config-Tiny
         - perl-Convert-ASN1
         - perl-Crypt-X509
@@ -117,9 +113,7 @@ profile:
         - perl-Math-Calc-Units
         - perl-Monitoring-Plugin
         - perl-Nagios-Plugin
-        - perl-Net-SNMP
         - perl-Number-Format
-        - perl-Test-Exception
 sudoers:
   included_files:
     /etc/sudoers.d/group_monitoring-admins:
