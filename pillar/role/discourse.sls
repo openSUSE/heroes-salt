@@ -217,11 +217,11 @@ nginx:
 
 zypper:
   repositories:
-    devel:languages:ruby:
-      baseurl: http://download.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
-      priority: 100
-      refresh: True
     darix:apps:
       baseurl: http://download.infra.opensuse.org/repositories/home:/darix:/apps/$releasever/
+      priority: 100
+      refresh: True
+    openSUSE:infrastructure:discourse:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/discourse/openSUSE_Tumbleweed/
       priority: 100
       refresh: True
