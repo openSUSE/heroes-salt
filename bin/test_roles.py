@@ -19,13 +19,14 @@ for directory in ['salt', 'pillar']:
     for sls in os.listdir(f'{directory}/role'):
         if sls.endswith('.sls'):
             if sls.split('.sls')[0] not in roles:
-                print(f'Unused file {directory}/role/{role} - not in roles')
+                print(f'Unused file {directory}/role/{sls} - not in roles')
                 status = 1
 
-    for role in roles:
-        if not os.path.isfile(f'{directory}/role/{role}.sls'):
-            print(f'{role} role is missing the {directory}/role/{role}.sls file')
-            status = 1
+for role in roles:
+    role = role.replace('.', '/')
+    if not os.path.isfile(f'salt/role/{role}.sls') and not os.path.isfile(f'salt/role/{role}/init.sls'):
+        print(f'{role} role is missing the salt/role/{role}.sls or salt/role/{role}/init.sls file')
+        status = 1
 
 roles = get_roles()
 
