@@ -9,4 +9,5 @@ grains:
   documentation: []
   responsible: []
   weburls: []
-  roles: []
+roles:
+  - hypervisor.standalone
