@@ -1,1 +1,11 @@
-{}
+orbit:
+  nodes:
+    - orbit20
+    - orbit21
+  primary_node: orbit20.infra.opensuse.org
+  storage: local
+squanchy:
+  nodes:
+    - squanchy
+  primary_node: squanchy.infra.opensuse.org
+  storage: local
