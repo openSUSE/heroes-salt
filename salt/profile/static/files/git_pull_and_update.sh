@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# managed by salt - do not edit
+{{ pillar['managed_by_salt'] }}
 
 BASEDIR=/home/web_static/git
 

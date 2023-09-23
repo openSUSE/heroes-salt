@@ -1,4 +1,4 @@
-## Managed by Salt
+{{ pillar['managed_by_salt'] }}
 {%- set config = salt['pillar.get']('rsyslog', {}) %}
 ##
 ## === When you're using remote logging, enable on-disk queues ===  
