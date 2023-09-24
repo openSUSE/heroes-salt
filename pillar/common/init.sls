@@ -2,6 +2,9 @@
 {% set osrelease = salt['grains.get']('osrelease') %}
 {%- set virtual = salt['grains.get']('virtual') -%}
 
+include:
+  - .headers
+
 chrony:
   driftfile: /var/lib/chrony/drift
   logdir: /var/log/chrony
