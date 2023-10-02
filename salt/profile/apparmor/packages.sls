@@ -16,10 +16,6 @@ apparmor:
         - apparmor-utils
 
   service.running:
-    {% if os_family == 'Suse' and osmajorrelease == 11 %}
-    # SLE11 only has sysvinit and the boot.apparmor initscript
-    - name: boot.apparmor
-    {% endif %}
     - enable: True
     # restarting AppArmor means to remove confinement from running processes, so always use reload!
     - reload: True
