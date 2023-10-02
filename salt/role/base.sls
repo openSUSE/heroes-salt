@@ -11,6 +11,7 @@ include:
   - profile.postfix
   {%- endif %}
 
+  - bootloader
   - network.wicked
   - profile.etckeeper
   - profile.ldap.client

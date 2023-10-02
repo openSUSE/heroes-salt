@@ -5,6 +5,7 @@
 
 include:
   - .headers
+  - .bootloader
   - .limits
   - .network
   - .sysctl
