@@ -152,7 +152,10 @@ zypper:
         solver.onlyRequires: 'true'
   packages:
     ca-certificates-freeipa-opensuse: {}
-    {%- if osfullname != 'openSUSE Leap Micro' %}
+    {%- if osfullname == 'openSUSE Leap Micro' %}
+    toolmux: {}
+    patterns-microos-sssd_ldap: {}
+    {%- else %}
     {#- either not available, part of the basesystem, or not needed #}
     curl: {}
     dhcp-client: {}
@@ -182,8 +185,8 @@ zypper:
     tmux: {}
     traceroute: {}
     {%- endif %}
-    {%- endif %}
     sssd-ldap: {}
+    {%- endif %}
   refreshdb_force: false
 
 mine_functions:
