@@ -67,6 +67,7 @@ profile:
         - monitoring-plugins-nis
         - monitoring-plugins-nrpe
         - monitoring-plugins-nt
+        # do the ntp_ ones work with chrony ?
         - monitoring-plugins-ntp_peer
         - monitoring-plugins-ntp_time
         - monitoring-plugins-nwstat

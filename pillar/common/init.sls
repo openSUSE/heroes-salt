@@ -22,38 +22,6 @@ locale:
   default:
     name: en_US.UTF-8
     requires: en_US.UTF-8 UTF-8
-ntp:
-  ng:
-    settings:
-      ntpd: true
-      ntp_conf:
-        controlkey:
-          - 1
-        disable:
-          - monitor
-        driftfile:
-          - /var/lib/ntp/drift/ntp.drift
-        logfile:
-          - /var/log/ntp
-        keys:
-          - /etc/ntp.keys
-        requestkey:
-          - 1
-        restrict:
-          - default ignore
-          - -4 default kod notrap nomodify nopeer
-          - -6 default kod notrap nomodify nopeer
-          - 127.0.0.1
-          - ::1
-          - ntp1.infra.opensuse.org
-          - ntp2.infra.opensuse.org
-          - ntp3.infra.opensuse.org
-        trustedkey:
-          - 1
-        {%- if virtual == 'kvm' %}
-        tinker:
-          - panic 0
-        {%- endif %}
 openldap:
   base: dc=infra,dc=opensuse,dc=org
   tls_cacertdir: /etc/ssl/certs/
