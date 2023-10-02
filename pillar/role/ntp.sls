@@ -1,5 +1,3 @@
-{% set ipv4 = salt['grains.get']('ipv4') %}
-
 chrony:
   allow:
     - 127.0.0.0/8

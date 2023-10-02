@@ -10,7 +10,6 @@ git:
   locale: {}
   mysql: {}
   nginx: {}
-  ntp: {}
   openldap: {}
   openssh: {}
   powerdns: {}
