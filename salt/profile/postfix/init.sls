@@ -20,6 +20,7 @@ postfix_alias_present_{{ user }}:
     - pattern: '^{{ option }} *=.*$'
     - repl: '{{ option }} = {{ value }}'
     - append_if_not_found: True
+    - ignore_if_missing: {{ opts['test'] }}
     - require:
       - pkg: postfix
     - watch_in:
