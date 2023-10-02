@@ -54,6 +54,11 @@ salt:
     saltenv: production
     hash_type: sha512
     ipv6: false
+    {%- if osfullname == 'openSUSE Leap Micro' %}
+    module_executors:
+      - transactional_update
+      - direct_call
+    {%- endif %}
 sshd_config:
   AuthorizedKeysFile: .ssh/authorized_keys
   AuthorizedKeysCommand: /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
