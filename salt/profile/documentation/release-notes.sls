@@ -1,3 +1,6 @@
+include:
+  - profile.cron
+
 relsync_packages:
   pkg.installed:
     - pkgs:

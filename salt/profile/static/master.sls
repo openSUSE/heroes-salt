@@ -1,5 +1,8 @@
 {% set git_repos = salt['pillar.get']('profile:web_static:git_repos') %}
 
+include:
+  - profile.cron
+
 static_master_pgks:
   pkg.installed:
     - pkgs:

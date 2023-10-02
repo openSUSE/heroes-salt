@@ -1,3 +1,6 @@
+include:
+  - profile.cron
+
 /etc/postfix/master.cf:
   file.managed:
     - source: salt://profile/mailserver/files/master.cf
