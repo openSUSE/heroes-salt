@@ -1,0 +1,1 @@
+asgard1_infra_opensuse_org.sls
