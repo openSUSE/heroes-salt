@@ -17,10 +17,3 @@ systemd-logger:
   pkg.removed:
     - require_in:
         - pkg: rsyslog
-
-# TODO: replace with a proper logrotate formula
-{% if osmajorrelease in [12, 42] %}
-logrotate.timer:
-  service.running:
-    - enable: True
-{% endif %}
