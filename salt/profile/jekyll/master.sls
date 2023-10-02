@@ -1,5 +1,8 @@
 {% set git_repos = salt['pillar.get']('profile:web_jekyll:git_repos') %}
 
+include:
+  - profile.cron
+
 jekyll_master_pgks:
   pkg.installed:
     - pkgs:

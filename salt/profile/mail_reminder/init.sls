@@ -1,3 +1,6 @@
+include:
+  - profile.cron
+
 mail_reminder_pkgs:
   pkg.installed:
     - pkgs:
