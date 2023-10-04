@@ -3,6 +3,7 @@ include:
   - openssh
   - openssh.banner
   - openssh.config
+  - profile.pam
   - sudoers
   - sudoers.included
 
