@@ -1,0 +1,10 @@
+{{ pillar['managed_by_salt'] }}
+
+# below are additional directories needed for execution of our Salt states (state.highstate will execute inside a transactional update call)
+
+# for file.* states writing content there (would otherwise fail due to missing parent directories)
+BINDDIRS["mybin"]="/usr/local/bin"
+BINDDIRS["mysbin"]="/usr/local/sbin"
+
+# for the sshd config test run in the OpenSSH Salt formula states (would otherwise fail due to "missing privilege separation directory")
+BINDDIRS["myempty"]="/var/lib/empty"
