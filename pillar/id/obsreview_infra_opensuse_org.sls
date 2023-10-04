@@ -16,3 +16,5 @@ grains:
   partners: []
   weburls: 
     - https://obs-reviewlab.opensuse.org/dashboard/
+roles:
+  - docker
