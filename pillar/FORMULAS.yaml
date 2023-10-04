@@ -25,6 +25,7 @@ git:
       - 'https://github.com/Spark-Networks/salt-sssd-formula/pull/1'
     prefix: 'salt-'
   sudoers: {}
+  sysctl: {}
   timezone: {}
   mirrorcache:
     namespace: 'andrii-suse'

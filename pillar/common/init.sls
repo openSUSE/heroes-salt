@@ -4,6 +4,7 @@
 
 include:
   - .headers
+  - .sysctl
 
 chrony:
   driftfile: /var/lib/chrony/drift
