@@ -4,6 +4,7 @@
 
 include:
   - .headers
+  - .limits
   - .sysctl
 
 chrony:
