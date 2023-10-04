@@ -6,6 +6,7 @@
 include:
   - .headers
   - .limits
+  - .network
   - .sysctl
 
 chrony:

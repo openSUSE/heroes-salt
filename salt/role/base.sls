@@ -11,6 +11,7 @@ include:
   - profile.postfix
   {%- endif %}
 
+  - network.wicked
   - profile.etckeeper
   - profile.ldap.client
   - profile.accounts
