@@ -1,8 +1,8 @@
 include:
-  - profile.accounts
   - profile.apparmor
   - profile.etckeeper
   - profile.ldap.client
+  - profile.accounts
   - profile.log
   - profile.monitoring
   - profile.postfix
