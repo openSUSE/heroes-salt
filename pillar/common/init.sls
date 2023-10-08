@@ -165,11 +165,6 @@ zypper:
     wgetpaste: {}
     suse-online-update: {}
     withlock: {}
-    {%- if osrelease | float > 15.4 %}
-    scout-command-not-found: {}
-    {%- else %}
-    command-not-found: {}
-    {%- endif %}
     aaa_base-extras: {}
     ca-certificates-mozilla: {}
     htop: {}
@@ -177,7 +172,14 @@ zypper:
     tmux: {}
     traceroute: {}
     sssd-ldap: {}
-    {%- endif %}
+    {%- if osfullname == 'openSUSE Tumbleweed' %}
+    cnf-rs: {}
+    {%- elif osrelease | float > 15.4 %}
+    scout-command-not-found: {}
+    {%- else %}
+    command-not-found: {}
+    {%- endif %} {#- Close Tumbleweed check #}
+    {%- endif %} {#- Close Leap Micro check #}
   refreshdb_force: false
 
 mine_functions:
