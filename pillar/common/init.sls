@@ -1,3 +1,4 @@
+{%- set osfullname = salt['grains.get']('osfullname') %}
 {% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
 {% set osrelease = salt['grains.get']('osrelease') %}
 {%- set virtual = salt['grains.get']('virtual') -%}
@@ -53,6 +54,14 @@ salt:
     saltenv: production
     hash_type: sha512
     ipv6: false
+    {%- if osfullname == 'openSUSE Leap Micro' %}
+    module_executors:
+      - transactional_update
+      - direct_call
+    # https://bugzilla.opensuse.org/show_bug.cgi?id=1213293
+    features:
+        x509_v2: true
+    {%- endif %}
 sshd_config:
   AuthorizedKeysFile: .ssh/authorized_keys
   AuthorizedKeysCommand: /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
@@ -61,19 +70,12 @@ sshd_config:
     - /etc/ssh/ssh_host_rsa_key
     - /etc/ssh/ssh_host_dsa_key
     - /etc/ssh/ssh_host_ecdsa_key
-    {% if osrelease != '11.3' %}
     - /etc/ssh/ssh_host_ed25519_key
-    {% endif %}
   PasswordAuthentication: no
   PermitRootLogin: without-password
   PrintMotd: yes
-  {% if osrelease.startswith('11') and (salt['grains.get']('cpuarch') == 'x86_64') %}
-  # TODO: support more 64bit archs https://progress.opensuse.org/issues/15794
-  Subsystem: sftp /usr/lib64/ssh/sftp-server
-  {% else %}
   # TODO: upstream fix is not sufficient https://github.com/saltstack-formulas/openssh-formula/pull/57
   Subsystem: sftp /usr/lib/ssh/sftp-server
-  {% endif %}
   UseDNS: yes
   UsePAM: yes
   matches:
@@ -143,35 +145,41 @@ zypper:
         solver.onlyRequires: 'true'
   packages:
     ca-certificates-freeipa-opensuse: {}
+    {%- if osfullname == 'openSUSE Leap Micro' %}
+    toolmux: {}
+    patterns-microos-sssd_ldap: {}
+    {%- else %}
+    {#- either not available, part of the basesystem, or not needed #}
+    aaa_base-extras: {}
+    ca-certificates-mozilla: {}
     curl: {}
     dhcp-client: {}
+    htop: {}
     less: {}
     lsof: {}
     man: {}
+    mtr: {}
     openssh-helpers: {}
     screen: {}
     sssd-ldap: {}
     suse-online-update: {}
     susepaste: {}
     tcpdump: {}
-    vim: {}
-    vim-data: {}
-    withlock: {}
-    wget: {}
-    wgetpaste: {}
-    {% if osrelease | float > 15.4 %}
-    scout-command-not-found: {}
-    {% else %}
-    command-not-found: {}
-    {% endif %}
-    {% if osmajorrelease > 11 %}
-    aaa_base-extras: {}
-    ca-certificates-mozilla: {}
-    htop: {}
-    mtr: {}
     tmux: {}
     traceroute: {}
-    {% endif %}
+    vim-data: {}
+    vim: {}
+    wget: {}
+    wgetpaste: {}
+    withlock: {}
+    {%- if osfullname == 'openSUSE Tumbleweed' %}
+    cnf-rs: {}
+    {%- elif osrelease | float > 15.4 %}
+    scout-command-not-found: {}
+    {%- else %}
+    command-not-found: {}
+    {%- endif %} {#- Close Tumbleweed check #}
+    {%- endif %} {#- Close Leap Micro check #}
   refreshdb_force: false
 
 mine_functions:
