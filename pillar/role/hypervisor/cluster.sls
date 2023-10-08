@@ -1,4 +1,5 @@
 include:
+  - .common
   - common.suse_ha
 
 firewalld:

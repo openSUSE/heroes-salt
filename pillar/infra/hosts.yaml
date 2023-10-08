@@ -1,1 +1,71 @@
-{}
+asgard1:
+  cluster: orbit
+  node: orbit20.infra.opensuse.org
+  ram: 4096MB
+  vcpu: 4
+  interfaces:
+    eth0:
+      source: bond-fib
+      mac: 'd2:e1:4b:98:46:1f'
+  disks:
+    root: 20G
+  image: admin-micro-5_4
+asgard2:
+  cluster: orbit
+  node: orbit21.infra.opensuse.org
+  ram: 4096MB
+  vcpu: 4
+  interfaces:
+    eth0:
+      source: bond-fib
+      mac: 'd2:e1:4b:98:46:2f'
+  disks:
+    root: 20G
+  image: admin-micro-5_4
+witch1:
+  cluster: squanchy
+  ram: 4096MB
+  vcpu: 4
+  interfaces:
+    eth0:
+      source: x-os-internal
+      mac: '92:93:ee:1a:c4:80'
+      # to-do: drop IPv4 once all machines in remote locations can reach the Salt Master via IPv6
+      ip4: 172.16.129.2/24
+      ip6: 2a07:de40:b27e:1203::a/64
+  disks:
+    root: 15G
+  image: admin-minimal-15_5
+warp:
+  cluster: squanchy
+  ram: 512MB
+  vcpu: 1
+  interfaces:
+    eth0:
+      source: x-os-s-warp
+      mac: 'd6:f7:c1:31:ce:80'
+      ip6: 2a07:de40:b27e:1101::2/64
+    eth1:
+      source: x-s-j-os-out
+      mac: 'd6:f7:c1:31:ce:81'
+      ip4: 10.151.202.1/24
+      ip6: 2a07:de40:b27f:202::1/64
+  disks:
+    root: 15G
+  image: admin-minimal-15_5
+devcon:
+  cluster: squanchy
+  ram: 512MB
+  vcpu: 1
+  interfaces:
+    eth0:
+      source: x-os-internal
+      mac: '1a:eb:8a:3d:1a:80'
+      ip6: 2a07:de40:b27e:1203::de/64
+    eth1:
+      source: x-os-ipmi-ur
+      mac: '1a:eb:8a:3d:1a:81'
+      ip6: fd4b:5292:d67e:1001::de/64
+  disks:
+    root: 15G
+  image: admin-minimal-15_5
