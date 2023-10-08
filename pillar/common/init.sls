@@ -150,28 +150,28 @@ zypper:
     patterns-microos-sssd_ldap: {}
     {%- else %}
     {#- either not available, part of the basesystem, or not needed #}
+    aaa_base-extras: {}
+    ca-certificates-mozilla: {}
     curl: {}
     dhcp-client: {}
+    htop: {}
     less: {}
     lsof: {}
     man: {}
+    mtr: {}
     openssh-helpers: {}
     screen: {}
-    tcpdump: {}
-    susepaste: {}
-    vim: {}
-    vim-data: {}
-    wget: {}
-    wgetpaste: {}
+    sssd-ldap: {}
     suse-online-update: {}
-    withlock: {}
-    aaa_base-extras: {}
-    ca-certificates-mozilla: {}
-    htop: {}
-    mtr: {}
+    susepaste: {}
+    tcpdump: {}
     tmux: {}
     traceroute: {}
-    sssd-ldap: {}
+    vim-data: {}
+    vim: {}
+    wget: {}
+    wgetpaste: {}
+    withlock: {}
     {%- if osfullname == 'openSUSE Tumbleweed' %}
     cnf-rs: {}
     {%- elif osrelease | float > 15.4 %}
