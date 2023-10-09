@@ -6,3 +6,7 @@ include:
 infrastructure:
   kvm_topdir: {{ kvmdir }}
   libvirt_domaindir: {{ kvmdir }}/domains
+
+zypper:
+  packages:
+    python3-libvirt-python: {}
