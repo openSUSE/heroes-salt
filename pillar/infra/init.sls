@@ -9,7 +9,9 @@ infrastructure:
         {%- for cluster, clusterconfig in clusters.items() %}
         {%- do salt['log.debug']('Parsing cluster ' ~ cluster) %}
         {{ cluster }}:
+          {%- if 'primary_node' in clusterconfig %}
           primary: {{ clusterconfig['primary_node'] }}
+          {%- endif %}
           {%- if 'netapp' in clusterconfig %}
           netapp:
             host: {{ clusterconfig['netapp']['host'] }}
@@ -29,6 +31,9 @@ infrastructure:
         {%- do salt['log.debug']('Parsing host ' ~ host) %}
         {{ host }}:
           cluster: {{ hostconfig['cluster'] }}
+          {%- if 'node' in hostconfig %}
+          node: {{ hostconfig['node'] }}
+          {%- endif %}
           {%- if 'eth0' in hostconfig['interfaces'] -%}
           {%- set ip4 = hostconfig['interfaces']['eth0'].get('ip4') %}
           {%- set ip6 = hostconfig['interfaces']['eth0'].get('ip6') %}
