@@ -157,7 +157,7 @@ haproxy:
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite_stage
         - code 302 location https://en.opensuse.org/Code_of_Conduct if is_coc
-        - code 302 location https://meet-test.opensuse.org/bar if is_bar
+        - code 302 location https://meet.opensuse.org/bar if is_bar
 
       default_backend: redirect_www_o_o
       use_backends:
