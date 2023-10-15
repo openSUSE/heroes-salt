@@ -1,3 +1,6 @@
+include:
+  - cluster.squanchy
+
 grains:
   city: prague
   country: cz
@@ -11,3 +14,8 @@ grains:
   weburls: []
 roles:
   - hypervisor.standalone
+
+network:
+  interfaces:
+    os-bare:
+      address: 2a07:de40:b27e:1201::c/64
