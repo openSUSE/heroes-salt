@@ -1,18 +1,14 @@
-{%- set formulas_git = salt['pillar.get']('profile:salt:formulas:git') -%}
+{%- set branch = 'production' -%}
 
-salt_formulas_directory:
-  file.directory:
-    - name: /srv/formulas
-    - user: cloneboy
-    - group: salt
-
-{%- for formula in formulas_git %}
-salt_formula_{{ formula }}:
+salt_formulas:
   git.latest:
-    - name: https://gitlab.infra.opensuse.org/saltstack-formulas/{{ formula }}-formula.git
-    - target: /srv/formulas/{{ formula }}-formula
-    - branch: production
+    - name: https://gitlab.infra.opensuse.org/infra/salt-formulas-git.git
+    - target: /srv/formulas
+    - branch: {{ branch }}
+    - rev: {{ branch }}
     - user: cloneboy
-    - require:
-      - file: salt_formulas_directory
-{%- endfor %}
+    - force_checkout: true
+    - force_clone: true
+    - force_reset: true
+    - fetch_tags: false
+    - submodules: true
