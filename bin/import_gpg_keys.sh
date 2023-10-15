@@ -12,5 +12,4 @@ done
 
 for recipient in ${RECIPIENTS[@]}; do
     gpg --recv-key $recipient
-    gpg --edit-key $recipient trust save
 done
