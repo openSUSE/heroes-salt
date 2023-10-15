@@ -23,11 +23,7 @@ salt:
       __env__:
         - /srv/salt
         - /usr/share/salt-formulas/states
-    gitfs_remotes:
-      {% set formulas = formulas_yaml['git'].keys()|sort %}
-      {% for formula in formulas %}
-      - https://gitlab.infra.opensuse.org/saltstack-formulas/{{ formula }}-formula.git
-      {% endfor %}
+        - /srv/formula
     gitfs_ssl_verify: True
     hash_type: sha512
     pillar_gitfs_ssl_verify: True
@@ -65,6 +61,6 @@ profile:
   salt:
     formulas:
       git:
-        {%- for formula in formulas_yaml['git'].keys() %}
-        - {{ formula }}
+        {%- for formula, config in formulas_yaml['git'].items() %}
+        {{ formula }}: {{ config }}
         {%- endfor %}
