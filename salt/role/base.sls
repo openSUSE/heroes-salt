@@ -1,4 +1,7 @@
 include:
+  {%- if grains.get('country') == 'cz' %}
+  - profile.prg2_bootstrap
+  {%- endif %}
 
   {%- if grains['osfullname'] == 'openSUSE Leap Micro' %}
   - profile.tukit
