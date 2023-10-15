@@ -5,6 +5,10 @@ include:
 {% endif %}
 
 salt:
+  {%- if grains.get('country') == 'cz' %}
+  {#- to-do: deploy IPv6 globally #}
+  ipv6: True
+  {%- endif %}
   master_remove_config: True
   master:
     cli_summary: True
