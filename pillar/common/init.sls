@@ -48,12 +48,15 @@ rsyslog:
   protocol: tcp
   target: syslog.infra.opensuse.org
 salt:
+  {%- if grains.get('country') == 'cz' %}
+  {#- to-do: deploy IPv6 globally #}
+  ipv6: true
+  {%- endif %}
   minion_remove_config: true
   minion:
     backup_mode: minion
     saltenv: production
     hash_type: sha512
-    ipv6: false
     {%- if osfullname == 'openSUSE Leap Micro' %}
     module_executors:
       - transactional_update
