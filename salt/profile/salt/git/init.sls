@@ -9,11 +9,13 @@ salt_git_user:
     - shell: /sbin/nologin
     - require_in:
       - file: salt_git_directory
-      - file: salt_formulas_directory
+      - file: salt_formula_base_directories
 
 salt_git_directory:
   file.directory:
-    - name: /srv/salt-git
+    - names:
+        - /srv/salt-git
+        - /srv/formula-src
     - user: cloneboy
     - group: salt
     - require_in:
