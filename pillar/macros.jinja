@@ -12,3 +12,27 @@
   {%- endfor -%}
   {{ valid_virt_cluster }}
 {%- endmacro -%}
+
+{%- macro bond(name, slave0, slave1) -%}
+    bond-{{ name }}:
+      usercontrol: false
+      bonding_master: true
+      bonding_module_opts: mode=802.3ad miimon=100 lacp_rate=fast
+      bonding_slave0: {{ slave0 }}
+      bonding_slave1: {{ slave1 }}
+      firewall: false
+{%- endmacro -%}
+
+{%- macro slave(name) -%}
+    {{ name }}:
+      bootproto: none
+      firewall: false
+{%- endmacro -%}
+
+{%- macro vlantap(name, vlan_id, device) -%}
+    x-{{ name }}:
+      bootproto: none
+      vlan_id: {{ vlan_id }}
+      etherdevice: {{ device }}
+      zone: drop
+{%- endmacro -%}
