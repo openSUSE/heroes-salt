@@ -1,4 +1,4 @@
-{%- import_yaml '/etc/mpathmap' as mpathmap -%}
+{#- {%- import_yaml '/etc/mpathmap' as mpathmap -%} -#}
 {{ pillar['managed_by_salt_xml'] }}
 <domain type='kvm'>
   <name>{{ vm_name }}</name>
@@ -65,9 +65,11 @@
   <on_crash>coredump-destroy</on_crash>
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
-    {%- for disk in vm_disks %}
+    {%- for disk, mpath_uuid in vm_disks.items() %}
+    {#-
     {%- if vm_name in mpathmap and disk in mpathmap[vm_name] %}
     {%- set mpath_uuid = mpathmap[vm_name][disk] %}
+    #}
     {%- set letter = letters[loop.index] -%}
     <disk type='block' device='disk'>
       <driver name='qemu' type='raw' cache='none'/>
@@ -76,7 +78,9 @@
       <target dev='vd{{ letter }}' bus='virtio'/>
       <alias name='virtio-{{ disk }}'/>
     </disk>
+    {#-
     {%- endif %}
+    #}
     {%- endfor %}
     {%- for interface, ifconfig in vm_interfaces.items() %}
     {%- set iftype = ifconfig['type'] %}
