@@ -1,6 +1,7 @@
 mine_functions:
   network.get_hostname: []
 suse_ha:
+  resources_dir: /kvm/cluster-resources
   cluster:
     crypto_cipher: aes256
     crypto_hash: sha512
