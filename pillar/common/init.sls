@@ -152,36 +152,20 @@ zypper:
     toolmux: {}
     patterns-microos-sssd_ldap: {}
     {%- else %}
-    {#- either not available, part of the basesystem, or not needed #}
+    {#- either not available, part of the basesystem, or not needed on Micro #}
     aaa_base-extras: {}
     ca-certificates-mozilla: {}
     curl: {}
-    dhcp-client: {}
     htop: {}
     less: {}
     lsof: {}
-    man: {}
-    mtr: {}
-    openssh-helpers: {}
-    screen: {}
     sssd-ldap: {}
-    suse-online-update: {}
-    susepaste: {}
     tcpdump: {}
     tmux: {}
     traceroute: {}
-    vim-data: {}
     vim: {}
-    wget: {}
-    wgetpaste: {}
+    vim-data: {}
     withlock: {}
-    {%- if osfullname == 'openSUSE Tumbleweed' %}
-    cnf-rs: {}
-    {%- elif osrelease | float > 15.4 %}
-    scout-command-not-found: {}
-    {%- else %}
-    command-not-found: {}
-    {%- endif %} {#- Close Tumbleweed check #}
     {%- endif %} {#- Close Leap Micro check #}
   refreshdb_force: false
 

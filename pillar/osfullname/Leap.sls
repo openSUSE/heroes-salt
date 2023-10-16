@@ -1,6 +1,4 @@
 zypper:
-  packages:
-    mlocate: {}
   repositories:
     repo-oss:
       baseurl: http://download.infra.opensuse.org/distribution/leap/$releasever/repo/oss/
