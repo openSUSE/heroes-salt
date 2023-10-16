@@ -9,8 +9,6 @@ salt:
   master:
     cli_summary: True
     default_top: production
-    env_order:
-      - production
     ext_pillar_first: True
     fileserver_backend:
       - git
