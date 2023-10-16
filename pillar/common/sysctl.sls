@@ -13,12 +13,10 @@ sysctl:
     #}
     net.ipv4.tcp_ecn: 1
 
-    {%- if grains.get('country') != 'cz' %}
     {#-
-      Disable router advertisements (which are currently only being used in our network in Prague).
+      Disable router advertisements (use in our network in Prague was attempted but caused frustration).
     #}
     net.ipv6.conf.all.accept_ra: 0
-    {%- endif %}
 
     {#-
       Log packets with impossible addresses to kernel log.
