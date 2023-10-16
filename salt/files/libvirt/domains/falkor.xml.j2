@@ -1,0 +1,103 @@
+{%- import_yaml '/etc/mpathmap' as mpathmap -%}
+{{ pillar['managed_by_salt_xml'] }}
+<domain type='kvm'>
+  <name>{{ vm_name }}</name>
+  <uuid>{{ vm_uuid }}</uuid>
+  {%- set memory_unit = vm_memory[-2:] %}
+  {%- set memory_min = vm_memory[:-2] | int %}
+  {%- set memory_max = ( memory_min * 1.5 ) | int %}
+  <memory unit='{{ memory_unit }}'>{{ memory_max }}</memory>
+  <currentMemory unit='{{ memory_unit }}'>{{ memory_min }}</currentMemory>
+  {%- set vcpu_min = vm_cores | int %}
+  {%- set vcpu_max = ( vcpu_min * 1.5 + 0.5 ) | int %}
+  <vcpu current='{{ vcpu_min }}'>{{ vcpu_max }}</vcpu>
+  <cpu mode='custom' match='exact'>
+    <model fallback='forbid'>EPYC-Rome</model>
+    <vendor>AMD</vendor>
+    <feature policy='require' name='ht'/>
+    <feature policy='require' name='monitor'/>
+    <feature policy='require' name='pcid'/>
+    <feature policy='require' name='x2apic'/>
+    <feature policy='require' name='invpcid'/>
+    <feature policy='require' name='pku'/>
+    <feature policy='require' name='vaes'/>
+    <feature policy='require' name='vpclmulqdq'/>
+    <feature policy='require' name='xsaves'/>
+    <feature policy='require' name='cmp_legacy'/>
+    <feature policy='require' name='extapic'/>
+    <feature policy='require' name='ibs'/>
+    <feature policy='require' name='skinit'/>
+    <feature policy='require' name='wdt'/>
+    <feature policy='require' name='tce'/>
+    <feature policy='require' name='topoext'/>
+    <feature policy='require' name='perfctr_nb'/>
+    <feature policy='require' name='invtsc'/>
+    <feature policy='require' name='ibrs'/>
+    <feature policy='require' name='amd-ssbd'/>
+    <feature policy='require' name='lbrv'/>
+    <feature policy='require' name='svm-lock'/>
+    <feature policy='require' name='tsc-scale'/>
+    <feature policy='require' name='vmcb-clean'/>
+    <feature policy='require' name='flushbyasid'/>
+    <feature policy='require' name='decodeassists'/>
+    <feature policy='require' name='pause-filter'/>
+    <feature policy='require' name='pfthreshold'/>
+    <feature policy='require' name='v-vmsave-vmload'/>
+    <feature policy='require' name='vgif'/>
+    <feature policy='require' name='svme-addr-chk'/>
+  </cpu>
+  <os>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    {%- if not vm_extra.get('legacy', False) %}
+    <loader secure='yes' readonly='yes' type='pflash'>/usr/share/qemu/ovmf-x86_64-opensuse-code.bin</loader>
+    <nvram template='/usr/share/qemu/ovmf-x86_64-opensuse-vars.bin'>/kvm/nvram/{{ vm_name }}.fd</nvram>
+    {%- endif %}
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <smm/>
+  </features>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>coredump-destroy</on_crash>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    {%- for disk in vm_disks %}
+    {%- if vm_name in mpathmap and disk in mpathmap[vm_name] %}
+    {%- set mpath_uuid = mpathmap[vm_name][disk] %}
+    {%- set letter = letters[loop.index] -%}
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none'/>
+      <source dev='/dev/disk/by-id/dm-uuid-mpath-{{ mpath_uuid }}'/>
+      <backingStore/>
+      <target dev='vd{{ letter }}' bus='virtio'/>
+      <alias name='virtio-{{ disk }}'/>
+    </disk>
+    {%- endif %}
+    {%- endfor %}
+    {%- for interface, ifconfig in vm_interfaces.items() %}
+    {%- set iftype = ifconfig['type'] %}
+    <interface type='{{ iftype }}'{{ ' trustGuestRxFilters=\'yes\'' if iftype == 'direct' else ''}}>
+      <mac address='{{ ifconfig['mac'] }}'/>
+      <source {{ 'bridge' if iftype == 'bridge' else 'dev' }}='{{ ifconfig['source'] }}'{{ ' mode=\'' ~ ifconfig['mode'] ~ '\'' if 'mode' in ifconfig else '' }}/>
+      <target dev='{{ vm_name[:8] }}{{ '_' ~ ifconfig['source'][:4] if iftype == 'bridge' else loop.index }}'/>
+      <model type='virtio'/>
+      <alias name='{{ vm_name.split('.')[0] ~ '_' ~ interface }}'/>
+    </interface>
+    {%- endfor %}
+    <serial type='pty'/>
+    <console type='pty'/>
+    <input type='keyboard' bus='ps2'/>
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+    </rng>
+    <channel type='unix'>
+       <source mode='bind' path='/kvm/agents/{{ vm_name }}'/>
+       <target type='virtio' name='org.qemu.guest_agent.0'/>
+    </channel>
+  </devices>
+  <seclabel type='dynamic' model='apparmor'/>
+</domain>
