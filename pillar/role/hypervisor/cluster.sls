@@ -4,9 +4,9 @@ include:
 
 firewalld:
   zones:
-    infra-main:
+    main:
       description: Main network (openSUSE-bare)
       services:
         - ssh
-    infra-nfs:
+    nfs:
       description: NFS network (openSUSE-falkor-nfs-ur)
