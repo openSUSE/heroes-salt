@@ -30,6 +30,7 @@ network:
     {%- for vlan_name, vlan_id in {
           'os-salt': 1200,
           'os-internal': 1203,
+          'os-public': 1204,
           'os-mirror': 1205,
         }.items() %}
     {{ vlantap(vlan_name, vlan_id, 'bond-fib') }}
