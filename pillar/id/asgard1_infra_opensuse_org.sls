@@ -11,4 +11,5 @@ grains:
   documentation: []
   responsible: []
   weburls: []
-roles: []
+roles:
+  - gateway
