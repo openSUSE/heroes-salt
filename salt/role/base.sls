@@ -20,4 +20,5 @@ include:
   - profile.regional
   - infrastructure.salt.minion
   - profile.sysctl
+  - profile.rpmkeys
   - zypper
