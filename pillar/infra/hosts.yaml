@@ -69,3 +69,27 @@ devcon:
   disks:
     root: 15G
   image: admin-minimal-15_5
+atlas1:
+  cluster: falkor
+  ram: 4096MB
+  vcpu: 2
+  interfaces:
+    eth0:
+      source: x-os-public
+      mac: '2e:b6:1e:18:39:68'
+      ip4: 172.16.130.11/24
+      ip6: 2a07:de40:b27e:1204::11/64
+  disks:
+    root: 3600a09803831494f635d554b394f7730
+atlas2:
+  cluster: falkor
+  ram: 4096MB
+  vcpu: 2
+  interfaces:
+    eth0:
+      source: x-os-public
+      mac: '2e:b6:1e:18:39:69'
+      ip4: 172.16.130.12/24
+      ip6: 2a07:de40:b27e:1204::12/64
+  disks:
+    root: 3600a09803831494f635d554b394f7731
