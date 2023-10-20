@@ -4,13 +4,13 @@ network:
   interfaces:
 
     # Physical interfaces
-    {%- for interface in ['fib0', 'fib1', 'ob0', 'ob1'] %}
+    {%- for interface in ['fib0', 'fib2', 'ob0', 'ob1'] %}
     {{ slave(interface) }}
     {%- endfor %}
 
     # LACP bonds
     {{ bond('ob', 'ob0', 'ob1') }}
-    {{ bond('fib', 'fib0', 'fib1') }}
+    {{ bond('fib', 'fib0', 'fib2') }}
 
     # VLAN interfaces for host connectivity
     os-bare:
