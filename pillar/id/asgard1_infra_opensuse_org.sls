@@ -1,3 +1,6 @@
+include:
+  - cluster.asgard
+
 grains:
   city: prague
   country: cz
@@ -11,5 +14,8 @@ grains:
   documentation: []
   responsible: []
   weburls: []
+  partners:
+    - asgard2.infra.opensuse.org
 roles:
   - gateway
+  - ha

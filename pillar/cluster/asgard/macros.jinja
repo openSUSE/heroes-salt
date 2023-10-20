@@ -1,0 +1,55 @@
+{#- vrrp(
+      vlan      -> VLAN name, expected to match an interface name on Asgard
+      vips      -> Virtual IP address(es) to use for HA
+      vrid      -> Unique number identifying the VRRP instance
+      legacy_ip -> Whether this instance is used for IPv4 (default assumes IPv6)
+    )
+#}
+{%- macro vrrp(vlan, vips, vrid, legacy_ip=false) %}
+      {%- if vips is string %}
+      {%- set vips = [vips] %}
+      {%- endif %}
+
+      asgard-{{ vlan }}{{ '-legacy' if legacy_ip else '' }}:
+        {%- if mode == 'master' %}
+
+        {%- if legacy_ip %}
+        mcast_src_ip: 172.16.128.1
+        {%- else %}
+        mcast_src_ip: fd4b:5292:d67e:1000::1
+        {%- endif %}
+
+        state: MASTER
+        priority: 100
+
+        {%- elif mode == 'backup' %}
+
+        {%- if legacy_ip %}
+        mcast_src_ip: 172.16.128.2
+        {%- else %}
+        mcast_src_ip: fd4b:5292:d67e:1000::2
+        {%- endif %}
+
+        state: BACKUP
+        priority: 50
+
+        {%- endif %} {#- close master/backup logic #}
+
+	{%- if legacy_ip %} {#- v4 advert_int gets rounded and causes the config test to return a non-zero exit code #}
+        advert_int: 1
+        {%- else %}
+        advert_int: 0.5
+        {%- endif %}
+
+        interface: os-asgard
+        virtual_router_id: {{ vrid }}
+        # smtp_alert: true
+
+        virtual_ipaddress:
+          {%- for vip in vips %}
+          - {{ vip }} dev {{ vlan }}
+          {%- endfor %}
+        track_interface:
+          - {{ vlan }}
+          - d-{{ vlan }}
+{%- endmacro %}
