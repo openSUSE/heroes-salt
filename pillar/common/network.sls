@@ -1,5 +1,10 @@
 {%- import_yaml 'infra/hosts.yaml' as hosts %}
+{%- import_yaml 'infra/networks.yaml' as country_networks %}
+
 {%- set host = grains['host'] %}
+{%- set country = grains.get('country') %}
+{%- set networks = country_networks.get(country, {}) %}
+
 {%- set msg = 'common.network, host ' ~ host ~ ': ' %}
 {%- set log = salt.log.debug %}
 
@@ -23,6 +28,12 @@
 {%- do log(msg ~ 'trying to use primary interface addresses') %}
 {%- set ip4 = interfaces[primary_interface].get('ip4') %}
 {%- set ip6 = interfaces[primary_interface].get('ip6') %}
+{%- if primary_interface.startswith('os-') %}
+{%- set shortnet = primary_interface %}
+{%- else %}
+{%- set shortnet = interfaces[primary_interface].get('source', '').replace('x-', '') %}
+{%- endif %}
+{%- do log(msg ~ 'shortnet set to ' ~ shortnet) %}
 {%- set reduced_interfaces = interfaces.pop(primary_interface) %}
 
 {#- otherwise apply its global addresses (single interface hosts without an "interfaces" configuration) #}
@@ -31,6 +42,7 @@
 {%- set ip4 = hostconfig.get('ip4') %}
 {%- set ip6 = hostconfig.get('ip6') %}
 {%- set reduced_interfaces = {} %}
+{%- set shortnet = None %}
 
 {%- endif %} {#- close primary interface check #}
 
@@ -65,6 +77,30 @@ network:
         {%- endif %}
     {%- endif %} {#- close ip4/ip6 check #}
     {%- endfor %}
+
+{%- if shortnet %}
+{%- set net_ns = namespace(network=None) %}
+{%- for network, config in networks.items() %}
+{%- if config['short'] == shortnet %}
+{%- set net_ns.network = network %}
+{%- break %}
+{%- endif %}
+{%- endfor %}
+{%- do log(msg ~ 'network set to ' ~ net_ns.network) %}
+{%- set network = networks.get(net_ns.network, {}) %}
+
+{%- if 'gw4' in network or 'gw6' in network %}
+  routes:
+    {%- if ip4 is not none and 'gw4' in network %}
+    default4:
+      gateway: '{{ network['gw4'] }}'
+    {%- endif %}
+    {%- if ip6 is not none and 'gw6' in network %}
+    default6:
+      gateway: '{{ network['gw6'] }}'
+    {%- endif %}
+{%- endif %} {#- close network check #}
+{%- endif %} {#- close shortnet check #}
 
 {%- endif %} {#- close ip4/ip6/reduced_interfaces check #}
 {%- else %}
