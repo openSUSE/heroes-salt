@@ -8,6 +8,8 @@
 {%- endif %}
 
 {%- from 'cluster/asgard/macros.jinja' import vrrp with context %}
+{%- import_yaml 'infra/networks.yaml' as country_networks %}
+{%- set networks = country_networks['cz'] %}
 
 keepalived:
   config:
@@ -15,16 +17,28 @@ keepalived:
       router_id: asgard
       enable_script_security: true
     vrrp_instance:
-      {{ vrrp('os-salt',      '2a07:de40:b27e:1200::/64', 200) }}
-      {{ vrrp('os-bare',      '2a07:de40:b27e:1201::/64', 201) }}
-      {{ vrrp('os-ipmi-r',    '2a07:de40:b27e:1202::/64', 202) }}
-      {{ vrrp('os-internal',  '2a07:de40:b27e:1203::/64', 203) }}
-      {{ vrrp('os-internal',  '172.16.129.3/24',          129, true) }}
-      {{ vrrp('os-public',    '2a07:de40:b27e:1204::/64', 204) }}
-      {{ vrrp('os-public',    '172.16.130.3/24',          130, true) }}
-      {{ vrrp('os-mirror',    '2a07:de40:b27e:1205::/64', 205) }}
-      {{ vrrp('os-thor',      '2a07:de40:b27e:1100::/64', 100) }}
-      {{ vrrp('os-thor',      '172.16.128.3/24',          120, true) }}
-      {{ vrrp('os-s-warp',    '2a07:de40:b27e:1101::/64', 101) }}
+      {%- for vlan, config in networks.items () %}
+
+      {%- for v in [4, 6] %}
+      {%- set net = 'net' ~ v %}
+      {%- set gw = 'gw' ~ v %}
+
+      {%- if net in config and gw in config %}
+
+      {%- if v == 4 %}
+      {%- set legacy = true %}
+      {%- set vrid = config['gw4'].split('.')[2] %}
+
+      {%- elif v == 6 %}
+      {%- set legacy = false %}
+      {%- set vrid = config['gw6'].split(':')[3][1:] %}
+      {%- endif %}
+
+      {{ vrrp(config['short'], salt['os_network.gw_with_cidr'](config[gw], config[net]), vrid, legacy) }}
+
+      {%- endif %} {#- close net/gw check #}
+      {%- endfor %} {#- close IP version loop #}
+      {%- endfor %} {#- close networks loop #}
+
       {{ vrrp('os-p2p-pub',   '2a07:de40:b27f:201::1/64', 253) }}
       {{ vrrp('os-p2p-pub',   '195.135.223.41/29',        254, true) }}
