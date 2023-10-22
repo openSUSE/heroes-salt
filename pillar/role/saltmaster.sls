@@ -20,7 +20,10 @@ salt:
         - /srv/formula
     gitfs_ssl_verify: True
     hash_type: sha512
+    {%- if grains.get('country') == 'cz' %}
+    {#- _needs_ to align with the "ipv6" setting in pillar.common! #}
     interface: '::'
+    {%- endif %}
     pillar_gitfs_ssl_verify: True
     pillar_merge_lists: True
     pillar_roots:
