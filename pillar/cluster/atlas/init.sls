@@ -4,6 +4,7 @@ include:
   - common.haproxy
   - .backends
   - .services
+  - .vrrp
 
 haproxy:
   listens:
