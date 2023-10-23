@@ -5,6 +5,10 @@ include:
   - .backends
   - .services_http_ext
   - .services_http_int
+  - .vrrp
+  {%- if salt['grains.get']('include_secrets', True) %}
+  - secrets.cluster.anna_elsa
+  {%- endif %}
 
 haproxy:
   listens:
