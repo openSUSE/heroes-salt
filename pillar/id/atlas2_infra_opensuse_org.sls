@@ -18,3 +18,4 @@ grains:
   weburls: []
 roles:
   - ha
+  - proxy
