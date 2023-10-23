@@ -73,8 +73,9 @@ atlas1:
   cluster: falkor
   ram: 4096MB
   vcpu: 2
+  primary_interface: os-public
   interfaces:
-    eth0:
+    os-public:
       source: x-os-public
       mac: '2e:b6:1e:18:39:68'
       ip4: 172.16.130.11/24
@@ -85,8 +86,9 @@ atlas2:
   cluster: falkor
   ram: 4096MB
   vcpu: 2
+  primary_interface: os-public
   interfaces:
-    eth0:
+    os-public:
       source: x-os-public
       mac: '2e:b6:1e:18:39:69'
       ip4: 172.16.130.12/24
