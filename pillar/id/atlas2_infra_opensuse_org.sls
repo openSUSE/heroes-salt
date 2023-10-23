@@ -1,3 +1,6 @@
+include:
+  - cluster.atlas
+
 grains:
   city: prague
   country: cz
