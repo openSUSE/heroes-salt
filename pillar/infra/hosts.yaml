@@ -93,3 +93,15 @@ atlas2:
       ip6: 2a07:de40:b27e:1204::12/64
   disks:
     root: 3600a09803831494f635d554b394f7731
+narwal8:
+  cluster: falkor
+  ram: 1024MB
+  vcpu: 1
+  primary_interface: internal
+  interfaces:
+    internal:
+      source: x-os-internal
+      mac: '2e:09:0d:dc:6e:14'
+      ip6: 2a07:de40:b27e:1204::e8/64
+  disks:
+    root: 3600a09803831494f635d554b394f7739

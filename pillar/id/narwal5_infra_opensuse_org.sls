@@ -17,6 +17,7 @@ grains:
     - narwal4.infra.opensuse.org
     - narwal6.infra.opensuse.org
     - narwal7.infra.opensuse.org
+    - narwal8.infra.opensuse.org
   weburls:
     - https://fontinfo.opensuse.org
     - https://html5test.opensuse.org
