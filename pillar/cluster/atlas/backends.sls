@@ -1,4 +1,4 @@
-{%- from 'cluster/anna_elsa/map.jinja' import options, server %}
+{%- from 'common/haproxy/map.jinja' import options, server %}
 
 haproxy:
   backends:

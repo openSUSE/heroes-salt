@@ -1,4 +1,4 @@
-{%- from slspath ~ '/macros.jinja' import bind, extra, options, server -%}
+{%- from 'common/haproxy/macros.jinja' import bind, extra, options, server -%}
 {%- set bind = bind -%}{%- set extra = extra -%}{%- set options = options -%}{%- set server = server -%}
 
 {%- set errorfiles = '/etc/haproxy/errorfiles/' %}

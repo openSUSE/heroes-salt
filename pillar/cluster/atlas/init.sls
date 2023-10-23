@@ -1,4 +1,4 @@
-{%- from 'cluster/anna_elsa/map.jinja' import bind, extra, server %}
+{%- from 'common/haproxy/map.jinja' import bind, extra, server %}
 
 include:
   - common.haproxy
