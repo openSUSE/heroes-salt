@@ -26,5 +26,5 @@ keepalived:
       {{ vrrp('os-thor',      '2a07:de40:b27e:1100::/64', 100) }}
       {{ vrrp('os-thor',      '172.16.128.3/24',          120, true) }}
       {{ vrrp('os-s-warp',    '2a07:de40:b27e:1101::/64', 101) }}
-      {{ vrrp('os-p2p-pub',   '2a07:de40:b280:201::1/64', 253) }}
+      {{ vrrp('os-p2p-pub',   '2a07:de40:b27f:201::1/64', 253) }}
       {{ vrrp('os-p2p-pub',   '195.135.223.41/29',        254, true) }}
