@@ -57,15 +57,20 @@ devcon:
   cluster: squanchy
   ram: 512MB
   vcpu: 1
+  primary_interface: os-internal
   interfaces:
-    eth0:
+    os-internal:
       source: x-os-internal
       mac: '1a:eb:8a:3d:1a:80'
       ip6: 2a07:de40:b27e:1203::de/64
-    eth1:
+    os-ipmi:
       source: x-os-ipmi-ur
       mac: '1a:eb:8a:3d:1a:81'
       ip6: fd4b:5292:d67e:1001::de/64
+    s-netapp:
+      source: x-s-na-mgmt
+      mac: '1a:eb:8a:3d:1a:82'
+      ip4: 192.168.209.10/24
   disks:
     root: 15G
   image: admin-minimal-15_5
