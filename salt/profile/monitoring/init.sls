@@ -50,8 +50,10 @@ common_monitoring_packages:
 {%- if not ( fe(xinetdd ~ 'csync2') or fe(xinetdd ~ 'nsca') or fe(xinetdd ~ 'vsftpd') or fe(xinetdd ~ 'livestatus') ) %}
 xinetd:
   pkg.removed: []
+  {%- if not opts['test'] %}
   service.dead:
     - enable: False
+  {%- endif %}
 {%- endif %}
 
 nrpe.service:
