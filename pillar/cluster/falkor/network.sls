@@ -28,6 +28,7 @@ network:
 
     # VLAN interfaces for generic (non-VRRP) VM connectivity
     {%- for vlan_name, vlan_id in {
+          'os-thor': 1100,
           'os-salt': 1200,
           'os-internal': 1203,
           'os-public': 1204,
