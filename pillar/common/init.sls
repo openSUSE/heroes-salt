@@ -62,10 +62,9 @@ salt:
     module_executors:
       - transactional_update
       - direct_call
-    # https://bugzilla.opensuse.org/show_bug.cgi?id=1213293
+    {%- endif %}
     features:
         x509_v2: true
-    {%- endif %}
 sshd_config:
   AuthorizedKeysFile: .ssh/authorized_keys
   AuthorizedKeysCommand: /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
