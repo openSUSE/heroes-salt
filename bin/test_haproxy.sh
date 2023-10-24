@@ -30,7 +30,10 @@ gen_ssl () {
 		then
 			out="${cert}example.com.pem"
 		fi
-		cat test/fixtures/domain.{crt,key} > "$out"
+		if [ ! -f "$out" ]
+		then
+			cat test/fixtures/domain.{crt,key} > "$out"
+		fi
 	done <<< "$(grep -hoPr '/etc/(ssl/services/(.*.pem|)|haproxy/.*.crt)' pillar/cluster/$1/)"
 }
 

@@ -1,4 +1,4 @@
-{%- from slspath ~ '/map.jinja' import options, server, errorfiles, narwals, check_txt -%}
+{%- from 'common/haproxy/map.jinja' import options, server, errorfiles, narwals, check_txt -%}
 
 haproxy:
   backends:

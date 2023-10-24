@@ -1,3 +1,6 @@
+include:
+  - cluster.atlas
+
 grains:
   city: prague
   country: cz
@@ -15,3 +18,4 @@ grains:
   weburls: []
 roles:
   - ha
+  - proxy
