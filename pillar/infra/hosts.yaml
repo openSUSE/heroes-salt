@@ -105,3 +105,15 @@ narwal8:
       ip6: 2a07:de40:b27e:1203::e8/64
   disks:
     root: 3600a09803831494f635d554b394f7739
+acme:
+  cluster: falkor
+  ram: 1024MB
+  vcpu: 1
+  primary_interface: os-internal
+  interfaces:
+    os-internal:
+      source: x-os-internal
+      mac: 'ba:34:bc:a1:a8:c3'
+      ip6: 2a07:de40:b27e:1203::100/64
+  disks:
+    root: 3600a09803831494f635d554b394f7742
