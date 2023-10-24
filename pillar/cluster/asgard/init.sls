@@ -1,2 +1,3 @@
 include:
+  - .network
   - .vrrp
