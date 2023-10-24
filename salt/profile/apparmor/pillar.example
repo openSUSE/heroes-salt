@@ -16,3 +16,10 @@ apparmor:
     # salt://profile/apparmor/files/common-stuff.apparmor -> /etc/apparmor.d/abstractions/common-stuff
     common-stuff
       source: salt://profile/apparmor/files/common-stuff.apparmor
+
+  local:
+    usr.sbin.haproxy:
+      - /etc/haproxy/** r,
+      - /etc/ssl/services/* r,
+      - capability dac_read_search,
+      - capability dac_override,
