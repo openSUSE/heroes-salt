@@ -7,7 +7,15 @@
 
 {%- set hostconfig = hosts[host] %}
 {%- set interfaces = hostconfig.get('interfaces', {}) %}
-{%- set primary_interface = hostconfig.get('primary_interface', 'eth0') %}
+
+{%- if 'primary_interface' in hostconfig %}
+{%- set primary_interface = hostconfig['primary_interface'] %}
+{%- elif interfaces | length == 1 %}
+{%- set primary_interface = interfaces.keys() | first  %}
+{%- else %}
+{%- set primary_interface = 'eth0' %}
+{%- endif %} {#- close primary_interface check #}
+
 {%- do log(msg ~ 'primary interface set to ' ~ primary_interface) %}
 
 {#- apply IP addresses from preferred interface #}
