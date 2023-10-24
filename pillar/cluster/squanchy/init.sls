@@ -23,6 +23,7 @@ network:
 
     # VLAN interfaces for generic VM connectivity
     {%- for vlan_name, vlan_id in {
+          'os-thor': 1100,
           'os-internal': 1203,
           'os-mirror': 1205,
           'os-salt': 1200,
