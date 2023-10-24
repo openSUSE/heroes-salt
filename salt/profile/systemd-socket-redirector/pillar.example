@@ -1,0 +1,12 @@
+systemd:
+  portredirector:
+    myproxy:
+      target: [::1]:8080
+      # access control is optional 
+      deny_list:
+       - 1.2.3.4
+      # if allow_list is specified without an accompanying deny_list, a default deny any rule will be injected
+      allow_list:
+       - 1.2.3.4
+      listen_stream:
+        - [::]:8585
