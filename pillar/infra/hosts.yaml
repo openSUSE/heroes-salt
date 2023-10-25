@@ -26,12 +26,11 @@ witch1:
   cluster: squanchy
   ram: 4096MB
   vcpu: 4
+  primary_interface: os-salt
   interfaces:
-    eth0:
-      source: x-os-internal
+    os-salt:
+      source: x-os-salt
       mac: '92:93:ee:1a:c4:80'
-      # to-do: drop IPv4 once all machines in remote locations can reach the Salt Master via IPv6
-      ip4: 172.16.129.2/24
       ip6: 2a07:de40:b27e:1203::a/64
   disks:
     root: 15G
