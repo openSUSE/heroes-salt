@@ -6,3 +6,6 @@ prg2_hosts:
       - download.infra.opensuse.org:
         - ip: 2a07:de40:b27e:1205::a
     - clean: true
+
+include:
+  - profile.systemd-socket-redirector
