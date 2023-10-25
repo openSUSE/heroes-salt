@@ -159,6 +159,9 @@ zypper:
     htop: {}
     less: {}
     lsof: {}
+    {%- if grains['efi'] %}
+    shim: {}
+    {%- endif %}
     sssd-ldap: {}
     tcpdump: {}
     tmux: {}
