@@ -111,6 +111,7 @@ narwal8:
       ip6: 2a07:de40:b27e:1203::e8/64
   disks:
     root: 3600a09803831494f635d554b394f7739
+    data0: 3600a09803831494f635d554b394f7745
 acme:
   cluster: falkor
   ram: 1024MB
