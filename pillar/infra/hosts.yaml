@@ -31,7 +31,7 @@ witch1:
     os-salt:
       source: x-os-salt
       mac: '92:93:ee:1a:c4:80'
-      ip6: 2a07:de40:b27e:1203::a/64
+      ip6: 2a07:de40:b27e:1200::a/64
   disks:
     root: 15G
   image: admin-minimal-15_5
