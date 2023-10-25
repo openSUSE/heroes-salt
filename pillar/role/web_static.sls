@@ -24,6 +24,11 @@ nginx:
                     {% if website == 'static' %}
                     - default_server
                     {% endif %}
+                - listen:
+                    - '[::]:80'
+                    {% if website == 'static' %}
+                    - default_server
+                    {% endif %}
                 - root: /srv/www/vhosts/{{ website }}.opensuse.org
                 - gzip_vary: 'on'
                 - gzip_min_length: 1000
