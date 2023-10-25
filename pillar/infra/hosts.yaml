@@ -103,9 +103,9 @@ narwal8:
   cluster: falkor
   ram: 1024MB
   vcpu: 1
-  primary_interface: internal
+  primary_interface: os-internal
   interfaces:
-    internal:
+    os-internal:
       source: x-os-internal
       mac: '2e:09:0d:dc:6e:14'
       ip6: 2a07:de40:b27e:1203::e8/64
