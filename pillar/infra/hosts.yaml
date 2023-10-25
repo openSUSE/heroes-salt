@@ -121,6 +121,7 @@ acme:
     os-internal:
       source: x-os-internal
       mac: 'ba:34:bc:a1:a8:c3'
+      ip4: 172.16.129.90/24
       ip6: 2a07:de40:b27e:1203::100/64
   disks:
     root: 3600a09803831494f635d554b394f7742
