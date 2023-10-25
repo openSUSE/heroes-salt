@@ -3,7 +3,7 @@
 haproxy:
   backends:
     staticpages:
-      {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ static.opensuse.org') }}
+      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHost:\ static.opensuse.org') }}
       balance: roundrobin
       mode: http
       servers:
