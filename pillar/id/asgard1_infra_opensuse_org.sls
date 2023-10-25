@@ -19,3 +19,9 @@ grains:
 roles:
   - gateway
   - ha
+network:
+  interfaces:
+    os-p2p-pub:
+      addresses:
+        - 195.135.223.44/29
+        - 2a07:de40:b27f:201::11/64

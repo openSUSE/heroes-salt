@@ -1,0 +1,43 @@
+cz:
+  openSUSE-thor:
+    short: os-thor
+    net6: 2a07:de40:b27e:1100::/64
+    gw6: '2a07:de40:b27e:1100::'
+    id: 1100
+  openSUSE-SUSE-warp:
+    short: os-s-warp
+    net6: 2a07:de40:b27e:1101::/64
+    gw6: '2a07:de40:b27e:1101::'
+    id: 1101
+  openSUSE-salt:
+    short: os-salt
+    net6: 2a07:de40:b27e:1200::/64
+    gw6: '2a07:de40:b27e:1200::'
+    id: 1200
+  openSUSE-bare:
+    short: os-bare
+    net6: 2a07:de40:b27e:1201::/64
+    gw6: '2a07:de40:b27e:1201::'
+    id: 1201
+  openSUSE-ipmi-r:
+    short: os-ipmi-r
+    net6: 2a07:de40:b27e:1202::/64
+    gw6: '2a07:de40:b27e:1202::'
+    id: 1202
+  openSUSE-internal:
+    short: os-internal
+    net6: 2a07:de40:b27e:1203::/64
+    gw6: '2a07:de40:b27e:1203::'
+    id: 1203
+  openSUSE-public:
+    short: os-public
+    net6: 2a07:de40:b27e:1204::/64
+    gw6: '2a07:de40:b27e:1204::'
+    net4: 172.16.130.0/24
+    gw4: 172.16.130.3
+    id: 1204
+  openSUSE-mirror:
+    short: os-mirror
+    net6: 2a07:de40:b27e:1205::/64
+    gw6: '2a07:de40:b27e:1205::'
+    id: 1205
