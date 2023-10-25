@@ -32,6 +32,14 @@ firewalld:
       ports:
         tcp:
           - 5665
+    wireguard:
+      short: VPN interconnect
+      description: >-
+        These ports are required for interconnect tunnels
+      ports:
+        udp:
+          - 52456
+          - 51123
 
   zones:
     heroes-internal:
@@ -39,10 +47,14 @@ firewalld:
       description: >-
         Internal VPN network.
       interfaces:
+        - pciright
         - tun0
+        - wg0
+        - wg_siterouting
       services:
         - ssh
         - monitoring
+        - munin-node
     heroes-external:
       short: heroes-external
       description: >-
@@ -63,10 +75,17 @@ firewalld:
         - 188.40.142.18
       services:
         - ssh
-    # NOT USED ZONES -- let it be to keep them clear and not attached to any
-    # interface or sources and without any service declared.
     public:
       short: Public
+      interfaces:
+        - pcileft
+        - onboardleft
+        - br0
+        - br1
+      services:
+        - wireguard
+    # NOT USED ZONES -- let it be to keep them clear and not attached to any
+    # interface or sources and without any service declared.
     internal:
       short: Internal
     work:
