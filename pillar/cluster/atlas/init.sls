@@ -13,20 +13,15 @@ include:
 {%- set bind_v4 = ['172.16.130.10', '172.16.130.11', '172.16.130.12'] %}
 
 haproxy:
-  listens:
-    tls:
-      bind:
-        {%- set bindopts = 'tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
-        {{ bind(bind_v6, 443, 'v6only ' ~ bindopts) }}
-        {{ bind(bind_v4, 443, bindopts) }}
-      options:
-        - tcp-smart-connect
   frontends:
     http:
       bind:
         {%- set bindopts = 'tfo' %}
         {{ bind(bind_v6, 80, 'v6only ' ~ bindopts) }}
         {{ bind(bind_v4, 80, bindopts) }}
+        {%- set tls_bindopts = 'tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
+        {{ bind(bind_v6, 443, 'v6only ' ~ tls_bindopts) }}
+        {{ bind(bind_v4, 443, tls_bindopts) }}
       options:
         - http-server-close
       extra:
@@ -52,4 +47,3 @@ haproxy:
                 ] }
         }) }}
         - http-request set-var(txn.host) hdr(Host)
-
