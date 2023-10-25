@@ -1,11 +1,27 @@
 {%- if grains['id'] == 'atlas1.infra.opensuse.org' %}
-{%- set mode = 'master' %}
+{%- set config = {
+      'state': 'MASTER',
+      'priority': 100,
+      'src4': '172.16.130.11',
+      'src6': '2a07:de40:b27e:1204::11'
+    }
+%}
+
 {%- elif grains['id'] == 'atlas2.infra.opensuse.org' %}
-{%- set mode = 'backup' %}
+{%- set config = {
+      'state': 'BACKUP',
+      'priority': 50,
+      'src4': '172.16.130.12',
+      'src6': '2a07:de40:b27e:1204::12'
+    }
+%}
+
 {%- else %}
 {%- do salt.log.error('atlas: illegal minion in cluster') %}
-{%- set mode = None %}
+{%- set config = {'state': None, 'priority': 0, 'src4': None, 'src6': None} %}
 {%- endif %}
+
+{%- set vips = {'vip4': '172.16.130.10', 'vip6': '2a07:de40:b27e:1204::10'} %}
 
 keepalived:
   config:
@@ -13,25 +29,21 @@ keepalived:
       router_id: atlas
       enable_script_security: true
     vrrp_instance:
-      atlas:
-        {%- if mode == 'master' %}
-        mcast_src_ip: 2a07:de40:b27e:1204::11
-        state: MASTER
-        priority: 100
-        {%- elif mode == 'backup' %}
-        mcast_src_ip: 2a07:de40:b27e:1204::12
-        state: BACKUP
-        priority: 50
-        {%- endif %} {#- close master/backup logic #}
-        advert_int: 0.5
+      {%- for instance in [4, 6] %}
+      atlas{{ '-legacy' if instance == 4 else '' }}:
+        mcast_src_ip: {{ config['src' ~ instance] }}
+        priority: {{ config['priority'] }}
+        state: {{ config['state'] }}
+        advert_int: 1
         interface: os-public
-        virtual_router_id: 1
+        virtual_router_id: 9{{ loop.index }}
         smtp_alert: true
         virtual_ipaddress:
-          - 2a07:de40:b27e:1204::10 dev os-public
+          - {{ vips['vip' ~ instance] }} dev os-public
         track_interface:
           - os-public
           - d-os-public
+      {%- endfor %}
 
 network:
   interfaces:
