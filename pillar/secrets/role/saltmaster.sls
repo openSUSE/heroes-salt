@@ -150,3 +150,78 @@ profile:
       iUA=
       =JPU3
       -----END PGP MESSAGE-----
+
+rsync:
+  users:
+    saltpush: |
+      -----BEGIN PGP MESSAGE-----
+
+      hQQOA7A9CHm0S6RyEA/9GzYohGKnoP4FGuU8yXhBd224EMXtcqAN6GLubm/GFuZQ
+      TOlJPXm2AHLgRl6bIWkaM+ZikaHU1FGjFQRFsloIhR2QsUp3MALvdpywGSmNQp/q
+      FGINACOPRjttEBe7YiPwL7VInMe1caONdrCBn4hVjbYG7kXQHL7ND/h6wh6I+yHG
+      x7pejO+9zeACKQCSd0K90fLYdvZaw5si/kKiFDRWpj17UeVJKonkQDLy0JTju8CJ
+      UC4dh2fY9XogWqG/RXl3/rvyDBnVH5WD45hTrurwjv/wpd4aCqnU7agEAwmgxwzv
+      TnhD1rf5ladOfRtQLNbxFhF9REB1FjGupUBJLri8Kx8AKgMfUKD8g2X7CLXIPKQT
+      q6AIC+asigP5Kwbd+s0+cyNVwZcGMugHVASSQCtD9h5PihmJAfgOXhZRiPt1VfHm
+      DszaQ5jQy3mPcy9jYqYXtrPXiTi6Inzf6L3ThNCxgwIMbuxqSd9hdG8BYDjE1b6H
+      7CK6QAJhILzdU0iZkEPcT0C+46gTIIuFUmOmnCEwXqj94o9GXQUYp2lTHKS6h1vU
+      +bmOvxHqozFn/pEBvWedQ24HiF9KXElcZXNCXPFisEXsVns7XvA3ATCm8ht20aJD
+      HDcbsQN9PXiLhZ9ZCGEpU3Z1OgmjyYOAPsOOqOlfEQXG5J7fUSE4m6UqRWPqWJ0P
+      /Altmg2P0cQ361DdxiWNGInVOq8NtzBTIuJNOZj4aRe9ja9sijIRWuNOnhOkVa1Y
+      1MPcVvvEJ5dpKFy6PTYKZr7Dttgit6Cwl4iYpHxraAmK7lfRdXUfE2uY/KxCKKWk
+      n6GeGAv1AdlHKBT2wFHony6KYECDW0OJO+VGGofmVI0kNpIu8cx/Clf3Ywu3IRGM
+      5wjkHWOw84/hrsoP8KaWl+bcmiZ3ayaK0hw79TVIMIY8jVfNDBa/12mB4bAsALr5
+      K1VDo2vffqULpNmfjj+n4F3JeaeKeLS0ZK9iXOOnD6skYrJZelsVtiwc9sFGIdpB
+      QedpBoy603yH6v+0jBHWKBWEGucffOj1etZbG10F9GcHlYkJe/ivTx6u/y0NO022
+      xt4w09wBD/DtVp4OOGt2/2YALpDvJYRFDOg4BMvXVICv+0APKYDRcdWcQ/w21a4d
+      OMvCzQJtPiNjBZrDaKb0oabC8kRR6aOKMj8KuuceRWlCR6L78wcICR+sCULg+2eg
+      qJCqjEkge+LGJEcCeYvxBPBG0zxCanS8SXSQZrZQhpI6wIweG455NrKvYIUOcujp
+      JBSa9Vzq0OVgnpLTtiAL7t5b/DV3qBYwuv/9cYffPz08SE4tDRDfvlIbG+3L7ALO
+      r65NVd8DSAimwYovEE/2XbfG2RZDaP2NIvip6htDSP8ahQIMA8amgupjyC8cAQ//
+      ZNYWfR6F6PGtcsX7iWA5xN7+layt/162TjdhsBBak4A5mGGa27EYCwX/eUbtYpyC
+      9FRYJTDzljsXBo4jAwGJhTi8d1of+0SJvx4gFhZE3cwFNDFaBG5GYlMj7+qTolWQ
+      vVteRaenF/EnL2zlmhhgMJPDCHd9slmrejcbQx12hmaW1GiY2YGNNSGFjv6O7iwt
+      M7ZSDwGv1gRvqhdj4wBT4v/AHJwwA+R/0H9mmmzT7DJ+5z2uZ2YC1ZpRd0cnisbY
+      0gAY1SeR241Gr1ZRY4IhjjEB5JSv+TZ6Iadyc/UhDwseXowh9tuhMXa9dg/JOPMa
+      iFalu+0C5KJHvbIKTBLLSPosquPM/TClkbzivKZLy19EeFPpZy8COZ+Zex6+bc5J
+      lyrmOvOAhTg/K5OpHcInPYOpd6ZTy1HpCysbU8sSoQpTSSvMXulGJGmnWACN4+2K
+      D9cchciR11yXdgMoEBCeiKNTIVo+zhpdi4zMioWSpKpExUmd3gfhKqDuDFO1lxld
+      K2m1JlD7qElMiAZBNfmO1r4WiRxfmL7Ho8qbGe9v4QiRMHe0I1nVtVu9JxR28QoQ
+      8Y8IuKkjcPBjBEsnR7GlM3YK2VfHx0HQTckUJIkzg3HGmZAnzHCwYyCOW28Pr+Jc
+      ZKdIEDmR0ZgzEWaW7h7dFTB303vy9nZ6hPTumgoWrhKFAQ4DslgfDDfB4G8QA/9V
+      7AfE6cabBozDYwdZF7go4W4qJTfs/x1IgZaGBURzmiaO4SVVmxTfZnjor31JXiEm
+      GJTohFxh2Iwnn3LeFP0yVdymqeKdfzIYYPeKJnz9OqgR2RGX9QYMym6JAmlVp3Zg
+      zkAHIDfkHoczYHW9pkkjYyphCtUd4zIDic4ZeaigvQP/RYFE9iQPAsPdwOoxACD/
+      cnaIuUIPLw9wEQv/64kPwQJlBWFKokjtLrcF3MLjjE4qN6kJ8QbSLqMlIj9mRu1m
+      hBjXXRbhu29NqBvvmiQcqKCwk6eVC2QfY0TvOAue5hYSW6i5KAoBFscr18HdiRo2
+      TJXcSH9RWdNzYEGEqh2vopqFAg4DiLcKbyvsTOYQB/0WxvqtZfRg8V3wgzIi0F+c
+      /Z0fsYjUJtZoyf2zbXN6mz0Onz9i0ZH/vRGChnfumoB2rmmiz2P9VJEW+m4okK/n
+      Qp5ptaCqw7p0e21jEy18m5wMYHB+XbZj6QirHPPRy1YKnKBYPu+/ic3cs9PtnIlv
+      clYjFMTYCH/nN2ZK2zrsWGr02QcwThaDeFWe9xMOnlEFGWDmOEQU8+Li3AR9KvmM
+      a7s8r42dQ0grm4NUBWmQPsB0rmqMzeIngORSM+eoqudU3YA1GyBjvSSOZhzSsAom
+      yFH4pZOW1rq0O3lboCsjDn2ugEeupNvI/FEnDGU9jKuNxtnrp4CjY7fzVh4Z9tI0
+      B/0ZEklh8LuTU7RkRdRJJvAnWBGfzMY+TojK5e9bV1AYIouhG6Tfh4lJxdPW+a/j
+      9B/6PBzE3fNmxkYJnmLJcFlFVe/sX+ZSLN9kJ6DKYClDANOLR44sn59TyEvAFbr3
+      dTySsMjR9p6gSpqzLUDQ5FEXNv5VnURL0k4OZc7gt2tUXyxqxJ+5ldTQmrnfYda7
+      vMddjsR8nTluPvdV08PTQChpgfsNypKdVsCMkvirNDLwHo6vl1+82yl+q6sFaitt
+      OPsyVAf8/YwEFaAOm/3LitllrPUm7pG3dkui2vsxSBcbFEI18fQ9TKXQzmIIs20T
+      lqjpc1uqnDT18XgWuixeLl/rhF4Dx56WF/g6QEwSAQdA1lFwHj4tq58w9+nXX52S
+      jaU42f8Qm7y7fUIefbLqLnEwCHrXOBIVEoDz9hSzo9qEJ+85s/9o+6DARDgOkWK4
+      WRiml26XDNJWj3D9NV6TdPCrhQIMA6zwzgobrGmRAQ/9FkWICvT88erXIiwLRdJE
+      ASzaWCrX1FlbYWf8FGBZ12R3b1qV2KTFPoaqugHOPgc53tVpScgMiNKVl8IEAu2c
+      s6a0f7wzsy9pg2ZIiakHGreRxkN8Y/KQBOBgOJVae0YdB7tjH0z5yQVroNtRJJf8
+      1ndUQc6IdvHY5bk9xQriQgtJ52yOzppz5Ti/tm/V34Xjvf9WXkJ550QeagDHINkx
+      q5SWcFqR8v7DuCgun3fG8wJ6mOhN0O4GOiiqQ0KCVJeowYa1VpvI8tIduzgTRrUu
+      QBnN6se1P2nOiaMdcgWdJCANU7+r9gohnzecFbWW61Jlkrvo9IUBXhmbre4s5BmJ
+      Z0Dz8BLSopr70RJoZdAx/aVhWc5abe7kwPrRmUbR61yhpQzfD4T4bBYkyn1guAXM
+      oLZWNsVnFI5XdFtFeH2IJn+4N/6Ot6oIEURWozclpKwPjuFtsh8wJumv/1ujTZ8s
+      ydU+mvr/m9X24d2ngNNCT7xQD0Y68JdhDuI2PO0Y/9zr1TaROfhbyou9hdc3YqIV
+      geTwFV8kmyp+b9mve3yQ7Irt8jGgxiOGupHmt4ErZS3qnDxdTcG/JZlJDREr4EU7
+      ClXKIP7HGSO01Or0QoSIUoUSANCIx1ODLbZSak+cJVawetRm5Bcpkf16LJ3F5skE
+      SjE5Ddg9/AoU39hsv2QEowuEXgP6pvRCokazYBIBB0CRUZi7GFRmuzZw+wQ1Bm5/
+      DNfUAhYqE/l2uobncHpJRDATu9zDEIwz7UDIORdWgLHxl9RdtU+H9iiBEaqiSCQ4
+      sxMApf7k/vAWFKJVyR0gF23SUwFKybdmR76cIMswvKXDilqd4U0SRmIpMxUjRDdb
+      Q0nSbXbSYP6vColLE/riuXHdOXQC5Ws8/PNFCD8tTjW+33DoKxXchsYQJnLg16so
+      AgYbjRqa
+      =qoG+
+      -----END PGP MESSAGE-----
