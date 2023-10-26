@@ -4,6 +4,7 @@ git:
   elasticsearch: {}
   firewalld: {}
   haproxy: {}
+  hostsfile: {}
   keepalived: {}
   limits:
     namespace: 'ryancurrah'
