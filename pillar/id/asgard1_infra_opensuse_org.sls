@@ -19,6 +19,7 @@ grains:
 roles:
   - gateway
   - ha
+  - tayga
 network:
   interfaces:
     os-p2p-pub:

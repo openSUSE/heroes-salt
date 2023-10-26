@@ -1,3 +1,4 @@
 include:
   - .network
   - .vrrp
+  - .tayga
