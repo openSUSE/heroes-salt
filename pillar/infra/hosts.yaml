@@ -32,6 +32,7 @@ witch1:
       source: x-os-salt
       mac: '92:93:ee:1a:c4:80'
       ip6: 2a07:de40:b27e:1200::a/64
+      pseudo_ip4: 172.16.164.101
   disks:
     root: 15G
   image: admin-minimal-15_5
@@ -109,6 +110,7 @@ narwal8:
       source: x-os-internal
       mac: '2e:09:0d:dc:6e:14'
       ip6: 2a07:de40:b27e:1203::e8/64
+      pseudo_ip4: 172.16.164.102
   disks:
     root: 3600a09803831494f635d554b394f7739
     data0: 3600a09803831494f635d554b394f7745
@@ -123,6 +125,7 @@ acme:
       mac: 'ba:34:bc:a1:a8:c3'
       ip4: 172.16.129.90/24
       ip6: 2a07:de40:b27e:1203::100/64
+      pseudo_ip4: 172.16.164.103
   disks:
     root: 3600a09803831494f635d554b394f7742
 thor1:
