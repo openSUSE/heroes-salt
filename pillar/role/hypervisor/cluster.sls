@@ -10,3 +10,8 @@ firewalld:
         - ssh
     nfs:
       description: NFS network (openSUSE-falkor-nfs-ur)
+
+hostsfile:
+  alias: clusterip
+  domain: infra.opensuse.org
+  minions: falkor*.infra.opensuse.org
