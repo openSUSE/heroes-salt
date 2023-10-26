@@ -8,6 +8,7 @@ include:
   - .bootloader
   - .limits
   - .network
+  - .rsync
   - .sysctl
 
 chrony:
