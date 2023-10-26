@@ -134,6 +134,7 @@ thor1:
     os-thor:
       source: x-os-thor
       mac: 'fe:cd:47:19:e7:86'
+      ip4: 172.16.200.11/24
       ip6: 2a07:de40:b27e:1100::a/64
   disks:
     root: 15GB
@@ -146,6 +147,7 @@ thor2:
     os-thor:
       source: x-os-thor
       mac: 'c2:65:d8:27:81:f7'
+      ip4: 172.16.200.12/24
       ip6: 2a07:de40:b27e:1100::b/64
   disks:
     root: 3600a09803831494f635d554b394f7743
