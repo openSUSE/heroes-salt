@@ -12,7 +12,7 @@ tayga:
     {%- if 'ip6' in interface_config %}
     {%- set address = interface_config.get('pseudo_ip4') %}
     {%- if address is not none and address.startswith(nat64_range) %}
-    {{ address }}: {{ interface_config['ip6'] }}
+    {{ address }}: {{ salt['os_network.strip_cidr'](interface_config['ip6']) }}
     {%- endif %} {#- close address check #}
     {%- endif %} {#- close ip6 check #}
     {%- endfor %} {#- close interfaces loop #}
