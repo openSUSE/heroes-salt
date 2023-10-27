@@ -1,5 +1,6 @@
 {%- import_yaml 'infra/hosts.yaml' as hosts %}
 {%- import_yaml 'infra/networks.yaml' as country_networks %}
+{%- import_yaml 'infra/nameservers.yaml' as country_nameservers %}
 
 {%- set host = grains['host'] %}
 {%- set country = grains.get('country') %}
@@ -101,6 +102,15 @@ network:
     {%- endif %}
 {%- endif %} {#- close network check #}
 {%- endif %} {#- close shortnet check #}
+
+  {%- if country in country_nameservers %}
+  config:
+    netconfig_dns_static_servers:
+      {%- for nameserver in country_nameservers[country] %}
+      - {{ nameserver }}
+      {%- endfor %}
+    netconfig_dns_static_searchlist: infra.opensuse.org
+  {%- endif %}
 
 {%- endif %} {#- close ip4/ip6/reduced_interfaces check #}
 {%- else %}
