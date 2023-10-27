@@ -1,7 +1,9 @@
+{#- source infrastructure data #}
 {%- import_yaml 'infra/hosts.yaml' as hosts %}
 {%- import_yaml 'infra/networks.yaml' as country_networks %}
 {%- import_yaml 'infra/nameservers.yaml' as country_nameservers %}
 
+{#- set generic variables #}
 {%- set host = grains['host'] %}
 {%- set country = grains.get('country') %}
 {%- set networks = country_networks.get(country, {}) %}
@@ -9,11 +11,14 @@
 {%- set msg = 'common.network, host ' ~ host ~ ': ' %}
 {%- set log = salt.log.debug %}
 
+{#- start main logic if the minion is listed in hosts.yaml, otherwise none of the below will be executed #}
 {%- if host in hosts %}
 
+{#- fetch host specific configuration from hosts.yaml #}
 {%- set hostconfig = hosts[host] %}
 {%- set interfaces = hostconfig.get('interfaces', {}) %}
 
+{#- assess the primary network interface, which decides the main network segment #}
 {%- if 'primary_interface' in hostconfig %}
 {%- set primary_interface = hostconfig['primary_interface'] %}
 {%- elif interfaces | length == 1 %}
@@ -29,15 +34,19 @@
 {%- do log(msg ~ 'trying to use primary interface addresses') %}
 {%- set ip4 = interfaces[primary_interface].get('ip4') %}
 {%- set ip6 = interfaces[primary_interface].get('ip6') %}
+
+{#- if an interface starts with "os-", it is named using our common naming scheme which indicates the short network segment name #}
 {%- if primary_interface.startswith('os-') %}
 {%- set shortnet = primary_interface %}
+
+{#- otherwise, assess the network segment based off the source (hypervisor) interface #}
 {%- else %}
 {%- set shortnet = interfaces[primary_interface].get('source', '').replace('x-', '') %}
 {%- endif %}
 {%- do log(msg ~ 'shortnet set to ' ~ shortnet) %}
 {%- set reduced_interfaces = interfaces.pop(primary_interface) %}
 
-{#- otherwise apply its global addresses (single interface hosts without an "interfaces" configuration) #}
+{#- if no primary interface is available, find and apply addresses defined outside of an "interfaces" block (single interface hosts might use this) #}
 {%- else %}
 {%- do log(msg ~ 'trying to use generic interface addresses') %}
 {%- set ip4 = hostconfig.get('ip4') %}
@@ -50,10 +59,12 @@
 {%- do log(msg ~ 'primary IPv4 address set to ' ~ ip4) %}
 {%- do log(msg ~ 'primary IPv6 address set to ' ~ ip6) %}
 
+{#- configure interfaces if the previous logic found any with usable IP addresses #}
 {%- if ip4 is not none or ip6 is not none or reduced_interfaces %}
 network:
   interfaces:
 
+    {#- configure addresses on the primary interface if IP addresses were found for it #}
     {%- if ip4 is not none or ip6 is not none %}
     {{ primary_interface }}:
       addresses:
@@ -65,6 +76,7 @@ network:
         {%- endif %}
     {%- endif %}
 
+    {#- configure addresses on any additional interfaces if IP addresses were found for them #}
     {%- for interface, ifconfig in reduced_interfaces.items() %}
     {%- if 'ip4' in ifconfig or 'ip6' in ifconfig %}
     {%- do log(msg ~ ' configuring additional interface ' ~ interface) %}
@@ -79,17 +91,21 @@ network:
     {%- endif %} {#- close ip4/ip6 check #}
     {%- endfor %}
 
+{#- if a main network segment is available, use it to configure default routes #}
 {%- if shortnet %}
 {%- set net_ns = namespace(network=None) %}
+{#- find the network segment matching the previously assessed short name #}
 {%- for network, config in networks.items() %}
 {%- if config['short'] == shortnet %}
 {%- set net_ns.network = network %}
+{#- segment names only occur once, hence stop the iteration after the first match #}
 {%- break %}
 {%- endif %}
 {%- endfor %}
 {%- do log(msg ~ 'network set to ' ~ net_ns.network) %}
 {%- set network = networks.get(net_ns.network, {}) %}
 
+{#- if gateway entries for the respective segment were found, configure them as default routes #}
 {%- if 'gw4' in network or 'gw6' in network %}
   routes:
     {%- if ip4 is not none and 'gw4' in network %}
@@ -103,16 +119,18 @@ network:
 {%- endif %} {#- close network check #}
 {%- endif %} {#- close shortnet check #}
 
-  {%- if country in country_nameservers %}
+{#- configure nameservers if any managed ones are available for the location the minion is in #}
+{%- if country in country_nameservers %}
   config:
     netconfig_dns_static_servers:
       {%- for nameserver in country_nameservers[country] %}
       - {{ nameserver }}
       {%- endfor %}
     netconfig_dns_static_searchlist: infra.opensuse.org
-  {%- endif %}
+{%- endif %}
 
 {%- endif %} {#- close ip4/ip6/reduced_interfaces check #}
+
 {%- else %}
 {%- do log('common.network: no host entry for ' ~ host) %}
 {%- endif %} {#- close host in hosts check #}
