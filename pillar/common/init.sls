@@ -102,6 +102,9 @@ sssd:
           ldap_tls_reqcert: demand
           ldap_uri: ldaps://freeipa.infra.opensuse.org
           ldap_user_search_base: cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org
+          {%- if grains.get('country') == 'cz' %}
+          lookup_family_order: ipv6_only
+          {%- endif %}
       general_settings:
         config_file_version: 2
         domains: infra.opensuse.org
