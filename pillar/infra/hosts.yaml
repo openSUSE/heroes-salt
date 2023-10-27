@@ -154,3 +154,16 @@ thor2:
       pseudo_ip4: 172.16.164.12
   disks:
     root: 3600a09803831494f635d554b394f7743
+narwal7: # migrated 2023-10-27
+  cluster: falkor
+  ram: 1024MB
+  vcpu: 1
+  interfaces:
+    os-internal:
+      source: x-os-internal
+      mac: '52:54:00:65:2b:16'
+      ip6: 2a07:de40:b27e:1203::e8/64
+  disks:
+    root: 3600a0980383041622f2455736d434c46
+    data0: 3600a098038304161792455736d424c70
+  legacy_boot: true
