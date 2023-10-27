@@ -94,7 +94,7 @@ deploy_job:
   stage: deploy
   script:
     - sudo salt-call event.fire_master $CI_DEPLOY_PASSWORD salt/fileserver/gitfs/update
-    - "rsync -a --delete --super --owner --group --chown=0:479 --chmod='u=rwX,g=rX,o=' $PWD/ rsync://saltpush@witch1.infra.opensuse.org:873/salt-push/"
+    - "rsync -a --delete --super --owner --group --chown=477:479 --chmod='u=rwX,g=rX,o=' $PWD/ rsync://saltpush@witch1.infra.opensuse.org:873/salt-push/"
   tags:
     - salt-deploy
   rules:
