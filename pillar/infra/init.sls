@@ -74,5 +74,5 @@ infrastructure:
           {%- endif %}
           image: {{ hostconfig.get('image', 'admin-minimal-latest') }}
           vm_extra:
-            legacy: {{ hostconfig.get('legacy_boot', False }}
+            legacy: {{ hostconfig.get('legacy_boot', False) }}
         {%- endfor %}
