@@ -108,7 +108,7 @@ sssd:
         services: nss, pam, ssh
       services:
         nss:
-          filter_group: root
+          filter_groups: root
           filter_users: root
         pam: {}
         ssh: {}
