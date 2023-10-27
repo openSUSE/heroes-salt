@@ -4,6 +4,11 @@ def gw_with_cidr(gw, net):
     network, slash, cidr = net.partition('/')
     return f'{gw}{slash}{cidr}'
 
+
+def strip_cidr(address):
+    return address.split('/')[0]
+
+
 def convert_4to6(v4address, v6prefix):
     """
     Example arguments:

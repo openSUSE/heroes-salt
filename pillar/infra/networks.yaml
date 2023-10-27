@@ -41,3 +41,9 @@ cz:
     net6: 2a07:de40:b27e:1205::/64
     gw6: '2a07:de40:b27e:1205::3'
     id: 1205
+
+# below are mapping networks and not VLANs
+pseudo:
+  openSUSE-NAT46-Pool:
+    net6: 2a07:de40:b27e:64::/96
+    net4: 172.16.164.0/24
