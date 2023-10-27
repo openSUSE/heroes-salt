@@ -138,6 +138,7 @@ thor1:
       source: x-os-thor
       mac: 'fe:cd:47:19:e7:86'
       ip6: 2a07:de40:b27e:1100::a/64
+      pseudo_ip4: 172.16.164.11
   disks:
     root: 15GB
 thor2:
@@ -150,5 +151,6 @@ thor2:
       source: x-os-thor
       mac: 'c2:65:d8:27:81:f7'
       ip6: 2a07:de40:b27e:1100::b/64
+      pseudo_ip4: 172.16.164.12
   disks:
     root: 3600a09803831494f635d554b394f7743
