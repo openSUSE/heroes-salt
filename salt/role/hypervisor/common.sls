@@ -8,3 +8,4 @@ hypervisor_directories:
 include:
   - libvirt
   - infrastructure.libvirt.domains
+  - profile.idmapd
