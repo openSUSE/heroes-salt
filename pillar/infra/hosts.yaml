@@ -1,169 +1,169 @@
+acme:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f7742
+  interfaces:
+    os-internal:
+      ip4: 172.16.129.90/24
+      ip6: 2a07:de40:b27e:1203::100/64
+      mac: ba:34:bc:a1:a8:c3
+      pseudo_ip4: 172.16.164.103
+      source: x-os-internal
+  primary_interface: os-internal
+  ram: 1024MB
+  vcpu: 1
 asgard1:
   cluster: orbit
+  disks:
+    root: 20G
+  image: admin-micro-5_4
+  interfaces:
+    eth0:
+      mac: d2:e1:4b:98:46:1f
+      source: bond-fib
   node: orbit20.infra.opensuse.org
   ram: 4096MB
   vcpu: 4
-  interfaces:
-    eth0:
-      source: bond-fib
-      mac: 'd2:e1:4b:98:46:1f'
+asgard2:
+  cluster: orbit
   disks:
     root: 20G
   image: admin-micro-5_4
-asgard2:
-  cluster: orbit
+  interfaces:
+    eth0:
+      mac: d2:e1:4b:98:46:2f
+      source: bond-fib
   node: orbit21.infra.opensuse.org
   ram: 4096MB
   vcpu: 4
-  interfaces:
-    eth0:
-      source: bond-fib
-      mac: 'd2:e1:4b:98:46:2f'
-  disks:
-    root: 20G
-  image: admin-micro-5_4
-witch1:
-  cluster: squanchy
-  ram: 4096MB
-  vcpu: 4
-  primary_interface: os-salt
-  interfaces:
-    os-salt:
-      source: x-os-salt
-      mac: '92:93:ee:1a:c4:80'
-      ip6: 2a07:de40:b27e:1200::a/64
-      pseudo_ip4: 172.16.164.101
-  disks:
-    root: 15G
-  image: admin-minimal-15_5
-warp:
-  cluster: squanchy
-  ram: 512MB
-  vcpu: 1
-  interfaces:
-    eth0:
-      source: x-os-s-warp
-      mac: 'd6:f7:c1:31:ce:80'
-      ip6: 2a07:de40:b27e:1101::2/64
-    eth1:
-      source: x-s-j-os-out
-      mac: 'd6:f7:c1:31:ce:81'
-      ip4: 10.151.202.1/24
-      ip6: 2a07:de40:b27f:202::1/64
-  disks:
-    root: 15G
-  image: admin-minimal-15_5
-devcon:
-  cluster: squanchy
-  ram: 512MB
-  vcpu: 1
-  primary_interface: os-internal
-  interfaces:
-    os-internal:
-      source: x-os-internal
-      mac: '1a:eb:8a:3d:1a:80'
-      ip6: 2a07:de40:b27e:1203::de/64
-    os-ipmi:
-      source: x-os-ipmi-ur
-      mac: '1a:eb:8a:3d:1a:81'
-      ip6: fd4b:5292:d67e:1001::de/64
-    s-netapp:
-      source: x-s-na-mgmt
-      mac: '1a:eb:8a:3d:1a:82'
-      ip4: 192.168.209.10/24
-  disks:
-    root: 15G
-  image: admin-minimal-15_5
 atlas1:
   cluster: falkor
-  ram: 4096MB
-  vcpu: 2
-  primary_interface: os-public
-  interfaces:
-    os-public:
-      source: x-os-public
-      mac: '2e:b6:1e:18:39:68'
-      ip4: 172.16.130.11/24
-      ip6: 2a07:de40:b27e:1204::11/64
   disks:
     root: 3600a09803831494f635d554b394f7730
-atlas2:
-  cluster: falkor
-  ram: 4096MB
-  vcpu: 2
-  primary_interface: os-public
   interfaces:
     os-public:
+      ip4: 172.16.130.11/24
+      ip6: 2a07:de40:b27e:1204::11/64
+      mac: 2e:b6:1e:18:39:68
       source: x-os-public
-      mac: '2e:b6:1e:18:39:69'
-      ip4: 172.16.130.12/24
-      ip6: 2a07:de40:b27e:1204::12/64
+  primary_interface: os-public
+  ram: 4096MB
+  vcpu: 2
+atlas2:
+  cluster: falkor
   disks:
     root: 3600a09803831494f635d554b394f7731
+  interfaces:
+    os-public:
+      ip4: 172.16.130.12/24
+      ip6: 2a07:de40:b27e:1204::12/64
+      mac: 2e:b6:1e:18:39:69
+      source: x-os-public
+  primary_interface: os-public
+  ram: 4096MB
+  vcpu: 2
+devcon:
+  cluster: squanchy
+  disks:
+    root: 15G
+  image: admin-minimal-15_5
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::de/64
+      mac: 1a:eb:8a:3d:1a:80
+      source: x-os-internal
+    os-ipmi:
+      ip6: fd4b:5292:d67e:1001::de/64
+      mac: 1a:eb:8a:3d:1a:81
+      source: x-os-ipmi-ur
+    s-netapp:
+      ip4: 192.168.209.10/24
+      mac: 1a:eb:8a:3d:1a:82
+      source: x-s-na-mgmt
+  primary_interface: os-internal
+  ram: 512MB
+  vcpu: 1
+narwal7:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424c70
+    root: 3600a0980383041622f2455736d434c46
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::e7/64
+      mac: 52:54:00:65:2b:16
+      source: x-os-internal
+  legacy_boot: true
+  ram: 1024MB
+  vcpu: 1
 narwal8:
   cluster: falkor
-  ram: 1024MB
-  vcpu: 1
-  primary_interface: os-internal
-  interfaces:
-    os-internal:
-      source: x-os-internal
-      mac: '2e:09:0d:dc:6e:14'
-      ip6: 2a07:de40:b27e:1203::e8/64
-      pseudo_ip4: 172.16.164.102
   disks:
-    root: 3600a09803831494f635d554b394f7739
     data0: 3600a09803831494f635d554b394f7745
-acme:
-  cluster: falkor
-  ram: 1024MB
-  vcpu: 1
-  primary_interface: os-internal
+    root: 3600a09803831494f635d554b394f7739
   interfaces:
     os-internal:
+      ip6: 2a07:de40:b27e:1203::e8/64
+      mac: 2e:09:0d:dc:6e:14
+      pseudo_ip4: 172.16.164.102
       source: x-os-internal
-      mac: 'ba:34:bc:a1:a8:c3'
-      ip4: 172.16.129.90/24
-      ip6: 2a07:de40:b27e:1203::100/64
-      pseudo_ip4: 172.16.164.103
-  disks:
-    root: 3600a09803831494f635d554b394f7742
+  primary_interface: os-internal
+  ram: 1024MB
+  vcpu: 1
 thor1:
   cluster: squanchy
-  ram: 1024MB
-  vcpu: 1
-  primary_interface: os-thor
-  interfaces:
-    os-thor:
-      source: x-os-thor
-      mac: 'fe:cd:47:19:e7:86'
-      ip6: 2a07:de40:b27e:1100::a/64
-      pseudo_ip4: 172.16.164.11
   disks:
     root: 15GB
-thor2:
-  cluster: falkor
-  ram: 1024MB
-  vcpu: 1
-  primary_interface: os-thor
   interfaces:
     os-thor:
+      ip6: 2a07:de40:b27e:1100::a/64
+      mac: fe:cd:47:19:e7:86
+      pseudo_ip4: 172.16.164.11
       source: x-os-thor
-      mac: 'c2:65:d8:27:81:f7'
-      ip6: 2a07:de40:b27e:1100::b/64
-      pseudo_ip4: 172.16.164.12
-  disks:
-    root: 3600a09803831494f635d554b394f7743
-narwal7: # migrated 2023-10-27
-  cluster: falkor
+  primary_interface: os-thor
   ram: 1024MB
   vcpu: 1
-  interfaces:
-    os-internal:
-      source: x-os-internal
-      mac: '52:54:00:65:2b:16'
-      ip6: 2a07:de40:b27e:1203::e7/64
+thor2:
+  cluster: falkor
   disks:
-    root: 3600a0980383041622f2455736d434c46
-    data0: 3600a098038304161792455736d424c70
-  legacy_boot: true
+    root: 3600a09803831494f635d554b394f7743
+  interfaces:
+    os-thor:
+      ip6: 2a07:de40:b27e:1100::b/64
+      mac: c2:65:d8:27:81:f7
+      pseudo_ip4: 172.16.164.12
+      source: x-os-thor
+  primary_interface: os-thor
+  ram: 1024MB
+  vcpu: 1
+warp:
+  cluster: squanchy
+  disks:
+    root: 15G
+  image: admin-minimal-15_5
+  interfaces:
+    eth0:
+      ip6: 2a07:de40:b27e:1101::2/64
+      mac: d6:f7:c1:31:ce:80
+      source: x-os-s-warp
+    eth1:
+      ip4: 10.151.202.1/24
+      ip6: 2a07:de40:b27f:202::1/64
+      mac: d6:f7:c1:31:ce:81
+      source: x-s-j-os-out
+  ram: 512MB
+  vcpu: 1
+witch1:
+  cluster: squanchy
+  disks:
+    root: 15G
+  image: admin-minimal-15_5
+  interfaces:
+    os-salt:
+      ip6: 2a07:de40:b27e:1200::a/64
+      mac: 92:93:ee:1a:c4:80
+      pseudo_ip4: 172.16.164.101
+      source: x-os-salt
+  primary_interface: os-salt
+  ram: 4096MB
+  vcpu: 4
