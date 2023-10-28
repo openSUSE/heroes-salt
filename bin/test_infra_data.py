@@ -34,6 +34,7 @@ objects = ['hosts', 'host', 'disk', 'interface']
 need_unique = ['ip4', 'ip6', 'pseudo_ip4', 'mac']
 
 schemas = {}
+lun_mappers = []
 
 with open(f'{infradir}hosts.yaml') as fh:
     hosts = yaml.safe_load(fh)
@@ -113,6 +114,8 @@ def test_duplicates(data):
         for key, value in host_config.items():
             if isinstance(value, dict):
                 for low_key, low_value in value.items():
+                    if key == 'disks' and not low_value.endswith(('G', 'GB')):
+                        lun_mappers.append(low_value)
                     if isinstance(low_value, str) or isinstance(low_value, int):
                         test_key(low_key, low_value)
                     elif isinstance(low_value, dict):
@@ -125,7 +128,9 @@ def test_duplicates(data):
             else:
                 _fail(f'Encountered unhandled value type in key {key} under host {host}.')
     unique = {}
-    for need_unique_key in need_unique:
+    matches['lun_mappers'] = lun_mappers
+    need_unique_final = need_unique + ['lun_mappers']
+    for need_unique_key in need_unique_final:
         unique.update({need_unique_key:
                        {
                            'seen_values': set(),
@@ -140,7 +145,7 @@ def test_duplicates(data):
             else:
                 unique[match_key]['seen_values'].add(match_value)
     found_dupes = False
-    for key in need_unique:
+    for key in need_unique_final:
         dupes = unique[key]['duplicate_values']
         if dupes:
             print(f'FAIL: Duplicate values for key {key}: {dupes}')
