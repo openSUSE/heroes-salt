@@ -1,0 +1,35 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/interface.json",
+	"title": "Interface",
+	"description": "Network interface of a virtual machine",
+	"type": "object",
+	"properties": {
+		"source": {
+			"description": "VLAN or physical interface on the hypervisor to attach",
+			"type": "string"
+		},
+		"mac": {
+			"description": "MAC (hardware) address",
+			"type": "string",
+			"pattern": "^([a-f0-9]{2}:){5}"
+		},
+		"ip4": {
+			"description": "IPv4 address",
+			"type": "string",
+			"format": "ipv4"
+		},
+		"ip6": {
+			"description": "IPv6 adddress",
+			"type": "string",
+			"format": "ipv6"
+		},
+		"pseudo_ip4": {
+			"description": "IPv4 address to map to the IPv6 address using NAT64",
+			"type": "string",
+			"format": "ipv4"
+		}
+	},
+	"additionalProperties": false,
+	"required": [ "mac", "source" ]
+}

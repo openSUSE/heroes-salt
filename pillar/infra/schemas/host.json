@@ -1,0 +1,79 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/host.json",
+	"title": "Host",
+	"description": "Virtual machine",
+	"type": "object",
+	"properties": {
+		"cluster": {
+			"description": "Name of the virtualization cluster, as found in clusters.yaml",
+			"type": "string",
+			"enum": [
+					"falkor",
+					"orbit",
+					"squanchy"
+			]
+		},
+		"disks": {
+			"description": "Disk images or LUNs to map",
+			"type": "object",
+			"patternProperties": {
+				"^(root|data\\d)$": {
+					"$ref": "infra/schemas/disk.json"
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 1,
+			"required": [
+					"root"
+			]
+		},
+		"image": {
+			"description": "Base image to apply on the root disk",
+			"type": "string",
+			"enum": [
+					"admin-minimal-15_5",
+					"admin-minimal-micro-5_4",
+					"admin-micro-5_4"
+			]
+		},
+		"interfaces": {
+			"description": "Virtual network interfaces",
+			"type": "object",
+			"patternProperties": {
+				"^(o?s-\\w{1,11}|eth\\d)$": {
+					"$ref": "infra/schemas/interface.json"
+				}
+			},
+			"additionalProperties": false
+		},
+		"legacy_boot": {
+			"description": "Whether to use legacy instead of modern (UEFI) boot",
+			"type": "boolean"
+		},
+		"node": {
+			"description": "Applicable only to non-HA virtualization clusters: which node the VM should run on",
+			"type": "string",
+			"pattern": "^[a-z]+\\d{0,2}?\\.infra\\.opensuse\\.org$"
+		},
+		"primary_interface": {
+			"description": "In case of multiple interfaces, the one to use for determining the main network segment",
+			"type": "string",
+			"pattern": "^(o?s-\\w{1,11}|eth\\d)$"
+		},
+		"ram": {
+			"description": "Memory size ending in a SI suffix - currently only MB supported",
+			"type": "string",
+			"pattern": "^\\d{3,4}MB$"
+
+		},
+		"vcpu": {
+			"description": "Amount of virtual CPU cores",
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 32
+		}
+	},
+	"additionalProperties": false,
+	"required": [ "cluster", "ram", "vcpu", "disks" ]
+}
