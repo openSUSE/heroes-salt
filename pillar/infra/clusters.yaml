@@ -1,3 +1,4 @@
+---
 orbit:
   nodes:
     - orbit20
@@ -13,7 +14,7 @@ falkor:
     - falkor21
     - falkor22
   primary_node: falkor20.infra.opensuse.org
-  netapp: {#- to-do: manage NetApp storage #}
+  netapp:  # to-do: manage NetApp storage
     host: None
     vs_primary: vs_opensuse
     igroup_primary: falkor
