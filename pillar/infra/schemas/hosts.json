@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/hosts.json",
+	"title": "Host",
+	"description": "Virtual machines hosted in the openSUSE infrastructure",
+	"type": "object",
+	"patternProperties": {
+		"^[a-z]+[a-z1-9]{1,31}$": {
+			"type": "object"
+		}
+	},
+	"additionalProperties": false
+
+}

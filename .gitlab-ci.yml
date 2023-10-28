@@ -6,9 +6,8 @@ stages:
   - deploy
 
 validate:
+  image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation:latest
   stage: validate
-  before_script:
-    - bin/prepare_test_env.sh -i opensuse
   script: bin/test_validate.sh
   tags:
     - docker
