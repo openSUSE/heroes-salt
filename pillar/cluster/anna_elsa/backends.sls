@@ -54,9 +54,6 @@ haproxy:
     monitor_grafana:
       {{ options() }}
       {{ server('grafana', '192.168.47.7', 3000, extra_extra='inter 30000') }}
-    limesurvey:
-      {{ options() }}
-      {{ server('limesurvey', '172.16.164.121', extra_extra='inter 5000') }}
     mailman3:
       acls:
         - is_lists_test hdr_reg(host) -i (.*)-test\.opensuse\.org

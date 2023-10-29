@@ -69,7 +69,6 @@ haproxy:
         - is_www_test            hdr(host)     -i www-test.opensuse.org
         - is_kubic               hdr(host)     -i kubic.opensuse.org
         - is_license             hdr(host)     -i license.opensuse.org
-        - is_limesurvey          hdr(host)     -i survey.opensuse.org
         - is_mailman3            hdr(host)     -i lists.opensuse.org
         - is_mailman3            hdr(host)     -i lists-test.opensuse.org
         - is_mailman3            hdr(host)     -i lists.uyuni-project.org
@@ -185,7 +184,6 @@ haproxy:
         - kubic            if is_kubic
         - kubic            if is_microos
         - kubic            if is_mainpage path_kubic_registry
-        - limesurvey       if is_limesurvey
         - mailman3         if is_mailman3
         - lnt              if is_lnt
         - man              if is_manpages
