@@ -111,6 +111,18 @@ narwal8:
   primary_interface: os-internal
   ram: 1024MB
   vcpu: 1
+riesling3:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c4d
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b3/64
+      mac: 52:54:00:5c:a6:35
+      pseudo_ip4: 172.16.164.119
+      source: x-os-internal
+  ram: 4096MB
+  vcpu: 2
 thor1:
   cluster: squanchy
   disks:
