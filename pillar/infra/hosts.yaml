@@ -84,6 +84,18 @@ devcon:
   primary_interface: os-internal
   ram: 512MB
   vcpu: 1
+limesurvey:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c4e
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b4/64
+      mac: 52:54:00:44:e7:15
+      pseudo_ip4: 172.16.164.121
+      source: x-os-internal
+  ram: 2048MB
+  vcpu: 1
 narwal7:
   cluster: falkor
   disks:
