@@ -1,4 +1,5 @@
 include:
+  - openldap.client
   - sssd
 
 /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh:
