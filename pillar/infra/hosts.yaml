@@ -122,6 +122,7 @@ riesling3:
       mac: 52:54:00:5c:a6:35
       pseudo_ip4: 172.16.164.119
       source: x-os-internal
+  legacy_boot: true
   ram: 4096MB
   vcpu: 2
 thor1:
