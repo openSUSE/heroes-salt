@@ -93,6 +93,7 @@ narwal7:
     os-internal:
       ip6: 2a07:de40:b27e:1203::e7/64
       mac: 52:54:00:65:2b:16
+      pseudo_ip4: 172.16.164.117
       source: x-os-internal
   legacy_boot: true
   ram: 1024MB
