@@ -164,6 +164,9 @@ zypper:
     htop: {}
     less: {}
     lsof: {}
+    {%- if virtual == 'kvm' %}
+    qemu-guest-agent: {}
+    {%- endif %}
     {%- if grains['efi'] %}
     shim: {}
     {%- endif %}

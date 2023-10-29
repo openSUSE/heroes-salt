@@ -23,3 +23,6 @@ include:
   - profile.sysctl
   - profile.rpmkeys
   - zypper
+{%- if grains['virtual'] == 'kvm' %}
+  - profile.qemu-guest-agent
+{%- endif %}
