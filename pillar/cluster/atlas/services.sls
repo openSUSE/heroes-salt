@@ -10,6 +10,7 @@ haproxy:
         - path_openid       path_beg    -i /idp
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
         - path_searchpage   path_beg    -i /searchPage
+        - path_grafana      path_beg    /grafana/
         - host_get_o_o      hdr(host)   -i get.opensuse.org
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
@@ -25,6 +26,8 @@ haproxy:
       use_backends:
         - jekyll          if host_jekyll || host_www_test || host_get_o_o || path_slash
         - limesurvey      if host_limesurvey
+        - monitor         if host_monitor
+        - monitor_grafana if path_grafana
         - staticpages     if host_www || host_staticpages || host_static_o_o
         - www_openid_ldap if host_www path_openid
       redirects:

@@ -28,12 +28,6 @@ haproxy:
     kubic:
       {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
       {{ server('kubic', '192.168.47.30') }}
-    monitor:
-      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ monitor.opensuse.org') }}
-      {{ server('monitor', '192.168.47.7', extra_extra='inter 30000') }}
-    monitor_grafana:
-      {{ options() }}
-      {{ server('grafana', '192.168.47.7', 3000, extra_extra='inter 30000') }}
     mailman3:
       acls:
         - is_lists_test hdr_reg(host) -i (.*)-test\.opensuse\.org

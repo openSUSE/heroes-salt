@@ -13,7 +13,6 @@ haproxy:
         - path_dot_scm           path_beg      /.bzr/
         - path_security          path_end      /.well-known/security.txt
         - path_relnotes          path_beg      /release-notes/
-        - path_grafana           path_beg      /grafana/
         - path_kubic_registry    path_beg      /v2/
         - path_favicon           path          /favicon.ico
         - is_www                 hdr(host)     -i www.opensuse.org
@@ -77,7 +76,6 @@ haproxy:
         - is_mirrorcache         hdr(host)     -i mirrorcache.opensuse.org
         - is_mirrorcache_eu      hdr(host)     -i mirrorcache-eu.opensuse.org
         - is_download_o_o        hdr(host)     -i download.opensuse.org
-        - is_monitor             hdr(host)     -i monitor.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
         - is_deadservice         hdr(host)     -i moodle.opensuse.org
         - is_opi_proxy           hdr(host)     -i opi-proxy.opensuse.org
@@ -176,8 +174,6 @@ haproxy:
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
         - mirrorcache-eu   if is_mirrorcache_eu
-        - monitor_grafana  if path_grafana
-        - monitor          if is_monitor
         - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
         - osccollab        if is_osccollab
