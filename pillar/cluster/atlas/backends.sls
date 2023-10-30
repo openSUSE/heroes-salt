@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import options, server %}
+{%- from 'common/haproxy/map.jinja' import narwals, options, server %}
 
 haproxy:
   backends:
@@ -7,7 +7,9 @@ haproxy:
       balance: roundrobin
       mode: http
       servers:
-        {{ server('narwal8', '2a07:de40:b27e:1203::e8', 80, header=False) }}
+        {%- for static_server, address in narwals.items() %}
+        {{ server(static_server, address, 80, header=False) }}
+        {%- endfor %}
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}

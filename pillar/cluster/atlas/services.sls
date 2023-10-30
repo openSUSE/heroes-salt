@@ -12,7 +12,7 @@ haproxy:
         - host_www            hdr(host)   -i www.opensuse.org
       use_backends:
         - limesurvey      if host_limesurvey
-        - staticpages     if host_staticpages || host_static_o_o
+        - staticpages     if host_www || host_staticpages || host_static_o_o
       redirects:
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www

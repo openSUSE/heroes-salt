@@ -98,10 +98,6 @@ haproxy:
         - is_paste               hdr(host)     -i paste.opensuse.org
         - is_paste               hdr(host)     -i paste-test.opensuse.org
         - is_minio               hdr(host)     -i s3.opensuse-project.net
-        - is_static_o_o          hdr(host)     -i static.opensuse.org
-        {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress', 'oom'] %}
-        - is_staticpages         hdr(host)     -i {{ host_static }}.opensuse.org
-        {%- endfor %}
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab-test.opensuse.org
@@ -127,8 +123,7 @@ haproxy:
         - is_wiki_gone           hdr(host)     -i vi.opensuse.org
 
       redirects:
-        - scheme https code 301  if !is_ssl !is_conncheck !is_static_o_o !is_mirrorcache !is_mirrorcache_eu !is_get_o_o !is_download_o_o !is_pagure
-        - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_staticpages
+        - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_get_o_o !is_download_o_o !is_pagure
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
         - code 301 location https://search.opensuse.org if is_www path_searchpage
@@ -200,7 +195,6 @@ haproxy:
         - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
         - www_openid_ldap  if is_www path_openid
-        - staticpages      if is_www || is_staticpages || is_static_o_o
         - osccollab        if is_osccollab
         - obsreview        if is_obsreview
         - openqa           if is_openqa
