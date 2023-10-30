@@ -1,12 +1,12 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - news.o.o
     - planet.o.o
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Webserver running jekyll-managed websites like news.o.o and planet.o.o

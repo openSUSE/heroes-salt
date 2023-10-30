@@ -13,9 +13,7 @@ haproxy:
         - path_dot_scm           path_beg      /.bzr/
         - path_security          path_end      /.well-known/security.txt
         - path_relnotes          path_beg      /release-notes/
-        - path_grafana           path_beg      /grafana/
         - path_kubic_registry    path_beg      /v2/
-        - path_slash             path          /
         - path_favicon           path          /favicon.ico
         - is_www                 hdr(host)     -i www.opensuse.org
         - is_apparmor            hdr(host)     -i apparmor.opensuse.org
@@ -57,11 +55,6 @@ haproxy:
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
         {%- endfor %}
         - is_deadservice         hdr(host)     -i icc.opensuse.org
-        - is_get_o_o             hdr(host)     -i get.opensuse.org
-        {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
-        - is_jekyll              hdr(host)     -i {{ host_jekyll }}.opensuse.org
-        {%- endfor %}
-        - is_www_test            hdr(host)     -i www-test.opensuse.org
         - is_kubic               hdr(host)     -i kubic.opensuse.org
         - is_license             hdr(host)     -i license.opensuse.org
         - is_mailman3            hdr(host)     -i lists.opensuse.org
@@ -83,7 +76,6 @@ haproxy:
         - is_mirrorcache         hdr(host)     -i mirrorcache.opensuse.org
         - is_mirrorcache_eu      hdr(host)     -i mirrorcache-eu.opensuse.org
         - is_download_o_o        hdr(host)     -i download.opensuse.org
-        - is_monitor             hdr(host)     -i monitor.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
         - is_deadservice         hdr(host)     -i moodle.opensuse.org
         - is_opi_proxy           hdr(host)     -i opi-proxy.opensuse.org
@@ -118,7 +110,7 @@ haproxy:
         - is_wiki_gone           hdr(host)     -i vi.opensuse.org
 
       redirects:
-        - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_get_o_o !is_download_o_o !is_pagure
+        - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_download_o_o !is_pagure
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
         - code 301 prefix   https://www.opensuse.org if is_mainpage !path_kubic_registry
@@ -169,7 +161,6 @@ haproxy:
         - hackweek         if is_hackweek
         - hydra            if is_hydra is_ssl
         - nuka             if is_nuka
-        - jekyll           if is_jekyll || is_www_test || is_get_o_o
         - kubic            if is_kubic
         - kubic            if is_microos
         - kubic            if is_mainpage path_kubic_registry
@@ -183,9 +174,6 @@ haproxy:
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
         - mirrorcache-eu   if is_mirrorcache_eu
-        - jekyll           if path_slash is_monitor
-        - monitor_grafana  if path_grafana is_monitor
-        - monitor          if is_monitor
         - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
         - osccollab        if is_osccollab

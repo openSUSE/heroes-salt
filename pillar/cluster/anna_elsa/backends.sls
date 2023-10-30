@@ -28,12 +28,6 @@ haproxy:
     kubic:
       {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
       {{ server('kubic', '192.168.47.30') }}
-    monitor:
-      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ monitor.opensuse.org') }}
-      {{ server('monitor', '192.168.47.7', extra_extra='inter 30000') }}
-    monitor_grafana:
-      {{ options() }}
-      {{ server('grafana', '192.168.47.7', 3000, extra_extra='inter 30000') }}
     mailman3:
       acls:
         - is_lists_test hdr_reg(host) -i (.*)-test\.opensuse\.org
@@ -184,12 +178,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}security.txt.http
-    jekyll:
-      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHOST:\ search.opensuse.org') }}
-      {{ server('jekyll', '192.168.47.61') }}
-      acls:
-        - is_jekyll_test          hdr_reg(host) -i (.*)-test\.opensuse\.org
-      extra: http-request replace-header HOST (.*)-test(.*) \1\2 if is_jekyll_test
     matrix:
       {{ options() }}
       {{ server('matrix', '192.168.47.78', 8008) }}
