@@ -4,7 +4,7 @@ haproxy:
   backends:
     www_openid_ldap:
       {{ options() }}
-      {{ server('ldap-proxy', '192.168.47.3') }}
+      {{ server('ldap-proxy', '2a07:de40:b27e:64::c0a8:2f03') }}
       mode: http
     staticpages:
       {{ options('httpchk OPTIONS / HTTP/1.1\r\nHost:\ static.opensuse.org') }}
