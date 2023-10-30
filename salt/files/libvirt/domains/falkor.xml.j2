@@ -65,22 +65,20 @@
   <on_crash>coredump-destroy</on_crash>
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
-    {%- for disk, mpath_uuid in vm_disks.items() %}
-    {#-
-    {%- if vm_name in mpathmap and disk in mpathmap[vm_name] %}
-    {%- set mpath_uuid = mpathmap[vm_name][disk] %}
-    #}
-    {%- set letter = letters[loop.index] -%}
+    {%- macro disk(name, mpath_uuid, letter) -%}
     <disk type='block' device='disk'>
       <driver name='qemu' type='raw' cache='none'/>
       <source dev='/dev/disk/by-id/dm-uuid-mpath-{{ mpath_uuid }}'/>
       <backingStore/>
       <target dev='vd{{ letter }}' bus='virtio'/>
-      <alias name='virtio-{{ disk }}'/>
+      <alias name='virtio-{{ name }}'/>
     </disk>
-    {#-
-    {%- endif %}
-    #}
+    {%- endmacro %}
+    <!-- root disk -->
+    {{ disk('root', vm_disks.pop('root'), 'a') }}
+    <!-- data disks -->
+    {%- for name, mpath_uuid in vm_disks.items() %}
+    {{ disk(name, mpath_uuid, letters[loop.index]) }}
     {%- endfor %}
     {%- for interface, ifconfig in vm_interfaces.items() %}
     {%- set iftype = ifconfig['type'] %}
