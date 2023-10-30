@@ -32,6 +32,9 @@ nginx:
             - 192.168.67.1
             - 192.168.67.2
             - 192.168.67.3
+            {%- elif country == 'cz' %}
+            - 2a07:de40:b27e:1204::11
+            - 2a07:de40:b27e:1204::12
             {% endif %}
           real_ip_header: X-Forwarded-For
           real_ip_recursive: 'on'
