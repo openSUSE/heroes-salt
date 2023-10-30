@@ -4,10 +4,6 @@ haproxy:
   backends:
     redirect_www_o_o:
       redirects: code 301 location https://www.opensuse.org/
-    www_openid_ldap:
-      {{ options() }}
-      {{ server('ldap-proxy', '192.168.47.3') }}
-      mode: http
     community2:
       {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ factory-dashboard.opensuse.org') }}
       mode: http

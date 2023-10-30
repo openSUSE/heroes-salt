@@ -15,10 +15,6 @@ haproxy:
         - path_relnotes          path_beg      /release-notes/
         - path_grafana           path_beg      /grafana/
         - path_kubic_registry    path_beg      /v2/
-        - path_openid            path_beg      -i /openid
-        - path_openid            path_beg      -i /common/app/
-        - path_openid            path_beg      -i /openid-ldap
-        - path_openid            path_beg      -i /idp
         - path_searchpage        path_beg      -i /searchPage
         - path_slash             path          /
         - path_favicon           path          /favicon.ico
@@ -194,7 +190,6 @@ haproxy:
         - monitor          if is_monitor
         - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
-        - www_openid_ldap  if is_www path_openid
         - osccollab        if is_osccollab
         - obsreview        if is_obsreview
         - openqa           if is_openqa

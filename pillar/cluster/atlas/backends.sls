@@ -2,6 +2,10 @@
 
 haproxy:
   backends:
+    www_openid_ldap:
+      {{ options() }}
+      {{ server('ldap-proxy', '192.168.47.3') }}
+      mode: http
     staticpages:
       {{ options('httpchk OPTIONS / HTTP/1.1\r\nHost:\ static.opensuse.org') }}
       balance: roundrobin
