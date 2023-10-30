@@ -28,14 +28,6 @@ haproxy:
         {%- for status_server, status_config in {'status1': '100', 'status2': '80 backup', 'status3': '90 backup'}.items() %}
         {{ server(status_server, status_server ~ '.opensuse.org', 443, extra_extra='inter 60000 weight ' ~ status_config, header=False) }}
         {%- endfor %}
-    bugzilla:
-      {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ bugzilla.opensuse.org') }}
-      balance: roundrobin
-      mode: http
-      servers:
-        {%- for bugzilla_server, address in narwals.items() %}
-        {{ server(bugzilla_server, address, 80, header=False) }}
-        {%- endfor %}
     community:
       {{ options ('httpchk OPTIONS / HTTP/1.1\r\nHost:\ community.opensuse.org') }}
       {{ server('community', '192.168.47.6') }}
