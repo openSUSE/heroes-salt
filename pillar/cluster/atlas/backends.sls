@@ -14,6 +14,12 @@ haproxy:
         {%- for static_server, address in narwals.items() %}
         {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
+    jekyll:
+      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHOST:\ search.opensuse.org') }}
+      {{ server('jekyll', '2a07:de40:b27e:1203::e1') }}
+      acls:
+        - is_jekyll_test          hdr_reg(host) -i (.*)-test\.opensuse\.org
+      extra: http-request replace-header HOST (.*)-test(.*) \1\2 if is_jekyll_test
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
