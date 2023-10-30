@@ -33,6 +33,7 @@ haproxy:
         - staticpages     if host_www || host_staticpages || host_static_o_o
         - www_openid_ldap if host_www path_openid
       redirects:
+        - scheme https code 301                                              if !is_ssl !host_get_o_o
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www
