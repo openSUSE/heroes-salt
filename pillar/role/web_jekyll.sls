@@ -20,7 +20,7 @@ nginx:
             - server:
                 - server_name: {{ website }}.opensuse.org
                 - listen:
-                    - 80
+                    - '[::]:80'
                     {% if website == 'news' %}
                     - default_server
                     {% endif %}
