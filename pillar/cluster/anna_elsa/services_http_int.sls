@@ -25,7 +25,6 @@ haproxy:
         - is_redmine             hdr(host) -i progress.opensuse.org
         - is_redmine_test        hdr(host) -i progress-test.opensuse.org
         - is_smt                 hdr(host) -i smt-internal.infra.opensuse.org
-        - is_static_via_login    hdr(host) -i static.opensuse.org
         - is_test_wiki           hdr(host) -i en-test.opensuse.org
         - is_tsp                 hdr(host) -i tsp.opensuse.org
         - is_tsp                 hdr(host) -i tsp-test.opensuse.org
@@ -44,7 +43,6 @@ haproxy:
         - redmine          if is_redmine
         - redmine_test     if is_redmine_test
         - smt              if is_smt
-        - staticpages      if is_static_via_login
         - forums           if is_forums
         - tsp              if is_tsp
         - riesling         if is_test_wiki || is_mediawiki_cn || is_mediawiki_cs || is_mediawiki_de || is_mediawiki_el || is_mediawiki_en || is_mediawiki_es || is_mediawiki_files || is_mediawiki_fr || is_mediawiki_hu || is_mediawiki_it || is_mediawiki_ja || is_mediawiki_languages || is_mediawiki_nl || is_mediawiki_old-en || is_mediawiki_old-de || is_mediawiki_pl || is_mediawiki_pt || is_mediawiki_ru || is_mediawiki_sv || is_mediawiki_tr || is_mediawiki_zh || is_mediawiki_zh-tw

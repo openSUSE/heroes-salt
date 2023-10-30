@@ -1,17 +1,9 @@
-{%- from 'common/haproxy/map.jinja' import options, server, errorfiles, narwals, check_txt -%}
+{%- from 'common/haproxy/map.jinja' import options, server, errorfiles, check_txt -%}
 
 haproxy:
   backends:
     redirect_www_o_o:
       redirects: code 301 location https://www.opensuse.org/
-    staticpages:
-      {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ fontinfo.opensuse.org') }}
-      balance: roundrobin
-      mode: http
-      servers:
-        {%- for static_server, address in narwals.items() %}
-        {{ server(static_server, address, 80, header=False) }}
-        {%- endfor %}
     www_openid_ldap:
       {{ options() }}
       {{ server('ldap-proxy', '192.168.47.3') }}

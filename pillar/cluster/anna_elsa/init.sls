@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, options, server, errorfiles, narwals, galeras, check_txt -%}
+{%- from 'common/haproxy/map.jinja' import bind, extra, options, server, errorfiles, galeras, check_txt -%}
 
 include:
   - common.haproxy
