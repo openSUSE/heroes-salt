@@ -15,7 +15,6 @@ haproxy:
         - path_relnotes          path_beg      /release-notes/
         - path_grafana           path_beg      /grafana/
         - path_kubic_registry    path_beg      /v2/
-        - path_searchpage        path_beg      -i /searchPage
         - path_slash             path          /
         - path_favicon           path          /favicon.ico
         - is_www                 hdr(host)     -i www.opensuse.org
@@ -122,7 +121,6 @@ haproxy:
         - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_get_o_o !is_download_o_o !is_pagure
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
-        - code 301 location https://search.opensuse.org if is_www path_searchpage
         - code 301 prefix   https://www.opensuse.org if is_mainpage !path_kubic_registry
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
         - code 301 location https://www.youtube.com/user/opensusetv if is_tube
