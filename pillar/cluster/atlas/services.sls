@@ -26,7 +26,8 @@ haproxy:
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
       use_backends:
-        - jekyll          if host_jekyll || host_www_test || host_get_o_o || path_slash
+        - jekyll          if host_jekyll || host_www_test || host_get_o_o
+        - jekyll          if host_monitor path_slash
         - limesurvey      if host_limesurvey
         - monitor         if host_monitor
         - monitor_grafana if path_grafana
