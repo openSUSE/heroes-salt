@@ -97,6 +97,34 @@ limesurvey:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+narwal5:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424c73
+    root: 3600a0980383041622f2455736d434c53
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::e5/64
+      mac: 52:54:00:13:1b:c1
+      pseudo_ip4: 172.16.164.115
+      source: x-os-internal
+  legacy_boot: true
+  ram: 1024MB
+  vcpu: 1
+narwal6:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424c74
+    root: 3600a0980383041622f2455736d434c54
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::e6/64
+      mac: 52:54:00:c0:43:d9
+      pseudo_ip4: 172.16.164.116
+      source: x-os-internal
+  legacy_boot: true
+  ram: 1024MB
+  vcpu: 1
 narwal7:
   cluster: falkor
   disks:
