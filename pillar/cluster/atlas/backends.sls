@@ -1,7 +1,14 @@
-{%- from 'common/haproxy/map.jinja' import narwals, options, server %}
+{%- from 'common/haproxy/map.jinja' import errorfiles, narwals, options, server %}
 
 haproxy:
   backends:
+    error_403:
+      mode: http
+      options:
+        - tcpka
+      httprequests: set-log-level silent
+      extra:
+        - errorfile 503 {{ errorfiles }}403.html.http
     www_openid_ldap:
       {{ options() }}
       {{ server('ldap-proxy', '2a07:de40:b27e:64::c0a8:2f03') }}
@@ -35,3 +42,10 @@ haproxy:
     paste:
       {{ options() }}
       {{ server('paste', '2a07:de40:b27e:1203::c2') }}
+    security_txt:
+      mode: http
+      options:
+        - tcpka
+      httprequests: set-log-level silent
+      extra:
+        - errorfile 503 {{ errorfiles }}security.txt.http
