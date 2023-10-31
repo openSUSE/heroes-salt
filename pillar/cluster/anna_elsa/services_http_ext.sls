@@ -82,8 +82,6 @@ haproxy:
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
         - is_pagure              hdr(host)     -i {{ host_pagure }}.opensuse.org
         {%- endfor %}
-        - is_paste               hdr(host)     -i paste.opensuse.org
-        - is_paste               hdr(host)     -i paste-test.opensuse.org
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab-test.opensuse.org
@@ -178,6 +176,5 @@ haproxy:
         - osccollab        if is_osccollab
         - obsreview        if is_obsreview
         - openqa           if is_openqa
-        - paste            if is_paste
         - rpmlint          if is_rpmlint
         - svn              if is_svn

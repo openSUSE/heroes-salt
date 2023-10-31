@@ -32,3 +32,6 @@ haproxy:
     monitor_grafana:
       {{ options() }}
       {{ server('grafana', '2a07:de40:b27e:64::c0a8:2f07', 3000, extra_extra='inter 30000') }}
+    paste:
+      {{ options() }}
+      {{ server('paste', '2a07:de40:b27e:1203::c2') }}
