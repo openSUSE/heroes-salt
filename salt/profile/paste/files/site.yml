@@ -3,7 +3,9 @@ production:
   theme: openSUSE
   authentication:
     openid_connect:
-      name: :oidc
+      name: :openid_connect
+      discovery: true
+      issuer: https://id.opensuse.org/openidc/
       scope:
       - :openid
       - :email
@@ -16,5 +18,5 @@ production:
         host: id.opensuse.org
         identifier: "{{ pillar['profile']['paste']['openidc']['client_id'] }}"
         secret: "{{ pillar['profile']['paste']['openidc']['secret'] }}"
-        redirect_uri: https://paste.opensuse.org/auth/oidc/callback
+        redirect_uri: https://paste.opensuse.org/auth/openid_connect/callback
   sign_up_link: "https://idp-portal.suse.com/univention/self-service/#page=createaccount"

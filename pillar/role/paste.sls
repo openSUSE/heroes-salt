@@ -8,7 +8,7 @@ profile:
   paste:
     database_name: paste
     database_user: paste
-    database_host: 192.168.47.4
+    database_host: proxy.infra.opensuse.org
     # OIDC secret and s3 secrets are in pillar/secrets/role/paste.sls
     openidc:
       client_id: paste.opensuse.org
@@ -25,6 +25,7 @@ nginx:
                     - default_server
                 - server_name: paste.opensuse.org
                 - root: /srv/www/paste-o-o/public
+                - client_max_body_size: 20m
                 - keepalive_timeout: 5
                 - try_files $uri/index.html $uri @paste
                 - location @paste:
