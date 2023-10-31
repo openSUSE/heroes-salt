@@ -84,6 +84,30 @@ devcon:
   primary_interface: os-internal
   ram: 512MB
   vcpu: 1
+hel1:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f774e
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::11/64
+      mac: c2:4c:ea:3a:15:7e
+      pseudo_ip4: 172.16.164.13
+      source: x-os-internal
+  ram: 4096MB
+  vcpu: 2
+hel2:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f774f
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::12/64
+      mac: c2:4c:ea:3a:15:7f
+      pseudo_ip4: 172.16.164.14
+      source: x-os-internal
+  ram: 4096MB
+  vcpu: 2
 jekyll:
   cluster: falkor
   disks:
