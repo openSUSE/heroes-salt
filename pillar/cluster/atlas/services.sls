@@ -22,6 +22,7 @@ haproxy:
         - path_searchpage   path_beg    -i /searchPage
         - path_slash        path         /
 
+        - host_beans        hdr(host)   -i beans.opensuse.org
         - host_contribute   hdr(host)   -i contribute.opensuse.org
         - host_counter      hdr_reg(host) -i count(er|down)\.opensuse\.org
         - host_doc          hdr(host)   -i doc.opensuse.org
@@ -58,6 +59,7 @@ haproxy:
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - limesurvey      if host_limesurvey
+        - matomo          if host_beans
         - minio           if host_minio
         - monitor         if host_monitor
         - paste           if host_paste
