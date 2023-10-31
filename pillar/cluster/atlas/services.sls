@@ -49,6 +49,9 @@ haproxy:
         {%- endfor %}
         - host_tsp            hdr(host)   -i tsp.opensuse.org
         - host_tsp            hdr(host)   -i tsp-test.opensuse.org
+        {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'] %}
+        - host_mediawiki    hdr(host) -i {{ wiki }}.opensuse.org
+        {%- endfor %}
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
@@ -67,6 +70,8 @@ haproxy:
         - dale            if src_login host_dale
         - redmine         if src_login host_redmine
         - tsp             if src_login host_tsp
+        - riesling        if src_login host_mediawiki
+
         # rules only depending on host_*
         - etherpad        if host_etherpad
         - hackweek        if host_hackweek
