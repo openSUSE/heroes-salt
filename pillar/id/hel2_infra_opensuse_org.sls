@@ -1,3 +1,6 @@
+include:
+  - cluster.hel
+
 grains:
   city: prague
   country: cz
