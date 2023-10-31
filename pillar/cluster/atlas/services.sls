@@ -10,6 +10,8 @@ haproxy:
         - path_openid       path_beg    -i /common/app/
         - path_openid       path_beg    -i /openid-ldap
         - path_openid       path_beg    -i /idp
+        - host_paste        hdr(host)   -i paste.opensuse.org
+        - host_paste        hdr(host)   -i paste-test.opensuse.org
         - path_searchpage   path_beg    -i /searchPage
         - path_slash        path         /
 
@@ -33,6 +35,7 @@ haproxy:
         - minio           if host_minio
         - monitor_grafana if host_monitor path_grafana
         - monitor         if host_monitor
+        - paste           if host_paste
         - staticpages     if host_www || host_staticpages || host_static_o_o
         - www_openid_ldap if host_www path_openid
       redirects:
