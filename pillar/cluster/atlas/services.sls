@@ -28,16 +28,21 @@ haproxy:
         {%- endfor %}
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
+
       use_backends:
-        - jekyll          if host_jekyll || host_www_test || host_get_o_o
+        # path-specific rules
         - jekyll          if host_monitor path_slash
+        - monitor_grafana if host_monitor path_grafana
+        - www_openid_ldap if host_www path_openid
+
+        # rules only depending on host_*
+        - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - limesurvey      if host_limesurvey
         - minio           if host_minio
-        - monitor_grafana if host_monitor path_grafana
         - monitor         if host_monitor
         - paste           if host_paste
-        - www_openid_ldap if host_www path_openid
         - staticpages     if host_www || host_staticpages || host_static_o_o
+
       redirects:
         - scheme https code 301                                              if !is_ssl !host_get_o_o
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
