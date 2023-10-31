@@ -4,6 +4,9 @@ haproxy:
       acls:
         - is_ssl            dst_port    443
 
+        - path_dot_scm      path_beg    /.git/
+        - path_dot_scm      path_beg    /.svn/
+        - path_dot_scm      path_beg    /.bzr/
         - path_favicon      path        /favicon.ico
         - path_grafana      path_beg    /grafana/
         - path_openid       path_beg    -i /openid
@@ -12,6 +15,7 @@ haproxy:
         - path_openid       path_beg    -i /idp
         - host_paste        hdr(host)   -i paste.opensuse.org
         - host_paste        hdr(host)   -i paste-test.opensuse.org
+        - path_security     path_end    /.well-known/security.txt
         - path_searchpage   path_beg    -i /searchPage
         - path_slash        path         /
 
@@ -30,6 +34,10 @@ haproxy:
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
       use_backends:
+        # special paths with common handling for all hosts
+        - error_403        if path_dot_scm
+        - security_txt     if path_security
+
         # path-specific rules
         - jekyll          if host_monitor path_slash
         - monitor_grafana if host_monitor path_grafana
