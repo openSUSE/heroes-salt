@@ -21,7 +21,7 @@ nginx:
           config:
             - server:
                 - listen:
-                    - 80
+                    - '[::]:80'
                     - default_server
                 - server_name: paste.opensuse.org
                 - root: /srv/www/paste-o-o/public
