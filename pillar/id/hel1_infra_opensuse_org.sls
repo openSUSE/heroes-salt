@@ -16,4 +16,6 @@ grains:
   partners:
     - hel2.infra.opensuse.org
   weburls: []
-roles: []
+roles:
+  - ha
+  - proxy
