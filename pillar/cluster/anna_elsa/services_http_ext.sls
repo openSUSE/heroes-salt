@@ -2,7 +2,6 @@ haproxy:
   frontends:
     http-ext-in:
       acls:
-        - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
         - no_x-frame-option var(txn.host) -m str meet.opensuse.org
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
@@ -27,16 +26,12 @@ haproxy:
         - is_tube                hdr(host)     -i tube.opensuse.org
         - is_jenkins             hdr(host)     -i ci.opensuse.org
         - is_community           hdr(host)     -i community.opensuse.org
-        - is_counter             hdr_reg(host) -i count(er|down)\.opensuse\.org
-        - is_contribute          hdr(host)     -i contribute.opensuse.org
         - is_doc                 hdr(host)     -i doc.opensuse.org
         - is_education           hdr(host)     -i education.opensuse.org
         - is_users               hdr(host)     -i users.opensuse.org
-        - is_pmya                hdr(host)     -i pmya.opensuse.org
         - is_coc                 hdr(host)     -i coc.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
         - is_redirect_doc        hdr_reg(host) -i (docs|activedoc|www\.activedoc|rtfm).opensuse.org
-        - is_etherpad            hdr(host)     -i etherpad.opensuse.org
         - is_features            hdr(host)     -i fate.opensuse.org
         - is_features            hdr(host)     -i features.opensuse.org
         - is_redirect_features   hdr_reg(host) -i (idea|ideas).opensuse.org
@@ -45,8 +40,7 @@ haproxy:
         - is_gcc                 hdr(host)     -i gcc.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.opensuse.org
-        - is_hackweek            hdr(host)     -i hackweek.opensuse.org
-        - is_hackweeksc          hdr(host)     -i hackweek.suse.com
+        - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
         - is_ignite_stage        hdr(host)     -i ignite-stage.opensuse.org
         - is_ignite              hdr(host)     -i ignite.opensuse.org
         - is_deadservice         hdr(host)     -i hellocf.opensuse.org
@@ -142,20 +136,15 @@ haproxy:
         - security_txt     if path_security
         - jenkins          if is_jenkins
         - community        if is_community
-        - pinot            if is_doc path_relnotes
+        - via_atlas        if is_doc path_relnotes
         - community        if is_doc
         - community2       if is_community2
-        - pinot            if is_counter
-        - pinot            if is_contribute
-        - pinot            if is_pmya
         - conncheck        if is_conncheck
         - deadservices     if is_features || is_deadservice
-        - etherpad         if is_etherpad
         - forums           if is_forums
         - freeipa          if is_freeipa
         - gccstats         if is_gcc
         - mickey           if is_gitlab
-        - hackweek         if is_hackweek
         - hydra            if is_hydra is_ssl
         - nuka             if is_nuka
         - kubic            if is_kubic
