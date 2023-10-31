@@ -1,11 +1,11 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - en.o.o (all *.o.o wikis)
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases:
     - wiki.infra.opensuse.org

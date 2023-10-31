@@ -1,11 +1,11 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - Travel Support Program webapp
   reboot_safe: unknown
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Travel Support Program (tsp) webapp server

@@ -1,11 +1,11 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - DB backup
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Backup server for the Galera Cluster

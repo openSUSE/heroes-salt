@@ -84,6 +84,19 @@ devcon:
   primary_interface: os-internal
   ram: 512MB
   vcpu: 1
+etherpad:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c5a
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b18/64
+      mac: 52:54:00:a4:4d:60
+      pseudo_ip4: 172.16.164.140
+      source: x-os-internal
+  legacy_boot: true
+  ram: 8192MB
+  vcpu: 2
 galera1:
   cluster: falkor
   disks:
@@ -180,6 +193,19 @@ limesurvey:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+matomo:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c62
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b19/64
+      mac: 52:54:00:3d:5f:08
+      pseudo_ip4: 172.16.164.141
+      source: x-os-internal
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 2
 minio:
   cluster: falkor
   disks:
@@ -276,6 +302,34 @@ pinot:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+progressoo:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c69
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b17/64
+      mac: 52:54:00:77:70:cd
+      pseudo_ip4: 172.16.164.139
+      source: x-os-internal
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 2
+riesling:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d43
+    data1: 3600a098038304161792455736d424d42
+    root: 3600a0980383041622f2455736d434c63
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b2/64
+      mac: 52:54:00:95:ad:b9
+      pseudo_ip4: 172.16.164.133
+      source: x-os-internal
+  legacy_boot: true
+  ram: 12288MB
+  vcpu: 4
 riesling3:
   cluster: falkor
   disks:
@@ -315,6 +369,19 @@ thor2:
   primary_interface: os-thor
   ram: 1024MB
   vcpu: 1
+tsp:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c2f
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b20/64
+      mac: 52:54:00:93:f8:1d
+      pseudo_ip4: 172.16.164.142
+      source: x-os-internal
+  legacy_boot: true
+  ram: 2048MB
+  vcpu: 1
 warp:
   cluster: squanchy
   disks:
@@ -331,6 +398,45 @@ warp:
       mac: d6:f7:c1:31:ce:81
       source: x-s-j-os-out
   ram: 512MB
+  vcpu: 1
+water:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c65
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b12/64
+      mac: 52:54:00:a4:86:51
+      pseudo_ip4: 172.16.164.134
+      source: x-os-internal
+  legacy_boot: true
+  ram: 16384MB
+  vcpu: 1
+water3:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c59
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b13/64
+      mac: 52:54:00:a4:83:15
+      pseudo_ip4: 172.16.164.135
+      source: x-os-internal
+  legacy_boot: true
+  ram: 16384MB
+  vcpu: 1
+water4:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c66
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b14/64
+      mac: 52:54:00:89:c9:63
+      pseudo_ip4: 172.16.164.136
+      source: x-os-internal
+  legacy_boot: true
+  ram: 16384MB
   vcpu: 1
 witch1:
   cluster: squanchy
