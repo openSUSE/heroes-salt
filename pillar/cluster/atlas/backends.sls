@@ -23,6 +23,9 @@ haproxy:
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
+    minio:
+      {{ options() }}
+      {{ server('minio', '2a07:de40:b27e:1203::c1') }}
     monitor:
       {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ monitor.opensuse.org') }}
       {{ server('monitor', '2a07:de40:b27e:64::c0a8:2f07', extra_extra='inter 30000') }}

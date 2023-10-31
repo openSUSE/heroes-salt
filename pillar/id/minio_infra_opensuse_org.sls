@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage: []
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Machine for storing data in s3 compatible minio
