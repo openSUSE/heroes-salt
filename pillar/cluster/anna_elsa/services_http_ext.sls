@@ -84,7 +84,6 @@ haproxy:
         {%- endfor %}
         - is_paste               hdr(host)     -i paste.opensuse.org
         - is_paste               hdr(host)     -i paste-test.opensuse.org
-        - is_minio               hdr(host)     -i s3.opensuse-project.net
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab-test.opensuse.org
@@ -180,6 +179,5 @@ haproxy:
         - obsreview        if is_obsreview
         - openqa           if is_openqa
         - paste            if is_paste
-        - minio            if is_minio
         - rpmlint          if is_rpmlint
         - svn              if is_svn

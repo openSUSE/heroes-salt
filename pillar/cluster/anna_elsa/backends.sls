@@ -191,9 +191,6 @@ haproxy:
     man:
       {{ options() }}
       {{ server('man', '192.168.47.29') }}
-    minio:
-      {{ options() }}
-      {{ server('minio', '192.168.47.55') }}
     paste:
       {{ options() }}
       {{ server('paste', '192.168.47.74') }}

@@ -18,6 +18,7 @@ haproxy:
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
+        - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
         {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress', 'oom'] %}
@@ -29,6 +30,7 @@ haproxy:
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - jekyll          if host_monitor path_slash
         - limesurvey      if host_limesurvey
+        - minio           if host_minio
         - monitor_grafana if host_monitor path_grafana
         - monitor         if host_monitor
         - staticpages     if host_www || host_staticpages || host_static_o_o
