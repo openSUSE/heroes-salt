@@ -84,6 +84,51 @@ devcon:
   primary_interface: os-internal
   ram: 512MB
   vcpu: 1
+galera1:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d47
+    data1: 3600a098038304161792455736d424d49
+    root: 3600a0980383041622f2455736d434c64
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b21/64
+      mac: 52:54:00:79:69:30
+      pseudo_ip4: 172.16.164.143
+      source: x-os-internal
+  legacy_boot: true
+  ram: 51200MB
+  vcpu: 4
+galera2:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d4b
+    data1: 3600a098038304161792455736d424d4a
+    root: 3600a0980383041622f2455736d434c6a
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b22/64
+      mac: 52:54:00:54:78:15
+      pseudo_ip4: 172.16.164.144
+      source: x-os-internal
+  legacy_boot: true
+  ram: 51200MB
+  vcpu: 4
+galera3:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d48
+    data1: 3600a098038304161792455736d424d46
+    root: 3600a0980383041622f2455736d434c6b
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b23/64
+      mac: 52:54:00:de:de:3d
+      pseudo_ip4: 172.16.164.145
+      source: x-os-internal
+  legacy_boot: true
+  ram: 51200MB
+  vcpu: 4
 hel1:
   cluster: falkor
   disks:
