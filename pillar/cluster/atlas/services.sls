@@ -4,6 +4,10 @@ haproxy:
       acls:
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
 
+        # login2.o.o via anna/elsa
+        - src_login         src         2a07:de40:b27e:64::c0a8:2f65
+        - src_login         src         2a07:de40:b27e:64::c0a8:2f66
+
         - is_ssl            dst_port    443
 
         - path_dot_scm      path_beg    /.git/
@@ -27,6 +31,8 @@ haproxy:
         - host_counter      hdr_reg(host) -i count(er|down)\.opensuse\.org
         - host_doc          hdr(host)   -i doc.opensuse.org
         - host_etherpad     hdr(host)   -i etherpad.opensuse.org
+        - host_dale         hdr(host)   -i events.opensuse.org
+        - host_dale         hdr(host)   -i events-test.opensuse.org
         - host_get_o_o      hdr(host)   -i get.opensuse.org
         - host_hackweek     hdr(host)   -i hackweek.opensuse.org
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
@@ -36,10 +42,13 @@ haproxy:
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
+        - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
         {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress', 'oom'] %}
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
         {%- endfor %}
+        - host_tsp            hdr(host)   -i tsp.opensuse.org
+        - host_tsp            hdr(host)   -i tsp-test.opensuse.org
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
@@ -54,6 +63,10 @@ haproxy:
         - pinot           if host_doc path_relnotes
         - www_openid_ldap if host_www path_openid
 
+        # hosts only reachable via login2.o.o
+        - dale            if src_login host_dale
+        - redmine         if src_login host_redmine
+        - tsp             if src_login host_tsp
         # rules only depending on host_*
         - etherpad        if host_etherpad
         - hackweek        if host_hackweek
