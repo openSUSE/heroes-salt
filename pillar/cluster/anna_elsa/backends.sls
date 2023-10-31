@@ -22,9 +22,6 @@ haproxy:
     svn:
       {{ options() }}
       {{ server('svn', '192.168.47.25') }}
-    dale:
-      {{ options('httpchk HEAD /robots.txt HTTP/1.1\r\nHost:\ events.opensuse.org') }}
-      {{ server('dale', '192.168.47.52', 80) }}
     kubic:
       {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
       {{ server('kubic', '192.168.47.30') }}
@@ -48,15 +45,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    etherpad:
-      {{ options() }}
-      extra:
-        - errorfile 503 {{ errorfiles }}downtime.html.http
-        - http-response del-header X-Frame-Options
-      timeouts:
-        - check 30s
-        - server 30m
-      {{ server('etherpad', '192.168.47.56', 9001, extra_extra='inter 5000') }}
     osccollab:
       mode: http
       {{ options ('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ osc-collab.opensuse.org') }}
@@ -67,9 +55,6 @@ haproxy:
     redmine_test:
       {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
       {{ server('progress', '192.168.47.8', extra_extra='maxconn 16') }}
-    redmine:
-      {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
-      {{ server('progressoo', '192.168.47.34', 3001, extra_extra='maxconn 16') }}
     download:
       options:
         - forwardfor header X-Forwarded-999
@@ -117,10 +102,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}deprecated.html.http
-    hackweek:
-      mode: http
-      {{ options() }}
-      {{ server('dale_hackweek', '192.168.47.52', 81) }}
     mirrorlist:
       {{ options() }}
       {{ server('olaf', '192.168.47.17') }}
@@ -138,18 +119,9 @@ haproxy:
         refresh: 5s
         realm: Monitor
         auth: '"$STATS_USER":"$STATS_PASSPHRASE"'
-    pinot:
-      {{ options() }}
-      {{ server('pinot', '192.168.47.11') }}
-    riesling:
-      {{ options() }}
-      {{ server('riesling', '192.168.47.42') }}
     forums:
       {{ options() }}
       {{ server('discourse01', '192.168.47.83') }}
-    tsp:
-      {{ options() }}
-      {{ server('tsp', '192.168.47.9') }}
     elections:
       {{ options() }}
       {{ server('elections2', '192.168.47.32') }}
