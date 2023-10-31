@@ -27,7 +27,7 @@ nginx:
                     - proxy_set_header: Connection ""
                     - chunked_transfer_encoding: "off"
                     - proxy_redirect: "off"
-                    - client_max_body_size: 2M
+                    - client_max_body_size: 20M
                     - proxy_pass: http://localhost:9000
           enabled: True
 
