@@ -64,7 +64,7 @@
 		"ram": {
 			"description": "Memory size ending in a SI suffix - currently only MB supported",
 			"type": "string",
-			"pattern": "^\\d{3,4}MB$"
+			"pattern": "^\\d{3,5}MB$"
 
 		},
 		"vcpu": {
