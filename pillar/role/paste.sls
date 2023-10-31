@@ -25,6 +25,7 @@ nginx:
                     - default_server
                 - server_name: paste.opensuse.org
                 - root: /srv/www/paste-o-o/public
+                - client_max_body_size: 20m
                 - keepalive_timeout: 5
                 - try_files $uri/index.html $uri @paste
                 - location @paste:
