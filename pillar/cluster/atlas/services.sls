@@ -28,8 +28,8 @@ haproxy:
       use_backends:
         - jekyll          if host_jekyll || host_www_test || host_get_o_o || path_slash
         - limesurvey      if host_limesurvey
+        - monitor_grafana if host_monitor path_grafana
         - monitor         if host_monitor
-        - monitor_grafana if path_grafana
         - staticpages     if host_www || host_staticpages || host_static_o_o
         - www_openid_ldap if host_www path_openid
       redirects:
