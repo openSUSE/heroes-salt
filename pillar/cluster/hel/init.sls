@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, server %}
+{%- from 'common/haproxy/map.jinja' import bind, extra, galeras, server %}
 
 include:
   - common.haproxy
@@ -21,3 +21,26 @@ haproxy:
         refresh: 5s
         realm: Monitor
         auth: '"$STATS_USER":"$STATS_PASSPHRASE"'
+    {%- for galera_block, galera_port in {'galera': 3307, 'galera-slave': 3308}.items() %}
+    {{ galera_block }}:
+      bind:
+        {{ bind(bind_v6, galera_port, 'v6only') }}
+      mode: tcp
+      balance: source
+      options:
+        - tcplog
+        - tcpka
+        - httpchk GET / HTTP/1.1\r\nHost:\ localhost:8000\r\nUser-Agent:\ haproxy/galera-clustercheck\r\nAccept:\ */*
+      timeouts:
+        - connect 10s
+        - client 30m
+        - server 30m
+      servers:
+        {%- for host, append in galeras[galera_block].items() %}
+        {{ host }}:
+          host: {{ host }}.infra.opensuse.org
+          port: 3306
+          check: check
+          extra: port 8000 inter 3000 rise 3 fall 3 {{ append }}
+        {%- endfor %}
+    {%- endfor %}

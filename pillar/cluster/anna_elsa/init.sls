@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, options, server, errorfiles, galeras, check_txt -%}
+{%- from 'common/haproxy/map.jinja' import bind, extra, options, server, errorfiles, check_txt -%}
 
 include:
   - common.haproxy
@@ -27,29 +27,6 @@ haproxy:
       options:
         - tcp-smart-connect
       {{ server('http-int-in', '127.0.0.1', 83, check=None, extra_extra='send-proxy-v2') }}
-    {%- for galera_block, galera_port in {'galera': 3307, 'galera-slave': 3308}.items() %}
-    {{ galera_block }}:
-      bind:
-        {{ bind(['192.168.47.4'], galera_port) }}
-      mode: tcp
-      balance: source
-      options:
-        - tcplog
-        - tcpka
-        - httpchk GET / HTTP/1.1\r\nHost:\ localhost:8000\r\nUser-Agent:\ haproxy/galera-clustercheck\r\nAccept:\ */*
-      timeouts:
-        - connect 10s
-        - client 30m
-        - server 30m
-      servers:
-        {%- for host, append in galeras[galera_block].items() %}
-        {{ host }}:
-          host: {{ host }}.infra.opensuse.org
-          port: 3306
-          check: check
-          extra: port 8000 inter 3000 rise 3 fall 3 {{ append }}
-        {%- endfor %}
-    {%- endfor %}
     rsync-community2:
       bind:
         {{ bind(['195.135.221.140', '2620:113:80c0:8::16'], 11873) }}
