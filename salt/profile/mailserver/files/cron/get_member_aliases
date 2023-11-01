@@ -15,7 +15,7 @@ send_nsca_message(){
 	echo -e "$nsca_client_name\t$nsca_client_service\t$status_code\t$status_message" | send_nsca -H $nsca_server_ip -c "$nsca_config"
 }
 
-mysql -h proxy.infra.opensuse.org -P3307 -Dmembers -NB -e 'select addr, email_target from email_aliases' >member.aliases.new
+mysql -h mysql.infra.opensuse.org -P3307 -Dmembers -NB -e 'select addr, email_target from email_aliases' >member.aliases.new
 
 # need to make sure it is ordered
 LC_ALL=C sort -d -k1 member.aliases.new >member.aliases.ordered
