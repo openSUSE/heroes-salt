@@ -32,7 +32,7 @@ redmine:
       production:
         adapter: mysql2
         database: redmine
-        host: proxy.infra.opensuse.org
+        host: mysql.infra.opensuse.org
         port: 3307
         # username/password -> secrets.role.web_progress
         encoding: utf8mb4
