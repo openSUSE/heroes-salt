@@ -165,4 +165,4 @@ haproxy:
       {{ server('man', '192.168.47.29') }}
     via_atlas:
       {{ options() }}
-      {{ server('pinot', 'proxy-prg2.infra.opensuse.org', 443, extra_check='ssl verify required verifyhost proxy-prg2.infra.opensuse.org check-sni proxy-prg2.infra.opensuse.org sni str(proxy-prg2.infra.opensuse.org) ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem') }}
+      {{ server('proxy-prg2', '172.16.164.5', 443, extra_check='ssl verify required verifyhost proxy-prg2.infra.opensuse.org check-sni proxy-prg2.infra.opensuse.org sni str(proxy-prg2.infra.opensuse.org) ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem') }}

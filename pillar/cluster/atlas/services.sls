@@ -5,8 +5,7 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
 
         # login2.o.o via anna/elsa
-        - src_login         src         2a07:de40:b27e:64::c0a8:2f65
-        - src_login         src         2a07:de40:b27e:64::c0a8:2f66
+        - src_login         src         2a07:de40:b27e:64::c0a8:2f65 2a07:de40:b27e:64::c0a8:2f66
 
         - is_ssl            dst_port    443
 
