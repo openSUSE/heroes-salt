@@ -21,6 +21,22 @@ haproxy:
         {%- for static_server, address in narwals.items() %}
         {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
+    dale:
+      {{ options('httpchk HEAD /robots.txt HTTP/1.1\r\nHost:\ events.opensuse.org') }}
+      {{ server('dale', '2a07:de40:b27e:1203::b16', 80) }}
+    etherpad:
+      {{ options() }}
+      extra:
+        - errorfile 503 {{ errorfiles }}downtime.html.http
+        - http-response del-header X-Frame-Options
+      timeouts:
+        - check 30s
+        - server 30m
+      {{ server('etherpad', '2a07:de40:b27e:1203::b18', 9001, extra_extra='inter 5000') }}
+    hackweek:
+      mode: http
+      {{ options() }}
+      {{ server('dale_hackweek', '2a07:de40:b27e:1203::b16', 81) }}
     jekyll:
       {{ options('httpchk OPTIONS / HTTP/1.1\r\nHOST:\ search.opensuse.org') }}
       {{ server('jekyll', '2a07:de40:b27e:1203::e1') }}
@@ -30,6 +46,9 @@ haproxy:
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
+    matomo:
+      {{ options() }}
+      {{ server('matomo', '2a07:de40:b27e:1203::b19') }}
     minio:
       {{ options() }}
       {{ server('minio', '2a07:de40:b27e:1203::c1') }}
@@ -42,6 +61,15 @@ haproxy:
     paste:
       {{ options() }}
       {{ server('paste', '2a07:de40:b27e:1203::c2') }}
+    pinot:
+      {{ options() }}
+      {{ server('pinot', '2a07:de40:b27e:1203::b15') }}
+    redmine:
+      {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
+      {{ server('progressoo', '2a07:de40:b27e:1203::b17', 3001, extra_extra='maxconn 16') }}
+    riesling:
+      {{ options() }}
+      {{ server('riesling', '2a07:de40:b27e:1203::b2') }}
     security_txt:
       mode: http
       options:
@@ -49,3 +77,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}security.txt.http
+    tsp:
+      {{ options() }}
+      {{ server('tsp', '2a07:de40:b27e:1203::b20') }}
