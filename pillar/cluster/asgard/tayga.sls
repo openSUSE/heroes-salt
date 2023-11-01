@@ -18,3 +18,4 @@ tayga:
     {%- endfor %} {#- close interfaces loop #}
     {%- endfor %} {#- close hosts loop #}
     172.16.164.5: 2a07:de40:b27e:1204::10
+    172.16.164.6: 2a07:de40:b27e:1203::10
