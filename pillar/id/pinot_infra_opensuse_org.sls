@@ -1,11 +1,11 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - countdown.o.o, release-notes etc.
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: countdown.opensuse.org, board meeting reminder mailer, release notes, phpMyAdmin, asknot-ng

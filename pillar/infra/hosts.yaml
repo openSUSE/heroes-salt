@@ -263,6 +263,19 @@ paste:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+pinot:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c61
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b15/64
+      mac: 52:54:00:7d:a3:1a
+      pseudo_ip4: 172.16.164.137
+      source: x-os-internal
+  legacy_boot: true
+  ram: 2048MB
+  vcpu: 1
 riesling3:
   cluster: falkor
   disks:
