@@ -19,6 +19,7 @@ haproxy_errorfiles:
     - name: /etc/haproxy/errorfiles
     - source: salt://{{ slspath }}/files/etc/haproxy/errorfiles
     - clean: true
+    - template: jinja
     - require:
       - haproxy.install
 

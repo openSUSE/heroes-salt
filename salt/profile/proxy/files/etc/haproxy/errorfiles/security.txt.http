@@ -2,6 +2,7 @@ HTTP/1.0 200
 Cache-Control: no-cache
 Connection: close
 Content-Type: text/plain
+X-Via: {{ grains.host }}
 
 # Our security address
 Contact: https://www.suse.com/support/security/contact/
