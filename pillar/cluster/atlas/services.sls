@@ -67,7 +67,6 @@ haproxy:
 
         # hosts only reachable via login2.o.o
         - dale            if src_login host_dale
-        - redmine         if src_login host_redmine
         - tsp             if src_login host_tsp
         - riesling        if src_login host_mediawiki
 
@@ -83,6 +82,7 @@ haproxy:
         - pinot           if host_contribute
         - pinot           if host_counter
         - pinot           if host_pmya
+        - redmine         if host_redmine
         - staticpages     if host_www || host_staticpages || host_static_o_o
 
       redirects:
