@@ -59,6 +59,7 @@ haproxy:
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
+      default_backend: redirect_www_o_o
       use_backends:
         # special paths with common handling for all hosts
         - error_403        if path_dot_scm

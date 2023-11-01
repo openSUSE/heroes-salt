@@ -62,6 +62,8 @@ haproxy:
     pinot:
       {{ options() }}
       {{ server('pinot', '2a07:de40:b27e:1203::b15') }}
+    redirect_www_o_o:
+      redirects: code 302 location https://www.opensuse.org/
     redmine:
       {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
       {{ server('progressoo', '2a07:de40:b27e:1203::b17', 3001, extra_extra='maxconn 16') }}
