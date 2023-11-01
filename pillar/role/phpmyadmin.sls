@@ -8,7 +8,7 @@ include:
 profile:
   phpmyadmin:
     config:
-      host: 192.168.47.4
+      host: mysql.infra.opensuse.org
       port: 3307
       AllowRoot: 'false'
       only_db: members
