@@ -6,7 +6,7 @@ include:
 
 profile:
   web_tsp:
-    database_host: 192.168.47.4
+    database_host: postgresql.infra.opensuse.org
     database_user: web_tsp
 
 nginx:
