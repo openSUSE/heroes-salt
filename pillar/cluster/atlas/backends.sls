@@ -2,6 +2,9 @@
 
 haproxy:
   backends:
+    dale:
+      {{ options('httpchk HEAD /robots.txt HTTP/1.1\r\nHost:\ events.opensuse.org') }}
+      {{ server('dale', '2a07:de40:b27e:1203::b16', 80) }}
     error_403:
       mode: http
       options:
@@ -9,21 +12,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    www_openid_ldap:
-      {{ options() }}
-      {{ server('ldap-proxy', '2a07:de40:b27e:64::c0a8:2f03') }}
-      mode: http
-    staticpages:
-      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHost:\ static.opensuse.org') }}
-      balance: roundrobin
-      mode: http
-      servers:
-        {%- for static_server, address in narwals.items() %}
-        {{ server(static_server, address, 80, header=False) }}
-        {%- endfor %}
-    dale:
-      {{ options('httpchk HEAD /robots.txt HTTP/1.1\r\nHost:\ events.opensuse.org') }}
-      {{ server('dale', '2a07:de40:b27e:1203::b16', 80) }}
     etherpad:
       {{ options() }}
       extra:
@@ -77,6 +65,18 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}security.txt.http
+    staticpages:
+      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHost:\ static.opensuse.org') }}
+      balance: roundrobin
+      mode: http
+      servers:
+        {%- for static_server, address in narwals.items() %}
+        {{ server(static_server, address, 80, header=False) }}
+        {%- endfor %}
     tsp:
       {{ options() }}
       {{ server('tsp', '2a07:de40:b27e:1203::b20') }}
+    www_openid_ldap:
+      {{ options() }}
+      {{ server('ldap-proxy', '2a07:de40:b27e:64::c0a8:2f03') }}
+      mode: http
