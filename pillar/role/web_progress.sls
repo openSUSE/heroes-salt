@@ -19,7 +19,7 @@ redmine:
         email_delivery:
           delivery_method: :smtp
           smtp_settings:
-            address: proxy.infra.opensuse.org
+            address: localhost
             port: 25
         attachments_storage_path: /var/lib/redmine/files
         private_by_default_projects:
