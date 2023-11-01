@@ -220,6 +220,22 @@ minio:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+mybackup:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d45
+    data1: 3600a098038304161792455736d424d44
+    data2: 3600a09803831494f635d554b394f7752
+    root: 3600a0980383041622f2455736d434c67
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b24/64
+      mac: 52:54:00:19:10:b2
+      pseudo_ip4: 172.16.164.146
+      source: x-os-internal
+  legacy_boot: true
+  ram: 8192MB
+  vcpu: 2
 narwal5:
   cluster: falkor
   disks:
