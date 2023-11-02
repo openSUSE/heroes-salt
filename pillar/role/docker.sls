@@ -1,3 +1,12 @@
+profile:
+  docker:
+    daemon:
+      log-level: warn
+      log-driver: json-file
+      log-opts:
+        max-size: 10m
+        max-file: '5'
+
 sysctl:
   params:
     {#-
@@ -8,7 +17,3 @@ sysctl:
     net.bridge.bridge-nf-call-arptables: 0
     net.bridge.bridge-nf-call-ip6tables: 0
     net.bridge.bridge-nf-call-iptables: 0
-
-zypper:
-  packages:
-    docker: {}
