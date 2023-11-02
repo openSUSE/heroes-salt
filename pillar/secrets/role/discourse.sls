@@ -222,7 +222,7 @@ postgres:
         Ns6tBbCEOIcC6qIPYJk=
         =ERBB
         -----END PGP MESSAGE-----
-    api_key:
+    api_key: |
         -----BEGIN PGP MESSAGE-----
         
         hQQOA7A9CHm0S6RyEA/9HFlGn/tzazYx3mjqwRyobahoB5tNZJIeWAM2ADlbQfoD
