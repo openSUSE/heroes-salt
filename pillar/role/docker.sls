@@ -6,6 +6,8 @@ profile:
       log-opts:
         max-size: 10m
         max-file: '5'
+      experimental: true
+      ip6tables: true
 
 sysctl:
   params:
