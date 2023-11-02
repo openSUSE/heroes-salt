@@ -156,6 +156,34 @@ galera3:
   legacy_boot: true
   ram: 51200MB
   vcpu: 4
+gitlab-runner1:
+  cluster: falkor
+  disks:
+    data0: 3600a0980383041622f2455736d434c6e
+    root: 3600a0980383041622f2455736d434c6c
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::126/64
+      mac: 52:54:00:aa:93:b7
+      pseudo_ip4: 172.16.164.126
+      source: x-os-internal
+  legacy_boot: true
+  ram: 8192MB
+  vcpu: 4
+gitlab-runner2:
+  cluster: falkor
+  disks:
+    data0: 3600a0980383041622f2455736d434c6f
+    root: 3600a0980383041622f2455736d434c6d
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::127/64
+      mac: 52:54:00:85:a8:96
+      pseudo_ip4: 172.16.164.127
+      source: x-os-internal
+  legacy_boot: true
+  ram: 8192MB
+  vcpu: 4
 hel1:
   cluster: falkor
   disks:
