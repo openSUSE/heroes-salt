@@ -70,7 +70,7 @@ test_nginx:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
   stage: test
   before_script:
-    - bin/prepare_test_env.sh -i opensuse -g 
+    - bin/prepare_test_env.sh -i opensuse -g -s
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f nginx
   script: bin/test_nginx.sh
   tags:
@@ -81,7 +81,7 @@ test_nginx:
 test_sudo:
   stage: test
   before_script:
-    - bin/prepare_test_env.sh -i opensuse -g
+    - bin/prepare_test_env.sh -i opensuse -g -s
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
   script: bin/test_sudo.sh
   tags:
