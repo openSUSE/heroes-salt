@@ -2,7 +2,16 @@
 
 # Validate the salt-generated nginx configs
 
+sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
+
+zypper lr -d
+
+rpm -qa --qf '%{name}\n' | sort > /tmp/packages-before
+
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
+
+# systemctl refuses to work in a container, but is needed by service.running. Replace it with /usr/bin/true to avoid useless error messages
+( cd /usr/bin/ ; ln -sf true systemctl )
 
 source bin/get_colors.sh
 
@@ -78,11 +87,11 @@ WEB_ROLES=( $(bin/get_roles.py) )
 
 for role in ${WEB_ROLES[@]}; do
     rolestatus=0
-    if grep nginx salt/role/$role.sls > /dev/null; then
+    if grep nginx salt/role/${role/./\/}.sls > /dev/null; then
         echo_INFO "Testing role: $role"
         reset_nginx
         reset_ip
-        salt-call --local -l quiet state.apply role.$role > /dev/null
+        salt-call --local state.apply role.$role > /dev/null
         create_fake_certs
         touch_includes $role
 
@@ -109,6 +118,11 @@ for role in ${WEB_ROLES[@]}; do
         echo
     fi
 done
+
+rpm -qa --qf '%{name}\n' | sort > /tmp/packages-after
+
+diff -U0 /tmp/packages-before /tmp/packages-after || echo '=== The packages listed above were installed by one of the roles. Consider to add them to the docker image to speed up this test.'
+
 
 exit $STATUS
 
