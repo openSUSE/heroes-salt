@@ -360,6 +360,30 @@ pinot:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+prg-ns1:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f775a
+  interfaces:
+    os-public:
+      ip4: 172.16.130.21/24
+      ip6: 2a07:de40:b27e:1204::21/64
+      mac: a6:b3:c3:60:a3:21
+      source: x-os-public
+  ram: 2048MB
+  vcpu: 2
+prg-ns2:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f772f
+  interfaces:
+    os-public:
+      ip4: 172.16.130.22/24
+      ip6: 2a07:de40:b27e:1204::22/64
+      mac: a6:b3:c3:60:a3:22
+      source: x-os-public
+  ram: 2048MB
+  vcpu: 2
 progressoo:
   cluster: falkor
   disks:
