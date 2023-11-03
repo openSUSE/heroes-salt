@@ -45,7 +45,7 @@ test_haproxy:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy:latest
   stage: test
   before_script:
-    - bin/prepare_test_env.sh -g -s
+    - bin/prepare_test_env.sh -g -s -n
     - bin/replace_secrets.sh
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f haproxy
   script: bin/test_haproxy.sh
