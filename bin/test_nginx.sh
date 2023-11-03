@@ -2,10 +2,6 @@
 
 # Validate the salt-generated nginx configs
 
-sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
-
-zypper lr -d
-
 rpm -qa --qf '%{name}\n' | sort > /tmp/packages-before
 
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }

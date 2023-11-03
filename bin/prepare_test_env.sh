@@ -57,6 +57,9 @@ if [[ "$INSTANCE" == 'opensuse' ]]; then
     VIRT_CLUSTER='atreju'
 fi
 
+sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
+zypper lr -d
+
 if [ -n "${PKG[@]}" ]; then
     $SUDO zypper --gpg-auto-import-keys ref
     $SUDO zypper -qn install --no-recommends ${PKG[@]}
