@@ -11,7 +11,6 @@ source /etc/os-release
 SECRETS="False"
 REPO_URL=${PRETTY_NAME// /_}
 PKG=''
-INSTANCE='opensuse'
 
 if [[ $(whoami) != 'root' ]]; then
     if [[ -f /usr/bin/sudo ]]; then
@@ -27,7 +26,6 @@ help() {
     echo
     echo "Arguments:"
     echo "-p <pkg1,pkg2> Comma-separated list of additional packages to be installed"
-    echo "-i <instance>  Choose gitlab instance. Choices: opensuse, suse"
     echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,42,3\", \"SLES,12,3\""
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
@@ -37,10 +35,9 @@ help() {
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts p:i:o:gsnh arg; do
+while getopts p:o:gsnh arg; do
     case ${arg} in
         p) PKG=(${OPTARG//,/ }) ;;
-        i) INSTANCE=${OPTARG} ;;
         o) OS=(${OPTARG//,/ }) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
@@ -50,12 +47,8 @@ while getopts p:i:o:gsnh arg; do
     esac
 done
 
-[[ -z "$INSTANCE" ]] && help && exit 1
-
-if [[ "$INSTANCE" == 'opensuse' ]]; then
-    DOMAIN='infra.opensuse.org'
-    SALT_CLUSTER='opensuse'
-fi
+DOMAIN='infra.opensuse.org'
+SALT_CLUSTER='opensuse'
 
 if [ -z "$REPOSITORIES" ]
 then
