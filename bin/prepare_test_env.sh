@@ -55,7 +55,6 @@ done
 if [[ "$INSTANCE" == 'opensuse' ]]; then
     DOMAIN='infra.opensuse.org'
     SALT_CLUSTER='opensuse'
-    VIRT_CLUSTER='atreju'
 fi
 
 if [ -z "$REPOSITORIES" ]
@@ -81,7 +80,7 @@ ID=$(/usr/bin/hostname -f)
 IDFILE="pillar/id/${ID//./_}.sls"
 IDFILE_BASE="$IDFILE.base.sls"
 
-printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n  salt_cluster: $SALT_CLUSTER\n  virt_cluster: $VIRT_CLUSTER\n" > "$IDFILE"
+printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n  salt_cluster: $SALT_CLUSTER\n" > "$IDFILE"
 cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
