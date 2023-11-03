@@ -31,18 +31,20 @@ help() {
     echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,42,3\", \"SLES,12,3\""
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
+    echo "-n             OPTIONAL: Delete all repositories to speed up tests which do not install additional packages"
     echo
 }
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts p:i:o:gsh arg; do
+while getopts p:i:o:gsnh arg; do
     case ${arg} in
         p) PKG=(${OPTARG//,/ }) ;;
         i) INSTANCE=${OPTARG} ;;
         o) OS=(${OPTARG//,/ }) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
+        n) REPOSITORIES='False' ;;
         h) help && exit ;;
         *) help && exit 1 ;;
     esac
@@ -56,13 +58,19 @@ if [[ "$INSTANCE" == 'opensuse' ]]; then
     VIRT_CLUSTER='atreju'
 fi
 
-sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
-zypper lr -d
-
-if [ -n "${PKG[@]}" ]; then
-    $SUDO zypper --gpg-auto-import-keys ref
-    $SUDO zypper -qn install --no-recommends ${PKG[@]}
+if [ -z "$REPOSITORIES" ]
+then
+  sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
+  
+  if [ -n "${PKG[@]}" ]; then
+      $SUDO zypper --gpg-auto-import-keys ref
+      $SUDO zypper -qn install --no-recommends ${PKG[@]}
+  fi
+elif [ "$REPOSITORIES" == 'False' ]
+then
+  rm /etc/zypp/repos.d/*
 fi
+zypper lr -d || true
 
 bin/replace_secrets.sh
 $SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
