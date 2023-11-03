@@ -29,10 +29,6 @@ run_tests() {
     return $STATUS
 }
 
-echo_INFO "Testing virtual: physical"
-echo "virtual: physical" > /etc/salt/grains
-run_tests
-
 pushd pillar > /dev/null
 SUDO_ROLES=(
     # Get all the roles that include common sls files, which contain sudoers entries
