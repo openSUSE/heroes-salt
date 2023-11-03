@@ -3,7 +3,6 @@
 # See the description at the help()
 
 set -e
-set -x
 if [ ! -r /etc/os-release ]; then
     echo "Could not read /etc/os-release - exiting" >&2
     exit 1
