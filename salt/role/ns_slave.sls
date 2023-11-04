@@ -1,2 +1,0 @@
-include:
-  - profile.nameserver.slave
