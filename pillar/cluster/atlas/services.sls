@@ -74,9 +74,9 @@ haproxy:
         - riesling        if src_login host_mediawiki
 
         # rules only depending on host_*
-        - community       if is_community
-        - community       if is_doc
-        - community2      if is_community2
+        - community       if host_community
+        - community       if host_doc
+        - community2      if host_community2
         - etherpad        if host_etherpad
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
