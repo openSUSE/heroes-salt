@@ -27,17 +27,6 @@ haproxy:
       options:
         - tcp-smart-connect
       {{ server('http-int-in', '127.0.0.1', 83, check=None, extra_extra='send-proxy-v2') }}
-    rsync-community2:
-      bind:
-        {{ bind(['195.135.221.140', '2620:113:80c0:8::16'], 11873) }}
-      mode: tcp
-      options:
-        - tcplog
-        - tcpka
-      servers:
-        rsync_community2:
-          host: 192.168.47.79
-          port: 873
     kernel-git-in:
       bind:
         {{ bind(['195.135.221.140', '2620:113:80c0:8::16'], 9418) }}

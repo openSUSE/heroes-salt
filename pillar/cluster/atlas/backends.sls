@@ -2,6 +2,13 @@
 
 haproxy:
   backends:
+    community:
+      {{ options ('httpchk OPTIONS / HTTP/1.1\r\nHost:\ community.opensuse.org') }}
+      {{ server('community', '2a07:de40:b27e:1203::128') }}
+    community2:
+      {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ factory-dashboard.opensuse.org') }}
+      mode: http
+      {{ server('community2', '2a07:de40:b27e:1203::129') }}
     dale:
       {{ options('httpchk HEAD /robots.txt HTTP/1.1\r\nHost:\ events.opensuse.org') }}
       {{ server('dale', '2a07:de40:b27e:1203::b16', 80) }}
