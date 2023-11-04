@@ -1,13 +1,12 @@
 image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing:latest
 
 stages:
-  - validate
   - test
   - deploy
 
 validate:
   image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation:latest
-  stage: validate
+  stage: test
   script: bin/test_validate.sh
   tags:
     - docker
@@ -15,7 +14,7 @@ validate:
     - if: $CI_COMMIT_BRANCH
 
 show_highstate:
-  stage: validate
+  stage: test
   before_script:
     - bin/prepare_test_env.sh -g -o Leap,15,4 -s
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
@@ -30,7 +29,7 @@ show_highstate:
     - if: $CI_COMMIT_BRANCH
 
 upstream_formulas_show_highstate:
-  stage: validate
+  stage: test
   before_script:
     - bin/prepare_test_env.sh -g
     - bin/get_formulas.py -c -d /srv/formula -s
@@ -59,12 +58,12 @@ test_haproxy:
       - '*.txt'
   rules:
     - if: $CI_COMMIT_BRANCH
-      changes:
-        - bin/test_haproxy.sh
-        - pillar/cluster/*/*
-        - pillar/common/haproxy/*
-        - salt/profile/proxy/*
-        - salt/role/proxy*
+#     changes:
+#       - bin/test_haproxy.sh
+#       - pillar/cluster/*/*
+#       - pillar/common/haproxy/*
+#       - salt/profile/proxy/*
+#       - salt/role/proxy*
 
 test_nginx:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
