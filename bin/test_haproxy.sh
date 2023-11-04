@@ -4,6 +4,9 @@
 
 set -Cu
 
+# systemctl refuses to work in a container, but is needed by service.running. Replace it with /usr/bin/true to avoid useless error messages and breakage.
+( cd /usr/bin/ ; ln -sf true systemctl )
+
 loglevel='info'
 logbase_salt='log_salt'
 logbase_haproxy='log_haproxy'
@@ -77,7 +80,12 @@ run () {
 		exit 1
 	fi
 	gen_ssl "$cluster"
-	salt "$logfile_salt" apply "$state"
+	if ! salt "$logfile_salt" apply "$state"
+	then
+		tail -n100 "$logfile_salt"
+		echo 'State apply failed, not proceeding to test HAProxy.' | tee -a "$logfile_salt" "$logfile_haproxy"
+		exit 1
+	fi
 	check_haproxy "$logfile_haproxy"
 	return "$?"
 }
