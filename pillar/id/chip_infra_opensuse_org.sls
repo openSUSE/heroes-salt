@@ -9,10 +9,9 @@ grains:
 
   aliases:
     - ext-ns.infra.opensuse.org
-  description: Hidden DNS for zone transfers from FreeIPA to public DNS servers
+  description: Hidden DNS master
   documentation: []
   responsible: []
   partners: []
   weburls: []
-roles:
-  - ns_slave
+roles: []
