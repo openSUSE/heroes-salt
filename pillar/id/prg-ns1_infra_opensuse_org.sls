@@ -13,4 +13,5 @@ grains:
   partners:
     - prg-ns2.infra.opensuse.org
   weburls: []
-roles: []
+roles:
+  - nameserver.secondary
