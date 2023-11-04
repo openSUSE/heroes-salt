@@ -1,2 +1,2 @@
 include:
-  - profile.nameserver.slave
+  - profile.dns.powerdns.authoritative

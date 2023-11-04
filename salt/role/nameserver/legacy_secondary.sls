@@ -1,2 +1,2 @@
 include:
-  - profile.dns
+  - profile.dns.bind.named
