@@ -26,9 +26,12 @@ haproxy:
         - path_slash        path         /
 
         - host_beans        hdr(host)   -i beans.opensuse.org
+        - host_community    hdr(host)   -i community.opensuse.org
+        - host_community2   hdr(host)   -i factory-dashboard.opensuse.org
         - host_contribute   hdr(host)   -i contribute.opensuse.org
         - host_counter      hdr_reg(host) -i count(er|down)\.opensuse\.org
         - host_doc          hdr(host)   -i doc.opensuse.org
+        - host_redirect_doc hdr_reg(host) -i (docs|activedoc|www\.activedoc|rtfm).opensuse.org
         - host_etherpad     hdr(host)   -i etherpad.opensuse.org
         - host_dale         hdr(host)   -i events.opensuse.org
         - host_dale         hdr(host)   -i events-test.opensuse.org
@@ -71,6 +74,9 @@ haproxy:
         - riesling        if src_login host_mediawiki
 
         # rules only depending on host_*
+        - community       if is_community
+        - community       if is_doc
+        - community2      if is_community2
         - etherpad        if host_etherpad
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
@@ -87,6 +93,7 @@ haproxy:
 
       redirects:
         - scheme https code 301                                              if !is_ssl !host_get_o_o
+        - code 301 location https://doc.opensuse.org                         if host_redirect_doc
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www

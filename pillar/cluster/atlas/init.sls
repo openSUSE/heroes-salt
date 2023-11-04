@@ -9,8 +9,10 @@ include:
   - secrets.cluster.atlas
   {%- endif %}
 
-{%- set bind_v6 = ['2a07:de40:b27e:1204::10', '2a07:de40:b27e:1204::11', '2a07:de40:b27e:1204::12'] %}
-{%- set bind_v4 = ['172.16.130.10', '172.16.130.11', '172.16.130.12'] %}
+{%- set bind_v6_vip = ['2a07:de40:b27e:1204::10'] %}
+{%- set bind_v6 = bind_v6_vip + ['2a07:de40:b27e:1204::11', '2a07:de40:b27e:1204::12'] %}
+{%- set bind_v4_vip = ['172.16.130.10'] %}
+{%- set bind_v4 = bind_v4_vip + ['172.16.130.11', '172.16.130.12'] %}
 
 haproxy:
   frontends:
@@ -47,3 +49,15 @@ haproxy:
                 ] }
         }) }}
         - http-request set-var(txn.host) hdr(Host)
+    rsync-community2:
+      acl: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
+      bind:
+        {{ bind(bind_v4_vip, 11873, bindopts) }}
+      mode: tcp
+      options:
+        - tcplog
+        - tcpka
+      servers:
+        rsync_community2:
+          host: 2a07:de40:b27e:1203::129
+          port: 873

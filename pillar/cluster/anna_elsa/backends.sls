@@ -4,10 +4,6 @@ haproxy:
   backends:
     redirect_www_o_o:
       redirects: code 301 location https://www.opensuse.org/
-    community2:
-      {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ factory-dashboard.opensuse.org') }}
-      mode: http
-      {{ server('community2', '192.168.47.79') }}
     status:
       mode: tcp
       options:
@@ -16,9 +12,6 @@ haproxy:
         {%- for status_server, status_config in {'status1': '100', 'status2': '80 backup', 'status3': '90 backup'}.items() %}
         {{ server(status_server, status_server ~ '.opensuse.org', 443, extra_extra='inter 60000 weight ' ~ status_config, header=False) }}
         {%- endfor %}
-    community:
-      {{ options ('httpchk OPTIONS / HTTP/1.1\r\nHost:\ community.opensuse.org') }}
-      {{ server('community', '192.168.47.6') }}
     svn:
       {{ options() }}
       {{ server('svn', '192.168.47.25') }}
