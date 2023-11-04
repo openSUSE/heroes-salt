@@ -20,4 +20,4 @@ grains:
     - provo-ns.infra.opensuse.org
   weburls: []
 roles:
-  - dns
+  - nameserver.legacy_secondary
