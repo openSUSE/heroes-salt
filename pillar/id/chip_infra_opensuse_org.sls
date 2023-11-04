@@ -14,4 +14,5 @@ grains:
   responsible: []
   partners: []
   weburls: []
-roles: []
+roles:
+  - nameserver.primary
