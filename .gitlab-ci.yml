@@ -58,12 +58,12 @@ test_haproxy:
       - '*.txt'
   rules:
     - if: $CI_COMMIT_BRANCH
-      changes:
-        - bin/test_haproxy.sh
-        - pillar/cluster/*/*
-        - pillar/common/haproxy/*
-        - salt/profile/proxy/*
-        - salt/role/proxy*
+#     changes:
+#       - bin/test_haproxy.sh
+#       - pillar/cluster/*/*
+#       - pillar/common/haproxy/*
+#       - salt/profile/proxy/*
+#       - salt/role/proxy*
 
 test_nginx:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
