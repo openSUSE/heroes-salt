@@ -1,6 +1,6 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - bugbot
     # bugbot writes IRC meeting logs to community.o.o/meetings/
@@ -9,7 +9,7 @@ grains:
     - doc.o.o
   reboot_safe: unknown
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Several old services (see hostusage) that need to be migrated to new VMs
