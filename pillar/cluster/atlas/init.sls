@@ -50,7 +50,7 @@ haproxy:
         }) }}
         - http-request set-var(txn.host) hdr(Host)
     rsync-community2:
-      acl: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
+      acls: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
       bind:
         {{ bind(bind_v4_vip, 11873, bindopts) }}
       mode: tcp
