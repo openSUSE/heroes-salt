@@ -18,3 +18,4 @@ grains:
 roles:
   - ha
   - proxy
+  - pgbouncer

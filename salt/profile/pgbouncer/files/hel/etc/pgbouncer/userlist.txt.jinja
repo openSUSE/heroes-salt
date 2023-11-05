@@ -1,0 +1,3 @@
+{%- for user, secret in salt['pillar.get']('profile:pgbouncer:userlist', {}).items() %}
+"{{ user }}" "{{ secret }}"
+{%- endfor %}
