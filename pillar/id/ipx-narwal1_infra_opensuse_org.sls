@@ -4,7 +4,6 @@ grains:
   hostusage:
     - static.o.o
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: stonehat-bare
 
   aliases: []

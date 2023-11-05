@@ -4,7 +4,6 @@ grains:
   hostusage:
     - en.o.o (read-only)
   reboot_safe: unknown
-  salt_cluster: opensuse
   virt_cluster: bryce
 
   aliases: []

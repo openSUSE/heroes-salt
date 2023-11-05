@@ -4,7 +4,6 @@ grains:
   hostusage:
     - wiki search backend
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases: []

@@ -10,7 +10,6 @@ grains:
     - proxy-nue2.o.o
     - relay.i.o.o
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
   subrole_ntp: ntp3
 

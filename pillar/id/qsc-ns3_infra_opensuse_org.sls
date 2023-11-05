@@ -4,7 +4,6 @@ grains:
   hostusage:
     - DNS
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: slimhat
 
   aliases: 

@@ -2,6 +2,8 @@
 {% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
 {% set osrelease = salt['grains.get']('osrelease') %}
 {%- set virtual = salt['grains.get']('virtual') -%}
+{%- set country = salt['grains.get']('country') -%}
+{%- set subrole_ntp = salt['grains.get']('subrole_ntp', '') -%}
 
 include:
   - .headers
@@ -14,6 +16,12 @@ include:
 chrony:
   driftfile: /var/lib/chrony/drift
   logdir: /var/log/chrony
+  ntpservers:
+   {%- for n in range(3) %}
+   {%- if subrole_ntp != 'ntp{0}'.format(n+1) %}
+   - ntp{{ n+1 }}.infra.opensuse.org
+   {%- endif %}
+   {%- endfor %}
   otherparams:
     {% if salt['grains.get']('configure_ntp', True) %}
     - logchange 0.5
@@ -37,6 +45,8 @@ openssh:
   banner_src: salt://profile/accounts/files/ssh_banner
   sshd_config_mode: 0640
 profile:
+  log:
+    rsyslog_host: monitor.infra.opensuse.org
   postfix:
     aliases:
       root: admin-auto@opensuse.org
@@ -51,7 +61,7 @@ rsyslog:
   protocol: tcp
   target: syslog.infra.opensuse.org
 salt:
-  {%- if grains.get('country') == 'cz' %}
+  {%- if country == 'cz' %}
   {#- to-do: deploy IPv6 globally #}
   ipv6: true
   {%- endif %}
@@ -60,6 +70,13 @@ salt:
     backup_mode: minion
     saltenv: production
     hash_type: sha512
+    {%- if country == 'cz' %}
+    master:
+      - witch1.infra.opensuse.org
+      #- witch2.infra.opensuse.org (not ready yet)
+    {%- else %}
+    master: minnie.infra.opensuse.org
+    {%- endif %}
     {%- if osfullname == 'openSUSE Leap Micro' %}
     module_executors:
       - transactional_update

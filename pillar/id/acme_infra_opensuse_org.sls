@@ -4,7 +4,6 @@ grains:
   hostusage:
     - ACME Handler
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
   aliases: []
   description: Machine for requesting, issuing and deploying certificates.

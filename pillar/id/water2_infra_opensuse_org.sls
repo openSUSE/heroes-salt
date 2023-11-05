@@ -4,7 +4,6 @@ grains:
   hostusage:
     - en.o.o wiki search backend
   reboot_safe: unknown
-  salt_cluster: opensuse
   virt_cluster: bryce
 
   aliases: []

@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Galera node (MySQL)
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: stonehat-bare
 
   aliases: []

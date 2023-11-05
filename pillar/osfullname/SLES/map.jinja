@@ -4,3 +4,4 @@
 {%- if osrelease_info|length == 2 -%}
     {%- set version = version + '-SP' + osrelease_info[1]|string -%}
 {%- endif %}
+{%- set leap_equivalent = version ~ '.' ~ osrelease_info[1]|string -%}

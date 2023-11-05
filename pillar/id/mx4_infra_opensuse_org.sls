@@ -3,7 +3,6 @@ grains:
   country: us
   hostusage: []
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: bryce
   aliases: []
   description: to be filled by pjessen

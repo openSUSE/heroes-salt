@@ -5,7 +5,6 @@ grains:
     - static.o.o
     - static.o.o master
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases: []

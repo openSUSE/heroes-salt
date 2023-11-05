@@ -4,7 +4,6 @@ grains:
   hostusage:
     - en.o.o (all *.o.o wikis)
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases:

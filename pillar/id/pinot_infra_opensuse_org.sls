@@ -4,7 +4,6 @@ grains:
   hostusage:
     - countdown.o.o, release-notes etc.
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases: []

@@ -7,7 +7,6 @@ grains:
   hostusage:
     - Proxy
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
   aliases: []
   description: Public facing reverse proxy/relay for various protocols

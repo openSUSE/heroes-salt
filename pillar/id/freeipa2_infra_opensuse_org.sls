@@ -4,7 +4,6 @@ grains:
   hostusage:
     - freeipa2
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

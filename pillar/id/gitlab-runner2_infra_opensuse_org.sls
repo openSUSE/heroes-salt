@@ -4,7 +4,6 @@ grains:
   hostusage:
     - gitlab runner
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases: []

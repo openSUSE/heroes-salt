@@ -3,7 +3,6 @@ grains:
   country: cz
   hostusage: []
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases: []
