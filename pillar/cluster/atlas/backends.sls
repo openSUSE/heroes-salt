@@ -41,6 +41,9 @@ haproxy:
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
+    man:
+      {{ options() }}
+      {{ server('man', '2a07:de40:b27e:1203::130') }}
     matomo:
       {{ options() }}
       {{ server('matomo', '2a07:de40:b27e:1203::b19') }}

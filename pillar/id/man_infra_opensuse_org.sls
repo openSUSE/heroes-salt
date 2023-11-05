@@ -1,11 +1,11 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - manpages.o.o
   reboot_safe: yes
   salt_cluster: opensuse
-  virt_cluster: atreju
+  virt_cluster: falkor
   aliases: []
   description: Webserver for manpages
   responsible:
