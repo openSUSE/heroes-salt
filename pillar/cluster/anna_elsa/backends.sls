@@ -69,12 +69,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}conncheck.txt.http
-    deadservices:
-      options: ['tcpka']
-      mode: http
-      httprequests: set-log-level silent
-      extra:
-        - errorfile 503 {{ errorfiles }}deprecated.html.http
     mirrorlist:
       {{ options() }}
       {{ server('olaf', '192.168.47.17') }}

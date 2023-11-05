@@ -24,8 +24,6 @@ haproxy:
         - is_users               hdr(host)     -i users.opensuse.org
         - is_coc                 hdr(host)     -i coc.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
-        - is_features            hdr(host)     -i fate.opensuse.org
-        - is_features            hdr(host)     -i features.opensuse.org
         - is_redirect_features   hdr_reg(host) -i (idea|ideas).opensuse.org
         - is_freeipa             hdr(host)     -i freeipa.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
@@ -33,12 +31,10 @@ haproxy:
         - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
         - is_ignite_stage        hdr(host)     -i ignite-stage.opensuse.org
         - is_ignite              hdr(host)     -i ignite.opensuse.org
-        - is_deadservice         hdr(host)     -i hellocf.opensuse.org
         - is_help                hdr(host)     -i help.opensuse.org
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
         {%- endfor %}
-        - is_deadservice         hdr(host)     -i icc.opensuse.org
         - is_kubic               hdr(host)     -i kubic.opensuse.org
         - is_license             hdr(host)     -i license.opensuse.org
         - is_metrics             hdr(host)     -i metrics.opensuse.org
@@ -50,7 +46,6 @@ haproxy:
         - is_mirrorcache_eu      hdr(host)     -i mirrorcache-eu.opensuse.org
         - is_download_o_o        hdr(host)     -i download.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
-        - is_deadservice         hdr(host)     -i moodle.opensuse.org
         - is_opi_proxy           hdr(host)     -i opi-proxy.opensuse.org
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
@@ -106,7 +101,6 @@ haproxy:
         - security_txt     if path_security
         - jenkins          if is_jenkins
         - conncheck        if is_conncheck
-        - deadservices     if is_features || is_deadservice
         - freeipa          if is_freeipa
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl

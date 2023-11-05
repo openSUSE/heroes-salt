@@ -6,8 +6,6 @@ haproxy:
         - path_dot_scm           path_beg      /.svn/
         - path_dot_scm           path_beg      /.bzr/
         - is_ssl                 fc_rcvd_proxy
-        - is_connect             hdr_reg(host) -i connect(-dev)?\.opensuse\.org
-        - is_connect             hdr(host) -i users.opensuse.org
         - via_atlas              hdr(host) -i events.opensuse.org
         - via_atlas              hdr(host) -i events-test.opensuse.org
         - is_download            hdr(host) -i download.opensuse.org
@@ -31,7 +29,6 @@ haproxy:
       default_backend: redirect_www_o_o
       use_backends:
         - error_403        if path_dot_scm
-        - deadservices     if is_connect
         - download-private if is_download
         - hydra            if is_hydra
         - mickey           if is_mickey
