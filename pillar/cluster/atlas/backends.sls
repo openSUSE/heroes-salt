@@ -19,6 +19,9 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
+    elections:
+      {{ options() }}
+      {{ server('elections2', '2a07:de40:b27e:1203::b41') }}
     etherpad:
       {{ options() }}
       extra:
@@ -41,6 +44,13 @@ haproxy:
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
+    lnt:
+      {{ options() }}
+      {{ server('lnt', '2a07:de40:b27e:1203::b42', 8080) }}
+      httprequests:
+      - set-header X-Forwarded-Host %[req.hdr(Host)]
+      - set-header X-Forwarded-Proto https
+      extra: timeout server 300s
     man:
       {{ options() }}
       {{ server('man', '2a07:de40:b27e:1203::130') }}
@@ -56,6 +66,9 @@ haproxy:
     monitor_grafana:
       {{ options() }}
       {{ server('grafana', '2a07:de40:b27e:64::c0a8:2f07', 3000, extra_extra='inter 30000') }}
+    nuka:
+      {{ options ('httpchk HEAD /static/weblate-128.png HTTP/1.1\r\nHost:\ l10n.opensuse.org') }}
+      {{ server('nuka', '2a07:de40:b27e:1203::b44') }}
     paste:
       {{ options() }}
       {{ server('paste', '2a07:de40:b27e:1203::c2') }}

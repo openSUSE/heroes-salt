@@ -49,7 +49,6 @@ haproxy:
         - is_mailman3            hdr(host)     -i lists.opensuse.org
         - is_mailman3            hdr(host)     -i lists-test.opensuse.org
         - is_mailman3            hdr(host)     -i lists.uyuni-project.org
-        - is_lnt                 hdr(host)     -i lnt.opensuse.org
         - is_mainpage            hdr(host)     -i opensuse.org
         - is_matrix              hdr(host)     -i matrix.opensuse.org
         {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
@@ -82,8 +81,6 @@ haproxy:
         - is_redirect_git        hdr(host)     -i git.opensuse.org
         - is_svn                 hdr(host)     -i kernel.opensuse.org
         - is_upgrade             hdr(host)     -i upgrade.opensuse.org
-        - is_nuka                hdr(host)     -i l10n.opensuse.org
-        - is_nuka                hdr(host)     -i i18n.opensuse.org
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
         - is_wiki                hdr(host)     -i wiki.opensuse.org
         - is_dewiki              hdr(host)     -i dewiki.opensuse.org
@@ -133,12 +130,10 @@ haproxy:
         - gccstats         if is_gcc
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
-        - nuka             if is_nuka
         - kubic            if is_kubic
         - kubic            if is_microos
         - kubic            if is_mainpage path_kubic_registry
         - mailman3         if is_mailman3
-        - lnt              if is_lnt
         - matrix           if is_matrix
         - chat             if is_chat
         - metrics          if is_metrics

@@ -77,9 +77,6 @@ haproxy:
     gccstats:
       {{ options() }}
       {{ server('gccstats', '192.168.47.71') }}
-    nuka:
-      {{ options ('httpchk HEAD /static/weblate-128.png HTTP/1.1\r\nHost:\ l10n.opensuse.org') }}
-      {{ server('nuka', '192.168.47.62') }}
     freeipa:
       {{ options() }}
       {{ server('freeipa', '192.168.47.65', 443, extra_check='ssl ca-file /etc/haproxy/freeipa-ca.crt') }}
@@ -115,9 +112,6 @@ haproxy:
     forums:
       {{ options() }}
       {{ server('discourse01', '192.168.47.83') }}
-    elections:
-      {{ options() }}
-      {{ server('elections2', '192.168.47.32') }}
     jenkins:
       options:
         - forwardfor
@@ -126,13 +120,6 @@ haproxy:
     metrics:
       {{ options() }}
       {{ server('metrics', '192.168.47.31', 3000) }}
-    lnt:
-      {{ options() }}
-      {{ server('lnt', '192.168.47.35', 8080) }}
-      httprequests:
-      - set-header X-Forwarded-Host %[req.hdr(Host)]
-      - set-header X-Forwarded-Proto https
-      extra: timeout server 300s
     obsreview: {#- to-do: investigate; port 80 only serves 404 #}
       {{ options() }}
       {{ server('obsreview', '192.168.47.39') }}

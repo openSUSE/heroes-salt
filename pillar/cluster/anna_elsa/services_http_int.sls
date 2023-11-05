@@ -13,7 +13,7 @@ haproxy:
         - is_download            hdr(host) -i download.opensuse.org
         - is_download            hdr(host) -i download.infra.opensuse.org
         - is_download            hdr(host) -i widehat.opensuse.org
-        - is_elections           hdr(host) -i elections.opensuse.org
+        - via_atlas              hdr(host) -i elections.opensuse.org
         - is_forums              hdr(host) -i forums.opensuse.org
         - via_atlas              hdr(host) -i hackweek.opensuse.org
         - is_hydra               hdr(host) -i hydra.opensuse.org
@@ -34,7 +34,6 @@ haproxy:
         - error_403        if path_dot_scm
         - deadservices     if is_connect
         - download-private if is_download
-        - elections        if is_elections
         - hydra            if is_hydra
         - mickey           if is_mickey
         - openqa           if is_openqa
