@@ -126,6 +126,20 @@ devcon:
   primary_interface: os-internal
   ram: 512MB
   vcpu: 1
+discourse01:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b394f7761
+    root: 3600a0980383041622f2455736d434d33
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b47/64
+      mac: 52:54:00:98:bc:6f
+      pseudo_ip4: 172.16.164.160
+      source: x-os-internal
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 2
 elections2:
   cluster: falkor
   disks:
@@ -197,6 +211,20 @@ galera3:
   legacy_boot: true
   ram: 51200MB
   vcpu: 4
+gcc-stats:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b394f7764
+    root: 3600a0980383041622f2455736d434d30
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b45/64
+      mac: 52:54:00:21:5e:cd
+      pseudo_ip4: 172.16.164.158
+      source: x-os-internal
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 2
 gitlab-runner1:
   cluster: falkor
   disks:
@@ -290,6 +318,21 @@ lnt:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+mailman3:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d52
+    data1: 3600a09803831494f635d554b394f7765
+    root: 3600a0980383041622f2455736d434d34
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b46/64
+      mac: 52:54:00:7d:d0:89
+      pseudo_ip4: 172.16.164.159
+      source: x-os-internal
+  legacy_boot: true
+  ram: 15360MB
+  vcpu: 6
 man:
   cluster: falkor
   disks:
@@ -316,6 +359,21 @@ matomo:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+matrix:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d56
+    data1: 3600a09803831494f635d554b394f7762
+    root: 3600a0980383041622f2455736d434c77
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b40/64
+      mac: 52:54:00:5c:7f:1d
+      pseudo_ip4: 172.16.164.153
+      source: x-os-internal
+  legacy_boot: true
+  ram: 15360MB
+  vcpu: 6
 mickey:
   cluster: falkor
   disks:
@@ -458,6 +516,20 @@ nuka:
   legacy_boot: true
   ram: 10240MB
   vcpu: 2
+pagure01:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b394f7763
+    root: 3600a0980383041622f2455736d434d32
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b48/64
+      mac: 52:54:00:c9:d1:88
+      pseudo_ip4: 172.16.164.161
+      source: x-os-internal
+  legacy_boot: true
+  ram: 15360MB
+  vcpu: 8
 paste:
   cluster: falkor
   disks:
