@@ -18,7 +18,7 @@ profile:
   mailman3:
     admin_user: mailman
     database_user: mailman
-    database_host: 192.168.47.4
+    database_host: postgresql.infra.opensuse.org
     server_list:
       - lists.opensuse.org
       - lists.uyuni-project.org
