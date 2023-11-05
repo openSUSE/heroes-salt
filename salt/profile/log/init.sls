@@ -12,6 +12,7 @@ rsyslog_host:
         - syslog.infra.opensuse.org
         - monitor
         - syslog
+    - clean: True
 
 systemd-logger:
   pkg.removed:
