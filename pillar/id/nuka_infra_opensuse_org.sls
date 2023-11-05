@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - l10n.o.o
   reboot_safe: yes
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases:
     - l10n.infra.opensuse.org
