@@ -75,4 +75,5 @@ rsync:
       'read only': 'false'
       'secrets file': /etc/rsyncd.secrets
       'hosts allow':
-        - 2a07:de40:b27e:64::c0a8:2f25 # minnie (GitLab runner)
+        - 2a07:de40:b27e:1203::126 # gitlab-runner1
+        - 2a07:de40:b27e:1203::127 # gitlab-runner2
