@@ -35,16 +35,20 @@ haproxy:
         - host_etherpad     hdr(host)   -i etherpad.opensuse.org
         - host_dale         hdr(host)   -i events.opensuse.org
         - host_dale         hdr(host)   -i events-test.opensuse.org
+        - host_elections    hdr(host)   -i elections.opensuse.org
         - host_get_o_o      hdr(host)   -i get.opensuse.org
         - host_hackweek     hdr(host)   -i hackweek.opensuse.org
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
+        - host_lnt          hdr(host)   -i lnt.opensuse.org
         - host_man          hdr(host)   -i man.opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
+        - host_nuka         hdr(host)   -i i18n.opensuse.org
+        - host_nuka         hdr(host)   -i l10n.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
         - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
@@ -79,14 +83,17 @@ haproxy:
         - community       if host_community
         - community       if host_doc
         - community2      if host_community2
+        - elections       if host_elections
         - etherpad        if host_etherpad
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - limesurvey      if host_limesurvey
+        - lnt             if host_lnt
         - man             if host_manpages
         - matomo          if host_beans
         - minio           if host_minio
         - monitor         if host_monitor
+        - nuka            if host_nuka
         - paste           if host_paste
         - pinot           if host_contribute
         - pinot           if host_counter
