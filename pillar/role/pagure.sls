@@ -33,7 +33,7 @@ sshd_config:
 profile:
   pagure:
     database_user: pagure
-    database_host: 192.168.47.4
+    database_host: postgresql.infra.opensuse.org
 
 {% set listenhttps4=['443', 'ssl', 'http2'] %}
 {% set listenhttps6=['[::]:443', 'ssl', 'http2'] %}
