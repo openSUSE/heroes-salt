@@ -46,7 +46,11 @@ openssh:
   sshd_config_mode: 0640
 profile:
   log:
-    rsyslog_host: monitor.infra.opensuse.org
+    {%- if country == 'cz' %}
+    rsyslog_host: 2a07:de40:b27e:64::c0a8:2f07
+    {%- else %}
+    rsyslog_host: 192.168.47.7
+    {%- endif %}
   postfix:
     aliases:
       root: admin-auto@opensuse.org
