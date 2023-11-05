@@ -43,11 +43,10 @@ haproxy:
         - host_etherpad     hdr(host)   -i etherpad.opensuse.org
         - host_dale         hdr(host)   -i events.opensuse.org
         - host_dale         hdr(host)   -i events-test.opensuse.org
-        - host_deadservice  hdr_reg(host) -i connect(-dev)?\.opensuse\.org
+        - host_deadservice  hdr(host)   -i connect.opensuse.org
         - host_deadservice  hdr(host)   -i fate.opensuse.org
         - host_deadservice  hdr(host)   -i features.opensuse.org
         - host_deadservice  hdr(host)   -i hellocf.opensuse.org
-        - host_deadservice  hdr(host)   -i icc.opensuse.org
         - host_deadservice  hdr(host)   -i moodle.opensuse.org
         - host_deadservice  hdr(host)   -i users.opensuse.org
         - host_elections    hdr(host)   -i elections.opensuse.org
