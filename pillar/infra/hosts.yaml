@@ -289,6 +289,20 @@ matomo:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+mickey:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d54
+    root: 3600a0980383041622f2455736d434d31
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::b43/64
+      mac: 52:54:00:3e:81:08
+      pseudo_ip4: 172.16.164.156
+      source: x-os-internal
+  legacy_boot: true
+  ram: 16384MB
+  vcpu: 4
 minio:
   cluster: falkor
   disks:

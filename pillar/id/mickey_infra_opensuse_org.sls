@@ -1,11 +1,11 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - gitlab.i.o.o
     - gitlab runner
   reboot_safe: yes
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: GitLab server
