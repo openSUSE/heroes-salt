@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - lnt.o.o
   reboot_safe: unknown
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: lnt.o.o server
