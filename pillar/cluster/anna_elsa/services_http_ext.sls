@@ -21,7 +21,6 @@ haproxy:
         - is_tube                hdr(host)     -i tube.opensuse.org
         - is_jenkins             hdr(host)     -i ci.opensuse.org
         - is_education           hdr(host)     -i education.opensuse.org
-        - is_users               hdr(host)     -i users.opensuse.org
         - is_coc                 hdr(host)     -i coc.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
         - is_redirect_features   hdr_reg(host) -i (idea|ideas).opensuse.org
@@ -74,7 +73,6 @@ haproxy:
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
         - code 301 location https://www.youtube.com/user/opensusetv if is_tube
-        - code 301 prefix   https://connect.opensuse.org if is_users
         - code 301 location https://gitlab.com/apparmor/apparmor/wikis/home if is_apparmor
         - code 301 location https://progress.opensuse.org/projects/opensuse-board if is_board
         - code 301 location https://en.opensuse.org/Portal:Support if is_help
