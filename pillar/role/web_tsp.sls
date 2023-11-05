@@ -42,10 +42,3 @@ sudoers:
       groups:
         tsp-admins:
           - 'ALL=(ALL) ALL'
-
-zypper:
-  repositories:
-    openSUSE:infrastructure:tsp:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/tsp/$releasever/
-      priority: 100
-      refresh: True
