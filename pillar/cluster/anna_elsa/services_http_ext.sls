@@ -23,7 +23,6 @@ haproxy:
         - is_education           hdr(host)     -i education.opensuse.org
         - is_coc                 hdr(host)     -i coc.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
-        - is_redirect_features   hdr_reg(host) -i (idea|ideas).opensuse.org
         - is_freeipa             hdr(host)     -i freeipa.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.opensuse.org
@@ -85,7 +84,6 @@ haproxy:
         - code 301 prefix   https://languages.opensuse.org if is_wiki_gone
         - code 301 location https://studioexpress.opensuse.org if is_susestudio
         - code 301 location https://www.opensuse.org if is_redirect_itsself
-        - code 301 location https://features.opensuse.org if is_redirect_features
         - code 301 location https://en.opensuse.org/Portal:Education if is_education
         - code 301 location https://en.opensuse.org/Git if is_redirect_git
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite

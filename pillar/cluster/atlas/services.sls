@@ -46,6 +46,7 @@ haproxy:
         - host_deadservice  hdr(host)   -i connect.opensuse.org
         - host_deadservice  hdr(host)   -i fate.opensuse.org
         - host_deadservice  hdr(host)   -i features.opensuse.org
+        - host_deadservice  hdr_reg(host) -i (idea|ideas).opensuse.org
         - host_deadservice  hdr(host)   -i hellocf.opensuse.org
         - host_deadservice  hdr(host)   -i moodle.opensuse.org
         - host_deadservice  hdr(host)   -i users.opensuse.org
