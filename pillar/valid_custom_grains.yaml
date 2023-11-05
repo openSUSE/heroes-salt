@@ -5,7 +5,6 @@ global:
     - yes
     - no
     - unknown
-  salt_cluster: opensuse
 localized:
   de-qsc:
     city: QSC-nuremberg

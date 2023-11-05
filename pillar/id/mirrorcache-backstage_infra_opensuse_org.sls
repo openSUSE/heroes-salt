@@ -8,7 +8,6 @@ grains:
   hostusage:
     - mirrorcache-backstage
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

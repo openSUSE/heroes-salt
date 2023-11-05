@@ -5,7 +5,6 @@ grains:
     - mirrors.o.o
     - scanner.o.o
   reboot_safe: unknown
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases:

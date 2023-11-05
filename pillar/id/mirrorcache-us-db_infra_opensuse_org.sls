@@ -7,7 +7,6 @@ grains:
   hostusage:
     - mirrorcache-us-db
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: bryce
 
   aliases: []

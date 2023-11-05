@@ -5,7 +5,6 @@ grains:
     - gitlab.i.o.o
     - gitlab runner
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

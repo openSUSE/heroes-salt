@@ -4,7 +4,6 @@ grains:
   hostusage:
     - DNS
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
   aliases: []
   description: Public, authoritative, name server

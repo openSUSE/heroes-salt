@@ -4,7 +4,6 @@ grains:
   hostusage:
     - postgreSQL cluster
   reboot_safe: unknown
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

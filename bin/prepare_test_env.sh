@@ -73,13 +73,13 @@ ID=$(/usr/bin/hostname -f)
 IDFILE="pillar/id/${ID//./_}.sls"
 IDFILE_BASE="$IDFILE.base.sls"
 
-printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n  salt_cluster: $SALT_CLUSTER\n" > "$IDFILE"
+printf "grains:\n  city: nuremberg\n  country: de\n  hostusage: test\n  reboot_safe: no\n" > "$IDFILE"
 cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
     [[ -n "$OS" ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]"
-    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS\nsalt_cluster: $SALT_CLUSTER\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
+    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
     printf "$ROLES" >> "$IDFILE"
 
     if [ ! -d /etc/salt/minion.d ]

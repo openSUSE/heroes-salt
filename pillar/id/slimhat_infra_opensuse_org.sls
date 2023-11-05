@@ -4,7 +4,6 @@ grains:
   hostusage:
     - IPMI access
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: slimhat-bare
 
   aliases: []

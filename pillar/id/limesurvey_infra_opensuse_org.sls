@@ -4,7 +4,6 @@ grains:
   hostusage:
     - limesurvey
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases: []

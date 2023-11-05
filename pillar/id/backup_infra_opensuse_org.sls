@@ -4,7 +4,6 @@ grains:
   hostusage:
     - general backup host
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

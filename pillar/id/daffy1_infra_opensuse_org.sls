@@ -4,7 +4,6 @@ grains:
   hostusage:
     - login2.o.o
   reboot_safe: unknown
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

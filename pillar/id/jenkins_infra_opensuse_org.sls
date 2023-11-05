@@ -5,7 +5,6 @@ grains:
     - jenkins controller
     - jenkins agent
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

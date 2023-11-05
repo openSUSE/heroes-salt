@@ -5,7 +5,6 @@ grains:
     - events.o.o
   reboot_safe: yes
   # Henne created zypper locks for ruby2.5 because a version change breaks osem (needs a Gemfile update when the version changes)
-  salt_cluster: opensuse
   virt_cluster: falkor
 
   aliases: []

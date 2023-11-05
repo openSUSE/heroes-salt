@@ -4,7 +4,6 @@ grains:
   hostusage: 
     - osc-collab
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

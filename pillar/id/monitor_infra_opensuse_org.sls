@@ -6,7 +6,6 @@ grains:
     - monitor.o.o
     - syslog.i.o.o
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

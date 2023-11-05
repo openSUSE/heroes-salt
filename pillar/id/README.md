@@ -15,8 +15,6 @@ grains:
   roles: []                ## This corresponds to pillar/role/$role.sls and salt/role/$role.sls.
                            ## Both files have to exist because Salt will try to include them!
   reboot_safe: yes         ## Could anyone simply reboot the machine and everything comes back as expected?
-  salt_cluster: opensuse   ## Everything in this repository should belong to the 'opensuse' Salt cluster, 
-                           ## so this is more or less obsolete, but helpful in other parts.
   virt_cluster: falkor     ## The virtualization cluster, the machine is running on.
                            ## Possible values:
                            ## * bryce

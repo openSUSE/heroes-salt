@@ -4,7 +4,6 @@ grains:
   hostusage:
     - mx2.o.o
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: atreju
 
   aliases: []

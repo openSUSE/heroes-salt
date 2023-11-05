@@ -4,7 +4,6 @@ grains:
   hostusage:
     - gate.o.o
   reboot_safe: yes
-  salt_cluster: opensuse
   virt_cluster: bryce
 
   aliases:
