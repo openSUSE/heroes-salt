@@ -51,8 +51,6 @@ haproxy:
         - is_mailman3            hdr(host)     -i lists.uyuni-project.org
         - is_lnt                 hdr(host)     -i lnt.opensuse.org
         - is_mainpage            hdr(host)     -i opensuse.org
-        - is_man                 hdr(host)     -i man.opensuse.org
-        - is_manpages            hdr(host)     -i manpages.opensuse.org
         - is_matrix              hdr(host)     -i matrix.opensuse.org
         {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
         - is_chat                hdr(host)     -i {{ host_chat }}.opensuse.org
@@ -118,7 +116,6 @@ haproxy:
         - code 301 location https://features.opensuse.org if is_redirect_features
         - code 301 location https://en.opensuse.org/Portal:Education if is_education
         - code 301 location https://en.opensuse.org/Git if is_redirect_git
-        - code 302 location https://manpages.opensuse.org if is_man
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite_stage
         - code 302 location https://en.opensuse.org/Code_of_Conduct if is_coc
@@ -142,7 +139,6 @@ haproxy:
         - kubic            if is_mainpage path_kubic_registry
         - mailman3         if is_mailman3
         - lnt              if is_lnt
-        - man              if is_manpages
         - matrix           if is_matrix
         - chat             if is_chat
         - metrics          if is_metrics

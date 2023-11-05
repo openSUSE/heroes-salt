@@ -263,6 +263,19 @@ limesurvey:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+man:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434c74
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::130/64
+      mac: 2a:8c:00:d3:30:23
+      pseudo_ip4: 172.16.164.130
+      source: x-os-internal
+  legacy_boot: true
+  ram: 1024MB
+  vcpu: 2
 matomo:
   cluster: falkor
   disks:
