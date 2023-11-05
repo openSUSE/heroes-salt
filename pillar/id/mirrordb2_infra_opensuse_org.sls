@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - postgreSQL cluster
   reboot_safe: unknown
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: postgreSQL cluster (slave)
