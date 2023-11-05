@@ -41,6 +41,8 @@ haproxy:
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
+        - host_man          hdr(host)   -i man.opensuse.org
+        - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
@@ -81,6 +83,7 @@ haproxy:
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - limesurvey      if host_limesurvey
+        - man             if host_manpages
         - matomo          if host_beans
         - minio           if host_minio
         - monitor         if host_monitor
@@ -94,6 +97,7 @@ haproxy:
       redirects:
         - scheme https code 301                                              if !is_ssl !host_get_o_o
         - code 301 location https://doc.opensuse.org                         if host_redirect_doc
+        - code 302 location https://manpages.opensuse.org                    if host_man
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www
