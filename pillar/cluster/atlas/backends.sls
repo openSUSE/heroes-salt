@@ -97,7 +97,7 @@ haproxy:
     pagure:
       mode: http
       {{ options() }}
-      {{ server('pagure', '2a07:de40:b27e:1203::b48', extra_extra='inter 5000') }}
+      {{ server('pagure', '2a07:de40:b27e:1206::a', extra_extra='inter 5000') }}
     paste:
       {{ options() }}
       {{ server('paste', '2a07:de40:b27e:1203::c2') }}

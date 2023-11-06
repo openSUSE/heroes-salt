@@ -14,6 +14,9 @@ include:
 {%- set bind_v4_vip = ['172.16.130.10'] %}
 {%- set bind_v4 = bind_v4_vip + ['172.16.130.11', '172.16.130.12'] %}
 
+{%- set bind_v6_vip2 = ['2a07:de40:b27e:1204::13'] %}
+{%- set bind_v4_vip2 = ['172.16.130.13'] %}
+
 haproxy:
   frontends:
     http:
@@ -49,6 +52,18 @@ haproxy:
                 ] }
         }) }}
         - http-request set-var(txn.host) hdr(Host)
+
+    http-misc:
+      bind:
+        {{ bind(bind_v6_vip2, 80, 'v6only ' ~ bindopts) }}
+        {{ bind(bind_v4_vip2, 80, bindopts) }}
+        {{ bind(bind_v6_vip2, 443, 'v6only ' ~ tls_bindopts) }}
+        {{ bind(bind_v4_vip2, 443, tls_bindopts) }}
+      options:
+        - http-server-close
+      extra:
+        - http-request set-var(txn.host) hdr(Host)
+
   listens:
     rsync-community2:
       acls: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
@@ -62,14 +77,15 @@ haproxy:
         rsync_community2:
           host: 2a07:de40:b27e:1203::129
           port: 873
-    pagure-ssh:
+
+    ssh-pagure01:
       bind:
-        {{ bind(bind_v4_vip, 22, bindopts) }}
-        {{ bind(bind_v6_vip, 22, 'v6only ' ~ bindopts) }}
+        {{ bind(bind_v6_vip2, 22, 'v6only ' ~ bindopts) }}
+        {{ bind(bind_v4_vip2, 22, bindopts) }}
       mode: tcp
       options:
         - tcplog
       servers:
         ssh_pagure01:
-          host: 2a07:de40:b27e:1203::b48
+          host: 2a07:de40:b27e:1206::a
           port: 22
