@@ -3,8 +3,6 @@ haproxy:
     http-ext-in:
       acls:
         - no_x-frame-option var(txn.host) -m str meet.opensuse.org
-        - no_x-frame-option var(txn.host) -m str chat.opensuse.org
-        - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
         - is_ssl                 fc_rcvd_proxy
         - path_dot_scm           path_beg      /.git/
@@ -50,10 +48,6 @@ haproxy:
         - is_mailman3            hdr(host)     -i lists-test.opensuse.org
         - is_mailman3            hdr(host)     -i lists.uyuni-project.org
         - is_mainpage            hdr(host)     -i opensuse.org
-        - is_matrix              hdr(host)     -i matrix.opensuse.org
-        {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
-        - is_chat                hdr(host)     -i {{ host_chat }}.opensuse.org
-        {%- endfor %}
         - is_metrics             hdr(host)     -i metrics.opensuse.org
         - is_microos             hdr(host)     -i microos.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirror.opensuse.org
@@ -134,8 +128,6 @@ haproxy:
         - kubic            if is_microos
         - kubic            if is_mainpage path_kubic_registry
         - mailman3         if is_mailman3
-        - matrix           if is_matrix
-        - chat             if is_chat
         - metrics          if is_metrics
         - mirrorlist       if is_mirrorlist
         - mirrorcache      if is_mirrorcache

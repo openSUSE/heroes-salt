@@ -2,6 +2,8 @@ haproxy:
   frontends:
     http:
       acls:
+        - no_x-frame-option var(txn.host) -m str chat.opensuse.org
+        - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
 
         # login2.o.o via anna/elsa
@@ -26,6 +28,9 @@ haproxy:
         - path_slash        path         /
 
         - host_beans        hdr(host)   -i beans.opensuse.org
+        {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
+        - host_chat         hdr(host)   -i {{ host_chat }}.opensuse.org
+        {%- endfor %}
         - host_community    hdr(host)   -i community.opensuse.org
         - host_community2   hdr(host)   -i factory-dashboard.opensuse.org
         - host_contribute   hdr(host)   -i contribute.opensuse.org
@@ -45,6 +50,7 @@ haproxy:
         - host_lnt          hdr(host)   -i lnt.opensuse.org
         - host_man          hdr(host)   -i man.opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
+        - host_matrix       hdr(host)   -i matrix.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_nuka         hdr(host)   -i i18n.opensuse.org
@@ -81,6 +87,7 @@ haproxy:
         - riesling        if src_login host_mediawiki
 
         # rules only depending on host_*
+        - chat            if host_chat
         - community       if host_community
         - community       if host_doc
         - community2      if host_community2
@@ -92,6 +99,7 @@ haproxy:
         - lnt             if host_lnt
         - man             if host_manpages
         - matomo          if host_beans
+        - matrix          if host_matrix
         - minio           if host_minio
         - monitor         if host_monitor
         - nuka            if host_nuka
