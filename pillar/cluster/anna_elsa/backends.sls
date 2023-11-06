@@ -130,12 +130,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}security.txt.http
-    matrix:
-      {{ options() }}
-      {{ server('matrix', '192.168.47.78', 8008) }}
-    chat:
-      {{ options() }}
-      {{ server('matrix', '192.168.47.78') }}
     wip:
       mode: http
       extra: errorfile 503 {{ errorfiles }}fourohfour.html.http

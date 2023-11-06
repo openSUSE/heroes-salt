@@ -2,6 +2,9 @@
 
 haproxy:
   backends:
+    chat:
+      {{ options() }}
+      {{ server('matrix', '2a07:de40:b27e:1203::b40') }}
     community:
       {{ options ('httpchk OPTIONS / HTTP/1.1\r\nHost:\ community.opensuse.org') }}
       {{ server('community', '2a07:de40:b27e:1203::128') }}
@@ -57,6 +60,9 @@ haproxy:
     matomo:
       {{ options() }}
       {{ server('matomo', '2a07:de40:b27e:1203::b19') }}
+    matrix:
+      {{ options() }}
+      {{ server('matrix', '2a07:de40:b27e:1203::b40', 8008) }}
     minio:
       {{ options() }}
       {{ server('minio', '2a07:de40:b27e:1203::c1') }}
