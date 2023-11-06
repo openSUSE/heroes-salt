@@ -32,11 +32,13 @@ profile:
 
 nginx:
   ng:
+    {#- BROKEN, placed in the wrong order, causing nginx to fail
     server:
       config:
         load_module:
           - /usr/lib64/nginx/modules/ngx_http_brotli_static_module.so
           - /usr/lib64/nginx/modules/ngx_http_brotli_filter_module.so
+      #}
     servers:
       managed:
         forums.opensuse.org.conf:
@@ -208,7 +210,7 @@ nginx:
                 - location /showthread.php/:
                     - rewrite: '^/showthread.php/([0-9]*) /thread/$1 permanent'
                 - location /content.php/:
-                    - rewrite '^/content.php/([0-9]*) /article/$1 permanent'
+                    - rewrite: '^/content.php/([0-9]*) /article/$1 permanent'
                 - location /entry.php/:
                     - rewrite: '^/entry.php/([0-9]*) /blog/$1 permanent'
                 - if ($arg_signup = true):
