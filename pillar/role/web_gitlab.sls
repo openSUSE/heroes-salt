@@ -111,7 +111,6 @@ nginx:
                 - server_tokens: 'off'
                 ## Strong SSL Security
                 ## https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html & https://cipherli.st/
-                - ssl: 'on'
                 - ssl_certificate: /etc/nginx/ssl/gitlab.infra.opensuse.org.crt
                 - ssl_certificate_key: /etc/nginx/ssl/gitlab.infra.opensuse.org.key
                 # GitLab needs backwards compatible ciphers to retain compatibility with Java IDEs
