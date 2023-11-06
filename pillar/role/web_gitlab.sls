@@ -90,7 +90,6 @@ nginx:
                 - ~^(?<temp>.*)\?: $temp
             ## Redirects all HTTP traffic to the HTTPS host
             - server:
-                - listen: 0.0.0.0:80
                 - listen:
                     - "[::]:80"
                     - ipv6only=on
@@ -103,9 +102,6 @@ nginx:
                     - gitlab_ssl_access
                 - error_log: /var/log/nginx/gitlab_error.log
             - server:
-                - listen:
-                    - 0.0.0.0:443
-                    - ssl
                 - listen:
                     - "[::]:443"
                     - ipv6only=on
