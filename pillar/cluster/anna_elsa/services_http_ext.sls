@@ -9,7 +9,6 @@ haproxy:
         - path_dot_scm           path_beg      /.svn/
         - path_dot_scm           path_beg      /.bzr/
         - path_security          path_end      /.well-known/security.txt
-        - path_kubic_registry    path_beg      /v2/
         - path_favicon           path          /favicon.ico
         - is_www                 hdr(host)     -i www.opensuse.org
         - is_apparmor            hdr(host)     -i apparmor.opensuse.org
@@ -45,7 +44,6 @@ haproxy:
         - is_mailman3            hdr(host)     -i lists.opensuse.org
         - is_mailman3            hdr(host)     -i lists-test.opensuse.org
         - is_mailman3            hdr(host)     -i lists.uyuni-project.org
-        - is_mainpage            hdr(host)     -i opensuse.org
         - is_metrics             hdr(host)     -i metrics.opensuse.org
         - is_microos             hdr(host)     -i microos.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirror.opensuse.org
@@ -86,7 +84,6 @@ haproxy:
         - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_download_o_o !is_pagure
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
-        - code 301 prefix   https://www.opensuse.org if is_mainpage !path_kubic_registry
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
         - code 301 location https://www.youtube.com/user/opensusetv if is_tube
         - code 301 prefix   https://connect.opensuse.org if is_users
@@ -122,7 +119,6 @@ haproxy:
         - hydra            if is_hydra is_ssl
         - kubic            if is_kubic
         - kubic            if is_microos
-        - kubic            if is_mainpage path_kubic_registry
         - mailman3         if is_mailman3
         - metrics          if is_metrics
         - mirrorlist       if is_mirrorlist

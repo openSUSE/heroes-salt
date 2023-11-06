@@ -11,21 +11,22 @@ haproxy:
 
         - is_ssl            dst_port    443
 
-        - path_dot_scm      path_beg    /.git/
-        - path_dot_scm      path_beg    /.svn/
-        - path_dot_scm      path_beg    /.bzr/
-        - path_favicon      path        /favicon.ico
-        - path_grafana      path_beg    /grafana/
-        - path_openid       path_beg    -i /openid
-        - path_openid       path_beg    -i /common/app/
-        - path_openid       path_beg    -i /openid-ldap
-        - path_openid       path_beg    -i /idp
-        - host_paste        hdr(host)   -i paste.opensuse.org
-        - host_paste        hdr(host)   -i paste-test.opensuse.org
-        - path_relnotes     path_beg    /release-notes/
-        - path_security     path_end    /.well-known/security.txt
-        - path_searchpage   path_beg    -i /searchPage
-        - path_slash        path         /
+        - path_dot_scm           path_beg    /.git/
+        - path_dot_scm           path_beg    /.svn/
+        - path_dot_scm           path_beg    /.bzr/
+        - path_favicon           path        /favicon.ico
+        - path_grafana           path_beg    /grafana/
+        - path_kubic_registry    path_beg    /v2/
+        - path_openid            path_beg    -i /openid
+        - path_openid            path_beg    -i /common/app/
+        - path_openid            path_beg    -i /openid-ldap
+        - path_openid            path_beg    -i /idp
+        - host_paste             hdr(host)   -i paste.opensuse.org
+        - host_paste             hdr(host)   -i paste-test.opensuse.org
+        - path_relnotes          path_beg    /release-notes/
+        - path_security          path_end    /.well-known/security.txt
+        - path_searchpage        path_beg    -i /searchPage
+        - path_slash             path         /
 
         - host_beans        hdr(host)   -i beans.opensuse.org
         {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
@@ -50,6 +51,7 @@ haproxy:
         {%- endfor %}
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
         - host_lnt          hdr(host)   -i lnt.opensuse.org
+        - host_mainpage     hdr(host)   -i opensuse.org
         - host_man          hdr(host)   -i man.opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_matrix       hdr(host)   -i matrix.opensuse.org
@@ -79,6 +81,7 @@ haproxy:
 
         # path-specific rules
         - jekyll          if host_monitor path_slash
+        #- kubic          if host_mainpage path_kubic_registry
         - monitor_grafana if host_monitor path_grafana
         - pinot           if host_doc path_relnotes
         - www_openid_ldap if host_www path_openid
@@ -121,3 +124,4 @@ haproxy:
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www
+        - code 301 prefix   https://www.opensuse.org                         if host_mainpage !path_kubic_registry
