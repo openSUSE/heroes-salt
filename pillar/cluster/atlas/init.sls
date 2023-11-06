@@ -62,3 +62,14 @@ haproxy:
         rsync_community2:
           host: 2a07:de40:b27e:1203::129
           port: 873
+    pagure-ssh:
+      bind:
+        {{ bind(bind_v4_vip, 22, bindopts) }}
+        {{ bind(bind_v6_vip, 22, 'v6only ' ~ bindopts) }}
+      mode: tcp
+      options:
+        - tcplog
+      servers:
+        ssh_pagure01:
+          host: 2a07:de40:b27e:1203::b48
+          port: 22

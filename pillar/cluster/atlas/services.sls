@@ -59,6 +59,9 @@ haproxy:
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_nuka         hdr(host)   -i i18n.opensuse.org
         - host_nuka         hdr(host)   -i l10n.opensuse.org
+        {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
+        - host_pagure       hdr(host)   -i {{ host_pagure }}.opensuse.org
+        {%- endfor %}
         - host_pmya         hdr(host)   -i pmya.opensuse.org
         - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
@@ -110,6 +113,7 @@ haproxy:
         - minio           if host_minio
         - monitor         if host_monitor
         - nuka            if host_nuka
+        - pagure          if host_pagure
         - paste           if host_paste
         - pinot           if host_contribute
         - pinot           if host_counter

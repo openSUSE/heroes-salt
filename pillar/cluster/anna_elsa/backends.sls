@@ -67,13 +67,6 @@ haproxy:
       mode: http
       {{ options() }}
       {{ server('opi_proxy', '192.168.47.50', extra_extra='inter 5000') }}
-    pagure:
-      mode: http
-      {{ options() }}
-      {{ server('pagure', '192.168.47.84', extra_extra='inter 5000') }}
-    pagure_ssh:
-      mode: tcp
-      {{ server('pagure_ssh', '192.168.47.84', 22, check=None) }}
     freeipa:
       {{ options() }}
       {{ server('freeipa', '192.168.47.65', 443, extra_check='ssl ca-file /etc/haproxy/freeipa-ca.crt') }}
