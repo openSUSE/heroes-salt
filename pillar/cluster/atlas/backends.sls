@@ -34,6 +34,9 @@ haproxy:
         - check 30s
         - server 30m
       {{ server('etherpad', '2a07:de40:b27e:1203::b18', 9001, extra_extra='inter 5000') }}
+    gccstats:
+      {{ options() }}
+      {{ server('gccstats', '2a07:de40:b27e:1203::b45') }}
     hackweek:
       mode: http
       {{ options() }}
