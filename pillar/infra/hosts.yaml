@@ -522,11 +522,11 @@ pagure01:
     data0: 3600a09803831494f635d554b394f7763
     root: 3600a0980383041622f2455736d434d32
   interfaces:
-    os-internal:
-      ip6: 2a07:de40:b27e:1203::b48/64
+    os-code:
+      ip6: 2a07:de40:b27e:1206::a/64
       mac: 52:54:00:c9:d1:88
       pseudo_ip4: 172.16.164.161
-      source: x-os-internal
+      source: x-os-code
   legacy_boot: true
   ram: 15360MB
   vcpu: 8

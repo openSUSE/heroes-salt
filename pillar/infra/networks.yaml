@@ -42,6 +42,11 @@ cz:
     net6: 2a07:de40:b27e:1205::/64
     gw6: '2a07:de40:b27e:1205::3'
     id: 1205
+  openSUSE-code:
+    short: os-code
+    net6: 2a07:de40:b27e:1206::/64
+    gw6: 2a07:de40:b27e:1206::3
+    id: 1206
 
 # below are mapping networks and not VLANs
 pseudo:

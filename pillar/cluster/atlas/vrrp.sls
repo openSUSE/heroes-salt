@@ -22,6 +22,7 @@
 {%- endif %}
 
 {%- set vips = {'vip4': '172.16.130.10', 'vip6': '2a07:de40:b27e:1204::10'} %}
+{%- set vips2 = {'vip4': '172.16.130.13', 'vip6': '2a07:de40:b27e:1204::13'} %}
 
 keepalived:
   config:
@@ -40,6 +41,7 @@ keepalived:
         smtp_alert: true
         virtual_ipaddress:
           - {{ vips['vip' ~ instance] }} dev os-public
+          - {{ vips2['vip' ~ instance] }} dev os-public
         track_interface:
           - os-public
           - d-os-public

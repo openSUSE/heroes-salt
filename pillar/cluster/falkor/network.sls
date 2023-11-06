@@ -33,6 +33,7 @@ network:
           'os-internal': 1203,
           'os-public': 1204,
           'os-mirror': 1205,
+          'os-code': 1206,
         }.items() %}
     {{ vlantap(vlan_name, vlan_id, 'bond-fib') }}
     {%- endfor %}
