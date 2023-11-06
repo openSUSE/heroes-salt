@@ -48,10 +48,10 @@ profile:
 zypper:
   repositories:
     openSUSE:infrastructure:jekyll:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/jekyll/$releasever/
+      baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/jekyll/$releasever/
       priority: 100
       refresh: True
     devel:languages:ruby:
-      baseurl: http://download.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
+      baseurl: https://downloadcontent.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
       priority: 100
       refresh: True
