@@ -91,6 +91,7 @@ haproxy:
 
         # hosts only reachable via login2.o.o
         - dale            if src_login host_dale
+        - elections       if src_login host_elections
         - tsp             if src_login host_tsp
         - riesling        if src_login host_mediawiki
 
@@ -99,7 +100,6 @@ haproxy:
         - community       if host_community
         - community       if host_doc
         - community2      if host_community2
-        - elections       if host_elections
         - etherpad        if host_etherpad
         - forums          if host_forums
         - gccstats        if host_gcc
