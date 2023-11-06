@@ -28,7 +28,6 @@ haproxy:
         - is_features            hdr(host)     -i fate.opensuse.org
         - is_features            hdr(host)     -i features.opensuse.org
         - is_redirect_features   hdr_reg(host) -i (idea|ideas).opensuse.org
-        - is_forums              hdr(host)     -i forums.opensuse.org
         - is_freeipa             hdr(host)     -i freeipa.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.opensuse.org
@@ -118,7 +117,6 @@ haproxy:
         - jenkins          if is_jenkins
         - conncheck        if is_conncheck
         - deadservices     if is_features || is_deadservice
-        - forums           if is_forums
         - freeipa          if is_freeipa
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl

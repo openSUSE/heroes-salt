@@ -106,9 +106,6 @@ haproxy:
         refresh: 5s
         realm: Monitor
         auth: '"$STATS_USER":"$STATS_PASSPHRASE"'
-    forums:
-      {{ options() }}
-      {{ server('discourse01', '192.168.47.83') }}
     jenkins:
       options:
         - forwardfor

@@ -14,7 +14,6 @@ haproxy:
         - is_download            hdr(host) -i download.infra.opensuse.org
         - is_download            hdr(host) -i widehat.opensuse.org
         - via_atlas              hdr(host) -i elections.opensuse.org
-        - is_forums              hdr(host) -i forums.opensuse.org
         - via_atlas              hdr(host) -i hackweek.opensuse.org
         - is_hydra               hdr(host) -i hydra.opensuse.org
         {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw'] %}
@@ -39,5 +38,4 @@ haproxy:
         - openqa           if is_openqa
         - redmine_test     if is_redmine_test
         - smt              if is_smt
-        - forums           if is_forums
         - via_atlas        if via_atlas
