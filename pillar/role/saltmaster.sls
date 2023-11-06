@@ -75,5 +75,10 @@ rsync:
       'read only': 'false'
       'secrets file': /etc/rsyncd.secrets
       'hosts allow':
+        {%- if grains.get('country') == 'cz' %}
         - 2a07:de40:b27e:1203::126 # gitlab-runner1
         - 2a07:de40:b27e:1203::127 # gitlab-runner2
+        {%- else %}
+        - 172.16.164.126
+        - 172.16.164.127
+        {%- endif %}
