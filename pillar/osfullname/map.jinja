@@ -1,0 +1,5 @@
+{%- if grains.get('country') == 'cz' %}
+{%- set mirror = 'download-prg.infra.opensuse.org' %}
+{%- else %}
+{%- set mirror = 'download.infra.opensuse.org' %}
+{%- endif %}
