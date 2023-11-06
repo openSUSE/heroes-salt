@@ -74,9 +74,6 @@ haproxy:
     pagure_ssh:
       mode: tcp
       {{ server('pagure_ssh', '192.168.47.84', 22, check=None) }}
-    gccstats:
-      {{ options() }}
-      {{ server('gccstats', '192.168.47.71') }}
     freeipa:
       {{ options() }}
       {{ server('freeipa', '192.168.47.65', 443, extra_check='ssl ca-file /etc/haproxy/freeipa-ca.crt') }}

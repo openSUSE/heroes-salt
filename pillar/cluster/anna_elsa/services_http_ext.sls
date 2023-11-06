@@ -30,7 +30,6 @@ haproxy:
         - is_redirect_features   hdr_reg(host) -i (idea|ideas).opensuse.org
         - is_forums              hdr(host)     -i forums.opensuse.org
         - is_freeipa             hdr(host)     -i freeipa.infra.opensuse.org
-        - is_gcc                 hdr(host)     -i gcc.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.opensuse.org
         - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
@@ -121,7 +120,6 @@ haproxy:
         - deadservices     if is_features || is_deadservice
         - forums           if is_forums
         - freeipa          if is_freeipa
-        - gccstats         if is_gcc
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
         - kubic            if is_kubic

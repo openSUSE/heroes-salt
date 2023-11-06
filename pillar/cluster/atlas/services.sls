@@ -41,6 +41,7 @@ haproxy:
         - host_dale         hdr(host)   -i events.opensuse.org
         - host_dale         hdr(host)   -i events-test.opensuse.org
         - host_elections    hdr(host)   -i elections.opensuse.org
+        - host_gcc          hdr(host)   -i gcc.opensuse.org
         - host_get_o_o      hdr(host)   -i get.opensuse.org
         - host_hackweek     hdr(host)   -i hackweek.opensuse.org
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
@@ -93,6 +94,7 @@ haproxy:
         - community2      if host_community2
         - elections       if host_elections
         - etherpad        if host_etherpad
+        - gccstats        if host_gcc
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - limesurvey      if host_limesurvey
