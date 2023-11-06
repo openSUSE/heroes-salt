@@ -1,3 +1,3 @@
 archrwr:
   service.running:
-    enable: true
+    - enable: true
