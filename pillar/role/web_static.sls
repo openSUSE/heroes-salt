@@ -20,11 +20,6 @@ nginx:
             - server:
                 - server_name: {{ website }}.opensuse.org
                 - listen:
-                    - 80
-                    {% if website == 'static' %}
-                    - default_server
-                    {% endif %}
-                - listen:
                     - '[::]:80'
                     {% if website == 'static' %}
                     - default_server
