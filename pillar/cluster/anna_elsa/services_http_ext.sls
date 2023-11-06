@@ -41,9 +41,6 @@ haproxy:
         - is_deadservice         hdr(host)     -i icc.opensuse.org
         - is_kubic               hdr(host)     -i kubic.opensuse.org
         - is_license             hdr(host)     -i license.opensuse.org
-        - is_mailman3            hdr(host)     -i lists.opensuse.org
-        - is_mailman3            hdr(host)     -i lists-test.opensuse.org
-        - is_mailman3            hdr(host)     -i lists.uyuni-project.org
         - is_metrics             hdr(host)     -i metrics.opensuse.org
         - is_microos             hdr(host)     -i microos.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirror.opensuse.org
@@ -80,7 +77,6 @@ haproxy:
       redirects:
         - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_download_o_o
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
-        - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
         - code 301 location https://www.youtube.com/user/opensusetv if is_tube
         - code 301 prefix   https://connect.opensuse.org if is_users
@@ -116,7 +112,6 @@ haproxy:
         - hydra            if is_hydra is_ssl
         - kubic            if is_kubic
         - kubic            if is_microos
-        - mailman3         if is_mailman3
         - metrics          if is_metrics
         - mirrorlist       if is_mirrorlist
         - mirrorcache      if is_mirrorcache
