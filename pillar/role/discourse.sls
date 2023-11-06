@@ -25,7 +25,7 @@ profile:
   discourse:
     database_user: discourse
     database_name: discourse
-    database_host: proxy.infra.opensuse.org
+    database_host: postgresql.infra.opensuse.org
     hostname: forums.opensuse.org
     smtp_domain: forums.opensuse.org
     # secret_key, maxmind and db password live in secrets/role/discourse.sls
