@@ -21,24 +21,18 @@ haproxy:
         - is_tube                hdr(host)     -i tube.opensuse.org
         - is_jenkins             hdr(host)     -i ci.opensuse.org
         - is_education           hdr(host)     -i education.opensuse.org
-        - is_users               hdr(host)     -i users.opensuse.org
         - is_coc                 hdr(host)     -i coc.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
-        - is_features            hdr(host)     -i fate.opensuse.org
-        - is_features            hdr(host)     -i features.opensuse.org
-        - is_redirect_features   hdr_reg(host) -i (idea|ideas).opensuse.org
         - is_freeipa             hdr(host)     -i freeipa.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.opensuse.org
         - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
         - is_ignite_stage        hdr(host)     -i ignite-stage.opensuse.org
         - is_ignite              hdr(host)     -i ignite.opensuse.org
-        - is_deadservice         hdr(host)     -i hellocf.opensuse.org
         - is_help                hdr(host)     -i help.opensuse.org
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
         {%- endfor %}
-        - is_deadservice         hdr(host)     -i icc.opensuse.org
         - is_kubic               hdr(host)     -i kubic.opensuse.org
         - is_license             hdr(host)     -i license.opensuse.org
         - is_metrics             hdr(host)     -i metrics.opensuse.org
@@ -50,7 +44,6 @@ haproxy:
         - is_mirrorcache_eu      hdr(host)     -i mirrorcache-eu.opensuse.org
         - is_download_o_o        hdr(host)     -i download.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
-        - is_deadservice         hdr(host)     -i moodle.opensuse.org
         - is_opi_proxy           hdr(host)     -i opi-proxy.opensuse.org
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
@@ -79,7 +72,6 @@ haproxy:
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
         - code 301 location https://www.youtube.com/user/opensusetv if is_tube
-        - code 301 prefix   https://connect.opensuse.org if is_users
         - code 301 location https://gitlab.com/apparmor/apparmor/wikis/home if is_apparmor
         - code 301 location https://progress.opensuse.org/projects/opensuse-board if is_board
         - code 301 location https://en.opensuse.org/Portal:Support if is_help
@@ -92,7 +84,6 @@ haproxy:
         - code 301 prefix   https://languages.opensuse.org if is_wiki_gone
         - code 301 location https://studioexpress.opensuse.org if is_susestudio
         - code 301 location https://www.opensuse.org if is_redirect_itsself
-        - code 301 location https://features.opensuse.org if is_redirect_features
         - code 301 location https://en.opensuse.org/Portal:Education if is_education
         - code 301 location https://en.opensuse.org/Git if is_redirect_git
         - code 302 location https://opensuse.github.io/fuel-ignition/ if is_ignite
@@ -106,7 +97,6 @@ haproxy:
         - security_txt     if path_security
         - jenkins          if is_jenkins
         - conncheck        if is_conncheck
-        - deadservices     if is_features || is_deadservice
         - freeipa          if is_freeipa
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
