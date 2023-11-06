@@ -55,9 +55,6 @@ haproxy:
         - is_graylog             hdr(host)     -i graylog.opensuse.org
         - is_deadservice         hdr(host)     -i moodle.opensuse.org
         - is_opi_proxy           hdr(host)     -i opi-proxy.opensuse.org
-        {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
-        - is_pagure              hdr(host)     -i {{ host_pagure }}.opensuse.org
-        {%- endfor %}
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
         - is_osccollab           hdr(host)     -i osc-collab-test.opensuse.org
@@ -81,7 +78,7 @@ haproxy:
         - is_wiki_gone           hdr(host)     -i vi.opensuse.org
 
       redirects:
-        - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_download_o_o !is_pagure
+        - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_download_o_o
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_mailman3
         - code 301 prefix   https://events.opensuse.org if is_redirect_events
@@ -125,7 +122,6 @@ haproxy:
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
         - mirrorcache-eu   if is_mirrorcache_eu
-        - pagure           if is_pagure
         - opi_proxy        if is_opi_proxy
         - osccollab        if is_osccollab
         - obsreview        if is_obsreview
