@@ -17,6 +17,8 @@ haproxy:
         - path_favicon           path        /favicon.ico
         - path_grafana           path_beg    /grafana/
         - path_kubic_registry    path_beg    /v2/
+        - path_matrix_client     path_beg    /.well-known/matrix/client
+        - path_matrix_federation path_beg    /.well-known/matrix/server
         - path_openid            path_beg    -i /openid
         - path_openid            path_beg    -i /common/app/
         - path_openid            path_beg    -i /openid-ldap
@@ -79,8 +81,10 @@ haproxy:
       default_backend: redirect_www_o_o
       use_backends:
         # special paths with common handling for all hosts
-        - error_403        if path_dot_scm
-        - security_txt     if path_security
+        - error_403           if path_dot_scm
+        - matrix-client       if path_matrix_client
+        - matrix-federation   if path_matrix_federation
+        - security_txt        if path_security
 
         # path-specific rules
         - jekyll          if host_monitor path_slash
@@ -128,4 +132,4 @@ haproxy:
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www
-        - code 301 prefix   https://www.opensuse.org                         if host_mainpage !path_kubic_registry
+        - code 301 prefix   https://www.opensuse.org                         if host_mainpage !path_kubic_registry !path_matrix_client !path_matrix_federation

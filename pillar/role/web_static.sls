@@ -57,10 +57,6 @@ nginx:
                 - location ~ ^/themes/:
                     - autoindex: 'on'
                 {% endif %}
-                {% if website == 'www' %}
-                - location ~ "^/\.well-known/":
-                    - add_header: Access-Control-Allow-Origin "*"
-                {% endif %}
                 - error_page: 405 = $uri
                 - error_page: 405 =200 $uri
                 - error_page: 500 502 503 504 /50x.html

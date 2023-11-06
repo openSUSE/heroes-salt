@@ -69,6 +69,16 @@ haproxy:
     matrix:
       {{ options() }}
       {{ server('matrix', '2a07:de40:b27e:1203::b40', 8008) }}
+    matrix-client:
+      mode: http
+      httprequests:
+        - set-log-level silent
+        - return status 200 content-type text/json file /etc/haproxy/errorfiles/matrix-client.response hdr Server "HAProxy Auto Reply/openSUSE is good for you" hdr Access-Control-Allow-Origin '*' hdr Cache no-cache
+    matrix-federation:
+      mode: http
+      httprequests:
+        - set-log-level silent
+        - return status 200 content-type text/json file /etc/haproxy/errorfiles/matrix-federation.response hdr Server "HAProxy Auto Reply/openSUSE is good for you" hdr Access-Control-Allow-Origin '*' hdr Cache no-cache
     minio:
       {{ options() }}
       {{ server('minio', '2a07:de40:b27e:1203::c1') }}
