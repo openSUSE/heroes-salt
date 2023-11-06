@@ -11,8 +11,6 @@ mailman_pgks:
       - python3-mailman-web
       - python3-HyperKitty
       - python3-mailman-hyperkitty
-      - HyperKitty-web
-      - postorius-web
       # html => text for mailman
       - lynx
       - memcached
