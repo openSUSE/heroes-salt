@@ -18,13 +18,6 @@ haproxy:
     kubic:
       {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
       {{ server('kubic', '192.168.47.30') }}
-    mailman3:
-      acls:
-        - is_lists_test hdr_reg(host) -i (.*)-test\.opensuse\.org
-      httprequests: {#- is lists-test.o.o still needed ? #}
-        - replace-header HOST (.*)-test(.*) \1\2 if is_lists_test
-      {{ options() }}
-      {{ server('mailman3', '192.168.47.80', extra_extra='inter 30000') }}
     rpmlint:
       extra: errorfile 503 {{ errorfiles }}downtime.xml.http {#- why a xml for api.o.o ? #}
       timeouts:
