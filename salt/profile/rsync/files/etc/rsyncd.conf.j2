@@ -14,7 +14,7 @@
 [{{ module_name }}]
   {%- for setting, value in module_data.items() %}
     {%- if value is sequence and not value is string %}
-       {%- set value = ', ' ~ value|join(', ') %}
+       {%- set value = ', '.join(value) %}
     {%- endif %}
     {{ setting }} = {{ value }}
   {%- endfor %}
