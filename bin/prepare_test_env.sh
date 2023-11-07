@@ -95,3 +95,7 @@ if [[ -n "$HIGHSTATE" ]]; then
 
     cp "$IDFILE_BASE" "$IDFILE"
 fi
+
+ln -s $PWD /srv/salt-git
+salt-call --local saltutil.sync_modules
+salt-call --local saltutil.runner saltutil.sync_runners
