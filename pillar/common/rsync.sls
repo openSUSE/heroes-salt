@@ -10,3 +10,4 @@ rsync:
     # 'hosts allow': 'trusted.hosts'
     'slp refresh': '300'
     'use slp': 'false'
+    address: '::'
