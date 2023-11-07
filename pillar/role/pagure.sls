@@ -15,17 +15,8 @@ sshd_config:
     proxy:
       type:
         Address:
-          - 192.168.47.4
-          - 192.168.47.101
-          - 192.168.47.102
-      options:
-        AllowUsers:
-          - git
-    external:
-      type:
-        Address:
-          - 195.135.221.144
-          - 2001:67c:2178:8::144
+          - 2a07:de40:b27e:1204::11  # atlas1
+          - 2a07:de40:b27e:1204::12  # atlas2
       options:
         AllowUsers:
           - git
