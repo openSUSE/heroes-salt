@@ -10,6 +10,11 @@ cz:
     net6: 2a07:de40:b27e:1101::/64
     gw6: '2a07:de40:b27e:1101::3'
     id: 1101
+  openSUSE-odin:
+    short: os-odin
+    net6: 2a07:de40:b27e:1102::/64
+    gw6: 2a07:de40:b27e:1102::3
+    id: 1102
   openSUSE-salt:
     short: os-salt
     net6: 2a07:de40:b27e:1200::/64

@@ -516,6 +516,18 @@ nuka:
   legacy_boot: true
   ram: 10240MB
   vcpu: 2
+odin:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f7766
+  interfaces:
+    os-odin:
+      ip6: 2a07:de40:b27e:1102::a/64
+      mac: 5a:b4:4d:b0:5f:90
+      pseudo_ip4: 172.16.164.50
+      source: x-os-odin
+  ram: 2048MB
+  vcpu: 2
 pagure01:
   cluster: falkor
   disks:
