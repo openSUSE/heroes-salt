@@ -95,3 +95,5 @@ if [[ -n "$HIGHSTATE" ]]; then
 
     cp "$IDFILE_BASE" "$IDFILE"
 fi
+
+ln -s $PWD /srv/salt-git
