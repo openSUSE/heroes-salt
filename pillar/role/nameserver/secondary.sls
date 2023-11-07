@@ -17,6 +17,13 @@ powerdns:
     gsqlite3-pragma-foreign-keys: 1
     gsqlite3-dnssec: 1
 
+  database:
+    supermasters:
+      - address: 192.168.47.51  # chip
+        name: prg-ns1.infra.opensuse.org
+      - address: 192.168.47.51
+        name: prg-ns2.infra.opensuse.org
+
 zypper:
   packages:
     sqlite3: {}
