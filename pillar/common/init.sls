@@ -4,6 +4,7 @@
 {%- set virtual = salt['grains.get']('virtual') -%}
 {%- set country = salt['grains.get']('country') -%}
 {%- set subrole_ntp = salt['grains.get']('subrole_ntp', '') -%}
+{%- set address = salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[grains['host'], True]) -%}
 
 include:
   - .headers
@@ -97,6 +98,9 @@ sshd_config:
     - /etc/ssh/ssh_host_dsa_key
     - /etc/ssh/ssh_host_ecdsa_key
     - /etc/ssh/ssh_host_ed25519_key
+  {%- if address is not none %}
+  ListenAddress: {{ address }}
+  {%- endif %}
   PasswordAuthentication: no
   PermitRootLogin: without-password
   PrintMotd: yes
