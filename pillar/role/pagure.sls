@@ -15,17 +15,8 @@ sshd_config:
     proxy:
       type:
         Address:
-          - 192.168.47.4
-          - 192.168.47.101
-          - 192.168.47.102
-      options:
-        AllowUsers:
-          - git
-    external:
-      type:
-        Address:
-          - 195.135.221.144
-          - 2001:67c:2178:8::144
+          - 2a07:de40:b27e:1204::11  # atlas1
+          - 2a07:de40:b27e:1204::12  # atlas2
       options:
         AllowUsers:
           - git
@@ -35,7 +26,6 @@ profile:
     database_user: pagure
     database_host: postgresql.infra.opensuse.org
 
-{% set listenhttps4=['443', 'ssl', 'http2'] %}
 {% set listenhttps6=['[::]:443', 'ssl', 'http2'] %}
 
 nginx:
@@ -48,7 +38,7 @@ nginx:
                 - include: acme-challenge
                 - server_name: '_'
                 - listen:
-                    - 80
+                    - '[::]:80'
                     - default_server
                 - location /:
                     - return: '301 https://$host$request_uri'
@@ -57,7 +47,6 @@ nginx:
           config:
             - server:
                 - server_name: code.opensuse.org
-                - listen: {{ listenhttps4 }}
                 - listen: {{ listenhttps6 }}
                 - include: ssl-config
                 - location @pagure:
@@ -77,7 +66,6 @@ nginx:
           config:
             - server:
                 - server_name: releases.opensuse.org
-                - listen: {{ listenhttps4 }}
                 - listen: {{ listenhttps6 }}
                 - include: ssl-config
                 - location /:
@@ -88,7 +76,6 @@ nginx:
           config:
             - server:
                 - server_name: ev.opensuse.org
-                - listen: {{ listenhttps4 }}
                 - listen: {{ listenhttps6 }}
                 - include: ssl-config
                 - location @pagure_ev:
@@ -104,7 +91,6 @@ nginx:
           config:
             - server:
                 - server_name: pages.opensuse.org
-                - listen: {{ listenhttps4 }}
                 - listen: {{ listenhttps6 }}
                 - include: ssl-config
                 - location @pagure_docs:
@@ -120,6 +106,6 @@ nginx:
 zypper:
   repositories:
     openSUSE:infrastructure:pagure:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/$releasever/
+      baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/$releasever/
       priority: 100
       refresh: True
