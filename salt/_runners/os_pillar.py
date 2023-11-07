@@ -79,14 +79,14 @@ def get_host_ips(host):
 def get_host_ip4(host, strip_cidr=False):
     address = get_host_ips(host).get('ip4')
     if strip_cidr and address is not None:
-        address = __salt__['os_network.strip_cidr'](address)
+        address = __salt__['salt.cmd']('os_network.strip_cidr', address)
     return address
 
 
 def get_host_ip6(host, strip_cidr=False):
     address = get_host_ips(host).get('ip6')
     if strip_cidr and address is not None:
-        address = __salt__['os_network.strip_cidr'](address)
+        address = __salt__['salt.cmd']('os_network.strip_cidr', address)
     return address
 
 
@@ -108,5 +108,5 @@ def get_host_ip4to6(host, prefix=None, network=None):
                 network = 'openSUSE-NAT46-Pool'
             prefix = get_network('pseudo', network).get('net6')
         if prefix is not None:
-            return __salt__['os_network.convert_4to6'](host_config, prefix)
+            return __salt__['salt.cmd']('os_network.convert_4to6', __salt__['salt.cmd']('os_network.strip_cidr', host_config), prefix)
     return None
