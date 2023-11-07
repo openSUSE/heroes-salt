@@ -115,6 +115,6 @@ nginx:
 zypper:
   repositories:
     openSUSE:infrastructure:pagure:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/$releasever/
+      baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/$releasever/
       priority: 100
       refresh: True
