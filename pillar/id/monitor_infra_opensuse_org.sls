@@ -1,12 +1,12 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - heroes-bot
     - monitor.o.o
     - syslog.i.o.o
   reboot_safe: yes
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Monitoring server running Icinga2 and an IRC Bot

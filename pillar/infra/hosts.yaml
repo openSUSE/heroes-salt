@@ -443,6 +443,21 @@ mirrordb2:
   legacy_boot: true
   ram: 68608MB
   vcpu: 8
+monitor:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d59
+    data1: 3600a0980383041622f2455736d434d35
+    root: 3600a0980383041622f2455736d434d37
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::50/64
+      mac: 00:16:3e:1a:8f:71
+      pseudo_ip4: 172.16.164.40
+      source: x-os-internal
+  legacy_boot: true
+  ram: 20480MB
+  vcpu: 4
 mybackup:
   cluster: falkor
   disks:
