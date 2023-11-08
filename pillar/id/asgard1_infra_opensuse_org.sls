@@ -25,3 +25,9 @@ network:
       addresses:
         - 195.135.223.44/29
         - 2a07:de40:b27f:201::11/64
+sshd_config:
+  ListenAddress:
+    - 2a07:de40:b27e:1100::1
+    - 2a07:de40:b27e:1101::1
+    - fd4b:5292:d67e:1::1
+    - fd4b:5292:d67e:3::1
