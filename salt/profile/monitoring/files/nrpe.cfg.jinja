@@ -1,13 +1,15 @@
-# managed by salt - do not edit!
+{{ pillar['managed_by_salt'] }}
 
 log_facility=daemon
 debug=0
 pid_file=/run/nrpe/nrpe.pid
 server_port=5666
-#server_address=127.0.0.1
+{%- if 'ListenAddress' in pillar.get('sshd_config', {}) %}
+server_address={{ pillar['sshd_config']['ListenAddress'] }}
+{%- endif %}
 nrpe_user=nagios
 nrpe_group=nagios
-allowed_hosts=127.0.0.1,192.168.47.7
+allowed_hosts=192.168.47.7,2a07:de40:b27e:64::c0a8:2f07
 dont_blame_nrpe=0
 allow_bash_command_substitution=0
 command_timeout=120
