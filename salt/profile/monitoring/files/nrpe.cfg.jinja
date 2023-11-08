@@ -4,8 +4,11 @@ log_facility=daemon
 debug=0
 pid_file=/run/nrpe/nrpe.pid
 server_port=5666
-{%- if 'ListenAddress' in pillar.get('sshd_config', {}) %}
-server_address={{ pillar['sshd_config']['ListenAddress'] }}
+{%- set sshd_pillar = pillar.get('sshd_config', {}) %}
+{%- if 'ListenAddress' in sshd_pillar and sshd_pillar['ListenAddress'] is string %}
+server_address={{ sshd_pillar['ListenAddress'] }}
+{%- elif 'server_address' in salt['pillar.get']('profile:monitoring:nrpe:server_address', {}) %}
+server_address={{ pillar['profile']['monitoring']['nrpe']['server_address'] }}
 {%- endif %}
 nrpe_user=nagios
 nrpe_group=nagios
