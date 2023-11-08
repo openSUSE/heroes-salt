@@ -31,6 +31,8 @@ chrony:
     - noclientlog
     {% endif %}
     - rtcsync
+    - 'cmdport 0'
+
 locale:
   present:
     - en_US.UTF-8 UTF-8
