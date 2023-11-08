@@ -2,6 +2,7 @@
 acme:
   cluster: falkor
   disks:
+    data0: 3600a09803831494f635d554b394f7767
     root: 3600a09803831494f635d554b394f7742
   interfaces:
     os-internal:
