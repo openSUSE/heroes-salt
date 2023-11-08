@@ -1,14 +1,14 @@
 {{ pillar['managed_by_salt'] }}
+{%- set server_address = salt['pillar.get']('profile:monitoring:nrpe:server_address') %}
 
 log_facility=daemon
 debug=0
 pid_file=/run/nrpe/nrpe.pid
 server_port=5666
-{%- set sshd_pillar = pillar.get('sshd_config', {}) %}
-{%- if 'ListenAddress' in sshd_pillar and sshd_pillar['ListenAddress'] is string %}
-server_address={{ sshd_pillar['ListenAddress'] }}
-{%- elif 'server_address' in salt['pillar.get']('profile:monitoring:nrpe:server_address', {}) %}
-server_address={{ pillar['profile']['monitoring']['nrpe']['server_address'] }}
+{%- if server_address is not none %}
+server_address={{ server_address }}
+{%- elif 'ListenAddress' in pillar.get('sshd_config', {}) and sshd_pillar['ListenAddress'] is string %}
+server_address={{ pillar['sshd_config']['ListenAddress'] }}
 {%- endif %}
 nrpe_user=nagios
 nrpe_group=nagios
