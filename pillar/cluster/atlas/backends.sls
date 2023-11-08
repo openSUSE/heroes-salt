@@ -93,10 +93,10 @@ haproxy:
       {{ server('minio', '2a07:de40:b27e:1203::c1') }}
     monitor:
       {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ monitor.opensuse.org') }}
-      {{ server('monitor', '2a07:de40:b27e:64::c0a8:2f07', extra_extra='inter 30000') }}
+      {{ server('monitor', '2a07:de40:b27e:1203::50', extra_extra='inter 30000') }}
     monitor_grafana:
       {{ options() }}
-      {{ server('grafana', '2a07:de40:b27e:64::c0a8:2f07', 3000, extra_extra='inter 30000') }}
+      {{ server('grafana', '2a07:de40:b27e:1203::50', 3000, extra_extra='inter 30000') }}
     nuka:
       {{ options ('httpchk HEAD /static/weblate-128.png HTTP/1.1\r\nHost:\ l10n.opensuse.org') }}
       {{ server('nuka', '2a07:de40:b27e:1203::b44') }}

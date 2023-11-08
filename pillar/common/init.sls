@@ -50,9 +50,9 @@ openssh:
 profile:
   log:
     {%- if country == 'cz' %}
-    rsyslog_host: 2a07:de40:b27e:64::c0a8:2f07
+    rsyslog_host: 2a07:de40:b27e:1203::50
     {%- else %}
-    rsyslog_host: 192.168.47.7
+    rsyslog_host: 172.16.164.40
     {%- endif %}
   postfix:
     aliases:

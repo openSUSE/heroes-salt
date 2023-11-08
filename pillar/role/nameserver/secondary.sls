@@ -6,7 +6,7 @@ include:
 
 powerdns:
   config:
-    allow-notify-from: 192.168.47.51/32 # chip
+    allow-notify-from: 2a07:de40:b27e:1203::15/128 # chip
     autosecondary: 'yes'
     launch: gsqlite3
     setgid: pdns
@@ -19,9 +19,9 @@ powerdns:
 
   database:
     supermasters:
-      - address: 192.168.47.51  # chip
+      - address: 2a07:de40:b27e:1203::15  # chip
         name: prg-ns1.infra.opensuse.org
-      - address: 192.168.47.51
+      - address: 2a07:de40:b27e:1203::15
         name: prg-ns2.infra.opensuse.org
 
 zypper:
