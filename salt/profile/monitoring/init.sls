@@ -35,10 +35,11 @@ common_monitoring_packages:
 
 /etc/nrpe.cfg:
   file.managed:
-    - source: salt://profile/monitoring/files/nrpe.cfg
+    - source: salt://profile/monitoring/files/nrpe.cfg.jinja
     - user: root
     - group: root
     - mode: 444
+    - template: jinja
 
 # cleanup old xinetd config for nrpe (pre-Leap 15.5)
 {%- for file in ['nrpe', 'nrpe.rpmnew', 'nrpe.rpmsave', 'check_mk'] %}
