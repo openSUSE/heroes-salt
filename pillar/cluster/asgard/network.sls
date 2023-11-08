@@ -35,3 +35,7 @@ network:
       gateway: 2a07:de40:b27f:201:ffff:ffff:ffff:ffff
     default4:
       gateway: 195.135.223.46
+    2a07:de40:b27e:5001::/64:
+      gateway: 2a07:de40:b27e:1102::a
+    2a07:de40:b27e:5002::/64:
+      gateway: 2a07:de40:b27e:1102::a
