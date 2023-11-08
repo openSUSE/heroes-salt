@@ -67,6 +67,8 @@ zypper lr -d || true
 bin/replace_secrets.sh
 $SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
 $SUDO ln -s $PWD/salt /srv/salt
+salt-call --local saltutil.runner saltutil.sync_runners
+salt-call --local saltutil.sync_modules
 $SUDO ln -s $PWD/pillar /srv/pillar
 
 ID=$(/usr/bin/hostname -f)
@@ -97,5 +99,3 @@ if [[ -n "$HIGHSTATE" ]]; then
 fi
 
 ln -s $PWD /srv/salt-git
-salt-call --local saltutil.sync_modules
-salt-call --local saltutil.runner saltutil.sync_runners
