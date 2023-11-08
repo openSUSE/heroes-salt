@@ -6,14 +6,10 @@ tsp_dependencies:
       - make
       - gcc-c++
       - zlib-devel
-      - libqt4-devel
-      - libQtWebKit4-devel
+      - libQt5WebKit5-devel
       - postgresql-devel
       - postgresql-server-devel
-      - ruby-devel
-      - ruby2.5-rubygem-bundler
-      - ruby2.5-rubygem-pg
-      - ruby2.5-rubygem-puma
+      - ruby2.7-devel
       - system-user-wwwrun
 
 tsp_user:
