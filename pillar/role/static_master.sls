@@ -57,10 +57,10 @@ profile:
       - narwal8.infra.opensuse.org
     # ssh_known_hosts: use   ssh-keyscan 192.168.122.x,narwalX.infra.opensuse.org | grep nist
     ssh_known_hosts: |
-        192.168.67.5,narwal4.infra.opensuse.org  ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAHNjOSOrqerk0fuMkmdtOncz4P+s/7vfQdlolea47rf+HY9sE7dsmuyktV6D1/y+4p6iUJyF3k07chQ1eEjSD0= 
-        192.168.47.68,narwal5.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCbQYnUEulrX3eOcDJB23gIlSUojFL1+s1ugd1t98EDgoc+fWGvT0qX5iMS3rDA6SRwsu20/lQMhLmsS8G0Gi3w=
-        192.168.47.69,narwal6.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOQE0iipddghKK64jQhTNzN+oUJrBDroWlA2QGZXGFm1qZtWyBdmtzU58bLJyceMW5urKBMLCPWCHZ1oyxtNtOA=
-        192.168.47.70,narwal7.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBF210DU6QxFc4eelUjwJR8AnmdF/PjFmnRFU/A69LbGDqABql4sHWhl2n0pMJifrjBBCEyKeNt64apyIaTlDZ7M=
-        172.16.164.102,narwal8.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDXPM7fBjVlldCWjhswjJTa01QvCZLwtTv38pIAVpVpzyJCuj+ZCZdfx6GZp/FBqZabVnI7kufkrI9zcU8RpWp0=
+        2a07:de40:b27e:64::c0a8:4305,narwal4.infra.opensuse.org  ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAHNjOSOrqerk0fuMkmdtOncz4P+s/7vfQdlolea47rf+HY9sE7dsmuyktV6D1/y+4p6iUJyF3k07chQ1eEjSD0=
+        2a07:de40:b27e:1203::e5,narwal5.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCbQYnUEulrX3eOcDJB23gIlSUojFL1+s1ugd1t98EDgoc+fWGvT0qX5iMS3rDA6SRwsu20/lQMhLmsS8G0Gi3w=
+        2a07:de40:b27e:1203::e6,narwal6.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOQE0iipddghKK64jQhTNzN+oUJrBDroWlA2QGZXGFm1qZtWyBdmtzU58bLJyceMW5urKBMLCPWCHZ1oyxtNtOA=
+        2a07:de40:b27e:1203::e7,narwal7.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBF210DU6QxFc4eelUjwJR8AnmdF/PjFmnRFU/A69LbGDqABql4sHWhl2n0pMJifrjBBCEyKeNt64apyIaTlDZ7M=
+        2a07:de40:b27e:1203::e8,narwal8.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDXPM7fBjVlldCWjhswjJTa01QvCZLwtTv38pIAVpVpzyJCuj+ZCZdfx6GZp/FBqZabVnI7kufkrI9zcU8RpWp0=
     # ssh_private_key included from pillar/secrets/role/static_master.sls
     # ssh_pubkey (for authorized_keys) is in pillar/role/web_static.sls

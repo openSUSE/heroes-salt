@@ -17,7 +17,9 @@ static_master_pgks:
 
 /home/web_static/.ssh/known_hosts:
   file.managed:
-    - contents_pillar: profile:web_static:ssh_known_hosts
+    - contents_pillar:
+      - managed_by_salt
+      - profile:web_static:ssh_known_hosts
     - mode: 644
     - user: root
 
