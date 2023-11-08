@@ -14,6 +14,8 @@ cz:
     short: os-odin
     net6: 2a07:de40:b27e:1102::/64
     gw6: 2a07:de40:b27e:1102::3
+    net4: 172.16.202.0/24
+    gw4: 172.16.202.3
     id: 1102
   openSUSE-salt:
     short: os-salt
