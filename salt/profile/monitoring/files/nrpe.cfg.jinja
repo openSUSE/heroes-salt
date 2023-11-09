@@ -7,7 +7,7 @@ pid_file=/run/nrpe/nrpe.pid
 server_port=5666
 {%- if server_address is not none %}
 server_address={{ server_address }}
-{%- elif 'ListenAddress' in pillar.get('sshd_config', {}) and sshd_pillar['ListenAddress'] is string %}
+{%- elif pillar.get('sshd_config', {}).get('ListenAddress') is string %}
 server_address={{ pillar['sshd_config']['ListenAddress'] }}
 {%- endif %}
 nrpe_user=nagios
