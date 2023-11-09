@@ -53,10 +53,6 @@ haproxy:
       {{ options() }}
       {{ server('mickey', '192.168.47.36', 443, extra_check='ssl verify none') }}
       {#- original had the mickey check port set to 80 - my macro does not support checking a different port, I assume the original was a mistake #}
-    opi_proxy:
-      mode: http
-      {{ options() }}
-      {{ server('opi_proxy', '192.168.47.50', extra_extra='inter 5000') }}
     freeipa:
       {{ options() }}
       {{ server('freeipa', '192.168.47.65', 443, extra_check='ssl ca-file /etc/haproxy/freeipa-ca.crt') }}

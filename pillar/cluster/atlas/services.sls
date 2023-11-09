@@ -72,6 +72,7 @@ haproxy:
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_nuka         hdr(host)   -i i18n.opensuse.org
         - host_nuka         hdr(host)   -i l10n.opensuse.org
+        - host_opi_proxy    hdr(host)   -i opi-proxy.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
         - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
@@ -129,6 +130,7 @@ haproxy:
         - minio           if host_minio
         - monitor         if host_monitor
         - nuka            if host_nuka
+        - opi_proxy       if host_opi_proxy
         - paste           if host_paste
         - pinot           if host_contribute
         - pinot           if host_counter

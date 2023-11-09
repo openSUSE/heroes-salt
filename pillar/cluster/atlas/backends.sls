@@ -103,6 +103,10 @@ haproxy:
     nuka:
       {{ options ('httpchk HEAD /static/weblate-128.png HTTP/1.1\r\nHost:\ l10n.opensuse.org') }}
       {{ server('nuka', '2a07:de40:b27e:1203::b44') }}
+    opi_proxy:
+      mode: http
+      {{ options() }}
+      {{ server('opi_proxy', '2a07:de40:b27e:1203::134', extra_extra='inter 5000') }}
     pagure:
       mode: http
       {{ options() }}
