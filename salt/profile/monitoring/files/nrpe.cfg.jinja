@@ -1,5 +1,5 @@
 {{ pillar['managed_by_salt'] }}
-{%- set server_address = salt['pillar.get']('profile:monitoring:nrpe:server_address') %}
+{%- set server_address = salt['pillar.get']('profile:monitoring:nrpe:server_address', None) %}
 
 log_facility=daemon
 debug=0
