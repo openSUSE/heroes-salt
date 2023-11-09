@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, server %}
+{%- from 'common/haproxy/map.jinja' import bind, extra, server, rsync_backend_with_checks %}
 
 include:
   - common.haproxy
@@ -67,16 +67,7 @@ haproxy:
   listens:
     rsync-community2:
       acls: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
-      bind:
-        {{ bind(bind_v4_vip, 11873, bindopts) }}
-      mode: tcp
-      options:
-        - tcplog
-        - tcpka
-      servers:
-        rsync_community2:
-          host: 2a07:de40:b27e:1203::129
-          port: 873
+      {{ rsync_backend_with_checks('2a07:de40:b27e:1203::129', listen_addresses=bind_v4_vip, listen_port=11873, listen_params=bindopts) }}
 
     ssh-pagure01:
       bind:
