@@ -47,7 +47,6 @@ haproxy:
         - is_openqa              hdr(host)     -i devel.openqa.opensuse.org
         - is_board               hdr(host)     -i board.opensuse.org
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
-        - is_rpmlint             hdr(host)     -i rpmlint.opensuse.org
         - is_susestudio          hdr_reg(host) -i (.*\.)?susestudio.com
         - is_redirect_git        hdr(host)     -i git.opensuse.org
         - is_upgrade             hdr(host)     -i upgrade.opensuse.org
@@ -100,4 +99,3 @@ haproxy:
         - mirrorcache-eu   if is_mirrorcache_eu
         - obsreview        if is_obsreview
         - openqa           if is_openqa
-        - rpmlint          if is_rpmlint

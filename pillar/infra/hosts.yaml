@@ -700,6 +700,18 @@ riesling3:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+rpmlint:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434d42
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::136/64
+      mac: 52:54:00:11:22:e1
+      source: x-os-internal
+  legacy_boot: true
+  ram: 8192MB
+  vcpu: 2
 svn:
   cluster: falkor
   disks:

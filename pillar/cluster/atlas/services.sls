@@ -77,6 +77,7 @@ haproxy:
         - host_osc_collab   hdr(host)   -i osc-collab-test.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
         - host_redmine      hdr(host)   -i progress.opensuse.org
+        - host_rpmlint      hdr(host)   -i rpmlint.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
         {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress', 'oom'] %}
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
@@ -141,6 +142,7 @@ haproxy:
         - pinot           if host_counter
         - pinot           if host_pmya
         - redmine         if host_redmine
+        - rpmlint         if host_rpmlint
         - staticpages     if host_www || host_staticpages || host_static_o_o
         - svn             if host_svn
 
