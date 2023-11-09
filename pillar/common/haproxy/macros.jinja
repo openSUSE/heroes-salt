@@ -42,3 +42,49 @@
           {{ extra }}
           {%- endif %}
 {%- endmacro -%}
+
+{%- macro rsync_backend_with_checks(host='::1', port=873, check_parameters='', extra=None, with_check=True, listen_addresses=[], listen_port=0, listen_params='', listen_protocol='plain', generate_section=False) %}
+{%- if generate_section %}
+{% set cleanedup_hostname = host.replace('.', '_') %}
+{%- set section_name = 'rsync_' ~ cleanedup_hostname ~ '_' ~ listen_protocol %}
+    {{ section_name }}:
+{%- endif %}
+      {%- if listen_addresses|length > 0 and listen_port > 0 %}
+      bind:
+        {%- for address in listen_addresses %}
+        - {{ address }}:{{ listen_port }} {{ listen_params }}
+        {%- endfor %}
+      {%- endif %}
+      mode: tcp
+      options:
+        - tcplog
+      {%- if with_check %}
+        - tcp-check
+      extra:
+        - 'tcp-check comment "Client Initialization"'
+        - 'tcp-check expect rstring "@RSYNCD: [0-9.]+"'
+        - 'tcp-check comment "Server Initialization"'
+        - 'tcp-check send "@RSYNCD: 28.0\n"'
+        - 'tcp-check comment "Client Query (module name rsync-health)"'
+        - 'tcp-check send "#list\n"'
+        - 'tcp-check comment "Data (module name rsync-health)"'
+        - 'tcp-check expect string "@RSYNCD: EXIT\n"'
+        - 'tcp-check comment "Cleanup"'
+        - 'tcp-check send "@RSYNCD: EXIT\n"'
+      {%- endif %}
+      servers:
+        rsync_server:
+          host: {{ host }}
+          port: {{ port }}
+      {%- if with_check %}
+          check: "check inter 10m fastinter 2s downinter 2s {{ check_parameters }}"
+      {%- endif %}
+      {%- if extra is not none %}
+          extra: "{{ extra }}"
+      {%- endif %}
+{%- endmacro %}
+
+{%- macro rsync_ssl_backend_with_checks(host='::1', port=874, check_parameters='', extra='', with_check=True, listen_addresses=[], listen_port=0, listen_params='', listen_protocol='ssl', generate_section=False) %}
+{%- set extra_with_ssl = 'send-proxy-v2 ' ~ extra  ~ ' ssl verify required verifyhost ' ~ host ~ ' check-sni ' ~ host ~ ' sni str(' ~ host ~ ') ca-file /etc/ssl/ca-bundle.pem' %}
+{{ rsync_backend_with_checks(host=host, port=port, check_parameters=check_parameters, extra=extra_with_ssl, with_check=with_check, listen_addresses=listen_addresses, listen_port=listen_port, listen_params=listen_params, listen_protocol=listen_protocol, generate_section=generate_section) }}
+{%- endmacro %}
