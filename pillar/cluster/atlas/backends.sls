@@ -56,6 +56,9 @@ haproxy:
       acls:
         - is_jekyll_test          hdr_reg(host) -i (.*)-test\.opensuse\.org
       extra: http-request replace-header HOST (.*)-test(.*) \1\2 if is_jekyll_test
+    kubic:
+      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
+      {{ server('kubic', '2a07:de40:b27e:1203::132') }}
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}

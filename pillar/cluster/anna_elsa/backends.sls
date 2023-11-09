@@ -15,9 +15,6 @@ haproxy:
     svn:
       {{ options() }}
       {{ server('svn', '192.168.47.25') }}
-    kubic:
-      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
-      {{ server('kubic', '192.168.47.30') }}
     rpmlint:
       extra: errorfile 503 {{ errorfiles }}downtime.xml.http {#- why a xml for api.o.o ? #}
       timeouts:

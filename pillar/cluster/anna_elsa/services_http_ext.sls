@@ -33,10 +33,8 @@ haproxy:
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
         {%- endfor %}
-        - is_kubic               hdr(host)     -i kubic.opensuse.org
         - is_license             hdr(host)     -i license.opensuse.org
         - is_metrics             hdr(host)     -i metrics.opensuse.org
-        - is_microos             hdr(host)     -i microos.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirror.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirrors.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirrordb.opensuse.org
@@ -100,8 +98,6 @@ haproxy:
         - freeipa          if is_freeipa
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
-        - kubic            if is_kubic
-        - kubic            if is_microos
         - metrics          if is_metrics
         - mirrorlist       if is_mirrorlist
         - mirrorcache      if is_mirrorcache

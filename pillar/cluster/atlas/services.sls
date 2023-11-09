@@ -58,6 +58,7 @@ haproxy:
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
+        - host_kubic        hdr(host)   -i kubic.opensuse.org
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
         - host_lnt          hdr(host)   -i lnt.opensuse.org
         - host_mailman3     hdr(host)   -i lists.opensuse.org
@@ -66,6 +67,7 @@ haproxy:
         - host_man          hdr(host)   -i man.opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_matrix       hdr(host)   -i matrix.opensuse.org
+        - host_microos      hdr(host)   -i microos.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_nuka         hdr(host)   -i i18n.opensuse.org
@@ -116,6 +118,8 @@ haproxy:
         - gccstats        if host_gcc
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
+        - kubic           if host_kubic
+        - kubic           if host_microos
         - limesurvey      if host_limesurvey
         - lnt             if host_lnt
         - mailman3        if host_mailman3
