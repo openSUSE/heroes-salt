@@ -93,6 +93,30 @@ haproxy:
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
+        - host_redirect_apparmor   hdr(host)     -i apparmor.opensuse.org
+        - host_redirect_bar        hdr(host)     -i bar.opensuse.org
+        - host_redirect_board      hdr(host)     -i board.opensuse.org
+        - host_redirect_bugs       hdr(host)     -i bugs.opensuse.org
+        - host_redirect_coc        hdr(host)     -i coc.opensuse.org
+        - host_redirect_education  hdr(host)     -i education.opensuse.org
+        - host_redirect_events     hdr(host)     -i conference.opensuse.org
+        - host_redirect_events     hdr(host)     -i events-test.opensuse.org
+        - host_redirect_events     hdr(host)     -i party.opensuse.org
+        - host_redirect_events     hdr(host)     -i summit.opensuse.org
+        - host_redirect_git        hdr(host)     -i git.opensuse.org
+        - host_redirect_help       hdr(host)     -i help.opensuse.org
+        - host_redirect_ignite     hdr(host)     -i ignite-stage.opensuse.org
+        - host_redirect_ignite     hdr(host)     -i ignite.opensuse.org
+        - host_redirect_license    hdr(host)     -i license.opensuse.org
+        - host_redirect_susestudio hdr_reg(host) -i (.*\.)?susestudio.com
+        - host_redirect_tube       hdr(host)     -i tube.opensuse.org
+        - host_redirect_upgrade    hdr(host)     -i upgrade.opensuse.org
+        - host_redirect_wiki       hdr(host)     -i wiki.opensuse.org
+        - host_redirect_wiki_de    hdr(host)     -i dewiki.opensuse.org
+        - host_redirect_wiki_gone  hdr(host)     -i fi.opensuse.org
+        - host_redirect_wiki_gone  hdr(host)     -i is.opensuse.org
+        - host_redirect_wiki_gone  hdr(host)     -i vi.opensuse.org
+
       default_backend: redirect_www_o_o
       use_backends:
         # special paths with common handling for all hosts
@@ -157,6 +181,24 @@ haproxy:
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www
         - code 301 prefix   https://www.opensuse.org                         if host_mainpage !path_kubic_registry !path_matrix_client !path_matrix_federation
+
+        - code 301 location https://gitlab.com/apparmor/apparmor/wikis/home  if host_redirect_apparmor
+        - code 302 location https://meet.opensuse.org/bar                    if host_redirect_bar
+        - code 301 location https://progress.opensuse.org/projects/opensuse-board if host_redirect_board
+        - code 301 location https://en.opensuse.org/openSUSE:Submitting_bug_reports if host_redirect_bugs
+        - code 302 location https://en.opensuse.org/Code_of_Conduct          if host_redirect_coc
+        - code 301 location https://en.opensuse.org/Portal:Education         if host_redirect_education
+        - code 301 prefix   https://events.opensuse.org                      if host_redirect_events
+        - code 301 location https://en.opensuse.org/Git                      if host_redirect_git
+        - code 301 location https://en.opensuse.org/Portal:Support           if host_redirect_help
+        - code 302 location https://opensuse.github.io/fuel-ignition/        if host_redirect_ignite
+        - code 301 location https://github.com/openSUSE/obs-service-format_spec_file/blob/master/README.md if host_redirect_license
+        - code 301 location https://studioexpress.opensuse.org               if host_redirect_susestudio
+        - code 301 location https://www.youtube.com/user/opensusetv          if host_redirect_tube
+        - code 301 location https://en.opensuse.org/Upgrade                  if host_redirect_upgrade
+        - code 301 prefix   https://en.opensuse.org                          if host_redirect_wiki
+        - code 301 prefix   https://de.opensuse.org                          if host_redirect_wiki_de
+        - code 301 prefix   https://languages.opensuse.org                   if host_redirect_wiki_gone
 
     http-misc:
       acls:
