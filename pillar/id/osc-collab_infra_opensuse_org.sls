@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage: 
     - osc-collab
   reboot_safe: yes
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: osc collaboration plattform

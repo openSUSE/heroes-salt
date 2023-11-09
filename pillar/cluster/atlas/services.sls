@@ -58,6 +58,7 @@ haproxy:
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
+        - host_kubic        hdr(host)   -i kubic.opensuse.org
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
         - host_lnt          hdr(host)   -i lnt.opensuse.org
         - host_mailman3     hdr(host)   -i lists.opensuse.org
@@ -66,16 +67,22 @@ haproxy:
         - host_man          hdr(host)   -i man.opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_matrix       hdr(host)   -i matrix.opensuse.org
+        - host_microos      hdr(host)   -i microos.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
         - host_nuka         hdr(host)   -i i18n.opensuse.org
         - host_nuka         hdr(host)   -i l10n.opensuse.org
+        - host_opi_proxy    hdr(host)   -i opi-proxy.opensuse.org
+        - host_osc_collab   hdr(host)   -i osc-collab.opensuse.org
+        - host_osc_collab   hdr(host)   -i osc-collab-test.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
         - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
         {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress', 'oom'] %}
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
         {%- endfor %}
+        - host_svn            hdr(host)   -i svn.opensuse.org
+        - host_svn            hdr(host)   -i kernel.opensuse.org
         - host_tsp            hdr(host)   -i tsp.opensuse.org
         - host_tsp            hdr(host)   -i tsp-test.opensuse.org
         {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'] %}
@@ -116,6 +123,8 @@ haproxy:
         - gccstats        if host_gcc
         - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
+        - kubic           if host_kubic
+        - kubic           if host_microos
         - limesurvey      if host_limesurvey
         - lnt             if host_lnt
         - mailman3        if host_mailman3
@@ -125,12 +134,15 @@ haproxy:
         - minio           if host_minio
         - monitor         if host_monitor
         - nuka            if host_nuka
+        - opi_proxy       if host_opi_proxy
+        - osc_collab      if host_osc_collab
         - paste           if host_paste
         - pinot           if host_contribute
         - pinot           if host_counter
         - pinot           if host_pmya
         - redmine         if host_redmine
         - staticpages     if host_www || host_staticpages || host_static_o_o
+        - svn             if host_svn
 
       redirects:
         - scheme https code 301                                              if !is_ssl !host_get_o_o

@@ -56,6 +56,9 @@ haproxy:
       acls:
         - is_jekyll_test          hdr_reg(host) -i (.*)-test\.opensuse\.org
       extra: http-request replace-header HOST (.*)-test(.*) \1\2 if is_jekyll_test
+    kubic:
+      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
+      {{ server('kubic', '2a07:de40:b27e:1203::132') }}
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
@@ -100,6 +103,14 @@ haproxy:
     nuka:
       {{ options ('httpchk HEAD /static/weblate-128.png HTTP/1.1\r\nHost:\ l10n.opensuse.org') }}
       {{ server('nuka', '2a07:de40:b27e:1203::b44') }}
+    opi_proxy:
+      mode: http
+      {{ options() }}
+      {{ server('opi_proxy', '2a07:de40:b27e:1203::134', extra_extra='inter 5000') }}
+    osc_collab:
+      mode: http
+      {{ options ('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ osc-collab.opensuse.org') }}
+      {{ server('osc_collab2', '2a07:de40:b27e:1203::131') }}
     pagure:
       mode: http
       {{ options() }}
@@ -133,6 +144,9 @@ haproxy:
         {%- for static_server, address in narwals.items() %}
         {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
+    svn:
+      {{ options() }}
+      {{ server('svn', '2a07:de40:b27e:1203::133') }}
     tsp:
       {{ options() }}
       {{ server('tsp', '2a07:de40:b27e:1203::b20') }}

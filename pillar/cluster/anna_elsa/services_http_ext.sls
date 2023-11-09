@@ -33,10 +33,8 @@ haproxy:
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
         {%- endfor %}
-        - is_kubic               hdr(host)     -i kubic.opensuse.org
         - is_license             hdr(host)     -i license.opensuse.org
         - is_metrics             hdr(host)     -i metrics.opensuse.org
-        - is_microos             hdr(host)     -i microos.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirror.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirrors.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirrordb.opensuse.org
@@ -44,19 +42,14 @@ haproxy:
         - is_mirrorcache_eu      hdr(host)     -i mirrorcache-eu.opensuse.org
         - is_download_o_o        hdr(host)     -i download.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
-        - is_opi_proxy           hdr(host)     -i opi-proxy.opensuse.org
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
-        - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
-        - is_osccollab           hdr(host)     -i osc-collab-test.opensuse.org
         - is_openqa              hdr(host)     -i openqa.opensuse.org
         - is_openqa              hdr(host)     -i devel.openqa.opensuse.org
         - is_board               hdr(host)     -i board.opensuse.org
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
         - is_rpmlint             hdr(host)     -i rpmlint.opensuse.org
         - is_susestudio          hdr_reg(host) -i (.*\.)?susestudio.com
-        - is_svn                 hdr(host)     -i svn.opensuse.org
         - is_redirect_git        hdr(host)     -i git.opensuse.org
-        - is_svn                 hdr(host)     -i kernel.opensuse.org
         - is_upgrade             hdr(host)     -i upgrade.opensuse.org
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
         - is_wiki                hdr(host)     -i wiki.opensuse.org
@@ -100,16 +93,11 @@ haproxy:
         - freeipa          if is_freeipa
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
-        - kubic            if is_kubic
-        - kubic            if is_microos
         - metrics          if is_metrics
         - mirrorlist       if is_mirrorlist
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
         - mirrorcache-eu   if is_mirrorcache_eu
-        - opi_proxy        if is_opi_proxy
-        - osccollab        if is_osccollab
         - obsreview        if is_obsreview
         - openqa           if is_openqa
         - rpmlint          if is_rpmlint
-        - svn              if is_svn

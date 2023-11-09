@@ -12,12 +12,6 @@ haproxy:
         {%- for status_server, status_config in {'status1': '100', 'status2': '80 backup', 'status3': '90 backup'}.items() %}
         {{ server(status_server, status_server ~ '.opensuse.org', 443, extra_extra='inter 60000 weight ' ~ status_config, header=False) }}
         {%- endfor %}
-    svn:
-      {{ options() }}
-      {{ server('svn', '192.168.47.25') }}
-    kubic:
-      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
-      {{ server('kubic', '192.168.47.30') }}
     rpmlint:
       extra: errorfile 503 {{ errorfiles }}downtime.xml.http {#- why a xml for api.o.o ? #}
       timeouts:
@@ -31,10 +25,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    osccollab:
-      mode: http
-      {{ options ('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ osc-collab.opensuse.org') }}
-      {{ server('osccollab2', '192.168.47.64') }}
     openqa:
       {{ options() }}
       {{ server('openqa1', '192.168.47.13') }}
@@ -56,10 +46,6 @@ haproxy:
       {{ options() }}
       {{ server('mickey', '192.168.47.36', 443, extra_check='ssl verify none') }}
       {#- original had the mickey check port set to 80 - my macro does not support checking a different port, I assume the original was a mistake #}
-    opi_proxy:
-      mode: http
-      {{ options() }}
-      {{ server('opi_proxy', '192.168.47.50', extra_extra='inter 5000') }}
     freeipa:
       {{ options() }}
       {{ server('freeipa', '192.168.47.65', 443, extra_check='ssl ca-file /etc/haproxy/freeipa-ca.crt') }}

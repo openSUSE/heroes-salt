@@ -305,6 +305,18 @@ jekyll:
   legacy_boot: true
   ram: 3072MB
   vcpu: 2
+kubic:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434d41
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::132/64
+      mac: 52:54:00:4c:3b:65
+      source: x-os-internal
+  legacy_boot: true
+  ram: 1024MB
+  vcpu: 1
 limesurvey:
   cluster: falkor
   disks:
@@ -558,6 +570,30 @@ odin:
       source: x-os-odin
   ram: 2048MB
   vcpu: 2
+opi-proxy:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434d2d
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::134/64
+      mac: 52:54:00:0d:45:f2
+      source: x-os-internal
+  legacy_boot: true
+  ram: 1024MB
+  vcpu: 1
+osc-collab:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434d38
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::131/64
+      mac: 52:54:00:82:f6:0b
+      source: x-os-internal
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 2
 pagure01:
   cluster: falkor
   disks:
@@ -663,6 +699,20 @@ riesling3:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+svn:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d2f
+    data1: 3600a098038304161792455736d424d61
+    root: 3600a0980383041622f2455736d434d39
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::133/64
+      mac: 52:54:00:8d:a7:dc
+      source: x-os-internal
+  legacy_boot: true
+  ram: 8192MB
+  vcpu: 4
 thor1:
   cluster: squanchy
   disks:
