@@ -31,13 +31,10 @@ haproxy:
         - is_openqa              hdr(host)     -i devel.openqa.opensuse.org
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
-        - is_mediawiki_cz        hdr(host)     -i cz.opensuse.org
-        - is_mediawiki_cn        hdr(host)     -i cz.opensuse.org
 
       redirects:
         - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_download_o_o
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
-        - code 301 prefix   https://cs.opensuse.org if is_mediawiki_cz
         - code 301 location https://www.opensuse.org if is_redirect_itsself
 
       default_backend: redirect_www_o_o
