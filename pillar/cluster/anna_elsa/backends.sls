@@ -73,9 +73,6 @@ haproxy:
     metrics:
       {{ options() }}
       {{ server('metrics', '192.168.47.31', 3000) }}
-    obsreview: {#- to-do: investigate; port 80 only serves 404 #}
-      {{ options() }}
-      {{ server('obsreview', '192.168.47.39') }}
     security_txt:
       mode: http
       options:
