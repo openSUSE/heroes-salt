@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - opi proxy
   reboot_safe: yes
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Proxy server for opi to access OBS/PMBS API
