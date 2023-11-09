@@ -28,10 +28,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    osccollab:
-      mode: http
-      {{ options ('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ osc-collab.opensuse.org') }}
-      {{ server('osccollab2', '192.168.47.64') }}
     openqa:
       {{ options() }}
       {{ server('openqa1', '192.168.47.13') }}

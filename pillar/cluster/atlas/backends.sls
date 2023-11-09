@@ -107,6 +107,10 @@ haproxy:
       mode: http
       {{ options() }}
       {{ server('opi_proxy', '2a07:de40:b27e:1203::134', extra_extra='inter 5000') }}
+    osc_collab:
+      mode: http
+      {{ options ('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ osc-collab.opensuse.org') }}
+      {{ server('osc_collab2', '2a07:de40:b27e:1203::131') }}
     pagure:
       mode: http
       {{ options() }}

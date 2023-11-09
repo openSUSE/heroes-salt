@@ -43,8 +43,6 @@ haproxy:
         - is_download_o_o        hdr(host)     -i download.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
         - is_obsreview           hdr(host)     -i obs-reviewlab.opensuse.org
-        - is_osccollab           hdr(host)     -i osc-collab.opensuse.org
-        - is_osccollab           hdr(host)     -i osc-collab-test.opensuse.org
         - is_openqa              hdr(host)     -i openqa.opensuse.org
         - is_openqa              hdr(host)     -i devel.openqa.opensuse.org
         - is_board               hdr(host)     -i board.opensuse.org
@@ -102,7 +100,6 @@ haproxy:
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
         - mirrorcache-eu   if is_mirrorcache_eu
-        - osccollab        if is_osccollab
         - obsreview        if is_obsreview
         - openqa           if is_openqa
         - rpmlint          if is_rpmlint
