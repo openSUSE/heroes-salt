@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: prague
+  country: cz
   hostusage:
     - freeipa
   reboot_safe: yes
-  virt_cluster: atreju
+  virt_cluster: falkor
 
   aliases: []
   description: Main FreeIPA server for user, group and DNS management.

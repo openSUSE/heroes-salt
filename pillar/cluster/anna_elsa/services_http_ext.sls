@@ -23,7 +23,6 @@ haproxy:
         - is_education           hdr(host)     -i education.opensuse.org
         - is_coc                 hdr(host)     -i coc.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
-        - is_freeipa             hdr(host)     -i freeipa.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
         - is_gitlab              hdr(host)     -i gitlab.opensuse.org
         - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
@@ -88,7 +87,6 @@ haproxy:
         - security_txt     if path_security
         - jenkins          if is_jenkins
         - conncheck        if is_conncheck
-        - freeipa          if is_freeipa
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
         - metrics          if is_metrics
