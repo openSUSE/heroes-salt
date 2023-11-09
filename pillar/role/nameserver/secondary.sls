@@ -23,6 +23,10 @@ powerdns:
         name: prg-ns1.infra.opensuse.org
       - address: 2a07:de40:b27e:1203::15
         name: prg-ns2.infra.opensuse.org
+      - address: 2a07:de40:b27e:1203::15
+        name: chip.infra.opensuse.org
+      - address: 2a07:de40:b27e:1203::15
+        name: ns1.opensuse.org
 
 zypper:
   packages:
