@@ -12,9 +12,6 @@ haproxy:
         {%- for status_server, status_config in {'status1': '100', 'status2': '80 backup', 'status3': '90 backup'}.items() %}
         {{ server(status_server, status_server ~ '.opensuse.org', 443, extra_extra='inter 60000 weight ' ~ status_config, header=False) }}
         {%- endfor %}
-    svn:
-      {{ options() }}
-      {{ server('svn', '192.168.47.25') }}
     rpmlint:
       extra: errorfile 503 {{ errorfiles }}downtime.xml.http {#- why a xml for api.o.o ? #}
       timeouts:

@@ -81,6 +81,8 @@ haproxy:
         {%- for host_static in ['fontinfo', 'people', 'lizards', 'html5test', 'shop', 'studioexpress', 'oom'] %}
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
         {%- endfor %}
+        - host_svn            hdr(host)   -i svn.opensuse.org
+        - host_svn            hdr(host)   -i kernel.opensuse.org
         - host_tsp            hdr(host)   -i tsp.opensuse.org
         - host_tsp            hdr(host)   -i tsp-test.opensuse.org
         {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'] %}
@@ -140,6 +142,7 @@ haproxy:
         - pinot           if host_pmya
         - redmine         if host_redmine
         - staticpages     if host_www || host_staticpages || host_static_o_o
+        - svn             if host_svn
 
       redirects:
         - scheme https code 301                                              if !is_ssl !host_get_o_o

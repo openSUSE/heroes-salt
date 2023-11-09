@@ -144,6 +144,9 @@ haproxy:
         {%- for static_server, address in narwals.items() %}
         {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
+    svn:
+      {{ options() }}
+      {{ server('svn', '2a07:de40:b27e:1203::133') }}
     tsp:
       {{ options() }}
       {{ server('tsp', '2a07:de40:b27e:1203::b20') }}

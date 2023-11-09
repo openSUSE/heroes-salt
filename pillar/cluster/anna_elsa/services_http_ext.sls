@@ -49,9 +49,7 @@ haproxy:
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
         - is_rpmlint             hdr(host)     -i rpmlint.opensuse.org
         - is_susestudio          hdr_reg(host) -i (.*\.)?susestudio.com
-        - is_svn                 hdr(host)     -i svn.opensuse.org
         - is_redirect_git        hdr(host)     -i git.opensuse.org
-        - is_svn                 hdr(host)     -i kernel.opensuse.org
         - is_upgrade             hdr(host)     -i upgrade.opensuse.org
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
         - is_wiki                hdr(host)     -i wiki.opensuse.org
@@ -103,4 +101,3 @@ haproxy:
         - obsreview        if is_obsreview
         - openqa           if is_openqa
         - rpmlint          if is_rpmlint
-        - svn              if is_svn
