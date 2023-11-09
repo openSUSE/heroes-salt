@@ -129,6 +129,9 @@ haproxy:
     riesling:
       {{ options() }}
       {{ server('riesling', '2a07:de40:b27e:1203::b2') }}
+    rpmlint:
+      {{ options() }}
+      {{ server('rpmlint', '2a07:de40:b27e:1203::136', extra_extra='inter 5000') }}
     security_txt:
       mode: http
       options:
