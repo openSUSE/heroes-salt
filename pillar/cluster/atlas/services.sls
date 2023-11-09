@@ -39,7 +39,6 @@ haproxy:
         - host_contribute   hdr(host)   -i contribute.opensuse.org
         - host_counter      hdr_reg(host) -i count(er|down)\.opensuse\.org
         - host_doc          hdr(host)   -i doc.opensuse.org
-        - host_redirect_doc hdr_reg(host) -i (docs|activedoc|www\.activedoc|rtfm).opensuse.org
         - host_etherpad     hdr(host)   -i etherpad.opensuse.org
         - host_dale         hdr(host)   -i events.opensuse.org
         - host_dale         hdr(host)   -i events-test.opensuse.org
@@ -64,7 +63,6 @@ haproxy:
         - host_mailman3     hdr(host)   -i lists.opensuse.org
         - host_mailman3     hdr(host)   -i lists.uyuni-project.org
         - host_mainpage     hdr(host)   -i opensuse.org
-        - host_man          hdr(host)   -i man.opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_matrix       hdr(host)   -i matrix.opensuse.org
         - host_microos      hdr(host)   -i microos.opensuse.org
@@ -93,11 +91,13 @@ haproxy:
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
+        # hostnames only used for domain-level redirects
         - host_redirect_apparmor   hdr(host)     -i apparmor.opensuse.org
         - host_redirect_bar        hdr(host)     -i bar.opensuse.org
         - host_redirect_board      hdr(host)     -i board.opensuse.org
         - host_redirect_bugs       hdr(host)     -i bugs.opensuse.org
         - host_redirect_coc        hdr(host)     -i coc.opensuse.org
+        - host_redirect_doc        hdr_reg(host) -i (docs|activedoc|www\.activedoc|rtfm).opensuse.org
         - host_redirect_education  hdr(host)     -i education.opensuse.org
         - host_redirect_events     hdr(host)     -i conference.opensuse.org
         - host_redirect_events     hdr(host)     -i events-test.opensuse.org
@@ -108,6 +108,7 @@ haproxy:
         - host_redirect_ignite     hdr(host)     -i ignite-stage.opensuse.org
         - host_redirect_ignite     hdr(host)     -i ignite.opensuse.org
         - host_redirect_license    hdr(host)     -i license.opensuse.org
+        - host_redirect_man        hdr(host)     -i man.opensuse.org
         - host_redirect_susestudio hdr_reg(host) -i (.*\.)?susestudio.com
         - host_redirect_tube       hdr(host)     -i tube.opensuse.org
         - host_redirect_upgrade    hdr(host)     -i upgrade.opensuse.org
@@ -174,25 +175,26 @@ haproxy:
 
       redirects:
         - scheme https code 301                                              if !is_ssl !host_get_o_o
-        - code 301 location https://doc.opensuse.org                         if host_redirect_doc
-        - code 302 location https://manpages.opensuse.org                    if host_man
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_mailman3
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www
         - code 301 prefix   https://www.opensuse.org                         if host_mainpage !path_kubic_registry !path_matrix_client !path_matrix_federation
 
+        # redirects with host_redirect_*-only condition
         - code 301 location https://gitlab.com/apparmor/apparmor/wikis/home  if host_redirect_apparmor
         - code 302 location https://meet.opensuse.org/bar                    if host_redirect_bar
         - code 301 location https://progress.opensuse.org/projects/opensuse-board if host_redirect_board
         - code 301 location https://en.opensuse.org/openSUSE:Submitting_bug_reports if host_redirect_bugs
         - code 302 location https://en.opensuse.org/Code_of_Conduct          if host_redirect_coc
+        - code 301 location https://doc.opensuse.org                         if host_redirect_doc
         - code 301 location https://en.opensuse.org/Portal:Education         if host_redirect_education
         - code 301 prefix   https://events.opensuse.org                      if host_redirect_events
         - code 301 location https://en.opensuse.org/Git                      if host_redirect_git
         - code 301 location https://en.opensuse.org/Portal:Support           if host_redirect_help
         - code 302 location https://opensuse.github.io/fuel-ignition/        if host_redirect_ignite
         - code 301 location https://github.com/openSUSE/obs-service-format_spec_file/blob/master/README.md if host_redirect_license
+        - code 302 location https://manpages.opensuse.org                    if host_redirect_man
         - code 301 location https://studioexpress.opensuse.org               if host_redirect_susestudio
         - code 301 location https://www.youtube.com/user/opensusetv          if host_redirect_tube
         - code 301 location https://en.opensuse.org/Upgrade                  if host_redirect_upgrade
