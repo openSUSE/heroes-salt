@@ -64,6 +64,20 @@ atlas2:
   primary_interface: os-public
   ram: 4096MB
   vcpu: 2
+backup:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b394f776a
+    root: 3600a0980383041622f2455736d434d48
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::140/64
+      mac: 52:54:00:e7:64:6f
+      pseudo_ip4: 172.16.164.170
+      source: x-os-internal
+  legacy_boot: true
+  ram: 1024MB
+  vcpu: 2
 chip:
   cluster: falkor
   disks:
