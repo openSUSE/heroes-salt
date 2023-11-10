@@ -93,7 +93,7 @@ haproxy:
         - return status 200 content-type text/json file /etc/haproxy/errorfiles/matrix-federation.response hdr Server "HAProxy Auto Reply/openSUSE is good for you" hdr Access-Control-Allow-Origin '*' hdr Cache no-cache
     metrics:
       {{ options() }}
-      {{ server('metrics', '2a07:de40:b27e:1203::135', 3000) }}
+      {{ server('metrics', '2a07:de40:b27e:1203::141', 3000) }}
     minio:
       {{ options() }}
       {{ server('minio', '2a07:de40:b27e:1203::c1') }}
