@@ -11,7 +11,6 @@ haproxy:
         - path_favicon           path          /favicon.ico
         - is_www                 hdr(host)     -i www.opensuse.org
         - is_jenkins             hdr(host)     -i ci.opensuse.org
-        - is_conncheck           hdr(host)     -i conncheck.opensuse.org
         - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
@@ -29,7 +28,7 @@ haproxy:
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
 
       redirects:
-        - scheme https code 301  if !is_ssl !is_conncheck !is_mirrorcache !is_mirrorcache_eu !is_download_o_o
+        - scheme https code 301  if !is_ssl !is_mirrorcache !is_mirrorcache_eu !is_download_o_o
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://www.opensuse.org if is_redirect_itsself
 
@@ -38,7 +37,6 @@ haproxy:
         - error_403        if path_dot_scm
         - security_txt     if path_security
         - jenkins          if is_jenkins
-        - conncheck        if is_conncheck
         - hydra            if is_hydra is_ssl
         - mirrorlist       if is_mirrorlist
         - mirrorcache      if is_mirrorcache
