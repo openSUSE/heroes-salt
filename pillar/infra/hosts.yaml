@@ -448,6 +448,20 @@ matrix:
   legacy_boot: true
   ram: 15360MB
   vcpu: 6
+metrics:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d63
+    root: 3600a0980383041622f2455736d434d47
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::141/64
+      mac: 52:54:00:e6:23:d0
+      pseudo_ip4: 172.16.164.168
+      source: x-os-internal
+  legacy_boot: true
+  ram: 10240MB
+  vcpu: 2
 mickey:
   cluster: falkor
   disks:

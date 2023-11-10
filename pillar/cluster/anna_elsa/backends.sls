@@ -67,9 +67,6 @@ haproxy:
         - forwardfor
         - httpchk HEAD / HTTP/1.1\r\nHost:\ ci.opensuse.org
       {{ server('ci-opensuse', '192.168.47.77', 8080) }}
-    metrics:
-      {{ options() }}
-      {{ server('metrics', '192.168.47.31', 3000) }}
     security_txt:
       mode: http
       options:
