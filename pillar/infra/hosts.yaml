@@ -752,6 +752,19 @@ rpmlint:
   legacy_boot: true
   ram: 8192MB
   vcpu: 2
+status3:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434d46
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::139/64
+      mac: 52:54:00:93:b9:a7
+      pseudo_ip4: 172.16.164.167
+      source: x-os-internal
+  legacy_boot: true
+  ram: 2048MB
+  vcpu: 2
 svn:
   cluster: falkor
   disks:
