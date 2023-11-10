@@ -84,7 +84,6 @@ haproxy:
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
         {%- endfor %}
         - host_svn            hdr(host)   -i svn.opensuse.org
-        - host_svn            hdr(host)   -i kernel.opensuse.org
         - host_tsp            hdr(host)   -i tsp.opensuse.org
         - host_tsp            hdr(host)   -i tsp-test.opensuse.org
         {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'] %}

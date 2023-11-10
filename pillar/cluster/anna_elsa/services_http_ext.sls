@@ -12,8 +12,6 @@ haproxy:
         - is_www                 hdr(host)     -i www.opensuse.org
         - is_jenkins             hdr(host)     -i ci.opensuse.org
         - is_conncheck           hdr(host)     -i conncheck.opensuse.org
-        - is_gitlab              hdr(host)     -i gitlab.infra.opensuse.org
-        - is_gitlab              hdr(host)     -i gitlab.opensuse.org
         - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
@@ -41,7 +39,6 @@ haproxy:
         - security_txt     if path_security
         - jenkins          if is_jenkins
         - conncheck        if is_conncheck
-        - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
         - mirrorlist       if is_mirrorlist
         - mirrorcache      if is_mirrorcache
