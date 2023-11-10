@@ -27,16 +27,6 @@ haproxy:
       options:
         - tcp-smart-connect
       {{ server('http-int-in', '127.0.0.1', 83, check=None, extra_extra='send-proxy-v2') }}
-    kernel-git-in:
-      bind:
-        {{ bind(['195.135.221.140', '2620:113:80c0:8::16'], 9418) }}
-      mode: tcp
-      options:
-        - tcplog
-      servers:
-        kernel-git:
-          host: 192.168.47.25
-          port: 9418
   frontends:
     http-ext-in:
       bind:

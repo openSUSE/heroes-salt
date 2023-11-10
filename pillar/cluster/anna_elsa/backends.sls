@@ -4,14 +4,6 @@ haproxy:
   backends:
     redirect_www_o_o:
       redirects: code 301 location https://www.opensuse.org/
-    status:
-      mode: tcp
-      options:
-        - ssl-hello-chk
-      servers:
-        {%- for status_server, status_config in {'status1': '100', 'status2': '80 backup', 'status3': '90 backup'}.items() %}
-        {{ server(status_server, status_server ~ '.opensuse.org', 443, extra_extra='inter 60000 weight ' ~ status_config, header=False) }}
-        {%- endfor %}
     error_403:
       mode: http
       options: ['tcpka']
@@ -21,9 +13,6 @@ haproxy:
     openqa:
       {{ options() }}
       {{ server('openqa1', '192.168.47.13') }}
-    redmine_test:
-      {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
-      {{ server('progress', '192.168.47.8', extra_extra='maxconn 16') }}
     download:
       options:
         - forwardfor header X-Forwarded-999
@@ -35,10 +24,6 @@ haproxy:
     smt:
       {{ options() }}
       {{ server('smt-internal', '195.135.221.141') }}
-    mickey:
-      {{ options() }}
-      {{ server('mickey', '192.168.47.36', 443, extra_check='ssl verify none') }}
-      {#- original had the mickey check port set to 80 - my macro does not support checking a different port, I assume the original was a mistake #}
     conncheck:
       mode: http
       options: ['tcpka']
@@ -77,10 +62,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}security.txt.http
-    wip:
-      mode: http
-      extra: errorfile 503 {{ errorfiles }}fourohfour.html.http
-      httprequests: set-log-level silent
     via_atlas:
       {{ options() }}
       {{ server('proxy-prg2', '172.16.164.5', 443, extra_check='ssl verify required verifyhost proxy-prg2.infra.opensuse.org check-sni proxy-prg2.infra.opensuse.org sni str(proxy-prg2.infra.opensuse.org) ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem') }}

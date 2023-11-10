@@ -17,10 +17,8 @@ haproxy:
         {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw'] %}
         - via_atlas              hdr(host) -i {{ wiki }}.opensuse.org
         {%- endfor %}
-        - is_mickey              hdr(host) -i gitlab.infra.opensuse.org
         - is_openqa              hdr(host) -i openqa.opensuse.org
         - via_atlas              hdr(host) -i progress.opensuse.org
-        - is_redmine_test        hdr(host) -i progress-test.opensuse.org
         - is_smt                 hdr(host) -i smt-internal.infra.opensuse.org
         - via_atlas              hdr(host) -i en-test.opensuse.org
         - via_atlas              hdr(host) -i tsp.opensuse.org
@@ -31,8 +29,6 @@ haproxy:
         - error_403        if path_dot_scm
         - download-private if is_download
         - hydra            if is_hydra
-        - mickey           if is_mickey
         - openqa           if is_openqa
-        - redmine_test     if is_redmine_test
         - smt              if is_smt
         - via_atlas        if via_atlas
