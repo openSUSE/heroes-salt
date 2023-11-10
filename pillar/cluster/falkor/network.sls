@@ -35,6 +35,7 @@ network:
           'os-public': 1204,
           'os-mirror': 1205,
           'os-code': 1206,
+          'os-kani': 1210,
         }.items() %}
     {{ vlantap(vlan_name, vlan_id, 'bond-fib') }}
     {%- endfor %}

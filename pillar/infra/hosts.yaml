@@ -331,6 +331,28 @@ jekyll:
   legacy_boot: true
   ram: 3072MB
   vcpu: 2
+kani1:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f7768
+  interfaces:
+    os-kani:
+      ip6: 2a07:de40:b27e:1210::a/64
+      mac: 16:84:bc:ee:4c:7a
+      source: x-os-kani
+  ram: 2048MB
+  vcpu: 1
+kani2:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f7769
+  interfaces:
+    os-kani:
+      ip6: 2a07:de40:b27e:1210::b/64
+      mac: 16:84:bc:ee:4c:7b
+      source: x-os-kani
+  ram: 2048MB
+  vcpu: 1
 kubic:
   cluster: falkor
   disks:
