@@ -5,6 +5,7 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
+        - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
 
         # login2.o.o via anna/elsa
         - src_login         src         2a07:de40:b27e:64::c0a8:2f65 2a07:de40:b27e:64::c0a8:2f66
@@ -65,6 +66,7 @@ haproxy:
         - host_mainpage     hdr(host)   -i opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_matrix       hdr(host)   -i matrix.opensuse.org
+        - host_metrics      hdr(host)   -i metrics.opensuse.org
         - host_microos      hdr(host)   -i microos.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
@@ -158,6 +160,7 @@ haproxy:
         - man             if host_manpages
         - matomo          if host_beans
         - matrix          if host_matrix
+        - metrics         if host_metrics
         - minio           if host_minio
         - monitor         if host_monitor
         - nuka            if host_nuka

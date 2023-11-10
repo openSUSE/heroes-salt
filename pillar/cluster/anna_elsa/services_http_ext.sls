@@ -3,7 +3,6 @@ haproxy:
     http-ext-in:
       acls:
         - no_x-frame-option var(txn.host) -m str meet.opensuse.org
-        - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
         - is_ssl                 fc_rcvd_proxy
         - path_dot_scm           path_beg      /.git/
         - path_dot_scm           path_beg      /.svn/
@@ -19,7 +18,6 @@ haproxy:
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
         {%- endfor %}
-        - is_metrics             hdr(host)     -i metrics.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirror.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirrors.opensuse.org
         - is_mirrorlist          hdr(host)     -i mirrordb.opensuse.org
@@ -45,7 +43,6 @@ haproxy:
         - conncheck        if is_conncheck
         - mickey           if is_gitlab
         - hydra            if is_hydra is_ssl
-        - metrics          if is_metrics
         - mirrorlist       if is_mirrorlist
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
