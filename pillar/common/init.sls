@@ -59,6 +59,9 @@ profile:
     maincf:
       relayhost: '[relay.infra.opensuse.org]'
       myhostname: '{{ grains['host'] }}.infra.opensuse.org'
+      {%- if country == 'cz' %}
+      inet_protocols: ipv6
+      {%- endif %}
 rsyslog:
   custom:
     - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja

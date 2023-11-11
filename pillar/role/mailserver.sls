@@ -111,6 +111,7 @@ profile:
       # 20210328 turning back on
       # 20210401 back off
       soft_bounce: 'no'
+      inet_protocols: all
 
 
 zypper:
