@@ -1,0 +1,68 @@
+{{ pillar['managed_by_salt_lua'] }}
+-- Fork of the example script (https://doc.powerdns.com/recursor/dns64.html#scripted-dns64-support)
+-- with added functionality for acting based on the source network and query name
+
+--  Copyright (C) 20?? PowerDNS
+--  Copyright (C) 2023 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+--  This program is free software; you can redistribute it and/or modify
+--  it under the terms of the GNU General Public License as published by
+--  the Free Software Foundation; either version 2 of the License, or
+--  (at your option) any later version.
+--
+--  This program is distributed in the hope that it will be useful,
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+--  GNU General Public License for more details.
+--
+--  You should have received a copy of the GNU General Public License along
+--  with this program; if not, write to the Free Software Foundation, Inc.,
+--  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+prefix = "2a07:de40:b27e:64::"
+prefix_reverse = "0.0.0.0.0.0.0.0.4.6.0.0.e.7.2.b.0.4.e.d.7.0.a.2.ip6.arpa."
+
+internal_zones = newDS()
+internal_zones:add({"infra.opensuse.org"})
+
+vpn_networks = newNMG()
+vpn_networks:addMasks({"2a07:de40:b27e:5001::/64", "2a07:de40:b27e:5002::/64"})
+
+function nodata ( dq )
+
+  -- only tamper with AAAA queries
+  if dq.qtype ~= pdns.AAAA then
+    return false
+  end
+
+  -- only cache internal queries to allow for source network based handling of non-internal zones
+  if not internal_zones:check(dq.qname) then
+    dq.variable = true
+
+    -- VPN clients shall only receive mapped answers for internal_zones queries (prevent mapping v4 internet hosts to addresses unroutable in the client network)
+    if vpn_networks:match(dq.remoteaddr) then
+      return false
+    end
+
+  end
+
+  -- only proceed with working DNSSEC
+  if dq.validationState == pdns.validationstates.Bogus then
+    return false
+  end
+
+  dq.followupFunction = "getFakeAAAARecords"
+  dq.followupPrefix = prefix
+  dq.followupName = dq.qname
+  return true
+end
+
+function preresolve ( dq )
+  if dq.qtype == pdns.PTR and dq.qname:isPartOf(newDN(prefix_reverse)) then
+    dq.followupFunction = "getFakePTRRecords"
+    dq.followupPrefix = prefix
+    dq.followupName = dq.qname
+    return true
+  end
+  return false
+end

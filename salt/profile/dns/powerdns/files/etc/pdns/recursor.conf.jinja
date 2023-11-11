@@ -20,7 +20,8 @@ webserver-hash-plaintext-credentials=yes
 {%- if 'webserver_password' in config %}
 webserver-password={{ config['webserver_password'] }}
 {%- endif %}
-dns64-prefix=2a07:de40:b27e:64::/96
+#dns64-prefix=2a07:de40:b27e:64::/96
 dnssec-log-bogus=yes
 extended-resolution-errors=yes
 forward-zones-file=/etc/pdns/forward.conf
+lua-dns-script=/etc/pdns/pdns.lua
