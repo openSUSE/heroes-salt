@@ -3,8 +3,8 @@
 {% set osrelease = salt['grains.get']('osrelease') %}
 {%- set virtual = salt['grains.get']('virtual') -%}
 {%- set country = salt['grains.get']('country') -%}
-{%- set subrole_ntp = salt['grains.get']('subrole_ntp', '') -%}
 {%- set address = salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[grains['host'], True]) -%}
+{%- set configure_ntp = salt['grains.get']('configure_ntp', True) %}
 
 include:
   - .headers
@@ -17,19 +17,18 @@ include:
 chrony:
   driftfile: /var/lib/chrony/drift
   logdir: /var/log/chrony
+  {%- if configure_ntp %}
   ntpservers:
-   {%- for n in range(3) %}
-   {%- if subrole_ntp != 'ntp{0}'.format(n+1) %}
-   - ntp{{ n+1 }}.infra.opensuse.org
-   {%- endif %}
-   {%- endfor %}
+    - ntp1.infra.opensuse.org
+    - ntp2.infra.opensuse.org
+  {%- endif %}
   otherparams:
-    {% if salt['grains.get']('configure_ntp', True) %}
+    {%- if configure_ntp %}
     - logchange 0.5
     - log measurements statistics tracking rtc
     - makestep 1.0 3
     - noclientlog
-    {% endif %}
+    {%- endif %}
     - rtcsync
     - 'cmdport 0'
 
