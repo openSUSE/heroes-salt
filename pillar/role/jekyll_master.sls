@@ -52,6 +52,6 @@ zypper:
       priority: 100
       refresh: True
     devel:languages:ruby:
-      baseurl: https://downloadcontent.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
+      baseurl: https://downloadcontent.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
       priority: 100
       refresh: True
