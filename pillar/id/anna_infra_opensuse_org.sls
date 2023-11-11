@@ -11,7 +11,6 @@ grains:
     - relay.i.o.o
   reboot_safe: yes
   virt_cluster: atreju
-  subrole_ntp: ntp2
 
   aliases:
     - proxy-nue1.infra.opensuse.org

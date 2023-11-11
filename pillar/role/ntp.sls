@@ -1,9 +1,10 @@
 chrony:
   allow:
-    - 127.0.0.0/8
-    - 192.168.47.0/24
-  ntpservers:
-    - ntp1.opensuse.org
-    - ntp2.opensuse.org
+    - ::1
+    - 2a07:de40:b27e::/48
+  pool:
+    {#- only using 2 as {0,1,3} only serve A records
+        see https://community.ntppool.org/t/the-time-has-come-we-must-enable-ipv6-entirely/1968/45 #}
+    - 2.opensuse.pool.ntp.org
   otherparams:
     - makestep -1 1
