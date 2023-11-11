@@ -17,5 +17,6 @@ grains:
   weburls: []
 roles:
   - ha
+  - ntp
   - proxy
   - pgbouncer

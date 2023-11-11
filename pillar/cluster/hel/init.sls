@@ -7,6 +7,9 @@ include:
   - secrets.cluster.hel
   {%- endif %}
 
+grains:
+  configure_ntp: false
+
 {%- set bind_v6 = ['2a07:de40:b27e:1203::10', '2a07:de40:b27e:1203::11', '2a07:de40:b27e:1203::12'] %}
 
 haproxy:
