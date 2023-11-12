@@ -2,6 +2,7 @@
 
 include:
   - common.haproxy
+  - .dns
   - .vrrp
   {%- if salt['grains.get']('include_secrets', True) %}
   - secrets.cluster.hel

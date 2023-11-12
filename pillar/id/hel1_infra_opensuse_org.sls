@@ -5,11 +5,12 @@ grains:
   city: prague
   country: cz
   hostusage:
-    - Internal Proxy
+    - Int. Proxy
+    - Int. DNS
   reboot_safe: yes
   virt_cluster: falkor
   aliases: []
-  description: Internal reverse proxy/relay for various protocols
+  description: Internal reverse proxy/relay for various protocols and recursive resolver
   documentation: []
   responsible: []
   partners:
@@ -17,6 +18,16 @@ grains:
   weburls: []
 roles:
   - ha
+  - nameserver.recursor
   - ntp
   - proxy
   - pgbouncer
+
+profile:
+  dns:
+    powerdns:
+      recursor:
+        config:
+          local_address:
+            - 2a07:de40:b27e:1203::11
+          webserver_address: 2a07:de40:b27e:1203::11
