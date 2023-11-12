@@ -1,0 +1,10 @@
+{{ pillar['managed_by_salt'] }}
+
+proto udp6
+port 1194
+server-ipv6 2a07:de40:b27e:5001::/64
+dev ovpn_udp
+management ::1 7505
+client-config-dir /etc/openvpn/ccd-udp
+connect-freq 50 120 # only works in UDP mode
+config /etc/openvpn/includes/heroes_common.conf
