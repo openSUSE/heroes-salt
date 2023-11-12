@@ -12,6 +12,8 @@ vpn_gateway_config:
       - /etc/openvpn/{{ file }}.conf:
         - source: {{ source }}/etc/openvpn/{{ file }}.conf.jinja
       {%- endfor %}
+      - /etc/pam.d/common-vpn:
+        - source: {{ source }}/etc/pam.d/common-vpn.jinja
     - mode: '06444'
     - template: jinja
     - require:
