@@ -11,4 +11,5 @@ grains:
   responsible: []
   partners: []
   weburls: []
-roles: []
+roles:
+  - vpn.gateway

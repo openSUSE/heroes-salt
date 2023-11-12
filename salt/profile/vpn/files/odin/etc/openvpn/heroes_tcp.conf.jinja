@@ -1,0 +1,9 @@
+{{ pillar['managed_by_salt'] }}
+
+proto tcp6-server
+port 443
+server-ipv6 2a07:de40:b27e:5002::/64
+dev ovpn_tcp
+management ::1 7506
+client-config-dir /etc/openvpn/ccd-tcp
+config /etc/openvpn/includes/heroes_common.conf
