@@ -23,8 +23,6 @@ haproxy:
         - is_mirrorcache_eu      hdr(host)     -i mirrorcache-eu.opensuse.org
         - is_download_o_o        hdr(host)     -i download.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
-        - is_openqa              hdr(host)     -i openqa.opensuse.org
-        - is_openqa              hdr(host)     -i devel.openqa.opensuse.org
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
 
@@ -44,4 +42,3 @@ haproxy:
         - mirrorcache      if is_mirrorcache
         - mirrorcache      if is_download_o_o
         - mirrorcache-eu   if is_mirrorcache_eu
-        - openqa           if is_openqa
