@@ -7,15 +7,15 @@ grains:
   virt_cluster: slimhat
 
   aliases: 
-    - ns3.infra.opensuse.org
-  description: Public DNS server for the opensuse.org domain (not reverse)
+    - ns1.infra.opensuse.org
+  description: Public, authoritative, name server
   documentation: 
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/DNS
   responsible:
     - lrupp
   partners:
-    - nue-ns1.infra.opensuse.org
-    - nue-ns2.infra.opensuse.org
+    - prg-ns1.infra.opensuse.org
+    - prg-ns2.infra.opensuse.org
     - provo-ns.infra.opensuse.org
   weburls: []
 roles:
