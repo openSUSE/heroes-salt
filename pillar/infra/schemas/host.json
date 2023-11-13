@@ -41,7 +41,7 @@
 			"description": "Virtual network interfaces",
 			"type": "object",
 			"patternProperties": {
-				"^(o?s-\\w{1,11}|eth\\d)$": {
+				"^(o?s-[\\w-]{1,11}|eth\\d)$": {
 					"$ref": "infra/schemas/interface.json"
 				}
 			},
@@ -59,7 +59,7 @@
 		"primary_interface": {
 			"description": "In case of multiple interfaces, the one to use for determining the main network segment",
 			"type": "string",
-			"pattern": "^(o?s-\\w{1,11}|eth\\d)$"
+			"pattern": "^(o?s-[\\w-]{1,11}|eth\\d)$"
 		},
 		"ram": {
 			"description": "Memory size ending in a SI suffix - currently only MB supported",

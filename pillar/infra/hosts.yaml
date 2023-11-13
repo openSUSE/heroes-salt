@@ -885,18 +885,18 @@ warp:
   cluster: squanchy
   disks:
     root: 15G
-  image: admin-minimal-15_5
   interfaces:
-    eth0:
+    os-s-warp:
       ip6: 2a07:de40:b27e:1101::2/64
       mac: d6:f7:c1:31:ce:80
       source: x-os-s-warp
-    eth1:
+    s-j-os-out:
       ip4: 10.151.202.1/24
       ip6: 2a07:de40:b27f:202::1/64
       mac: d6:f7:c1:31:ce:81
       source: x-s-j-os-out
-  ram: 512MB
+  primary_interface: os-s-warp
+  ram: 768MB
   vcpu: 1
 water:
   cluster: falkor
