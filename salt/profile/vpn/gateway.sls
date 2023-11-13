@@ -14,7 +14,7 @@ vpn_gateway_config:
       {%- endfor %}
       - /etc/pam.d/common-vpn:
         - source: {{ source }}/etc/pam.d/common-vpn.jinja
-    - mode: '06444'
+    - mode: '0644'
     - template: jinja
     - require:
         - pkg: vpn_gateway_packages
