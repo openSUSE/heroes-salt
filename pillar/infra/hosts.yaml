@@ -896,7 +896,7 @@ warp:
       mac: d6:f7:c1:31:ce:81
       source: x-s-j-os-out
   primary_interface: os-s-warp
-  ram: 512MB
+  ram: 768MB
   vcpu: 1
 water:
   cluster: falkor
