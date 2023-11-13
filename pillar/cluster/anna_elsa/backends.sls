@@ -10,9 +10,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    openqa:
-      {{ options() }}
-      {{ server('openqa1', '192.168.47.13') }}
     download:
       options:
         - forwardfor header X-Forwarded-999
