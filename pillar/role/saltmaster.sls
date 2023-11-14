@@ -16,7 +16,8 @@ salt:
       - git
       - roots
     file_roots:
-      __env__:
+      # consider changing back to __env__ after a solution for https://github.com/saltstack/salt/issues/62967
+      production:
         - /srv/salt
         - /usr/share/salt-formulas/states
         - /srv/formula
