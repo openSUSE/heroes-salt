@@ -84,6 +84,8 @@ WEB_ROLES=( $(bin/get_roles.py) )
 for role in ${WEB_ROLES[@]}; do
     rolestatus=0
     sls_role="salt/role/${role/./\/}.sls"
+    out="$role.txt"
+    echo "START OF $role" > "$out"
     if grep nginx "$sls_role" > /dev/null; then
         echo_INFO "Testing role: $role"
         reset_nginx
@@ -105,19 +107,21 @@ for role in ${WEB_ROLES[@]}; do
                     fi
                     if [ -n "$state" ]
                     then
-                        salt-call --out=quiet --local state.apply "$state"
+                        echo "Applying $state ..." >> "$out"
+                        salt-call --local state.apply "$state" >> "$out"
                         unset state
                         break
                     fi
                 fi
             done
         fi
-        salt-call --local state.apply nginx.ng > /dev/null
+        echo 'Applying nginx ...' >> "$out"
+        salt-call --local state.apply nginx.ng >> "$out"
         create_fake_certs
         touch_includes $role
 
         # test config file syntax
-        nginx -tq || rolestatus=1
+        mispipe 'nginx -tq' "tee -a $out" || rolestatus=1
 
         # make sure all vhost config files are named *.conf (without that suffix, they get ignored)
         for file in /etc/nginx/vhosts.d/* ; do
@@ -138,6 +142,7 @@ for role in ${WEB_ROLES[@]}; do
         fi
         echo
     fi
+    echo "END OF $role" >> "$out"
 done
 
 rpm -qa --qf '%{name}\n' | sort > /tmp/packages-after
