@@ -1,0 +1,8 @@
+{{ pillar['managed_by_salt'] }}
+
+[Unit]
+Description=Clean up Docker stuff
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/cleanup.sh
