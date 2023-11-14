@@ -1,4 +1,9 @@
 include:
+  - profile.rpmkeys
+  - zypper
+  {%- if grains['virtual'] == 'kvm' %}
+  - profile.qemu-guest-agent
+  {%- endif %}
   {%- if grains.get('country') == 'cz' %}
   - profile.prg2_bootstrap
   {%- endif %}
@@ -21,8 +26,3 @@ include:
   - profile.regional
   - infrastructure.salt.minion
   - profile.sysctl
-  - profile.rpmkeys
-  - zypper
-{%- if grains['virtual'] == 'kvm' %}
-  - profile.qemu-guest-agent
-{%- endif %}
