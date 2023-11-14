@@ -79,13 +79,9 @@ salt:
     backup_mode: minion
     saltenv: production
     hash_type: sha512
-    {%- if country == 'cz' %}
     master:
       - witch1.infra.opensuse.org
       #- witch2.infra.opensuse.org (not ready yet)
-    {%- else %}
-    master: minnie.infra.opensuse.org
-    {%- endif %}
     {%- if osfullname == 'openSUSE Leap Micro' %}
     module_executors:
       - transactional_update
