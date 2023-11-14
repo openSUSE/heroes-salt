@@ -887,7 +887,7 @@ warp:
     root: 15G
   interfaces:
     os-s-warp:
-      ip6: 2a07:de40:b27e:1101::2/64
+      ip6: 2a07:de40:b27e:1101::a/64
       mac: d6:f7:c1:31:ce:80
       source: x-os-s-warp
     s-j-os-out:
