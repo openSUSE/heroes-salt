@@ -18,12 +18,18 @@ salt:
         - /srv/salt
         - /usr/share/salt-formulas/states
         - /srv/formula
+    gather_job_timeout: 10
+    timeout: 15
     gitfs_ssl_verify: True
     hash_type: sha512
     {%- if grains.get('country') == 'cz' %}
     {#- _needs_ to align with the "ipv6" setting in pillar.common! #}
     interface: '::'
     {%- endif %}
+    key_cache: sched
+    ping_on_rotate: True
+    pillar_cache: True
+    pillar_cache_ttl: 1800
     pillar_gitfs_ssl_verify: True
     pillar_merge_lists: True
     pillar_roots:
@@ -34,6 +40,7 @@ salt:
     state_verbose: False
     top_file_merging_strategy: same
     user: salt
+    worker_threads: {{ grains['num_cpus'] }}
   reactor:
     - 'salt/fileserver/gitfs/update':
         - /srv/reactor/update_fileserver.sls
