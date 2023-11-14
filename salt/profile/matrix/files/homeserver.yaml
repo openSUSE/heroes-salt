@@ -241,6 +241,11 @@ start_pushers: false
 
 worker_replication_secret: "{{ pillar['profile']['matrix']['worker_replication_secret'] }}"
 
+instance_map:
+    main:
+        host: 'localhost'
+        port: 9093
+
 redis:
     enabled: true
 
