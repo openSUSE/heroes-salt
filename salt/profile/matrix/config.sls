@@ -1,3 +1,6 @@
+include:
+  - .nginx
+
 element_dependencies:
   pkg.installed:
     - pkgs:
@@ -54,22 +57,9 @@ synapse_conf_file:
 workers_conf_dir:
   file.directory:
     - name: /etc/matrix-synapse/workers/
-
-workers_nginx_file:
-  file.managed:
-    - name: /etc/matrix-synapse/workers/nginx.conf
-    - source: salt://profile/matrix/files/workers.nginx
-    - template: jinja
-    - require:
-      - file: workers_conf_dir
-
-upstreams_nginx_file:
-  file.managed:
-    - name: /etc/matrix-synapse/workers/upstreams.conf
-    - source: salt://profile/matrix/files/upstreams.nginx
-    - template: jinja
-    - require:
-      - file: workers_conf_dir
+    - require_in:
+      - file: workers_nginx_file
+      - file: upstreams_nginx_file
 
 {% set workers = salt['pillar.get']('profile:matrix:workers') %}
 
