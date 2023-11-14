@@ -42,6 +42,6 @@ nginx:
 zypper:
   repositories:
     devel:languages:ruby:
-      baseurl: http://download.infra.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
+      baseurl: http://downloadcontent.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
       priority: 100
       refresh: True
