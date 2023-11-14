@@ -12,3 +12,7 @@ grains:
   partners: []
   weburls: []
 roles: []
+network:
+  routes:
+    2a07:de40:b280:25::/64:
+      gateway: 2a07:de40:b27f:202:ffff:ffff:ffff:ffff
