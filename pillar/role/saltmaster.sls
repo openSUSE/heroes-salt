@@ -7,6 +7,8 @@ include:
 salt:
   master_remove_config: True
   master:
+    cache: redis
+    cache.redis.unix_socket_path: /run/redis/salt.sock
     cli_summary: True
     default_top: production
     ext_pillar_first: True
