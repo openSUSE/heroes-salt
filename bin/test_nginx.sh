@@ -87,7 +87,7 @@ for role in ${WEB_ROLES[@]}; do
         echo_INFO "Testing role: $role"
         reset_nginx
         reset_ip
-        salt-call --local state.apply role.$role > /dev/null
+        salt-call --local state.apply nginx.ng > /dev/null
         create_fake_certs
         touch_includes $role
 
