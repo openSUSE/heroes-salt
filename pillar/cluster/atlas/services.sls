@@ -95,7 +95,7 @@ haproxy:
         # hostnames only used for domain-level redirects
         - host_redirect_apparmor   hdr(host)     -i apparmor.opensuse.org
         - host_redirect_bar        hdr(host)     -i bar.opensuse.org
-        - host_redirect_bar        hdr(host)     -i (www\.)?opensuse.bar
+        - host_redirect_bar        hdr(host)     -i opensuse.bar www.opensuse.bar
         - host_redirect_board      hdr(host)     -i board.opensuse.org
         - host_redirect_bugs       hdr(host)     -i bugs.opensuse.org
         - host_redirect_coc        hdr(host)     -i coc.opensuse.org
