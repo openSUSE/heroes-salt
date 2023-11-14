@@ -83,10 +83,35 @@ WEB_ROLES=( $(bin/get_roles.py) )
 
 for role in ${WEB_ROLES[@]}; do
     rolestatus=0
-    if grep nginx salt/role/${role/./\/}.sls > /dev/null; then
+    sls_role="salt/role/${role/./\/}.sls"
+    if grep nginx "$sls_role" > /dev/null; then
         echo_INFO "Testing role: $role"
         reset_nginx
         reset_ip
+        if grep -q profile "$sls_role"
+        then
+            #for profile in "$(grep -h '\- profile' $sls_role | yq -o t)" // to-do: add yq to container
+            for profile in $(grep -h '\- profile' $sls_role | sed 's/^\s\+ -//' | tr '\n' ' ')
+            do
+                if [ ! "$profile" == 'profile.web.server.nginx' ]
+                then
+                    dir_profile="${profile//./\/}"
+                    if [ -f "salt/$dir_profile/nginx.sls" ]
+                    then
+                        state="$profile.nginx"
+                    elif [ -f "salt/${dir_profile%/*}/nginx.sls" ]
+                    then
+                        state="${profile%.*}.nginx"
+                    fi
+                    if [ -n "$state" ]
+                    then
+                        salt-call --out=quiet --local state.apply "$state"
+                        unset state
+                        break
+                    fi
+                fi
+            done
+        fi
         salt-call --local state.apply nginx.ng > /dev/null
         create_fake_certs
         touch_includes $role
