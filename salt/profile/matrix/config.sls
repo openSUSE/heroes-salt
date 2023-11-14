@@ -6,20 +6,12 @@ element_dependencies:
     - pkgs:
       - element-web
 
-element_conf_dir:
-  file.directory:
-    - name: /etc/riot-web/
-
 element_conf_file:
   file.managed:
     - name: /etc/riot-web/config.json
     - source: salt://profile/matrix/files/config-element.json
     - require:
-      - file: element_conf_dir
-
-synapse_conf_dir:
-  file.directory:
-    - name: /etc/matrix-synapse/
+      - file: matrix_conf_dirs
 
 /data/matrix:
   file.directory:
@@ -41,7 +33,7 @@ synapse_conf_file:
     - source: salt://profile/matrix/files/homeserver.yaml
     - template: jinja
     - require:
-      - file: synapse_conf_dir
+      - file: matrix_conf_dirs
     - require_in:
       - service: synapse_service
     - watch_in:
@@ -53,13 +45,6 @@ synapse_conf_file:
     - mode: 640
     - user: root
     - group: synapse
-
-workers_conf_dir:
-  file.directory:
-    - name: /etc/matrix-synapse/workers/
-    - require_in:
-      - file: workers_nginx_file
-      - file: upstreams_nginx_file
 
 {% set workers = salt['pillar.get']('profile:matrix:workers') %}
 
@@ -77,7 +62,7 @@ workers_conf_dir:
         resources: {{ type.get('resources') }}
         config: {{ type.get('config') }}
     - require:
-      - file: workers_conf_dir
+      - file: matrix_conf_dirs
     - require_in:
       - service: {{worker}}_service
     - watch_in:

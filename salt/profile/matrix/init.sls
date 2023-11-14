@@ -1,3 +1,7 @@
+include:
+  - .directories
+  - .nginx
+
 synapse_service:
   service.running:
     - name: matrix-synapse.target
