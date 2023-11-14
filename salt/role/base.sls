@@ -1,4 +1,5 @@
 include:
+  - network.wicked
   - profile.rpmkeys
   - zypper
   {%- if grains['virtual'] == 'kvm' %}
@@ -17,7 +18,6 @@ include:
   {%- endif %}
 
   - bootloader
-  - network.wicked
   - profile.etckeeper
   - profile.ldap.client
   - profile.accounts
