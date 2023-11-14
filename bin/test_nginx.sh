@@ -79,9 +79,7 @@ touch_includes() {
 
 cp -a /etc/nginx /etc/nginx_orig
 
-WEB_ROLES=( $(bin/get_roles.py) )
-
-for role in ${WEB_ROLES[@]}; do
+for role in $(bin/get_roles.py); do
     rolestatus=0
     sls_role="salt/role/${role/./\/}.sls"
     out="$role.txt"
