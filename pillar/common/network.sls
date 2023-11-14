@@ -59,9 +59,19 @@
 {%- do log(msg ~ 'primary IPv4 address set to ' ~ ip4) %}
 {%- do log(msg ~ 'primary IPv6 address set to ' ~ ip6) %}
 
+{%- else %} {#- machine not in hosts, in an unmanaged location, or bare metal #}
+{%- do log('common.network: no host entry for ' ~ host) %}
+{%- set ip4 = None %}
+{%- set ip6 = None %}
+{%- set shortnet = None %}
+{%- set reduced_interfaces = {} %}
+{%- endif %} {#- close host in hosts check #}
+
 {#- configure interfaces if the previous logic found any with usable IP addresses #}
-{%- if ip4 is not none or ip6 is not none or reduced_interfaces %}
+{%- if country in country_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces %}
 network:
+
+{%- if ip4 is not none or ip6 is not none or reduced_interfaces %}
   interfaces:
 
     {#- configure addresses on the primary interface if IP addresses were found for it #}
@@ -90,6 +100,8 @@ network:
         {%- endif %}
     {%- endif %} {#- close ip4/ip6 check #}
     {%- endfor %}
+
+{%- endif %} {#- close inner ip4/ip6/reduced_interfaces check #}
 
 {#- if a main network segment is available, use it to configure default routes #}
 {%- if shortnet %}
@@ -129,8 +141,4 @@ network:
     netconfig_dns_static_searchlist: infra.opensuse.org
 {%- endif %}
 
-{%- endif %} {#- close ip4/ip6/reduced_interfaces check #}
-
-{%- else %}
-{%- do log('common.network: no host entry for ' ~ host) %}
-{%- endif %} {#- close host in hosts check #}
+{%- endif %} {#- close country/ip4/ip6/reduced_interfaces check #}
