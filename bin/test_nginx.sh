@@ -83,16 +83,49 @@ WEB_ROLES=( $(bin/get_roles.py) )
 
 for role in ${WEB_ROLES[@]}; do
     rolestatus=0
-    if grep nginx salt/role/${role/./\/}.sls > /dev/null; then
+    sls_role="salt/role/${role/./\/}.sls"
+    out="$role.txt"
+    echo "START OF $role" > "$out"
+    if grep nginx "$sls_role" > /dev/null; then
         echo_INFO "Testing role: $role"
         reset_nginx
         reset_ip
-        salt-call --local state.apply role.$role > /dev/null
+        if grep -q profile "$sls_role"
+        then
+            #for profile in "$(grep -h '\- profile' $sls_role | yq -o t)" // to-do: add yq to container
+            for profile in $(grep -h '\- profile' $sls_role | sed 's/^\s\+ -//' | tr '\n' ' ')
+            do
+                if [ ! "$profile" == 'profile.web.server.nginx' ]
+                then
+                    dir_profile="${profile//./\/}"
+                    if [ -f "salt/$dir_profile/nginx.sls" ]
+                    then
+                        state="$profile.nginx"
+                    elif [ -f "salt/${dir_profile%/*}/nginx.sls" ]
+                    then
+                        state="${profile%.*}.nginx"
+                    fi
+                    if [ -n "$state" ]
+                    then
+                        echo "Applying $state ..." >> "$out"
+                        salt-call --local state.apply "$state" >> "$out"
+                        echo >> "$out"
+                        unset state
+                        break
+                    fi
+                fi
+            done
+        fi
+        echo 'Applying nginx ...' >> "$out"
+        salt-call --local state.apply nginx.ng >> "$out"
         create_fake_certs
         touch_includes $role
 
-        # test config file syntax
-        nginx -tq || rolestatus=1
+        printf '\nTesting configuration ...\n' >> "$out"
+        mispipe 'nginx -tq' "tee -a $out" || rolestatus=1
+
+        printf '\nDumping configuration ...\n' >> "$out"
+        nginx -T >> "$out"
 
         # make sure all vhost config files are named *.conf (without that suffix, they get ignored)
         for file in /etc/nginx/vhosts.d/* ; do
@@ -113,6 +146,7 @@ for role in ${WEB_ROLES[@]}; do
         fi
         echo
     fi
+    echo "END OF $role" >> "$out"
 done
 
 rpm -qa --qf '%{name}\n' | sort > /tmp/packages-after

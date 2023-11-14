@@ -74,6 +74,10 @@ test_nginx:
   script: bin/test_nginx.sh
   tags:
     - docker
+  artifacts:
+    when: always
+    paths:
+      - '*.txt'
   rules:
     - if: $CI_COMMIT_BRANCH
 
