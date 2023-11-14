@@ -109,6 +109,7 @@ for role in ${WEB_ROLES[@]}; do
                     then
                         echo "Applying $state ..." >> "$out"
                         salt-call --local state.apply "$state" >> "$out"
+                        echo >> "$out"
                         unset state
                         break
                     fi
@@ -120,8 +121,11 @@ for role in ${WEB_ROLES[@]}; do
         create_fake_certs
         touch_includes $role
 
-        # test config file syntax
+        printf '\nTesting configuration ...\n' >> "$out"
         mispipe 'nginx -tq' "tee -a $out" || rolestatus=1
+
+        printf '\nDumping configuration ...\n' >> "$out"
+        nginx -T >> "$out"
 
         # make sure all vhost config files are named *.conf (without that suffix, they get ignored)
         for file in /etc/nginx/vhosts.d/* ; do
