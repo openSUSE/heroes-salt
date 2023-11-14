@@ -1,0 +1,10 @@
+{{ pillar['managed_by_salt'] }}
+
+[Unit]
+Description=Scheduled cleanup of Docker stuff
+
+[Timer]
+OnCalendar=daily
+
+[Install]
+WantedBy=timers.target

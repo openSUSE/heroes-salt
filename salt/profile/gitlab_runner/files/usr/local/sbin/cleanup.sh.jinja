@@ -1,0 +1,36 @@
+#!/bin/sh
+# Source: https://gitlab.com/gitlab-org/gitlab-runner/-/issues/2980#note_351793132
+
+{{ pillar['managed_by_salt'] }}
+
+FREE_SPACE_PERCENT_THRESHOLD=${1:-70} # Disk space % usage threshold
+FREE_INODE_PERCENT_THRESHOLD=${2:-70} # Inode % usage threshold
+PRUNE_FILTER_UNTIL_DAYS=${3:-30}      # Initially prune only this many days
+DOCKER_STORAGE_DIR=/var/lib/docker
+
+get_docker_storage_usage() {
+    METRIC=$1
+    echo $(df $DOCKER_STORAGE_DIR --output=$METRIC | tail -n -1 | grep -P -o "\d+")
+}
+
+prune_is_required() {
+    [ $(get_docker_storage_usage pcent) -gt $FREE_SPACE_PERCENT_THRESHOLD ] || [ $(get_docker_storage_usage ipcent) -gt $FREE_INODE_PERCENT_THRESHOLD ] && return 0
+}
+
+do_docker_prune() {
+    DOCKER_PRUNE_FILTER="$([ "$1" != "" ] && echo "--filter until=$(($1*24))h")"
+    docker container prune -f $DOCKER_PRUNE_FILTER
+    docker image prune -af $DOCKER_PRUNE_FILTER
+    docker volume prune -f
+}
+
+if prune_is_required; then
+    echo "The filesystem containing $DOCKER_STORAGE_DIR exceeded a disk usage threshold; pruning docker elements"
+    # Initially prune only items older than the filter in days
+    do_docker_prune $PRUNE_FILTER_UNTIL_DAYS
+    # If that still hasn't freed enough space, omit the filter
+    prune_is_required && do_docker_prune
+
+    echo "Disk usage after cleanup: $(get_docker_storage_usage pcent)%"
+fi
+
