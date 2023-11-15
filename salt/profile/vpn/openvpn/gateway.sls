@@ -7,7 +7,7 @@ vpn_gateway_packages:
 vpn_gateway_config:
   file.managed:
     - names:
-      {%- set source = 'salt://profile/vpn/files/' ~ grains['host'] %}
+      {%- set source = 'salt://profile/vpn/openvpn/files/' ~ grains['host'] %}
       {%- for file in ['heroes_tcp', 'heroes_udp', 'includes/heroes_common', 'includes/heroes_common_push'] %}
       - /etc/openvpn/{{ file }}.conf:
         - source: {{ source }}/etc/openvpn/{{ file }}.conf.jinja
