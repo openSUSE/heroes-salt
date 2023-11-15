@@ -27,3 +27,4 @@ grains:
 roles:
   - static_master
   - web_static
+  - mirrors_static

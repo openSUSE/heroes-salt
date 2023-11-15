@@ -49,6 +49,9 @@ profile:
       ignite.opensuse.org:
         repo: https://github.com/openSUSE/fuel-ignition.git
         branch: gh-pages
+      mirrors-static.opensuse.org:
+        repo: https://github.com/openSUSE/mirrors-static.git
+        branch: main
     server_list:
       - narwal4.infra.opensuse.org
       - narwal5.infra.opensuse.org
