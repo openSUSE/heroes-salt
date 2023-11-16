@@ -37,10 +37,10 @@ sed -i 's,\.\./\.\./,,g' "$WGET_DIR/$MIRRORS_DIR/index.html"
 # copy that to the directory containing the git repo
 rsync -az --exclude={'.git','README.md'} --delete-after \
 	"$WGET_DIR/$MIRRORS_DIR/" \
-	"$GIT_DIR/mirrors-static/"
+	"$GIT_DIR/mirrors_static/"
 
 # make some adjustments for the static content:
-cd "$GIT_DIR/mirrors-static/"
+cd "$GIT_DIR/mirrors_static/"
 sed -i '/meta name="csrf-token"/d ; /meta name="csrf-param"/d' index.html 
 
 # push into the GIT repository
