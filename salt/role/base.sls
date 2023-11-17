@@ -29,3 +29,4 @@ include:
   - profile.regional
   - infrastructure.salt.minion
   - profile.sysctl
+  - profile.motd
