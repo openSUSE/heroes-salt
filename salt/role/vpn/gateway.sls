@@ -1,2 +1,2 @@
 include:
-  - profile.vpn.gateway
+  - profile.vpn.openvpn.gateway
