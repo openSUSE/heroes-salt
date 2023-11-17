@@ -3,7 +3,7 @@ grains:
   country: cz
   hostusage:
     - Galera node (MySQL)
-  reboot_safe: yes
+  reboot_safe: no
   virt_cluster: falkor
 
   aliases: []
