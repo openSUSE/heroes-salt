@@ -19,6 +19,19 @@ vpn_gateway_config:
     - require:
         - pkg: vpn_gateway_packages
 
+vpn_gateway_login_directory:
+  file.managed:
+    - name: /var/log/vpn_logins
+    - owner: nobody
+    - group: wheel
+    - mode: '0750'
+
+vpn_gateway_login_script:
+  file.managed:
+    - name: /usr/local/bin/log_openvpn_login.sh
+    - mode: '0755'
+    - source: salt://profile/vpn/openvpn/files/log_vpn_login.sh.jinja
+
 vpn_gateway_services:
   service.running:
     - names:

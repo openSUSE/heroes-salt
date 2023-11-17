@@ -1,0 +1,24 @@
+#!/bin/sh
+
+{{ pillar['managed_by_salt'] }}
+
+# Script to track the last VPN login timestamp of users
+# Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+if [ -z "$common_name" ]
+then
+        echo 'No common_name provided!'
+        exit 1
+fi
+
+if [ -z "$trusted_ip" ]
+then
+        trusted_ip='none'
+fi
+
+if [ -z "$trusted_ip6" ]
+then
+        trusted_ip6='none'
+fi
+
+echo "$trusted_ip;$trusted_ip6;$(date -Iseconds)" > "/var/log/vpn_logins/$common_name"
