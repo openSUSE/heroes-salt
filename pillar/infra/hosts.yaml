@@ -152,7 +152,7 @@ devcon:
       mac: 1a:eb:8a:3d:1a:82
       source: x-s-na-mgmt
   primary_interface: os-internal
-  ram: 512MB
+  ram: 768MB
   vcpu: 1
 discourse01:
   cluster: falkor
