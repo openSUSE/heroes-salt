@@ -11,8 +11,8 @@ OpenPGP.
 ## Concept
 
 Secrets are encrypted with OpenPGP using public-key cryptography. There are
-multiple recipients able to decrypt each secret, one of which is the Salt
-master itself using its own key (`B9D45B4366C69C8D75CA3A08F1C33B7A1346F48E`).
+multiple recipients able to decrypt each secret, including the Salt masters
+themselves using their own key.
 
 ## Import of keys
 

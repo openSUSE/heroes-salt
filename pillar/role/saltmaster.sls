@@ -54,9 +54,6 @@ infrastructure:
       {%- for formula in formulas_yaml['package'] %}
       - {{ formula }}-formula
       {%- endfor %}
-    reactor:
-      update_fileserver_ng:
-        target: minnie.infra.opensuse.org
 
 profile:
   salt:
