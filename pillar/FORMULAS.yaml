@@ -38,6 +38,7 @@ package:
   - libvirt
   - lunmap
   - multipath
+  - os_update
   - redmine
   - suse_ha
   - zypper
