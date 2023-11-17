@@ -13,6 +13,7 @@ include:
   - .network
   - .rsync
   - .sysctl
+  - .update
 
 chrony:
   driftfile: /var/lib/chrony/drift
