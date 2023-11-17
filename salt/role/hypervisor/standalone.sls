@@ -2,5 +2,5 @@ include:
   - .common
 
 libvirt-guests:
-  - service.running:
+  service.running:
     - enable: true
