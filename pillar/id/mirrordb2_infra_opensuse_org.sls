@@ -3,7 +3,7 @@ grains:
   country: cz
   hostusage:
     - postgreSQL cluster
-  reboot_safe: unknown
+  reboot_safe: no
   virt_cluster: falkor
 
   aliases: []
