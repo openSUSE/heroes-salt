@@ -44,9 +44,6 @@ salt:
     top_file_merging_strategy: same
     user: salt
     worker_threads: {{ grains['num_cpus'] }}
-  reactor:
-    - 'salt/fileserver/gitfs/update':
-        - /srv/reactor/update_fileserver.sls
 
 infrastructure:
   salt:
