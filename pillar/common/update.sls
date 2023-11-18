@@ -1,4 +1,5 @@
 os-update:
+  time: 00:30
   reboot_cmd: rebootmgr
   {%- if grains.get('osfullname') == 'openSUSE Leap' %}
   update_cmd: security
