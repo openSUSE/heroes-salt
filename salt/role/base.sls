@@ -1,4 +1,5 @@
 include:
+  - profile.legacy
   - network.wicked
   - profile.rpmkeys
   - zypper
