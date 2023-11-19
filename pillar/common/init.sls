@@ -10,6 +10,7 @@ include:
   - .headers
   - .bootloader
   - .limits
+  - .motd
   - .network
   - .rsync
   - .sysctl
