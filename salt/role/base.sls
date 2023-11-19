@@ -1,4 +1,5 @@
 include:
+  - profile.legacy
   - network.wicked
   - profile.rpmkeys
   - zypper
@@ -18,6 +19,8 @@ include:
   {%- endif %}
 
   - bootloader
+  - os_update
+  - rebootmgr
   - profile.etckeeper
   - profile.ldap.client
   - profile.accounts
