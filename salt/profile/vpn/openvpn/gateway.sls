@@ -45,3 +45,6 @@ vpn_gateway_services:
         - file: vpn_gateway_config
     - watch:
         - file: vpn_gateway_config
+
+include:
+  - .ccd
