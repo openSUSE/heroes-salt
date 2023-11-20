@@ -48,9 +48,35 @@ mirrors_static_cron_mailto:
     - source: salt://profile/mirrors_static/files/git_push_mirrors_static.sh
     - user: root
 
-mirrors_static_main:
+{% set repo_path = '/home/mirrors_static/git/mirrors_static' %}
+
+mirrors_static_clone_repo:
   git.cloned:
-    - name: https://github.com/openSUSE/mirrors-static
-    - target: /home/mirrors_static/git/mirrors_static
+    - name: git@github.com:openSUSE/mirrors-static.git
+    - target: {{ repo_path }}
     - branch: main
+    - user: mirrors_static
+    - identity: /home/mirrors_static/.ssh/id_rsa
+
+{% set hostname = salt['grains.get']('hostname') %}
+
+mirrors_static_git_config_name:
+  git.config_set:
+    - name: user.name
+    - value: mirrors_static_{{ hostname }}
+    - repo: {{ repo_path }}
+    - user: mirrors_static
+
+mirrors_static_git_config_email:
+  git.config_set:
+    - name: user.email
+    - value: mirrors_static@{{ hostname }}
+    - repo: {{ repo_path }}
+    - user: mirrors_static
+
+mirrors_static_git_config_remote:
+  git.config_set:
+    - name: branch.main.remote
+    - value: origin
+    - repo: {{ repo_path }}
     - user: mirrors_static
