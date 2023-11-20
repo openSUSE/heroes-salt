@@ -14,7 +14,7 @@ GIT_DIR='/home/mirrors_static/git'
 LOGFILE='/home/mirrors_static/update_mirrors.log'
 
 # start the work
-echo "$(basename $0) started at $DATE" >> "$LOGFILE"
+echo "$(basename $0) started at $DATE" > "$LOGFILE"
 
 # get a copy
 rm -rf "$WGET_DIR/$MIRRORS_DIR" 2>/dev/null
