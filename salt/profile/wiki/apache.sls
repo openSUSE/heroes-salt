@@ -21,6 +21,7 @@ apache2_running:
 
 /etc/sysconfig/apache2:
   file.replace:
+    - ignore_if_missing: {{ opts['test'] }}
     - pattern: ^APACHE_MODULES=.*$
     # original line:       "actions alias          auth_basic authn_file authz_host authz_groupfile authz_core authz_user autoindex cgi dir env expires include log_config mime negotiation setenvif ssl socache_shmcb userdir reqtimeout authn_core php7 rewrite"
     - repl: APACHE_MODULES="        alias apparmor auth_basic authn_file authz_host authz_groupfile authz_core authz_user               dir env expires include log_config mime negotiation setenvif     socache_shmcb         reqtimeout authn_core php7 rewrite remoteip status"

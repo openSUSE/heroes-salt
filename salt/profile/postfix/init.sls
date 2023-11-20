@@ -17,6 +17,7 @@ postfix_alias_present_{{ user }}:
 /etc/postfix/main.cf_{{ option }}:
   file.replace:
     - name: /etc/postfix/main.cf
+    - ignore_if_missing: {{ opts['test'] }}
     - pattern: '^{{ option }} *=.*$'
     - repl: '{{ option }} = {{ value }}'
     - append_if_not_found: True
@@ -33,6 +34,7 @@ postfix_alias_present_{{ user }}:
 /etc/postfix/master.cf_{{ option }}:
   file.replace:
     - name: /etc/postfix/master.cf
+    - ignore_if_missing: {{ opts['test'] }}
     - pattern: '^{{ option }}\s.*$'
     - repl: '{{ option }} {{ value }}'
     - append_if_not_found: True
