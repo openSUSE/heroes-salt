@@ -4,7 +4,7 @@ cd "$tmp" || exit 1
 
 nsca_client_name='{{grains.id}}'
 nsca_client_service='openSUSE virtual_users'
-nsca_server_ip='192.168.47.7'
+nsca_server='monitor.infra.opensuse.org'
 nsca_config='/etc/send_nsca.cfg'
 #status_code=3
 #status_message='unknown'
@@ -12,7 +12,7 @@ nsca_config='/etc/send_nsca.cfg'
 send_nsca_message(){
 	local status_code="$1"
 	local status_message="$2"
-	echo -e "$nsca_client_name\t$nsca_client_service\t$status_code\t$status_message" | send_nsca -H $nsca_server_ip -c "$nsca_config"
+	echo -e "$nsca_client_name\t$nsca_client_service\t$status_code\t$status_message" | send_nsca -H $nsca_server -c "$nsca_config"
 }
 
 mysql -h legacy-ip.mysql.infra.opensuse.org -P3307 -Dmembers -NB -e 'select addr, email_target from email_aliases' >member.aliases.new
