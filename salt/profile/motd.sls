@@ -4,7 +4,7 @@
 {%- if os == 'Leap' %}
 /etc/motd:
   file.prepend:
-    - header: true
+    - header: {{ not opts['test'] }}
     - text: {{ pillar['motd'] }}
 
 /etc/motd_fun:
