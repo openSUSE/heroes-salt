@@ -203,7 +203,10 @@ service {{svc}}:
 /root/.my.cnf:
   file.managed:
     - contents:
+      - {{ pillar['managed_by_salt'] | yaml_encode }}
       - '[client]'
+      - 'host=mysql.infra.opensuse.org'
+      - 'port=3307'
       - 'user={{ pillar.profile.mailserver.members.user }}'
       - 'password={{ salt['pillar.get']('profile:mailserver:members:password', '') }}'
     - user: root
