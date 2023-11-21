@@ -1,11 +1,4 @@
 blacklist_from  per+spamtest@opensuse.org
-# whitelist these mlmmj commands
-whitelist_to    *+subscribe@opensuse.org
-whitelist_to    *+subscribe-nomail@opensuse.org
-whitelist_to    *+unsubscribe@opensuse.org
-whitelist_to    *+help@opensuse.org
-whitelist_to    *+confunsub-*@opensuse.org
-whitelist_to    *+confsub-*@opensuse.org
 
 # ditto for mailman commands
 whitelist_to    *-confirm+*@lists.opensuse.org
@@ -15,7 +8,7 @@ whitelist_to    *-request@lists.opensuse.org
 whitelist_to    *-subscribe@lists.opensuse.org
 whitelist_to    *-unsubscribe@lists.opensuse.org
 
-# pjessen 20201004 
+# pjessen 20201004
 ifplugin Mail::SpamAssassin::Plugin::AskDNS
 askdns __DMARC_POLICY_NONE   _dmarc._AUTHORDOMAIN_ TXT /^v=DMARC1;.*\bp=none;/
 askdns __DMARC_POLICY_QUAR   _dmarc._AUTHORDOMAIN_ TXT /^v=DMARC1;.*\bp=quarantine;/
