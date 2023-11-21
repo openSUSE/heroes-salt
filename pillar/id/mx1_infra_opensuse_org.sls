@@ -7,8 +7,9 @@ grains:
   virt_cluster: atreju
 
   aliases: []
-  description: mx relay cluster 
+  description: Mail server
   responsible:
-    - mstrigl 
+    - pjessen 
   partners: []
-roles: []
+roles:
+  - mailserver
