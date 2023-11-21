@@ -89,7 +89,7 @@ profile:
         pcre:/etc/postfix/virtual-opensuse-mm3-bounces.pcre,
         lmdb:/etc/postfix/virtual-opensuse-users,
         lmdb:/etc/postfix/virtual-opensuse-mailinglists
-      relay_domains: 'lists.opensuse.org,lists.uyuni-project.org'
+      relay_domains: 'code.opensuse.org,forums.opensuse.org,lists.opensuse.org,lists.uyuni-project.org'
       smtpslow_destination_concurrency_limit: 20
       smtpslow_destination_rate_delay: '1s'
       smtpslow_destination_recipient_limit: 10
