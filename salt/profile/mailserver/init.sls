@@ -1,5 +1,6 @@
 include:
   - profile.cron
+  - zypper.packages
 
 /etc/postfix/master.cf:
   file.managed:
@@ -10,7 +11,7 @@ include:
     - template: jinja
     - replace: True
     - require:
-      - pkg: postfix
+      - pkg: zypper_packages
     - watch_in:
       - service: postfix
 
@@ -52,7 +53,7 @@ include:
     - watch_in:
       - service: postfix
     - require:
-      - pkg: postfix
+      - pkg: zypper_packages
 {% endfor %}
 
 /etc/sysconfig/postgrey:
@@ -83,7 +84,7 @@ include:
     - mode: 0644
     - replace: True
     - require:
-      - pkg: postfix
+      - pkg: zypper_packages
     - watch_in:
       - service: postfix
 {% endfor %}
@@ -96,7 +97,7 @@ include:
     - mode: 0644
     - replace: True
     - require:
-      - pkg: clamav
+      - pkg: zypper_packages
     - watch_in:
       - service: clamd
 
@@ -108,7 +109,7 @@ include:
     - mode: 0644
     - replace: True
     - require:
-      - pkg: clamav
+      - pkg: zypper_packages
     - watch_in:
       - service: freshclam
 
@@ -120,7 +121,7 @@ include:
     - mode: 0644
     - replace: True
     - require:
-      - pkg: postgrey
+      - pkg: zypper_packages
     - watch_in:
       - service: postgrey
 
@@ -138,7 +139,7 @@ include:
     - mode: 0644
     - replace: True
     - require:
-      - pkg: spamassassin
+      - pkg: zypper_packages
     - watch_in:
       - service: spampd
 {% endfor %}
@@ -217,5 +218,5 @@ service {{svc}}:
     - unless:
       - test -f /etc/postfix/virtual-opensuse-users
     - require:
-      - pkg: mariadb-client
+      - pkg: zypper_packages
       - file: /root/.my.cnf
