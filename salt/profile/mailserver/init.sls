@@ -70,6 +70,7 @@ include:
     - group: root
     - mode: 0644
     - replace: True 
+    - template: jinja
 
 {% for file in [
   'bounce-old-mlmmj.pcre',
@@ -124,6 +125,7 @@ include:
     - group: root
     - mode: 0644
     - replace: True
+    - template: jinja
     - require:
       - pkg: zypper_packages
     - watch_in:
