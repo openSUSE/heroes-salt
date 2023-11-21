@@ -28,12 +28,20 @@ internal_zones:add({"infra.opensuse.org"})
 vpn_networks = newNMG()
 vpn_networks:addMasks({"2a07:de40:b27e:5001::/64", "2a07:de40:b27e:5002::/64"})
 
+excludes = newDS()
+excludes:add({"redirector-prv.infra.opensuse.org", "redirector-qsc.infra.opensuse.org", "download-prv.infra.opensuse.org"})
+
 function nodata ( dq )
 
   -- only tamper with AAAA queries
   if dq.qtype ~= pdns.AAAA then
     return false
   end
+
+  -- do not tamper with names queried by machines with IPv6 addresses not routed internally
+  if excludes:check(dq.qname) then
+    return false
+  end  
 
   -- only cache internal queries to allow for source network based handling of non-internal zones
   if not internal_zones:check(dq.qname) then
