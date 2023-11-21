@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 header  OSU_ZIPPYLOAN   From:addr =~ /zippy[^\@]*loan/
 score   OSU_ZIPPYLOAN   5
 header  OSU_DOTCOMPROD  From:addr =~ /dot[^\@]*com[^\@]*product/

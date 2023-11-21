@@ -1,4 +1,6 @@
 # /etc/cron.d/member_aliases
+{{ pillar['managed_by_salt'] }}
+
 SHELL=/bin/sh
 PATH=/usr/bin:/usr/sbin:/sbin:/bin:/usr/local/bin/
 MAILTO=admin-auto@opensuse.org

@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 {{grains.host}}.infra.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
 {{grains.host}}.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
         -o smtpd_proxy_filter=spampd-in:10025

@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 corelearners360.com  reject Rejected as spam.
 catalinag@planable.pro    reject Rejected as spam.
 learningpro360.com   reject Rejected as spam.

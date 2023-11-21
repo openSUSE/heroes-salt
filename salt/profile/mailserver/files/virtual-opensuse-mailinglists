@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 # on baloo: /var/spool/mlmmj # baloo no longer exists, where to run this now ?
 # ls -1d */control | cut -d/ -f1 | sed -e 's/^\(.\+\)$/\1 \1/' | xargs printf "%s@opensuse.org  %s@lists.opensuse.org\n"
 #

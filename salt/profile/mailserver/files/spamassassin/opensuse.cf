@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 blacklist_from  per+spamtest@opensuse.org
 
 # ditto for mailman commands

@@ -1,1 +1,3 @@
+{{ pillar['managed_by_salt'] }}
+
 /^([^@]+-bounces)@opensuse.org$/        $1@lists.opensuse.org

@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 opensuse.de	ok
 opensuse.fr	ok
 opensuse.org	ok

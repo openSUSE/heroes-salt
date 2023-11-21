@@ -45,6 +45,7 @@ include:
     - group: root
     - mode: 0644
     - replace: True
+    - template: jinja
   cmd.run:
     - name: postmap /etc/postfix/{{file}}
     - runas: root
@@ -83,6 +84,7 @@ include:
     - group: root
     - mode: 0644
     - replace: True
+    - template: jinja
     - require:
       - pkg: zypper_packages
     - watch_in:
@@ -96,6 +98,7 @@ include:
     - group: root
     - mode: 0644
     - replace: True
+    - template: jinja
     - require:
       - pkg: zypper_packages
     - watch_in:
@@ -108,6 +111,7 @@ include:
     - group: root
     - mode: 0644
     - replace: True
+    - template: jinja
     - require:
       - pkg: zypper_packages
     - watch_in:
@@ -138,6 +142,7 @@ include:
     - group: root
     - mode: 0644
     - replace: True
+    - template: jinja
     - require:
       - pkg: zypper_packages
     - watch_in:
@@ -172,6 +177,7 @@ postsrsd:
     - replace: True
     - makedirs: True
     - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
         - '[Service]'
         - 'RestartSec=10'
         - 'Restart=always'

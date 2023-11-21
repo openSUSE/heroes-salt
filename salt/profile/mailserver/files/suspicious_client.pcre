@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 # host patterns that are never greylisted
 # these need to be fairly specific so we don't catch something that
 # we would later want to greylist
