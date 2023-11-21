@@ -35,3 +35,7 @@ score URIBL_BLACK   0
 score URIBL_GREY    0
 score URIBL_RED     0
 
+
+ifplugin Mail::SpamAssassin::Plugin::SPF
+score SPF_FAIL 5
+endif
