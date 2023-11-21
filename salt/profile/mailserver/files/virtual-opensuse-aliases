@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 #
 # this is the list of permanent/systems aliases
 #

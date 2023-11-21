@@ -1,1 +1,3 @@
+{{ pillar['managed_by_salt'] }}
+
 /^([^@+]+)\+subscribe@opensuse.org$/  reject  The mlmmj command interface has been discontinued. For instructions on how to interact with mailman3, please refer to https://en.opensuse.org/openSUSE:Mailing_lists_subscription

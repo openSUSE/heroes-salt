@@ -1,1 +1,3 @@
+{{ pillar['managed_by_salt'] }}
+
 SPAMPD_OPTIONS="--host=spampd-in:10025 --relayhost=spampd-out:10025 --user=vscan --tagall --children=5 --maxsize=768 --homedir=/var/spool/spampd"

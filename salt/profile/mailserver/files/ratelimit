@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 educomp.com     smtpslow:
 yahoo.de        smtpslow:
 yahoo.com       smtpslow:

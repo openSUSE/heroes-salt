@@ -1,4 +1,6 @@
 #!/bin/sh
+{{ pillar['managed_by_salt'] }}
+
 #
 # 2016/03/03 from http://www.postfix.org/FORWARD_SECRECY_README.html#server_fs
 # 

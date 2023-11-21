@@ -1,4 +1,6 @@
 #!/bin/sh
+{{ pillar['managed_by_salt'] }}
+
 tmp=$(mktemp -p /tmp -d memberaliases.XXXXXXXXXX)
 cd "$tmp" || exit 1
 
