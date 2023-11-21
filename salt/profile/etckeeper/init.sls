@@ -18,3 +18,17 @@ etckeeper_timer:
     - name: etckeeper.timer
     - enable: True
 {% endif %}
+
+{% set host_id = salt['grains.get']('id') %}
+
+etckeeper_git_config_name:
+  git.config_set:
+    - name: user.name
+    - value: etckeeper
+    - repo: /etc
+
+etckeeper_git_config_email:
+  git.config_set:
+    - name: user.email
+    - value: etckeeper@{{ host_id }}
+    - repo: /etc
