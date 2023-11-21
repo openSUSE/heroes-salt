@@ -58,19 +58,19 @@ mirrors_static_clone_repo:
     - user: mirrors_static
     - identity: /home/mirrors_static/.ssh/id_rsa
 
-{% set hostname = salt['grains.get']('hostname') %}
+{% set host_id = salt['grains.get']('id') %}
 
 mirrors_static_git_config_name:
   git.config_set:
     - name: user.name
-    - value: mirrors_static_{{ hostname }}
+    - value: mirrors_static
     - repo: {{ repo_path }}
     - user: mirrors_static
 
 mirrors_static_git_config_email:
   git.config_set:
     - name: user.email
-    - value: mirrors_static@{{ hostname }}
+    - value: mirrors_static@{{ host_id }}
     - repo: {{ repo_path }}
     - user: mirrors_static
 
