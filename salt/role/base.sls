@@ -6,9 +6,6 @@ include:
   {%- if grains['virtual'] == 'kvm' %}
   - profile.qemu-guest-agent
   {%- endif %}
-  {%- if grains.get('country') == 'cz' %}
-  - profile.prg2_bootstrap
-  {%- endif %}
 
   {%- if grains['osfullname'] == 'openSUSE Leap Micro' %}
   - profile.tukit
