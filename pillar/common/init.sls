@@ -79,6 +79,7 @@ salt:
   minion_remove_config: true
   minion:
     backup_mode: minion
+    enable_gpu_grains: false
     saltenv: production
     hash_type: sha512
     master:
