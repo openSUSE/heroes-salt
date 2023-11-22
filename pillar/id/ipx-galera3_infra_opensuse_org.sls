@@ -14,3 +14,5 @@ grains:
     - ipx-galera1.infra.opensuse.org
     - ipx-galera2.infra.opensuse-org
   weburls: []
+roles:
+  - mariadb
