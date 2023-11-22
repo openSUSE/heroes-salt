@@ -3,4 +3,5 @@ configure_pam_{{ module }}:
   cmd.run:
     - name: pam-config -a --{{ module }}
     - unless: test $(pam-config -q --{{ module }} | wc -l) = {{ count }}
+    - shell: /bin/sh
 {%- endfor %}
