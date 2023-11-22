@@ -80,6 +80,8 @@ salt:
   minion:
     backup_mode: minion
     enable_gpu_grains: false
+    grains_cache: true
+    grains_cache_expiration: 86400
     saltenv: production
     hash_type: sha512
     master:
