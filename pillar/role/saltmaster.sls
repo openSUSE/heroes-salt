@@ -39,6 +39,7 @@ salt:
       __env__:
         - /srv/pillar
     pillar_source_merging_strategy: smart
+    state_aggregate: True
     state_output: changes
     state_verbose: False
     top_file_merging_strategy: same
