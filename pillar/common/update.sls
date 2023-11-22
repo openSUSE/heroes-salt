@@ -4,6 +4,8 @@ os-update:
   {%- if grains.get('osfullname') == 'openSUSE Leap' %}
   update_cmd: security
   {%- endif %}
+  ignore_services_from_restart:
+    - dbus
  
 rebootmgr:
   window-start: 01:00

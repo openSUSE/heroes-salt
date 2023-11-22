@@ -20,3 +20,5 @@ grains:
     - provo-galera2.infra.opensuse.org
     - provo-galera3.infra.opensuse-org
   weburls: []
+roles:
+  - mariadb
