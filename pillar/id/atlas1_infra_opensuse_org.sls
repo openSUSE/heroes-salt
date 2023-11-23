@@ -24,3 +24,10 @@ network:
       addresses:
         - 2a07:de40:b27e:1204::51/64  # mx1.o.o
         - 172.16.130.51/24
+  routes:
+    default4:
+      options:
+        - src 172.16.130.11
+    default6:
+      options:
+        - src 2a07:de40:b27e:1204::11
