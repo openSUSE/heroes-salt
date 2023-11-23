@@ -566,9 +566,9 @@ mx-test:
     root: 3600a0980383041622f2455736d434d2f
   interfaces:
     os-mail:
+      ip4: 172.16.131.98/24
       ip6: 2a07:de40:b27e:1209::98/64
       mac: 52:54:00:39:53:90
-      pseudo_ip4: 172.16.164.198
       source: x-os-mail
   legacy_boot: true
   ram: 4096MB
@@ -580,9 +580,9 @@ mx1:
     root: 3600a0980383041622f2455736d434d61
   interfaces:
     os-mail:
+      ip4: 172.16.131.11/24
       ip6: 2a07:de40:b27e:1209::11/64
       mac: 52:54:00:02:76:42
-      pseudo_ip4: 172.16.164.171
       source: x-os-mail
   legacy_boot: true
   ram: 4096MB
