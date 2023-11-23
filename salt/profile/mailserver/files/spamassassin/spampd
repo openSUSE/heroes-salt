@@ -1,3 +1,3 @@
 {{ pillar['managed_by_salt'] }}
 
-SPAMPD_OPTIONS="--host=spampd-in:10025 --relayhost=spampd-out:10025 --user=vscan --tagall --children=5 --maxsize=768 --homedir=/var/spool/spampd"
+SPAMPD_OPTIONS="--host=ipv6-localhost:10024 --relayhost=ipv6-localhost:10025 --user=vscan --tagall --children=5 --maxsize=768 --homedir=/var/spool/spampd"
