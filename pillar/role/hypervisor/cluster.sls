@@ -15,3 +15,9 @@ hostsfile:
   alias: clusterip
   domain: infra.opensuse.org
   minions: falkor*.infra.opensuse.org
+
+os-update:
+  ignore_services_from_restart:
+    - corosync
+    - pacemaker
+    - sbd
