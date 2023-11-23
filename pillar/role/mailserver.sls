@@ -16,7 +16,7 @@ profile:
       recipient_delimiter: '+'
       smtpd_banner: '$myhostname ESMTP $mail_name ($mail_version)'
       delay_warning_time: '0h'
-      inet_interfaces: 'all'
+      inet_interfaces: {{ grains['fqdn_ip6'][0] }}
       mydestination: '$myhostname, localhost.$mydomain'
       myhostname: '{{grains.host}}.opensuse.org'
       mynetworks_style: 'subnet'
@@ -99,9 +99,9 @@ profile:
       smtpcox_destination_recipient_limit: 10
       smtpcox_destination_concurrency_failed_cohort_limit: 10
       # postsrsd
-      sender_canonical_maps: 'tcp:postsrsd:10001'
+      sender_canonical_maps: 'tcp:ipv6-localhost:10001'
       sender_canonical_classes: 'envelope_sender'
-      recipient_canonical_maps: 'tcp:postsrsd:10002'
+      recipient_canonical_maps: 'tcp:ipv6-localhost:10002'
       recipient_canonical_classes: 'envelope_recipient,header_recipient'
       # rspamd
       # smtpd_milters = unix:/run/rspamd/worker-proxy.socket
@@ -111,7 +111,7 @@ profile:
       # 20210328 turning back on
       # 20210401 back off
       soft_bounce: 'no'
-      inet_protocols: all
+      inet_protocols: ipv6
 
 
 zypper:

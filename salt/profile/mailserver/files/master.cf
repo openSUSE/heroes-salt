@@ -1,20 +1,18 @@
 {{ pillar['managed_by_salt'] }}
 
 {{grains.host}}.infra.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
-{{grains.host}}.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
-        -o smtpd_proxy_filter=spampd-in:10025
+{{grains.host}}.infra.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
+        -o smtpd_proxy_filter=ipv6-localhost:10025
         -o smtpd_proxy_options=speed_adjust
-#    -o smtpd_tls_cert_file=/etc/ssl/services/star.suse.de.complete.pem
-#    -o smtpd_tls_key_file=/etc/ssl/services/star.suse.de.complete.pem
 
-spampd-out:10025 inet n  -       n       -        -      smtpd
-        -o smtpd_authorized_xforward_hosts=127.0.0.0/8,192.168.0.0/16
+ipv6-localhost:10025 inet n  -       n       -        -      smtpd
+        -o smtpd_authorized_xforward_hosts=[::1]/128
         -o smtpd_client_restrictions=
         -o smtpd_helo_restrictions=
         -o smtpd_sender_restrictions=
         -o smtpd_recipient_restrictions=
         -o smtpd_data_restrictions=
-        -o mynetworks=127.0.0.0/8,192.168.0.0/16,10.0.0.0/8
+        -o mynetworks=[::1]/128,[2a07:de40:b27e:1209::]/64
         -o receive_override_options=no_unknown_recipient_checks
 
 dnsblog   unix  -       -       n       -       0       dnsblog
@@ -34,7 +32,6 @@ proxywrite unix -       -       n       -       1       proxymap
 smtp      unix  -       -       n       -       -       smtp
 relay     unix  -       -       n       -       -       smtp
         -o syslog_name=postfix/$service_name
-#       -o smtp_helo_timeout=5 -o smtp_connect_timeout=5
 showq     unix  n       -       n       -       -       showq
 error     unix  -       -       n       -       -       error
 retry     unix  -       -       n       -       -       error
@@ -48,6 +45,4 @@ scache    unix  -       -       n       -       1       scache
 smtpslow  unix  -       -       n       -       -       smtp
 smtpcox   unix  -       -       n       -       -       smtp
 
-#smtp      inet  n       -       n       -       1       postscreen
-#smtpd     pass  -       -       n       -       -       smtpd
 postlog   unix-dgram n  -       n       -       1       postlogd

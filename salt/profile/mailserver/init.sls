@@ -151,22 +151,10 @@ include:
       - service: spampd
 {% endfor %}
 
-spampd-in:
-  host.present:
-    - ip: 127.0.0.98
-
-spampd-out:
-  host.present:
-    - ip: 127.0.0.99
-
-postsrsd:
-  host.present:
-    - ip: 127.0.0.91
-
 /etc/default/postsrsd:
   file.line:
     - match: ^SRS_LISTEN_ADDR=
-    - content: SRS_LISTEN_ADDR=postsrsd
+    - content: SRS_LISTEN_ADDR=ipv6-localhost
     - mode: replace
 
 # MAYBE: remove override for clamd, seems to be standard now?
