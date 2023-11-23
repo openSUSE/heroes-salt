@@ -1,3 +1,6 @@
+include:
+  - .cleanup
+
 gitlab_runner_packages:
   pkg.installed:
     - pkgs:
