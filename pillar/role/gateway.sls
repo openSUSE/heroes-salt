@@ -1,7 +1,6 @@
 zypper:
   packages:
     conntrackd: {}
-    keepalived: {}
     nftables: {}
     nftables-service: {}
     vnstat: {}
