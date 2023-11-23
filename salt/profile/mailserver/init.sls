@@ -156,6 +156,8 @@ include:
     - match: ^SRS_LISTEN_ADDR=
     - content: SRS_LISTEN_ADDR=ipv6-localhost
     - mode: replace
+    - watch_in:
+      - service: service postsrsd
 
 # MAYBE: remove override for clamd, seems to be standard now?
 {% for svc in ['clamd', 'spampd'] %}
