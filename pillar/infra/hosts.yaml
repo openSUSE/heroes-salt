@@ -560,6 +560,33 @@ monitor:
   legacy_boot: true
   ram: 20480MB
   vcpu: 4
+mx-test:
+  cluster: falkor
+  disks:
+    root: 3600a0980383041622f2455736d434d2f
+  interfaces:
+    os-mail:
+      ip6: 2a07:de40:b27e:1209::98/64
+      mac: 52:54:00:39:53:90
+      pseudo_ip4: 172.16.164.198
+      source: x-os-mail
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 4
+mx1:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d6b
+    root: 3600a0980383041622f2455736d434d61
+  interfaces:
+    os-mail:
+      ip6: 2a07:de40:b27e:1209::11/64
+      mac: 52:54:00:02:76:42
+      pseudo_ip4: 172.16.164.171
+      source: x-os-mail
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 4
 mybackup:
   cluster: falkor
   disks:
