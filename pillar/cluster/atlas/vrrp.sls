@@ -23,6 +23,7 @@
 
 {%- set vips = {'vip4': '172.16.130.10', 'vip6': '2a07:de40:b27e:1204::10'} %}
 {%- set vips2 = {'vip4': '172.16.130.13', 'vip6': '2a07:de40:b27e:1204::13'} %}
+{%- set vips3 = {'vip4': '172.16.130.14', 'vip6': '2a07:de40:b27e:1204::14'} %}
 
 keepalived:
   config:
@@ -42,6 +43,7 @@ keepalived:
         virtual_ipaddress:
           - {{ vips['vip' ~ instance] }} dev os-public
           - {{ vips2['vip' ~ instance] }} dev os-public
+          - {{ vips3['vip' ~ instance] }} dev os-public
         track_interface:
           - os-public
           - d-os-public
