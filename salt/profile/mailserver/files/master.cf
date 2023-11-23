@@ -2,7 +2,7 @@
 
 {{grains.host}}.infra.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
 {{grains.host}}.infra.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
-        -o smtpd_proxy_filter=ipv6-localhost:10025
+        -o smtpd_proxy_filter=ipv6-localhost:10024
         -o smtpd_proxy_options=speed_adjust
 
 ipv6-localhost:10025 inet n  -       n       -        -      smtpd
