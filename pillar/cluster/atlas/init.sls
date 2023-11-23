@@ -1,4 +1,9 @@
 {%- from 'common/haproxy/map.jinja' import bind, extra, server, rsync_backend_with_checks %}
+{%- set host = grains['host'] %}
+
+{%- if host.startswith('runner-') %} {#- handle host based dictionaries in CI tests #}
+{%- set host = 'atlas1' %}
+{%- endif %}
 
 include:
   - common.haproxy
@@ -14,8 +19,17 @@ include:
 {%- set bind_v4_vip = ['172.16.130.10'] %}
 {%- set bind_v4 = bind_v4_vip + ['172.16.130.11', '172.16.130.12'] %}
 
+{#- http-misc #}
 {%- set bind_v6_vip2 = ['2a07:de40:b27e:1204::13'] %}
 {%- set bind_v4_vip2 = ['172.16.130.13'] %}
+
+{#- mx-test #}
+{%- set bind_v6_vip3 = ['2a07:de40:b27e:1204::14'] %}
+{%- set bind_v4_vip3 = ['172.16.130.14'] %}
+
+{#- mx1, mx2 #}
+{%- set bind_v6_mx = { 'atlas1': ['2a07:de40:b27e:1204::51'], 'atlas2': ['2a07:de40:b27e:1204::52'] } %}
+{%- set bind_v4_mx = { 'atlas1': ['172.16.130.51'], 'atlas2': ['172.16.130.52'] } %}
 
 haproxy:
   frontends:
@@ -63,6 +77,22 @@ haproxy:
         - http-server-close
       extra:
         - http-request set-var(txn.host) hdr(Host)
+
+    smtp:
+      bind:
+        {{ bind(bind_v6_mx[host], 25, 'v6only') }}
+        {{ bind(bind_v4_mx[host], 25) }}
+      mode: tcp
+      options:
+        - tcplog
+
+    smtp-test:
+      bind:
+        {{ bind(bind_v6_vip3, 25, 'v6only') }}
+        {{ bind(bind_v4_vip3, 25) }}
+      mode: tcp
+      options:
+        - tcplog
 
   listens:
     rsync-community2:

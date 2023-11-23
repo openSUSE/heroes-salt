@@ -18,3 +18,9 @@ grains:
 roles:
   - ha
   - proxy
+network:
+  interfaces:
+    os-public:
+      addresses:
+        - 2a07:de40:b27e:1204::51/64  # mx1.o.o
+        - 172.16.130.51/24
