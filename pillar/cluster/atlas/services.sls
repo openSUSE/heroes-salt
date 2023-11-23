@@ -37,6 +37,7 @@ haproxy:
         {%- endfor %}
         - host_community    hdr(host)   -i community.opensuse.org
         - host_community2   hdr(host)   -i factory-dashboard.opensuse.org
+        - host_conncheck    hdr(host)   -i conncheck.opensuse.org
         - host_contribute   hdr(host)   -i contribute.opensuse.org
         - host_counter      hdr_reg(host) -i count(er|down)\.opensuse\.org
         - host_doc          hdr(host)   -i doc.opensuse.org
@@ -143,6 +144,7 @@ haproxy:
 
         # rules only depending on host_*
         - chat            if host_chat
+        - conncheck       if host_conncheck
         - community       if host_community
         - community       if host_doc
         - community2      if host_community2
@@ -177,7 +179,7 @@ haproxy:
         - svn             if host_svn
 
       redirects:
-        - scheme https code 301                                              if !is_ssl !host_get_o_o
+        - scheme https code 301                                              if !is_ssl !host_get_o_o !host_conncheck
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_mailman3
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages

@@ -21,12 +21,6 @@ haproxy:
     smt:
       {{ options() }}
       {{ server('smt-internal', '195.135.221.141') }}
-    conncheck:
-      mode: http
-      options: ['tcpka']
-      httprequests: set-log-level silent
-      extra:
-        - errorfile 503 {{ errorfiles }}conncheck.txt.http
     mirrorlist:
       {{ options() }}
       {{ server('olaf', '192.168.47.17') }}
