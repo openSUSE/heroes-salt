@@ -78,26 +78,43 @@ haproxy:
       extra:
         - http-request set-var(txn.host) hdr(Host)
 
-    smtp:
-      bind:
-        {{ bind(bind_v6_mx[host], 25, 'v6only') }}
-        {{ bind(bind_v4_mx[host], 25) }}
-      mode: tcp
-      options:
-        - tcplog
-
-    smtp-test:
-      bind:
-        {{ bind(bind_v6_vip3, 25, 'v6only') }}
-        {{ bind(bind_v4_vip3, 25) }}
-      mode: tcp
-      options:
-        - tcplog
-
   listens:
     rsync-community2:
       acls: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
       {{ rsync_backend_with_checks('2a07:de40:b27e:1203::129', listen_addresses=bind_v4_vip, listen_port=11873, listen_params=bindopts) }}
+
+    {%- for smtp_instance, smtp_config in {
+          'smtp': {
+            'bind4': bind_v4_mx[host],
+            'bind6': bind_v6_mx[host],
+            'backends': ['mx1', 'mx2']
+          },
+          'smtp-test': {
+            'bind4': bind_v4_vip3,
+            'bind6': bind_v6_vip3,
+            'backends': ['mx-test']
+          }
+        }.items()
+    %}
+    {{ smtp_instance }}:
+      bind:
+        {{ bind(smtp_config['bind6'], 25, 'v6only') }}
+        {{ bind(smtp_config['bind4'], 25) }}
+      mode: tcp
+      options:
+        - tcplog
+        - smtpchk EHLO smtp-check.atlas.infra.opensuse.org
+      timeouts:
+        - connect 5s
+        - server 20s
+      servers:
+        {%- for mx in smtp_config['backends'] %}
+        {{ mx }}:
+          check: check
+          extra: send-proxy-v2
+          host: {{ mx }}.infra.opensuse.org
+        {%- endfor %}
+    {%- endfor %}
 
     ssh-pagure01:
       bind:

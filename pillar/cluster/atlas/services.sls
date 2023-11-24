@@ -214,9 +214,3 @@ haproxy:
         {%- endfor %}
       use_backends:
         - pagure          if host_pagure
-
-    smtp:
-      default_backend: mx
-
-    smtp-test:
-      default_backend: mx-test

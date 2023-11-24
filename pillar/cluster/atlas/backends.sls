@@ -109,24 +109,6 @@ haproxy:
     monitor_grafana:
       {{ options() }}
       {{ server('grafana', '2a07:de40:b27e:1203::50', 3000, extra_extra='inter 30000') }}
-    mx:
-      mode: tcp
-      timeouts:
-        - connect 5s
-        - server 20s
-      servers:
-        mx1:
-          host: mx1.infra.opensuse.org
-        #mx2:
-        #  host: mx2.infra.opensuse.org
-    mx-test:
-      mode: tcp
-      timeouts:
-        - connect 5s
-        - server 20s
-      servers:
-        mx-test:
-          host: mx-test.infra.opensuse.org
     nuka:
       {{ options ('httpchk HEAD /static/weblate-128.png HTTP/1.1\r\nHost:\ l10n.opensuse.org') }}
       {{ server('nuka', '2a07:de40:b27e:1203::b44') }}
