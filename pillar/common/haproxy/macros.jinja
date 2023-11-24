@@ -23,6 +23,12 @@
         - {{ append.replace('\n', '\\n').replace('\r', '\\r') }}
         {%- endif %}
 {%- endmacro -%}
+{%- macro httpcheck(host, status, uri='/', method='head') %}
+      httpchecks:
+        - connect
+        - send meth {{ method | upper }} uri {{ uri }} ver HTTP/1.1 hdr Host {{ host }} hdr User-Agent haproxy/health-check
+        - expect status {{ status }}
+{%- endmacro %}
 {%- macro server(server, host, port=80, check='check', extra_extra=None, extra_check=None, header=True) -%}
       {%- set extra = 'extra: ' %}
       {%- if header %}

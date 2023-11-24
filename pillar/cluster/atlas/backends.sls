@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import errorfiles, narwals, options, server %}
+{%- from 'common/haproxy/map.jinja' import errorfiles, narwals, options, server, httpcheck %}
 
 haproxy:
   backends:
@@ -6,10 +6,12 @@ haproxy:
       {{ options() }}
       {{ server('matrix', '2a07:de40:b27e:1203::b40') }}
     community:
-      {{ options ('httpchk OPTIONS / HTTP/1.1\r\nHost:\ community.opensuse.org') }}
+      {{ options ('httpchk') }}
+      {{ httpcheck('community.opensuse.org', 200, method='options') }}
       {{ server('community', '2a07:de40:b27e:1203::128') }}
     community2:
-      {{ options('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ factory-dashboard.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('factory-dashboard.opensuse.org', 200, '/check.txt', 'options') }}
       mode: http
       {{ server('community2', '2a07:de40:b27e:1203::129') }}
     conncheck:
@@ -19,7 +21,8 @@ haproxy:
       extra:
         - errorfile 503 {{ errorfiles }}conncheck.txt.http
     dale:
-      {{ options('httpchk HEAD /robots.txt HTTP/1.1\r\nHost:\ events.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('events.opensuse.org', 200, '/robots.txt') }}
       {{ server('dale', '2a07:de40:b27e:1203::b16', 80) }}
     deadservices:
       options: ['tcpka']
@@ -57,13 +60,15 @@ haproxy:
       {{ options() }}
       {{ server('dale_hackweek', '2a07:de40:b27e:1203::b16', 81) }}
     jekyll:
-      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHOST:\ search.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('search.opensuse.org', 200, method='options') }}
       {{ server('jekyll', '2a07:de40:b27e:1203::e1') }}
       acls:
         - is_jekyll_test          hdr_reg(host) -i (.*)-test\.opensuse\.org
       extra: http-request replace-header HOST (.*)-test(.*) \1\2 if is_jekyll_test
     kubic:
-      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ kubic.opensuse.org') }}
+      {{ options ('httpchk') }}
+      {{ httpcheck('kubic.opensuse.org', 200, '/check.txt') }}
       {{ server('kubic', '2a07:de40:b27e:1203::132') }}
     limesurvey:
       {{ options() }}
@@ -104,13 +109,15 @@ haproxy:
       {{ options() }}
       {{ server('minio', '2a07:de40:b27e:1203::c1') }}
     monitor:
-      {{ options ('httpchk HEAD /check.txt HTTP/1.1\r\nHost:\ monitor.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('monitor.opensuse.org', 200, '/check.txt') }}
       {{ server('monitor', '2a07:de40:b27e:1203::50', extra_extra='inter 30000') }}
     monitor_grafana:
       {{ options() }}
       {{ server('grafana', '2a07:de40:b27e:1203::50', 3000, extra_extra='inter 30000') }}
     nuka:
-      {{ options ('httpchk HEAD /static/weblate-128.png HTTP/1.1\r\nHost:\ l10n.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('l10n.opensuse.org', 200, '/static/weblate-128.png') }}
       {{ server('nuka', '2a07:de40:b27e:1203::b44') }}
     obsreview:
       {{ options() }}
@@ -121,7 +128,8 @@ haproxy:
       {{ server('opi_proxy', '2a07:de40:b27e:1203::134', extra_extra='inter 5000') }}
     osc_collab:
       mode: http
-      {{ options ('httpchk OPTIONS /check.txt HTTP/1.1\r\nHost:\ osc-collab.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('osc-collab.opensuse.org', 200, '/check.txt', 'options') }}
       {{ server('osc_collab2', '2a07:de40:b27e:1203::131') }}
     pagure:
       mode: http
@@ -136,7 +144,8 @@ haproxy:
     redirect_www_o_o:
       redirects: code 302 location https://www.opensuse.org/
     redmine:
-      {{ options ('httpchk HEAD / HTTP/1.1\r\nHost:\ progress.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('progress.opensuse.org', 200) }}
       {{ server('progressoo', '2a07:de40:b27e:1203::b17', 3001, extra_extra='maxconn 16') }}
     riesling:
       {{ options() }}
@@ -152,7 +161,8 @@ haproxy:
       extra:
         - errorfile 503 {{ errorfiles }}security.txt.http
     staticpages:
-      {{ options('httpchk OPTIONS / HTTP/1.1\r\nHost:\ static.opensuse.org') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('static.opensuse.org', 200, method='options') }}
       balance: roundrobin
       mode: http
       servers:
