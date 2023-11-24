@@ -1,7 +1,7 @@
 include:
   - profile.web.server.nginx
   - profile.matrix.synapse
-  - profile.matrix.init
+  - profile.matrix
   - profile.matrix.appservice
   - profile.matrix.telegram
   - profile.matrix.dimension
