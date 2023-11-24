@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, galeras, server %}
+{%- from 'common/haproxy/map.jinja' import bind, extra, galeras, server, httpcheck %}
 
 include:
   - common.haproxy
@@ -34,7 +34,8 @@ haproxy:
       options:
         - tcplog
         - tcpka
-        - httpchk GET / HTTP/1.1\r\nHost:\ localhost:8000\r\nUser-Agent:\ haproxy/galera-clustercheck\r\nAccept:\ */*
+        - httpchk
+      {{ httpcheck('localhost:8000', 200, method='get') }}
       timeouts:
         - connect 10s
         - client 30m

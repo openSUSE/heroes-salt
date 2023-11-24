@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import options, server, errorfiles, check_txt -%}
+{%- from 'common/haproxy/map.jinja' import options, server, errorfiles, check_txt, httpcheck -%}
 
 haproxy:
   backends:
@@ -41,7 +41,8 @@ haproxy:
     jenkins:
       options:
         - forwardfor
-        - httpchk HEAD / HTTP/1.1\r\nHost:\ ci.opensuse.org
+        - httpchk
+      {{ httpcheck('ci.opensuse.org', 200) }}
       {{ server('ci-opensuse', '192.168.47.77', 8080) }}
     security_txt:
       mode: http
