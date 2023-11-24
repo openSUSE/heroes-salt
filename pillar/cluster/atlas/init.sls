@@ -113,6 +113,7 @@ haproxy:
           check: check
           extra: send-proxy-v2
           host: {{ mx }}.infra.opensuse.org
+          port: 25
         {%- endfor %}
     {%- endfor %}
 
