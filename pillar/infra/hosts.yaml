@@ -403,7 +403,7 @@ limesurvey:
       pseudo_ip4: 172.16.164.121
       source: x-os-internal
   legacy_boot: true
-  ram: 2048MB
+  ram: 4096MB
   vcpu: 1
 lnt:
   cluster: falkor
