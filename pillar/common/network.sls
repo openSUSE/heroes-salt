@@ -8,8 +8,22 @@
 {%- set country = grains.get('country') %}
 {%- set networks = country_networks.get(country, {}) %}
 
+{#- locations without internal IPv6 routing (https://progress.opensuse.org/issues/151192) #}
+{%- set legacy_countries = ['de-qsc', 'us'] %}
+{#- gateway machines which have internal IPv6 routing, as opposed to other machines in the legacy countries #}
+{%- set legacy_excludes = {'de-qsc': ['stonehat'], 'us': ['provo-gate']} %}
+{%- set ip6_gw = grains['ip6_gw'] %}
+
 {%- set msg = 'common.network, host ' ~ host ~ ': ' %}
 {%- set log = salt.log.debug %}
+
+{#- check if machine needs modern or legacy IP configuration #}
+{%- if country in legacy_countries and not host in legacy_excludes.get(country, []) and ip6_gw %}
+{%- set do_legacy = True %}
+{%- else %}
+{%- set do_legacy = False %}
+{%- endif %}
+{%- do log(msg ~ 'do_legacy: ' ~ do_legacy) %}
 
 {#- start main logic if the minion is listed in hosts.yaml, otherwise none of the below will be executed #}
 {%- if host in hosts %}
@@ -68,7 +82,7 @@
 {%- endif %} {#- close host in hosts check #}
 
 {#- configure interfaces if the previous logic found any with usable IP addresses #}
-{%- if country in country_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces %}
+{%- if country in country_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces or do_legacy %}
 network:
 
 {%- if ip4 is not none or ip6 is not none or reduced_interfaces %}
@@ -103,8 +117,8 @@ network:
 
 {%- endif %} {#- close inner ip4/ip6/reduced_interfaces check #}
 
-{#- if a main network segment is available, use it to configure default routes #}
-{%- if shortnet %}
+{#- if a main network segment is available, use it to configure default routes. if legacy IP configuration is enabled, use it to configure blackholes. #}
+{%- if shortnet or do_legacy %}
 {%- set net_ns = namespace(network=None) %}
 {#- find the network segment matching the previously assessed short name #}
 {%- for network, config in networks.items() %}
@@ -118,7 +132,7 @@ network:
 {%- set network = networks.get(net_ns.network, {}) %}
 
 {#- if gateway entries for the respective segment were found, configure them as default routes #}
-{%- if 'gw4' in network or 'gw6' in network %}
+{%- if 'gw4' in network or 'gw6' in network or do_legacy %}
   routes:
     {%- if ip4 is not none and 'gw4' in network %}
     default4:
@@ -127,6 +141,16 @@ network:
     {%- if ip6 is not none and 'gw6' in network %}
     default6:
       gateway: '{{ network['gw6'] }}'
+    {%- endif %}
+
+    {#-
+      for machines in locations we have not yet equipped with internal IPv6 routing, but which have an IPv6 route to the internet, install a blackhole route to our os-internal network in PRG2
+      this allows machines in these locations which have an IPv6 route to the internet to communicate with internal services in PRG2 via IPv4 instead of sending affected packets to the internet (which either leads to timeouts or stuck sessions, since we do not allow internal services to be reached over the internet)
+    #}
+    {%- if do_legacy %}
+    2a07:de40:b27e:1203::/64:
+      options:
+        - blackhole
     {%- endif %}
 {%- endif %} {#- close network check #}
 {%- endif %} {#- close shortnet check #}
