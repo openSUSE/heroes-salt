@@ -23,5 +23,12 @@ webserver-password={{ config['webserver_password'] }}
 #dns64-prefix=2a07:de40:b27e:64::/96
 dnssec-log-bogus=yes
 extended-resolution-errors=yes
+{%- if 'forward' %}
 forward-zones-file=/etc/pdns/forward.conf
+{%- endif %}
+{%- if 'forward_zones_recurse' in config %}
+forward-zones-recurse={{ config.forward_zones_recurse }}
+{%- endif %}
+{%- if 'lua_dns_script' in config and config.lua_dns_script %}
 lua-dns-script=/etc/pdns/pdns.lua
+{%- endif %}
