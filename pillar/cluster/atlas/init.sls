@@ -110,7 +110,7 @@ haproxy:
       servers:
         {%- for mx in smtp_config['backends'] %}
         {{ mx }}:
-          check: check
+          check: check inter 30s
           extra: send-proxy-v2
           host: {{ mx }}.infra.opensuse.org
           port: 25
