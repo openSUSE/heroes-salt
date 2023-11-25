@@ -19,6 +19,7 @@ profile:
       inet_interfaces: {{ grains['fqdn_ip6'][0] }}
       mydestination: '$myhostname, localhost.$mydomain'
       myhostname: '{{grains.host}}.opensuse.org'
+      mynetworks: '[::1]/128, [2a07:de40:b27e:1204::]/64, [2a07:de40:b27e:1203::]/64'
       mynetworks_style: 'subnet'
       alias_maps: ''
       canonical_maps: ''
@@ -30,6 +31,7 @@ profile:
       smtpd_helo_restrictions: ''
       smtpd_sender_restrictions: 'check_sender_access lmdb:/etc/postfix/manually-blocked-users,permit'
       smtpd_recipient_restrictions: >
+        permit_mynetworks,
         reject_unauth_destination,
         reject_non_fqdn_sender,
         reject_non_fqdn_recipient,
