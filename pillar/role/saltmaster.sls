@@ -22,6 +22,7 @@ salt:
         - /usr/share/salt-formulas/states
         - /srv/formula
     gather_job_timeout: 10
+    ipc_write_buffer: dynamic
     timeout: 15
     gitfs_ssl_verify: True
     hash_type: sha512
@@ -39,6 +40,7 @@ salt:
       __env__:
         - /srv/pillar
     pillar_source_merging_strategy: smart
+    sock_pool_size: 30
     state_aggregate: True
     state_compress_ids: True
     state_output: changes
@@ -46,6 +48,8 @@ salt:
     top_file_merging_strategy: same
     user: salt
     worker_threads: {{ grains['num_cpus'] }}
+    zmq_backlog: 10000
+    pub_hwm: 10000
 
 infrastructure:
   salt:
