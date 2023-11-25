@@ -4,7 +4,6 @@
 {%- set idstruct = salt['slsutil.renderer'](pillar_id) %}
 {%- set roles = idstruct.get('roles', []) %}
 {%- set osfullname = salt['grains.get']('osfullname') -%}
-{%- set virt_cluster = salt['grains.get']('virt_cluster') -%}
 
 {{ saltenv }}:
   '*':
