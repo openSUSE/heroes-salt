@@ -32,6 +32,7 @@ salt:
     key_cache: sched
     ping_on_rotate: True
     pillar_cache: True
+    pillar_cache_backend: memory
     pillar_cache_ttl: 1800
     pillar_gitfs_ssl_verify: True
     pillar_merge_lists: True
