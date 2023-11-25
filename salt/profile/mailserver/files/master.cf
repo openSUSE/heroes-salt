@@ -56,3 +56,17 @@ smtpslow  unix  -       -       n       -       -       smtp
 smtpcox   unix  -       -       n       -       -       smtp
 
 postlog   unix-dgram n  -       n       -       1       postlogd
+
+smtpslow  unix  -       -       n       -       -       smtp
+smtpcox   unix  -       -       n       -       -       smtp
+smtpsud   unix  -       -       n       -       1       smtp
+smtpbol   unix  -       -       n       -       2       smtp
+
+smtpv4o   unix  -       -       n       -       10      smtp
+    -o smtp_address_preference=ipv4
+    -o inet_protocols=ipv4
+smtpv6o   unix  -       -       n       -       10      smtp
+    -o smtp_address_preference=ipv6
+    -o inet_protocols=ipv6
+
+postlog   unix-dgram n  -       n       -       1       postlogd

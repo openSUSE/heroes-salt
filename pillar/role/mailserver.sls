@@ -114,6 +114,27 @@ profile:
       # 20210401 back off
       soft_bounce: 'no'
       inet_protocols: all
+      # https://progress.opensuse.org/issues/102617
+      disable_vrfy_command: 'yes'
+
+      smtpsud_destination_concurrency_limit: 1
+      smtpsud_destination_rate_delay: 60s
+      smtpsud_destination_recipient_limit: 1
+      smtpsud_destination_concurrency_failed_cohort_limit: 10
+      smtpbol_destination_concurrency_limit: 1
+      smtpbol_destination_rate_delay: 1s
+      smtpbol_destination_recipient_limit: 1
+      smtpbol_destination_concurrency_failed_cohort_limit: 10
+      # just a general slow rate
+      smtpslw_destination_concurrency_limit: 1
+      smtpslw_destination_rate_delay: 60s
+      smtpslw_destination_recipient_limit: 1
+      smtpslw_destination_concurrency_failed_cohort_limit: 10
+      # poo#135779 gmail rate limit
+      smtpv6o_destination_concurrency_limit: 1
+      smtpv6o_destination_rate_delay: 1s
+      smtpv6o_destination_recipient_limit: 1
+      smtpv6o_destination_concurrency_failed_cohort_limit: 10
 
 
 zypper:
