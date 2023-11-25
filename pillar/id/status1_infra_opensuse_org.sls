@@ -1,10 +1,10 @@
 grains:
-  city: nuremberg
-  country: de
+  city: QSC-nuremberg
+  country: de-qsc
   hostusage:
     - status
   reboot_safe: yes
-  virt_cluster: atreju
+  virt_cluster: stonehat
 
   aliases: []
   description: Public infrastructure status page
