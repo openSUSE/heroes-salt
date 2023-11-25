@@ -1,6 +1,7 @@
 {%- import_yaml 'FORMULAS.yaml' as formulas_yaml -%}
-{% if salt['grains.get']('include_secrets', True) %}
 include:
+  - infra.nodegroups
+{% if salt['grains.get']('include_secrets', True) %}
   - secrets.role.saltmaster
 {% endif %}
 
