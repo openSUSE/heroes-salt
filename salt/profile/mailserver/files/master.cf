@@ -1,7 +1,10 @@
 {{ pillar['managed_by_salt'] }}
 
-{{grains.host}}.infra.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
-{{grains.host}}.infra.opensuse.org:smtp      inet  n       -       n       -       -       smtpd
+{{ grains.id }}:smtp             inet  n       -       n       -       -       smtpd
+        -o smtpd_upstream_proxy_protocol=haproxy
+        -o smtpd_proxy_filter=ipv6-localhost:10024
+        -o smtpd_proxy_options=speed_adjust
+ipv6-localhost:smtp              inet  n       -       n       -       -       smtpd
         -o smtpd_proxy_filter=ipv6-localhost:10024
         -o smtpd_proxy_options=speed_adjust
 
