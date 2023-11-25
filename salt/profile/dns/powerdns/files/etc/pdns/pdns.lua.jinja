@@ -26,7 +26,7 @@ internal_zones = newDS()
 internal_zones:add({"infra.opensuse.org"})
 
 no_internet46_networks = newNMG()
-no_internet46_networks:addMasks({"2a07:de40:b27e:5001::/64", "2a07:de40:b27e:5002::/64"})
+no_internet46_networks:addMasks({"2a07:de40:b27e:5001::/64", "2a07:de40:b27e:5002::/64", "2a07:de40:b27e:1204::/64", "2a07:de40:b27e:1209::/64"})
 
 excludes = newDS()
 excludes:add({"redirector-prv.infra.opensuse.org", "redirector-qsc.infra.opensuse.org", "download-prv.infra.opensuse.org"})
