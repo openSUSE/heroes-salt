@@ -587,6 +587,20 @@ mx1:
   legacy_boot: true
   ram: 4096MB
   vcpu: 4
+mx2:
+  cluster: falkor
+  disks:
+    data0: 3600a098038304161792455736d424d6c
+    root: 3600a0980383041622f2455736d434d63
+  interfaces:
+    os-internal:
+      ip4: 172.16.131.12/24
+      ip6: 2a07:de40:b27e:1209::12/64
+      mac: 52:54:00:2e:5f:19
+      source: x-os-mail
+  legacy_boot: true
+  ram: 4096MB
+  vcpu: 4
 mybackup:
   cluster: falkor
   disks:
