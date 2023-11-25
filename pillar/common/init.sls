@@ -83,6 +83,9 @@ salt:
     grains_cache: true
     grains_cache_expiration: 86400
     saltenv: production
+    startup_states: sls
+    sls_list:
+      - grains
     hash_type: sha512
     master:
       - witch1.infra.opensuse.org
