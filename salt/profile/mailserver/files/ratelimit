@@ -1,12 +1,18 @@
 {{ pillar['managed_by_salt'] }}
 
-educomp.com     smtpslow:
-yahoo.de        smtpslow:
-yahoo.com       smtpslow:
-web.de          smtpslow:
-gmx.at          smtpslow:
-gmx.ch          smtpslow:
-gmx.com         smtpslow:
-gmx.de          smtpslow:
-gmx.net         smtpslow:
-cox.net         smtpcox:
+educomp.com             smtpslow:
+yahoo.de                smtpslow:
+yahoo.com               smtpslow:
+web.de                  smtpslow:
+gmx.at                  smtpslow:
+gmx.ch                  smtpslow:
+gmx.com                 smtpslow:
+gmx.de                  smtpslow:
+gmx.net                 smtpslow:
+cox.net                 smtpcox:
+.rr.com                 smtpcox:
+suddenlinkmail.com      smtpsud:
+cboltz.de               smtpbol:
+freenet.de              smtpslow:
+gmail.com               smtpv6o:
+googlemail.com          smtpv6o:
