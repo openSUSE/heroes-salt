@@ -4,7 +4,7 @@ grains:
   hostusage:
     - Proxy
   reboot_safe: yes
-  virt_cluster: stonehat-bare
+  virt_cluster: stonehat
 
   aliases: []
   description: Runs HAProxy, questionable condition

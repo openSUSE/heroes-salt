@@ -4,7 +4,7 @@ grains:
   hostusage:
     - static.o.o
   reboot_safe: yes
-  virt_cluster: stonehat-bare
+  virt_cluster: stonehat
 
   aliases: []
   description: Provider of static content like CSS and Javascript for openSUSE Webservers
