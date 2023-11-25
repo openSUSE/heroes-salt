@@ -112,7 +112,6 @@ profile:
       # 20210401 back off
       soft_bounce: 'no'
       inet_protocols: all
-      smtpd_upstream_proxy_protocol: haproxy
 
 
 zypper:
