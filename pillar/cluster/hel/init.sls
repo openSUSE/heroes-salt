@@ -49,3 +49,22 @@ haproxy:
           extra: port 8000 inter 3000 rise 3 fall 3 {{ append }}
         {%- endfor %}
     {%- endfor %}
+
+    smtp:
+      bind:
+        {{ bind(bind_v6, 25, 'v6only') }}
+      mode: tcp
+      options:
+        - tcplog
+        - smtpchk EHLO smtp-check.hel.infra.opensuse.org
+      timeouts:
+        - connect 5s
+        - server 20s
+      servers:
+        {%- for i in [1, 2] %}
+        mx{{ i }}:
+          check: check inter 30s
+          extra: send-proxy-v2
+          host: mx{{ i }}.infra.opensuse.org
+          port: 26
+        {%- endfor %}
