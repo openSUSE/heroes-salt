@@ -19,6 +19,7 @@ profile:
       inet_interfaces: {{ grains['fqdn_ip6'][0] }}
       mydestination: '$myhostname, localhost.$mydomain'
       myhostname: '{{grains.host}}.opensuse.org'
+      mynetworks: '[::1]/128, [2a07:de40:b27e:1204::]/64, [2a07:de40:b27e:1203::]/64'
       mynetworks_style: 'subnet'
       alias_maps: ''
       canonical_maps: ''
@@ -30,6 +31,7 @@ profile:
       smtpd_helo_restrictions: ''
       smtpd_sender_restrictions: 'check_sender_access lmdb:/etc/postfix/manually-blocked-users,permit'
       smtpd_recipient_restrictions: >
+        permit_mynetworks,
         reject_unauth_destination,
         reject_non_fqdn_sender,
         reject_non_fqdn_recipient,
@@ -112,6 +114,27 @@ profile:
       # 20210401 back off
       soft_bounce: 'no'
       inet_protocols: all
+      # https://progress.opensuse.org/issues/102617
+      disable_vrfy_command: 'yes'
+
+      smtpsud_destination_concurrency_limit: 1
+      smtpsud_destination_rate_delay: 60s
+      smtpsud_destination_recipient_limit: 1
+      smtpsud_destination_concurrency_failed_cohort_limit: 10
+      smtpbol_destination_concurrency_limit: 1
+      smtpbol_destination_rate_delay: 1s
+      smtpbol_destination_recipient_limit: 1
+      smtpbol_destination_concurrency_failed_cohort_limit: 10
+      # just a general slow rate
+      smtpslw_destination_concurrency_limit: 1
+      smtpslw_destination_rate_delay: 60s
+      smtpslw_destination_recipient_limit: 1
+      smtpslw_destination_concurrency_failed_cohort_limit: 10
+      # poo#135779 gmail rate limit
+      smtpv6o_destination_concurrency_limit: 1
+      smtpv6o_destination_rate_delay: 1s
+      smtpv6o_destination_recipient_limit: 1
+      smtpv6o_destination_concurrency_failed_cohort_limit: 10
 
 
 zypper:

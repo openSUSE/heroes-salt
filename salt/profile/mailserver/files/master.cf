@@ -1,9 +1,16 @@
 {{ pillar['managed_by_salt'] }}
 
+# listener for public mail access via atlas.i.o.o
 {{ grains.id }}:smtp             inet  n       -       n       -       -       smtpd
         -o smtpd_upstream_proxy_protocol=haproxy
         -o smtpd_proxy_filter=ipv6-localhost:10024
         -o smtpd_proxy_options=speed_adjust
+
+# listener with no spam-filter for relay.i.o.o via hel.i.o.o
+{{ grains.id }}:26               inet  n       -       n       -       -       smtpd
+        -o smtpd_upstream_proxy_protocol=haproxy
+
+# listener for mail from localhost
 ipv6-localhost:smtp              inet  n       -       n       -       -       smtpd
         -o smtpd_proxy_filter=ipv6-localhost:10024
         -o smtpd_proxy_options=speed_adjust
@@ -15,7 +22,7 @@ ipv6-localhost:10025 inet n  -       n       -        -      smtpd
         -o smtpd_sender_restrictions=
         -o smtpd_recipient_restrictions=
         -o smtpd_data_restrictions=
-        -o mynetworks=[::1]/128,[2a07:de40:b27e:1209::]/64
+        -o mynetworks=[::1]/128
         -o receive_override_options=no_unknown_recipient_checks
 
 dnsblog   unix  -       -       n       -       0       dnsblog
@@ -47,5 +54,19 @@ scache    unix  -       -       n       -       1       scache
 
 smtpslow  unix  -       -       n       -       -       smtp
 smtpcox   unix  -       -       n       -       -       smtp
+
+postlog   unix-dgram n  -       n       -       1       postlogd
+
+smtpslow  unix  -       -       n       -       -       smtp
+smtpcox   unix  -       -       n       -       -       smtp
+smtpsud   unix  -       -       n       -       1       smtp
+smtpbol   unix  -       -       n       -       2       smtp
+
+smtpv4o   unix  -       -       n       -       10      smtp
+    -o smtp_address_preference=ipv4
+    -o inet_protocols=ipv4
+smtpv6o   unix  -       -       n       -       10      smtp
+    -o smtp_address_preference=ipv6
+    -o inet_protocols=ipv6
 
 postlog   unix-dgram n  -       n       -       1       postlogd
