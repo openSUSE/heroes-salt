@@ -25,8 +25,8 @@ prefix_reverse = "0.0.0.0.0.0.0.0.4.6.0.0.e.7.2.b.0.4.e.d.7.0.a.2.ip6.arpa."
 internal_zones = newDS()
 internal_zones:add({"infra.opensuse.org"})
 
-vpn_networks = newNMG()
-vpn_networks:addMasks({"2a07:de40:b27e:5001::/64", "2a07:de40:b27e:5002::/64"})
+no_internet46_networks = newNMG()
+no_internet46_networks:addMasks({"2a07:de40:b27e:5001::/64", "2a07:de40:b27e:5002::/64", "2a07:de40:b27e:1204::/64", "2a07:de40:b27e:1209::/64"})
 
 excludes = newDS()
 excludes:add({"redirector-prv.infra.opensuse.org", "redirector-qsc.infra.opensuse.org", "download-prv.infra.opensuse.org"})
@@ -48,7 +48,7 @@ function nodata ( dq )
     dq.variable = true
 
     -- VPN clients shall only receive mapped answers for internal_zones queries (prevent mapping v4 internet hosts to addresses unroutable in the client network)
-    if vpn_networks:match(dq.remoteaddr) then
+    if no_internet46_networks:match(dq.remoteaddr) then
       return false
     end
 
