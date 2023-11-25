@@ -1,20 +1,19 @@
 grains:
-  city: provo
-  country: us
+  city: prague
+  country: cz
   hostusage:
     - status
   reboot_safe: yes
-  virt_cluster: bryce
+  virt_cluster: falkor
 
   aliases: []
   description: Public infrastructure status page
-  documentation: 
-    - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Status2opensuseorg
+  documentation: []
   responsible:
     - lrupp
   partners:
     - status1.opensuse.org
-    - status3.opensuse.org
+    - status2.opensuse.org
   weburls:
     - https://status2.opensuse.org
 roles: []
