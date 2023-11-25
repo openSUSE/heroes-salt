@@ -54,11 +54,6 @@ scache    unix  -       -       n       -       1       scache
 
 smtpslow  unix  -       -       n       -       -       smtp
 smtpcox   unix  -       -       n       -       -       smtp
-
-postlog   unix-dgram n  -       n       -       1       postlogd
-
-smtpslow  unix  -       -       n       -       -       smtp
-smtpcox   unix  -       -       n       -       -       smtp
 smtpsud   unix  -       -       n       -       1       smtp
 smtpbol   unix  -       -       n       -       2       smtp
 
