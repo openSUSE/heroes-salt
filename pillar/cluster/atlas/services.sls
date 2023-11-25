@@ -81,7 +81,7 @@ haproxy:
         - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_rpmlint      hdr(host)   -i rpmlint.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
-        {%- for host_static in ['fontinfo', 'html5test', 'lizards', 'mirrors-static', 'oom', 'people', 'shop', 'studioexpress'] %}
+        {%- for host_static in ['fontinfo', 'html5test', 'lizards', 'mirrors', 'oom', 'people', 'shop', 'studioexpress'] %}
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
         {%- endfor %}
         - host_svn            hdr(host)   -i svn.opensuse.org
