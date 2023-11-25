@@ -1,4 +1,4 @@
-{% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community', 'ignite', 'oom', 'mirrors-static'] %}
+{% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community', 'ignite', 'oom', 'mirrors'] %}
 
 include:
   - role.common.nginx
@@ -15,7 +15,7 @@ nginx:
                 - image/x-icon: 90d
                 - ~application/: 28d
                 - ~font/: 28d
-                - ~text/: 28d
+                - ~text/: 1h
                 - ~image/: 28d
             - server:
                 - server_name: {{ website }}.opensuse.org

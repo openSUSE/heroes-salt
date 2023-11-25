@@ -49,7 +49,7 @@ profile:
       ignite.opensuse.org:
         repo: https://github.com/openSUSE/fuel-ignition.git
         branch: gh-pages
-      mirrors-static.opensuse.org:
+      mirrors.opensuse.org:
         repo: https://github.com/openSUSE/mirrors-static.git
         branch: main
     server_list:
