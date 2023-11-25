@@ -95,9 +95,7 @@ salt:
       - transactional_update
       - direct_call
     {%- endif %}
-    {%- if salt['disk.get_fstype_from_path']('/') == 'btrfs' %}
     snapper_states: true
-    {%- endif %}
     features:
         x509_v2: true
 sshd_config:
