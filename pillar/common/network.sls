@@ -117,7 +117,7 @@ network:
 
 {%- endif %} {#- close inner ip4/ip6/reduced_interfaces check #}
 
-{#- if a main network segment is available, use it to configure default routes. if legacy IP configuration is enabled, use it to configure blackholes. #}
+{#- if a main network segment is available or legacy IP configuration is enabled, configure routes #}
 {%- if shortnet or do_legacy %}
 {%- set net_ns = namespace(network=None) %}
 {#- find the network segment matching the previously assessed short name #}
@@ -143,15 +143,45 @@ network:
       gateway: '{{ network['gw6'] }}'
     {%- endif %}
 
+    {%- if do_legacy %}           {#- v PRG2 NAT64      v PRG2 os-public   v ???               v ???               v ??? #}
+    {%- set common_destinations = ['172.16.164.0/24', '172.16.130.0/24', '192.168.252.0/24', '192.168.253.0/24', '192.168.254.0/24'] %}
+
+    {#- install default routes on machines in Provo which use external default gateways #}
+    {%- if country == 'us' %}        {#- v NUE QSC #}
+    {%- do common_destinations.append('192.168.87.0/24') %}
+    default4:
+      gateway: 91.193.113.94
+    default6:
+      gateway: 2a07:de40:401::1
+    {#- install legacy internal routes through provo-gate on such machines #}
+    {%- for destination_network in common_destinations %}
+    {{ destination_network }}:
+      gateway: 192.168.67.20
+    {%- endfor %}
+
+    {%- elif country == 'de-qsc' %}   {# v PRV              v os-p2p-nue1/1    v os-p2p-nue1/2 #}
+    {%- do common_destinations.extend(['192.168.67.0/24', '172.16.201.0/31', '172.16.202.0/31']) %}
+    {#- install default routes on machines in Nuremberg (QSC) which use external default gateways #}
+    default4:
+      gateway: 62.146.92.201
+    default6:
+      gateway: 2a01:138:a004::1
+    {#- install legacy internal routes through stonehat on such machines #}
+    {%- for destination_network in common_destinations %} 
+    {{ destination_network }}:
+      gateway: 192.168.87.1
+    {%- endfor %}
+
+    {%- endif %} {#- close country check #}
+
     {#-
       for machines in locations we have not yet equipped with internal IPv6 routing, but which have an IPv6 route to the internet, install a blackhole route to our os-internal network in PRG2
       this allows machines in these locations which have an IPv6 route to the internet to communicate with internal services in PRG2 via IPv4 instead of sending affected packets to the internet (which either leads to timeouts or stuck sessions, since we do not allow internal services to be reached over the internet)
     #}
-    {%- if do_legacy %}
     2a07:de40:b27e:1203::/64:
       options:
         - blackhole
-    {%- endif %}
+    {%- endif %} {#- close do_legacy check #}
 {%- endif %} {#- close network check #}
 {%- endif %} {#- close shortnet check #}
 
