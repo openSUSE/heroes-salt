@@ -14,6 +14,7 @@ grains:
     - lrupp
   partners:
     - status2.opensuse.org
+    - status3.opensuse.org
   weburls:
     - https://status.opensuse.org
     - https://status1.opensuse.org
