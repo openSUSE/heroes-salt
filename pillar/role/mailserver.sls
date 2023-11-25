@@ -126,10 +126,10 @@ profile:
       smtpbol_destination_recipient_limit: 1
       smtpbol_destination_concurrency_failed_cohort_limit: 10
       # just a general slow rate
-      smtpslw_destination_concurrency_limit: 1
-      smtpslw_destination_rate_delay: 60s
-      smtpslw_destination_recipient_limit: 1
-      smtpslw_destination_concurrency_failed_cohort_limit: 10
+      smtpslow_destination_concurrency_limit: 1
+      smtpslow_destination_rate_delay: 60s
+      smtpslow_destination_recipient_limit: 1
+      smtpslow_destination_concurrency_failed_cohort_limit: 10
       # poo#135779 gmail rate limit
       smtpv6o_destination_concurrency_limit: 1
       smtpv6o_destination_rate_delay: 1s
