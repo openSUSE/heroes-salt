@@ -1,8 +1,8 @@
-{%- set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
+{%- set osmajorrelease = salt['grains.get']('osmajorrelease') %}
 {%- from slspath ~ '/map.jinja' import leap_equivalent %}
 
 include:
-  - .{{ osmajorrelease }}
+  - '.{{ osmajorrelease }}'
 
 zypper:
   repositories:
