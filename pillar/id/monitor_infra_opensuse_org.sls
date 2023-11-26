@@ -20,3 +20,4 @@ roles:
   - ircbot
   - syslog
   - monitoring
+  - monitoring.master
