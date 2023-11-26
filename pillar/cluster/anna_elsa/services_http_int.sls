@@ -8,9 +8,6 @@ haproxy:
         - is_ssl                 fc_rcvd_proxy
         - via_atlas              hdr(host) -i events.opensuse.org
         - via_atlas              hdr(host) -i events-test.opensuse.org
-        - is_download            hdr(host) -i download.opensuse.org
-        - is_download            hdr(host) -i download.infra.opensuse.org
-        - is_download            hdr(host) -i widehat.opensuse.org
         - via_atlas              hdr(host) -i elections.opensuse.org
         - via_atlas              hdr(host) -i hackweek.opensuse.org
         - is_hydra               hdr(host) -i hydra.opensuse.org
@@ -18,7 +15,6 @@ haproxy:
         - via_atlas              hdr(host) -i {{ wiki }}.opensuse.org
         {%- endfor %}
         - via_atlas              hdr(host) -i progress.opensuse.org
-        - is_smt                 hdr(host) -i smt-internal.infra.opensuse.org
         - via_atlas              hdr(host) -i en-test.opensuse.org
         - via_atlas              hdr(host) -i tsp.opensuse.org
         - via_atlas              hdr(host) -i tsp-test.opensuse.org
@@ -26,7 +22,5 @@ haproxy:
       default_backend: redirect_www_o_o
       use_backends:
         - error_403        if path_dot_scm
-        - download-private if is_download
         - hydra            if is_hydra
-        - smt              if is_smt
         - via_atlas        if via_atlas

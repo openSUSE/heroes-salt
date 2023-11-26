@@ -10,26 +10,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    download:
-      options:
-        - forwardfor header X-Forwarded-999
-        - tcpka
-      {{ server('download', '195.135.221.134') }}
-    download-private:
-      {{ options() }}
-      {{ server('download-private', '192.168.47.73') }}
-    smt:
-      {{ options() }}
-      {{ server('smt-internal', '195.135.221.141') }}
-    mirrorlist:
-      {{ options() }}
-      {{ server('olaf', '192.168.47.17') }}
-    mirrorcache:
-      {{ options() }}
-      {{ server('mirrorcache', '192.168.47.23', 3000) }}
-    mirrorcache-eu:
-      {{ options() }}
-      {{ server('mirrorcache2', '192.168.47.28', 3000) }}
     hydra:
       stats:
         enable: true

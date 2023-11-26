@@ -15,18 +15,12 @@ haproxy:
         {%- for host_hydra in ['hydra', 'anna', 'elsa', 'proxy-ipx1'] %}
         - is_hydra               hdr(host)     -i {{ host_hydra }}.opensuse.org
         {%- endfor %}
-        - is_mirrorlist          hdr(host)     -i mirror.opensuse.org
-        - is_mirrorlist          hdr(host)     -i mirrors.opensuse.org
-        - is_mirrorlist          hdr(host)     -i mirrordb.opensuse.org
-        - is_mirrorcache         hdr(host)     -i mirrorcache.opensuse.org
-        - is_mirrorcache_eu      hdr(host)     -i mirrorcache-eu.opensuse.org
-        - is_download_o_o        hdr(host)     -i download.opensuse.org
         - is_graylog             hdr(host)     -i graylog.opensuse.org
         - is_redirect_itsself    hdr(host)     -i redirector.opensuse.org
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
 
       redirects:
-        - scheme https code 301  if !is_ssl !is_mirrorcache !is_mirrorcache_eu !is_download_o_o
+        - scheme https code 301  if !is_ssl
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon is_www
         - code 301 location https://www.opensuse.org if is_redirect_itsself
 
@@ -36,7 +30,3 @@ haproxy:
         - security_txt     if path_security
         - jenkins          if is_jenkins
         - hydra            if is_hydra is_ssl
-        - mirrorlist       if is_mirrorlist
-        - mirrorcache      if is_mirrorcache
-        - mirrorcache      if is_download_o_o
-        - mirrorcache-eu   if is_mirrorcache_eu
