@@ -28,14 +28,17 @@ gen_ssl () {
 
 	while read -r cert
 	do
-		out="$cert"
-		if [ -d "$out" ]
+		if [ ! -z "$cert" ]
 		then
-			out="${cert}example.com.pem"
-		fi
-		if [ ! -f "$out" ]
-		then
-			cat test/fixtures/domain.{crt,key} > "$out"
+			out="$cert"
+			if [ -d "$out" ]
+			then
+				out="${cert}example.com.pem"
+			fi
+			if [ ! -f "$out" ]
+			then
+				cat test/fixtures/domain.{crt,key} > "$out"
+			fi
 		fi
 	done <<< "$(grep -hoPr '/etc/(ssl/services/(.*.pem|)|haproxy/.*.crt)' pillar/cluster/$1/)"
 }
