@@ -4,7 +4,9 @@
 allow-from={{ ', '.join(config.allow_from) }}
 {%- endif %}
 dnssec=validate
+{%- if 'local_address' in config %}
 local-address={{ ', '.join(config.local_address) }}
+{%- endif %}
 log-common-errors=yes
 query-local-address=::, 0.0.0.0
 setgid=pdns
@@ -12,7 +14,9 @@ setuid=pdns
 server-id=Enjoy openSUSE
 structured-logging-backend=systemd-journal
 webserver=yes
+{%- if 'webserver_address' in config %}
 webserver-address={{ config.webserver_address }}
+{%- endif %}
 {%- if 'webserver_allow_from' in config %}
 webserver-allow-from={{ ', '.join(config.webserver_allow_from) }}
 {%- endif %}
