@@ -10,11 +10,9 @@ haproxy:
         - via_atlas              hdr(host) -i events-test.opensuse.org
         - via_atlas              hdr(host) -i elections.opensuse.org
         - via_atlas              hdr(host) -i hackweek.opensuse.org
-        - is_hydra               hdr(host) -i hydra.opensuse.org
         {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw'] %}
         - via_atlas              hdr(host) -i {{ wiki }}.opensuse.org
         {%- endfor %}
-        - via_atlas              hdr(host) -i progress.opensuse.org
         - via_atlas              hdr(host) -i en-test.opensuse.org
         - via_atlas              hdr(host) -i tsp.opensuse.org
         - via_atlas              hdr(host) -i tsp-test.opensuse.org
@@ -22,5 +20,4 @@ haproxy:
       default_backend: redirect_www_o_o
       use_backends:
         - error_403        if path_dot_scm
-        - hydra            if is_hydra
         - via_atlas        if via_atlas
