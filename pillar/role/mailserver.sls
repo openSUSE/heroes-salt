@@ -92,10 +92,6 @@ profile:
         lmdb:/etc/postfix/virtual-opensuse-users,
         lmdb:/etc/postfix/virtual-opensuse-mailinglists
       relay_domains: 'code.opensuse.org,forums.opensuse.org,lists.opensuse.org,lists.uyuni-project.org'
-      smtpslow_destination_concurrency_limit: 20
-      smtpslow_destination_rate_delay: '1s'
-      smtpslow_destination_recipient_limit: 10
-      smtpslow_destination_concurrency_failed_cohort_limit: 10
       smtpcox_destination_concurrency_limit: 2
       smtpcox_destination_rate_delay: '615s'
       smtpcox_destination_recipient_limit: 10
