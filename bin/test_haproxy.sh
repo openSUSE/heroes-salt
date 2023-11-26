@@ -138,9 +138,7 @@ fi
 
 if [ "$counter_wobbly" -gt 0 ]
 then
-	# https://gitlab.com/gitlab-org/gitlab-runner/-/issues/28658
-	exit 0
-	# exit 2
+	exit 2
 fi
 
 exit 0

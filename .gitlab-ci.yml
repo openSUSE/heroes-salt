@@ -48,8 +48,6 @@ test_haproxy:
     - bin/replace_secrets.sh
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f haproxy
   script: bin/test_haproxy.sh
-  allow_failure:
-    exit_codes: 2
   tags:
     - docker
   artifacts:
