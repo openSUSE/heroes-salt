@@ -28,7 +28,7 @@ gen_ssl () {
 
 	while read -r cert
 	do
-		if [ ! -z "$cert" ]
+		if [ -n "$cert" ]
 		then
 			out="$cert"
 			if [ -d "$out" ]
