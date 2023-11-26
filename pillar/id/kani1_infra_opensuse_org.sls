@@ -15,4 +15,5 @@ grains:
   partners:
     - kani2.infra.opensuse.org
   weburls: []
-roles: []
+roles:
+  - kanidm
