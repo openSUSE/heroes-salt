@@ -14,4 +14,5 @@ grains:
   partners: []
   weburls:
     - https://osc-collab.opensuse.org/
-roles: []
+roles:
+  - osc-collab
