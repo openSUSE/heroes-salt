@@ -137,6 +137,7 @@ salt $(hostname) mine.update
 reset_role() {
     cp "$IDFILE_BASE" "$IDFILE"
     printf "roles:\n- $role" >> "$IDFILE"
+    salt --out=raw --out-file=/dev/null $(hostname) saltutil.refresh_pillar
 }
 
 succeeded_roles=""
