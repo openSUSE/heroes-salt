@@ -22,7 +22,7 @@ vpn_gateway_config:
 vpn_gateway_login_directory:
   file.directory:
     - name: /var/log/vpn_logins
-    - owner: nobody
+    - user: nobody
     - group: wheel
     - mode: '0750'
 
