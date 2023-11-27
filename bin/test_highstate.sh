@@ -86,6 +86,10 @@ useradd tsp
 groupadd elasticsearch
 useradd elasticsearch
 
+# mirrorcache packages not available
+mkdir /etc/mirrorcache
+touch /etc/mirrorcache/conf.{env,ini}
+
 # === END role-specific workarounds ===
 
 cp test/fixtures/minion* /etc/salt/pki/minion/
