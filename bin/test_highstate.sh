@@ -125,6 +125,8 @@ IDFILE="pillar/id/$(hostname).sls"
 
 echo "  virt_cluster: test" >> "$IDFILE"
 sed s/runner/$(hostname)/ test/pillar/clusters.yaml >> "$IDFILE"
+cat test/pillar/mirrorcache.sls >> "$IDFILE"
+
 echo "== $IDFILE =="
 cat "$IDFILE"
 echo "== $IDFILE END =="
