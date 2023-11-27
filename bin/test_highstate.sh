@@ -113,6 +113,7 @@ salt-call test.ping
 
 mkdir pillar/cluster/test
 cp test/pillar/suse_ha.sls pillar/cluster/test/init.sls
+sed s/runner/$(hostname)/ test/pillar/clusters.yaml >> pillar/infra/clusters.yaml
 
 sed -i -e '/virtual/d' -e '/virt_cluster/ s/:.*/: test/' /etc/salt/grains
 echo "== /etc/salt/grains =="

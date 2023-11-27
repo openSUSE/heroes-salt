@@ -1,0 +1,4 @@
+test:
+  nodes:
+    - runner
+  primary_node: runner
