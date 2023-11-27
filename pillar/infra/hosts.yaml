@@ -292,7 +292,7 @@ gitlab-runner1:
       source: x-os-internal
   legacy_boot: true
   ram: 8192MB
-  vcpu: 4
+  vcpu: 12
 gitlab-runner2:
   cluster: falkor
   disks:
@@ -306,7 +306,7 @@ gitlab-runner2:
       source: x-os-internal
   legacy_boot: true
   ram: 8192MB
-  vcpu: 4
+  vcpu: 12
 hel1:
   cluster: falkor
   disks:
