@@ -15,19 +15,6 @@ include:
     - watch_in:
       - service: postfix
 
-{% for crt in [
-  'star_opensuse_org_ecdsa_letsencrypt.crt',
-  'star_opensuse_org_ecdsa_letsencrypt_key.pem',
-  'star_opensuse_org_rsa_letsencrypt.crt',
-  'star_opensuse_org_rsa_letsencrypt_key.pem',
-  'LetsEncryptCA_chain.crt'
-] %}
-/etc/postfix/{{crt}}:
-  file.exists:
-    - require_in:
-      - service: postfix
-{% endfor %}
-
 {% for file in [
   'handling_special_recipients',
   'manually-blocked-users',
