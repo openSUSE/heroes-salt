@@ -1,5 +1,4 @@
 include:
-  - profile.crtmgr
   - profile.pagure.redis
   - .nginx
 
