@@ -20,7 +20,14 @@ pgbouncer_config:
 {%- endif %}
 #}
 
-{%- set source = 'salt://profile/pgbouncer/files/' ~ grains['host'][:-1] %}
+{%- set host = grains['host'] %}
+{%- if host.startswith('runner-') %}
+{%- set cluster = 'hel' %} {#- use an arbitrary cluster for the CI test #}
+{%- else %}
+{%- set cluster = grains['host'][:-1] %}
+{%- endif %}
+
+{%- set source = 'salt://profile/pgbouncer/files/' ~ cluster %}
 
 pgbouncer_config:
   file.managed:
