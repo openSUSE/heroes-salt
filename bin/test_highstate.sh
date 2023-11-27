@@ -97,6 +97,9 @@ pushd $PWD/salt/profile/vpn/openvpn/files/
 ln -s odin $(hostname)
 popd
 
+# secrets for nameserver.primary
+cat pillar/secrets/id/chip_infra_opensuse_org.sls >> pillar/secrets/id/$(hostname).sls
+
 # === END role-specific workarounds ===
 
 cp test/fixtures/minion* /etc/salt/pki/minion/
