@@ -93,6 +93,9 @@ touch /etc/mirrorcache/conf.{env,ini}
 # dummy OpenVPN user
 mkdir -p /etc/openvpn/ccd-tcp
 echo '1204::100' > /etc/openvpn/ccd-tcp/foo
+pushd $PWD/salt/profile/vpn/openvpn/files/
+ln -s odin $(hostname)
+popd
 
 # === END role-specific workarounds ===
 
