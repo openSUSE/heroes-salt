@@ -67,7 +67,9 @@ useradd mirrorcache
 useradd mirrors_static
 # mirrors_static error:   salt.exceptions.CommandExecutionError: Specified cwd '/home/mirrors_static/git/mirrors_static' either not absolute or does not exist
 mkdir -p /home/mirrors_static/git/mirrors_static/
-(cd /home/mirrors_static/git/mirrors_static/ && git init)
+# git.set_config needs (even in test mode) a fully valid git repo with at least one commit
+(cd /home/mirrors_static/git/mirrors_static/ && git init && git config user.email 'user@example.com' && touch foo && git add foo && git commit -m 'add foo')
+chown -R mirrors_static /home/mirrors_static/git/mirrors_static/
 
 # nameserver.recursor, warning only
 groupadd pdns
