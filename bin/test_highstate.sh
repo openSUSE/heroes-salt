@@ -90,6 +90,10 @@ useradd elasticsearch
 mkdir /etc/mirrorcache
 touch /etc/mirrorcache/conf.{env,ini}
 
+# dummy OpenVPN user
+mkdir -p /etc/openvpn/ccd-tcp
+echo '1204::100' > /etc/openvpn/ccd-tcp/foo
+
 # === END role-specific workarounds ===
 
 cp test/fixtures/minion* /etc/salt/pki/minion/
