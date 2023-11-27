@@ -46,7 +46,7 @@ haproxy:
                   'X-Forwarded-For', '^X-Forwarded-(Proto|Ssl).*', '^HTTPS.*'
                 ],
                 'add-header': [
-                  'HTTPS on if is_ssl', 'X-Forwarded-Ssl on if is_ssl', 'X-Forwarded-Proto https if is_ssl !is_www',
+                  'HTTPS on if is_ssl', 'X-Forwarded-Ssl on if is_ssl', 'X-Forwarded-Proto https if is_ssl',
                   'X-Forwarded-Protocol https if is_ssl', 'X-Forwarded-Proto http unless is_ssl', 'X-Forwarded-Protocol http unless is_ssl'
                 ],
                 'deny': [
@@ -57,7 +57,7 @@ haproxy:
                   'X-Powered-By', 'Server'
                 ],
                 'set-header': [
-                  'X-Frame-Options SAMEORIGIN if is_ssl !no_x-frame-option', 'X-XSS-Protection "1; mode=block" if is_ssl', 'X-Content-Type-Options nosniff if is_ssl',
+                  'X-Frame-Options SAMEORIGIN if is_ssl', 'X-XSS-Protection "1; mode=block" if is_ssl', 'X-Content-Type-Options nosniff if is_ssl',
                   'Referrer-Policy no-referrer-when-downgrade if is_ssl', 'Strict-Transport-Security max-age=15768000'
                 ] }
         }) }}

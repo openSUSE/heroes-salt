@@ -10,14 +10,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    hydra:
-      stats:
-        enable: true
-        hide-version: ''
-        uri: /
-        refresh: 5s
-        realm: Monitor
-        auth: '"$STATS_USER":"$STATS_PASSPHRASE"'
     jenkins:
       options:
         - forwardfor
