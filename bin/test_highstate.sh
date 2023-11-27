@@ -4,32 +4,15 @@
 
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
 
-# systemctl refuses to work in a container, but is needed by service.running. Replace it with /usr/bin/true to avoid useless error messages
-# -> now using   salt-call --module-executors='[direct_call]'   instead of this workaround
-# ( cd /usr/bin/ ; ln -sf true systemctl )
-
 # sysctl: cannot stat /proc/sys/net/core/netdev_max_backlog (and some other /proc files): No such file or directory
 ( cd /sbin/ ; ln -sf /usr/bin/true sysctl )
 
-# timedatectl failed: System has not been booted with systemd as init system (PID 1). Can't operate.
-# output needed
-( cd /usr/bin/ ; ( echo '#!/bin/sh' ; echo 'echo "               Local time: Sun 2023-11-19 16:43:25 UTC
-           Universal time: Sun 2023-11-19 16:43:25 UTC
-                 RTC time: Sun 2023-11-19 16:43:24
-                Time zone: UTC (UTC, +0000)
-System clock synchronized: yes
-              NTP service: active
-          RTC in local TZ: no"' ) > timedatectl ; chmod +x timedatectl)
-
 echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
-
 
 source bin/get_colors.sh
 
 # cronie for /usr/bin/crontab (needed by salt to read existing crontab)
 zypper in -y kmod cronie
-
-zypper in salt-master
 
 rm -v /etc/zypp/repos.d/*.repo
 
@@ -90,7 +73,7 @@ groupadd postgres
 # saltmaster, error in git.cloned
 useradd cloneboy
 # saltmaster, error:   fatal: detected dubious ownership in repository at '/builds/infra/salt'
-mkdir -p /builds/infra/salt
+#mkdir -p /builds/infra/salt
 
 # - static_master, warning only
 # - web_static, warning only
@@ -105,12 +88,36 @@ useradd elasticsearch
 
 # === END role-specific workarounds ===
 
+cp test/fixtures/minion* /etc/salt/pki/minion/
+cp /etc/salt/pki/minion/minion.pub /etc/salt/pki/master/minions/$(hostname)
+
+install -o salt -g salt -d -m 0750 /var/log/salt
+chown -R salt: /var/cache/salt/master
+
+tee >/etc/salt/master <<EOF
+file_roots:
+  base:
+  - /srv/salt
+  - /usr/share/salt-formulas/states
+interface: 127.0.0.1
+log_level: info
+user: salt
+EOF
+systemctl start salt-master
+tee >/etc/salt/minion <<EOF
+master: 127.0.0.1
+#log_level: info
+EOF
+systemctl start salt-minion
+salt-call test.ping
+
+mkdir pillar/cluster/test
+cp test/pillar/suse_ha.sls pillar/cluster/test/init.sls
 
 sed -i -e '/virtual/d' -e '/virt_cluster/ s/:.*/: test/' /etc/salt/grains
 echo "== /etc/salt/grains =="
 cat "/etc/salt/grains"
 echo "== /etc/salt/grains END =="
-
 
 IDFILE="pillar/id/$(hostname).sls"
 
@@ -122,6 +129,10 @@ echo "== $IDFILE END =="
 IDFILE_BASE="$IDFILE.base.sls"
 
 cp "$IDFILE" "$IDFILE_BASE"
+
+salt $(hostname) saltutil.refresh_grains
+salt $(hostname) saltutil.refresh_pillar
+salt $(hostname) mine.update
 
 reset_role() {
     cp "$IDFILE_BASE" "$IDFILE"
@@ -144,8 +155,7 @@ for role in $(bin/get_roles.py); do
 
     reset_role
 
-    # --module-executors='[direct_call]' should solve "Cannot run in offline mode. Failed to get information on unit", see https://www.reddit.com/r/saltstack/comments/vu8d5t/systemd_offline/ - but in practise it doesn't
-    salt-call --local --module-executors='[direct_call]' state.highstate --retcode-passthrough --state-output=full --output-diff test=True >> "$out"
+    salt-call --retcode-passthrough --state-output=full --output-diff state.apply test=True >> "$out"
     rolestatus=$?
     echo >> "$out"
 
@@ -162,6 +172,9 @@ for role in $(bin/get_roles.py); do
 
     echo "END OF $role" >> "$out"
 done
+
+cp /var/log/salt/minion minion_log.txt
+cp /var/log/salt/master master_log.txt
 
 echo "succeeded roles ($(echo $succeeded_roles | wc -w)): $succeeded_roles"
 echo
