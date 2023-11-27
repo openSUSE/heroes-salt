@@ -23,8 +23,8 @@ haproxy_errorfiles:
     - require:
       - haproxy.install
 
-{%- if salt['grains.get']('include_secrets', True) %}
-{%- set secrets = salt['pillar.get']('profile:proxy:haproxy:secrets') %}
+{%- set secrets = salt['pillar.get']('profile:proxy:haproxy:secrets', {}) %}
+{%- if 'stats_user' in secrets and 'stats_passphrase' in secrets and salt['grains.get']('include_secrets', True) %}
 haproxy_sysconfig_variables:
   file.keyvalue:
     - name: /etc/sysconfig/haproxy
