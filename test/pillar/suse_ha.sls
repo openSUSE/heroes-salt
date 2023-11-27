@@ -6,6 +6,7 @@ mine_functions:
 suse_ha:
   cluster:
     name: runner
+    nodeid: 1
   fencing:
     stonith_enable: false
     sbd:
@@ -15,7 +16,8 @@ suse_ha:
         test1:
           pcmk_host_check: static-list
   multicast:
-    address: ff00:1::
+    address: 'ff00:1::'
+    bind_address: fd4b:5292::1
   sysconfig:
     sbd:
       SBD_WATCHDOG_DEV: /dev/watchdog
