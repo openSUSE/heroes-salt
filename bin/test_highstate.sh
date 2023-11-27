@@ -12,7 +12,7 @@ echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
 source bin/get_colors.sh
 
 # cronie for /usr/bin/crontab (needed by salt to read existing crontab), PyMySQL for the mysql module to load, postsrsd/postgrey to provide their sysconfig files, system-user-mail to avoid warnings about the mail group not existing while creating more users, python3-ldap for the ldap3 module to load
-zypper in -y kmod cronie python3-PyMySQL postsrsd postgrey system-user-mail python3-ldap
+zypper in -y kmod cronie python3-PyMySQL postsrsd postgrey system-user-mail python3-ldap mariadb redis7
 
 rm -v /etc/zypp/repos.d/*.repo
 
@@ -136,6 +136,9 @@ cp "$IDFILE" "$IDFILE_BASE"
 salt $(hostname) saltutil.refresh_grains
 salt $(hostname) saltutil.refresh_pillar
 salt $(hostname) mine.update
+
+printf '[mysqld]\nskip-grant-tables\n' > /etc/my.cnf.d/danger.cnf
+systemctl start mariadb
 
 reset_role() {
     cp "$IDFILE_BASE" "$IDFILE"
