@@ -10,12 +10,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
-    jenkins:
-      options:
-        - forwardfor
-        - httpchk
-      {{ httpcheck('ci.opensuse.org', 200) }}
-      {{ server('ci-opensuse', '192.168.47.77', 8080) }}
     security_txt:
       mode: http
       options:
