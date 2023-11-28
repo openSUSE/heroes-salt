@@ -65,6 +65,9 @@ useradd pdns
 # paste, error
 useradd paste
 
+# pagure, warning only
+groupadd git
+
 # pgbouncer, warning only
 groupadd pgbouncer
 
