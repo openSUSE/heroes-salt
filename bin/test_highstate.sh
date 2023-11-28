@@ -77,7 +77,7 @@ groupadd postgres
 # saltmaster, error in git.cloned
 useradd cloneboy
 # saltmaster, error:   fatal: detected dubious ownership in repository at '/builds/infra/salt'
-#mkdir -p /builds/infra/salt
+git config --system --add safe.directory /builds/infra/salt
 
 # - static_master, warning only
 # - web_static, warning only
