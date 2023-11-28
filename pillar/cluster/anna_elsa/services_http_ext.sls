@@ -7,7 +7,6 @@ haproxy:
         - path_dot_scm           path_beg      /.svn/
         - path_dot_scm           path_beg      /.bzr/
         - path_security          path_end      /.well-known/security.txt
-        - is_jenkins             hdr(host)     -i ci.opensuse.org
         - is_hackweeksc          hdr(host)     -i hackweek.suse.com  # unused
         - is_test_wiki           hdr(host)     -i en-test.opensuse.org
 
@@ -18,4 +17,3 @@ haproxy:
       use_backends:
         - error_403        if path_dot_scm
         - security_txt     if path_security
-        - jenkins          if is_jenkins
