@@ -31,6 +31,9 @@ include:
 {%- set bind_v6_mx = { 'atlas1': ['2a07:de40:b27e:1204::51'], 'atlas2': ['2a07:de40:b27e:1204::52'] } %}
 {%- set bind_v4_mx = { 'atlas1': ['172.16.130.51'], 'atlas2': ['172.16.130.52'] } %}
 
+{#- login #}
+{%- set bind_v6_login = { 'atlas1': ['2a07:de40:b27e:1204::8'], 'atlas2': ['2a07:de40:b27e:1204::9'] } %}
+
 haproxy:
   frontends:
     http:
@@ -67,6 +70,11 @@ haproxy:
           - X-Content-Type-Options nosniff if is_ssl
           - Referrer-Policy no-referrer-when-downgrade if is_ssl
           - Strict-Transport-Security max-age=15768000
+
+    http-login:
+      bind:
+        {{ bind(bind_v6, 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
+
     http-misc:
       bind:
         {{ bind(bind_v6_vip2, 80, 'v6only ' ~ bindopts) }}
