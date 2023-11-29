@@ -207,6 +207,29 @@ haproxy:
         - code 301 prefix   https://de.opensuse.org                          if host_redirect_wiki_de
         - code 301 prefix   https://languages.opensuse.org                   if host_redirect_wiki_gone
 
+    # services routed from login proxies
+    http-login:
+      acls:                              # daffy1              # daffy2
+        - src_login         src          2a07:de40:b280:86::11 2a07:de40:b280:86::12
+
+        - host_dale         hdr(host)    events.opensuse.org
+        - host_dale         hdr(host)    events-test.opensuse.org
+        - host_elections    hdr(host)    elections.opensuse.org
+        - host_tsp          hdr(host)    tsp.opensuse.org
+        - host_tsp          hdr(host)    tsp-test.opensuse.org
+        {%- for wiki in [
+              'cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'
+            ]
+        %}
+        - host_mediawiki    hdr(host)    {{ wiki }}.opensuse.org
+        {%- endfor %}
+
+      use_backends:
+        - dale              if src_login host_dale
+        - elections         if src_login host_elections
+        - tsp               if src_login host_tsp
+        - riesling          if src_login host_mediawiki
+
     http-misc:
       acls:
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
