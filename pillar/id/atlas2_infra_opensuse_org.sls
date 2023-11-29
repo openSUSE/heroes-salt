@@ -22,7 +22,7 @@ network:
   interfaces:
     os-public:
       addresses:
-        - 2a07:de40:b27e:1204::9/64   # login
+        - 2a07:de40:b27e:1204::9/64   # atlas-login2.i.o.o
         - 2a07:de40:b27e:1204::52/64  # mx2.o.o
         - 172.16.130.52/24
   routes:
