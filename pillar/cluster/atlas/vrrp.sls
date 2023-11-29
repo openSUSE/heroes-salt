@@ -24,6 +24,7 @@
 {%- set vips = {'vip4': '172.16.130.10', 'vip6': '2a07:de40:b27e:1204::10'} %}
 {%- set vips2 = {'vip4': '172.16.130.13', 'vip6': '2a07:de40:b27e:1204::13'} %}
 {%- set vips3 = {'vip4': '172.16.130.14', 'vip6': '2a07:de40:b27e:1204::14'} %}
+{%- set vip_login = {'vip4': None, 'vip6': '2a07:de40:b27e:1204::7' } %}
 
 keepalived:
   config:
@@ -44,6 +45,9 @@ keepalived:
           - {{ vips['vip' ~ instance] }} dev os-public
           - {{ vips2['vip' ~ instance] }} dev os-public
           - {{ vips3['vip' ~ instance] }} dev os-public
+          {%- if instance == 6 %} {#- TODO: better logic for VIPs using only a single address family #}
+          - {{ vip_login['vip' ~ instance] }} dev os-public
+          {%- endif %}
         track_interface:
           - os-public
           - d-os-public

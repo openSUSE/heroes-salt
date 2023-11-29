@@ -32,7 +32,8 @@ include:
 {%- set bind_v4_mx = { 'atlas1': ['172.16.130.51'], 'atlas2': ['172.16.130.52'] } %}
 
 {#- login #}
-{%- set bind_v6_login = { 'atlas1': ['2a07:de40:b27e:1204::8'], 'atlas2': ['2a07:de40:b27e:1204::9'] } %}
+{%- set bind_v6_login_vip = ['2a07:de40:b27e:1204::7'] %}
+{%- set bind_v6_login = { 'atlas1': bind_v6_login_vip + ['2a07:de40:b27e:1204::8'], 'atlas2': bind_v6_login_vip + ['2a07:de40:b27e:1204::9'] } %}
 
 haproxy:
   frontends:
