@@ -8,8 +8,22 @@
 {%- set country = grains.get('country') %}
 {%- set networks = country_networks.get(country, {}) %}
 
+{#- locations without internal IPv6 routing (https://progress.opensuse.org/issues/151192) #}
+{%- set legacy_countries = ['de-qsc', 'us'] %}
+{#- gateway machines which have internal IPv6 routing, as opposed to other machines in the legacy countries #}
+{%- set legacy_excludes = {'de-qsc': ['stonehat'], 'us': ['provo-gate']} %}
+{%- set ip6_gw = grains['ip6_gw'] %}
+
 {%- set msg = 'common.network, host ' ~ host ~ ': ' %}
 {%- set log = salt.log.debug %}
+
+{#- check if machine needs modern or legacy IP configuration #}
+{%- if country in legacy_countries and not host in legacy_excludes.get(country, []) and ip6_gw %}
+{%- set do_legacy = True %}
+{%- else %}
+{%- set do_legacy = False %}
+{%- endif %}
+{%- do log(msg ~ 'do_legacy: ' ~ do_legacy) %}
 
 {#- start main logic if the minion is listed in hosts.yaml, otherwise none of the below will be executed #}
 {%- if host in hosts %}
@@ -68,7 +82,7 @@
 {%- endif %} {#- close host in hosts check #}
 
 {#- configure interfaces if the previous logic found any with usable IP addresses #}
-{%- if country in country_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces %}
+{%- if country in country_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces or do_legacy %}
 network:
 
 {%- if ip4 is not none or ip6 is not none or reduced_interfaces %}
@@ -103,8 +117,8 @@ network:
 
 {%- endif %} {#- close inner ip4/ip6/reduced_interfaces check #}
 
-{#- if a main network segment is available, use it to configure default routes #}
-{%- if shortnet %}
+{#- if a main network segment is available or legacy IP configuration is enabled, configure routes #}
+{%- if shortnet or do_legacy %}
 {%- set net_ns = namespace(network=None) %}
 {#- find the network segment matching the previously assessed short name #}
 {%- for network, config in networks.items() %}
@@ -118,7 +132,7 @@ network:
 {%- set network = networks.get(net_ns.network, {}) %}
 
 {#- if gateway entries for the respective segment were found, configure them as default routes #}
-{%- if 'gw4' in network or 'gw6' in network %}
+{%- if 'gw4' in network or 'gw6' in network or do_legacy %}
   routes:
     {%- if ip4 is not none and 'gw4' in network %}
     default4:
@@ -128,6 +142,46 @@ network:
     default6:
       gateway: '{{ network['gw6'] }}'
     {%- endif %}
+
+    {%- if do_legacy %}           {#- v PRG2 NAT64      v PRG2 os-public   v ???               v ???               v ??? #}
+    {%- set common_destinations = ['172.16.164.0/24', '172.16.130.0/24', '192.168.252.0/24', '192.168.253.0/24', '192.168.254.0/24'] %}
+
+    {#- install default routes on machines in Provo which use external default gateways #}
+    {%- if country == 'us' %}        {#- v NUE QSC #}
+    {%- do common_destinations.append('192.168.87.0/24') %}
+    default4:
+      gateway: 91.193.113.94
+    default6:
+      gateway: 2a07:de40:401::1
+    {#- install legacy internal routes through provo-gate on such machines #}
+    {%- for destination_network in common_destinations %}
+    {{ destination_network }}:
+      gateway: 192.168.67.20
+    {%- endfor %}
+
+    {%- elif country == 'de-qsc' %}   {# v PRV              v os-p2p-nue1/1    v os-p2p-nue1/2 #}
+    {%- do common_destinations.extend(['192.168.67.0/24', '172.16.201.0/31', '172.16.202.0/31']) %}
+    {#- install default routes on machines in Nuremberg (QSC) which use external default gateways #}
+    default4:
+      gateway: 62.146.92.201
+    default6:
+      gateway: 2a01:138:a004::1
+    {#- install legacy internal routes through stonehat on such machines #}
+    {%- for destination_network in common_destinations %} 
+    {{ destination_network }}:
+      gateway: 192.168.87.1
+    {%- endfor %}
+
+    {%- endif %} {#- close country check #}
+
+    {#-
+      for machines in locations we have not yet equipped with internal IPv6 routing, but which have an IPv6 route to the internet, install a blackhole route to our os-internal network in PRG2
+      this allows machines in these locations which have an IPv6 route to the internet to communicate with internal services in PRG2 via IPv4 instead of sending affected packets to the internet (which either leads to timeouts or stuck sessions, since we do not allow internal services to be reached over the internet)
+    #}
+    2a07:de40:b27e:1203::/64:
+      options:
+        - blackhole
+    {%- endif %} {#- close do_legacy check #}
 {%- endif %} {#- close network check #}
 {%- endif %} {#- close shortnet check #}
 
