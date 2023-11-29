@@ -73,7 +73,7 @@ haproxy:
 
     http-login:
       bind:
-        {{ bind(bind_v6, 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
+        {{ bind(bind_v6_login, 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
 
     http-misc:
       bind:
