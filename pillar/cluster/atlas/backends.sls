@@ -177,5 +177,5 @@ haproxy:
       {{ server('tsp', '2a07:de40:b27e:1203::b20') }}
     www_openid_ldap:
       {{ options() }}
-      {{ server('ldap-proxy', '2a07:de40:b27e:64::c0a8:2f03') }}
+      {{ server('ldap-proxy', 'id.opensuse.org', 443, extra_extra='ssl verify required ca-file /etc/ssl/ca-bundle.pem') }}
       mode: http
