@@ -7,9 +7,6 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
 
-        # login2.o.o via anna/elsa
-        - src_login         src         2a07:de40:b27e:64::c0a8:2f65 2a07:de40:b27e:64::c0a8:2f66
-
         - is_ssl            dst_port    443
 
         - path_dot_scm           path_beg    /.git/
@@ -42,8 +39,6 @@ haproxy:
         - host_counter      hdr_reg(host) -i count(er|down)\.opensuse\.org
         - host_doc          hdr(host)   -i doc.opensuse.org
         - host_etherpad     hdr(host)   -i etherpad.opensuse.org
-        - host_dale         hdr(host)   -i events.opensuse.org
-        - host_dale         hdr(host)   -i events-test.opensuse.org
         - host_deadservice  hdr(host)   -i connect.opensuse.org
         - host_deadservice  hdr(host)   -i fate.opensuse.org
         - host_deadservice  hdr(host)   -i features.opensuse.org
@@ -51,11 +46,9 @@ haproxy:
         - host_deadservice  hdr(host)   -i hellocf.opensuse.org
         - host_deadservice  hdr(host)   -i moodle.opensuse.org
         - host_deadservice  hdr(host)   -i users.opensuse.org
-        - host_elections    hdr(host)   -i elections.opensuse.org
         - host_forums       hdr(host)   -i forums.opensuse.org
         - host_gcc          hdr(host)   -i gcc.opensuse.org
         - host_get_o_o      hdr(host)   -i get.opensuse.org
-        - host_hackweek     hdr(host)   -i hackweek.opensuse.org
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
@@ -85,11 +78,6 @@ haproxy:
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
         {%- endfor %}
         - host_svn            hdr(host)   -i svn.opensuse.org
-        - host_tsp            hdr(host)   -i tsp.opensuse.org
-        - host_tsp            hdr(host)   -i tsp-test.opensuse.org
-        {%- for wiki in ['cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'] %}
-        - host_mediawiki    hdr(host) -i {{ wiki }}.opensuse.org
-        {%- endfor %}
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
@@ -136,12 +124,6 @@ haproxy:
         - pinot           if host_doc path_relnotes
         - www_openid_ldap if host_www path_openid
 
-        # hosts only reachable via login2.o.o
-        - dale            if src_login host_dale
-        - elections       if src_login host_elections
-        - tsp             if src_login host_tsp
-        - riesling        if src_login host_mediawiki
-
         # rules only depending on host_*
         - chat            if host_chat
         - conncheck       if host_conncheck
@@ -152,7 +134,6 @@ haproxy:
         - etherpad        if host_etherpad
         - forums          if host_forums
         - gccstats        if host_gcc
-        - hackweek        if host_hackweek
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - kubic           if host_kubic
         - kubic           if host_microos
