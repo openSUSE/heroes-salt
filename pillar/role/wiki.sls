@@ -18,7 +18,7 @@ apparmor:
 mediawiki:
   default_version: '1_37'
   elasticsearch_server: water4.infra.opensuse.org
-  mysql_server: 192.168.47.4:3307
+  mysql_server: mysql.infra.opensuse.org:3307
   max_upload_size: 10M # poo#111096
   wikis:
     # availale options:

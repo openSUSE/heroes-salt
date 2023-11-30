@@ -221,8 +221,8 @@ $wgGroupPermissions['user']['move'] = true;
 # make the real IPs visible to the wiki instead of the auth proxy (AccessManager) IPs. Without this, IP blocking blocks the proxy IP and therefore edits from everywhere.
 $wgUseSquid = true;
 $wgSquidServers = array();
-$wgSquidServers[] = '192.168.47.101';  # elsa.infra.o.o
-$wgSquidServers[] = '192.168.47.102';  # anna.infra.o.o
+$wgSquidServers[] = '2a07:de40:b27e:1204::11';  # atlas1.infra.o.o
+$wgSquidServers[] = '2a07:de40:b27e:1204::12';  # atlas2.infra.o.o
 
 # Category watching ----------------------------------
 # see https://www.mediawiki.org/wiki/Manual:CategoryMembershipChanges
