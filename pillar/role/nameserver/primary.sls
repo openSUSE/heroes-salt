@@ -7,8 +7,6 @@ include:
 
 {%- load_yaml as data %}
 also_notify:
-  - 2a07:de40:b27e:64::c0a8:2f66  # anna
-  - 2a07:de40:b27e:64::c0a8:2f65  # elsa
   - 2a07:de40:b27e:64::c0a8:4304  # provo-ns
   - 2a07:de40:b27e:64::c0a8:5701  # stonehat
   - 2a07:de40:b27e:64::c0a8:5705  # ipx-proxy1
@@ -16,8 +14,6 @@ also_notify:
   - 2a07:de40:b27e:1204::22       # prg-ns2
   - 2a07:de40:b27e:5002::186      # ipx-ns1 / qsc-ns3
 only_notify:
-  - 2a07:de40:b27e:64::c0a8:2f66/128
-  - 2a07:de40:b27e:64::c0a8:2f65/128
   - 2a07:de40:b27e:64::c0a8:4304/128
   - 2a07:de40:b27e:64::c0a8:5701/128
   - 2a07:de40:b27e:64::c0a8:5705/128
@@ -25,8 +21,6 @@ only_notify:
   - 2a07:de40:b27e:1204::22/128
   - 2a07:de40:b27e:5002::186/128
 allow_axfr:
-  - 2a07:de40:b27e:64::c0a8:2f66/128
-  - 2a07:de40:b27e:64::c0a8:2f65/128
   - 2a07:de40:b27e:64::c0a8:4304/128
   - 2a07:de40:b27e:64::c0a8:5701/128  # stonehat
   - 2a07:de40:b27e:64::c0a8:5705/128
