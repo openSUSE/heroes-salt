@@ -215,6 +215,7 @@ haproxy:
         - host_dale         hdr(host)    events.opensuse.org
         - host_dale         hdr(host)    events-test.opensuse.org
         - host_elections    hdr(host)    elections.opensuse.org
+        - host_hackweek     hdr(host)    hackweek.opensuse.org
         - host_tsp          hdr(host)    tsp.opensuse.org
         - host_tsp          hdr(host)    tsp-test.opensuse.org
         {%- for wiki in [
@@ -227,6 +228,7 @@ haproxy:
       use_backends:
         - dale              if src_login host_dale
         - elections         if src_login host_elections
+        - hackweek          if src_login host_hackweek
         - tsp               if src_login host_tsp
         - riesling          if src_login host_mediawiki
 
