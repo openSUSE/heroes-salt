@@ -13,7 +13,6 @@ grains:
   documentation:
   responsible:
     - lrupp
-  partners:
-    - scar.opensuse.org
+  partners: []
   weburls: []
 roles: []
