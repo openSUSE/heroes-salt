@@ -133,7 +133,10 @@ haproxy:
       mode: tcp
       options:
         - tcplog
+        - tcp-check
+      tcpchecks: expect rstring SSH-2.0-OpenSSH_\d\.[\d\w]+
       servers:
         ssh_pagure01:
+          check: check inter 10s
           host: 2a07:de40:b27e:1206::a
           port: 22
