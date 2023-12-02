@@ -21,10 +21,18 @@ prometheus:
               - targets:
                 - localhost:9090
 
-            - job_name: monitor
+            - job_name: nodes
               static_configs:
               - targets:
-                - localhost:9100
+                {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']).items() %}
+                - {{ fqdn }}:9100
+                {%- endfor %}
+              relabel_configs:
+              - regex: ^([\w\.]+)\:9100
+                replacement: $1
+                source_labels:
+                - __address__
+                target_label: instance
 
             - job_name: galera
               static_configs:
