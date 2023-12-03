@@ -25,7 +25,7 @@ node_exporter_sysconfig:
     - pattern: |
         ^ARGS=.*$
     - repl: |
-        ARGS="--web.listen-address={{ listen | ipwrap }}:9100 --collector.filesystem.fs-types-exclude='^(fuse.s3fs|fuse.cryfs|tmpfscgroup2?|debugfs|devpts|devtmpfs|fusectl|overlay|proc|procfs|pstore)\$' --no-collector.zfs --no-collector.thermal_zone --no-collector.powersupplyclass"
+        ARGS="--web.listen-address={{ listen | ipwrap }}:9100 --collector.filesystem.fs-types-exclude='^(fuse.s3fs|fuse.cryfs|tmpfscgroup2?|debugfs|devpts|devtmpfs|fusectl|overlay|proc|procfs|pstore)$' --collector.netdev.device-exclude='^d-o?s-[a-z]+$' --no-collector.zfs --no-collector.thermal_zone --no-collector.powersupplyclass"
     - require:
       - pkg: node_exporter_packages
       - file: node_exporter_sysconfig_header
