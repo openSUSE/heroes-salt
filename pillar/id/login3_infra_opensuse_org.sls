@@ -14,6 +14,4 @@ grains:
   partners: []
   weburls:
     - https://login3.opensuse.org
-roles:
-  - login
-  - login_master
+roles: []

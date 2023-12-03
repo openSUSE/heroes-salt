@@ -13,9 +13,9 @@ def convert_4to6(v4address, v6prefix):
     """
     Example arguments:
     v6prefix = 2a07:de40:b27e:64:: or 2a07:de40:b27e:64::/96
-    v4address = 192.168.47.37
+    v4address = 192.168.67.37
     Example return string:
-    2a07:de40:b27e:0064:0000:0000:c0a8:2f25
+    2a07:de40:b27e:64::c0a8:4325
     """
 
     ip4address = ipaddress.IPv4Address(v4address)
