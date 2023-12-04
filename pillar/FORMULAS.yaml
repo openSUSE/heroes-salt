@@ -42,5 +42,6 @@ package:
   - os_update
   - rebootmgr
   - redmine
+  - rsync
   - suse_ha
   - zypper

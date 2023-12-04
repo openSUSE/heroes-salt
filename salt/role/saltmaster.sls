@@ -1,5 +1,5 @@
 include:
-  - profile.rsync
+  - rsync
   - profile.salt.redis
   - profile.salt.git
   - infrastructure.salt.master
