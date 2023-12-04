@@ -39,6 +39,7 @@ package:
   - libvirt
   - lunmap
   - multipath
+  - network
   - os_update
   - rebootmgr
   - redmine
