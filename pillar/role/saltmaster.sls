@@ -76,10 +76,9 @@ rsync:
       list: 'false'
       uid: root
       gid: salt
-      'auth users': saltpush
-      'read only': 'false'
-      'secrets file': /etc/rsyncd.secrets
-      'hosts allow':
+      auth users: saltpush
+      read only: false
+      hosts allow:
         {%- if grains.get('country') == 'cz' %}
         - 2a07:de40:b27e:1203::126 # gitlab-runner1
         - 2a07:de40:b27e:1203::127 # gitlab-runner2
