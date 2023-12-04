@@ -12,7 +12,6 @@ include:
   - .limits
   - .motd
   - .network
-  - .rsync
   - .sysctl
   - .update
 
