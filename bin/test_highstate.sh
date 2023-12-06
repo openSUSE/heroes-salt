@@ -11,8 +11,6 @@ echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
 
 source bin/get_colors.sh
 
-rm -v /etc/zypp/repos.d/*.repo
-
 
 # === role-specific workarounds ===
 
