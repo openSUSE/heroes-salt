@@ -11,10 +11,6 @@ echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
 
 source bin/get_colors.sh
 
-# cronie for /usr/bin/crontab (needed by salt to read existing crontab), PyMySQL for the mysql module to load, postsrsd/postgrey to provide their sysconfig files, system-user-mail to avoid warnings about the mail group not existing while creating more users, python3-ldap for the ldap3 module to load, pdns-genrev for /etc/sysconfig/pdns-genrev in nameserver.primary
-# system-group-wheel for vpn.gateway
-zypper in -y kmod cronie python3-PyMySQL postsrsd postgrey system-user-mail python3-ldap mariadb redis7 system-user-wwwrun pdns-genrev system-group-wheel
-
 rm -v /etc/zypp/repos.d/*.repo
 
 
