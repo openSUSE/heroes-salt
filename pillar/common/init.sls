@@ -216,3 +216,6 @@ zypper:
 mine_functions:
   network.ip_addrs: []
   network.ip_addrs6: []
+  fqdn:
+    - mine_function: grains.get
+    - fqdn
