@@ -2,6 +2,11 @@
 
 # Validate that a highstate works for all roles
 
+# Parameters:
+# $1 - role numbers (actually line numbers for get_roles.py output) to test. Expects a format for   sed -n "$1 p"   - for example '1,10' or '50,$'
+# if $1 is empty, that means   sed -n " p"   which will test all roles.
+
+
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
 
 # sysctl: cannot stat /proc/sys/net/core/netdev_max_backlog (and some other /proc files): No such file or directory
@@ -160,7 +165,7 @@ succeeded_roles=""
 failed_roles=""
 nr=0
 
-for role in $(bin/get_roles.py); do
+for role in $(bin/get_roles.py | sed -n "$1 p"); do
     nr=$((( $nr  + 1)))
     rolestatus=0
     sls_role="salt/role/${role/./\/}.sls"
