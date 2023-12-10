@@ -4,5 +4,6 @@ include:
   - profile.matrix
   - profile.matrix.appservice
   - profile.matrix.telegram
+  - profile.matrix.heisenbridge
   - profile.matrix.dimension
   - profile.matrix.config

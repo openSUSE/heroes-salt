@@ -1,0 +1,51 @@
+{{ pillar['managed_by_salt'] }}
+
+## Path:        System/Matrix/Heisenbridge
+## Description:  Listening Address for the bridge
+## Type:        string
+## Default:     "127.0.0.1"
+## Config:      heisenbridge
+## ServiceRestart:      heisenbridge
+#
+# Will be used as:
+#
+#   --listen-address=$HEISENBRIDGE_LISTEN_ADDRESS
+#
+HEISENBRIDGE_LISTEN_ADDRESS="127.0.0.1"
+
+## Path:        System/Matrix/Heisenbridge
+## Description:  Listening Port for the bridge
+## Type:        string
+## Default:     "9898"
+## Config:      heisenbridge
+## ServiceRestart:      heisenbridge
+#
+# Will be used as:
+#
+#   --listen-port=$HEISENBRIDGE_LISTEN_ADDRESS
+#
+HEISENBRIDGE_LISTEN_PORT="9898"
+
+## Path:        System/Matrix/Heisenbridge
+## Description:  Homeserver URL
+## Type:        string
+## Default:     "http://127.0.0.1:8008"
+## Config:      heisenbridge
+## ServiceRestart:      heisenbridge
+#
+HEISENBRIDGE_HOMESERVER_URL="http://127.0.0.1:8008"
+
+## Path:        System/Matrix/Heisenbridge
+## Description:  Extra options for heisenbridge
+## Type:        string
+## Default:     ""
+## Config:      heisenbridge
+## ServiceRestart:      heisenbridge
+#
+# you do not need to set the following options here 
+#
+#   --config=...
+#   --listen-address=...
+#   --listen-port=...
+#
+HEISENBRIDGE_EXTRA_OPTIONS="--owner @hellcp:opensuse.org"

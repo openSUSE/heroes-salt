@@ -1,0 +1,14 @@
+{{ pillar['managed_by_salt'] }}
+
+id: heisenbridge
+url: http://0.0.0.0:9898
+as_token: {{ pillar['profile']['matrix']['heisenbridge']['appservice_token'] }}
+hs_token: {{ pillar['profile']['matrix']['heisenbridge']['homeserver_token'] }}
+rate_limited: false
+sender_localpart: heisenbridge
+namespaces:
+    users:
+    - regex: '@irc_.*'
+      exclusive: true
+    aliases: []
+    rooms: []
