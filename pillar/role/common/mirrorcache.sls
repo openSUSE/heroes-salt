@@ -16,7 +16,7 @@ zypper:
 {%- if country == 'us' %}
 
 mirrorcache:
-  redirect: downloadcontent-us1.opensuse.org
+  redirect: downloadcontentcdn.opensuse.org
   redirect_huge: downloadcontent.opensuse.org
   db:
     host: 192.168.67.23
