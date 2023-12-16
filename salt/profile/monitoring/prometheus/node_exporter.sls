@@ -4,7 +4,9 @@
 {%- set listen = server_address -%}
 {%- elif pillar.get('sshd_config', {}).get('ListenAddress') is string -%}
 {%- set listen = pillar['sshd_config']['ListenAddress'] -%}
-{%- endif -%}
+{%- else -%}
+{%- set listen = salt['dnsutil.A'](grains['id'])[0] %}
+{%- endif %}
 
 node_exporter_packages:
   pkg.installed:
