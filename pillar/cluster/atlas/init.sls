@@ -84,8 +84,8 @@ haproxy:
         {{ bind(bind_v4_vip2, 443, tls_bindopts) }}
       options:
         - http-server-close
-      extra:
-        - http-request set-var(txn.host) hdr(Host)
+      httprequests:
+        - set-var(txn.host): hdr(Host)
 
   listens:
     rsync-community2:
