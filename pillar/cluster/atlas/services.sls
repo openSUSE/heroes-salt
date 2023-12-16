@@ -215,8 +215,12 @@ haproxy:
 
     http-misc:
       acls:
+        - is_ssl          dst_port    443
+
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
         - host_pagure     hdr(host)   -i {{ host_pagure }}.opensuse.org
         {%- endfor %}
       use_backends:
-        - pagure          if host_pagure
+        - pagure                      if host_pagure
+      redirects:
+        - scheme https    code 301    if !is_ssl 
