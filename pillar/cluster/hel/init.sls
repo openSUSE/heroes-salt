@@ -14,6 +14,34 @@ grains:
 {%- set bind_v6 = ['2a07:de40:b27e:1203::10', '2a07:de40:b27e:1203::11', '2a07:de40:b27e:1203::12'] %}
 
 haproxy:
+
+  {#- frontend/backend sections are only used for HTTPS ; other protocols use "listens" #}
+  frontends:
+    https:
+      bind:
+        {{ bind(bind_v6, 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
+      acls:
+        - host_idm         hdr(host)    idm.infra.opensuse.org
+      use_backends:
+        - kanidm           if host_idm
+
+  backends:
+    kanidm:
+      balance: source
+      mode: http
+      options:
+        - ssl-hello-chk
+        - httpchk
+      {{ httpcheck('idm.infra.opensuse.org', 200) }}
+      servers:
+        {%- for i in [1, 2] %}
+        {{ server('kani' ~ i, 'kani' ~ i ~ '.infra.opensuse.org', 443,
+                    extra_check='check-ssl',
+                    extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem',
+                    header=False
+                  ) }}
+        {%- endfor %}
+
   listens:
     stats:
       bind:
@@ -67,4 +95,22 @@ haproxy:
           extra: send-proxy-v2
           host: mx{{ i }}.infra.opensuse.org
           port: 26
+        {%- endfor %}
+
+    ldaps:
+      balance: source
+      bind:
+        {{ bind(bind_v6, 636, 'v6only tfo ssl crt /etc/ssl/services/idm.infra.opensuse.org.full.pem') }}
+      mode: tcp
+      options:
+        - tcplog
+        - tcp-check
+      tcpchecks: connect port 636 ssl
+      servers:
+        {%- for i in [1, 2] %}
+        kani{{ i }}:
+          check: check inter 10s check-ssl
+          host: kani{{ i }}.infra.opensuse.org
+          port: 636
+          extra: ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem
         {%- endfor %}
