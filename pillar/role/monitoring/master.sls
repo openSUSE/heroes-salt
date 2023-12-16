@@ -28,7 +28,7 @@ prometheus:
                 - {{ fqdn }}:9100
                 {%- endfor %}
               relabel_configs:
-              - regex: ^([\w\.]+)\:9100
+              - regex: ^([\w\.-]+)\:9100
                 replacement: $1
                 source_labels:
                 - __address__
