@@ -20,7 +20,7 @@ prometheus:
               scheme: https
               static_configs:
                 - targets:
-                  - debuginfod.opensuse.org
+                    - debuginfod.opensuse.org
                   labels:
                     alias: debuginfod
 
@@ -32,11 +32,11 @@ prometheus:
                   labels:
                     service: elasticsearch
               relabel_configs:
-              - source_labels:
-                - __address__
-                target_label: instance
-                regex: '(.*)\:9114'
-                replacement: '$1'
+                - source_labels:
+                    - __address__
+                  target_label: instance
+                  regex: '(.*)\:9114'
+                  replacement: '$1'
 
             - job_name: galera
               static_configs:
@@ -51,38 +51,38 @@ prometheus:
                 #  labels:
                 #    alias: galera3
                 - targets:
-                  {%- for i in [1, 2, 3] %}
-                  - galera{{ i }}.infra.opensuse.org:9104
-                  {%- endfor %}
+                    {%- for i in [1, 2, 3] %}
+                    - galera{{ i }}.infra.opensuse.org:9104
+                    {%- endfor %}
 
             - job_name: mail
               scheme: http
               static_configs:
-              - targets:
-                - mx-test.infra.opensuse.org:3903
+                - targets:
+                    - mx-test.infra.opensuse.org:3903
               relabel_configs:
-              - source_labels:
-                - __address__
-                target_label: instance
-                regex: ^([\w\.-]+)\:3903
-                replacement: $1
+                - source_labels:
+                    - __address__
+                  target_label: instance
+                  regex: ^([\w\.-]+)\:3903
+                  replacement: $1
 
             - job_name: nodes
               static_configs:
-              - targets:
-                {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']).items() %}
-                - {{ fqdn }}:9100
-                {%- endfor %}
+                - targets:
+                    {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']).items() %}
+                    - {{ fqdn }}:9100
+                    {%- endfor %}
               relabel_configs:
-              - source_labels:
-                - __address__
-                target_label: instance
-                regex: ^([\w\.-]+)\:9100
-                replacement: $1
+                - source_labels:
+                    - __address__
+                  target_label: instance
+                  regex: ^([\w\.-]+)\:9100
+                  replacement: $1
 
             - job_name: prometheus
               scrape_interval: 5s
               scrape_timeout: 5s
               static_configs:
-              - targets:
-                - localhost:9090
+                - targets:
+                    - localhost:9090
