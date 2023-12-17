@@ -28,11 +28,11 @@ prometheus:
                 - {{ fqdn }}:9100
                 {%- endfor %}
               relabel_configs:
-              - regex: ^([\w\.-]+)\:9100
-                replacement: $1
-                source_labels:
+              - source_labels:
                 - __address__
                 target_label: instance
+                regex: ^([\w\.-]+)\:9100
+                replacement: $1
 
             - job_name: galera
               static_configs:
@@ -61,8 +61,8 @@ prometheus:
               relabel_configs:
               - source_labels:
                 - __address__
-                regex: '(.*)\:9114'
                 target_label: instance
+                regex: '(.*)\:9114'
                 replacement: '$1'
 
             # https://debuginfod.opensuse.org/metrics
