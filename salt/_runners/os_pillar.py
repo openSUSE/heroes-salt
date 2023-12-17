@@ -52,8 +52,8 @@ def get_host_primary_interface(host):
     config = get_host(host)
     interfaces = config.get('interfaces', {})
 
-    if 'primary_interface' in host:
-        primary_interface = host['primary_interface']
+    if 'primary_interface' in config:
+        primary_interface = config['primary_interface']
     elif len(interfaces) == 1 :
         primary_interface = list(interfaces.keys())[0]
     else:
