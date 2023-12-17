@@ -8,6 +8,10 @@ firewalld:
       description: Main network (openSUSE-bare)
       services:
         - ssh
+      ports:
+        - comment: node_exporter
+          port: 9100
+          protocol: tcp
     nfs:
       description: NFS network (openSUSE-falkor-nfs-ur)
 
