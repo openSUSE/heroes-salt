@@ -11,7 +11,8 @@ grains:
   virt_cluster: orbit
   description: Core firewall for openSUSE networks in PRG2
   documentation: []
-  responsible: []
+  responsible:
+    - crameleon
   weburls: []
   partners:
     - asgard1.infra.opensuse.org
