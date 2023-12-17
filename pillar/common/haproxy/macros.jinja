@@ -23,9 +23,9 @@
         - {{ append.replace('\n', '\\n').replace('\r', '\\r') }}
         {%- endif %}
 {%- endmacro -%}
-{%- macro httpcheck(host, status, uri='/', method='head') %}
+{%- macro httpcheck(host, status, uri='/', method='head', tls=False) %}
       httpchecks:
-        - connect
+        - connect{{ ' ssl alpn h2' if tls else '' }}
         - send meth {{ method | upper }} uri {{ uri }} ver HTTP/1.1 hdr Host {{ host }} hdr User-Agent haproxy/health-check
         - expect status {{ status }}
 {%- endmacro %}
