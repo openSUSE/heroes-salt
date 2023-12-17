@@ -35,7 +35,7 @@ haproxy:
       servers:
         {%- for i in [1, 2] %}
         {{ server('kani' ~ i, 'kani' ~ i ~ '.infra.opensuse.org', 443,
-                    extra_extra='verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem',
+                    extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem',
                     header=False
                   ) }}
         {%- endfor %}
