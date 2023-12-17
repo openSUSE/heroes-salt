@@ -4,7 +4,8 @@ include:
 grains:
   city: prague
   country: cz
-  hostusage: []
+  hostusage:
+    - Hypervisor
   reboot_safe: no
   virt_cluster: falkor-bare
   description: Hypervisor
