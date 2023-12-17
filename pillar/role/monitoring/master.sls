@@ -14,25 +14,29 @@ prometheus:
               monitor: opensuse
 
           scrape_configs:
-            - job_name: prometheus
-              scrape_interval: 5s
-              scrape_timeout: 5s
-              static_configs:
-              - targets:
-                - localhost:9090
 
-            - job_name: nodes
+            # https://debuginfod.opensuse.org/metrics
+            - job_name: debuginfod
+              scheme: https
               static_configs:
-              - targets:
-                {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']).items() %}
-                - {{ fqdn }}:9100
-                {%- endfor %}
+                - targets:
+                  - debuginfod.opensuse.org
+                  labels:
+                    alias: debuginfod
+
+            - job_name: elasticsearch
+              static_configs:
+                - targets:
+                    - water:9114
+                    - water3:9114
+                  labels:
+                    service: elasticsearch
               relabel_configs:
               - source_labels:
                 - __address__
                 target_label: instance
-                regex: ^([\w\.-]+)\:9100
-                replacement: $1
+                regex: '(.*)\:9114'
+                replacement: '$1'
 
             - job_name: galera
               static_configs:
@@ -51,29 +55,6 @@ prometheus:
                   - galera{{ i }}.infra.opensuse.org:9104
                   {%- endfor %}
 
-            - job_name: elasticsearch
-              static_configs:
-                - targets:
-                    - water:9114
-                    - water3:9114
-                  labels:
-                    service: elasticsearch
-              relabel_configs:
-              - source_labels:
-                - __address__
-                target_label: instance
-                regex: '(.*)\:9114'
-                replacement: '$1'
-
-            # https://debuginfod.opensuse.org/metrics
-            - job_name: debuginfod
-              scheme: https
-              static_configs:
-                - targets:
-                  - debuginfod.opensuse.org
-                  labels:
-                    alias: debuginfod
-
             - job_name: mail
               scheme: http
               static_configs:
@@ -85,3 +66,23 @@ prometheus:
                 target_label: instance
                 regex: ^([\w\.-]+)\:3903
                 replacement: $1
+
+            - job_name: nodes
+              static_configs:
+              - targets:
+                {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']).items() %}
+                - {{ fqdn }}:9100
+                {%- endfor %}
+              relabel_configs:
+              - source_labels:
+                - __address__
+                target_label: instance
+                regex: ^([\w\.-]+)\:9100
+                replacement: $1
+
+            - job_name: prometheus
+              scrape_interval: 5s
+              scrape_timeout: 5s
+              static_configs:
+              - targets:
+                - localhost:9090
