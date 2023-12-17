@@ -35,8 +35,8 @@ prometheus:
                 - source_labels:
                     - __address__
                   target_label: instance
-                  regex: '(.*)\:9114'
-                  replacement: '$1'
+                  regex: (.*)\:9114
+                  replacement: $1
 
             - job_name: galera
               static_configs:
