@@ -28,7 +28,7 @@ prometheus:
                 - {{ fqdn }}:9100
                 {%- endfor %}
               relabel_configs:
-              - regex: ^([\w\.]+)\:9100
+              - regex: ^([\w\.-]+)\:9100
                 replacement: $1
                 source_labels:
                 - __address__
@@ -73,3 +73,15 @@ prometheus:
                   - debuginfod.opensuse.org
                   labels:
                     alias: debuginfod
+
+            - job_name: mail
+              scheme: http
+              static_configs:
+              - targets:
+                - mx-test.infra.opensuse.org:3903
+              relabel_configs:
+              - source_labels:
+                - __address__
+                target_label: instance
+                regex: ^([\w\.-]+)\:3903
+                replacement: $1
