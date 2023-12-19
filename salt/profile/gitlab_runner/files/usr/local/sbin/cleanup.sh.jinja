@@ -3,6 +3,8 @@
 
 {{ pillar['managed_by_salt'] }}
 
+set -e
+
 FREE_SPACE_PERCENT_THRESHOLD=${1:-70} # Disk space % usage threshold
 FREE_INODE_PERCENT_THRESHOLD=${2:-70} # Inode % usage threshold
 PRUNE_FILTER_UNTIL_DAYS=${3:-30}      # Initially prune only this many days
