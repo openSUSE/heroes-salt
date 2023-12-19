@@ -5,7 +5,6 @@ etckeeper_install:
     - pkgs:
       - etckeeper
       - etckeeper-zypp-plugin
-      - git-core
 
 etckeeper_init:
   cmd.run:

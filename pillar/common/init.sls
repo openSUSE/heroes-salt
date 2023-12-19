@@ -199,6 +199,7 @@ zypper:
     aaa_base-extras: {}
     ca-certificates-mozilla: {}
     curl: {}
+    git-core: {}
     htop: {}
     less: {}
     lsof: {}

@@ -4,7 +4,6 @@ include:
 mail_reminder_pkgs:
   pkg.installed:
     - pkgs:
-      - git-core
       - python-base
 
 mail_reminder:
