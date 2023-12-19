@@ -97,10 +97,15 @@ salt:
     snapper_states: true
     features:
         x509_v2: true
+ssh_config:
+  Ciphers:
+    - -chacha20‐poly1305@openssh.com
 sshd_config:
   AuthorizedKeysFile: .ssh/authorized_keys
   AuthorizedKeysCommand: /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
   AuthorizedKeysCommandUser: nobody
+  Ciphers:
+    - -chacha20‐poly1305@openssh.com
   HostKey:
     - /etc/ssh/ssh_host_rsa_key
     - /etc/ssh/ssh_host_dsa_key
