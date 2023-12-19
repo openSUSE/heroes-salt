@@ -3,10 +3,12 @@
 
 {{ pillar['managed_by_salt'] }}
 
+set -e
+
 FREE_SPACE_PERCENT_THRESHOLD=${1:-70} # Disk space % usage threshold
 FREE_INODE_PERCENT_THRESHOLD=${2:-70} # Inode % usage threshold
 PRUNE_FILTER_UNTIL_DAYS=${3:-30}      # Initially prune only this many days
-DOCKER_STORAGE_DIR=/var/lib/docker
+DOCKER_STORAGE_DIR=/var/lib/containers
 
 get_docker_storage_usage() {
     METRIC=$1
@@ -19,9 +21,9 @@ prune_is_required() {
 
 do_docker_prune() {
     DOCKER_PRUNE_FILTER="$([ "$1" != "" ] && echo "--filter until=$(($1*24))h")"
-    docker container prune -f $DOCKER_PRUNE_FILTER
-    docker image prune -af $DOCKER_PRUNE_FILTER
-    docker volume prune -f
+    podman container prune -f $DOCKER_PRUNE_FILTER
+    podman image prune -af $DOCKER_PRUNE_FILTER
+    podman volume prune -f
 }
 
 if prune_is_required; then
@@ -32,5 +34,7 @@ if prune_is_required; then
     prune_is_required && do_docker_prune
 
     echo "Disk usage after cleanup: $(get_docker_storage_usage pcent)%"
+else
+    echo 'No pruning needed, bye.'
 fi
 
