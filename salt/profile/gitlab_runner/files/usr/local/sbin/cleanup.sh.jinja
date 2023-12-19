@@ -2,6 +2,7 @@
 # Source: https://gitlab.com/gitlab-org/gitlab-runner/-/issues/2980#note_351793132
 
 {{ pillar['managed_by_salt'] }}
+set -Ce
 
 FREE_SPACE_PERCENT_THRESHOLD=${1:-70} # Disk space % usage threshold
 FREE_INODE_PERCENT_THRESHOLD=${2:-70} # Inode % usage threshold
@@ -18,7 +19,10 @@ prune_is_required() {
 }
 
 do_docker_prune() {
-    DOCKER_PRUNE_FILTER="$([ "$1" != "" ] && echo "--filter until=$(($1*24))h")"
+    if [ -n "$1" ]
+    then
+        local DOCKER_PRUNE_FILTER="--filter until=$(($1*24))h"
+    fi
     podman container prune -f $DOCKER_PRUNE_FILTER
     podman image prune -af $DOCKER_PRUNE_FILTER
     podman volume prune -f
