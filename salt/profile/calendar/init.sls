@@ -100,8 +100,6 @@ calendar_assets_precompile:
     - user: calendar
     - require_in:
       - service: calendar_service
-    - watch_in:
-      - module: calendar_restart
 {%- endfor %}
 
 /srv/www/calendar-o-o/config/master.key:
