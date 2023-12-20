@@ -103,6 +103,7 @@ paste_assets_precompile:
     - contents_pillar: profile:paste:credentials_yml_enc
     - mode: 640
     - user: paste
+    - contents_newline: False
 
 paste_service:
   service.running:
