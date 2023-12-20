@@ -1,0 +1,21 @@
+[Unit]
+Description=Calendar Rails application
+After=network.target
+
+[Service]
+Type=simple
+
+User=calendar
+
+WorkingDirectory=/srv/www/calendar-o-o
+
+Environment="RAILS_ENV=production"
+
+ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/calendar-o-o/config/puma.rb ./config.ru
+
+Restart=always
+
+RuntimeDirectory=%N
+
+[Install]
+WantedBy=multi-user.target

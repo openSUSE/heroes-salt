@@ -13,4 +13,5 @@ grains:
     - hellcp
   partners: []
   weburls: []
-roles: []
+roles:
+  - calendar
