@@ -86,6 +86,7 @@ calendar:
     os-internal:
       ip6: 2a07:de40:b27e:1203::b51/64
       mac: 42:9e:5b:a3:d0:ab
+      pseudo_ip4: 172.16.164.149
       source: x-os-internal
   ram: 2048MB
   vcpu: 2
