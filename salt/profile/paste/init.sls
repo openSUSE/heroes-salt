@@ -2,6 +2,7 @@
 
 paste_dependencies:
   pkg.installed:
+    - resolve_capabilities: True
     - pkgs:
       - git
       - tar
@@ -12,7 +13,7 @@ paste_dependencies:
       - postgresql-server-devel
       - {{ ruby }}-devel
       - system-user-wwwrun
-      - nodejs16
+      - nodejs
 
 paste_user:
   user.present:
