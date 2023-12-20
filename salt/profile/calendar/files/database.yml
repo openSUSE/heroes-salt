@@ -1,0 +1,7 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: "{{ pillar['profile']['calendar']['database_name'] }}"
+  username: "{{ pillar['profile']['calendar']['database_user'] }}"
+  password: "{{ pillar['postgres']['users']['calendar']['password'] }}"
+  host: "{{ pillar['profile']['calendar']['database_host'] }}"

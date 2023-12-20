@@ -1,0 +1,19 @@
+[Unit]
+Description=Calendar Clockwork job queue
+After=network.target
+
+[Service]
+Type=simple
+
+User=calendar
+
+WorkingDirectory=/srv/www/calendar-o-o
+
+Environment="RAILS_ENV=production"
+
+ExecStart=/usr/bin/bundler.{{ ruby }} exec clockwork clock.rb
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
