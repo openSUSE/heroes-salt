@@ -115,6 +115,7 @@ calendar_assets_precompile:
     - contents_pillar: profile:calendar:credentials_yml_enc
     - mode: '0640'
     - user: calendar
+    - contents_newline: False
 
 calendar_service:
   service.running:
