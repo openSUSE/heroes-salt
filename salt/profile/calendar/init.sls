@@ -2,6 +2,7 @@
 
 calendar_dependencies:
   pkg.installed:
+    - resolve_capabilities: True
     - pkgs:
       - git
       - tar
@@ -12,7 +13,7 @@ calendar_dependencies:
       - postgresql-server-devel
       - {{ ruby }}-devel
       - system-user-wwwrun
-      - nodejs16
+      - nodejs
 
 calendar_user:
   user.present:
