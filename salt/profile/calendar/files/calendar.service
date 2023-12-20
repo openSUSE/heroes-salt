@@ -11,7 +11,7 @@ WorkingDirectory=/srv/www/calendar-o-o
 
 Environment="RAILS_ENV=production"
 
-ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/calendar-o-o/config/puma.rb ./config.ru
+ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -b unix:///run/calendar/puma -C /srv/www/calendar-o-o/config/puma.rb ./config.ru
 
 Restart=always
 

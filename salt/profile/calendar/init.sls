@@ -14,6 +14,7 @@ calendar_dependencies:
       - {{ ruby }}-devel
       - system-user-wwwrun
       - nodejs
+      - libyaml-devel
 
 calendar_user:
   user.present:

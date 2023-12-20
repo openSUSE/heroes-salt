@@ -2,6 +2,9 @@
 
 haproxy:
   backends:
+    calendar:
+      {{ options() }}
+      {{ server('calendar', '2a07:de40:b27e:1203::b51') }}
     chat:
       {{ options() }}
       {{ server('matrix', '2a07:de40:b27e:1203::b40') }}

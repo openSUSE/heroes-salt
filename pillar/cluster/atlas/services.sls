@@ -29,6 +29,7 @@ haproxy:
         - path_slash             path         /
 
         - host_beans        hdr(host)   -i beans.opensuse.org
+        - host_calendar     hdr(host)   -i calendar.opensuse.org
         {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
         - host_chat         hdr(host)   -i {{ host_chat }}.opensuse.org
         {%- endfor %}
@@ -125,6 +126,7 @@ haproxy:
         - www_openid_ldap if host_www path_openid
 
         # rules only depending on host_*
+        - calendar        if host_calendar
         - chat            if host_chat
         - conncheck       if host_conncheck
         - community       if host_community
