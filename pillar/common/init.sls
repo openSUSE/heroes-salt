@@ -60,6 +60,7 @@ profile:
     maincf:
       relayhost: '[relay.infra.opensuse.org]'
       myhostname: '{{ grains['host'] }}.infra.opensuse.org'
+      smtpd_data_restrictions: reject_unauth_pipelining
       {%- if country == 'cz' %}
       inet_protocols: ipv6
       {%- endif %}
