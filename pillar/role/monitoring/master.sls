@@ -86,3 +86,18 @@ prometheus:
               static_configs:
                 - targets:
                     - localhost:9090
+
+            - job_name: salt
+              scrape_interval: 15s
+              scrape_timeout: 5s
+              static_configs:
+                - targets: 
+                    - witch1.infra.opensuse.org:8216
+                  labels:
+                    __scheme__: https
+              relabel_configs:
+                - regex: ^([\w\.]+)\:8216
+                  replacement: $1
+                  source_labels:
+                    - __address__
+                  target_label: instance
