@@ -43,6 +43,7 @@ package:
   - os_update
   - rebootmgr
   - redmine
+  - redis
   - rsync
   - suse_ha
   - zypper
