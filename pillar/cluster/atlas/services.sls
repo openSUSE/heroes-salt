@@ -110,6 +110,8 @@ haproxy:
         - host_redirect_wiki_gone  hdr(host)     -i is.opensuse.org
         - host_redirect_wiki_gone  hdr(host)     -i vi.opensuse.org
 
+        - sni_matrix               ssl_fc_sni    matrix.opensuse.org
+
       default_backend: redirect_www_o_o
       use_backends:
         # special paths with common handling for all hosts
@@ -144,7 +146,7 @@ haproxy:
         - mailman3        if host_mailman3
         - man             if host_manpages
         - matomo          if host_beans
-        - matrix          if host_matrix
+        - matrix          if host_matrix || sni_matrix
         - metrics         if host_metrics
         - minio           if host_minio
         - monitor         if host_monitor
