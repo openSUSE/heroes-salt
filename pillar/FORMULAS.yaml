@@ -29,6 +29,7 @@ git:
   sudoers: {}
   sysctl: {}
   timezone: {}
+  users: {}
   mirrorcache:
     namespace: 'andrii-suse'
 package:
