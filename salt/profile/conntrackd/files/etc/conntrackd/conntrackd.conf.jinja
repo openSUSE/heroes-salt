@@ -1,0 +1,47 @@
+{%- set mypillar = salt['pillar.get']('profile:conntrackd') -%}
+{{ pillar['managed_by_salt'] }}
+General {
+	HashSize 32768
+	HashLimit 131072
+	Syslog on
+	LockFile /run/lock/conntrackd.lock
+
+	UNIX {
+		Path /run/conntrackd.sock
+	}
+
+	NetlinkBufferSize 10064960
+	NetlinkBufferSizeMaxGrowth 20129920
+
+	SocketBufferSize 262142
+	SocketBufferSizeMaxGrown 655355
+
+	Filter From Userspace {
+		Address Ignore {
+			IPv4_address 127.0.0.1
+			IPv6_address ::1
+		}
+	}
+
+	Systemd on
+}
+
+#Stats {
+#	Syslog on
+#}
+
+Sync {
+  Mode FTFW {
+    DisableExternalCache On
+    StartupResync On
+  }
+  Multicast {
+    IPv6_address {{ mypillar['address'] }}
+    Interface {{ mypillar['interface'] }}
+    Group {{ mypillar['group'] }}
+    Checksum on
+  }
+  Options {
+    TCPWindowTracking Off
+  }
+}
