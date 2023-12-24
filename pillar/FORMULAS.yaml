@@ -29,6 +29,7 @@ git:
   sudoers: {}
   sysctl: {}
   timezone: {}
+  users: {}
   mirrorcache:
     namespace: 'andrii-suse'
 package:
@@ -43,6 +44,7 @@ package:
   - os_update
   - rebootmgr
   - redmine
+  - redis
   - rsync
   - suse_ha
   - zypper

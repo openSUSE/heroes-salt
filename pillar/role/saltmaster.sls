@@ -68,6 +68,14 @@ profile:
         {{ formula }}: {{ config }}
         {%- endfor %}
 
+redis:
+  salt:
+    acllog-max-len: 64
+    databases: 1
+    port: 0
+    tcp-backlog: 511
+    timeout: 0
+
 rsync:
   modules:
     salt-push:
@@ -86,3 +94,12 @@ rsync:
         - 172.16.164.126
         - 172.16.164.127
         {%- endif %}
+
+users:
+  redis:
+    members:
+      - salt
+
+zypper:
+  packages:
+    python3-redis: {}
