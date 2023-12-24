@@ -67,6 +67,13 @@ profile:
         {%- for formula, config in formulas_yaml['git'].items() %}
         {{ formula }}: {{ config }}
         {%- endfor %}
+    saline:
+      restapi:
+        host: {{ grains['fqdn_ip6'][0] }}
+        ssl_crt: /etc/ssl/witch/{{ grains['fqdn'] }}.wchain.crt
+        ssl_key: /etc/ssl/witch/{{ grains['fqdn'] }}.key
+        log_access_file: /var/log/salt/saline-api-access.log
+        log_error_file: /var/log/salt/saline-api-error.log
 
 redis:
   salt:
@@ -103,3 +110,4 @@ users:
 zypper:
   packages:
     python3-redis: {}
+    saline: {}
