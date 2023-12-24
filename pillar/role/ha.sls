@@ -2,7 +2,7 @@
 
 keepalived:
   global_defs:
-    notification_email_from: keepalived+{{ host }}@opensuse.org
+    notification_email_from: {{ host }}+keepalived@infra.opensuse.org
     notification_email:
       - admin-auto@opensuse.org
     smtp_connect_timeout: 30
