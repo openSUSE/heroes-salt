@@ -1,11 +1,20 @@
+include:
+  - .alerts
+
 prometheus:
   wanted:
     component:
       - prometheus
+
   pkg:
     component:
       prometheus:
         config:
+          alerting:
+            alertmanagers:
+              - static_configs:
+                  - targets:
+                      - monitor.infra.opensuse.org:9093
 
           global:
             scrape_interval: 20s
