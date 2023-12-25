@@ -121,7 +121,11 @@ profile:
             frontend_proxy: 8601
           config:
             - worker_main_http_uri: http://127.0.0.1:8008
-
+      room_keys:
+        - rest:
+            - ^/_matrix/client/(r0|v3|unstable)/room_keys/
+          workers:
+            room_keys: 8591
       
     appservices:
       discord:
