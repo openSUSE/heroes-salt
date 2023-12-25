@@ -343,6 +343,17 @@ hel2:
       source: x-os-internal
   ram: 4096MB
   vcpu: 2
+imagetest:
+  cluster: squanchy
+  disks:
+    root: 15G
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:b27e:1203::ff/64
+      mac: 00:16:3e:58:a6:10
+      source: x-os-internal
+  ram: 1024MB
+  vcpu: 1
 jekyll:
   cluster: falkor
   disks:
