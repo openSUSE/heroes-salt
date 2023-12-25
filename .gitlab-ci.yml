@@ -28,18 +28,6 @@ show_highstate:
   rules:
     - if: $CI_COMMIT_BRANCH
 
-upstream_formulas_show_highstate:
-  stage: test
-  before_script:
-    - bin/prepare_test_env.sh -g
-    - bin/get_formulas.py -c -d /srv/formula -s
-  script: bin/test_show_highstate.sh
-  allow_failure: true
-  tags:
-    - docker
-  rules:
-    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_REF_NAME != "production"
-
 test_haproxy:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy:latest
   stage: test
