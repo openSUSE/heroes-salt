@@ -43,7 +43,6 @@ profile:
             - ^/_matrix/federation/unstable/org.matrix.msc2946/spaces/
             - ^/_matrix/federation/(v1|unstable/org.matrix.msc2946)/hierarchy/
             - ^/_matrix/federation/v1/send/
-            - ^/_matrix/federation/v1/groups/
           workers:
             federation_requests1: 8511
             federation_requests2: 8512
