@@ -214,7 +214,10 @@ listeners:
       - names: [client]
         compress: true
       - names: [federation]
-      - names: [metrics]
+  - port: 8009
+    tls: false
+    type: metrics
+    bind_addresses: ['2a07:de40:b27e:1203::b40']
   - port: 9093
     bind_address: '127.0.0.1'
     type: http
@@ -1083,7 +1086,7 @@ autocreate_auto_join_rooms: true
 
 # Enable collection and rendering of performance metrics
 #
-#enable_metrics: false
+enable_metrics: true
 
 # Enable sentry integration
 # NOTE: While attempts are made to ensure that the logs don't contain
@@ -1103,7 +1106,7 @@ metrics_flags:
     # servers this homeserver knows about, including itself. May cause
     # performance problems on large homeservers.
     #
-    #known_servers: true
+    known_servers: true
 
 # Whether or not to report anonymized homeserver usage statistics.
 report_stats: true
@@ -1871,3 +1874,6 @@ opentracing:
     #    false
 
 experimental_features: { spaces_enabled: true }
+
+federation_metrics_domains:
+  - matrix.org
