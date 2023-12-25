@@ -8,6 +8,7 @@
 
 include:
   - .headers
+  - .hosts
   - .bootloader
   - .limits
   - .motd

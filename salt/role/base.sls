@@ -1,6 +1,7 @@
 include:
   - profile.legacy
   - network.wicked
+  - hostsfile.pillar_only
   - profile.rpmkeys
   - zypper
   {%- if grains['virtual'] == 'kvm' %}
