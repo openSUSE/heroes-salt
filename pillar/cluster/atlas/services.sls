@@ -129,7 +129,6 @@ haproxy:
 
         # rules only depending on host_*
         - calendar        if host_calendar
-        - chat            if host_chat
         - conncheck       if host_conncheck
         - community       if host_community
         - community       if host_doc
@@ -146,7 +145,7 @@ haproxy:
         - mailman3        if host_mailman3
         - man             if host_manpages
         - matomo          if host_beans
-        - matrix          if host_matrix || sni_matrix
+        - matrix          if host_chat || host_matrix || sni_matrix
         - metrics         if host_metrics
         - minio           if host_minio
         - monitor         if host_monitor
