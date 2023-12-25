@@ -1874,3 +1874,6 @@ opentracing:
     #    false
 
 experimental_features: { spaces_enabled: true }
+
+federation_metrics_domains:
+  - matrix.org
