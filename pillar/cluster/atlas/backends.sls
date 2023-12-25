@@ -5,9 +5,6 @@ haproxy:
     calendar:
       {{ options() }}
       {{ server('calendar', '2a07:de40:b27e:1203::b51') }}
-    chat:
-      {{ options() }}
-      {{ server('matrix', '2a07:de40:b27e:1203::b40') }}
     community:
       {{ options ('httpchk') }}
       {{ httpcheck('community.opensuse.org', 200, method='options') }}
@@ -94,7 +91,7 @@ haproxy:
       {{ server('mailman3', '2a07:de40:b27e:1203::b46', extra_extra='inter 30000') }}
     matrix:
       {{ options() }}
-      {{ server('matrix', '2a07:de40:b27e:1203::b40', 8008) }}
+      {{ server('matrix', '2a07:de40:b27e:1203::b40') }}
     matrix-client:
       mode: http
       httprequests:
