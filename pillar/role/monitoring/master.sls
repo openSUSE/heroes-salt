@@ -67,6 +67,19 @@ prometheus:
                   regex: ^([\w\.-]+)\:3903
                   replacement: $1
 
+            - job_name: matrix
+              metrics_path: /_synapse/metrics
+              scrape_interval: 15s
+              static_configs:
+                - targets:
+                    - matrix.infra.opensuse.org:8009
+              relabel_configs:
+                - regex: ^([\w\.]+)\:8009
+                  replacement: $1
+                  source_labels:
+                    - __address__
+                  target_label: instance
+
             - job_name: nodes
               static_configs:
                 - targets:
