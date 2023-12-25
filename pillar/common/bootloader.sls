@@ -27,8 +27,7 @@ bootloader:
       {#- to-do: facilitate crashkernel settings for kdump #}
 
 
-      {#- {%- if salt['file.directory_exists']('/sys/class/fc_host') %} #}
-      {%- if grains.get('virt_cluster') == 'falkor-bare' %} {#- to-do #}
+      {%- if grains.get('fc_host') %}
       {#- raise maximum LUNs on machines with fiber channel storage #}
       {%- set cmdline = cmdline ~ ' lpfc.lpfc_max_luns=4095' %}
       {%- endif %}
