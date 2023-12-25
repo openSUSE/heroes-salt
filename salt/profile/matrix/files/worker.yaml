@@ -14,6 +14,9 @@ worker_listeners:
         - client
         - federation
         {%- endif %}
+  - type: metrics
+    bind_address: '2a07:de40:b27e:1203::b40'
+    port: 1{{ port }}
 
 {%- if config is mapping %}
 {% for setting, value in config.items() %}

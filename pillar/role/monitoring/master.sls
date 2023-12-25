@@ -67,19 +67,6 @@ prometheus:
                   regex: ^([\w\.-]+)\:3903
                   replacement: $1
 
-            - job_name: matrix
-              metrics_path: /_synapse/metrics
-              scrape_interval: 15s
-              static_configs:
-                - targets:
-                    - matrix.infra.opensuse.org:8009
-              relabel_configs:
-                - regex: ^([\w\.]+)\:8009
-                  replacement: $1
-                  source_labels:
-                    - __address__
-                  target_label: instance
-
             - job_name: nodes
               static_configs:
                 - targets:
@@ -114,3 +101,101 @@ prometheus:
                   source_labels:
                     - __address__
                   target_label: instance
+
+            {%- set mioo = 'matrix.infra.opensuse.org' %}
+            - job_name: synapse
+              metrics_path: /_synapse/metrics
+              scrape_interval: 15s
+              static_configs:
+                # main process
+                - targets:
+                    - {{ mioo }}:8009
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_master
+                    index: 1
+                # workers (as defined in pillar/role/matrix.sls)
+                - targets:
+                    - {{ mioo }}:18501
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_sync
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18511
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_federation_request
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18512
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_federation_request
+                    index: 2
+                - targets:
+                    - {{ mioo }}:18521
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_client
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18522
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_client
+                    index: 2
+                - targets:
+                    - {{ mioo }}:18531
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_login
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18541
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_event
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18542
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_event
+                    index: 2
+                - targets:
+                    - {{ mioo }}:18551
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_pusher
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18552
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_pusher
+                    index: 2
+                - targets:
+                    - {{ mioo }}:18571
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_federation_sender
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18572
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_federation_sender
+                    index: 2
+                - targets:
+                    - {{ mioo }}:18601
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_frontend_proxy
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18591
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_room_keys
+                    index: 1
