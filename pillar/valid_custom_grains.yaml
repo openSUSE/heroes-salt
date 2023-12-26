@@ -7,14 +7,11 @@ global:
     - unknown
 localized:
   de:
-    city: nuremberg
     default_domain: infra.opensuse.org
     domains: infra.opensuse.org
   us:
-    city: provo
     default_domain: infra.opensuse.org
     domains: infra.opensuse.org
   cz:
-    city: prague
     default_domain: infra.opensuse.org
     domains: infra.opensuse.org

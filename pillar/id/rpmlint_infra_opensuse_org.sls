@@ -1,5 +1,4 @@
 grains:
-  city: prague
   country: cz
   hostusage:
     - rpmlint.o.o

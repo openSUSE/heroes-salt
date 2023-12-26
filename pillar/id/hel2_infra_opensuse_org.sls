@@ -2,7 +2,6 @@ include:
   - cluster.hel
 
 grains:
-  city: prague
   country: cz
   hostusage:
     - Int. Proxy
