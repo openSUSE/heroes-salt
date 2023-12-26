@@ -14,4 +14,3 @@ grains:
     - https://gitlab.infra.opensuse.org
 roles:
   - web_gitlab
-  - worker_gitlab
