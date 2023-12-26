@@ -83,8 +83,8 @@ for role in $(bin/get_roles.py); do
     rolestatus=0
     sls_role="salt/role/${role/./\/}.sls"
     out="$role.txt"
-    echo "START OF $role" > "$out"
     if grep nginx "$sls_role" > /dev/null; then
+        echo "START OF $role" > "$out"
         echo_INFO "Testing role: $role"
         reset_nginx
         reset_ip
@@ -143,8 +143,8 @@ for role in $(bin/get_roles.py); do
             STATUS=1
         fi
         echo
+        echo "END OF $role" >> "$out"
     fi
-    echo "END OF $role" >> "$out"
 done
 
 rpm -qa --qf '%{name}\n' | sort > /tmp/packages-after
