@@ -18,13 +18,13 @@ RUN_TEST="salt-call --local --retcode-passthrough state.show_highstate"
 #RUN_TEST="salt-call --local --retcode-passthrough --log-level=debug state.show_highstate"
 
 write_grains() {
-    $SUDO sed -i -e "s/\(city:\).*/\1 $2/" -e "s/\(country:\).*/\1 $1/" -e "s/\(domain:\).*/\1 $5/" -e "s/\(virtual:\).*/\1 $3/" /etc/salt/grains
-    echo_INFO "Grains: city: $2, country: $1, domain: $5, virtual: $3"
+    $SUDO sed -i -e "s/\(country:\).*/\1 $1/" -e "s/\(domain:\).*/\1 $3/" -e "s/\(virtual:\).*/\1 $2/" /etc/salt/grains
+    echo_INFO "Grains: country: $1, domain: $3, virtual: $2"
 }
 
 show_highstate() {
     local outfile="$domain.txt"
-    write_grains $country $city $virtual $domain
+    write_grains $country $virtual $domain
     $RUN_TEST > "$outfile" 2>&1
     _STATUS=$?
     # We ignore exit code 2 as it means that an empty file is produced
@@ -45,10 +45,7 @@ show_highstate() {
 }
 
 ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
-for location in ${ALL_LOCATIONS[@]}; do
-    LOCATION=(${location//,/ })
-    country=${LOCATION[0]}
-    city=${LOCATION[1]}
+for country in ${ALL_LOCATIONS[@]}; do
     default_domain=$(bin/get_valid_custom_grains.py --default-domain $country)
     virtual='kvm'
     DOMAINS=( $(bin/get_valid_custom_grains.py -d $country) )

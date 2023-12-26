@@ -37,12 +37,12 @@ def print_valid_localized_grains():
     results = []
     all_valid_localized_grains = get_all_valid_localized_grains()
     for country, items in all_valid_localized_grains.items():
-        results.append('%s,%s' % (country, items['city']))
+        results.append('%s' % (country))
     print('\n'.join(results))
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the pillar/valid_custom_grains.py and returns a list of valid custom grains in the form of "country,city".')
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the pillar/valid_custom_grains.py and returns a list of valid custom grains in the form of "country".')
     parser.add_argument('-d', nargs=1, help='Returns a list of the valid domains of a location.')
     parser.add_argument('--default-domain', nargs=1, help='Returns the default domain of a location.')
     args = parser.parse_args()
