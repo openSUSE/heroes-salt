@@ -55,7 +55,8 @@ nginx:
                 - default: upgrade
                 - "''": close
             ## NGINX 'combined' log format with filtered query strings
-            - log_format: gitlab_ssl_access $remote_addr - $remote_user [$time_local] "$request_method $gitlab_ssl_filtered_request_uri $server_protocol" $status $body_bytes_sent "$gitlab_ssl_filtered_http_referer" "$http_user_agent"
+            - log_format: >-
+                gitlab_ssl_access '$remote_addr - $remote_user [$time_local] "$request_method $gitlab_ssl_filtered_request_uri $server_protocol" $status $body_bytes_sent "$gitlab_ssl_filtered_http_referer" "$http_user_agent"'
             ## Remove private_token from the request URI
             # In:  /foo?private_token=unfiltered&authenticity_token=unfiltered&rss_token=unfiltered&...
             # Out: /foo?private_token=[FILTERED]&authenticity_token=unfiltered&rss_token=unfiltered&...
@@ -73,7 +74,7 @@ nginx:
             # Out: /foo?private_token=[FILTERED]&authenticity_token=[FILTERED]&rss_token=[FILTERED]&...
             - map $gitlab_ssl_temp_request_uri_2 $gitlab_ssl_filtered_request_uri:
                 - default: $gitlab_ssl_temp_request_uri_2
-                - ~(?i)^(?<start>.*)(?<temp>[\?&]rss[\-_]token)=[^&]*(?<rest>.*)$: '"$start$temp=[FILTERED]$rest"'
+                - ~(?i)^(?<start>.*)(?<temp>[\?&]feed[\-_]token)=[^&]*(?<rest>.*)$: '"$start$temp=[FILTERED]$rest"'
             ## A version of the referer without the query string
             - map $http_referer $gitlab_ssl_filtered_http_referer:
                 - default: $http_referer
