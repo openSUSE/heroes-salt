@@ -106,7 +106,7 @@ for role in $(bin/get_roles.py); do
                     if [ -n "$state" ]
                     then
                         echo "Applying $state ..." >> "$out"
-                        salt-call --local state.apply "$state" >> "$out"
+                        salt-call --local state.apply "$state" >> "$out" || rolestatus=1
                         echo >> "$out"
                         unset state
                         break
@@ -115,7 +115,7 @@ for role in $(bin/get_roles.py); do
             done
         fi
         echo 'Applying nginx ...' >> "$out"
-        salt-call --local state.apply nginx >> "$out"
+        salt-call --local state.apply nginx >> "$out" || rolestatus=1
         create_fake_certs
         touch_includes $role
 
