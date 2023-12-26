@@ -146,6 +146,19 @@ nginx:
                     - proxy_set_header: Upgrade $http_upgrade
                     - proxy_set_header: Connection $connection_upgrade_gitlab_ssl
                     - proxy_pass: http://gitlab-workhorse
+                    # display .txt job artifacts in the browser instead of downloading them
+                    # without the need for GitLab pages
+                    - location ~ .*\/raw\/(.*\.txt)$:
+                        - proxy_hide_header: Content-Disposition
+                        - proxy_hide_header: Content-Type
+                        - access_log: /var/log/nginx/gitlab_txt_access.log
+                        - add_header: >-
+                            Content-Disposition 'inline; "filename=$1"'
+                        - add_header: Content-Type text/plain
+                        - proxy_pass: http://gitlab-workhorse
+                    # display said artifacts immediately instead of having the user go through the "download instead" page
+                    - location ~ .*\/file\/(.*\.txt)$:
+                        - rewrite: ^(.*)/file/(.*)$ $1/raw/$2
                 - error_page: 404 /404.html
                 - error_page: 422 /422.html
                 - error_page: 500 /500.html
