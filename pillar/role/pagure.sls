@@ -26,7 +26,7 @@ profile:
     database_user: pagure
     database_host: postgresql.infra.opensuse.org
 
-{% set listenhttps6=['[::]:443', 'ssl', 'http2'] %}
+{% set listenhttps6='[::]:443 ssl http2' %}
 
 nginx:
   servers:
@@ -37,8 +37,7 @@ nginx:
               - include: acme-challenge
               - server_name: '_'
               - listen:
-                  - '[::]:80'
-                  - default_server
+                  - '[::]:80 default_server'
               - location /:
                   - return: '301 https://$host$request_uri'
         enabled: True
@@ -46,7 +45,7 @@ nginx:
         config:
           - server:
               - server_name: code.opensuse.org
-              - listen: {{ listenhttps6 }}
+              - listen: '{{ listenhttps6 }}'
               - include: ssl-config
               - location @pagure:
                   - client_max_body_size: 0
@@ -65,7 +64,7 @@ nginx:
         config:
           - server:
               - server_name: releases.opensuse.org
-              - listen: {{ listenhttps6 }}
+              - listen: '{{ listenhttps6 }}'
               - include: ssl-config
               - location /:
                   - alias: /srv/www/pagure-releases/
@@ -75,7 +74,7 @@ nginx:
         config:
           - server:
               - server_name: ev.opensuse.org
-              - listen: {{ listenhttps6 }}
+              - listen: '{{ listenhttps6 }}'
               - include: ssl-config
               - location @pagure_ev:
                   - proxy_set_header: Host $http_host
@@ -90,7 +89,7 @@ nginx:
         config:
           - server:
               - server_name: pages.opensuse.org
-              - listen: {{ listenhttps6 }}
+              - listen: '{{ listenhttps6 }}'
               - include: ssl-config
               - location @pagure_docs:
                   - proxy_set_header: Host $http_host

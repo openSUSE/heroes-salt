@@ -18,8 +18,7 @@ nginx:
             - server: unix:///var/cache/tsp/puma.socket
           - server:
               - listen:
-                  - '[::]:80'
-                  - default_server
+                  - '[::]:80 default_server'
               - server_name: tsp.opensuse.org
               - root: /srv/www/travel-support-program/public
               - keepalive_timeout: 5

@@ -152,8 +152,7 @@ nginx:
           - server:
               - server_name: chat.opensuse.org
               - listen:
-                  - 80
-                  - default_server
+                  - '[::]:80 default_server'
               - root: /usr/share/webapps/element
               - gzip_vary: 'on'
               - gzip_min_length: 1000

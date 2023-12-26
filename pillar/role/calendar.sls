@@ -20,8 +20,7 @@ nginx:
         config:
           - server:
               - listen:
-                  - '[::]:80'
-                  - default_server
+                  - '[::]:80 default_server'
               - server_name: calendar.opensuse.org
               - root: /srv/www/calendar-o-o/public
               - client_max_body_size: 20m

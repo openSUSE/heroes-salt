@@ -81,9 +81,7 @@ nginx:
           ## Redirects all HTTP traffic to the HTTPS host
           - server:
               - listen:
-                  - "[::]:80"
-                  - ipv6only=on
-                  - default_server
+                  - '[::]:80 ipv6only=on default_server'
               - server_name: gitlab.infra.opensuse.org
               - server_tokens: 'off'
               - include: acme-challenge
@@ -95,10 +93,7 @@ nginx:
               - error_log: /var/log/nginx/gitlab_error.log
           - server:
               - listen:
-                  - "[::]:443"
-                  - ipv6only=on
-                  - ssl
-                  - default_server
+                  - '[::]:443 ipv6only=on ssl default_server'
               - server_name: gitlab.infra.opensuse.org
               - server_tokens: 'off'
               ## Strong SSL Security
