@@ -14,27 +14,26 @@ profile:
       client_id: calendar.opensuse.org
 
 nginx:
-  ng:
-    servers:
-      managed:
-        calendar.opensuse.org.conf:
-          config:
-            - server:
-                - listen:
-                    - '[::]:80'
-                    - default_server
-                - server_name: calendar.opensuse.org
-                - root: /srv/www/calendar-o-o/public
-                - client_max_body_size: 20m
-                - keepalive_timeout: 5
-                - try_files $uri/index.html $uri @calendar
-                - location @calendar:
-                    - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                    - proxy_set_header: Host $http_host
-                    - proxy_pass: 'http://unix:/run/calendar/puma'
-                - error_page: 500 502 503 504 /50x.html
-                - location = /50x.html:
-                    - root: /srv/www/htdocs
-                - access_log: /var/log/nginx/calendar.access.log combined
-                - error_log: /var/log/nginx/calendar.error.log
-          enabled: True
+  servers:
+    managed:
+      calendar.opensuse.org.conf:
+        config:
+          - server:
+              - listen:
+                  - '[::]:80'
+                  - default_server
+              - server_name: calendar.opensuse.org
+              - root: /srv/www/calendar-o-o/public
+              - client_max_body_size: 20m
+              - keepalive_timeout: 5
+              - try_files $uri/index.html $uri @calendar
+              - location @calendar:
+                  - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                  - proxy_set_header: Host $http_host
+                  - proxy_pass: 'http://unix:/run/calendar/puma'
+              - error_page: 500 502 503 504 /50x.html
+              - location = /50x.html:
+                  - root: /srv/www/htdocs
+              - access_log: /var/log/nginx/calendar.access.log combined
+              - error_log: /var/log/nginx/calendar.error.log
+        enabled: True
