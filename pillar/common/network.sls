@@ -9,9 +9,9 @@
 {%- set networks = country_networks.get(country, {}) %}
 
 {#- locations without internal IPv6 routing (https://progress.opensuse.org/issues/151192) #}
-{%- set legacy_countries = ['de-qsc', 'us'] %}
+{%- set legacy_countries = ['de', 'us'] %}
 {#- gateway machines which have internal IPv6 routing, as opposed to other machines in the legacy countries #}
-{%- set legacy_excludes = {'de-qsc': ['stonehat'], 'us': ['provo-gate']} %}
+{%- set legacy_excludes = {'de': ['stonehat'], 'us': ['provo-gate']} %}
 {%- set ip6_gw = grains['ip6_gw'] %}
 
 {%- set msg = 'common.network, host ' ~ host ~ ': ' %}
@@ -159,7 +159,7 @@ network:
       gateway: 192.168.67.20
     {%- endfor %}
 
-    {%- elif country == 'de-qsc' %}   {# v PRV              v os-p2p-nue1/1    v os-p2p-nue1/2 #}
+    {%- elif country == 'de' %}      {# v PRV              v os-p2p-nue1/1    v os-p2p-nue1/2 #}
     {%- do common_destinations.extend(['192.168.67.0/24', '172.16.201.0/31', '172.16.202.0/31']) %}
     {#- install default routes on machines in Nuremberg (QSC) which use external default gateways #}
     default4:

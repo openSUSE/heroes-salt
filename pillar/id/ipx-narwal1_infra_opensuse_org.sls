@@ -1,6 +1,6 @@
 grains:
-  city: QSC-nuremberg
-  country: de-qsc
+  city: nuremberg
+  country: de
   hostusage:
     - static.o.o
   reboot_safe: yes

@@ -6,10 +6,6 @@ global:
     - no
     - unknown
 localized:
-  de-qsc:
-    city: QSC-nuremberg
-    default_domain: infra.opensuse.org
-    domains: infra.opensuse.org
   de:
     city: nuremberg
     default_domain: infra.opensuse.org
