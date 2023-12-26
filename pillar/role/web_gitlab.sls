@@ -42,9 +42,6 @@ nginx:
     servers:
       managed:
         gitlab.infra.opensuse.org.conf:
-          ## Modified from http://blog.phusion.nl/2012/04/21/tutorial-setting-up-gitlab-on-debian-6/
-          ## Modified from https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html
-          ## Modified from https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html
           config:
             - upstream gitlab:
                 - server:
@@ -58,7 +55,8 @@ nginx:
                 - default: upgrade
                 - "''": close
             ## NGINX 'combined' log format with filtered query strings
-            - log_format: gitlab_ssl_access $remote_addr - $remote_user [$time_local] "$request_method $gitlab_ssl_filtered_request_uri $server_protocol" $status $body_bytes_sent "$gitlab_ssl_filtered_http_referer" "$http_user_agent"
+            - log_format: >-
+                gitlab_ssl_access '$remote_addr - $remote_user [$time_local] "$request_method $gitlab_ssl_filtered_request_uri $server_protocol" $status $body_bytes_sent "$gitlab_ssl_filtered_http_referer" "$http_user_agent"'
             ## Remove private_token from the request URI
             # In:  /foo?private_token=unfiltered&authenticity_token=unfiltered&rss_token=unfiltered&...
             # Out: /foo?private_token=[FILTERED]&authenticity_token=unfiltered&rss_token=unfiltered&...
@@ -76,7 +74,7 @@ nginx:
             # Out: /foo?private_token=[FILTERED]&authenticity_token=[FILTERED]&rss_token=[FILTERED]&...
             - map $gitlab_ssl_temp_request_uri_2 $gitlab_ssl_filtered_request_uri:
                 - default: $gitlab_ssl_temp_request_uri_2
-                - ~(?i)^(?<start>.*)(?<temp>[\?&]rss[\-_]token)=[^&]*(?<rest>.*)$: '"$start$temp=[FILTERED]$rest"'
+                - ~(?i)^(?<start>.*)(?<temp>[\?&]feed[\-_]token)=[^&]*(?<rest>.*)$: '"$start$temp=[FILTERED]$rest"'
             ## A version of the referer without the query string
             - map $http_referer $gitlab_ssl_filtered_http_referer:
                 - default: $http_referer
@@ -89,7 +87,9 @@ nginx:
                     - default_server
                 - server_name: gitlab.infra.opensuse.org
                 - server_tokens: 'off'
-                - return 301: https://$http_host$request_uri
+                - include: acme-challenge
+                - location /:
+                    - return 301: https://$http_host$request_uri
                 - access_log:
                     - /var/log/nginx/gitlab_access.log
                     - gitlab_ssl_access
@@ -107,14 +107,12 @@ nginx:
                 - ssl_certificate: /etc/nginx/ssl/gitlab.infra.opensuse.org.crt
                 - ssl_certificate_key: /etc/nginx/ssl/gitlab.infra.opensuse.org.key
                 # GitLab needs backwards compatible ciphers to retain compatibility with Java IDEs
-                - ssl_ciphers: '"ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4"'
+                - ssl_ciphers: '"ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"'
                 - ssl_protocols:
-                    - TLSv1
-                    - TLSv1.1
-                    - TLSv1.2
-                - ssl_prefer_server_ciphers: 'on'
+                    - TLSv1.3
+                - ssl_prefer_server_ciphers: 'off'
                 - ssl_session_cache: shared:SSL:10m
-                - ssl_session_timeout: 5m
+                - ssl_session_timeout: 1d
                 ## [Optional] Enable HTTP Strict Transport Security
                 - add_header: Strict-Transport-Security "max-age=31536000; includeSubDomains"
                 - access_log:
