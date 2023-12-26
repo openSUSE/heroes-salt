@@ -2,7 +2,6 @@ include:
   - cluster.squanchy
 
 grains:
-  city: prague
   country: cz
   hostusage:
     - Hypervisor

@@ -1,5 +1,4 @@
 grains:
-  city: prague
   country: cz
   hostusage:
     - mx2.o.o

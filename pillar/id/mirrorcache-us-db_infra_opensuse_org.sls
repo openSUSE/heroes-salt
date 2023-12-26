@@ -2,7 +2,6 @@ mirrorcache:
   backstage_workers: 12
 
 grains:
-  city: provo
   country: us
   hostusage:
     - mirrorcache-us-db

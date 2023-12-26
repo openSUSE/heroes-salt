@@ -1,5 +1,4 @@
 grains:
-  city: prague
   country: cz
   hostusage:
     - en.o.o (all *.o.o wikis)

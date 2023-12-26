@@ -2,7 +2,6 @@ include:
   - cluster.prg-ns
 
 grains:
-  city: prague
   country: cz
   hostusage:
     - DNS

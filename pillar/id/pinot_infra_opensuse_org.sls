@@ -1,5 +1,4 @@
 grains:
-  city: prague
   country: cz
   hostusage:
     - countdown.o.o, release-notes etc.

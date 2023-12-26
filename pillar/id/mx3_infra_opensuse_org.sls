@@ -1,5 +1,4 @@
 grains:
-  city: nuremberg
   country: de
   hostusage: []
   reboot_safe: yes

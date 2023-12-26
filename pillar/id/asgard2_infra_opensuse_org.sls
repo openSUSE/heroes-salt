@@ -2,7 +2,6 @@ include:
   - cluster.asgard
 
 grains:
-  city: prague
   country: cz
   hostusage:
     - Firewall

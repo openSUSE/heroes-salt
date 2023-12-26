@@ -2,7 +2,6 @@ include:
   - cluster.falkor
 
 grains:
-  city: prague
   country: cz
   hostusage:
     - Hypervisor

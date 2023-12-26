@@ -2,7 +2,6 @@ mirrorcache:
   proxy_url: https://mirrorcache-us.opensuse.org
 
 grains:
-  city: provo
   country: us
   hostusage:
     - mirrorcache-us

@@ -1,5 +1,4 @@
 grains:
-  city: nuremberg
   country: de
   hostusage:
     - Galera node (MySQL)

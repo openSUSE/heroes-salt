@@ -8,7 +8,6 @@ if there is nothing to put into that tag. Just the comments behind ```##```
 
 ```
 grains:
-  city: nuremberg          ## The city of the machine.
   country: de              ## The country of the machine. 
   hostusage: []            ## This will end up in the bash prompt (comma separated values).
                            ## Please keep this short to avoid long lines on the machine.

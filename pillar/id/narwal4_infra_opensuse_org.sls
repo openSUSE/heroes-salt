@@ -1,5 +1,4 @@
 grains:
-  city: provo
   country: us
   hostusage:
     - static.o.o
