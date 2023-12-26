@@ -46,7 +46,6 @@ nginx:
               - server: 'unix:/srv/www/vhosts/discourse/tmp/sockets/puma.sock'
           - types:
               - text/csv: csv
-              - application/wasm: wasm
           - proxy_cache_path: /var/lib/nginx/cache/ inactive=1440m levels=1:2 keys_zone=one:10m max_size=600m
           - proxy_buffer_size: 8k
           - map $http_x_forwarded_proto $thescheme:
