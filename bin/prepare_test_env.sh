@@ -81,7 +81,7 @@ cp "$IDFILE" "$IDFILE_BASE"
 if [[ -n "$HIGHSTATE" ]]; then
     ROLES=$(bin/get_roles.py -o yaml)
     [[ -n "$OS" ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]"
-    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS\nvirt_cluster:\nvirtual:\n" > /etc/salt/grains
+    printf "city:\ncountry:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS\n" > /etc/salt/grains
     printf "$ROLES" >> "$IDFILE"
 
     if [ ! -d /etc/salt/minion.d ]

@@ -15,12 +15,6 @@ grains:
   roles: []                ## This corresponds to pillar/role/$role.sls and salt/role/$role.sls.
                            ## Both files have to exist because Salt will try to include them!
   reboot_safe: yes         ## Could anyone simply reboot the machine and everything comes back as expected?
-  virt_cluster: falkor     ## The virtualization cluster, the machine is running on.
-                           ## Possible values:
-                           ## * bryce
-                           ## * falkor
-                           ## * orbit
-                           ## * squanchy
   ## Everything below here is primarily ment for humans. 
   aliases: []              ## Mostly used for DNS aliases at the moment.
   description: you name it ## A short description that gives other admins an idea about the

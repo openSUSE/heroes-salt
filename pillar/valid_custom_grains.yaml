@@ -9,34 +9,16 @@ localized:
   de-qsc:
     city: QSC-nuremberg
     default_domain: infra.opensuse.org
-    default_virt_cluster: atreju
     domains: infra.opensuse.org
-    virt_cluster:
-      - slimhat
-      - slimhat-bare
-      - stonehat
-      - stonehat-bare
   de:
     city: nuremberg
     default_domain: infra.opensuse.org
-    default_virt_cluster: atreju
     domains: infra.opensuse.org
-    virt_cluster: atreju
   us:
     city: provo
     default_domain: infra.opensuse.org
-    default_virt_cluster: bryce
     domains: infra.opensuse.org
-    virt_cluster: bryce
   cz:
     city: prague
     default_domain: infra.opensuse.org
-    default_virt_cluster: falkor
     domains: infra.opensuse.org
-    virt_cluster:
-      - falkor
-      - falkor-bare
-      - orbit
-      - orbit-bare
-      - squanchy
-      - squanchy-bare
