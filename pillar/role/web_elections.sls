@@ -10,9 +10,7 @@ nginx:
       elections.opensuse.org.conf:
         config:
           - upstream helios:
-            - server:
-                - unix:/srv/www/vhosts/helios-server/tmp/sockets/helios.sock
-                - fail_timeout=0
+            - server: unix:/srv/www/vhosts/helios-server/tmp/sockets/helios.sock fail_timeout=0
           - server:
             - listen:
                 - '[::]:80'

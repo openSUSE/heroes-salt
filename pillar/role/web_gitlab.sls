@@ -43,13 +43,9 @@ nginx:
       gitlab.infra.opensuse.org.conf:
         config:
           - upstream gitlab:
-              - server:
-                  - unix:/srv/www/vhosts/gitlab-ce/tmp/sockets/gitlab.socket
-                  - fail_timeout=0
+              - server: unix:/srv/www/vhosts/gitlab-ce/tmp/sockets/gitlab.socket fail_timeout=0
           - upstream gitlab-workhorse:
-              - server:
-                  - unix:/srv/www/vhosts/gitlab-ce/tmp/sockets/gitlab-workhorse.socket
-                  - fail_timeout=0
+              - server: unix:/srv/www/vhosts/gitlab-ce/tmp/sockets/gitlab-workhorse.socket fail_timeout=0
           - map $http_upgrade $connection_upgrade_gitlab_ssl:
               - default: upgrade
               - "''": close
