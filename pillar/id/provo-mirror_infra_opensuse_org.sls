@@ -4,7 +4,6 @@ grains:
   hostusage:
     - mirror
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases:
     - twsnapshot.opensuse.org

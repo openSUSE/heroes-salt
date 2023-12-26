@@ -8,7 +8,6 @@ grains:
     - Int. Proxy
     - Int. DNS
   reboot_safe: yes
-  virt_cluster: falkor
   aliases: []
   description: Internal reverse proxy/relay for various protocols and recursive resolver
   documentation: []

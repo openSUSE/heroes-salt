@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Admin Bastion
   reboot_safe: yes
-  virt_cluster: squanchy
   aliases: []
   description: Admin Jumphost
   documentation: []

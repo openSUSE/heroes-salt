@@ -6,7 +6,6 @@ grains:
     - monitor.o.o
     - syslog.i.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Monitoring server running Icinga2 and an IRC Bot

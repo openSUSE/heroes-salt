@@ -4,7 +4,6 @@ grains:
   hostusage:
     - freeipa
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Main FreeIPA server for user, group and DNS management.

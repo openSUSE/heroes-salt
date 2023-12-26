@@ -4,7 +4,6 @@ grains:
   hostusage:
     - metrics.o.o
   reboot_safe: unknown
-  virt_cluster: falkor
 
   aliases: []
   description: openSUSE download and usage statistics

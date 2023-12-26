@@ -4,7 +4,6 @@ grains:
   hostusage:
     - matomo
   reboot_safe: yes 
-  virt_cluster: falkor
 
   aliases: []
   description: Web analytics platform

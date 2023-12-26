@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Galera node (MySQL)
   reboot_safe: no
-  virt_cluster: bryce
 
   aliases: 
     - galera5.infra.opensuse.org

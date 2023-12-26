@@ -4,7 +4,6 @@ grains:
   hostusage:
     - countdown.o.o, release-notes etc.
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: countdown.opensuse.org, board meeting reminder mailer, release notes, phpMyAdmin, asknot-ng

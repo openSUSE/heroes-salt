@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Admin Bastion
   reboot_safe: yes
-  virt_cluster: falkor
   aliases: []
   description: Admin Jumphost
   documentation: []

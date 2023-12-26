@@ -4,7 +4,6 @@ grains:
   hostusage:
     - mx1.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Mail server

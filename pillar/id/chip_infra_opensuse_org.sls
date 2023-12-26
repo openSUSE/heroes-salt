@@ -4,7 +4,6 @@ grains:
   hostusage:
     - pDNS master
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases:
     - ext-ns.infra.opensuse.org

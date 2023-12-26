@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Travel Support Program webapp
   reboot_safe: unknown
-  virt_cluster: falkor
 
   aliases: []
   description: Travel Support Program (tsp) webapp server

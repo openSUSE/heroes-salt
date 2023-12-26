@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Galera node (MySQL)
   reboot_safe: yes
-  virt_cluster: stonehat
 
   aliases: []
   description: MySQL cluster

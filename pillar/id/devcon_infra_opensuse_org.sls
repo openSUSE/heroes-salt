@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Management
   reboot_safe: yes
-  virt_cluster: squanchy
   aliases: []
   description: Management Jumphost
   documentation: []

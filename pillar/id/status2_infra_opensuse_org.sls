@@ -4,7 +4,6 @@ grains:
   hostusage:
     - status
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases: []
   description: Public infrastructure status page

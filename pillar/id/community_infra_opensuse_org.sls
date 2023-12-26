@@ -8,7 +8,6 @@ grains:
     - community.o.o
     - doc.o.o
   reboot_safe: unknown
-  virt_cluster: falkor
 
   aliases: []
   description: Several old services (see hostusage) that need to be migrated to new VMs

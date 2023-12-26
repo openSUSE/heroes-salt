@@ -4,7 +4,6 @@ grains:
   hostusage:
     - pagure
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Instance of pagure behind openSUSE Code

@@ -4,7 +4,6 @@ grains:
   hostusage:
     - lists.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Mailman 3 setup for the openSUSE Mailing Lists

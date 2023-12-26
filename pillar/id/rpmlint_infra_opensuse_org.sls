@@ -4,7 +4,6 @@ grains:
   hostusage:
     - rpmlint.o.o
   reboot_safe: unknown
-  virt_cluster: falkor
 
   aliases: []
   description: Build check statistics

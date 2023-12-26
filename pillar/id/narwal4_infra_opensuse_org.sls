@@ -4,7 +4,6 @@ grains:
   hostusage:
     - static.o.o
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases: []
   description: Provider of static content like CSS and Javascript for openSUSE Webservers

@@ -4,7 +4,6 @@ grains:
   hostusage:
     - status
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Public infrastructure status page

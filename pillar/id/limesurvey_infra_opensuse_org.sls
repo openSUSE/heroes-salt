@@ -4,7 +4,6 @@ grains:
   hostusage:
     - limesurvey
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Public polls and surveys

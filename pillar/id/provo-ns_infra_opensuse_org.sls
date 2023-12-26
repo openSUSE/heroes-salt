@@ -4,7 +4,6 @@ grains:
   hostusage:
     - DNS
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases:
     - ns3.infra.opensuse.org

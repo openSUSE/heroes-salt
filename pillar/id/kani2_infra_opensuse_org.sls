@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Kanidm
   reboot_safe: yes
-  virt_cluster: falkor
   aliases: []
   description: Internal identity provider and authentication service
   documentation:

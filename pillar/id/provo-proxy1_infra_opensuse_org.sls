@@ -4,7 +4,6 @@ grains:
   hostusage:
     - proxy
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases:
     - mufasa.infra.opensuse.org

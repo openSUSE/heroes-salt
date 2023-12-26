@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Salt Master
   reboot_safe: yes
-  virt_cluster: squanchy
   aliases:
     - salt.infra.opensuse.org
   description: Salt Master
