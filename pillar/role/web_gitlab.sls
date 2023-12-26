@@ -10,30 +10,33 @@ nginx:
       gitlab.infra.opensuse.org:
         public_cert: |
           -----BEGIN CERTIFICATE-----
-          MIIEWTCCA0GgAwIBAgIBDDANBgkqhkiG9w0BAQsFADA9MRswGQYDVQQKDBJJTkZS
-          QS5PUEVOU1VTRS5PUkcxHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1dGhvcml0eTAe
-          Fw0xNzEwMTkxMjI5MzVaFw0xOTEwMjAxMjI5MzVaMEExGzAZBgNVBAoMEklORlJB
-          Lk9QRU5TVVNFLk9SRzEiMCAGA1UEAwwZZ2l0bGFiLmluZnJhLm9wZW5zdXNlLm9y
-          ZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALWfuMhdJOdrwvu2hCw0
-          +bRNl8AADSvdBBokQlwpUvbgITNWR3tkj/KgIEO0ohBC7j+a2L3t3qm5tP8ETdET
-          cS96lj1nZ6fTWV1J9qezfpTBRDE3VIK3vykoBqzRMBVq6R4Kajg7SvB9pWRpHBC4
-          xm3vPA4AnSN9skPtMMGpqZxFMbpGsirObzr5Rit4tM53gZy7zgS2n22TqMeEsEYv
-          d/fHxW2bNLvS5BwX+RU1NhRlNFDPI7BQgCOGzgWrKZeukGfzcOhIXMKtnLPQc/65
-          VcGQDRm01ReSBqNbyADuAfbYrFOPyf8V2FlloUG/voM4c5y6WamHv2ZJepel5qxI
-          ickCAwEAAaOCAV4wggFaMB8GA1UdIwQYMBaAFKlSimqonCWUWJHsFYnI+g8qlmg/
-          MEQGCCsGAQUFBwEBBDgwNjA0BggrBgEFBQcwAYYoaHR0cDovL2lwYS1jYS5pbmZy
-          YS5vcGVuc3VzZS5vcmcvY2Evb2NzcDAOBgNVHQ8BAf8EBAMCBPAwHQYDVR0lBBYw
-          FAYIKwYBBQUHAwEGCCsGAQUFBwMCMH0GA1UdHwR2MHQwcqA6oDiGNmh0dHA6Ly9p
-          cGEtY2EuaW5mcmEub3BlbnN1c2Uub3JnL2lwYS9jcmwvTWFzdGVyQ1JMLmJpbqI0
-          pDIwMDEOMAwGA1UECgwFaXBhY2ExHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1dGhv
-          cml0eTAdBgNVHQ4EFgQUrqKLD5dYozCI//zl7UW5jYyEkXIwJAYDVR0RBB0wG4IZ
-          Z2l0bGFiLmluZnJhLm9wZW5zdXNlLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAVm3I
-          IpSAJovwTDnbDebdPl0+o9QKCYN91B6HXcet05Z+8endi2Nk/vWsa3pClmfo4hgv
-          GieObg+fOnjL7JuPXUDf/0/WggaIjGEbk7I8CUubjK3u6AxM2csWBqg0XEL9KdT9
-          ScNcNVzHqhrIgO2pz2xImVO03hSLnmsVjTl/ssOsSBbWYSHueT3C7ZJIr4gQ7XDI
-          wL0yxP6NShgkEqAUs9QY5GBjm5bsykOj89qgi6Zu8kUJqPYLKkwjZy62cDRvoiQh
-          TM0JvF2fa2AjvK0CYcYkIo+Kz1KagM52oQBlZQO7RcEVcW9GfHVMmmj3in5/U45H
-          nLpMhv4+wJAh8gJ0oA==
+          MIICizCCAjKgAwIBAgIQYFYplMcg9h1T8yhiHMIsszAKBggqhkjOPQQDAjBKMRsw
+          GQYDVQQKExJIZXJvZXMgaW50ZXJuYWwgQ0ExKzApBgNVBAMTIkhlcm9lcyBpbnRl
+          cm5hbCBDQSBJbnRlcm1lZGlhdGUgQ0EwHhcNMjMxMjI2MTQ0NzUyWhcNMjQxMjI1
+          MTQ0NzUxWjAkMSIwIAYDVQQDExlnaXRsYWIuaW5mcmEub3BlbnN1c2Uub3JnMIGb
+          MBAGByqGSM49AgEGBSuBBAAjA4GGAAQB13oP2JI/k/0zEBClt18ZfJn9wuYNXY6y
+          kMGJePdu7SyidJ0fEZgyjiMEu9AIaWQRUcHsEpsH1IopluOm1wzsu3cAuztE5esp
+          GNDLHqs1hSU/Vt49exZdpc4jnjRro379iu4oCTJEpAGlmgStM45zWki5HUwiFe3O
+          Y+6ltNma6NqWQhCjgdwwgdkwDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMBBggrBgEFBQcDAjAdBgNVHQ4EFgQUxxJ///3vhHrofS3YLRp/7zMzpiAw
+          HwYDVR0jBBgwFoAU6nbAOLNZKEWtchF/2j1cLSmoZmQwaAYDVR0RBGEwX4IZZ2l0
+          bGFiLmluZnJhLm9wZW5zdXNlLm9yZ4IfZ2l0bGFiLXBhZ2VzLmluZnJhLm9wZW5z
+          dXNlLm9yZ4IhKi5naXRsYWItcGFnZXMuaW5mcmEub3BlbnN1c2Uub3JnMAoGCCqG
+          SM49BAMCA0cAMEQCIDMkQ7oMN45LNEl1cijWtihP3VsjHhoPO6Ap2brOFlhvAiAn
+          cbqJ0ylLu44GeKC4+YMONT6CYP0+mr373QK+Ffg2qw==
+          -----END CERTIFICATE-----
+          -----BEGIN CERTIFICATE-----
+          MIIB8TCCAZegAwIBAgIRAKUPy6g1pK/iPT3xlHXD4SUwCgYIKoZIzj0EAwIwQjEb
+          MBkGA1UEChMSSGVyb2VzIGludGVybmFsIENBMSMwIQYDVQQDExpIZXJvZXMgaW50
+          ZXJuYWwgQ0EgUm9vdCBDQTAeFw0yMTAzMjYxNDU2MzBaFw0zMTAzMjQxNDU2MzBa
+          MEoxGzAZBgNVBAoTEkhlcm9lcyBpbnRlcm5hbCBDQTErMCkGA1UEAxMiSGVyb2Vz
+          IGludGVybmFsIENBIEludGVybWVkaWF0ZSBDQTBZMBMGByqGSM49AgEGCCqGSM49
+          AwEHA0IABCjVMdnPT83h/pbT+p0RftUhOgAa/6kUfds/KQqpHWfSeGUC1q63uqMt
+          zJEY7ayXiclvN2q5Pp7tb48ij1BBjyqjZjBkMA4GA1UdDwEB/wQEAwIBBjASBgNV
+          HRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQWBBTqdsA4s1koRa1yEX/aPVwtKahmZDAf
+          BgNVHSMEGDAWgBTcDTCZTLQozqIWRXU9drYriGctSzAKBggqhkjOPQQDAgNIADBF
+          AiEAn+Tkp4uD38dYq0zGCJ6RYk/zFSrsZYYbGdbn3qMQRKUCIEJiKrMy36hfcHKT
+          ryjDcdoH37uPupe6AcZTMWX/6kne
           -----END CERTIFICATE-----
         # private_key included from pillar/secrets/role/web_gitlab.sls
     dh_param:
