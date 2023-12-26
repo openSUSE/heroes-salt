@@ -19,8 +19,7 @@ nginx:
       paste.opensuse.org.conf:
         config:
           - server:
-              - listen:
-                  - '[::]:80 default_server'
+              - listen: '[::]:80 default_server'
               - server_name: paste.opensuse.org
               - root: /srv/www/paste-o-o/public
               - client_max_body_size: 20m

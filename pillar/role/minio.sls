@@ -11,8 +11,7 @@ nginx:
         config:
           - server:
               - server_name: s3.opensuse-project.net
-              - listen:
-                  - '[::]:80 default_server'
+              - listen: '[::]:80 default_server'
               - ignore_invalid_headers: "off"
               - proxy_buffering: "off"
               - location /:

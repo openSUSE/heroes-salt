@@ -151,8 +151,7 @@ nginx:
         config:
           - server:
               - server_name: chat.opensuse.org
-              - listen:
-                  - '[::]:80 default_server'
+              - listen: '[::]:80 default_server'
               - root: /usr/share/webapps/element
               - gzip_vary: 'on'
               - gzip_min_length: 1000
@@ -182,8 +181,7 @@ nginx:
         config:
           - server:
               - server_name: dimension.opensuse.org
-              - listen:
-                  - 80
+              - listen: 80
               - location /:
                   - proxy_set_header: X-Forwarded-For $remote_addr
                   - proxy_pass: http://localhost:8184
@@ -198,8 +196,7 @@ nginx:
           - include: /etc/matrix-synapse/workers/upstreams.conf
           - server:
               - server_name: matrix.opensuse.org
-              - listen:
-                  - 80
+              - listen: 80
               - location /:
                   - return: 301 https://chat.opensuse.org
               - location /_matrix:
@@ -211,8 +208,7 @@ nginx:
         config:
           - server:
               - server_name: webhook.opensuse.org
-              - listen:
-                  - 80
+              - listen: 80
               - location /:
                   - return: 301 https://chat.opensuse.org
               - location ~ "/..*":

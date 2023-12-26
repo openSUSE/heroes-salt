@@ -12,8 +12,7 @@ nginx:
           - upstream helios:
             - server: unix:/srv/www/vhosts/helios-server/tmp/sockets/helios.sock fail_timeout=0
           - server:
-            - listen:
-                - '[::]:80'
+            - listen: '[::]:80'
             - location /:
               - include: /etc/nginx/uwsgi_params
               - uwsgi_pass: helios

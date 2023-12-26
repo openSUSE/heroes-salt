@@ -43,8 +43,7 @@ nginx:
               - server: 127.0.0.1:8000 fail_timeout=0
           - server:
               - server_name: lists.opensuse.org lists.uyuni-project.org
-              - listen:
-                  - '[::]:80 default_server'
+              - listen: '[::]:80 default_server'
               - proxy_send_timeout: 600
               - proxy_read_timeout: 600
               - send_timeout: 600

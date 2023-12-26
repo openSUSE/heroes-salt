@@ -36,8 +36,7 @@ nginx:
           - server:
               - include: acme-challenge
               - server_name: '_'
-              - listen:
-                  - '[::]:80 default_server'
+              - listen: '[::]:80 default_server'
               - location /:
                   - return: '301 https://$host$request_uri'
         enabled: True
