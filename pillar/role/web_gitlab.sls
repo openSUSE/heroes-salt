@@ -39,16 +39,6 @@ nginx:
           ryjDcdoH37uPupe6AcZTMWX/6kne
           -----END CERTIFICATE-----
         # private_key included from pillar/secrets/role/web_gitlab.sls
-    dh_param:
-      gitlab.infra.opensuse.org.dhparams: |
-        -----BEGIN DH PARAMETERS-----
-        MIIBCAKCAQEA7PJQ8wuX4X5olj1lgscd7NWYCdW2+W/8JmBYQE79qnjKhW9I0lg6
-        zigDe6qUh/QonJ9v2rjeoOMa9lFpgee7Hd4QP1ZmS2seaNBVaVBUWaTX/W8Kzi6B
-        muks7dMjbkrx4hHzw5A/UK4sXR7o2jkZbSF72hrxL9e2EAD0DTH3cyVJnjbbjxC/
-        G44CZVTNZpPk1J9kl00eq19Nx/0tXoa6mS1I4h6+zHS8mg2rZKwWZ+FbpGunGXmE
-        V5EOx0TUmcFmCxpdS94+PnFrS78OKpMugJWQNE4hLwZ19+HTzFKRHSoGTUXOZrOk
-        QwknZM+Uol0R0oUeo/5zEmN4mfQ1Iv0nCwIBAg==
-        -----END DH PARAMETERS-----
     servers:
       managed:
         gitlab.infra.opensuse.org.conf:
@@ -125,7 +115,6 @@ nginx:
                 - ssl_prefer_server_ciphers: 'on'
                 - ssl_session_cache: shared:SSL:10m
                 - ssl_session_timeout: 5m
-                - ssl_dhparam: /etc/nginx/ssl/gitlab.infra.opensuse.org.dhparams
                 ## [Optional] Enable HTTP Strict Transport Security
                 - add_header: Strict-Transport-Security "max-age=31536000; includeSubDomains"
                 - access_log:
