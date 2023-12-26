@@ -35,8 +35,6 @@ SUDO_ROLES=(
     $(grep -lr 'sudoers:' role/common/ | while read i; do L=${i%%.*}; L=${L//\//.}; grep -lr $L role/*.sls; done)
     # Get all the roles that contain sudoers entries
     $(grep -lr 'sudoers:' role/*.sls)
-    # add additional roles that contain sudoers rules and are difficult to find in an automated way
-    role/worker_gitlab.sls
 )
 popd > /dev/null
 
