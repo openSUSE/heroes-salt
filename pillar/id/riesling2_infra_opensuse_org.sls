@@ -4,7 +4,6 @@ grains:
   hostusage:
     - en.o.o (read-only)
   reboot_safe: unknown
-  virt_cluster: bryce
 
   aliases: []
   description: read-only copy of en.o.o (as of October 2017) in Provo

@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Galera node (MySQL)
   reboot_safe: no
-  virt_cluster: falkor
 
   aliases: []
   description: Node of the MySQL cluster based on Galera

@@ -4,7 +4,6 @@ grains:
   hostusage: 
     - osc-collab
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: osc collaboration plattform

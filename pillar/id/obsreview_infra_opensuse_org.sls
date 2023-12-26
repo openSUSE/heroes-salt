@@ -4,7 +4,6 @@ grains:
   hostusage:
     - future OBS reviews
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: OBS ReviewLab

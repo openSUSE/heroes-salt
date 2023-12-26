@@ -4,7 +4,6 @@ grains:
   hostusage:
     - PostgreSQL node
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases: 
     - mirrordb4.infra.opensuse.org

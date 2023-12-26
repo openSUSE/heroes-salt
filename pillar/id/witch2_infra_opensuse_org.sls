@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Salt Master
   reboot_safe: yes
-  virt_cluster: falkor
   aliases:
     - salt.infra.opensuse.org
   description: Salt Master

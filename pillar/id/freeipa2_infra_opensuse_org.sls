@@ -4,7 +4,6 @@ grains:
   hostusage:
     - freeipa2
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Secondary FreeIPA server for testing with identification.

@@ -4,7 +4,6 @@ grains:
   hostusage:
     - l10n.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases:
     - l10n.infra.opensuse.org

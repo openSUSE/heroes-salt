@@ -7,7 +7,6 @@ grains:
   hostusage:
     - mirrorcache-us
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases: []
   description: Productive server for MirrorCache in the US

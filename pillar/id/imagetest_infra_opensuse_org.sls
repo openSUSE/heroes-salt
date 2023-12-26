@@ -4,7 +4,6 @@ grains:
   hostusage:
     - Test
   reboot_safe: yes
-  virt_cluster: squanchy
   aliases: []
   description: Transient VM for testing OS images
   documentation: []

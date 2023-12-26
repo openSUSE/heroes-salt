@@ -4,7 +4,6 @@ grains:
   hostusage:
     - lnt.o.o
   reboot_safe: unknown
-  virt_cluster: falkor
 
   aliases: []
   description: lnt.o.o server

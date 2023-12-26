@@ -4,7 +4,6 @@ grains:
   hostusage:
     - postgreSQL
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases:
     - nala.infra.opensuse.org

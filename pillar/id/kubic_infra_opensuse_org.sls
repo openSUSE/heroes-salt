@@ -4,7 +4,6 @@ grains:
   hostusage:
     - kubic.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: kubic.opensuse.org server

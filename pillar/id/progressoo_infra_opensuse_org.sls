@@ -4,7 +4,6 @@ grains:
   hostusage:
     - progress.o.o
   reboot_safe: unknown
-  virt_cluster: falkor
   aliases: []
   description: Redmine (progress.o.o) server
   documentation: []

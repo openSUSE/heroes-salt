@@ -4,7 +4,6 @@ grains:
   hostusage:
     - DNS
   reboot_safe: yes
-  virt_cluster: slimhat
 
   aliases: 
     - ns1.infra.opensuse.org

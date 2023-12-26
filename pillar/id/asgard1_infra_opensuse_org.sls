@@ -8,7 +8,6 @@ grains:
     - Firewall
     - Router
   reboot_safe: no
-  virt_cluster: orbit
   description: Core firewall for openSUSE networks in PRG2
   documentation: []
   responsible:

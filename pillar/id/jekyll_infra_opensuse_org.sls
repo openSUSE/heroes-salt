@@ -5,7 +5,6 @@ grains:
     - news.o.o
     - planet.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Webserver running jekyll-managed websites like news.o.o and planet.o.o

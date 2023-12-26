@@ -4,7 +4,6 @@ grains:
   hostusage:
     - postgreSQL cluster
   reboot_safe: no
-  virt_cluster: falkor
 
   aliases: []
   description: postgreSQL cluster (master)

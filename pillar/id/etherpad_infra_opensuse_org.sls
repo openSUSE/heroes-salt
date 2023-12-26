@@ -4,7 +4,6 @@ grains:
   hostusage:
     - etherpad.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: openSUSE Etherpad

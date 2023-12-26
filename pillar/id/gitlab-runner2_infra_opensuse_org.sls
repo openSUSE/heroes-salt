@@ -4,7 +4,6 @@ grains:
   hostusage:
     - gitlab runner
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: GitLab Runner

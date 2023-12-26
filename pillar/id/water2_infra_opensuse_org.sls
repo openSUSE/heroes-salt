@@ -4,7 +4,6 @@ grains:
   hostusage:
     - en.o.o wiki search backend
   reboot_safe: unknown
-  virt_cluster: bryce
 
   aliases: []
   description: search backend for the read-only wiki copy (as of October 2017) in Provo

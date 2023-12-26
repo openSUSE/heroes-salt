@@ -29,7 +29,7 @@ use Scalar::Util qw(reftype);
 use YAML::Tiny;
 
 my $pillar_id_path='pillar/id';
-my @wanted=qw(aliases responsible virt_cluster weburls hostusage partners description documentation);
+my @wanted=qw(aliases responsible weburls hostusage partners description documentation);
 my $print_help='';
 my $dumpforredmine='';
 my $header='';

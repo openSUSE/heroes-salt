@@ -4,7 +4,6 @@ grains:
   hostusage:
     - matrix.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Server to host matrix and its bridges 

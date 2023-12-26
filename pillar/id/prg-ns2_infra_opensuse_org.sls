@@ -7,7 +7,6 @@ grains:
   hostusage:
     - DNS
   reboot_safe: yes
-  virt_cluster: falkor
   aliases:
     - ns4.opensuse.org
   description: Public, authoritative, name server

@@ -4,7 +4,6 @@ grains:
   hostusage:
     - svn_git
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Public (kernel) git and svn server.

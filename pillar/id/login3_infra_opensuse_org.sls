@@ -4,7 +4,6 @@ grains:
   hostusage:
     - login3.o.o
   reboot_safe: yes
-  virt_cluster: bryce
 
   aliases: []
   description: Login proxy for servers with authentication

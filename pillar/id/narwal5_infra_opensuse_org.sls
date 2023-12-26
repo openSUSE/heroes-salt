@@ -5,7 +5,6 @@ grains:
     - static.o.o
     - static.o.o master
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Provider of static content like CSS and Javascript for openSUSE Webservers (master)

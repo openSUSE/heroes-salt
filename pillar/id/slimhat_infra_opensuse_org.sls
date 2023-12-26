@@ -4,10 +4,9 @@ grains:
   hostusage:
     - IPMI access
   reboot_safe: yes
-  virt_cluster: slimhat-bare
 
   aliases: []
-  description: IPMI backdoor for widehat.infra.opensuse.org (Remote access) and hypervisor for VMs (use slimhat as virt_cluster entry)
+  description: IPMI backdoor for widehat.infra.opensuse.org (Remote access) and hypervisor for VMs
   documentation: []
   responsible:
     - bmwiedemann

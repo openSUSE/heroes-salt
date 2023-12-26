@@ -4,7 +4,6 @@ grains:
   hostusage:
     - en.o.o search backend
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases:
     - elasticsearch.infra.opensuse.org

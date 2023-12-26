@@ -4,7 +4,6 @@ grains:
   hostusage:
     - elections.o.o
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: board voting system, powered by helios-server

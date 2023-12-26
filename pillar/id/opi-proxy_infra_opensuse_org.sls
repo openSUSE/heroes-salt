@@ -4,7 +4,6 @@ grains:
   hostusage:
     - opi proxy
   reboot_safe: yes
-  virt_cluster: falkor
 
   aliases: []
   description: Proxy server for opi to access OBS/PMBS API
