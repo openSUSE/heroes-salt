@@ -25,3 +25,4 @@ sudoers:
       {%- if grains['virtual'] == 'physical' %}
       - 'ALL=(ALL) NOPASSWD: /usr/lib/nagios/plugins/check_md_raid, /sbin/multipath, /usr/bin/ipmitool'
       {%- endif %}
+  purge_includedir: true
