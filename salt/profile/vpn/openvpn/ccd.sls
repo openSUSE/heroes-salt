@@ -35,9 +35,9 @@ openvpn_ccd_files:
         {%- set user = user.decode() %}
         {%- do desired_ccds.append(user) %}
         {%- if
-              salt['cmd.retcode']('test -f ' ~ dir_tcp ~ user) == 0
+              salt['file.file_exists'](dir_tcp ~ user)
               and
-              salt['cmd.retcode']('test -f ' ~ dir_udp ~ user) == 0
+              salt['file.file_exists'](dir_udp ~ user)
         %}
         {%- set number =
               salt['cmd.run'](
