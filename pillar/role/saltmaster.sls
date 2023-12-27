@@ -1,3 +1,10 @@
+{%- set fqdn    = grains['fqdn']        -%}
+{%- set address = grains['fqdn_ip6'][0] -%}
+
+{%- set ssldir  = '/etc/ssl/witch/'            -%}
+{%- set crt     =  ssldir ~ fqdn '.wchain.crt' -%}
+{%- set key     =  ssldir ~ fqdn '.key'        -%}
+
 {%- import_yaml 'FORMULAS.yaml' as formulas_yaml -%}
 include:
   - infra.nodegroups
@@ -42,6 +49,11 @@ salt:
       __env__:
         - /srv/pillar
     pillar_source_merging_strategy: smart
+    rest_cherrypy:
+      host: {{ address }}
+      port: 4550
+      ssl_crt: {{ crt }}
+      ssl_key: {{ key }}
     sock_pool_size: 30
     state_aggregate: True
     state_compress_ids: True
@@ -69,9 +81,9 @@ profile:
         {%- endfor %}
     saline:
       restapi:
-        host: {{ grains['fqdn_ip6'][0] }}
-        ssl_crt: /etc/ssl/witch/{{ grains['fqdn'] }}.wchain.crt
-        ssl_key: /etc/ssl/witch/{{ grains['fqdn'] }}.key
+        host: {{ address }}
+        ssl_crt: {{ crt }}
+        ssl_key: {{ key }}
         log_access_file: /var/log/salt/saline-api-access.log
         log_error_file: /var/log/salt/saline-api-error.log
 
