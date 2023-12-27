@@ -6,6 +6,7 @@ grains:
   hostusage:
     - Hypervisor
   reboot_safe: no
+  virt_cluster: falkor-bare
   description: Hypervisor
   documentation: []
   responsible: []
