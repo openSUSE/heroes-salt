@@ -7,8 +7,6 @@
 {%- for uri in type.get('rest') %}
 location ~ {{ uri }} {
     proxy_pass http://{{ app }}_{{ loop.index }}$request_uri;
-    proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header Host $host;
 }
 {% endfor %}
 {% endif %}

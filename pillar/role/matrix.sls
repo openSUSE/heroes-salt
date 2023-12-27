@@ -73,10 +73,10 @@ profile:
             client1: 8521
             client2: 8522
         - rest:
-            - ^/_matrix/client/(api/v1|r0|v3|unstable)/login$
+            #- ^/_matrix/client/(api/v1|r0|v3|unstable)/login$
             - ^/_matrix/client/(r0|v3|unstable)/register$
             - ^/_matrix/client/v1/register/m.login.registration_token/validity$
-            - ^/_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
+            #- ^/_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
             - ^/_synapse/client/pick_idp$
             - ^/_synapse/client/pick_username
             - ^/_synapse/client/new_user_consent$
@@ -197,10 +197,12 @@ nginx:
           - server:
               - server_name: matrix.opensuse.org
               - listen: 80
+              - proxy_set_header: Host $host
+              - proxy_set_header: X-Forwarded-For $remote_addr
+              - proxy_set_header: X-Forwarded-Proto https
               - location /:
                   - return: 301 https://chat.opensuse.org
               - location /_matrix:
-                  - proxy_set_header: X-Forwarded-For $remote_addr
                   - proxy_pass: http://localhost:8008
               - include: /etc/matrix-synapse/workers/nginx.conf
         enabled: True
