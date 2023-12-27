@@ -1,9 +1,9 @@
 {%- set fqdn    = grains['fqdn']        -%}
 {%- set address = grains['fqdn_ip6'][0] -%}
 
-{%- set ssldir  = '/etc/ssl/witch/'            -%}
-{%- set crt     =  ssldir ~ fqdn '.wchain.crt' -%}
-{%- set key     =  ssldir ~ fqdn '.key'        -%}
+{%- set ssldir  = '/etc/ssl/witch/'              -%}
+{%- set crt     =  ssldir ~ fqdn ~ '.wchain.crt' -%}
+{%- set key     =  ssldir ~ fqdn ~ '.key'        -%}
 
 {%- import_yaml 'FORMULAS.yaml' as formulas_yaml -%}
 include:
