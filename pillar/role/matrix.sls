@@ -222,13 +222,6 @@ nginx:
                     - proxy_pass: http://localhost:9005
           enabled: True
 
-sudoers:
-  included_files:
-    /etc/sudoers.d/group_matrix-admins:
-      groups:
-        matrix-admins:
-          - 'ALL=(ALL) ALL'
-
 apparmor:
   profiles:
     matrix-synapse:

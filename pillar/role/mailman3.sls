@@ -78,13 +78,6 @@ nginx:
                     - proxy_pass: http://mailmanweb
           enabled: True
 
-sudoers:
-  included_files:
-    /etc/sudoers.d/group_mailman3-admins:
-      groups:
-        mailman3-admins:
-          - 'ALL=(ALL) ALL'
-
 zypper:
   packages:
     archrwr: {}

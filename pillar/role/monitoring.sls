@@ -117,10 +117,3 @@ profile:
         - perl-Nagios-Plugin
         - perl-Number-Format
 {%- endif %}
-
-sudoers:
-  included_files:
-    /etc/sudoers.d/group_monitoring-admins:
-      groups:
-        monitoring-admins:
-          - 'ALL=(ALL) ALL'
