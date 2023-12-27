@@ -124,7 +124,7 @@ echo "== /etc/salt/grains END =="
 IDFILE="pillar/id/$(hostname).sls"
 
 sed s/runner/$(hostname)/ test/pillar/clusters.yaml >> "$IDFILE"
-cat test/pillar/{mirrorcache,suse_ha}.sls >> "$IDFILE"
+cat test/pillar/{mirrorcache,suse_ha,conntrackd-asgard}.sls >> "$IDFILE"
 
 echo "== $IDFILE =="
 cat "$IDFILE"
