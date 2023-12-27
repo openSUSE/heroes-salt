@@ -54,24 +54,11 @@ mkdir -p /home/mirrors_static/git/mirrors_static/
 (cd /home/mirrors_static/git/mirrors_static/ && git init && git config user.email 'user@example.com' && touch foo && git add foo && git commit -m 'add foo')
 chown -R mirrors_static /home/mirrors_static/git/mirrors_static/
 
-# nameserver.recursor, warning only
-groupadd pdns
-
-# nameserver.secondary, warning only
-# groupadd pdns, see above
-useradd pdns
-
 # paste, error
 useradd paste
 
 # pagure, warning only
 groupadd git
-
-# pgbouncer, warning only
-groupadd pgbouncer
-
-# postgresql, warning only
-groupadd postgres
 
 # saltmaster, error in git.cloned
 useradd cloneboy
@@ -84,10 +71,6 @@ useradd web_static
 
 # tsp, error in git.cloned
 useradd tsp
-
-# wikisearch, warning only
-groupadd elasticsearch
-useradd elasticsearch
 
 # mirrorcache packages not available
 mkdir /etc/mirrorcache
