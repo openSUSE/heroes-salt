@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import salt.modules.file as file
 
+# https://github.com/saltstack/salt/pull/65751
 def check_fc_host():
   grains = {'fc_host': False}
   if file.directory_exists('/sys/class/fc_host'):
