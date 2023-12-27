@@ -19,11 +19,7 @@ zypper:
       priority: 99
       refresh: True
     openSUSE:infrastructure:
-      {%- if grains.get('osrelease') in ('15.2', '15.3') %}
-      baseurl: http://{{ mirror }}/repositories/openSUSE:/infrastructure/openSUSE_Leap_$releasever/
-      {%- else %}
       baseurl: http://{{ mirror }}/repositories/openSUSE:/infrastructure/$releasever/
-      {%- endif %}
       gpgautoimport: True
       priority: 100
       refresh: True
