@@ -112,14 +112,12 @@ systemctl start salt-minion
 salt-call test.ping
 
 
-sed -i -e '/virtual/d' -e '/virt_cluster/ s/:.*/: test/' /etc/salt/grains
 echo "== /etc/salt/grains =="
 cat "/etc/salt/grains"
 echo "== /etc/salt/grains END =="
 
 IDFILE="pillar/id/$(hostname).sls"
 
-echo "  virt_cluster: test" >> "$IDFILE"
 sed s/runner/$(hostname)/ test/pillar/clusters.yaml >> "$IDFILE"
 cat test/pillar/{mirrorcache,suse_ha}.sls >> "$IDFILE"
 
