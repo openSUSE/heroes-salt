@@ -73,10 +73,10 @@ profile:
             client1: 8521
             client2: 8522
         - rest:
-            - ^/_matrix/client/(api/v1|r0|v3|unstable)/login$
+            #- ^/_matrix/client/(api/v1|r0|v3|unstable)/login$
             - ^/_matrix/client/(r0|v3|unstable)/register$
             - ^/_matrix/client/v1/register/m.login.registration_token/validity$
-            - ^/_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
+            #- ^/_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
             - ^/_synapse/client/pick_idp$
             - ^/_synapse/client/pick_username
             - ^/_synapse/client/new_user_consent$
