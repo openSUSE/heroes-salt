@@ -145,82 +145,76 @@ profile:
       api_id: 1331253
 
 nginx:
-  ng:
-    servers:
-      managed:
-        chat.opensuse.org.conf:
-          config:
-            - server:
-                - server_name: chat.opensuse.org
-                - listen:
-                    - 80
-                    - default_server
-                - root: /usr/share/webapps/element
-                - gzip_vary: 'on'
-                - gzip_min_length: 1000
-                - gzip_comp_level: 5
-                - gzip_types:
-                    - text/plain
-                    - text/xml
-                    - text/x-js
-                    - application/json
-                    - text/css
-                    - application/x-javascript
-                    - application/javascript
-                - location /:
-                    - index:
-                        - index.html
-                        - index.htm
-                - location /vector-icons/:
-                    - rewrite: ^(.*?)\..*?(\..*?)$ $1$2 last
-                    - proxy_set_header: Host static.opensuse.org
-                    - proxy_pass: https://static.opensuse.org/chat/favicons/
-                - location ~* \.(?:ttf|otf|eot|woff)$:
-                    - add_header: Access-Control-Allow-Origin "*"
-                - access_log: /var/log/nginx/chat.access.log combined
-                - error_log: /var/log/nginx/chat.error.log
-          enabled: True
-        dimension.opensuse.org.conf:
-          config:
-            - server:
-                - server_name: dimension.opensuse.org
-                - listen:
-                    - 80
-                - location /:
-                    - proxy_set_header: X-Forwarded-For $remote_addr
-                    - proxy_pass: http://localhost:8184
-                - location /img/avatars/:
-                    - proxy_set_header: Host static.opensuse.org
-                    - proxy_pass: https://static.opensuse.org/chat/integrations/
-                - location ~* \.(?:ttf|otf|eot|woff)$:
-                    - add_header: Access-Control-Allow-Origin "*"
-          enabled: True
-        matrix.opensuse.org.conf:
-          config:
-            - include: /etc/matrix-synapse/workers/upstreams.conf
-            - server:
-                - server_name: matrix.opensuse.org
-                - listen:
-                    - 80
-                - location /:
-                    - return: 301 https://chat.opensuse.org
-                - location /_matrix:
-                    - proxy_set_header: X-Forwarded-For $remote_addr
-                    - proxy_pass: http://localhost:8008
-                - include: /etc/matrix-synapse/workers/nginx.conf
-          enabled: True
-        webhook.opensuse.org.conf:
-          config:
-            - server:
-                - server_name: webhook.opensuse.org
-                - listen:
-                    - 80
-                - location /:
-                    - return: 301 https://chat.opensuse.org
-                - location ~ "/..*":
-                    - proxy_set_header: X-Forwarded-For $remote_addr
-                    - proxy_pass: http://localhost:9005
-          enabled: True
+  servers:
+    managed:
+      chat.opensuse.org.conf:
+        config:
+          - server:
+              - server_name: chat.opensuse.org
+              - listen: '[::]:80 default_server'
+              - root: /usr/share/webapps/element
+              - gzip_vary: 'on'
+              - gzip_min_length: 1000
+              - gzip_comp_level: 5
+              - gzip_types:
+                  - text/plain
+                  - text/xml
+                  - text/x-js
+                  - application/json
+                  - text/css
+                  - application/x-javascript
+                  - application/javascript
+              - location /:
+                  - index:
+                      - index.html
+                      - index.htm
+              - location /vector-icons/:
+                  - rewrite: ^(.*?)\..*?(\..*?)$ $1$2 last
+                  - proxy_set_header: Host static.opensuse.org
+                  - proxy_pass: https://static.opensuse.org/chat/favicons/
+              - location ~* \.(?:ttf|otf|eot|woff)$:
+                  - add_header: Access-Control-Allow-Origin "*"
+              - access_log: /var/log/nginx/chat.access.log combined
+              - error_log: /var/log/nginx/chat.error.log
+        enabled: True
+      dimension.opensuse.org.conf:
+        config:
+          - server:
+              - server_name: dimension.opensuse.org
+              - listen: 80
+              - location /:
+                  - proxy_set_header: X-Forwarded-For $remote_addr
+                  - proxy_pass: http://localhost:8184
+              - location /img/avatars/:
+                  - proxy_set_header: Host static.opensuse.org
+                  - proxy_pass: https://static.opensuse.org/chat/integrations/
+              - location ~* \.(?:ttf|otf|eot|woff)$:
+                  - add_header: Access-Control-Allow-Origin "*"
+        enabled: True
+      matrix.opensuse.org.conf:
+        config:
+          - include: /etc/matrix-synapse/workers/upstreams.conf
+          - server:
+              - server_name: matrix.opensuse.org
+              - listen: 80
+              - location /:
+                  - return: 301 https://chat.opensuse.org
+              - location /_matrix:
+                  - proxy_set_header: X-Forwarded-For $remote_addr
+                  - proxy_pass: http://localhost:8008
+              - include: /etc/matrix-synapse/workers/nginx.conf
+        enabled: True
+      webhook.opensuse.org.conf:
+        config:
+          - server:
+              - server_name: webhook.opensuse.org
+              - listen: 80
+              - location /:
+                  - return: 301 https://chat.opensuse.org
+              - location ~ "/..*":
+                  - proxy_set_header: X-Forwarded-For $remote_addr
+                  - proxy_pass: http://localhost:9005
+        enabled: True
 
 apparmor:
   profiles:

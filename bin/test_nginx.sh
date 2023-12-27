@@ -115,7 +115,7 @@ for role in $(bin/get_roles.py); do
             done
         fi
         echo 'Applying nginx ...' >> "$out"
-        salt-call --local state.apply nginx.ng >> "$out"
+        salt-call --local state.apply nginx >> "$out"
         create_fake_certs
         touch_includes $role
 
