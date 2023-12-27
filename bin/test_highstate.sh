@@ -19,6 +19,9 @@ source bin/get_colors.sh
 
 # === role-specific workarounds ===
 
+# calendar, error
+useradd calendar
+
 # countdown, warning only
 useradd countdown
 
