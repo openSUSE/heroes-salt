@@ -11,7 +11,7 @@
 {%- if not address4 and not address6 and not 'Router' in grains.get('hostusage', []) -%}
   {%- set ipv4_ns = namespace(address=None) -%}
   {%- for address in grains['ipv4'] -%}
-    {%- if salt['network.is_private'](address) -%}
+    {%- if salt['network.is_private'](address) and not salt['network.is_loopback'](address) -%}
       {%- set ipv4_ns.address = address -%}
       {%- continue -%}
     {%- endif -%}
