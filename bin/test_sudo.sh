@@ -31,10 +31,8 @@ run_tests() {
 
 pushd pillar > /dev/null
 SUDO_ROLES=(
-    # Get all the roles that include common sls files, which contain sudoers entries
-    $(grep -lr 'sudoers:' role/common/ | while read i; do L=${i%%.*}; L=${L//\//.}; grep -lr $L role/*.sls; done)
     # Get all the roles that contain sudoers entries
-    $(grep -lr 'sudoers:' role/*.sls)
+    $(find role -type f -name '*.sls' -exec grep -l 'sudoers:' {} +)
 )
 popd > /dev/null
 

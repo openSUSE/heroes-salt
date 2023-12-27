@@ -35,10 +35,3 @@ nginx:
                 - access_log: /var/log/nginx/tsp.access.log combined
                 - error_log: /var/log/nginx/tsp.error.log
           enabled: True
-
-sudoers:
-  included_files:
-    /etc/sudoers.d/group_tsp-admins:
-      groups:
-        tsp-admins:
-          - 'ALL=(ALL) ALL'
