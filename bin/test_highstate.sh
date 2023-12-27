@@ -114,6 +114,8 @@ EOF
 systemctl start salt-minion
 salt-call test.ping
 
+# gateway, hypervisor.cluster and hypervisor.standalone roles: infrastructure-formula needs virt_cluster
+echo 'virt_cluster: falkor-bare' >> /etc/salt/grains
 
 echo "== /etc/salt/grains =="
 cat "/etc/salt/grains"
