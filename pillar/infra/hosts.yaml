@@ -1012,5 +1012,5 @@ witch1:
       pseudo_ip4: 172.16.164.101
       source: x-os-salt
   primary_interface: os-salt
-  ram: 4096MB
-  vcpu: 4
+  ram: 8192MB
+  vcpu: 16
