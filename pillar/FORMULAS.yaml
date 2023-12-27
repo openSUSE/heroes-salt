@@ -15,10 +15,7 @@ git:
   openssh: {}
   powerdns: {}
   prometheus: {}
-  rsyslog:
-    namespace: 'tampakrap'
-    pending:
-      - 'https://github.com/saltstack-formulas/rsyslog-formula/pull/16'
+  rsyslog: {}
   salt: {}
   sssd:
     original_namespace: 'Spark-Networks'
