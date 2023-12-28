@@ -1,0 +1,8 @@
+#!/bin/sh -eu
+# - mirrorcache-backstage, warning only
+# - mirrorcache-webui, warning only
+getent passwd mirrorcache || useradd mirrorcache
+
+# mirrorcache packages not available
+test -d /etc/mirrorcache || mkdir /etc/mirrorcache
+touch /etc/mirrorcache/conf.{env,ini}

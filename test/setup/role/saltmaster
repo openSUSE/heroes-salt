@@ -1,0 +1,5 @@
+#!/bin/sh -eu
+# saltmaster, error in git.cloned
+useradd cloneboy
+# saltmaster, error:   fatal: detected dubious ownership in repository at '/builds/infra/salt'
+git config --system --add safe.directory /builds/infra/salt

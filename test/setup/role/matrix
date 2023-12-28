@@ -1,0 +1,4 @@
+#!/bin/sh -eu
+# matrix, errors
+groupadd synapse
+useradd synapse

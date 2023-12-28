@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+# countdown, warning only
+useradd countdown

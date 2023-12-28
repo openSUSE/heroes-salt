@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+# pagure, warning only
+groupadd git

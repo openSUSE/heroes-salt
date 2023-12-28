@@ -16,81 +16,6 @@ echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
 
 source bin/get_colors.sh
 
-
-# === role-specific workarounds ===
-
-# calendar, error
-useradd calendar
-
-# countdown, warning only
-useradd countdown
-
-# documentation, warning only
-useradd relsync
-
-# - jekyll_master, warning only
-# - web_jekyll, warning only
-useradd web_jekyll
-
-# mail_reminder, warning only
-useradd mail_reminder
-
-# mailman3, error
-groupadd mailman
-useradd mailman
-groupadd mailmanweb
-useradd mailmanweb
-
-# matrix, errors
-groupadd synapse
-useradd synapse
-
-# - mirrorcache-backstage, warning only
-# - mirrorcache-webui, warning only
-useradd mirrorcache
-
-# mirrors_static, warning only
-useradd mirrors_static
-# mirrors_static error:   salt.exceptions.CommandExecutionError: Specified cwd '/home/mirrors_static/git/mirrors_static' either not absolute or does not exist
-mkdir -p /home/mirrors_static/git/mirrors_static/
-# git.set_config needs (even in test mode) a fully valid git repo with at least one commit
-(cd /home/mirrors_static/git/mirrors_static/ && git init && git config user.email 'user@example.com' && touch foo && git add foo && git commit -m 'add foo')
-chown -R mirrors_static /home/mirrors_static/git/mirrors_static/
-
-# paste, error
-useradd paste
-
-# pagure, warning only
-groupadd git
-
-# saltmaster, error in git.cloned
-useradd cloneboy
-# saltmaster, error:   fatal: detected dubious ownership in repository at '/builds/infra/salt'
-git config --system --add safe.directory /builds/infra/salt
-
-# - static_master, warning only
-# - web_static, warning only
-useradd web_static
-
-# tsp, error in git.cloned
-useradd tsp
-
-# mirrorcache packages not available
-mkdir /etc/mirrorcache
-touch /etc/mirrorcache/conf.{env,ini}
-
-# dummy OpenVPN user
-mkdir -p /etc/openvpn/ccd-tcp
-echo '1204::100' > /etc/openvpn/ccd-tcp/foo
-pushd $PWD/salt/profile/vpn/openvpn/files/
-ln -s odin $(hostname)
-popd
-
-# secrets for nameserver.primary
-cat pillar/secrets/id/chip_infra_opensuse_org.sls >> pillar/secrets/id/$(hostname).sls
-
-# === END role-specific workarounds ===
-
 cp test/fixtures/minion* /etc/salt/pki/minion/
 cp /etc/salt/pki/minion/minion.pub /etc/salt/pki/master/minions/$(hostname)
 
@@ -157,8 +82,14 @@ for role in $(bin/get_roles.py | sed -n "$1 p"); do
     sls_role="salt/role/${role/./\/}.sls"
     out="$role.txt"
     echo "START OF $role" > "$out"
-
     echo_INFO "Testing role $nr: $role"
+
+    if [ -x "test/setup/role/$role" ]
+    then
+      echo "Preparing test environment for role $role ..." >> "$out"
+      test/setup/role/$role
+    fi
+
     echo "Testing role $role ..." >> "$out"
 
     reset_role
