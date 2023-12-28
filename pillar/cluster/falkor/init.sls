@@ -7,6 +7,9 @@ include:
   - secrets.cluster.falkor
   {%- endif %}
 
+grains:
+  virt_cluster: falkor-bare
+
 mine_functions:
   clusterip:
     mine_function: network.ip_addrs6
