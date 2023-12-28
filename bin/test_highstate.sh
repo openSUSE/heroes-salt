@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # Validate that a highstate works for all roles
+# Takes the role name as an argument
 
-# Parameters:
-# $1 - role numbers (actually line numbers for get_roles.py output) to test. Expects a format for   sed -n "$1 p"   - for example '1,10' or '50,$'
-# if $1 is empty, that means   sed -n " p"   which will test all roles.
-
+set -u
+role="$1"
 
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
 
@@ -69,61 +68,38 @@ salt $(hostname) mine.update
 printf '[mysqld]\nskip-grant-tables\n' > /etc/my.cnf.d/danger.cnf
 systemctl start mariadb
 
-succeeded_roles=""
-failed_roles=""
-nr=0
+out="$role.txt"
+echo "START OF $role" > "$out"
 
-for role in $(bin/get_roles.py | sed -n "$1 p"); do
-    nr=$((( $nr  + 1)))
-    rolestatus=0
-    sls_role="salt/role/${role/./\/}.sls"
-    out="$role.txt"
-    echo "START OF $role" > "$out"
-    echo_INFO "Testing role $nr: $role"
+echo_INFO "Testing role: $role"
 
-    cp "$IDFILE_BASE" "$IDFILE"
-    printf "roles:\n- $role" >> "$IDFILE"
+if [ -x "test/setup/role/$role" ]
+then
+  echo "Preparing test environment for role $role ..." >> "$out"
+  test/setup/role/$role
+fi
 
-    if [ -x "test/setup/role/$role" ]
-    then
-      echo "Preparing test environment for role $role ..." >> "$out"
-      test/setup/role/$role
-    fi
+salt --out=raw --out-file=/dev/null "$HOSTNAME" saltutil.refresh_pillar
 
-    salt --out=raw --out-file=/dev/null "$HOSTNAME" saltutil.refresh_pillar
+salt-call --retcode-passthrough --state-output=full --output-diff state.apply test=True >> "$out"
+rolestatus=$?
+echo >> "$out"
 
-    echo "Testing role $role ..." >> "$out"
+if test $rolestatus = 0; then
+    echo_PASSED
+else
+    echo_FAILED
+fi
+echo
 
-    reset_role
-
-    salt-call --retcode-passthrough --state-output=full --output-diff state.apply test=True >> "$out"
-    rolestatus=$?
-    echo >> "$out"
-
-    if test $rolestatus = 0; then
-        succeeded_roles="$succeeded_roles $role"
-        echo_PASSED
-    else
-        failed_roles="$failed_roles $role"
-        echo_FAILED
-        # tail -n100 "$out"
-        STATUS=1
-    fi
-    echo
-
-    echo "END OF $role" >> "$out"
-done
+echo "END OF $role" >> "$out"
 
 mkdir system
 cp /var/log/salt/minion system/minion_log.txt
 cp /var/log/salt/master system/master_log.txt
 journalctl --no-pager > system/journal.txt
 
-echo "succeeded roles ($(echo $succeeded_roles | wc -w)): $succeeded_roles"
-echo
-echo "failed roles ($(echo $failed_roles | wc -w)): $failed_roles"
-echo
 echo 'Output and logs can be found in the job artifacts!'
-exit $STATUS
+exit $rolestatus
 
 vim:expandtab
