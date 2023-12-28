@@ -115,12 +115,16 @@ for role in $(bin/get_roles.py | sed -n "$1 p"); do
     echo "END OF $role" >> "$out"
 done
 
-cp /var/log/salt/minion minion_log.txt
-cp /var/log/salt/master master_log.txt
+mkdir system
+cp /var/log/salt/minion system/minion_log.txt
+cp /var/log/salt/master system/master_log.txt
+journalctl --no-pager > system/journal.txt
 
 echo "succeeded roles ($(echo $succeeded_roles | wc -w)): $succeeded_roles"
 echo
 echo "failed roles ($(echo $failed_roles | wc -w)): $failed_roles"
+echo
+echo 'Output and logs can be found in the job artifacts!'
 exit $STATUS
 
 vim:expandtab
