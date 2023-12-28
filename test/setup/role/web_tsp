@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+# web_tsp, error in git.cloned
+useradd tsp

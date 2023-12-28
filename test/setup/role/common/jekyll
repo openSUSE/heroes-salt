@@ -1,0 +1,4 @@
+#!/bin/sh -eu
+# - jekyll_master, warning only
+# - web_jekyll, warning only
+getent passwd web_jekyll || useradd web_jekyll

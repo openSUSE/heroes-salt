@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+# mail_reminder, warning only
+useradd mail_reminder

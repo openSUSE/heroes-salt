@@ -1,0 +1,4 @@
+#!/bin/sh -eu
+# - static_master, warning only
+# - web_static, warning only
+useradd web_static

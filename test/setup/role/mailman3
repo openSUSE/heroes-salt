@@ -1,0 +1,6 @@
+#!/bin/sh -eu
+# mailman3, error
+groupadd mailman
+useradd mailman
+groupadd mailmanweb
+useradd mailmanweb
