@@ -26,6 +26,7 @@ help() {
     echo '-c - Use the specified existing container instead of instantiating a new one.'
     echo '-k - Path to a public SSH key to use for authentication. If not specified, an insecure key will be used.'
     echo '-p - Preserve container after tests finished running.'
+    echo '-s - Test full highstates. This takes a lot of time!'
     echo
 }
 
@@ -54,13 +55,15 @@ CONTAINER=''
 CONTAINER_ARGS=()
 SSH_ARGS=( '-t' '-oStrictHostKeyChecking=no' '-oUserKnownHostsFile=/dev/null' '-oLogLevel=ERROR' '-lchecker' )
 PRESERVE=false
+HIGHSTATE=false
 
-while getopts h:c:k:p arg; do
+while getopts h:c:k:p:s arg; do
     case "$arg" in
         h) help && exit ;;
         c) CONTAINER="${OPTARG}" ;;
         k) PUBKEY=${OPTARG} ;;
         p) CONTAINER_ARGS+=('--rm') ; PRESERVE=true ;;
+        s) HIGHSTATE=true ;;
         *) help && exit 1 ;;
     esac
 done
@@ -133,6 +136,7 @@ $SSH sh <<-EOS || echo 'Test suite returned with errors.'
 
   pprint 'Preparing test environment'
   sudo bin/prepare_test_env.sh -g -s || pfail
+  sudo sed -i 's/download-prg.infra.opensuse.org/download.opensuse.org/' /etc/zypp/repos.d/*
 
   pprint 'Preparing formulas'
   bin/get_formulas.py -c -d /srv/salt-formulas -s --clone-from https://gitlab.infra.opensuse.org/saltstack-formulas --clone-branch production || pfail
@@ -142,6 +146,12 @@ $SSH sh <<-EOS || echo 'Test suite returned with errors.'
 
   pprint Testing: show_highstate
   sudo bin/test_show_highstate.sh || pfail
+
+  if [ "$HIGHSTATE" == 'true' ]
+  then
+    pprint Testing: highstate
+    sudo bin/test_highstate.sh
+  fi
 
   popd >/dev/null
   pprint 'All tests' completed
