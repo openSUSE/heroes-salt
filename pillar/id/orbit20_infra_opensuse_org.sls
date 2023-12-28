@@ -3,7 +3,6 @@ grains:
   hostusage:
     - Hypervisor
   reboot_safe: no
-  virt_cluster: orbit-bare
   description: Hypervisor for virtual machines related to networking
   documentation: []
   responsible: []

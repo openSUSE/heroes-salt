@@ -1,5 +1,8 @@
 {%- from 'macros.jinja' import bond, slave, vlantap %}
 
+grains:
+  virt_cluster: orbit-bare
+
 network:
   interfaces:
 
