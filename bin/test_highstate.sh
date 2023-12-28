@@ -16,6 +16,9 @@ echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
 
 source bin/get_colors.sh
 
+# pre-populate dhparams, generation eats CPU resources and entropy
+cp test/fixtures/dhparams /etc/haproxy/dhparam
+
 cp test/fixtures/minion* /etc/salt/pki/minion/
 cp /etc/salt/pki/minion/minion.pub /etc/salt/pki/master/minions/$(hostname)
 
