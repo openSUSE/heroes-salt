@@ -66,12 +66,6 @@ salt $(hostname) mine.update
 printf '[mysqld]\nskip-grant-tables\n' > /etc/my.cnf.d/danger.cnf
 systemctl start mariadb
 
-reset_role() {
-    cp "$IDFILE_BASE" "$IDFILE"
-    printf "roles:\n- $role" >> "$IDFILE"
-    salt --out=raw --out-file=/dev/null $(hostname) saltutil.refresh_pillar
-}
-
 succeeded_roles=""
 failed_roles=""
 nr=0
@@ -84,11 +78,16 @@ for role in $(bin/get_roles.py | sed -n "$1 p"); do
     echo "START OF $role" > "$out"
     echo_INFO "Testing role $nr: $role"
 
+    cp "$IDFILE_BASE" "$IDFILE"
+    printf "roles:\n- $role" >> "$IDFILE"
+
     if [ -x "test/setup/role/$role" ]
     then
       echo "Preparing test environment for role $role ..." >> "$out"
       test/setup/role/$role
     fi
+
+    salt --out=raw --out-file=/dev/null "$HOSTNAME" saltutil.refresh_pillar
 
     echo "Testing role $role ..." >> "$out"
 
