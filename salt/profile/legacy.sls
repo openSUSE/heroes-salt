@@ -18,4 +18,5 @@ remove_decommissioned_packages:
         - virt-what
         {%- if grains['virtual'] != 'physical' %}
         - hdparm
+        - mdadm
         {%- endif %}
