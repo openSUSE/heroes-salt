@@ -63,6 +63,7 @@ test_haproxy:
     when: always
     paths:
       - '*.txt'
+      - 'system/*.txt'
   rules:
     - if: $CI_COMMIT_BRANCH
 
