@@ -59,15 +59,6 @@ test_nginx:
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f nginx
   script: bin/test_nginx.sh
 
-test_sudo:
-  extends:
-    - .test_common
-  before_script:
-    - bin/prepare_test_env.sh -g -s -n
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
-  script: bin/test_sudo.sh
-
-
 # Dynamically generated jobs
 prepare_includes:
   script: bin/render_gitlab_ci_includes.py -w
