@@ -12,7 +12,9 @@ remove_decommissioned_packages:
         - python3-decorator
         - python3-linux-procfs
         - python3-pyudev
+        {%- if grains['osfullname'] != 'Leap' %}
         - python3-six
+        {%- endif %}
         - suse-online-update
         - tuned
         - virt-what
