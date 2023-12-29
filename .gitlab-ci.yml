@@ -81,9 +81,7 @@ test_sudo:
 
 # Dynamically generated jobs
 prepare_includes:
-  script:
-    - mkdir .gitlab-ci.includes
-    - bin/render_gitlab_ci_includes.py
+  script: bin/render_gitlab_ci_includes.py -w
   artifacts:
     paths:
       - .gitlab-ci.includes/test_highstate.yml

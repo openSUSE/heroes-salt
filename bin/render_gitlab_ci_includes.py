@@ -20,18 +20,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from get_roles import get_roles
+
+from argparse import ArgumentParser
 from jinja2 import Template
 from pathlib import Path
+import sys
 
 outdir = '.gitlab-ci.includes'
+
+argp = ArgumentParser(description='Generate .gitlab-ci.yml include files based on Salt roles')
+argp.add_argument('-p', help='Print rendered file', action='store_true')
+argp.add_argument('-w', help=f'Write rendered file to {outdir}', action='store_true')
+args = argp.parse_args()
+
+if not args.p and not args.w:
+  argp.print_help()
+  sys.exit(1)
 
 # Render include with role based test_highstate chunks
 with open('.gitlab-ci.templates/test_highstate.jinja', 'r') as j2:
   template = Template(j2.read())
 
 rendered = template.render(roles=get_roles())
-print(rendered)
 
-if Path.is_dir(Path(outdir)):
+if args.p:
+  print(rendered)
+
+if args.w:
+  Path(f'{outdir}').mkdir(exist_ok=True)
   with open(f'{outdir}/test_highstate.yml', 'w') as fh:
     fh.write(rendered)
