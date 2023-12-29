@@ -14,7 +14,6 @@ role="$1"
 source bin/get_colors.sh
 
 test/setup/master_minion
-test/setup/mariadb
 
 # pre-populate dhparams, generation eats CPU resources and entropy
 cp test/fixtures/dhparams /etc/haproxy/dhparam
