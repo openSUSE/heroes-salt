@@ -11,6 +11,12 @@ stages:
   rules:
     - if: $CI_COMMIT_BRANCH
 
+.test_artifacts:
+  artifacts:
+    when: always
+    paths:
+      - '*.txt'
+
 validate:
   extends:
     - .test_common
@@ -20,28 +26,22 @@ validate:
 show_highstate:
   extends:
     - .test_common
+    - .test_artifacts
   before_script:
     - bin/prepare_test_env.sh -g -o Leap,15,4 -s
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
   script: bin/test_show_highstate.sh
-  artifacts:
-    #when: on_failure
-    paths:
-      - '*.txt'
 
 test_haproxy:
   extends:
     - .test_common
+    - .test_artifacts
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy:latest
   before_script:
     - bin/prepare_test_env.sh -g -s -n
     - bin/replace_secrets.sh
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f haproxy
   script: bin/test_haproxy.sh
-  artifacts:
-    when: always
-    paths:
-      - '*.txt'
 #     changes:
 #       - bin/test_haproxy.sh
 #       - pillar/cluster/*/*
@@ -52,15 +52,12 @@ test_haproxy:
 test_nginx:
   extends:
     - .test_common
+    - .test_artifacts
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
   before_script:
     - bin/prepare_test_env.sh -g -s
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f nginx
   script: bin/test_nginx.sh
-  artifacts:
-    when: always
-    paths:
-      - '*.txt'
 
 test_sudo:
   extends:
