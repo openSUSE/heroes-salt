@@ -4,46 +4,44 @@ stages:
   - test
   - deploy
 
-validate:
-  image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation:latest
+.test_common:
   stage: test
-  script: bin/test_validate.sh
   tags:
     - docker
   rules:
     - if: $CI_COMMIT_BRANCH
 
+validate:
+  extends:
+    - .test_common
+  image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation:latest
+  script: bin/test_validate.sh
+
 show_highstate:
-  stage: test
+  extends:
+    - .test_common
   before_script:
     - bin/prepare_test_env.sh -g -o Leap,15,4 -s
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
   script: bin/test_show_highstate.sh
-  tags:
-    - docker
   artifacts:
     #when: on_failure
     paths:
       - '*.txt'
-  rules:
-    - if: $CI_COMMIT_BRANCH
 
 test_haproxy:
+  extends:
+    - .test_common
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy:latest
-  stage: test
   before_script:
     - bin/prepare_test_env.sh -g -s -n
     - bin/replace_secrets.sh
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f haproxy
   script: bin/test_haproxy.sh
-  tags:
-    - docker
   artifacts:
     when: always
     paths:
       - '*.txt'
-  rules:
-    - if: $CI_COMMIT_BRANCH
 #     changes:
 #       - bin/test_haproxy.sh
 #       - pillar/cluster/*/*
@@ -52,31 +50,25 @@ test_haproxy:
 #       - salt/role/proxy*
 
 test_nginx:
+  extends:
+    - .test_common
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
-  stage: test
   before_script:
     - bin/prepare_test_env.sh -g -s
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f nginx
   script: bin/test_nginx.sh
-  tags:
-    - docker
   artifacts:
     when: always
     paths:
       - '*.txt'
-  rules:
-    - if: $CI_COMMIT_BRANCH
 
 test_sudo:
-  stage: test
+  extends:
+    - .test_common
   before_script:
     - bin/prepare_test_env.sh -g -s -n
     - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
   script: bin/test_sudo.sh
-  tags:
-    - docker
-  rules:
-    - if: $CI_COMMIT_BRANCH
 
 
 # Dynamically generated jobs
