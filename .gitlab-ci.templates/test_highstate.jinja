@@ -1,0 +1,22 @@
+.test_highstate:
+  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-systemd:latest
+  stage: test
+  before_script:
+    - bin/prepare_test_env.sh -g -o Leap,15,5 -s -n
+    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
+  tags:
+    - docker
+  artifacts:
+    when: always
+    paths:
+      - '*.txt'
+      - 'system/*.txt'
+  rules:
+    - if: $CI_COMMIT_BRANCH
+
+{% for role in roles %}
+test_highstate_{{ role }}:
+  extends:
+    - .test_highstate
+  script: bin/test_highstate.sh {{ role }}
+{% endfor %}

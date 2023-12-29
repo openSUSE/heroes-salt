@@ -51,83 +51,6 @@ test_haproxy:
 #       - salt/profile/proxy/*
 #       - salt/role/proxy*
 
-.test_highstate:
-  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-systemd:latest
-  stage: test
-  before_script:
-    - bin/prepare_test_env.sh -g -o Leap,15,5 -s -n
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
-  tags:
-    - docker
-  artifacts:
-    when: always
-    paths:
-      - '*.txt'
-      - 'system/*.txt'
-  rules:
-    - if: $CI_COMMIT_BRANCH
-
-test_highstate_1:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '1,5'
-
-test_highstate_2:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '6,10'
-
-test_highstate_3:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '11,15'
-
-test_highstate_4:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '16,20'
-
-test_highstate_5:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '21,25'
-
-test_highstate_6:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '26,30'
-
-test_highstate_7:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '31,35'
-
-test_highstate_8:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '36,40'
-
-test_highstate_9:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '41,45'
-
-test_highstate_10:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '46,50'
-
-test_highstate_11:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '51,55'
-
-test_highstate_12:
-  extends:
-    - .test_highstate
-  script: bin/test_highstate.sh '56,$'
-
-
 test_nginx:
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
   stage: test
@@ -154,6 +77,24 @@ test_sudo:
     - docker
   rules:
     - if: $CI_COMMIT_BRANCH
+
+
+# Dynamically generated jobs
+prepare_includes:
+  script: bin/render_gitlab_ci_includes.py -w
+  artifacts:
+    paths:
+      - .gitlab-ci.includes/test_highstate.yml
+
+test_highstate:
+  needs:
+    - prepare_includes
+  trigger:
+    include:
+      - artifact: .gitlab-ci.includes/test_highstate.yml
+        job: prepare_includes
+    strategy: depend
+
 
 deploy_job:
   stage: deploy
