@@ -1,0 +1,64 @@
+#!/bin/sh -eu
+
+## Salt Master setup
+
+# Pre-seed the minion key
+cp test/fixtures/minion.pub /etc/salt/pki/master/minions/$HOSTNAME
+
+# Ensure directories purged during the container build are ready
+install -o salt -g salt -d -m 0750 /var/log/salt
+chown -R salt: /var/cache/salt/master
+
+# Configure and start the master
+tee >/etc/salt/master <<EOF
+file_roots:
+  base:
+  - /srv/salt
+  - /usr/share/salt-formulas/states
+interface: 127.0.0.1
+log_level: info
+user: salt
+EOF
+systemctl start salt-master
+
+## Salt Minion setup
+
+# gateway, hypervisor.cluster and hypervisor.standalone roles: infrastructure-formula needs virt_cluster
+echo 'virt_cluster: falkor-bare' >> /etc/salt/grains
+
+echo "== /etc/salt/grains =="
+cat "/etc/salt/grains"
+echo "== /etc/salt/grains END =="
+
+# Install the pre-seeded key pair
+cp test/fixtures/minion* /etc/salt/pki/minion/
+
+# Configure and start the minion
+echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
+tee >/etc/salt/minion <<EOF
+master: 127.0.0.1
+#log_level: info
+EOF
+systemctl start salt-minion
+
+# Prepare a pillar/id/ file
+IDFILE="pillar/id/$HOSTNAME.sls"
+IDFILE_BASE="$IDFILE.base.sls"
+
+# Add test pillars for data which is not included by roles
+sed s/runner/$HOSTNAME/ test/pillar/clusters.yaml >> "$IDFILE"
+cat test/pillar/{mirrorcache,suse_ha,conntrackd-asgard}.sls >> "$IDFILE"
+cp "$IDFILE" "$IDFILE_BASE"
+
+echo "== $IDFILE =="
+cat "$IDFILE"
+echo "== $IDFILE END =="
+
+# Update pillar and mine
+salt $HOSTNAME saltutil.refresh_pillar
+salt $HOSTNAME mine.update
+
+
+## Check
+
+salt-call test.ping

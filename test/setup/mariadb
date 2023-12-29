@@ -1,0 +1,4 @@
+#!/bin/sh -eu
+
+printf '[mysqld]\nskip-grant-tables\n' > /etc/my.cnf.d/danger.cnf
+systemctl start mariadb
