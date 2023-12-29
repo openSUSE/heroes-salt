@@ -43,12 +43,10 @@ systemctl start salt-minion
 
 # Prepare a pillar/id/ file
 IDFILE="pillar/id/$HOSTNAME.sls"
-IDFILE_BASE="$IDFILE.base.sls"
 
 # Add test pillars for data which is not included by roles
 sed s/runner/$HOSTNAME/ test/pillar/clusters.yaml >> "$IDFILE"
 cat test/pillar/{mirrorcache,suse_ha,conntrackd-asgard}.sls >> "$IDFILE"
-cp "$IDFILE" "$IDFILE_BASE"
 
 echo "== $IDFILE =="
 cat "$IDFILE"

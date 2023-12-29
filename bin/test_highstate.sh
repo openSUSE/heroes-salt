@@ -20,7 +20,6 @@ test/setup/mariadb
 cp test/fixtures/dhparams /etc/haproxy/dhparam
 
 IDFILE="pillar/id/$HOSTNAME.sls"
-IDFILE_BASE="$IDFILE.base.sls"
 
 out="$role.txt"
 echo "START OF $role" > "$out"
