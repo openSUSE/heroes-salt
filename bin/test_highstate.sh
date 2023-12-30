@@ -26,6 +26,8 @@ echo "START OF $role" > "$out"
 
 echo_INFO "Testing role: $role"
 
+printf 'roles:\n- %s' "$role" >> "$IDFILE"
+
 if [ -x "test/setup/role/$role" ]
 then
   echo "Preparing test environment for role $role ..." >> "$out"
