@@ -17,7 +17,7 @@ test/setup/master_minion
 test/setup/mariadb
 
 # pre-populate dhparams, generation eats CPU resources and entropy
-cp test/fixtures/dhparams /etc/haproxy/dhparam
+test/setup/haproxy_dhparam
 
 IDFILE="pillar/id/$HOSTNAME.sls"
 
