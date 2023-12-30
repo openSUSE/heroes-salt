@@ -9,7 +9,6 @@ remove_decommissioned_packages:
         - libpolkit-gobject-1-0
         - polkit
         - python3-configobj
-        - python3-decorator
         - python3-linux-procfs
         - python3-pyudev
         {%- if grains['osfullname'] != 'Leap' %}
