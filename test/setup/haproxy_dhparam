@@ -1,2 +1,0 @@
-#!/bin/sh -eu
-install -Dv test/fixtures/dhparams /etc/haproxy/dhparam

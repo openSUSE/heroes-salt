@@ -16,9 +16,6 @@ source bin/get_colors.sh
 test/setup/master_minion
 test/setup/mariadb
 
-# pre-populate dhparams, generation eats CPU resources and entropy
-test/setup/haproxy_dhparam
-
 IDFILE="pillar/id/$HOSTNAME.sls"
 
 out="$role.txt"
