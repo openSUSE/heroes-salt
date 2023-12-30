@@ -14,7 +14,7 @@ def read_file_skip_jinja(filename):
 
     with open(filename) as f:
         for line in f.read().split('\n'):
-            if not line.startswith('{%'):
+            if not ('{%' in line or '{{' in line or '{#' in line):
                 non_jinja_lines.append(line)
 
     return '\n'.join(non_jinja_lines)
