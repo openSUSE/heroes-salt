@@ -1,0 +1,4 @@
+#!/bin/sh -eu
+
+# pre-populate dhparams, generation eats CPU resources and entropy
+install -D test/fixtures/dhparams /etc/haproxy/dhparam

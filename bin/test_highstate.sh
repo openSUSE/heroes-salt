@@ -15,9 +15,6 @@ source bin/get_colors.sh
 
 test/setup/master_minion
 
-# pre-populate dhparams, generation eats CPU resources and entropy
-cp test/fixtures/dhparams /etc/haproxy/dhparam
-
 IDFILE="pillar/id/$HOSTNAME.sls"
 
 out="$role.txt"

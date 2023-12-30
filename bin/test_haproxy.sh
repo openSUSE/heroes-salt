@@ -102,7 +102,7 @@ fi
 
 IDFILE="pillar/id/$(hostname).sls"
 printf 'roles:\n- proxy\ninclude:\n'>> "$IDFILE"
-cp test/fixtures/dhparams /etc/haproxy/dhparam
+test/setup/role/proxy
 
 counter_ok=0
 counter_nok=0
