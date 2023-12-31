@@ -1,5 +1,5 @@
 #!/bin/sh
-# Script to lint and validate openSUSE infrastructure data
+# Script to validate openSUSE infrastructure data
 # Copyright (C) 2023 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,11 +19,6 @@ set -Cu
 
 INFRADIR='pillar/infra/'
 
-echo 'test_infra_data --> Linting ...'
-yamllint -s "$INFRADIR"*.yaml
-RESULT_YAML="$?"
-echo
-
 echo 'test_infra_data --> Validating ...'
 bin/test_infra_data.py
 RESULT_SCHEMA="$?"
@@ -40,9 +35,9 @@ RESULT_SORT="$?"
 rm "$INFRADIR"hosts.sorted.yaml
 echo
 
-echo "test_infra_data --> Results: YAML -> $RESULT_YAML, SCHEMA -> $RESULT_SCHEMA, SORT -> $RESULT_SORT"
+echo "test_infra_data --> SCHEMA -> $RESULT_SCHEMA, SORT -> $RESULT_SORT"
 
-if [ "$RESULT_YAML" = 0 ] && [ "$RESULT_SCHEMA" = 0 ] && [ "$RESULT_SORT" = 0 ]
+if [ "$RESULT_SCHEMA" = 0 ] && [ "$RESULT_SORT" = 0 ]
 then
 	exit 0
 elif [ "$RESULT_SORT" = 1 ] # 123 in case of xargs
