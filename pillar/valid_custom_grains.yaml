@@ -2,8 +2,10 @@
 global:
   hostusage: []
   reboot_safe:
+    # yamllint disable rule:truthy
     - yes
     - no
+    # yamllint enable rule:truthy
     - unknown
 localized:
   de:
