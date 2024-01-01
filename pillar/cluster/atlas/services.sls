@@ -203,7 +203,8 @@ haproxy:
         - host_tsp          hdr(host)    tsp.opensuse.org
         - host_tsp          hdr(host)    tsp-test.opensuse.org
         {%- for wiki in [
-              'cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages', 'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'
+              'cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages',
+              'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'
             ]
         %}
         - host_mediawiki    hdr(host)    {{ wiki }}.opensuse.org
@@ -226,4 +227,4 @@ haproxy:
       use_backends:
         - pagure                      if host_pagure
       redirects:
-        - scheme https    code 301    if !is_ssl 
+        - scheme https    code 301    if !is_ssl

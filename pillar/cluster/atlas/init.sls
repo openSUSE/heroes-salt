@@ -48,7 +48,7 @@ haproxy:
       options:
         - http-server-close
       httprequests:
-        - del-header: 
+        - del-header:
           - X-Forwarded-For
           - ^X-Forwarded-(Proto|Ssl).*
           - ^HTTPS.*
