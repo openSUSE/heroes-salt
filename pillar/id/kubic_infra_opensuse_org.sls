@@ -12,3 +12,5 @@ grains:
   partners: []
   weburls:
     - https://kubic.opensuse.org
+roles:
+  - kubic
