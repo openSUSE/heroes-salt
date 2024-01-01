@@ -18,7 +18,7 @@ profile:
       delay_warning_time: '0h'
       inet_interfaces: {{ grains['fqdn_ip6'][0] }}
       mydestination: '$myhostname, localhost.$mydomain'
-      myhostname: '{{grains.host}}.opensuse.org'
+      myhostname: '{{ grains.host }}.opensuse.org'
       mynetworks: '[::1]/128, [2a07:de40:b27e:1204::]/64, [2a07:de40:b27e:1203::]/64'
       mynetworks_style: 'subnet'
       alias_maps: ''
@@ -71,7 +71,7 @@ profile:
       smtp_tls_protocols: '!SSLv2, !SSLv3, !TLSv1, !TLSv1.1'
       smtp_tls_mandatory_protocols: '!SSLv2, !SSLv3, !TLSv1, !TLSv1.1'
       smtpd_tls_mandatory_ciphers: 'medium'
-      tls_medium_cipherlist: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'
+      tls_medium_cipherlist: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'  # noqa 204
       tls_preempt_cipherlist: 'no'
 
       # 20160303 forward secrecy

@@ -6,7 +6,7 @@ grains:
 
   aliases: []
   description: Secondary FreeIPA server for testing with identification.
-  documentation: 
+  documentation:
     - https://www.freeipa.org/page/Documentation
   responsible:
     - hellcp

@@ -51,7 +51,9 @@ mediawiki:
       lang: en
       skin: Chameleon
       robots: robots-disallow.txt
-      site_notice: 'This is a test wiki. You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.'
+      site_notice: >-
+        This is a test wiki.
+        You are more than welcome to do test edits, but please keep in mind that all changes will be lost when we import a newer database dump.
     es:
       dbpass: not_in_salt_yet
       version: '1_27'
@@ -80,7 +82,9 @@ mediawiki:
       lang: de
       readonly_msg: 'Dieses Wiki ist ein Archiv und kann nicht bearbeitet werden.'
       robots: robots-disallow.txt
-      site_notice: 'Dieses Wiki ist ein Archiv (Stand: 2011) des alten openSUSE-Wikis. Das aktuelle openSUSE-Wiki finden Sie unter [https://de.opensuse.org de.opensuse.org].'
+      site_notice: >-
+        'Dieses Wiki ist ein Archiv (Stand: 2011) des alten openSUSE-Wikis.
+        Das aktuelle openSUSE-Wiki finden Sie unter [https://de.opensuse.org de.opensuse.org].'
       version: '1_27'
     old-en:
       bento_lang: en
@@ -89,7 +93,9 @@ mediawiki:
       lang: en
       readonly_msg: 'This wiki is an archive and cannot be edited.'
       robots: robots-disallow.txt
-      site_notice: 'This wiki is an archive (from 2011) of the old openSUSE wiki. You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
+      site_notice: >-
+        'This wiki is an archive (from 2011) of the old openSUSE wiki.
+        You can find the up to date openSUSE wiki at [https://en.opensuse.org en.opensuse.org].'
       version: '1_27'
     pl:
       dbpass: not_in_salt_yet

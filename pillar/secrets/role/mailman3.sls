@@ -4,7 +4,7 @@ profile:
   mailman3:
     secret_key: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+JAX/J4z2afmWHL4aif+7Ts/igVCY8WhfrCicpUWtjpgD
         PBrClkZP+/kaz/diUoEJtIWoRa537fxplkHFFLQAcrcGsFKhyUjx32sLfmt08oCp
         GWL91i+0p4IfTDcbAuHKOwM6zJ8FdWvnmw+1b5Z0M0ZjYxaBUyY28kvh0dqb5+Ie
@@ -76,7 +76,7 @@ profile:
         -----END PGP MESSAGE-----
     admin_pass: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/8CO0BwAlAxtvh5ENVqNbHNkjiiB5M4uWkBAFrn6VNqy3p
         3XaVtQHEjURmJzI2cP+FP2Lwv0wN/FLECygzvNFkfdtB8d0p+9HgRpnWeX4CvLBD
         7Qwt7YO4X1rdyIKu1G9jYgnkc9CiLYGP9/uwE2eYBLGZiAWPsym/PPdFzDwWFeBO
@@ -148,7 +148,7 @@ profile:
         -----END PGP MESSAGE-----
     archiver_key: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+L9HhQXxXCw1ksjI+LlDDdA99QSRHgyHb+7Rh5pJZOMhu
         7sI2gBlkaAorNoLGygoA48o7dJ+mvlA+yjvEB6jfP4IxPBym46QCG4V3J8obWDNC
         zhzXkEUANHZhUXxZT+G6wHjIoEzEE3f1vswrJqN2pxkSdLWed9DP2Vpiov7kzp76
@@ -220,7 +220,7 @@ profile:
         -----END PGP MESSAGE-----
     secret_txt: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+J5hjNvSYCzBFmC+KmvMd3YbmVt+v2TMwV4YD5ZR2ePzr
         EkjgZSxY4LqzJaADyoW5nc348H9x2u6RNvLXl8GaGnc2aVunDCVsWj648g7+8o7G
         1mdhySmp+nam/2YseGXp8riJ1N2M9l+Of76lN8UvwhJn8KQPSyF1kQgOugeAmTFL
@@ -299,7 +299,7 @@ postgres:
     mailman3:
       password: |
           -----BEGIN PGP MESSAGE-----
-          
+
           hQQOA7A9CHm0S6RyEA/+JgnmJu6WTcSp3/r68jalH3tLovRbkM5+uGEhOzIqlleQ
           oj8Wwp7BgdK9McEysE3UJvcD3B/0fPOV4TX0f+7/EC0S+OYLWrKZW4UXk+caQW/2
           Wc6aEweXkTz/GEf/9/+yV8SgvSXCkXCNr76UUjCla2vHsLoTI4MafDlEkCTru1PP

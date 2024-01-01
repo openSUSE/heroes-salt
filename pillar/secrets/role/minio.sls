@@ -4,7 +4,7 @@ profile:
   minio:
     heroes_password: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/9ERMvxLZI+jkccj0gM4UDhonpvyXW3mYGf/L2sbYEHpbj
         5AlR5U9Xe8xttdntAaM84x2mzNWo/i5bFOlQZ7YkvRnjFCrFz+lPU5ApMHDA1GGY
         l1zghcWbFFUxZVa+1wohWdkXqSdKTlxGs5eIHeTq/dpMES5fTQ42wkH61/Zmxa/N

@@ -2,7 +2,7 @@ grains:
   country: cz
   hostusage:
     - matomo
-  reboot_safe: yes 
+  reboot_safe: yes
 
   aliases: []
   description: Web analytics platform

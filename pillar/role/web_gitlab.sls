@@ -51,7 +51,9 @@ nginx:
               - "''": close
           ## NGINX 'combined' log format with filtered query strings
           - log_format: >-
-              gitlab_ssl_access '$remote_addr - $remote_user [$time_local] "$request_method $gitlab_ssl_filtered_request_uri $server_protocol" $status $body_bytes_sent "$gitlab_ssl_filtered_http_referer" "$http_user_agent"'
+              gitlab_ssl_access
+              '$remote_addr - $remote_user [$time_local] "$request_method $gitlab_ssl_filtered_request_uri
+              $server_protocol" $status $body_bytes_sent "$gitlab_ssl_filtered_http_referer" "$http_user_agent"'
           ## Remove private_token from the request URI
           # In:  /foo?private_token=unfiltered&authenticity_token=unfiltered&rss_token=unfiltered&...
           # Out: /foo?private_token=[FILTERED]&authenticity_token=unfiltered&rss_token=unfiltered&...
@@ -95,7 +97,8 @@ nginx:
               - ssl_certificate: /etc/nginx/ssl/gitlab.infra.opensuse.org.crt
               - ssl_certificate_key: /etc/nginx/ssl/gitlab.infra.opensuse.org.key
               # GitLab needs backwards compatible ciphers to retain compatibility with Java IDEs
-              - ssl_ciphers: '"ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"'
+              - ssl_ciphers: >-  # noqa 204
+                  'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'
               - ssl_protocols:
                   - TLSv1.3
               - ssl_prefer_server_ciphers: 'off'

@@ -5,7 +5,7 @@ grains:
   reboot_safe: yes
 
   aliases: []
-  description: MX test machine 
+  description: MX test machine
   responsible:
     - pjessen
   partners: []

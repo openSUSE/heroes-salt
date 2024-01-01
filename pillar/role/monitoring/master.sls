@@ -91,7 +91,7 @@ prometheus:
               scrape_interval: 15s
               scrape_timeout: 5s
               static_configs:
-                - targets: 
+                - targets:
                     - witch1.infra.opensuse.org:8216
                   labels:
                     __scheme__: https

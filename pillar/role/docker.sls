@@ -12,7 +12,7 @@ profile:
 sysctl:
   params:
     {#-
-      Pass bridged traffic to {arp,ip{,6}}tables chains.
+      Pass bridged traffic to {arp,ip{,6}}tables chains.  # noqa 206
       This is only useful on machines having legacy br_netfilter loaded and using legacy iptables,
       which means machines running Docker.
     #}

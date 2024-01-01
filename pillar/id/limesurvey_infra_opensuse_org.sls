@@ -6,7 +6,7 @@ grains:
 
   aliases: []
   description: Public polls and surveys
-  documentation: 
+  documentation:
     - https://limesurvey.org/
   responsible:
     - crameleon

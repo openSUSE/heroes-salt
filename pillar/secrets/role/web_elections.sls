@@ -5,7 +5,7 @@ postgres:
     helios:
       password: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+JsyzFl19Lmd3xRJFwPPN4b7NfctIgh5Jlkr/RVFL/+DC
         sq6pAcb+s+tGfUnZvqEuTJmqgehjolIHG72R9h83+3HyKzTcWBf2XTavJYL7BDPd
         52hpqQ30rVrBjEC6ospjLvdfZuR+mFLz2kRgf0oIHNBPvf7D4UH4Kb+MDwwrdNkR
@@ -81,7 +81,7 @@ profile:
   helios:
     secret_key: |
       -----BEGIN PGP MESSAGE-----
-      
+
       hQQOA7A9CHm0S6RyEA/+LZRRqSJ4VIwMtBjUV+22Ho3KJc+KpFJ4JXEmqr0YaWqe
       JJBtXCE8iYSBfsYocLYfPUTpAyx1G9NN4Nf4kB1oiEYog7fQiMl4XUU2Pq0ye/Oi
       7yZL0zhnig7MuLDOqDJB5ntcTvRWwHBzFL2u5rHNmT3tpPoxZVMxlr3mmNBqQDC1

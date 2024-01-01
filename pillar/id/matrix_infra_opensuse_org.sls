@@ -5,7 +5,7 @@ grains:
   reboot_safe: yes
 
   aliases: []
-  description: Server to host matrix and its bridges 
+  description: Server to host matrix and its bridges
   documentation:
     - https://matrix.org/
   responsible:

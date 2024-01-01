@@ -6,7 +6,7 @@ grains:
 
   aliases: []
   description: Public infrastructure status page
-  documentation: 
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Status1opensuseorg
   responsible:
     - lrupp

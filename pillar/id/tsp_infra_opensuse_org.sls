@@ -12,7 +12,7 @@ grains:
     # IGonzalezSosa (no heroes account yet)
     - hellcp
   partners: []
-  weburls: 
+  weburls:
     - https://tsp.opensuse.org
 roles:
   - web_tsp

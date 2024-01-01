@@ -23,7 +23,7 @@ os-update:
   {%- endif %}
   ignore_services_from_restart:
     - dbus
- 
+
 rebootmgr:
   window-start: {{ reboot_time }}
   window-duration: 10m

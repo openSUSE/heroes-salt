@@ -4,7 +4,7 @@ profile:
   pagure:
     secret_key: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/9G3fOS6udFlFHzY83qd+8nHRb5I1c+fBe33d4UgYXcAuf
         ADX3wLmaPMESp0LLZIoJY9vOqOnNo+4gIyBKFAJxO2stCZN/pHO+46ccJg0Kiwem
         a/wQbloTExfqMko1hVUzwXkPmkWUUE8UZShHwogHHvFlXgtjxfL0Ajfta465J7ns
@@ -76,7 +76,7 @@ profile:
         -----END PGP MESSAGE-----
     salt_email: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+MOlDIm6/Fjz1nCoRFecm0A0iPAso74x2Znh/EZiqEcDt
         vth+e9m47TxHm35lGrIK0UKhD+s+T70eK5131WKUYWQYNIfkG4+YnDXLhM9Z0THo
         vjyhFtTWqFweDYiWqfl+Be4NK2M15aXxpuCiE8RNROL32+tXTs+sW+BvzaX/bKx5
@@ -153,7 +153,7 @@ postgres:
     pagure:
       password: |
           -----BEGIN PGP MESSAGE-----
-          
+
           hQQOA7A9CHm0S6RyEA/6ApHSPeAagnIyEVqHJT6nOz02Va0OHgI4boCBh6f+/e4f
           0tcqXxuneFZT1E4POoA6WmOfxUm4am3HNUmvUR6s4cBiLwKTIUKs0XdAxtfzfdmJ
           taqfJK6XBY6QR5qh/Z8WUmxDyBbNc+9Kpn/MpNwBZUxPHs6KdAgBfaf2gc5hi6tx

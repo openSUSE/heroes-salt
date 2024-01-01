@@ -48,7 +48,7 @@ openldap:
   uri: ldaps://freeipa.infra.opensuse.org
 openssh:
   banner_src: salt://profile/accounts/files/ssh_banner
-  sshd_config_mode: 0640
+  sshd_config_mode: '0640'
 profile:
   log:
     {%- if country == 'cz' %}

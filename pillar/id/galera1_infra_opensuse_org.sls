@@ -6,7 +6,7 @@ grains:
 
   aliases: []
   description: Node of the MySQL cluster based on Galera
-  documentation: 
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Galera_Cluster
     - https://www.symmcom.com/docs/how-tos/databases/how-to-recover-mariadb-galera-cluster-after-partial-or-full-crash
   responsible:
