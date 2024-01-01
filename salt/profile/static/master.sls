@@ -7,7 +7,6 @@ static_master_pgks:
   pkg.installed:
     - pkgs:
       - git
-      - rsync
 
 /home/web_static/.ssh/id_ed25519:
   file.managed:
