@@ -45,9 +45,7 @@ nginx:
                   - return: 301 https://www.opensuse.org/
               {% else %}
               - location /:
-                  - index:
-                      - index.html
-                      - index.htm
+                  - index: index.html index.htm
               {% endif %}
               - location ~* \.(?:ttf|otf|eot|woff)$:
                   - add_header: Access-Control-Allow-Origin "*"

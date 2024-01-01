@@ -41,9 +41,7 @@ nginx:
               - location ~ /\.git:
                   - return: 404
               - location /:
-                  - index:
-                      - index.html
-                      - index.htm
+                  - index: index.html index.htm
                   - try_files: $uri $uri/index.html $uri.html =404
               {% if website == 'news' %}
               - if ($args ~* "feed=rss2"):
