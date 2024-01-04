@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """
-Script for generating a .gitlab-ci.yml drop-in for test_highstate
-(can be expanded for other jobs if needed)
+Script for rending .gitlab-ci.yml drop-ins based on available Salt roles
 Copyright (C) 2023 openSUSE contributors
 Copyright (C) 2023 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
 
@@ -19,13 +18,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from get_roles import get_roles
+from get_roles import get_roles, get_roles_including
 
 from argparse import ArgumentParser
 from jinja2 import Template
 from pathlib import Path
 import sys
 
+enabled_templates = [
+  'highstate',
+  'nginx'
+]
+
+indir  = '.gitlab-ci.templates'
 outdir = '.gitlab-ci.includes'
 
 argp = ArgumentParser(description='Generate .gitlab-ci.yml include files based on Salt roles')
@@ -37,16 +42,22 @@ if not args.p and not args.w:
   argp.print_help()
   sys.exit(1)
 
-# Render include with role based test_highstate chunks
-with open('.gitlab-ci.templates/test_highstate.jinja', 'r') as j2:
-  template = Template(j2.read())
+template = {}
+render = {}
 
-rendered = template.render(roles=get_roles())
+for entry in enabled_templates:
+  with open(f'{indir}/test_{entry}.jinja', 'r') as j2:
+    template[entry] = Template(j2.read())
 
-if args.p:
-  print(rendered)
+  if entry == 'highstate':
+    render[entry] = template[entry].render(roles=get_roles())   
+  else:
+    render[entry] = template[entry].render(roles=get_roles_including(entry))
 
-if args.w:
-  Path(f'{outdir}').mkdir(exist_ok=True)
-  with open(f'{outdir}/test_highstate.yml', 'w') as fh:
-    fh.write(rendered)
+  if args.p:
+    print(render[entry])
+
+  if args.w:
+    Path(f'{outdir}').mkdir(exist_ok=True)
+    with open(f'{outdir}/test_{entry}.yml', 'w') as fh:
+      fh.write(render[entry])

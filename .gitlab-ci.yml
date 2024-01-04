@@ -49,22 +49,12 @@ test_haproxy:
 #       - salt/profile/proxy/*
 #       - salt/role/proxy*
 
-test_nginx:
-  extends:
-    - .test_common
-    - .test_artifacts
-  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx:latest
-  before_script:
-    - bin/prepare_test_env.sh -g -s
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production -f nginx
-  script: bin/test_nginx.sh
-
 # Dynamically generated jobs
 prepare_includes:
   script: bin/render_gitlab_ci_includes.py -w
   artifacts:
     paths:
-      - .gitlab-ci.includes/test_highstate.yml
+      - .gitlab-ci.includes/*.yml
 
 test_highstate:
   needs:
@@ -75,6 +65,14 @@ test_highstate:
         job: prepare_includes
     strategy: depend
 
+test_nginx:
+  needs:
+    - prepare_includes
+  trigger:
+    include:
+      - artifact: .gitlab-ci.includes/test_nginx.yml
+        job: prepare_includes
+    strategy: depend
 
 deploy_job:
   stage: deploy
