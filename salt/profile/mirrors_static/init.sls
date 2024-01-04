@@ -27,9 +27,11 @@ mirrors_static_owned_dirs:
 
 /home/mirrors_static/.ssh/known_hosts:
   file.managed:
-    - contents_pillar:
-      - managed_by_salt
-      - profile:mirrors_static:ssh_known_hosts
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        {%- for entry in salt['pillar.get']('profile:mirrors_static:ssh_known_hosts') %}
+        - {{ entry }}
+        {%- endfor %}
     - mode: 644
     - user: root
 
