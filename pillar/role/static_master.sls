@@ -67,3 +67,7 @@ profile:
         2a07:de40:b27e:1203::e8,narwal8.infra.opensuse.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDXPM7fBjVlldCWjhswjJTa01QvCZLwtTv38pIAVpVpzyJCuj+ZCZdfx6GZp/FBqZabVnI7kufkrI9zcU8RpWp0=
     # ssh_private_key included from pillar/secrets/role/static_master.sls
     # ssh_pubkey (for authorized_keys) is in pillar/role/web_static.sls
+
+zypper:
+  packages:
+    rsync: {}

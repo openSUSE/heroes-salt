@@ -72,3 +72,7 @@ profile:
   postfix:
     aliases:
       web_static: root
+
+zypper:
+  packages:
+    rsync: {}

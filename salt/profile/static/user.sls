@@ -21,6 +21,3 @@ web_static:
     - mode: 644
     - user: root
 {% endif %}
-
-rsync:
-  pkg.installed
