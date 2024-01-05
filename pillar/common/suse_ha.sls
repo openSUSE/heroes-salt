@@ -9,8 +9,9 @@ suse_ha:
   fencing:
     stonith_enable: True
   management:
-    no_quorum_policy: stop
-    allow_migrate: True
+    allow-migrate: True
+    migration-limit: 20
+    no-quorum-policy: stop
 firewalld:
   services:
     corosync:
