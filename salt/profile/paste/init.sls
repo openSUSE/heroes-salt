@@ -67,7 +67,7 @@ paste_assets_precompile:
     - source: salt://profile/paste/files/paste.service
     - template: jinja
     - context:
-      ruby: {{ ruby }}
+        ruby: {{ ruby }}
     - require_in:
       - service: paste_service
 
@@ -76,11 +76,11 @@ paste_assets_precompile:
     - source: salt://profile/paste/files/paste-sidekiq.service
     - template: jinja
     - context:
-      ruby: {{ ruby }}
+        ruby: {{ ruby }}
     - require_in:
       - service: paste_sidekiq_service
 
-{% for config in ['site', 'storage', 'database'] %}
+{%- for config in ['site', 'storage', 'database'] %}
 /srv/www/paste-o-o/config/{{ config }}.yml:
   file.managed:
     - source: salt://profile/paste/files/{{ config }}.yml
@@ -90,18 +90,18 @@ paste_assets_precompile:
       - service: paste_service
     - watch_in:
       - module: paste_restart
-{% endfor %}
+{%- endfor %}
 
 /srv/www/paste-o-o/config/master.key:
   file.managed:
     - contents_pillar: profile:paste:master_key
-    - mode: 640
+    - mode: '0640'
     - user: paste
 
 /srv/www/paste-o-o/config/credentials.yml.enc:
   file.managed:
     - contents_pillar: profile:paste:credentials_yml_enc
-    - mode: 640
+    - mode: '0640'
     - user: paste
     - contents_newline: False
 

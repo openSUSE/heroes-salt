@@ -10,7 +10,7 @@ apache2_running:
 /etc/apache2/vhosts.d/{{ wiki }}.opensuse.org.conf:
   file.managed:
     - context:
-      version: '{{ data.get('version', salt['pillar.get']('mediawiki:default_version')) }}'
+        version: '{{ data.get('version', salt['pillar.get']('mediawiki:default_version')) }}'
       wiki: {{ wiki }}
     - listen_in:
       - service: apache2
@@ -37,6 +37,6 @@ apache2_running:
 /etc/php7/conf.d/salt.ini:
   file.managed:
    - context:
-     max_upload_size: {{ pillar['mediawiki']['max_upload_size'] }}
+       max_upload_size: {{ pillar['mediawiki']['max_upload_size'] }}
    - source: salt://profile/wiki/files/salt.ini
    - template: jinja

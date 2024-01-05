@@ -24,12 +24,12 @@ pinot_srv_www_vhosts_dir:
 
 /etc/apache2/vhosts.d/002-doc.conf:
   file.managed:
-    - mode: 755
+    - mode: '0755'
     - source: salt://profile/documentation/files/002-doc.conf
 
 /home/relsync/etc/releasenotes:
   file.managed:
-    - mode: 755
+    - mode: '0755'
     - source: salt://profile/documentation/files/releasenotes
     - user: relsync
 
@@ -39,6 +39,6 @@ pinot_srv_www_vhosts_dir:
     - minute: 0
     - hour: "*/6"
   file.managed:
-    - mode: 755
+    - mode: '0755'
     - source: salt://profile/documentation/files/update_release_notes
     - user: relsync

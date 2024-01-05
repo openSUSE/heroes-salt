@@ -5,5 +5,5 @@ asknot_packages:
 
 /etc/apache2/vhosts.d/contribute.opensuse.org.conf:
   file.managed:
-    - mode: 644
+    - mode: '0644'
     - source: salt://profile/asknot/files/apache-vhost.conf

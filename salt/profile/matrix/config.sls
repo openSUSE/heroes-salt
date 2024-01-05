@@ -42,16 +42,16 @@ synapse_conf_file:
 /etc/matrix-synapse/signing.key:
   file.managed:
     - contents_pillar: profile:matrix:signing_key
-    - mode: 640
+    - mode: '0640'
     - user: root
     - group: synapse
 
-{% set workers = salt['pillar.get']('profile:matrix:workers') %}
+{%- set workers = salt['pillar.get']('profile:matrix:workers') %}
 
-{% for app, types in workers.items() %}
-{% for type in types %}
-{% for worker, port in type.get('workers').items() %}
-/etc/matrix-synapse/workers/{{worker}}.yaml:
+{%- for app, types in workers.items() %}
+{%- for type in types %}
+{%- for worker, port in type.get('workers').items() %}
+/etc/matrix-synapse/workers/{{ worker }}.yaml:
   file.managed:
     - source: salt://profile/matrix/files/worker.yaml
     - template: jinja
@@ -64,10 +64,10 @@ synapse_conf_file:
     - require:
       - file: matrix_conf_dirs
     - require_in:
-      - service: {{worker}}_service
+      - service: {{ worker }}_service
     - watch_in:
-      - module: {{worker}}_restart
+      - module: {{ worker }}_restart
 
-{% endfor %}
-{% endfor %}
-{% endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}

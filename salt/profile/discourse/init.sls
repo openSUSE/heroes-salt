@@ -27,7 +27,7 @@ discourse_mail_transport:
     - contents: 'forums.opensuse.org  discourse:'
     - user: root
     - group: root
-    - mode: 0644
+    - mode: '0644'
     - replace: True
     - watch_in:
       - service: discourse_target
