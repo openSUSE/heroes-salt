@@ -4,11 +4,13 @@
 
 from ldap3 import Server, Connection, ALL
 from get_roles import get_roles, get_roles_of_one_minion
+from pathlib import Path
 import argparse
-import os
+import re
 import sys
 import yaml
 
+spn_regex = r'spn=([\w-]+)@infra\.opensuse\.org,o=heroes' # is there a better way to fetch only the names from kani?
 
 def get_admins_of_a_role(admins, role):
     results = {}
@@ -17,18 +19,20 @@ def get_admins_of_a_role(admins, role):
         print('Role not found')
         sys.exit(1)
 
-    conn.search('cn=groups,cn=compat,%s' % BASE_DN, '(cn=%s-admins)' % role, attributes=['cn', 'memberUid'])
+    conn.search('%s' % BASE_DN, '(cn=%s-admins)' % role, attributes=['cn', 'member'])
 
     try:
-        members = conn.entries[0].memberUid
+        members = conn.entries[0].member
     except IndexError:
         return results
 
-    for sls in os.listdir('pillar/id'):
-        minion = sls.split('_')[0]
-        roles = get_roles_of_one_minion(minion)
+    for file in Path('pillar/id').glob('*.sls'):
+        sls = file.name
+        minion = file.stem.split('_')[0]
+        roles = get_roles_of_one_minion(sls)
         if role in roles:
             for member in members:
+                member = re.search(spn_regex, member).group(1)
                 results[member] = admins[member]
                 results[member]['roles'].append('%s (%s)' % (minion, role))
 
@@ -37,6 +41,13 @@ def get_admins_of_a_role(admins, role):
 
 def get_admins_of_a_server(admins, server):
     results = {}
+    domain = '.infra.opensuse.org'
+    if server.endswith(domain):
+        minion = server.replace(domain, '')
+    else:
+        minion = server
+        server = f'{server}{domain}'
+    server = f'{server.replace(".", "_")}.sls'
 
     try:
         roles = get_roles_of_one_minion(server)
@@ -48,18 +59,11 @@ def get_admins_of_a_server(admins, server):
         for role in roles:
             for admin, data in admins.items():
                 for group in data['groups']:
-                    if group.split('_')[0] == role:
+                    if group.split('-')[0] == role:
                         results[admin] = data
-                        results[admin]['roles'].append('%s (%s)' % (server, role))
+                        results[admin]['roles'].append('%s (%s)' % (minion, role))
 
     return results
-
-
-def output_to_pillar():
-    with open('pillar/generated/role/monitoring.sls', 'w') as f:
-        for admin, data in admins.items():
-            del data['roles']
-        yaml.dump({'profile': {'monitoring': {'contacts': admins}}}, f, default_flow_style=False)
 
 
 def output_nice(results):
@@ -72,38 +76,35 @@ def output_nice(results):
             print(RESULT_TMPL.format(role, admin, data['name'], data['mail'], separ='|'))
 
 
-BASE_DN = 'dc=infra,dc=opensuse,dc=org'
+BASE_DN = 'o=heroes'
 admins = {}
 EXCLUDE_ACCOUNTS = ['admin', 'guest', 'mufasa', 'monitor', 'wiki']
 
-parser = argparse.ArgumentParser('Collects the admins of a server or of a role, and returns them in a nice output, or as a python dictionary or a yaml hash')
-parser.add_argument('-o', '--out', choices=['nice', 'yaml', 'python', 'pillar'], help='Select the output format. Options: nice (the default nice output), python (as a python dictionary), yaml (as a yaml hash), pillar (write them to pillar/generated/role/monitoring.sls)')
+parser = argparse.ArgumentParser('Collects the admins of a server or of a role, and returns them in a nice output, or as a python dictionary or a yaml hash - will not operate without VPN connectivity!')
+parser.add_argument('-o', '--out', choices=['nice', 'yaml', 'python'], help='Select the output format. Options: nice (the default nice output), python (as a python dictionary), yaml (as a yaml hash)')
 parser.add_argument('-r', '--role', nargs=1, help='Collect the admins of a given role')
-parser.add_argument('-s', '--server', nargs=1, help='Collect the admins of a given server')
+parser.add_argument('-s', '--server', nargs=1, help='Collect the admins of a given server (short name or i.o.o FQDN)')
 args = parser.parse_args()
 
-ldap_server = Server('freeipa.infra.opensuse.org', get_info=ALL)
+ldap_server = Server('ldap.infra.opensuse.org', get_info=ALL, use_ssl=True)
 conn = Connection(ldap_server)
 conn.open()
 ldap_exclude_accounts = ''
 for account in EXCLUDE_ACCOUNTS:
     ldap_exclude_accounts += '(uid=%s)' % account
-conn.search('cn=users,cn=accounts,%s' % BASE_DN, '(&(uid=*)(!(|%s)))' % ldap_exclude_accounts, attributes=['uid', 'gecos', 'mail'])
+conn.search('%s' % BASE_DN, '(&(uid=*)(!(|%s)))' % ldap_exclude_accounts, attributes=['uid', 'gecos', 'mail'])
 all_admins_from_ldap = conn.entries
 for admin in all_admins_from_ldap:
-    admins[admin.uid[0]] = {'name': admin.gecos[0], 'mail': admin.mail[0], 'groups': [], 'roles': []}
+    if len(admin.gecos):
+        admins[admin.uid[0]] = {'name': admin.gecos[0], 'mail': admin.mail[0] if len(admin.mail) else 'n/a', 'groups': [], 'roles': []}
 
-conn.search('cn=groups,cn=compat,%s' % BASE_DN, '(cn=*-admins)', attributes=['cn', 'memberUid'])
+conn.search('%s' % BASE_DN, '(&(class=group)(cn=*-admins))', attributes=['cn', 'member'])
 all_admin_groups_from_ldap = conn.entries
 for group in all_admin_groups_from_ldap:
-    members = group.memberUid
+    members = group.member
     for member in members:
-        group_str = str(group.cn).replace('-', '_')[:-1]
-        admins[str(member)]['groups'].append(group_str)
-
-if args.out == 'pillar':
-    output_to_pillar()
-    sys.exit(0)
+        member = re.search(spn_regex, member).group(1)
+        admins[member]['groups'].append(str(group.cn))
 
 if args.role:
     results = get_admins_of_a_role(admins, args.role[0])
