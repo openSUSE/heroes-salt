@@ -6,7 +6,7 @@ grains:
 
   aliases: []
   description: Main FreeIPA server for user, group and DNS management.
-  documentation: 
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/FreeIPA
     - https://www.freeipa.org/page/Documentation
   responsible:

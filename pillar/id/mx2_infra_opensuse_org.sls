@@ -7,7 +7,7 @@ grains:
   aliases: []
   description: Mail server
   responsible:
-    - pjessen 
+    - pjessen
   partners: []
 roles:
   - mailserver

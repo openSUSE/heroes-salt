@@ -51,7 +51,12 @@ nginx:
           - map $http_x_forwarded_proto $thescheme:
               - default: $scheme
               - https: https
-          - log_format: log_discourse '[$time_local] "$http_host" $remote_addr "$request" "$http_user_agent" "$sent_http_x_discourse_route" $status $bytes_sent "$http_referer" $upstream_response_time $request_time "$upstream_http_x_discourse_username" "$upstream_http_x_discourse_trackview" "$upstream_http_x_queue_time" "$upstream_http_x_redis_calls" "$upstream_http_x_redis_time" "$upstream_http_x_sql_calls" "$upstream_http_x_sql_time"'
+          - log_format: >-
+              log_discourse
+              '[$time_local] "$http_host" $remote_addr "$request" "$http_user_agent" "$sent_http_x_discourse_route"
+              $status $bytes_sent "$http_referer" $upstream_response_time $request_time "$upstream_http_x_discourse_username"
+              "$upstream_http_x_discourse_trackview" "$upstream_http_x_queue_time" "$upstream_http_x_redis_calls"
+              "$upstream_http_x_redis_time" "$upstream_http_x_sql_calls" "$upstream_http_x_sql_time"'
           - geo $bypass_cache:
               - default: 0
               - 127.0.0.1: 1
@@ -166,7 +171,7 @@ nginx:
                       - proxy_set_header: X-Accel-Mapping $public/=/downloads/
                       - proxy_pass: http://discourse
                       - break
-                  - location ~ ^/(svg-sprite/|letter_avatar/|letter_avatar_proxy/|user_avatar|highlight-js|stylesheets|theme-javascripts|favicon/proxied|service-worker):
+                  - location ~ ^/(svg-sprite/|letter_avatar/|letter_avatar_proxy/|user_avatar|highlight-js|stylesheets|theme-javascripts|favicon/proxied|service-worker):  # noqa 204
                       - proxy_set_header: Host $http_host
                       - proxy_set_header: X-Real-IP $remote_addr
                       - proxy_set_header: X-Request-Start "t=${msec}"

@@ -4,7 +4,7 @@ profile:
   salt:
     git_secret: |
       -----BEGIN PGP MESSAGE-----
-      
+
       hQQOA7A9CHm0S6RyEA/+OXgVUFbkD3efCpyyJPUN9qBzKSCJ/on0tS0EhkFDtisx
       Op8hVyZagmMC9CgQM/wqdTHRVxZMAalv+XqxhdOT04c+QMpCRgn/cXWC1vPCNjMN
       S1cfjGgLEYn3YgWfcke29oZj27kGDLUv5IwE65GyINqDXMNiMYwdBDMnRz+3YAEM

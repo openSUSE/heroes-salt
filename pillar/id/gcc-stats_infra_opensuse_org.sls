@@ -7,9 +7,9 @@ grains:
   aliases: []
   description: gcc.o.o / gcc-stats.i.o.o periodic benchmarks, code coverage and Doxygen of the GCC compiler
   documentation: []
-  responsible: 
+  responsible:
     - michal-m
   partners: []
-  weburls: 
+  weburls:
     - https://gcc.opensuse.org/
 roles: []

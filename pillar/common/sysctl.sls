@@ -56,7 +56,8 @@ net.ipv6.neigh.default.gc_thresh1 = 1024
 net.ipv4.neigh.default.gc_interval = 3600
 net.ipv6.neigh.default.gc_interval = 3600
 
-This is interesting on servers where kernel messages such as "arp_cache: neighbor table overflow!" are observed. On internal machines this should never happen. If it does happen on internet connected machines, we can tune these on a role or id basis.
+This is interesting on servers where kernel messages such as "arp_cache: neighbor table overflow!" are observed.
+On internal machines this should never happen. If it does happen on internet connected machines, we can tune these on a role or id basis.
 
 # Increase the tcp-time-wait buckets pool size to prevent simple DOS attacks
 net.ipv4.tcp_max_tw_buckets = 1440000
@@ -102,7 +103,8 @@ net.ipv4.tcp_fin_timeout = 15
 # Decrease the time default value for connections to keep alive
 net.ipv4.tcp_keepalive_time = 300
 
-"This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed. This is strictly a violation of the TCP specification, but required to prevent denial-of-service attacks."
+"This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed.
+This is strictly a violation of the TCP specification, but required to prevent denial-of-service attacks."
 
 Might be useful on a role/id level for machines hosting services on the internet.
 #}

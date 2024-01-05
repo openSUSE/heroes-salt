@@ -1,6 +1,6 @@
 grains:
   country: cz
-  hostusage: 
+  hostusage:
     - osc-collab
   reboot_safe: yes
 

@@ -4,10 +4,10 @@ grains:
     - DNS
   reboot_safe: yes
 
-  aliases: 
+  aliases:
     - ns1.infra.opensuse.org
   description: Public, authoritative, name server
-  documentation: 
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/DNS
   responsible:
     - lrupp

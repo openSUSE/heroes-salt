@@ -6,12 +6,12 @@ grains:
 
   aliases: []
   description: OBS ReviewLab
-  documentation: 
+  documentation:
     - https://github.com/openSUSE/open-build-service/wiki/Review-apps
   responsible:
     - hennevogel
   partners: []
-  weburls: 
+  weburls:
     - https://obs-reviewlab.opensuse.org/dashboard/
 roles:
   - docker

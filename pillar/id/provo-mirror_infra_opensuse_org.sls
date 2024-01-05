@@ -10,7 +10,7 @@ grains:
   documentation: []
   responsible:
     - lrupp
-  partners: 
+  partners:
     - pontifex2.infra.opensuse.org
     - widehat.infra.opensuse.org
   weburls:

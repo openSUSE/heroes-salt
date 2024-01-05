@@ -5,7 +5,7 @@ postgres:
     identification:
       password: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+P0Mnf+8vFReWyIA+s4aKQbggho1Ek3FkBSRRA+HFEPBU
         goK4X3e3huDirgFVyc6mDxgnIVHO+MFiM+c1IrXfv/f/LPMz6fdfQex6RW0lUcIk
         2L1Hz1njH/W8p+eER5F7BbrEE/ZPQCB2EBY0DUWGdifQSJzn98Bs8CgMDfQ3+bEt

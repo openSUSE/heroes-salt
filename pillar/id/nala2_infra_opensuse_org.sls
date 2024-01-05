@@ -4,7 +4,7 @@ grains:
     - PostgreSQL node
   reboot_safe: yes
 
-  aliases: 
+  aliases:
     - mirrordb4.infra.opensuse.org
   description: Node for the PostgreSQL cluster in Provo
   documentation: []

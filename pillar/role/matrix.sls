@@ -125,7 +125,7 @@ profile:
             - ^/_matrix/client/(r0|v3|unstable)/room_keys/
           workers:
             room_keys: 8591
-      
+
     appservices:
       discord:
         repo: https://github.com/Half-Shot/matrix-appservice-discord.git

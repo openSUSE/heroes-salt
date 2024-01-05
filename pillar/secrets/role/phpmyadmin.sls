@@ -4,7 +4,7 @@ profile:
   phpmyadmin:
     htpasswd: |
       -----BEGIN PGP MESSAGE-----
-      
+
       hQQOA7A9CHm0S6RyEA/+OYPJJqqYIpCbOdamziaA2w6annbgMGgUArc45CwCAa4F
       GW8HBKQBWSzBRZwfcpeQfF4ADZX6aqoYhfPZiJLo4JhIS0xVE9nEHjyPegOUcJZp
       0U9bEeGYSf9dEiDksUz3GAyndnEp3v/MmegufZ/4VwTP35qRkF5NOItmdz4nykV7

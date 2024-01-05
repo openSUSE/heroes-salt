@@ -6,11 +6,11 @@ grains:
 
   aliases: []
   description: GitLab Runner
-  documentation: 
+  documentation:
     - https://docs.gitlab.com/runner/
   responsible:
     - lrupp
-  partners: 
+  partners:
     - gitlab-runner2.infra.opensuse.org
   weburls: []
 roles:

@@ -4,7 +4,7 @@ profile:
   web_static:
     ssh_private_key: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/9FibhCCP/RAxYfqgqBsQGoBsX633I75C7J1P6kD7znGYa
         1Oh5iMtaBM8lz5kj5m9e1gTOLmphZCKp5dgaKPuXp8/dEAJhfQvYKCXwh9IGzGyn
         hhZiH846zEAo+j42k2X5XaTh9IoSjf0VqyUMSus2bc87DR+T/b8auK4mqnDFNHjH

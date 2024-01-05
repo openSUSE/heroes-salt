@@ -76,7 +76,7 @@ profile:
         -----END PGP MESSAGE-----
     secret_key: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/9GU+vWUAQCGXeRC/ALJq7aiWmPu0sHyIPscu7o1e5YWAo
         tMFtWLVGo7p831yrn5dMEcM5ez8NuGNvF15MN4rL2iJleNiPMkKCQQvOWQa7N/6m
         HBs70pQqcyV48sS3eADIIS6l0PmvBnoFgNWaQ7gd4OtN0yM/fDxpaTXRiKg90Is8
@@ -149,7 +149,7 @@ profile:
         -----END PGP MESSAGE-----
     maxmind: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/9FvgEEw2W3CtcTHedqw2485MgDKtDuGumZ2vt82HYW6JV
         ymv5ayVMyM1UeYLpU9NJS3slGkSkBJ9xjOqOr5qxVjaXrYMoIQdcTT+5IrQezgme
         BfZE4V9eVvr9U35w6Jjhh2F2xAhrlJaev8KTW84h5USd3v/unI4ncgKxCGRMtD5X
@@ -224,7 +224,7 @@ postgres:
     discourse:
       password: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+O5pdbESsAwBk9+97X/hegMaLymj4uJWe0KggjJ5a/D/5
         D7DwExFxvcWrbQ/lkEHRjVybbSskvnpP5jd4ITNxN8ADNaip8P9nvEy4TsI9IFjQ
         lhNnT2ga16hor+9MQ1SeOTPDtMQHwZRR2NWHK+tzAZOP/ICirkd6JAqcCxQzEOFC

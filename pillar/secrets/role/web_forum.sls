@@ -5,7 +5,7 @@ vbulletin:
     MasterServer:
       password: |
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+OzMEMjTc6vBT3TxVDnLHT1kqVdOx42zYpUd3EqeuYCqk
         qag9MJh0F0sFGj8mT7XpkHgbBCiWe6adyn2KP68N/RSalE2WD5d1YS8Q79e119fV
         zlwCfKZfxts1LimZUTMzGcUBPq4oKyKHIF4q39UMqWmovZk0qJ9Ozt0PfHDRmgDp

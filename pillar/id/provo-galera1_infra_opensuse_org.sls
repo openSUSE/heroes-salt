@@ -4,10 +4,10 @@ grains:
     - Galera node (MySQL)
   reboot_safe: no
 
-  aliases: 
+  aliases:
     - galera4.infra.opensuse.org
   description: Node for the MySQL cluster in Provo based on Galera
-  documentation: 
+  documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Galera_Cluster
   responsible:
     - lrupp

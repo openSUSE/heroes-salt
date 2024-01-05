@@ -6,7 +6,7 @@ redmine:
       default:
         secret_token: |
           -----BEGIN PGP MESSAGE-----
-          
+
           hQQOA7A9CHm0S6RyEA/8CcUB/W0+yqljoIG04GDM8/9p+vrjrY1s3mo6vlF4oSnK
           5+KvN9Yg8EEdIpJNTnnc7Ntl9UixzrwFO1dUuS8dzQgt9cZkI04sb3zy+AlGR+3l
           scBWA6HqXyiGvmTfXQfLqjLiHRlwwy8cKi/RSLfiWeac73+YBbmTwRzaOZlKuX4M
@@ -80,7 +80,7 @@ redmine:
       production:
         username: |
           -----BEGIN PGP MESSAGE-----
-          
+
           hQQOA7A9CHm0S6RyEA/+KonT6WZhgA0u/MchNsshGD2EFThWDntALlncS7mFMQMn
           1vkAze2CPe/SkKsj0o27Msir+4e96Mnrolt00puwQU2GpVNUooP+dewNYoMWUNWG
           FrBVtucvxZq6wAdLYfkE+OdqyC5Pys2yUhmgnBYiQnoRjp3s3S1Znka1iDNoOzXA
@@ -151,7 +151,7 @@ redmine:
           -----END PGP MESSAGE-----
         password: |
           -----BEGIN PGP MESSAGE-----
-          
+
           hQQOA7A9CHm0S6RyEA/9FQoy19qyZF3hZkNMw7Yaz5tkyTd5XdIpTvR8FeEMwcct
           /fNMf1bvRkKafCw5kFxyYg1bfrRzYl9+sLQCiZ+GxAIzlCwqtyXY9zaHZXWf2U3j
           meuPVujSmabOwOKdjN7XcfmonzOMN1V+hjBG6L29icBeNNFxZ0U7BiWNeeFeiFOk

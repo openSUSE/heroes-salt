@@ -7,7 +7,7 @@ mysql:
       password: |
 {%- if country == 'de' %}
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/+NQuFT+qdEQYqLL5j0K5OuLhzgKInBu3mvY7WHlBDwxMF
         bH36oOpIqWATD9ihHF/CXvgFKbhlAXcYhrv3w3SO2qURL3y2L0MlYwfHOtOcQzb9
         mP6orkZwX35zd9G9wCUcyy/xh+ga2jWbNhl8a0Gh22fURqTsgtoYl82SmJwd/4rc
@@ -79,7 +79,7 @@ mysql:
         -----END PGP MESSAGE-----
 {%- elif country == 'us' %}
         -----BEGIN PGP MESSAGE-----
-        
+
         hQQOA7A9CHm0S6RyEA/9GF3OGoN91UQGtmgH7UeN+hh9sfNZ2sHKDD1ex0Bjd4kh
         KRs8ILPzCG+sXflf+WlfORyghTjILghXsgC9DGani0/A/oZFWMphdruY9YfaqEpp
         BfAxQEV1B723NiSrd6RyMN3yh5evEXl3mGED1OEBo+7xjDu2TosV2MgEklWoFGzD

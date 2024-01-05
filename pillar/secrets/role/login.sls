@@ -6,7 +6,7 @@ keepalived:
       authentication:
         auth_pass: |
           -----BEGIN PGP MESSAGE-----
-          
+
           hQQOA7A9CHm0S6RyEA/+NL/0wCaR7Gzfso1hLi79i+HNfv5i/iLVQxJ7U463vfU8
           HScq4h0LSqMxI0PoGyCLGO8F7YNtQVW92zRlhYxG3HpMxDkET4CRi3QrNO4gyC+N
           RFpwMLPbpMZ2JtX+4/zDlye7BMzy8Aov1thRTTVvSajkp3eEfyUUTwS1O/IsJyMO
@@ -79,7 +79,7 @@ keepalived:
       authentication:
         auth_pass: |
           -----BEGIN PGP MESSAGE-----
-          
+
           hQQOA7A9CHm0S6RyEA/7B3CpIHFqOCa4ZiH8zfLqrjsyPldfyJLZCPxQjJF3S7y7
           AyvQNELEl415+c0OQ7PepAUE4HZeNS41W5ANI1YzQ3uLjCN/5Z6W1oTHqlVRJcbX
           71FhR1npwTdTLMEMuGTzlwOrHEg+oBhmS487mYFVdO/zPROoS1/KlZ6phxKSAm5/

@@ -167,7 +167,7 @@ network:
     default6:
       gateway: 2a01:138:a004::1
     {#- install legacy internal routes through stonehat on such machines #}
-    {%- for destination_network in common_destinations %} 
+    {%- for destination_network in common_destinations %}
     {{ destination_network }}:
       gateway: 192.168.87.1
     {%- endfor %}
@@ -175,8 +175,11 @@ network:
     {%- endif %} {#- close country check #}
 
     {#-
-      for machines in locations we have not yet equipped with internal IPv6 routing, but which have an IPv6 route to the internet, install a blackhole route to our os-internal network in PRG2
-      this allows machines in these locations which have an IPv6 route to the internet to communicate with internal services in PRG2 via IPv4 instead of sending affected packets to the internet (which either leads to timeouts or stuck sessions, since we do not allow internal services to be reached over the internet)
+      for machines in locations we have not yet equipped with internal IPv6 routing,
+      but which have an IPv6 route to the internet, install a blackhole route to our os-internal network in PRG2
+      this allows machines in these locations which have an IPv6 route to the internet to communicate with internal
+      services in PRG2 via IPv4 instead of sending affected packets to the internet
+      (which either leads to timeouts or stuck sessions, since we do not allow internal services to be reached over the internet)
     #}
     2a07:de40:b27e:1203::/64:
       options:
