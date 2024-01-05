@@ -18,6 +18,6 @@ web_static:
 /home/web_static/.ssh/authorized_keys:
   file.managed:
     - contents_pillar: profile:web_static:ssh_pubkey
-    - mode: 644
+    - mode: '0644'
     - user: root
 {% endif %}

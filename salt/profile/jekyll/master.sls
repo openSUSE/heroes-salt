@@ -24,13 +24,13 @@ jekyll_master_pgks:
 /home/web_jekyll/.ssh/id_ed25519:
   file.managed:
     - contents_pillar: profile:web_jekyll:ssh_private_key
-    - mode: 600
+    - mode: '0600'
     - user: web_jekyll
 
 /home/web_jekyll/.ssh/known_hosts:
   file.managed:
     - contents_pillar: profile:web_jekyll:ssh_known_hosts
-    - mode: 644
+    - mode: '0644'
     - user: root
 
 /home/web_jekyll/bin:
@@ -43,9 +43,9 @@ jekyll_master_pgks:
     - minute: 0
   file.managed:
     - context:
-      git_dirs: {{ git_repos }}
-      server_list: {{ pillar['profile']['web_jekyll']['server_list'] }}
-    - mode: 755
+        git_dirs: {{ git_repos }}
+        server_list: {{ pillar['profile']['web_jekyll']['server_list'] }}
+    - mode: '0755'
     - source: salt://profile/jekyll/files/git_pull_and_update.sh
     - template: jinja
     - user: root

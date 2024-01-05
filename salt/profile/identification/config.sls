@@ -22,7 +22,7 @@ ipsilon_conf_file:
     - name: /etc/ipsilon/ipsilon.conf
     - source: salt://profile/identification/files/ipsilon.conf
     - template: jinja
-    - mode: 600
+    - mode: '0600'
     - require_in:
       - service: id_apache_service
     - watch_in:

@@ -13,19 +13,19 @@
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: '0755'
     - makedirs: True
 
 {% set mediawiki_wwwrun_dirs = [ 'cache', 'tmp', 'public/images' ] %}
 
-{% for dir in mediawiki_wwwrun_dirs %}
+{%- for dir in mediawiki_wwwrun_dirs %}
 /srv/www/{{ wiki }}.opensuse.org/{{ dir }}:
   file.directory:
     - user: wwwrun
     - group: root
-    - mode: 755
+    - mode: '0755'
     - makedirs: True
-{%endfor%}
+{%- endfor %}
 
 /srv/www/{{ wiki }}.opensuse.org/public/mediawiki_src:
   file.symlink:
@@ -37,13 +37,13 @@
 
 {% set mediawiki_symlinks = [ 'api.php', 'autoload.php', 'extensions', 'img_auth.php', 'includes', 'index.php', 'languages', 'load.php', 'maintenance',
                                    'opensearch_desc.php', 'resources', 'serialized', 'skins', 'thumb_handler.php', 'thumb.php', 'vendor', ] %}
-{% for symlink in mediawiki_symlinks %}
+{%- for symlink in mediawiki_symlinks %}
 /srv/www/{{ wiki }}.opensuse.org/public/{{ symlink }}:
   file.symlink:
     - target: mediawiki_src/{{ symlink }}
-{%endfor%}
+{%- endfor %}
 
-{% if version != '1_27' %}  # don't deploy LocalSettings.php and wiki_settings.php for wikis still using 1_27
+{%- if version != '1_27' %}  # don't deploy LocalSettings.php and wiki_settings.php for wikis still using 1_27
 /srv/www//{{ wiki }}.opensuse.org/public/LocalSettings.php:
   file.managed:
     - source: salt://profile/wiki/files/LocalSettings.php
@@ -51,20 +51,20 @@
 /srv/www//{{ wiki }}.opensuse.org/wiki_settings.php:
   file.managed:
     - context:
-      data: {{ data }}
+        data: {{ data }}
       mysql_server: {{ pillar['mediawiki']['mysql_server'] }}
       elasticsearch_server: {{ pillar['mediawiki']['elasticsearch_server'] }}
       wgserver: {{ data.get('wgserver', 'https://' + wiki + '.opensuse.org') }}
       wiki: {{ wiki }}
     - source: salt://profile/wiki/files/wiki_settings.php
     - template: jinja
-{% endif %}
+{%- endif %}
 
 /srv/www//{{ wiki }}.opensuse.org/public/robots.txt:
   file.managed:
     - source: salt://profile/wiki/files/{{ data.get('robots', 'robots.txt') }}
 
-{%endfor%}
+{%- endfor %}
 
 # SQL commands to migrate old hit counter data
 # can be removed after updating all wikis to 1.27

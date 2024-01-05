@@ -14,10 +14,10 @@ web_jekyll:
   file.directory:
     - user: root
 
-{% if 'web_jekyll' in roles %}
+{%- if 'web_jekyll' in roles %}
 /home/web_jekyll/.ssh/authorized_keys:
   file.managed:
     - contents_pillar: profile:web_jekyll:ssh_pubkey
-    - mode: 644
+    - mode: '0644'
     - user: root
-{% endif %}
+{%- endif %}

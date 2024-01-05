@@ -30,7 +30,7 @@ mailman_hyperkitty_conf:
 /srv/www/webapps/mailman/web/secret.txt:
   file.managed:
     - contents_pillar: profile:mailman3:secret_txt
-    - mode: 640
+    - mode: '0640'
     - user: mailmanweb
     - group: mailmanweb
 

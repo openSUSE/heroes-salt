@@ -84,7 +84,7 @@ synapse_appservice_{{ dir }}_file:
     - name: /etc/systemd/system/{{ dir }}.service
     - template: jinja
     - context:
-      dir: {{ dir }}
+        dir: {{ dir }}
       script: {{ data.get('script') }}
     - source: salt://profile/matrix/files/appservice.service
     - require_in:
@@ -109,6 +109,6 @@ synapse_appservice_{{ dir }}_file:
 /var/lib/matrix-synapse/hookshot/passkey.pem:
   file.managed:
     - contents_pillar: profile:matrix:appservices:hookshot:passkey
-    - mode: 640
+    - mode: '0640'
     - user: synapse
     - group: synapse

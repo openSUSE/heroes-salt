@@ -11,7 +11,7 @@ static_master_pgks:
 /home/web_static/.ssh/id_ed25519:
   file.managed:
     - contents_pillar: profile:web_static:ssh_private_key
-    - mode: 600
+    - mode: '0600'
     - user: web_static
 
 /home/web_static/.ssh/known_hosts:
@@ -21,7 +21,7 @@ static_master_pgks:
         {%- for entry in salt['pillar.get']('profile:web_static:ssh_known_hosts') %}
         - {{ entry }}
         {%- endfor %}
-    - mode: 644
+    - mode: '0644'
     - user: root
 
 /home/web_static/bin:
@@ -40,10 +40,10 @@ static_master_cron_mailto:
     - minute: 0
   file.managed:
     - context:
-      expected_gitmodules: {{ pillar['profile']['web_static']['expected_gitmodules'] }}
+        expected_gitmodules: {{ pillar['profile']['web_static']['expected_gitmodules'] }}
       server_list: {{ pillar['profile']['web_static']['server_list'] }}
       git_dirs: {{ git_repos }}
-    - mode: 755
+    - mode: '0755'
     - source: salt://profile/static/files/git_pull_and_update.sh
     - template: jinja
     - user: root

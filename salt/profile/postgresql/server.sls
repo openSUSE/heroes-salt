@@ -8,28 +8,28 @@
     - source: salt://profile/postgresql/files/postgresql/pg_hba.conf
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: '0640'
 
 /etc/postgresql/pg_ident.conf:
   file.managed:
     - source: salt://profile/postgresql/files/postgresql/pg_ident.conf
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: '0640'
 
 /etc/postgresql/postgresql.auto.conf:
   file.managed:
     - source: salt://profile/postgresql/files/postgresql/postgresql.auto.conf
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: '0640'
 
 /etc/postgresql/postgresql.conf:
   file.managed:
     - source: salt://profile/postgresql/files/postgresql/postgresql.conf
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: '0640'
 
 postgresql.service:
   service.running:

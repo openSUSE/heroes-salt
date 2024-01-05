@@ -14,26 +14,26 @@ synapse_restart:
     - require:
       - service: synapse_service
 
-{% set workers = salt['pillar.get']('profile:matrix:workers') %}
+{%- set workers = salt['pillar.get']('profile:matrix:workers') %}
 
-{% for app, types in workers.items() %}
-{% for type in types %}
-{% for worker, port in type.get('workers').items() %}
+{%- for app, types in workers.items() %}
+{%- for type in types %}
+{%- for worker, port in type.get('workers').items() %}
 
-{{worker}}_service:
+{{ worker }}_service:
   service.running:
-    - name: matrix-synapse-worker@{{worker}}.service
+    - name: matrix-synapse-worker@{{ worker }}.service
     - enable: True
     - require:
       - file: synapse_worker_systemd_file
 
-{{worker}}_restart:
+{{ worker }}_restart:
   module.wait:
     - name: service.restart
-    - m_name: matrix-synapse-worker@{{worker}}.service
+    - m_name: matrix-synapse-worker@{{ worker }}.service
     - require:
-      - service: {{worker}}_service
+      - service: {{ worker }}_service
 
-{% endfor %}
-{% endfor %}
-{% endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}

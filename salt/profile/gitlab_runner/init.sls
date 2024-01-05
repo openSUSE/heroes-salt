@@ -9,7 +9,7 @@ profile_gitlab_runner_config:
   file.serialize:
     - name: /etc/gitlab-runner/config.toml
     - serializer: toml
-    - dataset_pillar: profile:gitlab_runner:config 
+    - dataset_pillar: profile:gitlab_runner:config
     - require:
         - pkg: profile_gitlab_runner_package
 

@@ -14,7 +14,7 @@ common_monitoring_packages:
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: '0755'
 {% endfor %}
 
 {% set checks = salt['pillar.get']('profile:monitoring:checks', {}) %}
@@ -25,7 +25,7 @@ common_monitoring_packages:
       - "command[{{ check }}]={{ cmd }}"
     - user: root
     - group: root
-    - mode: 444
+    - mode: '0444'
 {% endfor %}
 
 /etc/monitoring-plugins/check_zypper-ignores.txt:
@@ -34,14 +34,14 @@ common_monitoring_packages:
     - template: jinja
     - user: root
     - group: root
-    - mode: 444
+    - mode: '0444'
 
 /etc/nrpe.cfg:
   file.managed:
     - source: salt://profile/monitoring/files/nrpe.cfg.jinja
     - user: root
     - group: root
-    - mode: 444
+    - mode: '0444'
     - template: jinja
 
 # cleanup old xinetd config for nrpe (pre-Leap 15.5)

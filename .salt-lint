@@ -1,0 +1,4 @@
+skip_list:
+  # ignore line length; remove after a solution for multiline strings
+  # https://github.com/warpnet/salt-lint/issues/317
+  - 204
