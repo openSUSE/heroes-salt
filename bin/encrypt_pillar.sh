@@ -29,5 +29,5 @@ fi
 
 [[ -z $STRING ]] && echo "ERROR: Input was empty" >/dev/stderr && exit 1
 
-RECIPIENTS=$(egrep '^\s*0x' encrypted_pillar_recipients | while read i; do echo "-r $i"; done | xargs)
+RECIPIENTS=$(grep -E '^\s*0x' encrypted_pillar_recipients | while read i; do echo "-r $i"; done | xargs)
 echo -n "${STRING}" | gpg --armor --batch --trust-model always --encrypt ${RECIPIENTS}
