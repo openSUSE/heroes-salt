@@ -1,4 +1,5 @@
 #!/bin/bash
+STATUS=0
 
 # Validate the salt-generated nginx configs
 
@@ -7,7 +8,7 @@ rpm -qa --qf '%{name}\n' | sort > /tmp/packages-before
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
 
 # using a container without systemd, but systemd is needed by service.running. replace it with /usr/bin/true to avoid useless error messages.
-( cd /usr/bin/ ; ln -sf true systemctl )
+( cd /usr/bin/ || exit 1 ; ln -sf true systemctl )
 
 source bin/get_colors.sh
 
@@ -19,23 +20,23 @@ create_fake_certs() {
     # - the key is encrypted and the CI worker can't decrypt it
     # - the nginx validation command tries to match the pair
 
-    PRIVATE_KEYS=( $(grep ssl_certificate_key pillar/role/$role.sls | cut -d':' -f2) )
-    for key in ${PRIVATE_KEYS[@]}; do
+    PRIVATE_KEYS=( $(grep ssl_certificate_key "pillar/role/$role.sls" | cut -d':' -f2) )
+    for key in "${PRIVATE_KEYS[@]}"; do
         if [[ ${key##*.} != 'key' ]]; then
             echo "pillar/role/$role.sls \"ssl_certificate_key: $key\" should have extension .key"
             STATUS=1
         else
-            cp test/fixtures/domain.key $key
+            cp test/fixtures/domain.key "$key"
         fi
     done
 
-    PUBLIC_CERTS=( $(grep "ssl_certificate:" pillar/role/$role.sls | cut -d':' -f2) )
-    for cert in ${PUBLIC_CERTS[@]}; do
+    PUBLIC_CERTS=( $(grep "ssl_certificate:" "pillar/role/$role.sls" | cut -d':' -f2) )
+    for cert in "${PUBLIC_CERTS[@]}"; do
         if [[ ${cert##*.} != 'crt' ]]; then
             echo "pillar/role/$role.sls \"ssl_certificate: $cert\" should have extension .crt"
             STATUS=1
         else
-            cp test/fixtures/domain.crt $cert
+            cp test/fixtures/domain.crt "$cert"
         fi
     done
 }
@@ -65,16 +66,16 @@ out="$role.txt"
 echo "START OF $role" > "$out"
 echo_INFO "Testing role: $role"
 
-printf "roles:\n- $role" >> "$IDFILE"
+printf 'roles:\n- %s' "$role" >> "$IDFILE"
 
 # Reset the grains-retrieved IPs to 127.0.0.1, as `nginx -t` actually tries
 # to bind to any configured listen IP
-sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" pillar/role/$role.sls
+sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" "pillar/role/$role.sls"
 
 if grep -q profile "$sls_role"
 then
     #for profile in "$(grep -h '\- profile' $sls_role | yq -o t)" // to-do: add yq to container
-    for profile in $(grep -h '\- profile' $sls_role | sed 's/^\s\+ -//' | tr '\n' ' ')
+    for profile in $(grep -h '\- profile' "$sls_role" | sed 's/^\s\+ -//' | tr '\n' ' ')
     do
         if [ ! "$profile" == 'profile.web.server.nginx' ]
         then
@@ -101,7 +102,7 @@ fi
 echo 'Applying nginx ...' >> "$out"
 salt-call --local state.apply nginx >> "$out" || rolestatus=1
 create_fake_certs
-touch_includes $role
+touch_includes "$role"
 
 printf '\nTesting configuration ...\n' >> "$out"
 mispipe 'nginx -tq' "tee -a $out" || rolestatus=1
@@ -133,6 +134,6 @@ rpm -qa --qf '%{name}\n' | sort > /tmp/packages-after
 
 diff -U0 /tmp/packages-before /tmp/packages-after || echo '=== The packages listed above were installed by one of the roles. Consider to add them to the container image to speed up this test.'
 
-exit $STATUS
+exit "$STATUS"
 
-vim:expandtab
+# vim:expandtab

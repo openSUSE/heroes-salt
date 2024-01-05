@@ -9,7 +9,7 @@ role="$1"
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
 
 # sysctl: cannot stat /proc/sys/net/core/netdev_max_backlog (and some other /proc files): No such file or directory
-( cd /sbin/ ; ln -sf /usr/bin/true sysctl )
+( cd /sbin/ || exit 1 ; ln -sf /usr/bin/true sysctl )
 
 source bin/get_colors.sh
 
@@ -27,7 +27,7 @@ printf 'roles:\n- %s' "$role" >> "$IDFILE"
 if [ -x "test/setup/role/$role" ]
 then
   echo "Preparing test environment for role $role ..." >> "$out"
-  test/setup/role/$role
+  "test/setup/role/$role"
 fi
 
 salt --out=raw --out-file=/dev/null "$HOSTNAME" saltutil.refresh_pillar
@@ -53,4 +53,4 @@ journalctl --no-pager > system/journal.txt
 echo 'Output and logs can be found in the job artifacts!'
 exit $rolestatus
 
-vim:expandtab
+# vim:expandtab

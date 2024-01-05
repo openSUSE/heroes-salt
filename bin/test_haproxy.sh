@@ -5,7 +5,7 @@
 set -Cu
 
 # systemctl refuses to work in a container, but is needed by service.running. Replace it with /usr/bin/true to avoid useless error messages and breakage.
-( cd /usr/bin/ ; ln -sf true systemctl )
+( cd /usr/bin/ || exit 1 ; ln -sf true systemctl )
 
 loglevel='info'
 logbase_salt='log_salt'
@@ -40,7 +40,7 @@ gen_ssl () {
 				cat test/fixtures/domain.{crt,key} > "$out"
 			fi
 		fi
-	done <<< "$(grep -hoPr '/etc/(ssl/services/(.*.pem|)|haproxy/.*.crt)' pillar/cluster/$1/)"
+	done <<< "$(grep -hoPr '/etc/(ssl/services/(.*.pem|)|haproxy/.*.crt)' "pillar/cluster/$1/")"
 }
 
 check_haproxy () {
