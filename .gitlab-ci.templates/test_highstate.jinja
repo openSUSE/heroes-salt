@@ -3,7 +3,7 @@
   stage: test
   before_script:
     - bin/prepare_test_env.sh -g -o Leap,15,5 -s -n
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
+    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas'
   tags:
     - docker
   artifacts:

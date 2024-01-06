@@ -38,7 +38,7 @@ def git(cmd, cwd=None):
         sys.exit(status)
 
 
-def clone(CLONE_FROM, CLONE_BRANCH, DEST):
+def clone(CLONE_FROM, DEST):
     def clone_repo():
         FULL_PATH = f'{DEST}/{formula}-formula'
         if os.path.isdir(FULL_PATH):
@@ -46,8 +46,6 @@ def clone(CLONE_FROM, CLONE_BRANCH, DEST):
 
         pygit2.clone_repository(url, FULL_PATH, bare=False)
 
-    if CLONE_BRANCH:
-        pass
     if CLONE_FROM:
         for formula in FORMULAS.keys():
             url = f'{CLONE_FROM}/{formula}-formula'
@@ -160,7 +158,6 @@ parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute p
 parser.add_argument('-f', '--formulas', action='append', nargs='+', help='Specify specific formulas to operate on, instead of working with all the specified FORMULAS.yaml formulas.')
 parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
-parser.add_argument('--clone-branch', nargs=1, help='Specify the branch to clone.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
 parser.add_argument('--remove-symlinks', action='store_true', help='Removes all symlinks that were created in /srv/salt.')
 parser.add_argument('-r', '--add-remote', action='append', nargs='+', help='''Add the specified remotes on the local repositories. It can be passed multiple times.
@@ -190,7 +187,7 @@ if args.remove_symlinks:
     remove_symlinks()
 
 # Every option below requires the --destination argument to be set
-if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or isinstance(args.update, list) or args.push or args.checkout:
+if args.clone or args.symlink or args.clone_from or args.add_remote or isinstance(args.update, list) or args.push or args.checkout:
     will_run = True
 
     if args.formulas:
@@ -211,8 +208,8 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
             print("ERROR: The following given formulas are not in FORMULAS.yaml: %s\n" % ', '.join(unknown_formulas), file=sys.stderr)
             sys.exit(1)
 
-    if (args.clone_from or args.clone_branch) and not args.clone:
-        print('ERROR: Please specify -c / --clone when using --clone-from or --clone-branch', file=sys.stderr)
+    if args.clone_from and not args.clone:
+        print('ERROR: Please specify -c / --clone when using --clone-from', file=sys.stderr)
         sys.exit(1)
 
     if not args.destination or not os.path.isabs(args.destination[0]):
@@ -227,12 +224,9 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
 
     if args.clone:
         clone_from = None
-        clone_branch = None
         if args.clone_from:
             clone_from = args.clone_from[0]
-        if args.clone_branch:
-            clone_branch = args.clone_branch[0]
-        clone(clone_from, clone_branch, args.destination[0])
+        clone(clone_from, args.destination[0])
 
     if args.symlink:
         create_symlinks(args.destination[0])

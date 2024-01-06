@@ -21,7 +21,7 @@ RUN mkdir -p /srv/salt/ && \
 ADD bin /test/bin
 ADD pillar /test/pillar
 WORKDIR /test
-RUN bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production || bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' --clone-branch production
+RUN bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' || bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas'
 RUN ( echo $'file_roots:\n\
   base:\n\
     - /srv/salt\n\
