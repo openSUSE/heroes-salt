@@ -9,7 +9,6 @@ if [ ! -r /etc/os-release ]; then
 fi
 source /etc/os-release
 SECRETS="False"
-REPO_URL=${PRETTY_NAME// /_}
 PKG=''
 
 if [[ $(whoami) != 'root' ]]; then
@@ -37,8 +36,8 @@ help() {
 
 while getopts p:o:gsnh arg; do
     case ${arg} in
-        p) PKG=(${OPTARG//,/ }) ;;
-        o) OS=(${OPTARG//,/ }) ;;
+        p) PKG=( ${OPTARG//,/ } ) ;;
+        o) OS=( ${OPTARG//,/ } ) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
         n) REPOSITORIES='False' ;;
@@ -48,15 +47,14 @@ while getopts p:o:gsnh arg; do
 done
 
 DOMAIN='infra.opensuse.org'
-SALT_CLUSTER='opensuse'
 
 if [ -z "$REPOSITORIES" ]
 then
   sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
   
-  if [ -n "${PKG[@]}" ]; then
+  if [ -n "${PKG[*]}" ]; then
       $SUDO zypper --gpg-auto-import-keys ref
-      $SUDO zypper -qn install --no-recommends ${PKG[@]}
+      $SUDO zypper -qn install --no-recommends "${PKG[@]}"
   fi
 elif [ "$REPOSITORIES" == 'False' ]
 then
@@ -66,10 +64,10 @@ zypper lr -d || true
 
 bin/replace_secrets.sh
 $SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
-$SUDO ln -s $PWD/salt /srv/salt
+$SUDO ln -s "$PWD/salt" /srv/salt
 salt-call --local saltutil.runner saltutil.sync_runners
 salt-call --local saltutil.sync_modules
-$SUDO ln -s $PWD/pillar /srv/pillar
+$SUDO ln -s "$PWD/pillar" /srv/pillar
 
 ID=$(/usr/bin/hostname -f)
 IDFILE="pillar/id/${ID//./_}.sls"
@@ -79,10 +77,9 @@ printf "grains:\n  country: de\n  hostusage: test\n  reboot_safe: no\n" > "$IDFI
 cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
-    ROLES=$(bin/get_roles.py -o yaml)
-    [[ -n "$OS" ]] && OS_GRAINS="osfullname: ${OS[0]}\nosmajorrelease: ${OS[1]}\nosrelease_info: [${OS[1]}, ${OS[2]}]"
-    printf "country:\ndomain: $DOMAIN\ninclude_secrets: $SECRETS\n$OS_GRAINS\n" > /etc/salt/grains
-    printf "$ROLES" >> "$IDFILE"
+    printf 'country:\ndomain: %s\ninclude_secrets: %s' "$DOMAIN" "$SECRETS" > /etc/salt/grains
+    [[ -n "${OS[0]}" ]] && printf '\nosfullname: %s\nosmajorrelease: %s\nosrelease_info: [%s, %s]\n' "${OS[0]}" "${OS[1]}" "${OS[1]}" "${OS[2]}" >> /etc/salt/grains
+    bin/get_roles.py -o yaml >> "$IDFILE"
 
     if [ ! -d /etc/salt/minion.d ]
     then
@@ -98,4 +95,4 @@ if [[ -n "$HIGHSTATE" ]]; then
     cp "$IDFILE_BASE" "$IDFILE"
 fi
 
-ln -s $PWD /srv/salt-git
+ln -s "$PWD" /srv/salt-git

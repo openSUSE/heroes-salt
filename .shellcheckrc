@@ -1,0 +1,2 @@
+disable=SC2162                # in our scripts, mangling of backslashes is not a concern
+disable=SC2206,SC2207         # in our scripts, using mapfiles for construction of predictable arrays is unreasonable

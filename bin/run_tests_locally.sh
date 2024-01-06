@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Script to test the openSUSE infrastructure Salt code in a local container
 # Copyright (C) 2017-2024 openSUSE contributors
@@ -35,7 +35,7 @@ print() {
 }
 
 pprint() {
-    printf '==> %s %s ...\n' "$1" "$(gum style --foreground \#96cb5c $2)"
+    printf '==> %s %s ...\n' "$1" "$(gum style --foreground \#96cb5c "$2")"
 }
 
 fail() {
@@ -48,8 +48,8 @@ pfail() {
     exit 1
 }
 
-[ "$(id -u)" == 0 ] && help && exit 1
-[ "$1" == '--help' ] && help && exit
+[ "$(id -u)" = 0 ] && help && exit 1
+[ "$1" = '--help' ] && help && exit
 
 CONTAINER=''
 CONTAINER_ARGS=()
@@ -97,7 +97,7 @@ then
     
     print 'Starting ...'
     CONTAINER=$( \
-      podman run -de SSH_KEY="$(cat $PUBKEY)" --health-interval 10s --health-start-period 15s "${CONTAINER_ARGS[@]}" -p "[::1]:$PORT:22" -v .:/home/geeko/salt-workspace:ro \
+      podman run -de SSH_KEY="$(cat "$PUBKEY")" --health-interval 10s --health-start-period 15s "${CONTAINER_ARGS[@]}" -p "[::1]:$PORT:22" -v .:/home/geeko/salt-workspace:ro \
       registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-development-systemd:latest \
     )
     timeout 90 podman wait --condition healthy "$CONTAINER" >/dev/null \
@@ -106,21 +106,21 @@ then
 else
     print "Preparing container $CONTAINER ..."
     set -e
-    podman ps | grep -q $CONTAINER || podman start "$CONTAINER"
+    podman ps | grep -q "$CONTAINER" || podman start "$CONTAINER"
     timeout 60 podman wait --condition healthy "$CONTAINER" >/dev/null \
       || fail 'Failed to start container'
-    PORT=$(podman inspect -f '{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}' $CONTAINER || echo null)
-    if [ "$PORT" == 'null' ] || ! podman ps | grep -q "$CONTAINER"
+    PORT="$(podman inspect -f '{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}' "$CONTAINER" || echo null)"
+    if [ "$PORT" = 'null' ] || ! podman ps | grep -q "$CONTAINER"
     then
         fail 'Cannot work with the specified container.'
     fi
     podman exec "$CONTAINER" test -f /var/adm/firstboot-ok || fail 'Existing container was not set up correctly or does not use the expected image.'
-    podman exec "$CONTAINER" sh -c "echo $(cat $PUBKEY) >> /home/checker/.ssh/authorized_keys"
+    podman exec "$CONTAINER" sh -c "echo $(cat "$PUBKEY") >> /home/checker/.ssh/authorized_keys"
     set +e
 fi
 
 SSH_ARGS+=("-p$PORT")
-SSH="ssh ${SSH_ARGS[@]}"
+SSH="ssh ${SSH_ARGS[*]}"
 RSYNC_ARGS=('-l' '-r' '-e' "$SSH")
 SSH="$SSH ipv6-localhost"
 
@@ -147,7 +147,7 @@ $SSH sh <<-EOS || echo 'Test suite returned with errors.'
   pprint Testing: show_highstate
   sudo bin/test_show_highstate.sh || pfail
 
-  if [ "$HIGHSTATE" == 'true' ]
+  if [ "$HIGHSTATE" = 'true' ]
   then
     pprint Testing: highstate
     sudo bin/test_highstate.sh
@@ -157,7 +157,7 @@ $SSH sh <<-EOS || echo 'Test suite returned with errors.'
   pprint 'All tests' completed
 EOS
 
-if [ "$PRESERVE" == 'false' ]
+if [ "$PRESERVE" = 'false' ]
 then
   print 'Removing container ...'
   podman stop "$CONTAINER" >/dev/null || fail 'Failed to stop container.'

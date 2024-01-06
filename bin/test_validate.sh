@@ -1,4 +1,5 @@
 #!/bin/bash
+STATUS=0
 
 # Run various code validation/syntax checks
 
@@ -13,9 +14,9 @@ TESTS=(
     infra_data.sh
 )
 
-for _test in ${TESTS[@]}; do
+for _test in "${TESTS[@]}"; do
     echo_INFO "## Running test_${_test}"
-    if bin/test_${_test}; then
+    if "bin/test_${_test}"; then
         echo_PASSED
     else
         echo_FAILED
@@ -24,4 +25,4 @@ for _test in ${TESTS[@]}; do
     echo
 done
 
-exit $STATUS
+exit "$STATUS"

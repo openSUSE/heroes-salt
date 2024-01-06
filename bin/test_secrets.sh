@@ -10,26 +10,27 @@ HEADER_REGEX='^(#!yaml\|gpg|#!gpg\|yaml|#!jinja\|yaml\|gpg)$'
 HEADER_EMPTY='^(# empty)$'
 STATUS=0
 
-SECRETS_SLS=$(find pillar/secrets -name '*.sls' 2> /dev/null)
-if [[ -n $SECRETS_SLS ]];  then
-    for secret_sls in ${SECRETS_SLS[@]}; do
-        HEADER_LINE="$(head -n 1 $secret_sls)"
-	if [[ ! "$HEADER_LINE" =~ $HEADER_REGEX && ! ( "$HEADER_LINE" =~ $HEADER_EMPTY && "$(wc -l < $secret_sls)" == 1 ) ]]; then
+SECRETS_SLS=( $(find pillar/secrets -name '*.sls' 2> /dev/null) )
+if [[ -n "${SECRETS_SLS[0]}" ]];  then
+    for secret_sls in "${SECRETS_SLS[@]}"; do
+        HEADER_LINE="$(head -n 1 "$secret_sls")"
+	if [[ ! "$HEADER_LINE" =~ $HEADER_REGEX && ! ( "$HEADER_LINE" =~ $HEADER_EMPTY && "$(wc -l < "$secret_sls")" == 1 ) ]]; then
             echo "The first line in $secret_sls is not matching \"$HEADER_REGEX\""
             STATUS=1
         fi
     done
 fi
 
+# shellcheck disable=SC2044 # looping over find output is reasonable here, since additional if-logic is required
 for sls in $(find pillar/ -not -path 'pillar/secrets/*' -name '*.sls'); do
-    if $(grep -Eq "$HEADER_REGEX" $sls); then
+    if grep -Eq "$HEADER_REGEX" "$sls"; then
         echo "$sls matches \"$HEADER_REGEX\", please remove such lines from non-secret pillar files"
         STATUS=1
     fi
-    if $(grep -q "BEGIN GPG MESSAGE" $sls); then
+    if grep -q "BEGIN GPG MESSAGE" "$sls"; then
         echo "$sls contains secrets. Please move them to pillar/secrets/${sls#*/}"
         STATUS=1
     fi
 done
 
-exit $STATUS
+exit "$STATUS"

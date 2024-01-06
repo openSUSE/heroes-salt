@@ -42,10 +42,10 @@ echo
 
 echo "test_infra_data --> Results: YAML -> $RESULT_YAML, SCHEMA -> $RESULT_SCHEMA, SORT -> $RESULT_SORT"
 
-if [ "$RESULT_YAML" == 0 -a "$RESULT_SCHEMA" == 0 -a "$RESULT_SORT" == 0 ]
+if [ "$RESULT_YAML" = 0 ] && [ "$RESULT_SCHEMA" = 0 ] && [ "$RESULT_SORT" = 0 ]
 then
 	exit 0
-elif [ "$RESULT_SORT" == 1 ] # 123 in case of xargs
+elif [ "$RESULT_SORT" = 1 ] # 123 in case of xargs
 then
 	echo 'Please run bin/sort_yaml.py against the YAML files you modified and amend your commit.'
 fi
