@@ -31,9 +31,8 @@ def test_custom_grain(mygrains, sls, key, valid_values, status):
     if isinstance(valid_values, str):
         if value != valid_values:
             status = error_msg(sls, key, valid_values)
-    else:
-        if valid_values and value not in valid_values:
-            status = error_msg(sls, key, map(str, valid_values))
+    elif valid_values and value not in valid_values:
+        status = error_msg(sls, key, map(str, valid_values))
 
     return status
 
