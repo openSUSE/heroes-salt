@@ -104,13 +104,16 @@ def test_schema(data):
 
     return True
 
-def test_duplicates(data):
+def test_duplicates(data):  # noqa PLR0912
+                            # (function indeed uses complicated branching, but is not feasible to reformat)
     def test_key(key, value):
         if key in need_unique:
             if key not in matches:
                 matches.update({key: []})
             matches[key].append(value)
+
     matches = {}
+
     for host, host_config in data.items():
         for key, value in host_config.items():
             if isinstance(value, dict):
@@ -128,9 +131,11 @@ def test_duplicates(data):
                 test_key(key, value)
             else:
                 _fail(f'Encountered unhandled value type in key {key} under host {host}.')
+
     unique = {}
     matches['lun_mappers'] = lun_mappers
     need_unique_final = need_unique + ['lun_mappers']
+
     for need_unique_key in need_unique_final:
         unique.update({need_unique_key:
                        {
@@ -139,13 +144,16 @@ def test_duplicates(data):
                        },
                     },
         )
+
     for match_key, match_values in matches.items():
         for match_value in match_values:
             if match_value in unique[match_key]['seen_values']:
                 unique[match_key]['duplicate_values'].append(match_value)
             else:
                 unique[match_key]['seen_values'].add(match_value)
+
     found_dupes = False
+
     for key in need_unique_final:
         dupes = unique[key]['duplicate_values']
         if dupes:
