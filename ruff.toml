@@ -1,0 +1,42 @@
+line-length = 100
+
+[lint]
+exclude = [
+  # TODO: implement ignore rules for Salt dunders and lint modules
+  "salt/_*/*.py",
+  # should we touch application scripts (Helios, Mailman, ...)?
+  "salt/profile/*/files/*.py"
+]
+
+# https://docs.astral.sh/ruff/rules/
+extend-select = [
+  "A",   # flake8-builtins
+  "BLE", # flake8-blind-except
+  "COM", # flake8-commas
+  "C4",  # flake8-comprehensions
+  "E",   # pycodestyle
+  "ERA", # eradicate
+  "EXE", # flake8-executable
+  "FBT", # flake8-boolean-trap
+  "I",   # isort
+  "ISC", # flake8-implicit-str-concat
+  "PL",  # Pylint
+  "S",   # flake8-bandit
+  "UP",  # pyupgrade
+  "W",   # pycodestyle
+  "YTT", # flake8-2020
+
+  "E261", # spaces before inline comments
+]
+ignore = [
+  "E501",    # line lengths
+  "PLR2004", # "magic" values which could be descriptive constants
+  "PLW2901", # redefined variables in for loops
+  "UP015",   # https://github.com/asottile/pyupgrade/issues/249#issuecomment-1879844387
+  "S603",    # https://github.com/astral-sh/ruff/issues/4045
+]
+preview = true
+explicit-preview-rules = true
+
+[lint.pydocstyle]
+convention = "pep257"
