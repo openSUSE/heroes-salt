@@ -1,2 +1,2 @@
 #!/bin/sh -eu
-$(dirname $0)/common/mariadb
+"$(dirname "$0")"/common/mariadb

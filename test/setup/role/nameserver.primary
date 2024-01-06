@@ -1,3 +1,3 @@
-#!/bin/sh -eu
+#!/bin/bash -eu
 # secrets for nameserver.primary
-cat pillar/secrets/id/chip_infra_opensuse_org.sls >> pillar/secrets/id/$(hostname).sls
+cat pillar/secrets/id/chip_infra_opensuse_org.sls >> pillar/secrets/id/"$HOSTNAME".sls

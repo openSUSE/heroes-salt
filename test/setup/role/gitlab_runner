@@ -1,3 +1,3 @@
-#!/bin/sh -eu
+#!/bin/bash -eu
 
-cp pillar/secrets/id/gitlab-runner1_infra_opensuse_org.sls pillar/secrets/id/$HOSTNAME.sls
+cp pillar/secrets/id/gitlab-runner1_infra_opensuse_org.sls pillar/secrets/id/"$HOSTNAME".sls
