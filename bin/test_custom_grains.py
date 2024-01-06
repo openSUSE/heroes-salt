@@ -11,7 +11,7 @@ from get_valid_custom_grains import get_all_valid_localized_grains, get_valid_gl
 
 
 def error_msg(sls, key, valid_values):
-    if type(valid_values) == str:
+    if isinstance(valid_values, str):
         msg = ' is'
         result = valid_values
     else:
@@ -28,7 +28,7 @@ def test_custom_grain(mygrains, sls, key, valid_values, status):
         print(f'pillar/id/{sls} is missing the "{key}" key')
         return 1
 
-    if type(valid_values) == str:
+    if isinstance(valid_values, str):
         if value != valid_values:
             status = error_msg(sls, key, valid_values)
     else:

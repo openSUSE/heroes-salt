@@ -24,7 +24,7 @@ def get_all_valid_localized_grains():
 
 def get_all_valid_domains(country):
     all_valid_domains = get_all_valid_localized_grains()[country]['domains']
-    if type(all_valid_domains) == str:
+    if isinstance(all_valid_domains, str):
         # convert to list
         all_valid_domains = [all_valid_domains]
     print('\n'.join(all_valid_domains))
