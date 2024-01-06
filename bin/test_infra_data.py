@@ -21,10 +21,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import json
-import yaml
-from referencing import Registry, Resource
-from jsonschema import Draft202012Validator, ValidationError
 import sys
+
+import yaml
+from jsonschema import Draft202012Validator, ValidationError
+from referencing import Registry, Resource
 
 infradir = 'pillar/infra/'
 schemadir = f'{infradir}schemas/'
@@ -52,8 +53,8 @@ def _fail(msg=None):
 def test_schema_meta(data):
     registry = Registry().with_resources(
             [
-                ("https://json-schema.org/draft/2020-12/schema", Resource.from_contents(schemas['reference']))
-            ]
+                ("https://json-schema.org/draft/2020-12/schema", Resource.from_contents(schemas['reference'])),
+            ],
     )
     validator = Draft202012Validator(schema=schemas['reference'], registry=registry)
     try:
@@ -75,8 +76,8 @@ def test_schema(data):
                 ("infra/schemas/hosts.json", Resource.from_contents(schemas['hosts'])),
                 ("infra/schemas/host.json", Resource.from_contents(schemas['host'])),
                 ("infra/schemas/disk.json", Resource.from_contents(schemas['disk'])),
-                ("infra/schemas/interface.json", Resource.from_contents(schemas['interface']))
-            ]
+                ("infra/schemas/interface.json", Resource.from_contents(schemas['interface'])),
+            ],
     )
     validator_hosts = Draft202012Validator(schema=schemas['hosts'], registry=registry)
     validator_host = Draft202012Validator(schema=schemas['host'], registry=registry)
@@ -106,7 +107,7 @@ def test_schema(data):
 def test_duplicates(data):
     def test_key(key, value):
         if key in need_unique:
-            if not key in matches:
+            if key not in matches:
                 matches.update({key: []})
             matches[key].append(value)
     matches = {}
@@ -116,14 +117,14 @@ def test_duplicates(data):
                 for low_key, low_value in value.items():
                     if key == 'disks' and not low_value.endswith(('G', 'GB')):
                         lun_mappers.append(low_value)
-                    if isinstance(low_value, str) or isinstance(low_value, int):
+                    if isinstance(low_value, (int, str)):
                         test_key(low_key, low_value)
                     elif isinstance(low_value, dict):
                         for low_low_key, low_low_value in low_value.items():
                             test_key(low_low_key, low_low_value)
                     else:
                         _fail(f'Encountered unhandled value type in key {low_key} under host {host}.')
-            elif isinstance(value, str) or isinstance(value, int):
+            elif isinstance(value, (int, str)):
                 test_key(key, value)
             else:
                 _fail(f'Encountered unhandled value type in key {key} under host {host}.')
@@ -134,9 +135,9 @@ def test_duplicates(data):
         unique.update({need_unique_key:
                        {
                            'seen_values': set(),
-                           'duplicate_values': []
-                       }
-                    }
+                           'duplicate_values': [],
+                       },
+                    },
         )
     for match_key, match_values in matches.items():
         for match_value in match_values:
@@ -171,7 +172,7 @@ if __name__ == '__main__':
 
     fail = False
     for check, result in checks.items():
-        if result == False:
+        if result is False:
             print()
             print(f'Check "{check}" failed.')
             fail = True
@@ -179,4 +180,4 @@ if __name__ == '__main__':
     if fail:
         _fail()
     print()
-    print(f'Infrastructure data is valid.')
+    print('Infrastructure data is valid.')

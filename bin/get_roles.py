@@ -2,11 +2,12 @@
 
 # For description and usage, see the argparse options at the end of the file
 
-from copy import copy
 import argparse
-import yaml
 import os
+from copy import copy
 from sys import exit
+
+import yaml
 
 
 def read_file_skip_jinja(filename):

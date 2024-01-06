@@ -9,6 +9,7 @@
 
 import os
 import sys
+
 from get_roles import get_roles, get_roles_of_one_minion
 
 status = 0

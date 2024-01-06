@@ -2,13 +2,14 @@
 
 # For description and usage, see the argparse options at the end of the file
 
-from copy import copy
-from pygit2.errors import GitError
 import argparse
 import os
-import pygit2
 import sys
+from copy import copy
+
+import pygit2
 import yaml
+from pygit2.errors import GitError
 
 
 def check_open_pull_requests():
@@ -23,8 +24,8 @@ def check_open_pull_requests():
             org = g.get_organization(namespace)
             for pull_request in open_pull_requests:
                 pr = int(pull_request.split('/')[-1])
-                state = org.get_repo('%s%s-formula' % (prefix, formula)).get_pull(pr).state
-                print('%s is %s' % (pull_request, state))
+                state = org.get_repo(f'{prefix}{formula}-formula').get_pull(pr).state
+                print(f'{pull_request} is {state}')
 
 
 def git(cmd, cwd=None):
@@ -39,24 +40,23 @@ def git(cmd, cwd=None):
 
 def clone(CLONE_FROM, CLONE_BRANCH, DEST):
     def clone_repo():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         if os.path.isdir(FULL_PATH):
             return
 
         pygit2.clone_repository(url, FULL_PATH, bare=False)
 
-    branch_opts = []
     if CLONE_BRANCH:
-        branch_opts = ['-b', CLONE_BRANCH, '--single-branch']
+        pass
     if CLONE_FROM:
         for formula in FORMULAS.keys():
-            url = '%s/%s-formula' % (CLONE_FROM, formula)
+            url = f'{CLONE_FROM}/{formula}-formula'
             clone_repo()
     else:
         for formula, data in FORMULAS.items():
             namespace = data.get('namespace', 'saltstack-formulas')
             prefix = data.get('prefix', '')
-            url = 'https://github.com/%s/%s%s-formula' % (namespace, prefix, formula)
+            url = f'https://github.com/{namespace}/{prefix}{formula}-formula'
             clone_repo()
 
 
@@ -64,7 +64,7 @@ def create_symlinks(DEST):
     for formula in FORMULAS.keys():
         FULL_PATH = '/srv/salt/%s' % formula
         if not os.path.islink(FULL_PATH):
-            os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), FULL_PATH)
+            os.symlink(f'{DEST}/{formula}-formula/{formula}', FULL_PATH)
 
 
 def remove_symlinks():
@@ -83,7 +83,7 @@ def fetch_remote(remote, formula):
     try:
         remote.fetch(callbacks=remotecallbacks)
     except GitError:
-        print('%s-formula: Failed to fetch remote %s' % (formula, remote.name))
+        print(f'{formula}-formula: Failed to fetch remote {remote.name}')
 
 
 def add_remote(REMOTES, DEST):
@@ -110,8 +110,8 @@ def add_remote(REMOTES, DEST):
                 prefix = data.get('prefix', '')
             if not url.endswith(':'):
                 url += '/'
-            full_url = '%s%s/%s%s-formula' % (url, namespace, prefix, formula)
-            FULL_PATH = '%s/%s-formula' % (DEST, formula)
+            full_url = f'{url}{namespace}/{prefix}{formula}-formula'
+            FULL_PATH = f'{DEST}/{formula}-formula'
             repo = pygit2.Repository(FULL_PATH)
             try:
                 repo.create_remote(name, full_url)
@@ -122,7 +122,7 @@ def add_remote(REMOTES, DEST):
 
 def update(REMOTES, DEST):
     for formula in FORMULAS.keys():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         repo = pygit2.Repository(FULL_PATH)
         git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
         git(['pull', '-q'], cwd=FULL_PATH)
@@ -133,7 +133,7 @@ def update(REMOTES, DEST):
 
 def push(REMOTES, DEST):
     for formula in FORMULAS.keys():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         repo = pygit2.Repository(FULL_PATH)
         git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
         for remote in REMOTES:
@@ -144,7 +144,7 @@ def push(REMOTES, DEST):
 
 def checkout_remote_and_branch(REMOTE_BRANCH, DEST):
     for formula in FORMULAS.keys():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         branch = REMOTE_BRANCH.split('/')[1]
         git(['checkout', '-qB', branch, REMOTE_BRANCH], cwd=FULL_PATH)
 

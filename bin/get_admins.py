@@ -2,15 +2,16 @@
 
 # For description and usage, see the argparse options at the end of the file
 
-from ldap3 import Server, Connection, ALL
-from get_roles import get_roles, get_roles_of_one_minion
-from pathlib import Path
 import argparse
 import re
 import sys
-import yaml
+from pathlib import Path
 
-spn_regex = r'spn=([\w-]+)@infra\.opensuse\.org,o=heroes' # is there a better way to fetch only the names from kani?
+import yaml
+from get_roles import get_roles, get_roles_of_one_minion
+from ldap3 import ALL, Connection, Server
+
+spn_regex = r'spn=([\w-]+)@infra\.opensuse\.org,o=heroes'  # is there a better way to fetch only the names from kani?
 
 def get_admins_of_a_role(admins, role):
     results = {}
@@ -34,7 +35,7 @@ def get_admins_of_a_role(admins, role):
             for member in members:
                 member = re.search(spn_regex, member).group(1)
                 results[member] = admins[member]
-                results[member]['roles'].append('%s (%s)' % (minion, role))
+                results[member]['roles'].append(f'{minion} ({role})')
 
     return results
 
@@ -61,7 +62,7 @@ def get_admins_of_a_server(admins, server):
                 for group in data['groups']:
                     if group.split('-')[0] == role:
                         results[admin] = data
-                        results[admin]['roles'].append('%s (%s)' % (minion, role))
+                        results[admin]['roles'].append(f'{minion} ({role})')
 
     return results
 

@@ -45,9 +45,9 @@ def gpg(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PI
 
 def decrypt(message):
     cmd = gpg(['--batch', '-d'])
-    logger.debug('in: {}'.format(message))
+    logger.debug(f'in: {message}')
     out, err = cmd.communicate(message)
-    logger.debug('return: {}, out: {}, err: {}'.format(cmd.returncode, out, err))
+    logger.debug(f'return: {cmd.returncode}, out: {out}, err: {err}')
     if cmd.returncode != 0:
         raise DecryptError(err)
     return out
@@ -57,9 +57,9 @@ def encrypt(message, recipients):
     for r in recipients:
         cmd += ['--recipient', r]
     cmd = gpg(cmd)
-    logger.debug('in: {}'.format(message))
+    logger.debug(f'in: {message}')
     out, err = cmd.communicate(message)
-    logger.debug('return: {}, out: {}, err: {}'.format(cmd.returncode, out, err))
+    logger.debug(f'return: {cmd.returncode}, out: {out}, err: {err}')
     if cmd.returncode != 0:
         raise EncryptError(err)
     return out
@@ -85,7 +85,7 @@ def get_recipients(file):
     with open(file) as f:
         regexp = re.compile(RE_PGP_RECIPIENT, re.MULTILINE)
         recipients = re.findall(regexp, f.read())
-        logger.debug('recipients: {}'.format(recipients))
+        logger.debug(f'recipients: {recipients}')
         return recipients
 
 # Initialize logging
@@ -106,7 +106,7 @@ if args.verbose == 1:
 elif args.verbose == 2:
     logger.setLevel(logging.DEBUG)
 
-logger.debug('args: {}'.format(args))
+logger.debug(f'args: {args}')
 
 # Final list of pillars to reencrypt
 pillars = []
@@ -125,7 +125,7 @@ else:
     pillars = args.pillars
 
 # Log final list of pillar files
-logger.debug('pillars: {}'.format(pillars))
+logger.debug(f'pillars: {pillars}')
 
 # Track number of touched pillar files
 total = 0
@@ -138,15 +138,15 @@ for pillar in pillars:
     total += 1
 
     # Read data from pillar file
-    file = open(pillar, 'r')
+    file = open(pillar)
     data = file.read()
     file.close()
 
     # Search for PGP messages and reencrypt them
     try:
         data, count = re.subn(RE_PGP_MESSAGE, lambda x: reencrypt(x.group(0), recipients), data, flags=re.DOTALL|re.MULTILINE)
-    except DecryptError as error:
-        logger.error('Failed to decrypt data in file: {}, skipping'.format(pillar))
+    except DecryptError:
+        logger.error(f'Failed to decrypt data in file: {pillar}, skipping')
         failure += 1
         continue
 
@@ -155,10 +155,10 @@ for pillar in pillars:
         file = open(pillar, 'w')
         file.write(data)
         file.close()
-        logger.info('Successfully reencrypted all data in file: {}'.format(pillar))
+        logger.info(f'Successfully reencrypted all data in file: {pillar}')
         success += 1
 
-print('total: {}, skipped: {}, successful: {}, failed: {}'.format(total, total - success - failure, success, failure))
+print(f'total: {total}, skipped: {total - success - failure}, successful: {success}, failed: {failure}')
 
 if failure > 0:
     sys.exit(1)
