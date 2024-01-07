@@ -28,3 +28,4 @@ include:
   - infrastructure.salt.minion
   - profile.sysctl
   - profile.motd
+  - profile.dehydrated.target

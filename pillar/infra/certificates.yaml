@@ -1,0 +1,13 @@
+---
+example1.opensuse.org:
+  sans:
+    - foo.opensuse.org
+  targets:
+    - host: mx1
+      services:
+        - postfix
+example2.opensuse.org:
+  sans:
+    - bar.opensuse.org
+  targets:
+    - macro: proxy-prg2

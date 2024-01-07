@@ -8,27 +8,16 @@ export PDNS_SERVER=localhost
 export CRTUSER='cert'
 
 update_opensuse() {
-    CERTDIR="$(dirname $FULLCHAINFILE)"
     CERTNAME="$(basename $(dirname $FULLCHAINFILE))"
+    HOOK="/etc/dehydrated/hooks.d/$CERTNAME"
 
-    FULLFILE="$CERTDIR/${CERTNAME}_full.pem"
-
-    cat "$FULLCHAINFILE" "$KEYFILE" > "$FULLFILE"    # to make ACLs work on the HAProxy hosts
-
-    for target in $(grep -oP "CERTIFICATE $DOMAIN TARGETS \K.*" /etc/dehydrated/our-domains.txt | jq -r '.[]')
-    do
-	echo "Deploying certificate to $target ..."
-	if ping -q -c 1 "$target" >/dev/null
-	then
-		DESTFULLNAME="/etc/ssl/services/${CERTNAME}.pem"
-		scp "$FULLFILE" "$CRTUSER@$host:$DESTFULLNAME"
-		echo "Reloading HAProxy on $target ..."
-	else
-		echo "Cannot reach $target, unable to deploy certificate."
-	fi
-    done
-
-
+    if [ -x "$HOOK" ]
+    then
+      echo "Executing $HOOK"
+      /etc/dehydrated/hooks.d/$CERTNAME
+    else
+      echo "No hook for $CERTNAME"
+    fi
 }
 
 deploy_challenge() {
@@ -123,6 +112,15 @@ unchanged_cert() {
     # valid and therefore wasn't reissued.
 
     #update_opensuse
+
+    FAILFILE="/etc/dehydrated/deployment_failures/$DOMAIN"
+
+    if [ -f "$FAILFILE" ]
+    then
+      echo "Retrying previously failed hook for $DOMAIN"
+      rm "$FAILFILE"
+      update_opensuse
+    fi
 }
 
 invalid_challenge() {

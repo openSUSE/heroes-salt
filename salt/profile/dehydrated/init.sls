@@ -9,7 +9,7 @@ profile_dehydrated_config_base:
     - name: /etc/dehydrated/config
     - group: dehydrated
     - mode: '0640'
-    - contens:
+    - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
         - 'DEHYDRATED_USER="dehydrated"'
         - 'DEHYDRATED_GROUP="dehydrated"'
@@ -46,8 +46,7 @@ profile_dehydrated_config_domains:
     - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
         {%- for certificate, certificate_config in mypillar.get('certificates', {}).items() %}
-        - '# CERTIFICATE {{ certificate }} TARGETS {{ certificate.get('targets', [])) }}'
-        - '{{ certificate }} {{ ' '.join(certificate.get('sans', [])) }} '
+        - '{{ certificate }} {{ ' '.join(certificate_config.get('sans', [])) }} '
         {%- endfor %}
     - require:
       - pkg: profile_dehydrated_packages
@@ -59,6 +58,37 @@ profile_dehydrated_hook:
     - template: jinja
     - group: dehydrated
     - mode: '0750'
+    - require:
+      - pkg: profile_dehydrated_packages
+
+profile_dehydrated_hooks_directory:
+  file.directory:
+    - names:
+      - /etc/dehydrated/hooks.d
+      - /etc/dehydrated/deployment_failures
+    - group: dehydrated
+    - require:
+      - pkg: profile_dehydrated_packages
+
+{%- for certificate, certificate_config in mypillar.get('certificates', {}).items() %}
+{%- do salt.log.debug('dehydrated: parsing certificate ' ~ certificate) %}
+{%- set targets = certificate_config.get('targets') %}
+{%- if targets %}
+profile_dehydrated_hook_{{ certificate }}:
+  file.managed:
+    - name: /etc/dehydrated/hooks.d/{{ certificate }}.sh
+    - source: salt://profile/dehydrated/files/etc/dehydrated/hooks.d/certificate.sh.jinja
+    - template: jinja
+    - context:
+        certificate: {{ certificate }}
+        targets: {{ targets }}
+    - group: dehydrated
+    - mode: '0750'
+    - require:
+      - pkg: profile_dehydrated_packages
+      - file: profile_dehydrated_hooks_directory
+{%- endif %}
+{%- endfor %}
 
 profile_dehydrated_timer:
   service.running:

@@ -1,0 +1,74 @@
+#!/bin/sh -u
+{{ pillar['managed_by_salt'] }}
+{%- set scp = 'scp -BOq' %}
+{%- set src_base = '/etc/dehydrated/certs/' ~ certificate %}
+{%- set dst_base = '/etc/ssl/' ~ certificate %}
+SRC_BASE='{{ src_base }}'
+DST_BASE='{{ dst_base }}'
+CRT_PEM="$SRC_BASE/fullchain.pem"
+KEY_PEM="$SRC_BASE/privkey.pem"
+COMBINED_PEM="$SRC_BASE/combined.pem"
+FAILED='/etc/dehydrated/deployment_failures/{{ certificate }}'
+DATE="$(date -Iseconds)"
+EXIT=0
+
+fail() {
+  echo "$1,${2:-x},$DATE" >> "$FAILED"
+  EXIT=1
+}
+
+if ! { [ -r "$CRT_PEM" ] && [ -r "$KEY_PEM" ] ; }
+then
+  fail 'files'
+  echo 'No usable source files.'
+  exit 1
+fi
+
+umask 177
+cat "$CRT_PEM" "$KEY_PEM" > "$COMBINED_PEM"
+
+{%- for target, target_config in targets.items() %}
+{%- do salt.log.debug('dehydrated: parsing target ' ~ target) %}
+{%- set services = target_config.get('services', []) %}
+
+if ping -q -c 1 '{{ target }}' >/dev/null
+then
+  COPY_STATUS=0
+  echo 'Start of deployment to {{ target }} ...'
+
+  {%- if 'haproxy' in services %}
+  {{ scp }} "$COMBINED_PEM" {{ target }}:"$DST_BASE" || COPY_STATUS=1
+  {%- do services.remove('haproxy') %}
+  {%- endif %}
+  {%- if services %}
+  {{ scp }} "$CRT_PEM" "$KEY_PEM" {{ target }}:"$DST_BASE" || COPY_STATUS=1
+  {%- endif %}
+  
+  if [ "$COPY_STATUS" = 0 ]
+  then
+    set -x
+    {%- for service in services %}
+    if ssh {{ target }} systemctl is-active --quiet {{ service }}
+    then
+      ssh {{ target }} sudo systemctl try-reload-or-restart {{ service }} || fail 'reload' '{{ target }}'
+    fi
+    {%- endfor %}
+    echo 'End of deployment to {{ target }}.'
+  else
+    fail 'copy' '{{ target }}'
+    echo 'Deployment to {{ target }} failed.'
+  fi
+else
+  fail 'connect' '{{ target }}'
+  echo 'Cannot reach {{ target }}, skipping deployment.'
+fi
+
+{%- endfor %}
+
+if [ "$EXIT" = 0 ]
+then
+  rm "$FAILED"
+fi
+
+rm "$COMBINED_PEM"
+exit "$EXIT"
