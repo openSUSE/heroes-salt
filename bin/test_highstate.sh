@@ -50,6 +50,84 @@ cp /var/log/salt/minion system/minion_log.txt
 cp /var/log/salt/master system/master_log.txt
 journalctl --no-pager > system/journal.txt
 
+salt "$HOSTNAME" pillar.items > pillar.txt
+
+mkdir render
+render_log='render/_log.txt'
+render_failures=( $(gawk 'match($0, /Rendering SLS '\''base:(.*)'\'' failed/, capture) { gsub(/\./, "/", capture[1]); print "salt/" capture[1] ".sls" }' system/minion_log.txt) )
+
+if [ -n "${render_failures[*]}" ]
+then
+  {
+    echo 'State files failed to render:'
+    echo "${render_failures[*]}"
+    echo
+  } | tee -a "$render_log"
+  for state in "${render_failures[@]}"
+  do
+    echo "Processing: $state" | tee -a "$render_log"
+    state_path="$PWD/$state"
+    # state rendering logic is pointless, as we operate on states which failed rendering before
+    # leaving for future reference
+    #state_out_dir="render/$(dirname "$state")"
+    #state_out_file="render/$state.txt"
+    #echo "Rendering: $state" | tee -a "$render_log"
+    #if [ ! -d "$state_out_dir" ]
+    #then
+    #  mkdir -pv "$state_out_dir" >> "$render_log"
+    #fi
+    #salt-call --out-file="$state_out_file" slsutil.renderer "$state_path" default_renderer=jinja
+    pillar_references=( $(awk '$0 !~ /pillar\.get/{ next } /pillar\.get/match($0, /\(['\''|"]([[:alnum:]_:]+)['\''|"]/, capture) { printf capture[1] }' "$state_path") )
+    if [ -n "${pillar_references[*]}" ]
+    then
+      pillar_files=()
+      for pillar in "${pillar_references[@]}"
+      do
+        pillar_lines+=( ${pillar//:/ } ) 
+
+        while read file
+        do
+          for line in "${pillar_lines[@]}"
+          do
+            grep -q "$line" "$file" || continue 2
+          done
+          pillar_files+=("$file")
+        done < <(find pillar -type f -name '*.sls')
+      done
+      {
+        echo
+        echo 'Possibly related pillar files:'
+        echo "${pillar_files[*]}"
+        echo
+      } | tee -a "$render_log"
+      mkdir work
+      for pillar_file in "${pillar_files[@]}"
+      do
+        echo "Processing: $pillar_file" | tee -a "$render_log"
+        # traversing directories in the GitLab artifact browser is annoying, hence replacing slashes with underscores
+        pillar_out_file="render/${pillar_file//\//_}.txt"
+        if [ -f "$pillar_out_file" ]
+        then
+          echo "File $pillar_file already rendered." >> "$render_log"
+        else
+          echo "Rendering: $pillar_file" | tee -a "$render_log"
+          # https://github.com/saltstack/salt/issues/51835#issuecomment-1536442278
+          perl -pe \
+            's/(?<BEGIN>\{%-? )(?:(?<PRE>from ["'\''])(?<PATH>.*)(?<POST1>["'\''] import )(?<POST2>[\w\s]+)|(?<PRE>import_yaml ["'\''])(?<PATH>.*)(?<POST1>["'\''] ?.*? as \w+))(?<END> -?%\})$/$+{BEGIN}$+{PRE}\/srv\/pillar\/$+{PATH}$+{POST1}$+{POST2}$+{END}/' \
+            "$pillar_file" > work/this
+          grep srv work/this >> "$render_log"
+          salt-call --out-file="$pillar_out_file" slsutil.renderer "$PWD/work/this" default_renderer=jinja
+          rm work/this
+        fi
+        echo >> "$render_log"
+      done
+    fi
+  done
+else
+  echo 'No render failures found (this is probably a good thing!)' > "$render_log"
+fi
+
+echo
 echo 'Output and logs can be found in the job artifacts!'
 exit $rolestatus
 
