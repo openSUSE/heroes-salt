@@ -52,5 +52,9 @@ profile:
           {%- endif %} {#- close sans/targets check #}
           {%- endfor %} {#- close certificates loop #}
         config:
+          {%- if instance == 'heroes' %}
+          ca: https://acme.infra.opensuse.org/acme/acme/directory
+          {%- else %}
           ca: {{ instance }}
+          {%- endif %}
       {%- endfor %} {#- close instance loop #}
