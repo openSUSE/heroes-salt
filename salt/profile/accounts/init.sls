@@ -6,6 +6,7 @@ include:
   - profile.pam
   - sudoers
   - sudoers.included
+  - users
 
 /etc/bash.bashrc.local:
   file.managed:
