@@ -1,14 +1,16 @@
 {%- set host = grains['host'] %}
 
 {%- import_yaml 'infra/certificates/letsencrypt.yaml' as certificates_letsencrypt %}
+{%- import_yaml 'infra/certificates/letsencrypt-test.yaml' as certificates_letsencrypt_test %}
 {%- import_yaml 'infra/certificates/heroes.yaml' as certificates_heroes %}
 
-{#- target deployment does not support one certificate name being issued from two CAs
-    duplicates should already be prevented on a YAML validation level, but if in doubt, Let's Encrypt takes priority
+{#- target deployment does not support one certificate name being issued from multiple CAs
+    duplicates should already be prevented on a YAML validation level, but if in doubt, Let's Encrypt Staging takes priority
 #}
 {%- set certificates = {} %}
 {%- do certificates.update(certificates_heroes) %}
 {%- do certificates.update(certificates_letsencrypt) %}
+{%- do certificates.update(certificates_letsencrypt_test) %}
 
 {%- import_yaml 'infra/certificates/macros.yaml' as macros %}
 {%- set _certificates = {} %}

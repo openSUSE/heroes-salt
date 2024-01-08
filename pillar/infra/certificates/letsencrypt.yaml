@@ -1,13 +1,2 @@
 ---
-example1.opensuse.org:
-  sans:
-    - foo1.opensuse.org
-  targets:
-    - host: punk
-      services:
-        - nginx
-example2.opensuse.org:
-  sans:
-    - foo2.opensuse.org
-  targets:
-    - macro: atlas
+{}
