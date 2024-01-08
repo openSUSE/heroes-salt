@@ -1,13 +1,13 @@
 ---
 example1.opensuse.org:
   sans:
-    - foo.opensuse.org
+    - foo1.opensuse.org
   targets:
-    - host: mx1
+    - host: punk
       services:
-        - postfix
+        - nginx
 example2.opensuse.org:
   sans:
-    - bar.opensuse.org
+    - foo2.opensuse.org
   targets:
-    - macro: proxy-prg2
+    - macro: atlas

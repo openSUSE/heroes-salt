@@ -1,19 +1,19 @@
 #!/bin/sh -u
 {{ pillar['managed_by_salt'] }}
 {%- set scp = 'scp -BOq' %}
-{%- set src_base = '/etc/dehydrated/certs/' ~ certificate %}
-{%- set dst_base = '/etc/ssl/' ~ certificate %}
+{%- set src_base = '/etc/dehydrated-' ~ instance ~ '/certs/' ~ certificate %}
+{%- set dst_base = '/etc/ssl/services/' ~ certificate %}
 SRC_BASE='{{ src_base }}'
 DST_BASE='{{ dst_base }}'
 CRT_PEM="$SRC_BASE/fullchain.pem"
 KEY_PEM="$SRC_BASE/privkey.pem"
 COMBINED_PEM="$SRC_BASE/combined.pem"
-FAILED='/etc/dehydrated/deployment_failures/{{ certificate }}'
+FAILED='/var/log/dehydrated-{{ instance }}/deployment_failures/{{ certificate }}'
 DATE="$(date -Iseconds)"
 EXIT=0
 
 fail() {
-  echo "$1,${2:-x},$DATE" >> "$FAILED"
+  echo "$1,${2:-local},$DATE" >> "$FAILED"
   EXIT=1
 }
 
@@ -46,11 +46,18 @@ then
   
   if [ "$COPY_STATUS" = 0 ]
   then
-    set -x
     {%- for service in services %}
     if ssh {{ target }} systemctl is-active --quiet {{ service }}
     then
-      ssh {{ target }} sudo systemctl try-reload-or-restart {{ service }} || fail 'reload' '{{ target }}'
+      if ssh {{ target }} sudo systemctl try-reload-or-restart {{ service }}
+      then
+        echo 'Reloaded {{ service }}'
+      else
+        fail 'reload' '{{ target }}'
+        echo 'Failed to reload {{ service }}'
+      fi
+    else
+      echo 'Service {{ service }} is not active.'
     fi
     {%- endfor %}
     echo 'End of deployment to {{ target }}.'
@@ -67,7 +74,10 @@ fi
 
 if [ "$EXIT" = 0 ]
 then
-  rm "$FAILED"
+  if [ -f "$FAILED" ]
+  then
+    rm -v "$FAILED"
+  fi
 fi
 
 rm "$COMBINED_PEM"

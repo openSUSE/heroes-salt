@@ -1,0 +1,96 @@
+#!/bin/bash
+{{ pillar['managed_by_salt'] }}
+export PROVIDER_UPDATE_DELAY="30"
+export PDNS_HOST=http://chip.infra.opensuse.org:8080
+export PDNS_KEY={{ pillar['profile']['dehydrated']['hook']['pdns_key'] }}
+export PDNS_SERVER=localhost
+
+update_opensuse() {
+    CERTNAME="$(basename $(dirname $FULLCHAINFILE))"
+    HOOK="/etc/dehydrated-{{ instance }}/hook.d/$CERTNAME.sh"
+
+    if [ -x "$HOOK" ]
+    then
+      echo "Executing $HOOK"
+      "$HOOK"
+    else
+      echo "No hook for $CERTNAME"
+    fi
+}
+
+deploy_challenge() {
+    local chain=($@)
+    echo "chain: $chain"
+    for ((i=0; i < $#; i+=3)); do
+      local DOMAIN="${chain[i]}" TOKEN_FILENAME="${chain[i+1]}" TOKEN_VALUE="${chain[i+2]}"
+
+      echo "Trying to verify domain '${DOMAIN}' with '${TOKEN_FILENAME}' '${TOKEN_VALUE}'" 
+
+      lexicon powerdns create ${DOMAIN} TXT \
+        --name="_acme-challenge.${DOMAIN}." \
+        --content="${TOKEN_VALUE}" \
+        --auth-token="${PDNS_KEY}" \
+        --pdns-server="${PDNS_HOST}" \
+        --pdns-server-id="${PDNS_SERVER}"
+    done
+    sleep 30
+}
+
+clean_challenge() {
+    local DOMAIN="${1}" TOKEN_FILENAME="${2}" TOKEN_VALUE="${3}"
+
+    local chain=($@)
+    for ((i=0; i < $#; i+=3)); do
+        local DOMAIN="${chain[i]}" TOKEN_FILENAME="${chain[i+1]}" TOKEN_VALUE="${chain[i+2]}"
+
+        echo "clean_challenge called: ${DOMAIN}, ${TOKEN_FILENAME}, ${TOKEN_VALUE}"
+
+        lexicon powerdns delete ${DOMAIN} TXT \
+          --name="_acme-challenge.${DOMAIN}." \
+          --content="${TOKEN_VALUE}" \
+          --auth-token="${PDNS_KEY}" \
+          --pdns-server="${PDNS_HOST}" \
+          --pdns-server-id="${PDNS_SERVER}"
+    done
+}
+
+deploy_cert() {
+    local DOMAIN="${1}" KEYFILE="${2}" CERTFILE="${3}" FULLCHAINFILE="${4}" CHAINFILE="${5}" TIMESTAMP="${6}"
+
+    update_opensuse
+}
+
+unchanged_cert() {
+    local DOMAIN="${1}" KEYFILE="${2}" CERTFILE="${3}" FULLCHAINFILE="${4}" CHAINFILE="${5}"
+
+    if [ -f "/var/log/dehydrated-{{ instance }}/deployment_failures/$DOMAIN" ]
+    then
+      echo "Retrying previously failed hook for $DOMAIN"
+      update_opensuse
+    fi
+}
+
+invalid_challenge() {
+    local DOMAIN="${1}" RESPONSE="${2}"
+}
+
+request_failure() {
+    local STATUSCODE="${1}" REASON="${2}" REQTYPE="${3}" HEADERS="${4}"
+}
+
+generate_csr() {
+    local DOMAIN="${1}" CERTDIR="${2}" ALTNAMES="${3}"
+}
+
+startup_hook() {
+  :
+}
+
+exit_hook() {
+  :
+}
+
+HANDLER="$1"; shift
+if [[ "${HANDLER}" =~ ^(deploy_challenge|clean_challenge|deploy_cert|unchanged_cert|invalid_challenge|request_failure|generate_csr|startup_hook|exit_hook)$ ]]; then
+  "$HANDLER" "$@"
+fi

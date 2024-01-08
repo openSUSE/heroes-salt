@@ -1,0 +1,18 @@
+atlas:
+  hosts:
+    - atlas1
+    - atlas2
+  services:
+    - haproxy
+hel:
+  hosts:
+    - hel1
+    - hel2
+  services:
+    - haproxy
+mx:
+  hosts:
+    - mx1
+    - mx2
+  services:
+    - postfix
