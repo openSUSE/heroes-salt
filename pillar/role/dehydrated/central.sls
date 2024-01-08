@@ -1,8 +1,9 @@
 {%- import_yaml 'infra/certificates/macros.yaml' as macros %}
 {%- set domain = '.infra.opensuse.org' %}
 
-{%- if salt['grains.get']('include_secrets', True) %}
 include:
+  - .
+{%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.dehydrated.central
 {%- endif %}
 
@@ -50,4 +51,6 @@ profile:
 
           {%- endif %} {#- close sans/targets check #}
           {%- endfor %} {#- close certificates loop #}
+        config:
+          ca: {{ instance }}
       {%- endfor %} {#- close instance loop #}

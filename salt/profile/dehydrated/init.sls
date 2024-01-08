@@ -7,6 +7,8 @@ profile_dehydrated_packages:
       - python3-dns-lexicon
 
 {%- for instance, instance_config in mypillar.get('instances', {}).items() %}
+{%- set config = mypillar.get('config', {}).copy() %}
+{%- do config.update(instance_config.get('config', {})) %}
 {%- set topdir = '/etc/dehydrated-' ~ instance ~ '/' %}
 
 profile_dehydrated_{{ instance }}_top_directories:
@@ -22,7 +24,7 @@ profile_dehydrated_{{ instance }}_top_directories:
 profile_dehydrated_{{ instance }}_sub_directories:
   file.directory:
     - names:
-      {%- for dir in ['accounts', 'archive', 'certs'] %}
+      {%- for dir in ['accounts', 'archive', 'certs', 'chains'] %}
       - {{ topdir }}{{ dir }}:
         - user: dehydrated
         - mode: '0700'
@@ -45,14 +47,15 @@ profile_dehydrated_{{ instance }}_config_base:
     - mode: '0640'
     - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
-        - 'DEHYDRATED_USER="dehydrated"'
-        - 'DEHYDRATED_GROUP="dehydrated"'
         - 'BASEDIR={{ topdir }}'
         - 'CONFIG_D="${BASEDIR}/config.d"'
-        - 'WELLKNOWN=/var/lib/acme-challenge'
-        - 'LOCKFILE="/run/dehydrated/lock-{{ instance }}"'
-        - 'HOOK="${BASEDIR}/hook.sh"'
+        - 'DEHYDRATED_GROUP="dehydrated"'
+        - 'DEHYDRATED_USER="dehydrated"'
         - 'DOMAINS_TXT="${BASEDIR}/salt-domains.txt"'
+        - 'HOOK="${BASEDIR}/hook.sh"'
+        - 'HOOK_CHAIN="yes"'
+        - 'LOCKFILE="/run/dehydrated/lock-{{ instance }}"'
+        - 'WELLKNOWN=/var/lib/acme-challenge'
     - require:
       - pkg: profile_dehydrated_packages
       - file: profile_dehydrated_{{ instance }}_sub_directories
@@ -64,7 +67,7 @@ profile_dehydrated_{{ instance }}_config_custom:
     - mode: '0640'
     - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
-        {%- for key, value in mypillar.get('config', {}).items() %}
+        {%- for key, value in config.items() %}
         {% if value is sameas true %}
         {%- set value = 'yes' %}
         {%- elif value is sameas false %}
