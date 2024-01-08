@@ -2,13 +2,14 @@
 
 # For description and usage, see the argparse options at the end of the file
 
-from copy import copy
-from pygit2.errors import GitError
 import argparse
 import os
-import pygit2
 import sys
+from copy import copy
+
+import pygit2
 import yaml
+from pygit2.errors import GitError
 
 
 def check_open_pull_requests():
@@ -23,8 +24,8 @@ def check_open_pull_requests():
             org = g.get_organization(namespace)
             for pull_request in open_pull_requests:
                 pr = int(pull_request.split('/')[-1])
-                state = org.get_repo('%s%s-formula' % (prefix, formula)).get_pull(pr).state
-                print('%s is %s' % (pull_request, state))
+                state = org.get_repo(f'{prefix}{formula}-formula').get_pull(pr).state
+                print(f'{pull_request} is {state}')
 
 
 def git(cmd, cwd=None):
@@ -37,26 +38,23 @@ def git(cmd, cwd=None):
         sys.exit(status)
 
 
-def clone(CLONE_FROM, CLONE_BRANCH, DEST):
+def clone(CLONE_FROM, DEST):
     def clone_repo():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         if os.path.isdir(FULL_PATH):
             return
 
         pygit2.clone_repository(url, FULL_PATH, bare=False)
 
-    branch_opts = []
-    if CLONE_BRANCH:
-        branch_opts = ['-b', CLONE_BRANCH, '--single-branch']
     if CLONE_FROM:
         for formula in FORMULAS.keys():
-            url = '%s/%s-formula' % (CLONE_FROM, formula)
+            url = f'{CLONE_FROM}/{formula}-formula'
             clone_repo()
     else:
         for formula, data in FORMULAS.items():
             namespace = data.get('namespace', 'saltstack-formulas')
             prefix = data.get('prefix', '')
-            url = 'https://github.com/%s/%s%s-formula' % (namespace, prefix, formula)
+            url = f'https://github.com/{namespace}/{prefix}{formula}-formula'
             clone_repo()
 
 
@@ -64,7 +62,7 @@ def create_symlinks(DEST):
     for formula in FORMULAS.keys():
         FULL_PATH = '/srv/salt/%s' % formula
         if not os.path.islink(FULL_PATH):
-            os.symlink('%s/%s-formula/%s' % (DEST, formula, formula), FULL_PATH)
+            os.symlink(f'{DEST}/{formula}-formula/{formula}', FULL_PATH)
 
 
 def remove_symlinks():
@@ -83,7 +81,7 @@ def fetch_remote(remote, formula):
     try:
         remote.fetch(callbacks=remotecallbacks)
     except GitError:
-        print('%s-formula: Failed to fetch remote %s' % (formula, remote.name))
+        print(f'{formula}-formula: Failed to fetch remote {remote.name}')
 
 
 def add_remote(REMOTES, DEST):
@@ -110,8 +108,8 @@ def add_remote(REMOTES, DEST):
                 prefix = data.get('prefix', '')
             if not url.endswith(':'):
                 url += '/'
-            full_url = '%s%s/%s%s-formula' % (url, namespace, prefix, formula)
-            FULL_PATH = '%s/%s-formula' % (DEST, formula)
+            full_url = f'{url}{namespace}/{prefix}{formula}-formula'
+            FULL_PATH = f'{DEST}/{formula}-formula'
             repo = pygit2.Repository(FULL_PATH)
             try:
                 repo.create_remote(name, full_url)
@@ -122,7 +120,7 @@ def add_remote(REMOTES, DEST):
 
 def update(REMOTES, DEST):
     for formula in FORMULAS.keys():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         repo = pygit2.Repository(FULL_PATH)
         git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
         git(['pull', '-q'], cwd=FULL_PATH)
@@ -133,7 +131,7 @@ def update(REMOTES, DEST):
 
 def push(REMOTES, DEST):
     for formula in FORMULAS.keys():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         repo = pygit2.Repository(FULL_PATH)
         git(['checkout', '-qB', 'master', 'origin/master'], cwd=FULL_PATH)
         for remote in REMOTES:
@@ -144,7 +142,7 @@ def push(REMOTES, DEST):
 
 def checkout_remote_and_branch(REMOTE_BRANCH, DEST):
     for formula in FORMULAS.keys():
-        FULL_PATH = '%s/%s-formula' % (DEST, formula)
+        FULL_PATH = f'{DEST}/{formula}-formula'
         branch = REMOTE_BRANCH.split('/')[1]
         git(['checkout', '-qB', branch, REMOTE_BRANCH], cwd=FULL_PATH)
 
@@ -160,7 +158,6 @@ parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute p
 parser.add_argument('-f', '--formulas', action='append', nargs='+', help='Specify specific formulas to operate on, instead of working with all the specified FORMULAS.yaml formulas.')
 parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
 parser.add_argument('--clone-from', nargs=1, help='Specify the git provider to clone from together with the namespace.')
-parser.add_argument('--clone-branch', nargs=1, help='Specify the branch to clone.')
 parser.add_argument('-s', '--symlink', action='store_true', help='Creates symlink from the specified destination to /srv/salt.')
 parser.add_argument('--remove-symlinks', action='store_true', help='Removes all symlinks that were created in /srv/salt.')
 parser.add_argument('-r', '--add-remote', action='append', nargs='+', help='''Add the specified remotes on the local repositories. It can be passed multiple times.
@@ -190,7 +187,7 @@ if args.remove_symlinks:
     remove_symlinks()
 
 # Every option below requires the --destination argument to be set
-if args.clone or args.symlink or args.clone_from or args.clone_branch or args.add_remote or type(args.update) == list or args.push or args.checkout:
+if args.clone or args.symlink or args.clone_from or args.add_remote or isinstance(args.update, list) or args.push or args.checkout:
     will_run = True
 
     if args.formulas:
@@ -211,8 +208,8 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
             print("ERROR: The following given formulas are not in FORMULAS.yaml: %s\n" % ', '.join(unknown_formulas), file=sys.stderr)
             sys.exit(1)
 
-    if (args.clone_from or args.clone_branch) and not args.clone:
-        print('ERROR: Please specify -c / --clone when using --clone-from or --clone-branch', file=sys.stderr)
+    if args.clone_from and not args.clone:
+        print('ERROR: Please specify -c / --clone when using --clone-from', file=sys.stderr)
         sys.exit(1)
 
     if not args.destination or not os.path.isabs(args.destination[0]):
@@ -227,12 +224,9 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
 
     if args.clone:
         clone_from = None
-        clone_branch = None
         if args.clone_from:
             clone_from = args.clone_from[0]
-        if args.clone_branch:
-            clone_branch = args.clone_branch[0]
-        clone(clone_from, clone_branch, args.destination[0])
+        clone(clone_from, args.destination[0])
 
     if args.symlink:
         create_symlinks(args.destination[0])
@@ -240,7 +234,7 @@ if args.clone or args.symlink or args.clone_from or args.clone_branch or args.ad
     if args.add_remote:
         add_remote(args.add_remote, args.destination[0])
 
-    if type(args.update) == list:
+    if isinstance(args.update, list):
         update(args.update, args.destination[0])
 
     if args.push:

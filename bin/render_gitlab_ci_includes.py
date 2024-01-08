@@ -18,16 +18,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from get_roles import get_roles, get_roles_including
-
-from argparse import ArgumentParser
-from jinja2 import Template
-from pathlib import Path
 import sys
+from argparse import ArgumentParser
+from pathlib import Path
+
+from get_roles import get_roles, get_roles_including
+from jinja2 import Template
 
 enabled_templates = [
   'highstate',
-  'nginx'
+  'nginx',
 ]
 
 indir  = '.gitlab-ci.templates'
@@ -50,7 +50,7 @@ for entry in enabled_templates:
     template[entry] = Template(j2.read())
 
   if entry == 'highstate':
-    render[entry] = template[entry].render(roles=get_roles())   
+    render[entry] = template[entry].render(roles=get_roles())
   else:
     render[entry] = template[entry].render(roles=get_roles_including(entry))
 

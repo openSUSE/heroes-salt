@@ -2,22 +2,22 @@
 
 # Validates if the pillar/id/$FQDN.sls has correct custom grains
 
-import yaml
 import os
 import sys
 
+import yaml
 from get_roles import read_file_skip_jinja
-from get_valid_custom_grains import get_valid_global_grains, get_all_valid_localized_grains
+from get_valid_custom_grains import get_all_valid_localized_grains, get_valid_global_grains
 
 
 def error_msg(sls, key, valid_values):
-    if type(valid_values) == str:
+    if isinstance(valid_values, str):
         msg = ' is'
         result = valid_values
     else:
         msg = 's are'
         result = ', '.join(valid_values)
-    print('pillar/id/%s has invalid value for the "%s" key. Valid value%s: %s' % (sls, key, msg, result))
+    print(f'pillar/id/{sls} has invalid value for the "{key}" key. Valid value{msg}: {result}')
     return 1
 
 
@@ -25,15 +25,14 @@ def test_custom_grain(mygrains, sls, key, valid_values, status):
     try:
         value = mygrains[key]
     except KeyError:
-        print('pillar/id/%s is missing the "%s" key' % (sls, key))
+        print(f'pillar/id/{sls} is missing the "{key}" key')
         return 1
 
-    if type(valid_values) == str:
+    if isinstance(valid_values, str):
         if value != valid_values:
             status = error_msg(sls, key, valid_values)
-    else:
-        if valid_values and value not in valid_values:
-            status = error_msg(sls, key, map(str, valid_values))
+    elif valid_values and value not in valid_values:
+        status = error_msg(sls, key, map(str, valid_values))
 
     return status
 
