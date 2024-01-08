@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -Cefu
+set -Cef
 
 help() {
     echo "Encrypt a given string and print out the output. This output can be"
@@ -11,7 +11,10 @@ help() {
     echo
 }
 
-[[ $1 == '--help' ]] && help && exit
+[[ "$1" == '--help' ]] && help && exit
+
+set -u
+MULTILINE=0
 
 while getopts mh arg; do
     case ${arg} in
@@ -21,11 +24,11 @@ while getopts mh arg; do
     esac
 done
 
-if [[ -n $MULTILINE ]]; then
-    echo "Please type the lines that you want to encrypt, and press CTRL+D when done:" >/dev/stderr
+if [[ "$MULTILINE" = 1 ]]; then
+    [ -t 0 ] && echo "Please type the lines that you want to encrypt, and press CTRL+D when done:" >/dev/stderr
     STRING=$(cat)
 else
-    echo "Please type the string that you want to encrypt:" >/dev/stderr
+    [ -t 0 ] && echo "Please type the string that you want to encrypt:" >/dev/stderr
     read STRING
 fi
 
