@@ -34,14 +34,24 @@ profile_certificate_target_directory_{{ certificate }}:
 
 {%- for file, path in files.items() %}
 {%- if not salt['file.file_exists'](path) %}
-profile_certificate_target_dummy_{{ file }}:
+profile_certificate_target_dummy_{{ file }}_{{ certificate }}:
   file.touch:
     - name: {{ path }}
-    - mode: '0640'
-    - owner: cert
     - require:
       - file: profile_certificate_target_directory_{{ certificate }}
       - user: users_cert_user
+
+profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
+  file.managed:
+    - name: {{ path }}
+    - mode: '0640'
+    - user: cert
+    - replace: False
+    - require:
+      - file: profile_certificate_target_dummy_{{ file }}_{{ certificate }}
+    - onchanges:
+      - file: profile_certificate_target_dummy_{{ file }}_{{ certificate }}
+
 {%- endif %}
 {%- endfor %}
 
