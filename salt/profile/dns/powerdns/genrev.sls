@@ -7,7 +7,7 @@ pdns_genrev_sysconfig:
     - name: /etc/sysconfig/pdns-genrev
     - key_values:
         GENREV_KEY: '{{ pillar['powerdns']['config']['api-key'] }}'
-        GENREV_URL: 'http://[::1]:8080'
+        GENREV_URL: 'http://{{ grains['fqdn_ip6'][0] | ipwrap }}:8080'
         ARGS: '"--wet --notify"'
     - require:
       - pkg: pdns_genrev_packages
