@@ -1,0 +1,64 @@
+#!yaml|gpg
+
+profile:
+  dehydrated:
+    hook:
+      pdns_key: |
+        -----BEGIN PGP MESSAGE-----
+
+        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
+        oU+m4g3y+swfrWBk0h6XbQ/bNg==
+        =/2EO
+        -----END PGP MESSAGE-----
