@@ -5,13 +5,12 @@
 include:
   - users
 
-{%- if not salt['file.file_exists']('/home/cert/.hushlogin') %}
 profile_certificate_target_hushlogin:
-  file.touch:
+  file.managed:
     - name: /home/cert/.hushlogin
+    - replace: False
     - require:
       - file: users_cert_user
-{%- endif %}
 
 profile_certificate_target_directory_top:
   file.directory:
@@ -37,13 +36,6 @@ profile_certificate_target_directory_{{ certificate }}:
 
 {%- for file, path in files.items() %}
 {%- if not salt['file.file_exists'](path) %}
-profile_certificate_target_dummy_{{ file }}_{{ certificate }}:
-  file.touch:
-    - name: {{ path }}
-    - require:
-      - file: profile_certificate_target_directory_{{ certificate }}
-      - user: users_cert_user
-
 profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
   file.managed:
     - name: {{ path }}
@@ -51,10 +43,7 @@ profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
     - user: cert
     - replace: False
     - require:
-      - file: profile_certificate_target_dummy_{{ file }}_{{ certificate }}
-    - onchanges:
-      - file: profile_certificate_target_dummy_{{ file }}_{{ certificate }}
-
+      - file: profile_certificate_target_directory_{{ certificate }}
 {%- endif %}
 {%- endfor %}
 
