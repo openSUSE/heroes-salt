@@ -1,5 +1,11 @@
 {% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community', 'ignite', 'oom', 'mirrors'] %}
 
+{%- if grains.get('country') == 'de' %} {#- no IPv6 yet in NUE #}
+{%- set listen = '80' %}
+{%- else %}
+{%- set listen = '[::]:80' %}
+{%- endif %}
+
 include:
   - role.common.nginx
 
@@ -20,9 +26,9 @@ nginx:
               - server_name: {{ website }}.opensuse.org
               - listen:
                   {%- if website == 'static' %}
-                  - '[::]:80 default_server'
+                  - '{{ listen }} default_server'
                   {%- else %}
-                  - '[::]:80'
+                  - '{{ listen }}'
                   {%- endif %}
               - root: /srv/www/vhosts/{{ website }}.opensuse.org
               - gzip_vary: 'on'
