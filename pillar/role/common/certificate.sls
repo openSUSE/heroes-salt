@@ -60,3 +60,7 @@ profile:
       {{ certificate }}: {{ services if services else {} }}
       {%- endfor %}
 {%- endif %}
+
+zypper:
+  packages:
+    acl: {}
