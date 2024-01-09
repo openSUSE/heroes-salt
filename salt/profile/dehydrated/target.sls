@@ -1,5 +1,7 @@
 {%- set top_directory = '/etc/ssl/services/' %}
+{%- set certificates = salt['pillar.get']('profile:certificate_target:certificates', {}) %}
 
+{%- if certificates %}
 include:
   - users
 
@@ -15,8 +17,9 @@ profile_certificate_target_directory_top:
   file.directory:
     - name: {{ top_directory }}
     - mode: '0750'
+{%- endif %}
 
-{%- for certificate, services in salt['pillar.get']('profile:certificate_target:certificates', {}).items() %}
+{%- for certificate, services in certificates.items() %}
 {%- set crt_directory = top_directory ~ certificate %}
 
 {%- set files = {
