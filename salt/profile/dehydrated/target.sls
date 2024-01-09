@@ -1,5 +1,22 @@
-{%- for certificate, services in salt['pillar.get']('profile:certificate_target:certificates', {}).items() %}
 {%- set top_directory = '/etc/ssl/services/' %}
+
+include:
+  - users
+
+{%- if not salt['file.file_exists']('/home/cert/.hushlogin') %}
+profile_certificate_target_hushlogin:
+  file.touch:
+    - name: /home/cert/.hushlogin
+    - require:
+      - file: users_cert_user
+{%- endif %}
+
+profile_certificate_target_directory_top:
+  file.directory:
+    - name: {{ top_directory }}
+    - mode: '0750'
+
+{%- for certificate, services in salt['pillar.get']('profile:certificate_target:certificates', {}).items() %}
 {%- set crt_directory = top_directory ~ certificate %}
 
 {%- set files = {
@@ -7,11 +24,6 @@
       'key': crt_directory ~ '/privkey.pem'
     }
 %}
-
-profile_certificate_target_directory_top:
-  file.directory:
-    - name: {{ top_directory }}
-    - mode: '0750'
 
 profile_certificate_target_directory_{{ certificate }}:
   file.directory:
@@ -26,8 +38,10 @@ profile_certificate_target_dummy_{{ file }}:
   file.touch:
     - name: {{ path }}
     - mode: '0640'
+    - owner: cert
     - require:
       - file: profile_certificate_target_directory_{{ certificate }}
+      - user: users_cert_user
 {%- endif %}
 {%- endfor %}
 
