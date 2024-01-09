@@ -9,4 +9,5 @@ grains:
   responsible: []
   partners: []
   weburls: []
-roles: []
+roles:
+  - dehydrated.central
