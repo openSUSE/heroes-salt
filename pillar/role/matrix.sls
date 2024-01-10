@@ -170,7 +170,7 @@ nginx:
         config:
           - server:
               - server_name: dimension.opensuse.org
-              - listen: 80
+              - listen: '[::]:80'
               - location /:
                   - proxy_set_header: X-Forwarded-For $remote_addr
                   - proxy_pass: http://localhost:8184
@@ -185,7 +185,7 @@ nginx:
           - include: /etc/matrix-synapse/workers/upstreams.conf
           - server:
               - server_name: matrix.opensuse.org
-              - listen: 80
+              - listen: '[::]:80'
               - proxy_set_header: Host $host
               - proxy_set_header: X-Forwarded-For $remote_addr
               - proxy_set_header: X-Forwarded-Proto https
@@ -199,7 +199,7 @@ nginx:
         config:
           - server:
               - server_name: webhook.opensuse.org
-              - listen: 80
+              - listen: '[::]:80'
               - location /:
                   - return: 301 https://chat.opensuse.org
               - location ~ "/..*":
