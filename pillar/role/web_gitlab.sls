@@ -84,9 +84,7 @@ nginx:
               - include: acme-challenge
               - location /:
                   - return 301: https://$http_host$request_uri
-              - access_log:
-                  - /var/log/nginx/gitlab_access.log
-                  - gitlab_ssl_access
+              - access_log: /var/log/nginx/gitlab_access.log gitlab_ssl_access
               - error_log: /var/log/nginx/gitlab_error.log
           - server:
               - listen: '[::]:443 ipv6only=on ssl default_server'
@@ -106,9 +104,7 @@ nginx:
               - ssl_session_timeout: 1d
               ## [Optional] Enable HTTP Strict Transport Security
               - add_header: Strict-Transport-Security "max-age=31536000; includeSubDomains"
-              - access_log:
-                  - /var/log/nginx/gitlab_access.log
-                  - gitlab_ssl_access
+              - access_log: /var/log/nginx/gitlab_access.log gitlab_ssl_access
               - error_log: /var/log/nginx/gitlab_error.log
               - location /:
                   - client_max_body_size: 0
