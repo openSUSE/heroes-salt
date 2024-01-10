@@ -31,13 +31,11 @@ profile:
     # secret_key, maxmind and db password live in secrets/role/discourse.sls
 
 nginx:
-  {#- BROKEN, placed in the wrong order, causing nginx to fail
   server:
     config:
       load_module:
         - /usr/lib64/nginx/modules/ngx_http_brotli_static_module.so
         - /usr/lib64/nginx/modules/ngx_http_brotli_filter_module.so
-    #}
   servers:
     managed:
       forums.opensuse.org.conf:
