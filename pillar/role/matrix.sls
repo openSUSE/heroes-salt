@@ -156,14 +156,7 @@ nginx:
               - gzip_vary: 'on'
               - gzip_min_length: 1000
               - gzip_comp_level: 5
-              - gzip_types:
-                  - text/plain
-                  - text/xml
-                  - text/x-js
-                  - application/json
-                  - text/css
-                  - application/x-javascript
-                  - application/javascript
+              - gzip_types: text/plain text/xml text/x-js application/json text/css application/x-javascript application/javascript
               - location /vector-icons/:
                   - rewrite: ^(.*?)\..*?(\..*?)$ $1$2 last
                   - proxy_set_header: Host static.opensuse.org
