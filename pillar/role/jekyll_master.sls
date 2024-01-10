@@ -24,7 +24,8 @@ profile:
       search.opensuse.org:
         repo: https://github.com/openSUSE/search-o-o.git
       www.opensuse.org:
-        repo: https://github.com/openSUSE/www.opensuse.org.git
+        branch: main
+        repo: https://github.com/openSUSE/www-o-o.git
       yast.opensuse.org:
         repo: https://github.com/yast/yast.github.io.git
       101.opensuse.org:
