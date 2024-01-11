@@ -14,7 +14,7 @@ from get_roles import get_roles, get_roles_of_one_minion
 
 status = 0
 special_roles = ['base']
-roles = get_roles(append=special_roles)
+roles = get_roles() + special_roles
 
 for directory in ['salt', 'pillar']:
     for sls in os.listdir(f'{directory}/role'):

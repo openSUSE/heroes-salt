@@ -32,8 +32,8 @@ def get_roles_of_one_minion(minion):
     return roles
 
 
-def get_roles(append=[]):
-    roles = copy(append)
+def get_roles():
+    roles = []
 
     for sls in os.listdir('pillar/id'):
         if sls == 'README.md':
@@ -62,23 +62,13 @@ def get_roles_including(query):
 def print_roles():
     parser = argparse.ArgumentParser('Collects all the roles that are assigned to a minion, and returns them as a python array, a yaml list or a plain list (parsable by bash)')
     parser.add_argument('-o', '--out', choices=['bash', 'python', 'yaml'], help='Select different output format. Options: bash (default), python, yaml')
-    parser.add_argument('-a', '--append', action='append', nargs='+', help='Append a list of given roles at the results.')
     parser.add_argument('-i', '--including', help='Only print roles including the specified string in their state file.')
     args = parser.parse_args()
 
-    if args.append and args.including:
-        print('Combining --append and --including is not allowed.')
-        exit(1)
-
-    appended = []
-    if args.append:
-        for sublist in args.append:
-            for item in sublist:
-                appended.append(item)
     if args.including:
         roles = get_roles_including(args.including)
     else:
-        roles = get_roles(append=appended)
+        roles = get_roles()
     if args.out == 'python':
         print(roles)
     elif args.out == 'yaml':
