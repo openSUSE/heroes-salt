@@ -26,7 +26,8 @@
 
 /etc/postgresql/postgresql.conf:
   file.managed:
-    - source: salt://profile/postgresql/files/postgresql/postgresql.conf
+    - source: salt://profile/postgresql/files/postgresql/postgresql.conf.jinja
+    - template: jinja
     - user: root
     - group: postgres
     - mode: '0640'
