@@ -23,7 +23,16 @@ def read_file_skip_jinja(filename):
 
 
 def get_roles_of_one_minion(minion):
-    content = read_file_skip_jinja("pillar/id/%s" % minion)
+    if not minion.endswith('.sls'):
+      if not '.' in minion and not '_' in minion:
+        minion = f'{minion}.infra.opensuse.org'
+      minion = minion.replace('.', '_') + '.sls'
+    file = f'pillar/id/{minion}'
+    try:
+        content = read_file_skip_jinja(file)
+    except FileNotFoundError:
+        print(f'File {file} not found.')
+        exit(1)
     try:
         roles = yaml.safe_load(content)['roles']
     except KeyError:
@@ -63,10 +72,17 @@ def print_roles():
     parser = argparse.ArgumentParser('Collects all the roles that are assigned to a minion, and returns them as a python array, a yaml list or a plain list (parsable by bash)')
     parser.add_argument('-o', '--out', choices=['bash', 'python', 'yaml'], help='Select different output format. Options: bash (default), python, yaml')
     parser.add_argument('-i', '--including', help='Only print roles including the specified string in their state file.')
+    parser.add_argument('-m', '--minion', help='Only print roles assigned to the specified minion.')
     args = parser.parse_args()
+
+    if args.including and args.minion:
+      print('Combining --including and --minion is not supported. But you can send a patch for it. :)')
+      exit(1)
 
     if args.including:
         roles = get_roles_including(args.including)
+    elif args.minion:
+        roles = get_roles_of_one_minion(args.minion)
     else:
         roles = get_roles()
     if args.out == 'python':
