@@ -13,5 +13,5 @@ for key in gpgkeys/*.asc; do
 done
 
 for recipient in "${RECIPIENTS[@]}"; do
-    gpg --recv-key "$recipient"
+    gpg --list-key "$recipient" || gpg --recv-key "$recipient"
 done
