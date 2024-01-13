@@ -47,7 +47,7 @@ mirrors_static_cron_mailto:
     - minute: 55
   file.managed:
     - mode: '0755'
-    - source: salt://profile/mirrors_static/files/git_push_mirrors_static.sh
+    - source: salt://profile/mirrors_static/files/git_push_mirrors_static.sh.jinja
     - user: root
 
 {% set repo_path = '/home/mirrors_static/git/mirrors_static' %}
