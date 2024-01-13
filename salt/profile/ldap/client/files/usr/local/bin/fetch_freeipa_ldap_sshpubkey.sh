@@ -6,4 +6,5 @@
 # Used by sshd (see AuthorizedKeysCommand in sshd_config) for ssh
 # authentication via SSH public keys stored in LDAP/FreeIPA
 
+# shellcheck disable=SC2016 # false positive on sed command $g
 ldapsearch -x -LLL -b cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org '(&(objectClass=posixAccount)(uid='"$1"'))' 'ipaSshPubKey' | sed -n '/^ /{H;d};/ipaSshPubKey:/x;$g;s/\n *//g;s/ipaSshPubKey: //gp'
