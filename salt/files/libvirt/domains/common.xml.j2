@@ -68,7 +68,7 @@
     {%- endfor %}
     {%- for interface, ifconfig in vm_interfaces.items() %}
     {%- set iftype = ifconfig['type'] %}
-    <interface type='{{ iftype }}'{{ ' trustGuestRxFilters=\'yes\'' if iftype == 'direct' else ''}}>
+    <interface type='{{ iftype }}'{{ ' trustGuestRxFilters=\'yes\'' if iftype == 'direct' else '' }}>
       <mac address='{{ ifconfig['mac'] }}'/>
       <source {{ 'bridge' if iftype == 'bridge' else 'dev' }}='{{ ifconfig['source'] }}'{{ ' mode=\'' ~ ifconfig['mode'] ~ '\'' if 'mode' in ifconfig else '' }}/>
       <target dev='{{ vm_name[:8] }}{{ '_' ~ ifconfig['source'][:4] if iftype == 'bridge' else loop.index }}'/>
