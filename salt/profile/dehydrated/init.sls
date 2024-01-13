@@ -3,7 +3,10 @@
 profile_dehydrated_packages:
   pkg.installed:
     - names:
-      - dehydrated
+      - dehydrated:
+        # Dehydrated in Leap 15.5 is too old (lacks instantiated services)
+        # consider removing if 15.6 ships a more recent version
+        - fromrepo: openSUSE:infrastructure
       - python3-dns-lexicon
 
 {%- for instance, instance_config in mypillar.get('instances', {}).items() %}
