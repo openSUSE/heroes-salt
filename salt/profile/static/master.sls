@@ -44,7 +44,7 @@ static_master_cron_mailto:
       server_list: {{ pillar['profile']['web_static']['server_list'] }}
       git_dirs: {{ git_repos }}
     - mode: '0755'
-    - source: salt://profile/static/files/git_pull_and_update.sh
+    - source: salt://profile/static/files/git_pull_and_update.sh.jinja
     - template: jinja
     - user: root
 
