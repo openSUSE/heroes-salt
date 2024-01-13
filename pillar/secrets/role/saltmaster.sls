@@ -225,6 +225,67 @@ redis:
       -----END PGP MESSAGE-----
 salt:
   master:
+    auth.ldap.bindpw: |
+      -----BEGIN PGP MESSAGE-----
+
+      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
+      =mBUp
+      -----END PGP MESSAGE-----
     cache.redis.password: |
       -----BEGIN PGP MESSAGE-----
 
