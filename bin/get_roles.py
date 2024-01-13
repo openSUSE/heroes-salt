@@ -4,7 +4,6 @@
 
 import argparse
 import os
-from copy import copy
 from sys import exit
 
 import yaml
@@ -24,7 +23,7 @@ def read_file_skip_jinja(filename):
 
 def get_roles_of_one_minion(minion):
     if not minion.endswith('.sls'):
-      if not '.' in minion and not '_' in minion:
+      if '.' not in minion and '_' not in minion:
         minion = f'{minion}.infra.opensuse.org'
       minion = minion.replace('.', '_') + '.sls'
     file = f'pillar/id/{minion}'
