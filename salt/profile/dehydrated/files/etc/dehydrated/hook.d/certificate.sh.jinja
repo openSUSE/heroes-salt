@@ -1,6 +1,6 @@
 #!/bin/sh -u
 {{ pillar['managed_by_salt'] }}
-{%- set scp = 'scp -BOq' %}
+{%- set scp = 'scp -Bq' %}
 {%- set src_base = '/etc/dehydrated-' ~ instance ~ '/certs/' ~ certificate %}
 {%- set dst_base = '/etc/ssl/services/' ~ certificate %}
 SRC_BASE='{{ src_base }}'
