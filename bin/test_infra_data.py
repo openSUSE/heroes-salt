@@ -58,7 +58,10 @@ for file in Path(f'{infradir}').glob('**/*.yaml'):
     _fail('Unhandled repository layout')
   if name not in excludes:
     with open(f'{file}') as fh:
-      infra_data[save_name] = yaml.safe_load(fh)
+      try:
+        infra_data[save_name] = yaml.safe_load(fh)
+      except yaml.scanner.ScannerError:
+        _fail(f'Invalid YAML file: {file}')
 
 for file in Path(f'{schemadir}').glob('*.json'):
   name = file.stem
