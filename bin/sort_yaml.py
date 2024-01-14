@@ -26,7 +26,17 @@ def _fail(msg):
     print(f'{msg}, bailing out.')
     sys.exit(1)
 
-if len(sys.argv) < 2 or not sys.argv[1].endswith('.yaml'):
+args = sys.argv
+indent = False
+if '--indent' in args:
+  indent = True
+  args.remove('--indent')
+  # https://github.com/yaml/pyyaml/issues/234#issuecomment-765894586
+  class IndentedDumper(yaml.Dumper):
+      def increase_indent(self, flow=False, *args, **kwargs): # noqa FBT002 # boolean is simple enough here
+          return super().increase_indent(flow=flow, indentless=False)
+
+if len(args) < 2 or not args[1].endswith('.yaml'):
     _fail('Cannot operate without being passed a YAML file')
 
 files = sys.argv[1:]
@@ -46,4 +56,7 @@ for file in files:
 
 for file, data in out.items():
     with open(file, 'w') as fh:
-        yaml.safe_dump(data, fh, explicit_start=True)
+        if indent is True:
+            yaml.dump(data, fh, explicit_start=True, Dumper=IndentedDumper)
+        else:
+            yaml.safe_dump(data, fh, explicit_start=True)

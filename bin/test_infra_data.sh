@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Script to validate openSUSE infrastructure data
 # Copyright (C) 2023 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
 #
@@ -25,14 +25,26 @@ RESULT_SCHEMA="$?"
 echo
 
 echo 'test_infra_data --> Sorting ...'
-#find "$INFRADIR" -type f -name '*.yaml' -exec cp {} {}.original \;
-#bin/sort_yaml.py "$INFRADIR"*.yaml
-#find "$INFRADIR" -type f -name '*.yaml' -print0 | xargs -I! -0n1 diff -q ! !.original
-cp "$INFRADIR"hosts.yaml "$INFRADIR"hosts.sorted.yaml
-bin/sort_yaml.py "$INFRADIR"hosts.sorted.yaml
-diff -u "$INFRADIR"hosts.yaml "$INFRADIR"hosts.sorted.yaml
+FIND_ARGS=(
+    '-type' 'f'
+)
+FIND_ARGS_UNSORTED=(
+    "${FIND_ARGS[@]}" '-a' '('
+    '-wholename' 'pillar/infra/certificates/*.yaml'
+    '-o'
+    '-wholename' 'pillar/infra/hosts.yaml'
+    ')' '-a'
+    '-not' '-name' '*.yaml.sorted.yaml'
+)
+FIND_ARGS_SORTED=(
+    "${FIND_ARGS[@]}"
+    '-name' '*.yaml.sorted.yaml'
+)
+find "$INFRADIR" "${FIND_ARGS_UNSORTED[@]}" -exec cp {} {}.sorted.yaml \;
+find "$INFRADIR" "${FIND_ARGS_SORTED[@]}"   -exec bin/sort_yaml.py --indent {} +
+find "$INFRADIR" "${FIND_ARGS_UNSORTED[@]}" -print0 | xargs -I! -0n1 diff -q ! !.sorted.yaml
 RESULT_SORT="$?"
-rm "$INFRADIR"hosts.sorted.yaml
+find "$INFRADIR" "${FIND_ARGS_SORTED[@]}"   -delete
 echo
 
 echo "test_infra_data --> SCHEMA -> $RESULT_SCHEMA, SORT -> $RESULT_SORT"
@@ -40,7 +52,7 @@ echo "test_infra_data --> SCHEMA -> $RESULT_SCHEMA, SORT -> $RESULT_SORT"
 if [ "$RESULT_SCHEMA" = 0 ] && [ "$RESULT_SORT" = 0 ]
 then
 	exit 0
-elif [ "$RESULT_SORT" = 1 ] # 123 in case of xargs
+elif [ "$RESULT_SORT" = 123 ]
 then
 	echo 'Please run bin/sort_yaml.py against the YAML files you modified and amend your commit.'
 fi
