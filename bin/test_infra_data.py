@@ -48,28 +48,6 @@ def _fail(msg=None):
         print(msg)
     sys.exit(1)
 
-for file in Path(f'{infradir}').glob('**/*.yaml'):
-  name = file.stem
-  if len(file.parents) == 3:
-    save_name = name
-  elif len(file.parents) > 3:
-    save_name = f'{file.parent.name}/{name}'
-  else:
-    _fail('Unhandled repository layout')
-  if name not in excludes:
-    with open(f'{file}') as fh:
-      try:
-        infra_data[save_name] = yaml.safe_load(fh)
-      except yaml.scanner.ScannerError:
-        _fail(f'Invalid YAML file: {file}')
-
-for file in Path(f'{schemadir}').glob('*.json'):
-  name = file.stem
-  if name.startswith('draft'):
-    continue
-  with open(f'{file}') as fh:
-      schemas[name] = json.load(fh)
-
 def test_schema_meta(data):
     registry = Registry().with_resources(
             [
@@ -148,7 +126,6 @@ def test_schema():
     return returns
 
 def test_duplicates(data):
-
     def test_key(key, value):
         if key in need_unique:
             if key not in matches:
@@ -205,7 +182,29 @@ def test_duplicates(data):
 
     return found_dupes
 
-if __name__ == '__main__':
+def main():
+    for file in Path(f'{infradir}').glob('**/*.yaml'):
+      name = file.stem
+      if len(file.parents) == 3:
+        save_name = name
+      elif len(file.parents) > 3:
+        save_name = f'{file.parent.name}/{name}'
+      else:
+        _fail('Unhandled repository layout')
+      if name not in excludes:
+        with open(f'{file}') as fh:
+          try:
+            infra_data[save_name] = yaml.safe_load(fh)
+          except yaml.scanner.ScannerError:
+            _fail(f'Invalid YAML file: {file}')
+
+    for file in Path(f'{schemadir}').glob('*.json'):
+      name = file.stem
+      if name.startswith('draft'):
+        continue
+      with open(f'{file}') as fh:
+          schemas[name] = json.load(fh)
+
     checks = {'schema': {}}
 
     print('Executing schema check ...')
@@ -232,3 +231,6 @@ if __name__ == '__main__':
         _fail()
     print()
     print('Infrastructure data is valid.')
+
+if __name__ == '__main__':
+    main()
