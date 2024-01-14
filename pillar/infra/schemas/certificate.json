@@ -1,0 +1,55 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/certificate.json",
+	"title": "Host",
+	"description": "Certificate properties",
+	"type": "object",
+	"properties": {
+		"sans": {
+			"description": "Subject Alternative Names",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"pattern": "^[a-z0-9]+\\.[a-z0-9.]+$"
+			},
+			"maxItems": 99
+		},
+		"targets": {
+			"description": "Deployment targets",
+			"type": "array",
+			"items": {
+				"oneOf": [
+					{
+						"type": "object",
+						"properties": {
+							"host": {
+								"type": "string",
+								"pattern": "^[a-z0-9]+$"
+							},
+							"services": {
+								"type": "array",
+								"items": {
+									"type": "string",
+									"pattern": "^[a-z0-9]+$"
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"macro": {
+								"type": "string",
+								"pattern": "^[a-z0-9]+$"
+							}
+						},
+						"additionalProperties": false
+					}
+				]
+			}
+		}
+	},
+	"additionalProperties": false,
+	"required": [ "targets" ]
+}
