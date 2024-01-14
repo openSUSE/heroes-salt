@@ -4,7 +4,7 @@ Script to test openSUSE infrastructure data:
 - validate files against their respective JSON schema
 - test for duplicates where unique values are expected
 
-Copyright (C) 2023 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+Copyright (C) 2023-2024 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,36 +19,53 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+# functions in this file use complicated branching, but are not feasible to reformat
+# ruff: noqa: PLR0912
 
 import json
 import sys
+from pathlib import Path
 
 import yaml
 from jsonschema import Draft202012Validator, ValidationError
 from referencing import Registry, Resource
 
+# files we do not have schemas for
+excludes = ['clusters', 'domains', 'nameservers', 'networks']
+
 infradir = 'pillar/infra/'
 schemadir = f'{infradir}schemas/'
 reference = 'draft202012.json'
 
-objects = ['hosts', 'host', 'disk', 'interface']
 need_unique = ['ip4', 'ip6', 'pseudo_ip4', 'mac']
 
+infra_data = {}
 schemas = {}
 lun_mappers = []
-
-with open(f'{infradir}hosts.yaml') as fh:
-    hosts = yaml.safe_load(fh)
-
-for schema in objects + ['reference']:
-    with open(f'{schemadir}/{schema}.json') as fh:
-        schemas[schema] = json.load(fh)
-
 
 def _fail(msg=None):
     if msg is not None:
         print(msg)
     sys.exit(1)
+
+for file in Path(f'{infradir}').glob('**/*.yaml'):
+  name = file.stem
+  if len(file.parents) == 3:
+    save_name = name
+  elif len(file.parents) > 3:
+    save_name = f'{file.parent.name}/{name}'
+  else:
+    _fail('Unhandled repository layout')
+  if name not in excludes:
+    with open(f'{file}') as fh:
+      infra_data[save_name] = yaml.safe_load(fh)
+
+for file in Path(f'{schemadir}').glob('*.json'):
+  name = file.stem
+  if name.startswith('draft'):
+    continue
+  with open(f'{file}') as fh:
+      schemas[name] = json.load(fh)
 
 def test_schema_meta(data):
     registry = Registry().with_resources(
@@ -65,47 +82,70 @@ def test_schema_meta(data):
         print(myerror.message)
     _fail('Failed to validate schema against reference schema.')
 
-def test_schema(data):
-    for schema in objects:
-        print(f'Validating schema "{schema}" against reference schema ...')
-        test_schema_meta(schemas[schema])
+def test_schema():
+    returns = {}
 
-    print('Preparing to validate hosts ...')
+    for schema, schema_data in schemas.items():
+        print(f'Validating schema "{schema}" against reference schema ...')
+        test_schema_meta(schema_data)
+
+    print('Preparing to validate files ...')
     registry = Registry().with_resources(
             [
-                ("infra/schemas/hosts.json", Resource.from_contents(schemas['hosts'])),
-                ("infra/schemas/host.json", Resource.from_contents(schemas['host'])),
-                ("infra/schemas/disk.json", Resource.from_contents(schemas['disk'])),
-                ("infra/schemas/interface.json", Resource.from_contents(schemas['interface'])),
+                (f'infra/schemas/{schema}', Resource.from_contents(schemas[schema]))
+                for schema in schemas
             ],
     )
-    validator_hosts = Draft202012Validator(schema=schemas['hosts'], registry=registry)
-    validator_host = Draft202012Validator(schema=schemas['host'], registry=registry)
+    validators = {}
+    for schema in schemas:
+      validators[schema] = Draft202012Validator(schema=schemas[schema], registry=registry)
 
-    try:
-        validator_hosts.validate(data)
-    except ValidationError as myerror:
-        print(f'Error in {myerror.json_path}:')
-        print(myerror.message)
-        _fail('Invalid hosts.yaml file')
+    for file, contents in infra_data.items():
+      print(f'Validating dataset {file} ...')
 
-    for host, host_config in data.items():
-        print(f'Validating {host} ... ', end='')
-        try:
-            result = validator_host.validate(host_config)
-            if result is None:
-                print('ok!')
-            else:
-                print('failed, but unable to determine the cause. :(')
-        except ValidationError as myerror:
-            print(f'failed! Error in {myerror.json_path}:')
-            print(myerror.message)
-            return False
+      file_split = file.split('/')
+      if '/' in file:
+        if file_split[1] in validators:
+          file_validator_name = file_split[1]
+        else:
+          file_validator_name = file_split[0]
+      else:
+        file_validator_name = file
 
-    return True
+      if file_validator_name not in validators:
+        _fail(f'Missing "{file_validator_name}" validator')
 
-def test_duplicates(data):  # noqa PLR0912
-                            # (function indeed uses complicated branching, but is not feasible to reformat)
+      entry_validator_name = file_validator_name.rstrip('s')
+
+      if entry_validator_name not in validators:
+        _fail(f'Missing "{entry_validator_name}" validator')
+
+      try:
+          validators[file_validator_name].validate(contents)
+      except ValidationError as myerror:
+          print(f'Error in {myerror.json_path}:')
+          print(myerror.message)
+          _fail(f'Invalid {file} file')
+
+      returns[file] = True
+      for entry, entry_config in contents.items():
+          print(f'Validating entry {entry} ... ', end='')
+          try:
+              result = validators[entry_validator_name].validate(entry_config)
+              if result is None:
+                  print('ok!')
+              else:
+                  print('failed, but unable to determine the cause. :(')
+          except ValidationError as myerror:
+              print(f'failed! Error in {myerror.json_path}:')
+              print(myerror.message)
+              returns[file] = False
+              break
+
+    return returns
+
+def test_duplicates(data):
+
     def test_key(key, value):
         if key in need_unique:
             if key not in matches:
@@ -163,17 +203,17 @@ def test_duplicates(data):  # noqa PLR0912
     return found_dupes
 
 if __name__ == '__main__':
-    checks = {}
+    checks = {'schema': {}}
 
     print('Executing schema check ...')
-    if test_schema(hosts):
-        checks['schema'] = True
-    else:
+    for file, result in test_schema().items():
+      if result is False:
         checks['schema'] = False
+        break
 
     print()
     print('Executing duplicates check ...')
-    if test_duplicates(hosts):
+    if test_duplicates(infra_data['hosts']):
         checks['duplicates'] = False
     else:
         checks['duplicates'] = True
