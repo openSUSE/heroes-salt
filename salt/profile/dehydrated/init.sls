@@ -37,6 +37,7 @@ profile_dehydrated_{{ instance }}_sub_directories:
         - mode: '0750'
       {%- endfor %}
       - /var/log/dehydrated-{{ instance }}/deployment_failures:
+        - user: dehydrated
         - mode: '0755'
     - group: dehydrated
     - require:
