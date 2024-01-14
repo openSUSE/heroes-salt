@@ -103,6 +103,7 @@ then
   echo '--> Python: FAIL'
   echo 'Please reformat the problematic Python files to follow the PEP 8 style guide.'
   echo 'Reference: https://peps.python.org/pep-0008/.'
+  echo 'Explanations for the linter rule codes: https://docs.astral.sh/ruff/rules/.'
   # shellcheck disable=SC2016
   echo 'Tip: Install `ruff` on your workstation, and use `ruff --fix --unsafe-fixes <file1> <file2> ...` to have the tool automatically implement some of its suggestions.'
   EXIT=5
