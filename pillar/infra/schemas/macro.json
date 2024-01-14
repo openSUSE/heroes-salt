@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/macro.json",
+	"title": "Host",
+	"description": "Certificate deployment target group",
+	"type": "object",
+	"properties": {
+		"hosts": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"pattern": "^[a-z0-9]+$"
+			}
+		},
+		"services": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"pattern": "^[a-z0-9]+$"
+			}
+		}
+	},
+	"additionalProperties": false,
+	"required": [ "hosts", "services" ]
+}
+

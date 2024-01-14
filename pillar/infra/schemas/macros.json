@@ -1,0 +1,13 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/macros.json",
+	"title": "Target Macro",
+	"description": "Certificate deployment macros to target grouped hosts in the openSUSE infrastructure",
+	"type": "object",
+	"patternProperties": {
+		"^[a-z0-9]+$": {
+			"type": "object"
+		}
+	},
+	"additionalProperties": false
+}
