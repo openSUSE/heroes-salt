@@ -41,7 +41,7 @@ then
   echo 'Start of deployment to {{ target }} ...'
 
   {%- if 'haproxy' in services %}
-  {{ scp }} "$COMBINED_PEM" {{ ssh_user }}@{{ target }}:{{ dst_top }} || COPY_STATUS=1
+  {{ scp }} "$COMBINED_PEM" {{ ssh_user }}@{{ target }}:{{ dst_top }}{{ certificate }}.pem || COPY_STATUS=1
   {%- do services.remove('haproxy') %}
   {%- endif %}
   {%- if services %}
