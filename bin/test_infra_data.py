@@ -23,11 +23,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ruff: noqa: PLR0912
 
 import json
+import logging
 import sys
+from argparse import ArgumentParser
 from pathlib import Path
 
 import yaml
 from jsonschema import Draft202012Validator, ValidationError
+from lib.colors import green, orange, red, reset
 from referencing import Registry, Resource
 
 # files we do not have schemas for
@@ -45,7 +48,7 @@ lun_mappers = []
 
 def _fail(msg=None):
     if msg is not None:
-        print(msg)
+        log.error(msg)
     sys.exit(1)
 
 def test_schema_meta(data):
@@ -59,18 +62,18 @@ def test_schema_meta(data):
         if validator.validate(data) is None:
             return True
     except ValidationError as myerror:
-        print(f'Schema validation failed! Error in {myerror.json_path}:')
-        print(myerror.message)
+        log.error(f'Schema validation failed! Error in {myerror.json_path}:')
+        log.error(myerror.message)
     _fail('Failed to validate schema against reference schema.')
 
 def test_schema():
     returns = {}
 
     for schema, schema_data in schemas.items():
-        print(f'Validating schema "{schema}" against reference schema ...')
+        log.info(f'Validating schema "{schema}" against reference schema ...')
         test_schema_meta(schema_data)
 
-    print('Preparing to validate files ...')
+    log.debug(f'{orange}Preparing to validate files ...{reset}')
     registry = Registry().with_resources(
             [
                 (f'infra/schemas/{schema}', Resource.from_contents(schemas[schema]))
@@ -82,7 +85,7 @@ def test_schema():
       validators[schema] = Draft202012Validator(schema=schemas[schema], registry=registry)
 
     for file, contents in infra_data.items():
-      print(f'Validating dataset {file} ...')
+      log.info(f'Validating dataset "{file}" ...')
 
       file_split = file.split('/')
       if '/' in file:
@@ -104,22 +107,22 @@ def test_schema():
       try:
           validators[file_validator_name].validate(contents)
       except ValidationError as myerror:
-          print(f'Error in {myerror.json_path}:')
-          print(myerror.message)
-          _fail(f'Invalid {file} file')
+          log.error(f'{red}FAIL!{reset} Error in dataset {file} -> {myerror.json_path}:')
+          log.error(myerror.message)
+          _fail(f'{red}Invalid{reset} {file} file, aborting.')
 
       returns[file] = True
       for entry, entry_config in contents.items():
-          print(f'Validating entry {entry} ... ', end='')
+          log.debug(f'Validating entry {entry} ... ')
           try:
               result = validators[entry_validator_name].validate(entry_config)
               if result is None:
-                  print('ok!')
+                  log.debug(f'Entry {entry} is {green}valid{reset}!')
               else:
-                  print('failed, but unable to determine the cause. :(')
+                  log.error('failed, but unable to determine the cause. :(')
           except ValidationError as myerror:
-              print(f'failed! Error in {myerror.json_path}:')
-              print(myerror.message)
+              log.error(f'{red}FAIL!{reset} Error in entry {entry} -> {myerror.json_path}:')
+              log.error(myerror.message)
               returns[file] = False
               break
 
@@ -177,7 +180,7 @@ def test_duplicates(data):
     for key in need_unique_final:
         dupes = unique[key]['duplicate_values']
         if dupes:
-            print(f'FAIL: Duplicate values for key {key}: {dupes}')
+            log.error(f'{red}FAIL!{reset} Duplicate values for key {key}: {dupes}')
             found_dupes = True
 
     return found_dupes
@@ -207,14 +210,13 @@ def main():
 
     checks = {'schema': {}}
 
-    print('Executing schema check ...')
+    log.debug(f'{orange}Executing schema check ...{reset}')
     for file, result in test_schema().items():
       if result is False:
         checks['schema'] = False
         break
 
-    print()
-    print('Executing duplicates check ...')
+    log.debug(f'{orange}Executing duplicates check ...{reset}')
     if test_duplicates(infra_data['hosts']):
         checks['duplicates'] = False
     else:
@@ -223,14 +225,19 @@ def main():
     fail = False
     for check, result in checks.items():
         if result is False:
-            print()
-            print(f'Check "{check}" failed.')
+            log.error(f'Check "{check}" {red}failed{reset}.')
             fail = True
 
     if fail:
-        _fail()
-    print()
-    print('Infrastructure data is valid.')
+        _fail(f'Infrastructure data is {red}invalid.{reset}')
+    log.info(f'{green}Infrastructure data is valid.{reset}')
+
+logging.basicConfig(format='%(message)s')
+log = logging.getLogger('test_infra_data')
 
 if __name__ == '__main__':
+    argp = ArgumentParser(description='Validate infra/**.yaml files against their JSON schemas')
+    argp.add_argument('-v', '--verbose', help='Print verbose output', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO)
+    args = argp.parse_args()
+    log.setLevel(args.loglevel)
     main()
