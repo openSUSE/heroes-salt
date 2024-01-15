@@ -20,12 +20,8 @@ profile_certificate_target_directory_top:
 
 {%- for certificate, services in certificates.items() %}
 {%- set crt_directory = top_directory ~ certificate %}
+{%- set files = {} %}
 
-{%- set files = {
-      'crt': crt_directory ~ '/fullchain.pem',
-      'key': crt_directory ~ '/privkey.pem'
-    }
-%}
 {%- if 'haproxy' in services %}
 {%- do files.update({
       'combined': top_directory ~ certificate ~ '.pem'
@@ -33,12 +29,23 @@ profile_certificate_target_directory_top:
 %}
 {%- endif %}
 
+{%- if 'haproxy' not in services or services | length > 1 %}
+{%- do files.update({
+      'crt': crt_directory ~ '/fullchain.pem',
+      'key': crt_directory ~ '/privkey.pem'
+    })
+%}
 profile_certificate_target_directory_{{ certificate }}:
   file.directory:
     - name: {{ crt_directory }}
     - mode: '0751'
     - require:
       - file: profile_certificate_target_directory_top
+{%- else %}
+profile_certificate_target_directory_purge_{{ certificate }}:
+  file.absent:
+    - name: {{ crt_directory }}
+{%- endif %}
 
 {%- for file, path in files.items() %}
 {%- if not salt['file.file_exists'](path) %}
@@ -49,7 +56,10 @@ profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
     - user: cert
     - replace: False
     - require:
+      - file: profile_certificate_target_directory_top
+      {%- if 'haproxy' not in services or services | length > 1 %}
       - file: profile_certificate_target_directory_{{ certificate }}
+      {%- endif %}
 {%- endif %}
 {%- endfor %}
 
