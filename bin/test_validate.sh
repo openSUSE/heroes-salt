@@ -6,17 +6,17 @@ STATUS=0
 source bin/get_colors.sh
 
 TESTS=(
-    extension.sh
-    empty_files.sh
-    secrets.sh
-    roles.py
-    custom_grains.py
-    infra_data.sh
+    test_extension.sh
+    test_empty_files.sh
+    test_secrets.sh
+    test_roles.py
+    test_custom_grains.py
+    test_infra_data.sh
 )
 
 for _test in "${TESTS[@]}"; do
-    echo_INFO "## Running test_${_test}"
-    if "bin/test_${_test}"; then
+    echo_INFO "## Running ${_test}"
+    if "bin/${_test}"; then
         echo_PASSED
     else
         echo_FAILED
