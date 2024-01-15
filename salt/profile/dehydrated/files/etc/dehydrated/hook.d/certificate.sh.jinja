@@ -1,8 +1,11 @@
 #!/bin/sh -u
 {{ pillar['managed_by_salt'] }}
-{%- set scp = 'scp -Bq' %}
-{%- set src_base = '/etc/dehydrated-' ~ instance ~ '/certs/' ~ certificate %}
-{%- set dst_base = '/etc/ssl/services/' ~ certificate %}
+{%- set ssh_user   = 'cert' %}
+{%- set ssh_common = ' -qi /etc/dehydrated/.ssh/id_ed25519' %}
+{%- set scp        = 'scp -B' ~ ssh_common %}
+{%- set ssh        = 'ssh -l ' ~ ssh_user ~ ' -oBatchMode=yes' ~ ssh_common %} 
+{%- set src_base   = '/etc/dehydrated-' ~ instance ~ '/certs/' ~ certificate %}
+{%- set dst_base   = '/etc/ssl/services/' ~ certificate %}
 SRC_BASE='{{ src_base }}'
 DST_BASE='{{ dst_base }}'
 CRT_PEM="$SRC_BASE/fullchain.pem"
@@ -37,19 +40,19 @@ then
   echo 'Start of deployment to {{ target }} ...'
 
   {%- if 'haproxy' in services %}
-  {{ scp }} "$COMBINED_PEM" {{ target }}:"$DST_BASE" || COPY_STATUS=1
+  {{ scp }} "$COMBINED_PEM" {{ ssh_user }}@{{ target }}:"$DST_BASE" || COPY_STATUS=1
   {%- do services.remove('haproxy') %}
   {%- endif %}
   {%- if services %}
-  {{ scp }} "$CRT_PEM" "$KEY_PEM" {{ target }}:"$DST_BASE" || COPY_STATUS=1
+  {{ scp }} "$CRT_PEM" "$KEY_PEM" {{ ssh_user }}@{{ target }}:"$DST_BASE" || COPY_STATUS=1
   {%- endif %}
   
   if [ "$COPY_STATUS" = 0 ]
   then
     {%- for service in services %}
-    if ssh {{ target }} systemctl is-active --quiet {{ service }}
+    if {{ ssh }} {{ target }} systemctl is-active --quiet {{ service }}
     then
-      if ssh {{ target }} sudo systemctl try-reload-or-restart {{ service }}
+      if {{ ssh }} {{ target }} sudo systemctl try-reload-or-restart {{ service }}
       then
         echo 'Reloaded {{ service }}'
       else
