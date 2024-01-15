@@ -26,6 +26,12 @@ profile_certificate_target_directory_top:
       'key': crt_directory ~ '/privkey.pem'
     }
 %}
+{%- if 'haproxy' in services %}
+{%- do files.update({
+      'combined': top_directory ~ certificate ~ '.pem'
+    })
+%}
+{%- endif %}
 
 profile_certificate_target_directory_{{ certificate }}:
   file.directory:
