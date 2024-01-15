@@ -30,7 +30,7 @@ profile_certificate_target_directory_top:
 profile_certificate_target_directory_{{ certificate }}:
   file.directory:
     - name: {{ crt_directory }}
-    - mode: '0750'
+    - mode: '0751'
     - require:
       - file: profile_certificate_target_directory_top
 
