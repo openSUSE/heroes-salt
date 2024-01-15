@@ -48,7 +48,6 @@ profile_certificate_target_directory_purge_{{ certificate }}:
 {%- endif %}
 
 {%- for file, path in files.items() %}
-{%- if not salt['file.file_exists'](path) %}
 profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
   file.managed:
     - name: {{ path }}
@@ -60,7 +59,6 @@ profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
       {%- if 'haproxy' not in services or services | length > 1 %}
       - file: profile_certificate_target_directory_{{ certificate }}
       {%- endif %}
-{%- endif %}
 {%- endfor %}
 
 {#- as opposed to services such as HAProxy which read certificates as root and then drop privileges,
