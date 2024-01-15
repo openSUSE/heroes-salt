@@ -5,7 +5,8 @@
 {%- set scp        = 'scp -B' ~ ssh_common %}
 {%- set ssh        = 'ssh -l ' ~ ssh_user ~ ' -oBatchMode=yes' ~ ssh_common %} 
 {%- set src_base   = '/etc/dehydrated-' ~ instance ~ '/certs/' ~ certificate %}
-{%- set dst_base   = '/etc/ssl/services/' ~ certificate %}
+{%- set dst_top    = '/etc/ssl/services/' %}
+{%- set dst_base   =  dst_top ~ certificate %}
 SRC_BASE='{{ src_base }}'
 DST_BASE='{{ dst_base }}'
 CRT_PEM="$SRC_BASE/fullchain.pem"
@@ -40,7 +41,7 @@ then
   echo 'Start of deployment to {{ target }} ...'
 
   {%- if 'haproxy' in services %}
-  {{ scp }} "$COMBINED_PEM" {{ ssh_user }}@{{ target }}:"$DST_BASE" || COPY_STATUS=1
+  {{ scp }} "$COMBINED_PEM" {{ ssh_user }}@{{ target }}:{{ dst_top }} || COPY_STATUS=1
   {%- do services.remove('haproxy') %}
   {%- endif %}
   {%- if services %}
