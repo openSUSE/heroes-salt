@@ -36,6 +36,7 @@
 {%- endfor %} {#- close target loop #}
 {%- endfor %} {#- close certificate loop #}
 
+{%- if _certificates %}
 users:
   cert:
     fullname: Certificate Deployment User
@@ -43,7 +44,6 @@ users:
     ssh_auth_file:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXfogRapqcAJJOe1S+EYSrFLeNN+1MxDHnfav443GaM dehydrated@acme
 
-{%- if _certificates %}
 sudoers:
   users:
     cert:
@@ -59,8 +59,8 @@ profile:
       {%- for certificate, services in _certificates.items() %}
       {{ certificate }}: {{ services if services else {} }}
       {%- endfor %}
-{%- endif %}
 
 zypper:
   packages:
     acl: {}
+{%- endif %}

@@ -7,6 +7,7 @@
 {%- set configure_ntp = salt['grains.get']('configure_ntp', True) %}
 
 include:
+  - .certificates
   - .headers
   - .hosts
   - .bootloader
