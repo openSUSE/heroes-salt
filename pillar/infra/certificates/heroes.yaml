@@ -1,1 +1,10 @@
---- {}
+---
+witch1.infra.opensuse.org:
+  sans:
+    - witch.infra.opensuse.org
+    - salt.infra.opensuse.org
+  targets:
+    - host: witch1
+      services:
+        - salined
+        - salt
