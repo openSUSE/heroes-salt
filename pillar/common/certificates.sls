@@ -1,66 +1,82 @@
-{%- set host = grains['host'] %}
+#!py
 
-{%- import_yaml 'infra/certificates/letsencrypt.yaml' as certificates_letsencrypt %}
-{%- import_yaml 'infra/certificates/letsencrypt-test.yaml' as certificates_letsencrypt_test %}
-{%- import_yaml 'infra/certificates/heroes.yaml' as certificates_heroes %}
+import yaml
 
-{#- target deployment does not support one certificate name being issued from multiple CAs
-    duplicates should already be prevented on a YAML validation level, but if in doubt, Let's Encrypt Staging takes priority
-#}
-{%- set certificates = {} %}
-{%- do certificates.update(certificates_heroes) %}
-{%- do certificates.update(certificates_letsencrypt) %}
-{%- do certificates.update(certificates_letsencrypt_test) %}
+base = '/srv/pillar/infra/certificates/'
+cas  = ['letsencrypt-test', 'letsencrypt', 'heroes']
 
-{%- import_yaml 'infra/certificates/macros.yaml' as macros %}
-{%- set _certificates = {} %}
+_certificates = {}
+_services = []
 
-{%- for certificate, certificate_config in certificates.items() %}
-{%- for target in certificate_config['targets'] %}
+def _extend_services(low_services):
+  for service in low_services:
+    if service not in _services:
+      _services.append(service)
 
-{%- if host == target.get('host') %}
-{%- do _certificates.update({certificate: target.get('services', {})}) %}
-{%- endif %}
+def run():
+  result = {}
+  host = __grains__['host']
 
-{%- if 'macro' in target and target.get('macro') in macros %}
-{%- set macro_config = macros[target['macro']] %}
-{%- if host in macro_config['hosts'] %}
-{%- if certificate in _certificates %}
-{%- do _certificates[certificate].extend(macro_config['services']) %}
-{%- else %}
-{%- do _certificates.update({certificate: macro_config['services']}) %}
-{%- endif %} {#- close certificate in _certificates check #}
-{%- endif %} {#- close host in macro hosts check #}
-{%- endif %} {#- close macro check #}
+  certificates = {}
+  """
+  target deployment does not support one certificate name being issued from multiple CAs
+  duplicates should already be prevented on a YAML validation level, but merging will happen in the order of "cas"
+  """
+  for file in cas:
+    with open(f'{base}{file}.yaml') as fh:
+      certificates.update(yaml.safe_load(fh))
+  with open(f'{base}macros.yaml') as fh:
+    macros = yaml.safe_load(fh)
 
-{%- endfor %} {#- close target loop #}
-{%- endfor %} {#- close certificate loop #}
+  for certificate, certificate_config in certificates.items():
+    for target in certificate_config['targets']:
 
-{%- if _certificates %}
-users:
-  cert:
-    fullname: Certificate Deployment User
-    shell: /bin/sh
-    ssh_auth_file:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXfogRapqcAJJOe1S+EYSrFLeNN+1MxDHnfav443GaM dehydrated@acme
+      if host == target.get('host'):
+        _certificates.update({certificate: target.get('services', [])})
+        _extend_services(target.get('services', []))
 
-sudoers:
-  users:
-    cert:
-      {%- for certificate, services in _certificates.items() %}
-      {%- for service in services %}
-      - '{{ grains['host'] }}=(root) NOPASSWD: /usr/bin/systemctl try-reload-or-restart {{ service }}'
-      {%- endfor %}
-      {%- endfor %}
+      if 'macro' in target and target.get('macro') in macros:
+        macro_config = macros[target['macro']]
 
-profile:
-  certificate_target:
-    certificates:
-      {%- for certificate, services in _certificates.items() %}
-      {{ certificate }}: {{ services if services else {} }}
-      {%- endfor %}
+        if host in macro_config['hosts']:
+          if certificate in _certificates:
+            _certificates[certificate].extend(macro_config['services'])
+          else:
+            _certificates.update({certificate: macro_config['services']})
+          _extend_services(macro_config['services'])
 
-zypper:
-  packages:
-    acl: {}
-{%- endif %}
+  if _certificates:
+    commands = [
+      '/usr/bin/systemctl try-reload-or-restart ' + service for service in _services
+    ]
+
+    result.update({
+      'users': {
+          'cert': {
+              'fullname': 'Certificate Deployment User',
+              'shell': '/bin/sh',
+              'ssh_auth_file': [
+                'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXfogRapqcAJJOe1S+EYSrFLeNN+1MxDHnfav443GaM dehydrated@acme',
+              ],
+          },
+      },
+      'sudoers': {
+        'users': {
+          'cert': [
+            f'{host}=(root) NOPASSWD: {", ".join(commands)}',
+          ],
+        },
+      },
+      'profile': {
+        'certificate_target': {
+          'certificates': _certificates,
+        },
+      },
+      'zypper': {
+        'packages': {
+          'acl': {},
+        },
+      },
+    })
+
+  return result
