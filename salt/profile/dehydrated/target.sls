@@ -15,7 +15,7 @@ profile_certificate_target_hushlogin:
 profile_certificate_target_directory_top:
   file.directory:
     - name: {{ top_directory }}
-    - mode: '0750'
+    - mode: '0751'
 {%- endif %}
 
 {%- for certificate, services in certificates.items() %}
