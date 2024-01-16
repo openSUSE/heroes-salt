@@ -4,6 +4,14 @@ PDNS_HOST=http://chip.infra.opensuse.org:8080
 PDNS_KEY={{ pillar['profile']['dehydrated']['hook']['pdns_key'] }}
 PDNS_SERVER=localhost
 
+# more modern Lexicon has https://dns-lexicon.readthedocs.io/en/latest/user_guide.html#use-of-resolve-zone-name
+delegate_opensuse() {
+    if echo "$DOMAIN" | grep -Fq 'infra.opensuse.org'
+    then
+      echo '--delegated=infra.opensuse.org '
+    fi
+}
+
 update_opensuse() {
     local CERTNAME="$1"
     HOOK="/etc/dehydrated-{{ instance }}/hook.d/$CERTNAME.sh"
@@ -25,7 +33,7 @@ deploy_challenge() {
 
       echo "Trying to verify domain '${DOMAIN}' with '${TOKEN_FILENAME}' '${TOKEN_VALUE}'" 
 
-      lexicon powerdns create ${DOMAIN} TXT \
+      lexicon $(delegate_opensuse)powerdns create ${DOMAIN} TXT \
         --name="_acme-challenge.${DOMAIN}." \
         --content="${TOKEN_VALUE}" \
         --auth-token="${PDNS_KEY}" \
@@ -44,7 +52,7 @@ clean_challenge() {
 
         echo "clean_challenge called: ${DOMAIN}, ${TOKEN_FILENAME}, ${TOKEN_VALUE}"
 
-        lexicon powerdns delete ${DOMAIN} TXT \
+        lexicon $(delegate_opensuse)powerdns delete ${DOMAIN} TXT \
           --name="_acme-challenge.${DOMAIN}." \
           --content="${TOKEN_VALUE}" \
           --auth-token="${PDNS_KEY}" \
