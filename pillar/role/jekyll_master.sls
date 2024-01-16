@@ -31,6 +31,9 @@ profile:
       101.opensuse.org:
         repo: https://github.com/openSUSE/mentoring.git
         branch: main
+      security.opensuse.org:
+        repo: https://github.com/openSUSE/security-team-blog.git
+        branch: main
       monitor.opensuse.org:
         repo: https://github.com/openSUSE/monitor-o-o.git
       debuginfod.opensuse.org:

@@ -50,7 +50,7 @@ haproxy:
         - host_forums       hdr(host)   -i forums.opensuse.org
         - host_gcc          hdr(host)   -i gcc.opensuse.org
         - host_get_o_o      hdr(host)   -i get.opensuse.org
-        {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'universe', 'yast'] %}
+        {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'security', 'universe', 'yast'] %}
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
         - host_kubic        hdr(host)   -i kubic.opensuse.org
