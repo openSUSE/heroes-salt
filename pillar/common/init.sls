@@ -203,3 +203,7 @@ mine_functions:
   fqdn:
     - mine_function: grains.get
     - fqdn
+  ssh_host_keys:
+    - mine_function: ssh.host_keys
+    - private: False
+    - certs: False
