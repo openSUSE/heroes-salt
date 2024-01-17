@@ -1,7 +1,7 @@
 #!/bin/sh -u
 {{ pillar['managed_by_salt'] }}
 {%- set ssh_user   = 'cert' %}
-{%- set ssh_common = ' -qi /etc/dehydrated/.ssh/id_ed25519 -oCheckHostIP=no' %}
+{%- set ssh_common = ' -qi /etc/dehydrated/.ssh/id_ed25519 -oHostKeyAlgorithms=ssh-ed25519 -oCheckHostIP=no' %}
 {%- set scp        = 'scp -B' ~ ssh_common %}
 {%- set ssh        = 'ssh -l ' ~ ssh_user ~ ' -oBatchMode=yes' ~ ssh_common %} 
 {%- set src_base   = '/etc/dehydrated-' ~ instance ~ '/certs/' ~ certificate %}
