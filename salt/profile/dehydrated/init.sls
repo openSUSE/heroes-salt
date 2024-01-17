@@ -113,6 +113,7 @@ profile_dehydrated_{{ instance }}_hook:
 {%- for certificate, certificate_config in instance_config.get('certificates', {}).items() %}
 {%- do salt.log.debug('dehydrated: parsing certificate ' ~ certificate) %}
 {%- set targets = certificate_config.get('targets') %}
+
 {%- if targets %}
 profile_dehydrated_{{ instance }}_hook_{{ certificate }}:
   file.managed:
@@ -129,7 +130,20 @@ profile_dehydrated_{{ instance }}_hook_{{ certificate }}:
       - pkg: profile_dehydrated_packages
       - file: profile_dehydrated_{{ instance }}_sub_directories
 {%- endif %}
-{%- endfor %}
+
+{%- for target, target_config in targets.items() %}
+{%- if 'host_key' in target_config and target_config['host_key'] is not none %}
+profile_dehydrated_{{ instance }}_known_hosts_{{ target }}:
+  ssh_known_hosts.present:
+    - name: {{ target }}
+    - user: dehydrated
+    - key: {{ target_config['host_key'].lstrip('ssh-ed25519 ') }}
+    - enc: ssh-ed25519
+    - hash_known_hosts: False
+{%- endif %} {#- close host_key check #}
+{%- endfor %} {#- close targets loop #}
+
+{%- endfor %} {#- close certificates loop #}
 
 profile_dehydrated_{{ instance }}_timer:
   service.running:
