@@ -74,7 +74,6 @@ filter_log () {
 
 filter_log /var/log/salt/minion system/minion_log.txt
 filter_log /var/log/salt/master system/master_log.txt
-journalctl --no-pager > system/journal.txt
 mv cli.txt system
 
 salt "$HOSTNAME" pillar.items > pillar.txt
