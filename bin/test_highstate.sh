@@ -45,8 +45,6 @@ echo
 
 echo "END OF $role" >> "$out"
 
-mkdir system
-
 # "log_granular_levels" is a thing, but regex is easier here
 # lines matching PATTERNS will be stripped from the log files
 PATTERNS=(
@@ -72,15 +70,14 @@ filter_log () {
   perl -ne "print unless ${PATTERNS[*]}" "$1" > "$2"
 }
 
-filter_log /var/log/salt/minion system/minion_log.txt
-filter_log /var/log/salt/master system/master_log.txt
-mv cli.txt system
+filter_log /var/log/salt/minion minion_log.txt
+filter_log /var/log/salt/master master_log.txt
 
 salt "$HOSTNAME" pillar.items > pillar.txt
 
 mkdir render
 render_log='render/_log.txt'
-render_failures=( $(gawk 'match($0, /Rendering SLS '\''base:(.*)'\'' failed/, capture) { gsub(/\./, "/", capture[1]); print "salt/" capture[1] ".sls" }' system/minion_log.txt) )
+render_failures=( $(gawk 'match($0, /Rendering SLS '\''base:(.*)'\'' failed/, capture) { gsub(/\./, "/", capture[1]); print "salt/" capture[1] ".sls" }' minion_log.txt) )
 
 if [ -n "${render_failures[*]}" ]
 then
