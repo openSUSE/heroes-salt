@@ -16,7 +16,8 @@ file_roots:
   - /srv/salt
   - /usr/share/salt-formulas/states
 interface: 127.0.0.1
-log_level: info
+log_level: warning
+log_level_logfile: debug
 user: salt
 EOF
 systemctl start salt-master
@@ -37,7 +38,8 @@ cp test/fixtures/minion* /etc/salt/pki/minion/
 echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
 tee >/etc/salt/minion <<EOF
 master: 127.0.0.1
-#log_level: info
+log_level: warning
+log_level_logfile: debug
 EOF
 systemctl start salt-minion
 
@@ -52,11 +54,13 @@ echo "== $IDFILE =="
 cat "$IDFILE"
 echo "== $IDFILE END =="
 
+out='cli.txt'
+
 # Update pillar and mine
-salt "$HOSTNAME" saltutil.refresh_pillar
-salt "$HOSTNAME" mine.update
+salt --out-file="$out" --out-file-append "$HOSTNAME" saltutil.refresh_pillar
+salt --out-file="$out" --out-file-append "$HOSTNAME" mine.update
 
 
 ## Check
 
-salt-call test.ping
+salt-call --out-file="$out" --out-file-append test.ping
