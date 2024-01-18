@@ -1,0 +1,5 @@
+#!/bin/sh -efu
+
+# file.comment cannot handle non-existing files in test mode
+mkdir -p /srv/www/vhosts/discourse/config
+echo 'stdout_redirect' > /srv/www/vhosts/discourse/config/puma.rb

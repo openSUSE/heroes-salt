@@ -43,6 +43,20 @@ discourse_mail_transport_postmap:
     - require:
       - pkg: postfix
 
+discourse_puma_rb:
+  file.comment:
+    - name: /srv/www/vhosts/discourse/config/puma.rb
+    - regex: ^stdout_redirect
+
+discourse_puma_service_override:
+  file.managed:
+    - name: /etc/systemd/system/discourse-puma.service.d/salt.conf
+    - makedirs: True
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - '[Service]'
+        - Environment=RAILS_LOG_TO_STDOUT=1
+
 discourse_target:
   service.running:
     - name: discourse.target
@@ -57,6 +71,9 @@ discourse_puma_service:
   service.running:
     - name: discourse-puma
     - enable: True
+    - watch:
+        - file: discourse_puma_rb
+        - file: discourse_puma_service_override
 
 discourse_sidekiq_service:
   service.running:
