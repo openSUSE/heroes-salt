@@ -30,9 +30,9 @@ then
   "test/setup/role/$role"
 fi
 
-salt --out=raw --out-file=/dev/null "$HOSTNAME" saltutil.refresh_pillar
+salt --out-file=cli.txt --out-file-append "$HOSTNAME" saltutil.refresh_pillar
 
-salt-call --retcode-passthrough --state-output=full --output-diff state.apply test=True >> "$out"
+salt-call --out-file="$out" --out-file-append --retcode-passthrough --state-output=full --output-diff state.apply test=True
 rolestatus=$?
 echo >> "$out"
 
@@ -46,9 +46,36 @@ echo
 echo "END OF $role" >> "$out"
 
 mkdir system
-cp /var/log/salt/minion system/minion_log.txt
-cp /var/log/salt/master system/master_log.txt
+
+# "log_granular_levels" is a thing, but regex is easier here
+# lines matching PATTERNS will be stripped from the log files
+PATTERNS=(
+  '/Marking .* as a jinja (filter|global|test)/'
+  '/The functions from module .* are/'
+  '/MasterEvent (PUB|PULL) socket URI/'
+  '/(Missing|Reading) configuration/'
+  '/Using cached minion ID/'
+  '/Override  __(grains|utils)__/'
+  '/dmidecode/'
+  '/Grains refresh requested/'
+  '/LazyLoad/'
+  '/Loading static grains from/'
+  '/Authentication (request|accepted)/'
+  '/Worker binding to socket/'
+  '/Creating master /'
+  '/ReqServer (clients|worker)/'
+  '/Started .* with pid/'
+)
+PATTERNS=( "${PATTERNS[@]/%/||}" '/^xxx$/' )
+
+filter_log () {
+  perl -ne "print unless ${PATTERNS[*]}" "$1" > "$2"
+}
+
+filter_log /var/log/salt/minion system/minion_log.txt
+filter_log /var/log/salt/master system/master_log.txt
 journalctl --no-pager > system/journal.txt
+mv cli.txt system
 
 salt "$HOSTNAME" pillar.items > pillar.txt
 
