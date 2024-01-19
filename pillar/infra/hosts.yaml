@@ -773,8 +773,8 @@ pagure01:
       pseudo_ip4: 172.16.164.161
       source: x-os-code
   legacy_boot: true
-  ram: 15360MB
-  vcpu: 8
+  ram: 32768MB
+  vcpu: 16
 paste:
   cluster: falkor
   disks:
