@@ -1,8 +1,4 @@
-include:
-  - profile.pagure.redis
-  - .nginx
-
-pagure_pgks:
+pagure_packages:
   pkg.installed:
     - pkgs:
       - pagure
@@ -16,46 +12,42 @@ pagure_pgks:
       - pagure-mirror
       - pagure-webhook
 
-pagure_conf:
+pagure_configuration:
   file.managed:
-    - name: /etc/pagure/pagure.cfg
-    - source: salt://profile/pagure/files/pagure.cfg
+    - names:
+        - /etc/pagure/pagure.cfg:
+            - source: salt://profile/pagure/files/pagure.cfg.jinja
+        - /etc/pagure/alembic.ini:
+            - source: salt://profile/pagure/files/alembic.ini.jinja
     - template: jinja
     - group: git
     - mode: '0640'
-    - require_in:
-      - service: pagure_web_service
     - watch_in:
-      - module: pagure_web_restart
-
-pagure_alembic_conf:
-  file.managed:
-    - name: /etc/pagure/alembic.ini
-    - source: salt://profile/pagure/files/alembic.ini
-    - template: jinja
-    - group: git
-    - mode: '0640'
-    - require_in:
       - service: pagure_web_service
-    - watch_in:
-      - module: pagure_web_restart
 
 pagure_database_setup:
   cmd.run:
     - name: python3 /usr/share/pagure/pagure_createdb.py -c /etc/pagure/pagure.cfg
+    - onchanges:
+        - pkg: pagure_packages
 
-{% set services = ['pagure_web', 'pagure_docs_web', 'pagure_worker', 'pagure_authorized_keys_worker', 'pagure_api_key_expire_mail.timer', 'pagure_mirror_project_in.timer'] %}
+pagure_gunicorn_override:
+  file.managed:
+    - names:
+        - /etc/systemd/system/pagure_web.service.d/salt.conf
+    - makedirs: True
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - '[Service]'
+        - GUNICORN_CMD_ARGS=--workers=8
+    - watch_in:
+      - service: pagure_web_service
 
-{% for service in services %}
+{%- set services = ['pagure_web', 'pagure_docs_web', 'pagure_worker', 'pagure_authorized_keys_worker', 'pagure_api_key_expire_mail.timer', 'pagure_mirror_project_in.timer'] %}
+
+{%- for service in services %}
 {{ service }}_service:
   service.running:
     - name: {{ service }}
     - enable: True
-
-{{ service }}_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: {{ service }}
-    - require:
-      - service: {{ service }}
-{% endfor %}
+{%- endfor %}
