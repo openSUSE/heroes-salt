@@ -1,3 +1,5 @@
+{%- from 'macros.jinja' import redis %}
+
 include:
 {% if salt['grains.get']('include_secrets', True) %}
   - secrets.role.paste
@@ -35,6 +37,8 @@ nginx:
               - access_log: /var/log/nginx/paste.access.log combined
               - error_log: /var/log/nginx/paste.error.log
         enabled: True
+
+{{ redis('paste', True) }}
 
 zypper:
   repositories:

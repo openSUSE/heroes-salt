@@ -1,3 +1,5 @@
+{%- from 'macros.jinja' import redis %}
+
 include:
 {%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.calendar
@@ -35,3 +37,5 @@ nginx:
               - access_log: /var/log/nginx/calendar.access.log combined
               - error_log: /var/log/nginx/calendar.error.log
         enabled: True
+
+{{ redis('calendar', True) }}
