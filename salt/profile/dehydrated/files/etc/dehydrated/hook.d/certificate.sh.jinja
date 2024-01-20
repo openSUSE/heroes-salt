@@ -42,9 +42,8 @@ then
 
   {%- if 'haproxy' in services %}
   {{ scp }} "$COMBINED_PEM" {{ ssh_user }}@{{ target }}:{{ dst_top }}{{ certificate }}.pem || COPY_STATUS=1
-  {%- do services.remove('haproxy') %}
   {%- endif %}
-  {%- if services %}
+  {%- if services and services != ['haproxy'] %}
   {{ scp }} "$CRT_PEM" "$KEY_PEM" {{ ssh_user }}@{{ target }}:"$DST_BASE" || COPY_STATUS=1
   {%- endif %}
   
