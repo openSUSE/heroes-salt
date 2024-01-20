@@ -9,7 +9,40 @@ profile_dehydrated_packages:
         - fromrepo: openSUSE:infrastructure
       - python3-dns-lexicon
 
-{%- for instance, instance_config in mypillar.get('instances', {}).items() %}
+{%- set instances = mypillar.get('instances', {}) %}
+{%- set instance_ns = namespace(targets=[]) %}
+
+{#- first instance/certificates/targets iteration to deduplicate targets used with multiple certificates #}
+{%- for instance, instance_config in instances.items() %}
+{%- for certificate, certificate_config in instance_config.get('certificates', {}).items() %}
+{%- set targets = certificate_config.get('targets', {}) %}
+
+{%- for target in targets.keys() %}
+{%- if target not in instance_ns.targets %}
+{%- do instance_ns.targets.append(target) %}
+{%- endif %} {#- close target in global targets check #}
+
+{%- endfor %} {#- close first targets loop #}
+{%- endfor %} {#- close first certificates loop #}
+{%- endfor %} {#- close first instances loop #}
+
+{%- for target in instance_ns.targets %}
+{%- set host_key = salt['mine.get']([target], 'ssh_host_keys', 'list').get(target, {}).get('ed25519.pub') %}
+
+{%- if host_key is not none %}
+profile_dehydrated_known_hosts_{{ target }}:
+  ssh_known_hosts.present:
+    - name: {{ target }}
+    - user: dehydrated
+    - key: {{ host_key.split()[1] }}
+    - enc: ssh-ed25519
+    - hash_known_hosts: False
+{%- endif %} {#- close host_key check #}
+
+{%- endfor %} {#- close second targets loop #}
+
+{#- second instances iteration for instance specific states #}
+{%- for instance, instance_config in instances.items() %}
 {%- set config = mypillar.get('config', {}).copy() %}
 {%- do config.update(instance_config.get('config', {})) %}
 {%- set topdir = '/etc/dehydrated-' ~ instance ~ '/' %}
@@ -110,6 +143,7 @@ profile_dehydrated_{{ instance }}_hook:
       - file: profile_dehydrated_{{ instance }}_sub_directories
       - file: profile_dehydrated_{{ instance }}_config_domains
 
+{#- second certificates iteration to render certificate specific states #}
 {%- for certificate, certificate_config in instance_config.get('certificates', {}).items() %}
 {%- do salt.log.debug('dehydrated: parsing certificate ' ~ certificate) %}
 {%- set targets = certificate_config.get('targets') %}
@@ -131,19 +165,7 @@ profile_dehydrated_{{ instance }}_hook_{{ certificate }}:
       - file: profile_dehydrated_{{ instance }}_sub_directories
 {%- endif %}
 
-{%- for target, target_config in targets.items() %}
-{%- if 'host_key' in target_config and target_config['host_key'] is not none %}
-profile_dehydrated_{{ instance }}_known_hosts_{{ target }}:
-  ssh_known_hosts.present:
-    - name: {{ target }}
-    - user: dehydrated
-    - key: {{ target_config['host_key'].split(' ')[1] }}
-    - enc: ssh-ed25519
-    - hash_known_hosts: False
-{%- endif %} {#- close host_key check #}
-{%- endfor %} {#- close targets loop #}
-
-{%- endfor %} {#- close certificates loop #}
+{%- endfor %} {#- close second certificates loop #}
 
 profile_dehydrated_{{ instance }}_timer:
   service.running:
