@@ -1,1 +1,244 @@
---- {}
+---
+atlas-login.infra.opensuse.org:
+  sans:
+    - atlas-login1.infra.opensuse.org
+    - atlas-login2.infra.opensuse.org
+  targets:
+    - macro: atlas
+atlas.opensuse.org:
+  sans:
+    - atlas1.opensuse.org
+    - atlas2.opensuse.org
+  targets:
+    - macro: atlas
+beans.opensuse.org:
+  targets:
+    - macro: atlas
+calendar.opensuse.org:
+  targets:
+    - macro: atlas
+chat.opensuse.org:
+  sans:
+    - matrix.opensuse.org
+    - dimension.opensuse.org
+    - webhook.opensuse.org
+  targets:
+    - macro: atlas
+code.opensuse.org:
+  sans:
+    - pages.opensuse.org
+    - ev.opensuse.org
+    - releases.opensuse.org
+  targets:
+    - macro: atlas
+community.opensuse.org:
+  targets:
+    - macro: atlas
+counter.opensuse.org:
+  sans:
+    - countdown.opensuse.org
+  targets:
+    - macro: atlas
+deadservices.opensuse.org:
+  sans:
+    - connect.opensuse.org
+    - fate.opensuse.org
+    - features.opensuse.org
+    - idea.opensuse.org
+    - ideas.opensuse.org
+    - hellocf.opensuse.org
+    - moodle.opensuse.org
+    - users.opensuse.org
+  targets:
+    - macro: atlas
+elections.opensuse.org:
+  targets:
+    - macro: atlas
+etherpad.opensuse.org:
+  targets:
+    - macro: atlas
+events.opensuse.org:
+  targets:
+    - macro: atlas
+factory-dashboard.opensuse.org:
+  targets:
+    - macro: atlas
+forums.opensuse.org:
+  targets:
+    - macro: atlas
+gcc.opensuse.org:
+  targets:
+    - macro: atlas
+hackweek.opensuse.org:
+  targets:
+    - macro: atlas
+jekyll.opensuse.org:
+  sans:
+    - 101.opensuse.org
+    - planet.opensuse.org
+    - news.opensuse.org
+    - search.opensuse.org
+    - security.opensuse.org
+    - universe.opensuse.org
+    - monitor.opensuse.org
+    - yast.opensuse.org
+  targets:
+    - macro: atlas
+kubic.opensuse.org:
+  sans:
+    - microos.opensuse.org
+  targets:
+    - macro: atlas
+lists.opensuse.org:
+  targets:
+    - macro: atlas
+lnt.opensuse.org:
+  targets:
+    - macro: atlas
+manpages.opensuse.org:
+  sans:
+    - man.opensuse.org
+  targets:
+    - macro: atlas
+metrics.opensuse.org:
+  targets:
+    - macro: atlas
+mirrors.opensuse.org:
+  targets:
+    - macro: atlas
+obs-reviewlab.opensuse.org:
+  targets:
+    - macro: atlas
+opensuse.org:
+  sans:
+    - www.opensuse.org
+    - get.opensuse.org
+    - contribute.opensuse.org
+    - doc.opensuse.org
+  targets:
+    - macro: atlas
+opi-proxy.opensuse.org:
+  targets:
+    - macro: atlas
+osc-collab.opensuse.org:
+  targets:
+    - macro: atlas
+paste.opensuse.org:
+  targets:
+    - macro: atlas
+pmya.opensuse.org:
+  targets:
+    - macro: atlas
+progress.opensuse.org:
+  targets:
+    - macro: atlas
+redirector.opensuse.org:
+  sans:
+    - redirector-prg2.opensuse.org
+    - docs.opensuse.org
+    - activedoc.opensuse.org
+    - www.activedoc.opensuse.org
+    - rtfm.opensuse.org
+    - apparmor.opensuse.org
+    - bar.opensuse.org
+    - board.opensuse.org
+    - bugs.opensuse.org
+    - coc.opensuse.org
+    - education.opensuse.org
+    - conference.opensuse.org
+    - party.opensuse.org
+    - summit.opensuse.org
+    - git.opensuse.org
+    - help.opensuse.org
+    - ignite-stage.opensuse.org
+    - ignite.opensuse.org
+    - license.opensuse.org
+    - tube.opensuse.org
+    - upgrade.opensuse.org
+    - dewiki.opensuse.org
+    - fi.opensuse.org
+    - is.opensuse.org
+    - vi.opensuse.org
+    - opensuse.bar
+    - www.opensuse.bar
+  targets:
+    - macro: atlas
+rpmlint.opensuse.org:
+  targets:
+    - macro: atlas
+s3.opensuse-project.net:
+  targets:
+    - macro: atlas
+static.opensuse.org:
+  sans:
+    - fontinfo.opensuse.org
+    - people.opensuse.org
+    - lizards.opensuse.org
+    - html5test.opensuse.org
+    - shop.opensuse.org
+    - studioexpress.opensuse.org
+    - oom.opensuse.org
+  targets:
+    - macro: atlas
+status.opensuse.org:
+  sans:
+    - status1.opensuse.org
+    - status3.opensuse.org
+  targets:
+    - macro: atlas
+survey.opensuse.org:
+  targets:
+    - macro: atlas
+svn.opensuse.org:
+  sans:
+    - kernel.opensuse.org
+  targets:
+    - macro: atlas
+test.opensuse.org:
+  sans:
+    - news-test.opensuse.org
+    - search-test.opensuse.org
+    - www-test.opensuse.org
+    - paste-test.opensuse.org
+    - events-test.opensuse.org
+    - progress-test.opensuse.org
+    - tsp-test.opensuse.org
+    - en-test.opensuse.org
+    - osc-collab-test.opensuse.org
+  targets:
+    - macro: atlas
+tsp.opensuse.org:
+  targets:
+    - macro: atlas
+weblate.opensuse.org:
+  sans:
+    - i18n.opensuse.org
+    - l10n.opensuse.org
+  targets:
+    - macro: atlas
+wiki.opensuse.org:
+  sans:
+    - cn.opensuse.org
+    - cs.opensuse.org
+    - de.opensuse.org
+    - el.opensuse.org
+    - en.opensuse.org
+    - es.opensuse.org
+    - files.opensuse.org
+    - fr.opensuse.org
+    - hu.opensuse.org
+    - it.opensuse.org
+    - ja.opensuse.org
+    - languages.opensuse.org
+    - nl.opensuse.org
+    - old-en.opensuse.org
+    - old-de.opensuse.org
+    - pl.opensuse.org
+    - pt.opensuse.org
+    - ru.opensuse.org
+    - sv.opensuse.org
+    - tr.opensuse.org
+    - zh.opensuse.org
+    - zh-tw.opensuse.org
+  targets:
+    - macro: atlas
