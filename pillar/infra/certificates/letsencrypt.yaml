@@ -185,7 +185,7 @@ status.opensuse.org:
     - status1.opensuse.org
     - status3.opensuse.org
   targets:
-    - macro: atlas
+    - macro: status
 survey.opensuse.org:
   targets:
     - macro: atlas

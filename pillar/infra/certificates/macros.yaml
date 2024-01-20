@@ -17,3 +17,10 @@ mx:
     - mx2
   services:
     - postfix
+status:
+  hosts:
+    - status1
+    - status2
+    - status3
+  services:
+    - apache2
