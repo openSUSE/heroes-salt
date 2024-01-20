@@ -14,11 +14,11 @@ KEY_PEM="$SRC_BASE/privkey.pem"
 COMBINED_PEM="$SRC_BASE/combined.pem"
 FAILED='/var/log/dehydrated-{{ instance }}/deployment_failures/{{ certificate }}'
 DATE="$(date -Iseconds)"
-EXIT=0
+STATUS=0
 
 fail() {
   echo "$1,${2:-local},$DATE" >> "$FAILED"
-  EXIT=1
+  STATUS=1
 }
 
 if ! { [ -r "$CRT_PEM" ] && [ -r "$KEY_PEM" ] ; }
@@ -86,7 +86,7 @@ fi
 
 {%- endfor %}
 
-if [ "$EXIT" = 0 ]
+if [ "$STATUS" = 0 ]
 then
   if [ -f "$FAILED" ]
   then
@@ -95,4 +95,4 @@ then
 fi
 
 rm "$COMBINED_PEM"
-exit "$EXIT"
+exit 0
