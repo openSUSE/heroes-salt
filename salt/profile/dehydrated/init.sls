@@ -52,11 +52,11 @@ profile_dehydrated_{{ instance }}_config_base:
     - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
         - 'BASEDIR={{ topdir }}'
-        - 'CONFIG_D="${BASEDIR}/config.d"'
+        - 'CONFIG_D="${BASEDIR}config.d"'
         - 'DEHYDRATED_GROUP="dehydrated"'
         - 'DEHYDRATED_USER="dehydrated"'
-        - 'DOMAINS_TXT="${BASEDIR}/salt-domains.txt"'
-        - 'HOOK="${BASEDIR}/hook.sh"'
+        - 'DOMAINS_TXT="${BASEDIR}salt-domains.txt"'
+        - 'HOOK="${BASEDIR}hook.sh"'
         - 'HOOK_CHAIN="yes"'
         - 'LOCKFILE="/run/dehydrated/lock-{{ instance }}"'
         - 'WELLKNOWN=/var/lib/acme-challenge'
