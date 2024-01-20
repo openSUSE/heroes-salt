@@ -56,6 +56,7 @@ then
     case "$SSH_STATUS" in
       0 )
         echo 'Reloaded {{ service }}'
+        ;;
       1 )
         fail 'reload' '{{ target }}'
         echo 'Failed to reload {{ service }}'
