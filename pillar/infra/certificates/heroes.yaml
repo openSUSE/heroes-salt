@@ -7,4 +7,4 @@ witch1.infra.opensuse.org:
     - host: witch1
       services:
         - salined
-        - salt
+        - salt-api
