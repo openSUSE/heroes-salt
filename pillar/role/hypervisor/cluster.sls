@@ -25,3 +25,16 @@ os-update:
     - corosync
     - pacemaker
     - sbd
+
+sudoers:
+  groups:
+    hypervisor.cluster-admins:
+      # commands used by lun_provision
+      - >-
+        {{ grains['host'] }}=(root) NOPASSWD:
+        /sbin/multipath -f [[\:alnum\:]]*,
+        /sbin/multipath -ll [[\:alnum\:]]*,
+        /sbin/multipathd -k\ disablequeueing\ multipath\ [[\:alnum\:]]*,
+        /sbin/multipathd -k\ resize\ map\ [[\:alnum\:]]*,
+        /usr/bin/rescan-scsi-bus.sh -s,
+        /usr/bin/rescan-scsi-bus.sh --luns=[[\:digit\:]]*
