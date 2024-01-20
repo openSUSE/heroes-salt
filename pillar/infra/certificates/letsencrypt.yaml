@@ -95,6 +95,12 @@ lists.opensuse.org:
 lnt.opensuse.org:
   targets:
     - macro: atlas
+mail.opensuse.org:
+  sans:
+    - mx1.opensuse.org
+    - mx2.opensuse.org
+  targets:
+    - macro: mx
 manpages.opensuse.org:
   sans:
     - man.opensuse.org

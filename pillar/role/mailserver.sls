@@ -52,11 +52,10 @@ profile:
       smtpd_use_tls: 'yes'
       smtpd_tls_security_level: 'may'
       smtpd_tls_loglevel: 1
-      smtpd_tls_CAfile: '/etc/postfix/LetsEncryptCA_chain.crt'
       smtpd_tls_CApath: '/etc/ssl/certs'
-      smtpd_tls_cert_file: '/etc/ssl/services/star_opensuse_org_rsa_letsencrypt_fullchain_key_dh.pem'
+      smtpd_tls_cert_file: '/etc/ssl/services/mail.opensuse.org/fullchain.pem'
       smtpd_tls_key_file: '$smtpd_tls_cert_file'
-      smtpd_tls_eccert_file: '/etc/ssl/services/star_opensuse_org_ecdsa_letsencrypt_fullchain_key_dh.pem'
+      smtpd_tls_eccert_file: '/etc/ssl/services/mail.opensuse.org/privkey.pem'
       smtpd_tls_eckey_file: '$smtpd_tls_eccert_file'
       # 20200709 I have some names in /etc/hosts that are needed
       smtp_host_lookup: 'native'
