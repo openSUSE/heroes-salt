@@ -1,0 +1,72 @@
+# yamllint disable rule:line-length
+---
+groups:
+  - name: ioo-node_health
+    rules:
+      - alert: Node down
+        expr: up{job="nodes"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          title: >-
+            Host {{ $labels.instance }} down
+          description: >-
+            Failed to scrape node exporter on {{ $labels.instance }} for over 1 minute, host seems to be down.
+
+      - alert: Low disk space
+        expr: >-
+          ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10
+          and
+          ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+          and
+          ON (instance, device, mountpoint) node_filesystem_readonly == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Host {{ $labels.instance }} low on disk space
+          description: >-
+            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is filled over 90%.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+
+      - alert: Low disk space predicted
+        expr: >-
+          ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10
+          and
+          ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[1h], 24 * 3600) < 0
+          and
+          ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: >-
+            Host {{ $labels.instance }} might run low on disk space
+          description: >-
+            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is predicted to run out of space within the next 24 hours at the current write rate\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+
+      - alert: Low memory
+        expr: >-
+          (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10) * on(instance)
+          group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: >-
+            Host {{ $labels.instance }} running out of memory
+          description: >-
+            Memory is filling up on {{ $labels.instance }} (< 10% left).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+
+      - alert: High CPU load
+        expr: >-
+          (sum by (instance) (avg by (mode, instance) (rate(node_cpu_seconds_total{mode!="idle"}[2m]))) > 0.8) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: >-
+            Host {{ $labels.instance }} high on CPU usage
+          description: >-
+            CPU load on {{ $labels.instance }} is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}

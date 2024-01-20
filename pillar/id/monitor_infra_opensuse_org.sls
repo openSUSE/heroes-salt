@@ -19,3 +19,4 @@ roles:
   - syslog
   - monitoring
   - monitoring.master
+  - monitoring.alertmanager
