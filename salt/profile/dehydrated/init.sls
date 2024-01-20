@@ -137,7 +137,7 @@ profile_dehydrated_{{ instance }}_known_hosts_{{ target }}:
   ssh_known_hosts.present:
     - name: {{ target }}
     - user: dehydrated
-    - key: {{ target_config['host_key'].lstrip('ssh-ed25519 ') }}
+    - key: {{ target_config['host_key'].split(' ')[1] }}
     - enc: ssh-ed25519
     - hash_known_hosts: False
 {%- endif %} {#- close host_key check #}
