@@ -17,13 +17,14 @@ RUN_TEST='salt-call --local --retcode-passthrough state.show_highstate'
 STATUS=0
 
 write_grains() {
-    $SUDO sed -i -e "s/\(country:\).*/\1 $1/" -e "s/\(domain:\).*/\1 $3/" -e "s/\(virtual:\).*/\1 $2/" /etc/salt/grains
-    echo_INFO "Grains: country: $1, domain: $3, virtual: $2"
+    $SUDO sed -i -e "s/\(country:\).*/\1 $1/" -e "s/\(domain:\).*/\1 $2/" -e "s/\(virtual:\).*/\1 $3/" /etc/salt/grains
+    echo_INFO "Grains: country: $1, domain: $2, virtual: $3"
 }
 
 show_highstate() {
+    local domain="$2"
     local outfile="$domain.txt"
-    write_grains "$country" "$virtual" "$domain"
+    write_grains "$1" "$domain" "$3"
     $RUN_TEST > "$outfile" 2>&1
     _STATUS=$?
     # We ignore exit code 2 as it means that an empty file is produced
@@ -47,11 +48,7 @@ show_highstate() {
 
 ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
 for country in "${ALL_LOCATIONS[@]}"; do
-    virtual='kvm'
-    DOMAINS=( $(bin/get_valid_custom_grains.py -d "$country") )
-    for domain in "${DOMAINS[@]}"; do
-        show_highstate
-    done
+    show_highstate "$country" 'infra.opensuse.org' 'kvm'
 done
 
 exit "$STATUS"

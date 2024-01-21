@@ -7,13 +7,7 @@ global:
     - no
     # yamllint enable rule:truthy
     - unknown
-localized:
-  de:
-    default_domain: infra.opensuse.org
-    domains: infra.opensuse.org
-  us:
-    default_domain: infra.opensuse.org
-    domains: infra.opensuse.org
-  cz:
-    default_domain: infra.opensuse.org
-    domains: infra.opensuse.org
+countries:
+  - de
+  - us
+  - cz
