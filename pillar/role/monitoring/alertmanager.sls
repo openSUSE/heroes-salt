@@ -27,12 +27,18 @@ prometheus:
           route:
             group_by:
               - alertname
-            receiver: irc
+            receiver: opensuse-beta
           receivers:
-            - name: irc
+            - name: opensuse-beta
               webhook_configs:
                 - url: http://ipv6-localhost:8008/opensuse-admin-alerts
                   send_resolved: true
+              email_configs:
+                - to: georg+opensuse@syscid.com
+                  from: alertmanager@monitor.infra.opensuse.org
+                  require_tls: false
+                  smarthost: relay.infra.opensuse.org:25
+                  send_resolved: yes
         environ:
           environ_arg_name: ARGS  # SUSE package specific
           args:
