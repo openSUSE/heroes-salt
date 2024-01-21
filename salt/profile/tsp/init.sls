@@ -1,3 +1,5 @@
+{%- from 'macros.jinja' import puma_service_dropin %}
+
 tsp_dependencies:
   pkg.installed:
     - pkgs:
@@ -104,10 +106,14 @@ tsp_assets_precompile:
     - watch_in:
       - module: tsp_restart
 
+{{ puma_service_dropin('tsp') }}
+
 tsp_service:
   service.running:
     - name: tsp
     - enable: True
+    - watch:
+        - file: tsp_puma_service_custom
 
 tsp_restart:
   module.wait:
