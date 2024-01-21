@@ -52,11 +52,9 @@ profile:
       smtpd_use_tls: 'yes'
       smtpd_tls_security_level: 'may'
       smtpd_tls_loglevel: 1
-      smtpd_tls_CApath: '/etc/ssl/certs'
-      smtpd_tls_cert_file: '/etc/ssl/services/mail.opensuse.org/fullchain.pem'
-      smtpd_tls_key_file: '$smtpd_tls_cert_file'
-      smtpd_tls_eccert_file: '/etc/ssl/services/mail.opensuse.org/privkey.pem'
-      smtpd_tls_eckey_file: '$smtpd_tls_eccert_file'
+      smtpd_tls_CApath: /etc/ssl/certs
+      smtpd_tls_eccert_file: /etc/ssl/services/mail.opensuse.org/fullchain.pem
+      smtpd_tls_eckey_file: /etc/ssl/services/mail.opensuse.org/privkey.pem
       # 20200709 I have some names in /etc/hosts that are needed
       smtp_host_lookup: 'native'
       # 20200708 see http://www.postfix.org/SMTPUTF8_README.html
