@@ -1,3 +1,5 @@
+{%- from 'macros.jinja' import puma_service_dropin %}
+
 discourse_pgks:
   pkg.installed:
     - pkgs:
@@ -48,14 +50,7 @@ discourse_puma_rb:
     - name: /srv/www/vhosts/discourse/config/puma.rb
     - regex: ^stdout_redirect
 
-discourse_puma_service_override:
-  file.managed:
-    - name: /etc/systemd/system/discourse-puma.service.d/salt.conf
-    - makedirs: True
-    - contents:
-        - {{ pillar['managed_by_salt'] | yaml_encode }}
-        - '[Service]'
-        - Environment=RAILS_LOG_TO_STDOUT=1
+{{ puma_service_dropin('discourse-puma') }}
 
 discourse_target:
   service.running:
@@ -73,7 +68,7 @@ discourse_puma_service:
     - enable: True
     - watch:
         - file: discourse_puma_rb
-        - file: discourse_puma_service_override
+        - file: discourse-puma_puma_service_custom
 
 discourse_sidekiq_service:
   service.running:
