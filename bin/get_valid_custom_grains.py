@@ -18,39 +18,19 @@ def get_valid_global_grains():
     return get_valid_custom_grains()['global']
 
 
-def get_all_valid_localized_grains():
-    return get_valid_custom_grains()['localized']
-
-
-def get_all_valid_domains(country):
-    all_valid_domains = get_all_valid_localized_grains()[country]['domains']
-    if isinstance(all_valid_domains, str):
-        # convert to list
-        all_valid_domains = [all_valid_domains]
-    print('\n'.join(all_valid_domains))
-
-
-def get_default_domain(country):
-    print(get_all_valid_localized_grains()[country]['default_domain'])
+def get_countries():
+    return get_valid_custom_grains()['countries']
 
 
 def print_valid_localized_grains():
     results = []
-    all_valid_localized_grains = get_all_valid_localized_grains()
-    for country, items in all_valid_localized_grains.items():
+    for country in get_countries():
         results.append('%s' % (country))
     print('\n'.join(results))
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the pillar/valid_custom_grains.py and returns a list of valid custom grains in the form of "country".')
-    parser.add_argument('-d', nargs=1, help='Returns a list of the valid domains of a location.')
-    parser.add_argument('--default-domain', nargs=1, help='Returns the default domain of a location.')
     args = parser.parse_args()
 
-    if args.d:
-        get_all_valid_domains(args.d[0])
-    elif args.default_domain:
-        get_default_domain(args.default_domain[0])
-    else:
-        print_valid_localized_grains()
+    print_valid_localized_grains()

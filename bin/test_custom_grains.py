@@ -7,7 +7,7 @@ import sys
 
 import yaml
 from get_roles import read_file_skip_jinja
-from get_valid_custom_grains import get_all_valid_localized_grains, get_valid_global_grains
+from get_valid_custom_grains import get_countries, get_valid_global_grains
 
 
 def error_msg(sls, key, valid_values):
@@ -40,7 +40,7 @@ def test_custom_grain(mygrains, sls, key, valid_values, status):
 status = 0
 
 valid_global_grains = get_valid_global_grains()
-all_valid_localized_grains = get_all_valid_localized_grains()
+all_countries = get_countries()
 
 all_ids = sorted(os.listdir('pillar/id'))
 for sls in all_ids:
@@ -53,13 +53,7 @@ for sls in all_ids:
     for key, valid_values in valid_global_grains.items():
         status = test_custom_grain(mygrains, sls, key, valid_values, status)
 
-    try:
-        valid_localized_grains = all_valid_localized_grains[mygrains['country']]
-        for ignored_key in ['domains', 'default_domain']:
-            valid_localized_grains.pop(ignored_key, None)
-        for key, valid_values in valid_localized_grains.items():
-            status = test_custom_grain(mygrains, sls, key, valid_values, status)
-    except KeyError:
-        status = error_msg(sls, 'country', all_valid_localized_grains.keys())
+    if 'country' not in mygrains or mygrains['country'] not in all_countries:
+        status = error_msg(sls, 'country', all_countries)
 
 sys.exit(status)
