@@ -44,6 +44,7 @@ prometheus:
           args:
             cluster.advertise-address: '{{ grains['fqdn_ip6'][0] | ipwrap }}:9904'
             cluster.listen-address: ''  # TODO: configure HA
+            web.external-url: http://monitor.infra.opensuse.org:9093
 
 zypper:
   packages:
