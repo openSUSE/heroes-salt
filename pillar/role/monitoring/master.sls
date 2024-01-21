@@ -16,6 +16,9 @@ prometheus:
                   - targets:
                       - monitor.infra.opensuse.org:9093
 
+          rule_files:
+            - /etc/prometheus/rules/*.yml
+
           global:
             scrape_interval: 20s
             evaluation_interval: 30s
