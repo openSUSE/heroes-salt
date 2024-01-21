@@ -36,7 +36,7 @@ prometheus:
         environ:
           environ_arg_name: ARGS  # SUSE package specific
           args:
-            cluster.advertise-address: '{{ grains['fqdn_ip6'][0] | ipwrap }}'
+            cluster.advertise-address: '{{ grains['fqdn_ip6'][0] | ipwrap }}:9904'
             cluster.listen-address: ''  # TODO: configure HA
 
 zypper:
