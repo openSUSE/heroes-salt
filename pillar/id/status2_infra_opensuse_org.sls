@@ -15,4 +15,5 @@ grains:
     - status3.opensuse.org
   weburls:
     - https://status2.opensuse.org
-roles: []
+roles:
+  - status
