@@ -27,8 +27,10 @@ groups:
         annotations:
           title: >-
             Host {{ $labels.instance }} low on disk space
-          description: >-
-            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is filled over 90%.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+          description: |
+            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is filled over 90%.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
 
       - alert: Low disk space predicted
         expr: >-
@@ -43,8 +45,10 @@ groups:
         annotations:
           summary: >-
             Host {{ $labels.instance }} might run low on disk space
-          description: >-
-            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is predicted to run out of space within the next 24 hours at the current write rate\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+          description: |
+            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is predicted to run out of space within the next 24 hours at the current write rate
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
 
       - alert: Low memory
         expr: >-
@@ -56,8 +60,10 @@ groups:
         annotations:
           summary: >-
             Host {{ $labels.instance }} running out of memory
-          description: >-
-            Memory is filling up on {{ $labels.instance }} (< 10% left).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+          description: |
+            Memory is filling up on {{ $labels.instance }} (< 10% left).
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
 
       - alert: High CPU load
         expr: >-
@@ -68,5 +74,7 @@ groups:
         annotations:
           summary: >-
             Host {{ $labels.instance }} high on CPU usage
-          description: >-
-            CPU load on {{ $labels.instance }} is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+          description: |
+            CPU load on {{ $labels.instance }} is > 80%
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
