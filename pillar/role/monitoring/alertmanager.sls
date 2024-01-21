@@ -33,6 +33,11 @@ prometheus:
               webhook_configs:
                 - url: http://ipv6-localhost:8008/opensuse-admin-alerts
                   send_resolved: true
+        environ:
+          environ_arg_name: ARGS  # SUSE package specific
+          args:
+            cluster.advertise-address: {{ grains['fqdn_ip6'][0] }}
+            cluster.listen-address: ''  # TODO: configure HA
 
 zypper:
   packages:
