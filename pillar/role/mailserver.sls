@@ -19,7 +19,7 @@ profile:
       inet_interfaces: {{ grains['fqdn_ip6'][0] }}
       mydestination: '$myhostname, localhost.$mydomain'
       myhostname: '{{ grains.host }}.opensuse.org'
-      mynetworks: '[::1]/128, [2a07:de40:b27e:1204::]/64, [2a07:de40:b27e:1203::]/64'
+      mynetworks: '[::1]/128, [2a07:de40:b27e:1201::]/64, [2a07:de40:b27e:1203::]/64, [2a07:de40:b27e:1204::]/64'
       mynetworks_style: 'subnet'
       alias_maps: ''
       canonical_maps: ''
