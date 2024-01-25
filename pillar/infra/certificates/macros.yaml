@@ -11,6 +11,7 @@ hel:
     - hel2
   services:
     - haproxy
+    - pgbouncer
 mx:
   hosts:
     - mx1

@@ -1,4 +1,18 @@
 ---
+hel.infra.opensuse.org:
+  sans:
+    - dbproxy.infra.opensuse.org
+    - hel1.infra.opensuse.org
+    - hel2.infra.opensuse.org
+    - mysql.infra.opensuse.org
+    - postgresql.infra.opensuse.org
+  targets:
+    - macro: hel
+idm.infra.opensuse.org:
+  sans:
+    - ldap.infra.opensuse.org
+  targets:
+    - macro: hel
 witch1.infra.opensuse.org:
   sans:
     - witch.infra.opensuse.org
