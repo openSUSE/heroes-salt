@@ -23,6 +23,10 @@ libvirt:
     max_client_requests: 256
     max_workers: 128
 
+multipath:
+  blacklist:
+    protocol: ^scsi:ata$
+
 os-update:
   ignore_services_from_restart:
     - corosync
