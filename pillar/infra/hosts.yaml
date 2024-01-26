@@ -380,6 +380,17 @@ kali:
   legacy_boot: true
   ram: 8192MB
   vcpu: 8
+kani-test:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b394f7834
+  interfaces:
+    os-kani:
+      ip6: 2a07:de40:b27e:1210::51/64
+      mac: 16:84:bc:ee:4c:51
+      source: x-os-kani
+  ram: 1024MB
+  vcpu: 1
 kani1:
   cluster: falkor
   disks:
