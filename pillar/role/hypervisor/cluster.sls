@@ -23,7 +23,8 @@ hostsfile:
 libvirt:
   libvirtd:
     auth_tcp: none
-    max_client_requests: 10
+    max_client_requests: 256
+    max_workers: 128
 
 os-update:
   ignore_services_from_restart:
