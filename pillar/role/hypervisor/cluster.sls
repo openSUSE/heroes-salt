@@ -20,6 +20,11 @@ hostsfile:
   domain: infra.opensuse.org
   minions: falkor*.infra.opensuse.org
 
+libvirt:
+  libvirtd:
+    auth_tcp: none
+    max_client_requests: 10
+
 os-update:
   ignore_services_from_restart:
     - corosync
