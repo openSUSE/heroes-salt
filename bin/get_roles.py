@@ -40,6 +40,17 @@ def get_roles_of_one_minion(minion):
     return roles
 
 
+def get_minions_with_role(role):
+    minions = []
+    for sls in os.listdir('pillar/id'):
+      if sls.endswith('.sls'):
+          for item in get_roles_of_one_minion(sls):
+              if item == role:
+                  minions.append(os.path.splitext(sls)[0].replace('_', '.'))
+
+    return sorted(minions)
+
+
 def get_roles():
     roles = []
 
@@ -72,16 +83,23 @@ def print_roles():
     parser.add_argument('-o', '--out', choices=['bash', 'python', 'yaml'], help='Select different output format. Options: bash (default), python, yaml')
     parser.add_argument('-i', '--including', help='Only print roles including the specified string in their state file.')
     parser.add_argument('-m', '--minion', help='Only print roles assigned to the specified minion.')
+    parser.add_argument('-r', '--role', help='Print minions the specified role is assigned to.')
     args = parser.parse_args()
 
     if args.including and args.minion:
       print('Combining --including and --minion is not supported. But you can send a patch for it. :)')
       exit(1)
 
+    if ( args.including or args.minion ) and args.role:
+      print('Combining --role with --including or --minion is not possible.')
+      exit(1)
+
     if args.including:
         roles = get_roles_including(args.including)
     elif args.minion:
         roles = get_roles_of_one_minion(args.minion)
+    elif args.role:
+        roles = get_minions_with_role(args.role)
     else:
         roles = get_roles()
     if args.out == 'python':
