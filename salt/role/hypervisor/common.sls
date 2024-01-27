@@ -9,3 +9,4 @@ include:
   - libvirt
   - infrastructure.libvirt.domains
   - profile.idmapd
+  - profile.fetch-image
