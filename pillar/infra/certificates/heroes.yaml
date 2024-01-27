@@ -13,6 +13,16 @@ idm.infra.opensuse.org:
     - ldap.infra.opensuse.org
   targets:
     - macro: hel
+kani1.infra.opensuse.org:
+  targets:
+    - host: kani1
+      services:
+        - kanidm
+kani2.infra.opensuse.org:
+  targets:
+    - host: kani2
+      services:
+        - kanidm
 witch1.infra.opensuse.org:
   sans:
     - witch.infra.opensuse.org
