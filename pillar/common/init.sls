@@ -19,6 +19,12 @@ include:
   - .sysctl
   - .update
 
+apparmor:
+  profiles:
+    usr.sbin.chronyd:
+      source: salt://profile/apparmor/files/chronyd.apparmor.jinja
+      template: jinja
+
 chrony:
   driftfile: /var/lib/chrony/drift
   logdir: /var/log/chrony

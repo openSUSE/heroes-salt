@@ -1,0 +1,39 @@
+{{ pillar['managed_by_salt'] }}
+
+# Copyright (C) 2024 Georg Pfuetzenreuter <mail+apparmor@georg-pfuetzenreuter.net>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#include <tunables/global>
+
+/usr/sbin/chronyd {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability chown,
+  capability dac_override,
+  capability dac_read_search,
+  capability setgid,
+  capability setuid,
+  capability sys_time,
+
+  /run/chronyd.pid w,
+  /usr/sbin/chronyd mr,
+  owner /etc/chrony.conf r,
+  owner /etc/chrony.d/{,*} r,
+  owner /run/chrony/{,chronyd.pid,chronyd.sock} w,
+  owner /var/lib/chrony/drift{,.tmp} rw,
+
+  include if exists <local/usr.sbin.chronyd>
+}
