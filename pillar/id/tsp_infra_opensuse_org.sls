@@ -8,8 +8,6 @@ grains:
   description: Travel Support Program (tsp) webapp server
   documentation: []
   responsible:
-    - ancorgs
-    # IGonzalezSosa (no heroes account yet)
     - hellcp
   partners: []
   weburls:

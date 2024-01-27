@@ -9,7 +9,7 @@ grains:
   documentation:
     - https://matomo.org/
   responsible:
-    - lars@linux-schulserver.de
+    - lrupp
   partners: []
   weburls:
     - https://beans.opensuse.org/

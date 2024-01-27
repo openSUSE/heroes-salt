@@ -7,10 +7,7 @@ grains:
   aliases: []
   description: Externally hosted mirror distribution source (HTTP/rsync) for openSUSE packages
   documentation: []
-  responsible:
-    - kbabioch
-    - mcaj
-    - rklein
+  responsible: []
   partners: []
   weburls: []
 roles: []
