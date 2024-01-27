@@ -38,3 +38,7 @@ sudoers:
         /sbin/multipathd -k\ resize\ map\ [[\:alnum\:]]*,
         /usr/bin/rescan-scsi-bus.sh -s,
         /usr/bin/rescan-scsi-bus.sh --luns=[[\:digit\:]]*
+
+sysctl:
+  params:
+    net.ipv6.route.max_size: 8192
