@@ -80,11 +80,22 @@ test_nginx:
         job: prepare_includes
     strategy: depend
 
-deploy_job:
+.deploy:
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'production'
   stage: deploy
-  script:
-    - "rsync -a --delete --super --owner --group --chown=477:479 --chmod='u=rwX,g=rX,o=' $PWD/ rsync://saltpush@witch1.infra.opensuse.org:873/salt-push/"
   tags:
     - docker
-  rules:
-    - if: $CI_COMMIT_BRANCH == "production"
+
+sync:
+  extends: .deploy
+  script:
+    - "rsync -a --delete --super --owner --group --chown=477:479 --chmod='u=rwX,g=rX,o=' $PWD/ rsync://saltpush@witch1.infra.opensuse.org:873/salt-push/"
+
+deploy:
+  extends: .deploy
+  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-deployment:latest
+  needs:
+    - sync
+  script:
+    - bin/deploy.py --mode test --no-mine-update
