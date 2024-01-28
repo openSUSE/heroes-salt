@@ -30,6 +30,7 @@ extend-select = [
 ]
 ignore = [
   "E501",    # line lengths
+  "FBT002",  # booleans as function arguments
   "PLR2004", # "magic" values which could be descriptive constants
   "PLW2901", # redefined variables in for loops
   "UP015",   # https://github.com/asottile/pyupgrade/issues/249#issuecomment-1879844387
