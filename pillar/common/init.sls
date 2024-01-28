@@ -36,7 +36,6 @@ chrony:
   otherparams:
     {%- if configure_ntp %}
     - logchange 0.5
-    - log measurements statistics tracking rtc
     - makestep 1.0 3
     - noclientlog
     {%- endif %}
