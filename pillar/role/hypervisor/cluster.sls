@@ -17,6 +17,9 @@ hostsfile:
   domain: infra.opensuse.org
   minions: falkor*.infra.opensuse.org
 
+infrastructure:
+  image_type: raw
+
 libvirt:
   libvirtd:
     auth_tcp: none
