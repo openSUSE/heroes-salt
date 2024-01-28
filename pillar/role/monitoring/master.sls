@@ -211,3 +211,9 @@ prometheus:
                     instance: {{ mioo }}
                     job: synapse_room_keys
                     index: 1
+
+        environ:
+          environ_arg_name: ARGS  # SUSE package specific
+          args:
+            web.external-url: http://monitor.infra.opensuse.org:9090
+
