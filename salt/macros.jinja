@@ -1,0 +1,13 @@
+{%- macro puma_service_dropin(service, append=[]) %}
+{{ service }}_puma_service_custom:
+  file.managed:
+    - name: /etc/systemd/system/{{ service }}.service.d/salt.conf
+    - makedirs: True
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - '[Service]'
+        - Environment=RAILS_LOG_TO_STDOUT=1
+        {%- for append in append %}
+        - {{ apend }}
+        {%- endfor %}
+{%- endmacro %}

@@ -1,4 +1,5 @@
-{% set ruby = "ruby3.1" %}
+{%- from 'macros.jinja' import puma_service_dropin %}
+{%- set ruby = "ruby3.1" %}
 
 paste_dependencies:
   pkg.installed:
@@ -89,7 +90,7 @@ paste_assets_precompile:
     - require_in:
       - service: paste_service
     - watch_in:
-      - module: paste_restart
+      - module: paste_service
 {%- endfor %}
 
 /srv/www/paste-o-o/config/master.key:
@@ -105,17 +106,14 @@ paste_assets_precompile:
     - user: paste
     - contents_newline: False
 
+{{ puma_service_dropin('paste') }}
+
 paste_service:
   service.running:
     - name: paste.service
     - enable: True
-
-paste_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: paste.service
-    - require:
-      - service: paste_service
+    - watch:
+        - file: paste_puma_service_custom
 
 paste_sidekiq_service:
   service.running:
@@ -123,11 +121,3 @@ paste_sidekiq_service:
     - enable: True
     - require:
       - service: paste_service
-
-paste_sidekiq_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: paste-sidekiq.service
-    - require:
-      - service: paste_service
-      - service: paste_sidekiq_service
