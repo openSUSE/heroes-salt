@@ -1,4 +1,5 @@
 {%- from 'macros.jinja' import puma_service_dropin %}
+{%- set ruby = 'ruby2.7' %}
 
 tsp_dependencies:
   pkg.installed:
@@ -11,7 +12,7 @@ tsp_dependencies:
       - libQt5WebKit5-devel
       - postgresql-devel
       - postgresql-server-devel
-      - ruby2.7-devel
+      - {{ ruby }}-devel
       - system-user-wwwrun
 
 tsp_user:
@@ -39,50 +40,55 @@ https://github.com/openSUSE/travel-support-program.git:
 
 /srv/www/travel-support-program/tmp:
   file.directory:
-    - user: wwwrun
+    - user: tsp
 
 /srv/www/travel-support-program/log:
   file.directory:
-    - user: wwwrun
+    - user: tsp
 
 tsp_ruby_dependencies:
   cmd.run:
-    - name: bundler install --deployment
+    - name: bundler.{{ ruby }} install --deployment
     - cwd: /srv/www/travel-support-program
     - runas: tsp
+    - unless: bundler.{{ ruby }} check
 
 tsp_db_migration:
   cmd.run:
-    - name: rake db:migrate
+    - name: rake.{{ ruby }} db:migrate
     - cwd: /srv/www/travel-support-program
     - env:
       - RAILS_ENV: 'production'
     - runas: tsp
+    - require:
+        - cmd: tsp_ruby_dependencies
+    - onlyif: rake.{{ ruby }} db:migrate:status | grep down
 
 tsp_assets_precompile:
   cmd.run:
-    - name: rake assets:precompile
+    - name: rake.{{ ruby }} assets:precompile
     - cwd: /srv/www/travel-support-program
     - env:
       - RAILS_ENV: 'production'
     - runas: tsp
+    - onchanges:
+        - git: https://github.com/openSUSE/travel-support-program.git
+    - require:
+        - cmd: tsp_ruby_dependencies
 
 /etc/systemd/system/tsp.service:
   file.managed:
     - source: salt://profile/tsp/files/tsp.service
+    - template: jinja
+    - context:
+        ruby: {{ ruby }}
     - require_in:
       - service: tsp_service
 
 /etc/systemd/system/tsp.socket:
   file.managed:
     - source: salt://profile/tsp/files/tsp.socket
-    - require_in:
-      - service: tsp_service
-
-/srv/www/travel-support-program/config/puma.rb:
-  file.managed:
-    - source: salt://profile/tsp/files/puma.rb
-    - user: tsp
+    - template: jinja
     - require_in:
       - service: tsp_service
 
@@ -93,8 +99,6 @@ tsp_assets_precompile:
     - user: tsp
     - require_in:
       - service: tsp_service
-    - watch_in:
-      - module: tsp_restart
 
 /srv/www/travel-support-program/config/database.yml:
   file.managed:
@@ -103,8 +107,6 @@ tsp_assets_precompile:
     - user: tsp
     - require_in:
       - service: tsp_service
-    - watch_in:
-      - module: tsp_restart
 
 {{ puma_service_dropin('tsp') }}
 
@@ -113,11 +115,7 @@ tsp_service:
     - name: tsp
     - enable: True
     - watch:
+        - file: /etc/systemd/system/tsp.service
+        - file: /srv/www/travel-support-program/config/site.yml
+        - file: /srv/www/travel-support-program/config/database.yml
         - file: tsp_puma_service_custom
-
-tsp_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: tsp
-    - require:
-      - service: tsp_service
