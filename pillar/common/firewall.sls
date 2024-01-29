@@ -5,3 +5,8 @@ firewalld:
       ports:
         tcp:
           - 9100
+  zones:
+    internal:
+      services:
+        - node_exporter
+        - ssh
