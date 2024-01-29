@@ -39,7 +39,7 @@ firewalld:
           - 51123
 
   zones:
-    heroes-internal:
+    internal:
       short: heroes-internal
       description: >-
         Internal VPN network.
@@ -49,7 +49,6 @@ firewalld:
         - wg0
         - wg_siterouting
       services:
-        - ssh
         - monitoring
         - munin-node
     heroes-external:
@@ -83,8 +82,9 @@ firewalld:
         - wireguard
     # NOT USED ZONES -- let it be to keep them clear and not attached to any
     # interface or sources and without any service declared.
-    internal:
-      short: Internal
+    heroes-internal:
+      short: old heroes-internal
+      description: migrated to internal
     work:
       short: Work
     trusted:
