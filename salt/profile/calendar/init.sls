@@ -56,7 +56,7 @@ calendar_db_migration:
     - env:
       - RAILS_ENV: 'production'
     - runas: calendar
-    - unless: bin/rails db:migrate:status | grep 'down'
+    - onlyif: bin/rails db:migrate:status | grep down
 
 calendar_assets_precompile:
   cmd.run:
