@@ -10,9 +10,8 @@ firewalld:
         {%- else %}
         - private
         {%- endif %}
-      services:
-        - ssh
     {%- if country == 'cz' %}
+      services:
         - http
         - https
     {%- else %}
