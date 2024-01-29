@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 [Unit]
 Description=Travel Support Program Rails application
 After=network.target
@@ -5,11 +7,12 @@ After=network.target
 [Service]
 Type=simple
 
-User=wwwrun
+User=tsp
 
 WorkingDirectory=/srv/www/travel-support-program
+Environment="RAILS_ENV=production"
 
-ExecStart=/usr/bin/bundler exec puma -C /srv/www/travel-support-program/config/puma.rb ./config.ru
+ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/travel-support-program/config/puma.rb ./config.ru
 
 Restart=always
 

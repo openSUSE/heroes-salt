@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 [Unit]
 Description=Travel Support Program Socket
 
