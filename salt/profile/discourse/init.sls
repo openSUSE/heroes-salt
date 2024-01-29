@@ -40,10 +40,6 @@ discourse_mail_transport_postmap:
     - runas: root
     - onchanges:
       - file: discourse_mail_transport
-    - watch_in:
-      - service: postfix
-    - require:
-      - pkg: postfix
 
 discourse_puma_rb:
   file.comment:
