@@ -44,7 +44,7 @@ discourse_mail_transport_postmap:
 discourse_puma_rb:
   file.comment:
     - name: /srv/www/vhosts/discourse/config/puma.rb
-    - regex: ^stdout_redirect
+    - regex: ^\s+stdout_redirect
 
 {{ puma_service_dropin('discourse-puma') }}
 
