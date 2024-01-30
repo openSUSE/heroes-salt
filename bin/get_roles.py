@@ -51,7 +51,7 @@ def get_minions_with_role(role):
     return sorted(minions)
 
 
-def get_roles():
+def get_roles(with_base=False):
     roles = []
 
     for sls in os.listdir('pillar/id'):
@@ -63,6 +63,10 @@ def get_roles():
             roles.append(item)
 
     roles = sorted(set(roles))
+
+    if with_base:
+      roles = ['base'] + roles
+
     return roles
 
 
