@@ -67,7 +67,7 @@ hypervisor_image_install:
         pushd {{ image_directory }} >/dev/null &&
         sha256sum -c {{ image_destination_leap }}.sha256 &&
         popd >/dev/null {%- if imagetype == 'raw' -%} &&
-        unxz -k {{ image_destination_leap }}
+        unxz -fk {{ image_destination_leap }}
         {%- endif %}
     {%- if salt['file.file_exists'](image_destination_leap.rstrip('.xz')) %}
     - onchanges:
