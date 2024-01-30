@@ -26,6 +26,7 @@ include:
   - profile.monitoring
   - profile.regional
   - infrastructure.salt.minion
+  - profile.services
   - profile.sysctl
   - profile.motd
   - profile.dehydrated.target
