@@ -53,11 +53,6 @@ discourse_target:
     - name: discourse.target
     - enable: True
 
-discourse_update_service:
-  service.running:
-    - name: discourse-update
-    - enable: True
-
 discourse_puma_service:
   service.running:
     - name: discourse-puma
