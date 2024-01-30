@@ -1,3 +1,4 @@
+{%- set reboot_safe = grains.get('reboot_safe', True) %}
 {%- set host_index  = grains['host'][-1] %}
 {%- set padding     = '%02d' %}
 
@@ -18,7 +19,7 @@
 os-update:
   time: {{ update_time }}
   reboot_cmd: rebootmgr
-  {%- if grains.get('osfullname') == 'openSUSE Leap' %}
+  {%- if grains.get('osfullname') == 'Leap' and not reboot_safe %}
   update_cmd: security
   {%- endif %}
   ignore_services_from_restart:
@@ -27,6 +28,6 @@ os-update:
 rebootmgr:
   window-start: {{ reboot_time }}
   window-duration: 10m
-  {%- if not grains.get('reboot_safe', True) %}
+  {%- if not reboot_safe %}
   strategy: 'off'
   {%- endif %}
