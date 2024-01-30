@@ -50,7 +50,7 @@ for entry in enabled_templates:
     template[entry] = Template(j2.read())
 
   if entry == 'highstate':
-    render[entry] = template[entry].render(roles=get_roles())
+    render[entry] = template[entry].render(roles=get_roles(with_base=True))
   else:
     render[entry] = template[entry].render(roles=get_roles_including(entry))
 
