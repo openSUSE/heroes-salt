@@ -2,6 +2,7 @@ haproxy:
   frontends:
     http:
       acls:
+        - annoying_clients src 47.128.0.0/14  # Amazon EC2
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
@@ -219,6 +220,7 @@ haproxy:
 
     http-misc:
       acls:
+        - annoying_clients src 47.128.0.0/14  # Amazon EC2
         - is_ssl          dst_port    443
 
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}

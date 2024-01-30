@@ -60,6 +60,7 @@ haproxy:
           - X-Forwarded-Proto http unless is_ssl
           - X-Forwarded-Protocol http unless is_ssl
         - deny:
+          - deny_status 429 if annoying_clients
           - if { fc_http_major 1 } !{ req.body_size 0 } !{ req.hdr(content-length) -m found } !{ req.hdr(transfer-encoding) -m found } !{ method CONNECT }
         - set-var(txn.host): hdr(Host)
       httpresponses:
@@ -85,6 +86,8 @@ haproxy:
       options:
         - http-server-close
       httprequests:
+        - deny:
+          - deny_status 429 if annoying_clients
         - set-var(txn.host): hdr(Host)
 
   listens:
