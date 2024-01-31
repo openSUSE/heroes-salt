@@ -75,3 +75,14 @@ profile_certificate_target_facl_{{ certificate }}_pgbouncer:
 {%- endif %}
 
 {%- endfor %} {#- close certificate loop #}
+
+{%- for old in
+      salt['file.find'](top_directory, maxdepth=1, mindepth=1, print='name') |
+      difference(
+        certificates.keys()
+      )
+%}
+profile_certificate_target_delete_{{ old }}:
+  file.absent:
+    - name: {{ top_directory }}{{ old }}
+{%- endfor %}
