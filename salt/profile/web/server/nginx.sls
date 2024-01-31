@@ -1,10 +1,6 @@
-{% set csr_dict = salt['pillar.get']('profile:web:server:nginx:csr', {}) %}
-
 include:
-  - nginx
+  - nginx.config
+  - nginx.servers
 
-{% for domain, csr in csr_dict.items() %}
-/etc/nginx/ssl/{{ domain }}.csr:
-  file.managed:
-    - contents_pillar: profile:web:server:nginx:csr:{{ domain }}
-{% endfor %}
+/etc/nginx/ssl:
+  file.absent
