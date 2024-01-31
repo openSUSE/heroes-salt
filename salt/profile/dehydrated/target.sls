@@ -76,13 +76,15 @@ profile_certificate_target_facl_{{ certificate }}_pgbouncer:
 
 {%- endfor %} {#- close certificate loop #}
 
+{%- for x in ['d', 'f'] %}
 {%- for old in
-      salt['file.find'](top_directory, maxdepth=1, mindepth=1, print='name') |
+      salt['file.find'](top_directory, maxdepth=1, mindepth=1, print='name', type=x) |
       difference(
-        certificates.keys()
+        certificates.keys() if x == 'd' else certificates.keys() | zip_longest('', fillvalue='.pem') | map('join') | list
       )
 %}
 profile_certificate_target_delete_{{ old }}:
   file.absent:
     - name: {{ top_directory }}{{ old }}
+{%- endfor %}
 {%- endfor %}
