@@ -22,20 +22,22 @@ create_fake_certs() {
 
     PRIVATE_KEYS=( $(grep ssl_certificate_key "pillar/role/$role.sls" | cut -d':' -f2) )
     for key in "${PRIVATE_KEYS[@]}"; do
-        if [[ ${key##*.} != 'key' ]]; then
-            echo "pillar/role/$role.sls \"ssl_certificate_key: $key\" should have extension .key"
+        if [[ ! ${key##*.} =~ key|pem ]]; then
+            echo "pillar/role/$role.sls \"ssl_certificate_key: $key\" should have extension .key or .pem"
             STATUS=1
         else
+            mkdir "$(dirname "$key")"
             cp test/fixtures/domain.key "$key"
         fi
     done
 
     PUBLIC_CERTS=( $(grep "ssl_certificate:" "pillar/role/$role.sls" | cut -d':' -f2) )
     for cert in "${PUBLIC_CERTS[@]}"; do
-        if [[ ${cert##*.} != 'crt' ]]; then
-            echo "pillar/role/$role.sls \"ssl_certificate: $cert\" should have extension .crt"
+        if [[ ! ${cert##*.} =~ crt|pem ]]; then
+            echo "pillar/role/$role.sls \"ssl_certificate: $cert\" should have extension .crt or .pem"
             STATUS=1
         else
+            mkdir "$(dirname "$cert")"
             cp test/fixtures/domain.crt "$cert"
         fi
     done
@@ -101,6 +103,7 @@ fi
 
 echo 'Applying nginx ...' >> "$out"
 salt-call --local state.apply nginx >> "$out" || rolestatus=1
+mkdir /etc/ssl/services
 create_fake_certs
 touch_includes "$role"
 
