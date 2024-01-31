@@ -98,7 +98,7 @@ haproxy:
     ldaps:
       balance: source
       bind:
-        {{ bind(bind_v6, 636, 'v6only tfo ssl crt /etc/ssl/services/idm.infra.opensuse.org.full.pem') }}
+        {{ bind(bind_v6, 636, 'v6only tfo ssl crt /etc/ssl/services/idm.infra.opensuse.org.pem') }}
       mode: tcp
       options:
         - tcplog
