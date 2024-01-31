@@ -85,7 +85,7 @@ synapse_appservice_{{ dir }}_file:
     - template: jinja
     - context:
         dir: {{ dir }}
-      script: {{ data.get('script') }}
+        script: {{ data.get('script') }}
     - source: salt://profile/matrix/files/appservice.service
     - require_in:
       - service: {{ dir }}_service
