@@ -1,4 +1,11 @@
 ---
+git.infra.opensuse.org:
+  sans:
+    - gitlab.infra.opensuse.org
+  targets:
+    - host: mickey
+      services:
+        - nginx
 hel.infra.opensuse.org:
   sans:
     - dbproxy.infra.opensuse.org

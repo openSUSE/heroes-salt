@@ -1,8 +1,5 @@
 include:
   - role.common.nginx
-  {% if salt['grains.get']('include_secrets', True) %}
-  - secrets.role.web_gitlab
-  {% endif %}
 
 nginx:
   certificates:
@@ -92,8 +89,8 @@ nginx:
               - server_tokens: 'off'
               ## Strong SSL Security
               ## https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html & https://cipherli.st/
-              - ssl_certificate: /etc/nginx/ssl/gitlab.infra.opensuse.org.crt
-              - ssl_certificate_key: /etc/nginx/ssl/gitlab.infra.opensuse.org.key
+              - ssl_certificate: /etc/ssl/services/git.infra.opensuse.org/fullchain.pem
+              - ssl_certificate_key: /etc/ssl/services/git.infra.opensuse.org/privkey.pem
               # GitLab needs backwards compatible ciphers to retain compatibility with Java IDEs
               - ssl_ciphers: >-  # noqa 204
                   'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'
@@ -145,28 +142,3 @@ nginx:
                   - root: /srv/www/vhosts/gitlab-ce/public
                   - internal
         enabled: True
-profile:
-  web:
-    server:
-      nginx:
-        csr:
-          gitlab.infra.opensuse.org: |
-            -----BEGIN CERTIFICATE REQUEST-----
-            MIIDGzCCAgMCAQAwgZ4xCzAJBgNVBAYTAkRFMRAwDgYDVQQIDAdCYXZhcmlhMRIw
-            EAYDVQQHDAlOdXJlbWJlcmcxETAPBgNVBAoMCG9wZW5TVVNFMQ8wDQYDVQQLDAZI
-            ZXJvZXMxIjAgBgNVBAMMGWdpdGxhYi5pbmZyYS5vcGVuc3VzZS5vcmcxITAfBgkq
-            hkiG9w0BCQEWEmFkbWluQG9wZW5zdXNlLm9yZzCCASIwDQYJKoZIhvcNAQEBBQAD
-            ggEPADCCAQoCggEBALWfuMhdJOdrwvu2hCw0+bRNl8AADSvdBBokQlwpUvbgITNW
-            R3tkj/KgIEO0ohBC7j+a2L3t3qm5tP8ETdETcS96lj1nZ6fTWV1J9qezfpTBRDE3
-            VIK3vykoBqzRMBVq6R4Kajg7SvB9pWRpHBC4xm3vPA4AnSN9skPtMMGpqZxFMbpG
-            sirObzr5Rit4tM53gZy7zgS2n22TqMeEsEYvd/fHxW2bNLvS5BwX+RU1NhRlNFDP
-            I7BQgCOGzgWrKZeukGfzcOhIXMKtnLPQc/65VcGQDRm01ReSBqNbyADuAfbYrFOP
-            yf8V2FlloUG/voM4c5y6WamHv2ZJepel5qxIickCAwEAAaA3MDUGCSqGSIb3DQEJ
-            DjEoMCYwJAYDVR0RBB0wG4IZZ2l0bGFiLmluZnJhLm9wZW5zdXNlLm9yZzANBgkq
-            hkiG9w0BAQsFAAOCAQEAGJ+RU/bwMTZ+/rkCibJD3Ylp+UUBm0qvFTFkEtkptrM2
-            5/im/ogEPgYZnJNBlU+lTba7XL3uyG+eX3A3n8aX9wJE7DMYB7x1qZGkUppd0zIG
-            myRBZlZUBxtGtOLGW5+AcpjHdqk5aeLjaWz3PaX3WD7QnAYx7XWPJMdcFVzzwPoO
-            M+mSd9H9RUx9HOYy2Wolxg+Mx05mvBrTHoTYsgSBhrmSNLVbA7ZgvAx+cc4vh9Q0
-            6NaN7mDmnbT1CVSlQ43o0pRpUIwa9NGD7DQ/Ccrw0FevD/7szXa9KZvXhHdqS7BP
-            PJKOVLf4VbNDRGmkks0fst/NNdNuXRlS4lZMePi6pQ==
-            -----END CERTIFICATE REQUEST-----
