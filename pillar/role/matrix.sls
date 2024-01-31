@@ -133,7 +133,7 @@ profile:
         client_id: 672058964707377152
         appservice_id: 330d1b6dcdf6a2217454f8227d2a960030d341a8baca5fa5c40f4081b6f40acd
         build: True
-        script: /usr/bin/node build/src/discordas.js -c config.yaml -f discord-registration.yaml -p 9001
+        script: /usr/bin/node18 build/src/discordas.js -c config.yaml -f discord-registration.yaml -p 9001
       hookshot:
         repo: https://github.com/matrix-org/matrix-hookshot.git
         branch: main
