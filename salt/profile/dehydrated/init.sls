@@ -179,8 +179,9 @@ profile_dehydrated_{{ instance }}_timer:
       - file: profile_dehydrated_{{ instance }}_hook
 
 profile_dehydrated_{{ instance }}_service:
-  service.running:
-    - name: dehydrated@{{ instance }}.service
+  module.run:
+    - name: service.start
+    - m_name: dehydrated@{{ instance }}.service
     - onchanges:
       - file: profile_dehydrated_{{ instance }}_config_domains
     - require:
