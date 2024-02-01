@@ -5,3 +5,4 @@ include:
 zypper:
   packages:
     hatop: {}
+    socat: {}

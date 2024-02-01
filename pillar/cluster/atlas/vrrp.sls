@@ -1,3 +1,7 @@
+include:
+  - common.keepalived.scripts.haproxy
+  - common.keepalived.scripts.https
+
 {%- if grains['id'] == 'atlas1.infra.opensuse.org' %}
 {%- set config = {
       'state': 'MASTER',
@@ -51,6 +55,10 @@ keepalived:
         track_interface:
           - os-public
           - d-os-public
+        track_script:
+          - check_haproxy_service
+          - check_haproxy_status
+          - check_https_port
       {%- endfor %}
 
 network:
