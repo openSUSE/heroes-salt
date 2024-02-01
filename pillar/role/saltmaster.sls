@@ -60,6 +60,8 @@ salt:
     interface: '::'
     {%- endif %}
     key_cache: sched
+    netapi_enable_clients:
+      - local
     ping_on_rotate: True
     pillar_cache: True
     pillar_cache_backend: memory
