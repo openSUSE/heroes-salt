@@ -1,0 +1,3 @@
+#!/bin/sh -efu
+
+groupadd keepalived_script
