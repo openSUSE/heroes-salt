@@ -1,18 +1,5 @@
 [![openSUSE Heroes](https://img.shields.io/badge/openSUSE-Heroes-brightgreen.svg?logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAk1BMVEUAAABmmQCR0AdmmQB7tAOR0Ad0qwKR0AdmmQB7tAOGwgWR0AeR0AdmmQB0qwKR0AdmmQBmmQBwpgF2rQJ7tAOR0AdvpQF5sQOR0AdyqQKIxQWR0Ad1rQKR0Ad0qwJ3rwKJxgWR0Ad5sgN9tgN%2BuASR0Ad%2FugSLyAaR0Ad7tAN%2BtwOAuwSGwgWIxQWLyQaOzAaR0Ac0QkqCAAAAKXRSTlMADw8fHx8vLz8%2FPz9PX19fb39%2Ff39%2Fj4%2BPn5%2Bfr6%2B%2Fv7%2B%2Fz8%2Ff3%2B%2Fv7%2FtiEuIAAACOSURBVBgZbcHbFkJAAAXQQ8kUJRXRGKHblKHz%2F19XLq3Vg70xSUaejX%2F8uknfRs%2BW%2FJEuAEdzYLL4Sh%2BQHLSLSK0uGuDo5PGp5gzAUbIkC4cK7LwbajfNhSTB3qZqdRKVpMGDHeWsz7UxdS5w4ED5lhCzoIBVcaTLUps9YMX3hj3zSgU6lgh32THcCkz5AIT0Glg8M2spAAAAAElFTkSuQmCC)](https://en.opensuse.org/openSUSE:Heroes) [![pipeline status](https://gitlab.infra.opensuse.org/infra/salt/badges/production/pipeline.svg)](https://gitlab.infra.opensuse.org/infra/salt/commits/production)
 
-Authoritative source of this repository is https://gitlab.infra.opensuse.org/infra/salt. Merge requests can be filed there, but access requires the openSUSE Heroes VPN.
-
-Read-only mirrors are available at https://code.opensuse.org/heroes/salt and https://github.com/openSUSE/heroes-salt.
-
-Documentation can be found in the [openSUSE admin wiki](https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki).
-
-Debugging Salt on a client (i.e. a machine running the salt-minion) is possible using:
-
-`salt-call state.apply -l debug test=True`
-
- ...and remember to have a lot of fun! :-)
-
-
 ```
    _____       ____  _____ __             __
   / ___/____ _/ / /_/ ___// /_____ ______/ /__
@@ -21,6 +8,45 @@ Debugging Salt on a client (i.e. a machine running the salt-minion) is possible 
 /____/\__,_/_/\__//____/\__/\__,_/\___/_/|_|
 ```
 
+Authoritative source of this repository is https://gitlab.infra.opensuse.org/infra/salt. Merge requests can be filed there, but access requires the openSUSE Heroes VPN.
+
+Read-only mirrors are available at https://code.opensuse.org/heroes/salt and https://github.com/openSUSE/heroes-salt.
+
+Documentation can be found in the [openSUSE admin wiki](https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki).
+
+States can be applied from the master:
+
+`salt <target> state.apply`
+
+Debugging Salt on a client (i.e. a machine running the salt-minion) is possible using:
+
+`salt-call state.apply -l debug test=True`
+
+Remember to have a lot of fun! :-)
+
+Tests
+-------------------
+
+Merge requests to the repository trigger a test suite:
+
+- `lint`: Linting of .jinja, .py, .sh, .sls, .yaml files
+- `validate`:
+  - Schema validation of data in pillar/infra/
+  - File header and suffix check
+  - Empty files check
+  - PGP secrets check
+  - Roles check
+- `show_highstate`: Salt `state.show_highstate` for every country
+   with all roles enabled - finds basic pillar/state template errors
+- `test_haproxy`: Validates the HAProxy configuration for all
+  proxy clusters - finds pillar and HAProxy syntax errors
+- `test_nginx`: Validates the NGINX configuration for all roles
+  using NGINX - finds pillar and NGINX syntax errors
+- `test_highstate`: Salt `state.test` for every role - finds most
+  pillar/state errors
+
+If the pipeline succeeds and the merge request gets merged, the new
+data will be copied to all Salt Masters.
 
 Rules and workflows
 -------------------
