@@ -120,12 +120,12 @@ def get_targets(paths):  # noqa: PLR0915  # function needs more statements than 
           roles.append(normalize_role(file))
     return roles
 
-  def append(state, group='minions', targets=None, do_global=False):  # noqa: PLR0912  # logic requires deep nested walking
+  def append(state, group='minions', targets=None, do_all_minions=False, do_highstate=False):  # noqa: PLR0912  # logic requires deep nested walking
     """
     Appends the given states to the return dictionary
     """
     log.debug(f'Appending {state}, {group}, {targets}')
-    if do_global:
+    if do_all_minions:
       group='patterns'
       targets=['*']
     elif targets is None:
@@ -135,7 +135,7 @@ def get_targets(paths):  # noqa: PLR0915  # function needs more statements than 
         targets = {}
         for role in find_roles_including_profile(state):
           if role == 'role.base':
-            append(role, do_global=True)
+            append(role, do_all_minions=True)
           else:
             for minion, role in generate_minions_with_role(role).items():
               if minion in targets:
@@ -147,6 +147,9 @@ def get_targets(paths):  # noqa: PLR0915  # function needs more statements than 
     else:
       _fail(f'Cannot detect targets for {state}', 3, RuntimeError)
 
+    if do_highstate:
+      state = 'highstate'
+
     for target in targets:
       if target in result[group]:
         if state not in result[group][target]:
@@ -155,6 +158,7 @@ def get_targets(paths):  # noqa: PLR0915  # function needs more statements than 
         result[group][target] = [state]
 
   for path in paths:
+    log.debug(f'Parsing path {path} ...')
     pp = PosixPath(path)
     pps = pp.parts
     ppp = pp.parent
@@ -175,7 +179,7 @@ def get_targets(paths):  # noqa: PLR0915  # function needs more statements than 
                   case 'domains':
                     append('role.nameserver.recursor')
                   case 'nameservers' | 'network':
-                    append('network', do_global=True)
+                    append('network', do_all_minions=True)
               case '.sls':
                 match pp.stem:
                   case 'init':
@@ -183,7 +187,7 @@ def get_targets(paths):  # noqa: PLR0915  # function needs more statements than 
                   case 'nodegroups':
                     append('role.saltmaster')
           case 'role':
-            append(normalize_role(pp))
+            append(normalize_role(pp), do_highstate=True)
           case 'profile':
             profile = None
             # salt/profile/foo/init.sls -> profile.foo
