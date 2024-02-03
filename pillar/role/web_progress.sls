@@ -3,6 +3,16 @@ include:
   - secrets.role.web_progress
 {%- endif %}
 
+groups:
+  redis:
+    members:
+      - redmine
+
+redis:
+  redmine:
+    databases: 1
+    port: 0
+
 redmine:
   plugins:
     - theme-opensuse
