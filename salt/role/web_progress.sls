@@ -1,2 +1,3 @@
 include:
+  - redis
   - redmine
