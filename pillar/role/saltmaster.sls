@@ -137,7 +137,7 @@ rsync:
         - 172.16.164.127
         {%- endif %}
 
-users:
+groups:
   redis:
     members:
       - salt
