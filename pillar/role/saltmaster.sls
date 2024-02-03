@@ -139,6 +139,7 @@ rsync:
 
 groups:
   redis:
+    system: true
     members:
       - salt
 
