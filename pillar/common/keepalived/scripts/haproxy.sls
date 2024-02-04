@@ -18,7 +18,7 @@ keepalived:
         #!/bin/sh -fu
         # Managed by Salt
         SOCKET='/var/lib/haproxy/stats'
-        if [ test -S "$SOCKET" ]
+        if [ -S "$SOCKET" ]
         then
           /usr/bin/echo 'show info' | /usr/bin/socat "$SOCKET" stdio | /usr/bin/grep -q 'Stopping: 0'
         else
