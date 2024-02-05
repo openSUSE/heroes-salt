@@ -18,6 +18,7 @@ haproxy:
       - server 300s
       - http-keep-alive 30m
     errorfiles:
+      429: /etc/haproxy/errorfiles/429.html.http
       503: /etc/haproxy/errorfiles/downtime.html.http
     extra:
       - compression algo gzip

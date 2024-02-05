@@ -1,0 +1,58 @@
+HTTP/1.1 429 Too Many Requests
+Cache-Control: no-cache
+Content-Type: text/html
+X-Via: {{ grains.host }}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>openSUSE Service Down</title>
+  <link type="text/css" rel="stylesheet" href="https://static.opensuse.org/chameleon-3.0/dist/css/chameleon.css" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+  <meta name="description" content="This openSUSE service is currently down">
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.opensuse.org/favicon.ico">
+  <meta name="theme-color" content="#73ba25">
+  <meta property="og:site_name" content="openSUSE service downtime">
+  <meta property="og:title" content="openSUSE service downtime">
+  <meta property="og:description" content="This openSUSE service is currently down">
+  <meta property="og:url" content="https://www.opensuse.org">
+  <meta property="og:image" content="https://static.opensuse.org/favicon-192.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="openSUSE service down">
+  <meta name="twitter:url" content="https://www.opensuse.org">
+  <meta name="keywords" content="openSUSE service down" />
+  <meta name="author" content="openSUSE project" />
+  <meta name="robots" content="index,follow" />
+  <script src="https://static.opensuse.org/chameleon-3.0/dist/js/jquery.slim.js"></script>
+  <script src="https://static.opensuse.org/chameleon-3.0/dist/js/bootstrap.bundle.js"></script>
+  <script src="https://static.opensuse.org/chameleon-3.0/dist/js/chameleon.js"></script>
+</head>
+<body class="d-flex flex-column">
+  <nav class="navbar noprint navbar-expand-md sticky-top">
+    <a class="navbar-brand" href="/">
+      <img src="https://static.opensuse.org/favicon.svg" class="d-inline-block align-top" alt="openSUSE"
+        width="30" height="30"/>
+      <span class="navbar-title">429</span>
+    </a>
+  </nav>
+
+  <div id="megamenu" class="megamenu collapse"></div>
+  <main class="page-content flex-fill" aria-label="Content">
+    <div class="container py-3">
+      <p class="alert alert-warning">
+        Slow down, fast geeko!
+        <br>
+        Your source address was found to be submitting a lot of requests in a short time frame.
+      </p>
+      <p class="alert alert-info">
+        To ensure an evenly smooth experience for our users, our systems found it necessary to temporarily block your access.
+        <br>
+        If you are coming in good faith, we apologize for the inconvenience and kindly ask you to try again a bit later.
+        <br>
+      </p>
+</body>
+</html>
