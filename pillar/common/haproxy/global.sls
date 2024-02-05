@@ -11,12 +11,12 @@ haproxy:
     user: haproxy
     group: haproxy
     daemon: true
-    stats:
-      enable: true
-      socketpath: /var/lib/haproxy/stats
-      extra: user haproxy group haproxy
-      mode: '0640'
-      level: admin
+    stats_sockets:
+      /var/lib/haproxy/stats-rw:
+        level: operator
+      /var/lib/haproxy/stats-ro:
+        mode: '0660'
+        level: user
     ssl-default-bind-ciphers: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305'  # noqa 204
     ssl-default-bind-options: 'no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets'
     extra:

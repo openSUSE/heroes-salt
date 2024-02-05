@@ -17,7 +17,7 @@ keepalived:
       contents: |
         #!/bin/sh -fu
         # Managed by Salt
-        SOCKET='/var/lib/haproxy/stats'
+        SOCKET='/var/lib/haproxy/stats-ro'
         if [ -S "$SOCKET" ]
         then
           /usr/bin/echo 'show info' | /usr/bin/socat "$SOCKET" stdio | /usr/bin/grep -q 'Stopping: 0'
