@@ -48,3 +48,8 @@ redmine:
         # username/password -> secrets.role.web_progress
         encoding: utf8mb4
         timeout: 15
+
+profile:
+  postfix:
+    maincf:
+      smtpd_sender_restrictions: lmdb:/etc/postfix/discard_ndrs,reject_unknown_sender_domain

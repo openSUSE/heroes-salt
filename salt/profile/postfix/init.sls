@@ -43,3 +43,17 @@ postfix_alias_present_{{ user }}:
     - watch_in:
       - service: postfix
 {%- endfor %}
+
+{%- if 'discard_ndrs' in salt['pillar.get']('profile:postfix:maincf:smtpd_sender_restrictions') %}
+/etc/postfix/discard_ndrs:
+  file.managed:
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - <> discard
+    - require:
+      - pkg: postfix
+  cmd.run:
+    - name: postmap /etc/postfix/discard_ndrs
+    - onchanges:
+      - file: /etc/postfix/discard_ndrs
+{%- endif %}
