@@ -108,6 +108,16 @@ salt:
     snapper_states: true
     features:
         x509_v2: true
+    {%- if country == 'us' %}
+    {#- high latency tuning #}
+    auth_timeout: 15
+    ping_interval: 30
+    random_reauth_delay: 30
+    random_startup_delay: 5
+    request_channel_timeout: 60
+    return_retry_timer: 30
+    return_retry_timer_max: 60
+    {%- endif %}
 ssh_config:
   Ciphers:
     - -chacha20‐poly1305@openssh.com
