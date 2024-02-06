@@ -109,6 +109,9 @@ manpages.opensuse.org:
 metrics.opensuse.org:
   targets:
     - macro: atlas
+mirrorcache-us.opensuse.org:
+  targets:
+    - macro: provo-proxy
 mirrors.opensuse.org:
   targets:
     - macro: atlas
@@ -123,6 +126,7 @@ opensuse.org:
     - doc.opensuse.org
   targets:
     - macro: atlas
+    - macro: provo-proxy
 opi-proxy.opensuse.org:
   targets:
     - macro: atlas
@@ -138,6 +142,12 @@ pmya.opensuse.org:
 progress.opensuse.org:
   targets:
     - macro: atlas
+proxy-prv.opensuse.org:
+  sans:
+    - proxy-prv1.opensuse.org
+    - proxy-prv2.opensuse.org
+  targets:
+    - macro: provo-proxy
 redirector.opensuse.org:
   sans:
     - redirector-prg2.opensuse.org
@@ -169,6 +179,7 @@ redirector.opensuse.org:
     - www.opensuse.bar
   targets:
     - macro: atlas
+    - macro: provo-proxy
 rpmlint.opensuse.org:
   targets:
     - macro: atlas
@@ -186,6 +197,7 @@ static.opensuse.org:
     - oom.opensuse.org
   targets:
     - macro: atlas
+    - macro: provo-proxy
 status.opensuse.org:
   sans:
     - status1.opensuse.org
