@@ -14,8 +14,8 @@ nginx:
               - image/x-icon: 90d
               - ~application/: 28d
               - ~font/: 28d
-              - ~text/: 1d
-              - ~image/: 28d
+              - ~text/: 1h
+              - ~image/: 1h
           - server:
               - server_name: {{ website }}.opensuse.org
               - listen:
