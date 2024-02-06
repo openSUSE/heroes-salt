@@ -18,6 +18,11 @@ mx:
     - mx2
   services:
     - postfix
+provo-proxy:
+  hosts:
+    - provo-proxy1
+  services:
+    - haproxy
 status:
   hosts:
     - status1
