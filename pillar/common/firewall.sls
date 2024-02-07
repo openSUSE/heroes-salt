@@ -1,4 +1,5 @@
 firewalld:
+  FlushAllOnReload: 'yes'
   services:
     node_exporter:
       description: Prometheus Node Exporter
