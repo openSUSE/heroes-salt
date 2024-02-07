@@ -13,3 +13,11 @@ grains:
   weburls:
     - https://svn.opensuse.org/
 roles: []
+firewalld:
+  enabled: true
+  zones:
+    internal:
+      interfaces:
+        - os-internal
+      services:
+        - http
