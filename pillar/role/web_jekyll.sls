@@ -62,6 +62,11 @@ nginx:
               - error_page: 500 502 503 504 /50x.html
               - location = /50x.html:
                   - root: /srv/www/htdocs
+              {%- if website == 'security' %}
+              - error_page: 404 /404.html
+              - location = /404.html:
+                  - internal: ''
+              {%- endif %}
               - access_log: /var/log/nginx/{{ website }}.access.log combined
               - error_log: /var/log/nginx/{{ website }}.error.log
         enabled: True
