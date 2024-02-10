@@ -444,7 +444,6 @@ def _main_cli():
   argp.add_argument('--repository', help='Set a custom Git repository to operate on (defaults to the parent directory of this script)')
   argp.add_argument('--debug', help='Print very verbose output', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO)
   argp.add_argument('--api-debug', help='Print very verbose HTTP output', action='store_true')
-  argp.add_argument('--verbose', '-v', help='Print minions along with the states planned to be applied on them', action='store_true')
   argp.add_argument('--mode', '-m', help='Operation mode (defaults to "%(default)s")', choices=modes, default='dry', type=str, metavar='MODE')
   argp.add_argument('--no-pillar-refresh', help='Skip pillar refresh (does not apply in "dry" mode)', action='store_false')
   argp.add_argument('--no-mine-update', help='Skip mine update (does not apply in "dry" mode)', action='store_false')
