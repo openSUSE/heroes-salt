@@ -94,7 +94,7 @@ sync:
 
 deploy:
   extends: .deploy
-  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-deployment:latest
+  image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-deployment:latest
   needs:
     - sync
   script:
