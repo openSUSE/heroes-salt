@@ -1,6 +1,4 @@
-include:
-  - cluster.asgard
-
+cluster: asgard
 grains:
   country: cz
   hostusage:

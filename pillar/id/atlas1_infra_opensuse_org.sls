@@ -1,6 +1,4 @@
-include:
-  - cluster.atlas
-
+cluster: atlas
 grains:
   country: cz
   hostusage:

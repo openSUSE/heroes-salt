@@ -1,6 +1,4 @@
-include:
-  - cluster.prg-ns
-
+cluster: prg-ns
 grains:
   country: cz
   hostusage:

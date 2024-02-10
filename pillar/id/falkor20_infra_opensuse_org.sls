@@ -1,6 +1,4 @@
-include:
-  - cluster.falkor
-
+cluster: falkor
 grains:
   country: cz
   hostusage:
