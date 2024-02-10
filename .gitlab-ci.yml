@@ -98,4 +98,4 @@ deploy:
   needs:
     - sync
   script:
-    - bin/deploy.py --mode test --no-mine-update
+    - bin/deploy.py --mode test --no-mine-update --debug
