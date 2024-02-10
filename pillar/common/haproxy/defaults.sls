@@ -33,3 +33,4 @@ apparmor:
       - /usr/share/pki/trust/anchors/** r
       - capability dac_read_search
       - capability dac_override
+      - /var/lib/haproxy/stats-{ro,rw}{,.*.{bak,tmp}} rwl  # noqa 206
