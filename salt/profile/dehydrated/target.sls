@@ -61,14 +61,27 @@ profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
       {%- endif %}
 {%- endfor %}
 
-{#- as opposed to services such as HAProxy which read certificates as root and then drop privileges,
-    pgbouncer only runs as its own user and reads files in its user context #}
+{#- the following defines ACLs for services which run directly as a service user and read files in their user context
+    - as opposed to services such as HAProxy which read certificate/key files as root and then drop privileges #}
 {%- if 'pgbouncer' in services %}
 profile_certificate_target_facl_{{ certificate }}_pgbouncer:
   acl.present:
     - name: {{ files['key'] }}
     - acl_type: group
     - acl_name: pgbouncer
+    - perms: r
+    - require:
+      - file: profile_certificate_target_directory_{{ certificate }}
+{%- endif %}
+
+{%- if 'salined' in services or 'salt-api' in services %}
+profile_certificate_target_facl_{{ certificate }}_salt:
+  acl.present:
+    - names:
+        - {{ files['crt'] }}
+        - {{ files['key'] }}
+    - acl_type: user
+    - acl_name: salt
     - perms: r
     - require:
       - file: profile_certificate_target_directory_{{ certificate }}
