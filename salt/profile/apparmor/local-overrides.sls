@@ -16,11 +16,7 @@
     - group: root
     - watch_in:
     - contents:
-      {%- if 'managed_by_salt' in pillar %}
-      - "# {{ pillar.managed_by_salt }}"
-      {%- endif %}
-      - "# Site-specific additions and overrides for '{{ profile_name }}'."
-      - "# For more details, please see /etc/apparmor.d/local/README."
+      - {{ pillar['managed_by_salt'] | yaml_encode }}
       {%- for override in profile_data %}
       - {{ override }},
       {%- endfor %}
