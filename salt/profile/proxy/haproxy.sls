@@ -22,6 +22,8 @@ haproxy_errorfiles:
     - template: jinja
     - require:
       - haproxy.install
+    - watch_in:
+      - service: haproxy.service
 
 {%- set secrets = salt['pillar.get']('profile:proxy:haproxy:secrets', {}) %}
 {%- if 'stats_user' in secrets and 'stats_passphrase' in secrets and salt['grains.get']('include_secrets', True) %}
