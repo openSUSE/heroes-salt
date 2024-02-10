@@ -411,8 +411,8 @@ def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar
             if target in pinged_minions and target not in updated_minions and '*' not in updated_minions:
               log.debug(f'{target}: calling update()')
               update_mine = update.get('mine', True)
-              if ( not update.get('pillar', True) and not update_mine ) or minion.update(mine=update_mine):
-                log.debug(f'{target}: update {"succeeded" if update else "skipped"}')
+              if ( not update.get('pillar', True) and not update_mine ) or 'highstate' in states or minion.update(mine=update_mine):
+                log.debug(f'{target}: update {"succeeded" if update and "highstate" not in states else "skipped"}')
                 updated_minions.append(target)
 
               if minion in updated_minions and 'highstate' in states:
