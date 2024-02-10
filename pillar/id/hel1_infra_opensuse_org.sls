@@ -1,6 +1,4 @@
-include:
-  - cluster.hel
-
+cluster: hel
 grains:
   country: cz
   hostusage:

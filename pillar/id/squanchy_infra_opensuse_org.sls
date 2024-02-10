@@ -1,6 +1,4 @@
-include:
-  - cluster.squanchy
-
+cluster: squanchy
 grains:
   country: cz
   hostusage:
