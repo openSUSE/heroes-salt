@@ -108,7 +108,7 @@ counter_ok=0
 counter_nok=0
 counter_wobbly=0
 # shellcheck disable=SC2044 # it's reasonable here
-for cluster in $(find pillar/cluster/ -maxdepth 1 -mindepth 1 -type d -exec sh -c 'cdir="$1"; if grep -lqrm1 haproxy $cdir; then printf "$(basename $cdir)\n"; fi' x {} \;)
+for cluster in $(find pillar/cluster/ -maxdepth 1 -mindepth 1 -type d -not -name common -exec sh -c 'cdir="$1"; if grep -lqrm1 haproxy $cdir; then printf "$(basename $cdir)\n"; fi' x {} \;)
 do
 	echo "Checking $cluster ..."
 	printf '%s cluster.%s\n' '-' "$cluster" >> "$IDFILE"
