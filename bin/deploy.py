@@ -70,6 +70,7 @@ def initialize_git(repository=None):
     directory = PosixPath(__file__).resolve().parents[1]
   else:
     directory = repository
+  log.debug(f'Repository set to {directory}')
   return Repo(directory)
 
 
