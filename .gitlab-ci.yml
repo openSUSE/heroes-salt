@@ -103,4 +103,4 @@ deploy:
     - sync
   script:
     - bin/set_gitlab_ci_safe_directory.sh
-    - bin/deploy.py --mode test --no-mine-update --debug
+    - bin/deploy.py --mode test --no-mine-update
