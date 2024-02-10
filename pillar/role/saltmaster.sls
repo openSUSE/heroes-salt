@@ -36,6 +36,12 @@ salt:
     ext_pillar_first: True
     external_auth:
       ldap:
+        salt-deploy@infra.opensuse.org:
+          - mine.update
+          - saltutil.refresh_pillar
+          - state.highstate
+          - state.sls
+          - test.ping
         wheel@infra.opensuse.org%:
           - .*
           - '@jobs'
