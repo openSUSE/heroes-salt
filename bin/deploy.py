@@ -365,7 +365,9 @@ class Salt:
     action = 'state.highstate' if state == 'highstate' else 'state.sls'
     test_msg = ' in test mode' if test else ''
     log.info(f'Applying {state} on {self.pminions}{test_msg} ...')
-    payload = {'client': 'local', 'fun': action, 'arg': state, 'kwarg': {'test': test}}
+    payload = {'client': 'local', 'fun': action, 'kwarg': {'test': test}}
+    if state != 'highstate':
+      payload.update({'arg': state})
     payload.update(self.common_payload)
     return self._call(payload)
 
