@@ -7,6 +7,7 @@
 
 include:
   - common.haproxy
+  - cluster.common.public_proxy
   - .backends
   - .services
   - .vrrp
@@ -45,34 +46,12 @@ haproxy:
         {%- set tls_bindopts = 'tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
         {{ bind(bind_v6, 443, 'v6only ' ~ tls_bindopts) }}
         {{ bind(bind_v4, 443, tls_bindopts) }}
-      options:
-        - http-server-close
       httprequests:
         - track-sc0: src
-        - del-header:
-          - X-Forwarded-For
-          - ^X-Forwarded-(Proto|Ssl).*
-          - ^HTTPS.*
-        - add-header:
-          - HTTPS on if is_ssl
-          - X-Forwarded-Ssl on if is_ssl
-          - X-Forwarded-Proto https if is_ssl
-          - X-Forwarded-Protocol https if is_ssl
-          - X-Forwarded-Proto http unless is_ssl
-          - X-Forwarded-Protocol http unless is_ssl
         - deny:
           - deny_status 429 if annoying_clients
           - if { fc_http_major 1 } !{ req.body_size 0 } !{ req.hdr(content-length) -m found } !{ req.hdr(transfer-encoding) -m found } !{ method CONNECT }
         - set-var(txn.host): hdr(Host)
-      httpresponses:
-        - del-header:
-          - X-Powered-By
-          - Server
-        - set-header:
-          - X-XSS-Protection "1; mode=block" if is_ssl
-          - X-Content-Type-Options nosniff if is_ssl
-          - Referrer-Policy no-referrer-when-downgrade if is_ssl
-          - Strict-Transport-Security max-age=15768000
       sticktable: type ipv6 size 500k expire 1m store http_req_rate(30s)
 
     http-login:

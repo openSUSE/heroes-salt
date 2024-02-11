@@ -1,3 +1,6 @@
+include:
+  - cluster.mufasa
+
 grains:
   country: us
   hostusage:

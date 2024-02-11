@@ -30,13 +30,6 @@ haproxy:
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}deprecated.html.http
-    error_403:
-      mode: http
-      options:
-        - tcpka
-      httprequests: set-log-level silent
-      extra:
-        - errorfile 503 {{ errorfiles }}403.html.http
     elections:
       {{ options() }}
       {{ server('elections2', '2a07:de40:b27e:1203::b41') }}
@@ -92,28 +85,6 @@ haproxy:
     matrix:
       {{ options() }}
       {{ server('matrix', '2a07:de40:b27e:1203::b40') }}
-    matrix-client:
-      mode: http
-      httprequests:
-        - set-log-level silent
-        - >-
-          return status 200
-          content-type application/json
-          file /etc/haproxy/errorfiles/matrix-client.response
-          hdr Server "HAProxy Auto Reply/openSUSE is good for you"
-          hdr Access-Control-Allow-Origin '*'
-          hdr Cache no-cache
-    matrix-federation:
-      mode: http
-      httprequests:
-        - set-log-level silent
-        - >-
-          return status 200
-          content-type application/json
-          file /etc/haproxy/errorfiles/matrix-federation.response
-          hdr Server "HAProxy Auto Reply/openSUSE is good for you"
-          hdr Access-Control-Allow-Origin '*'
-          hdr Cache no-cache
     metrics:
       {{ options() }}
       {{ server('metrics', '2a07:de40:b27e:1203::141', 3000) }}
@@ -165,13 +136,6 @@ haproxy:
     rpmlint:
       {{ options() }}
       {{ server('rpmlint', '2a07:de40:b27e:1203::136', extra_extra='inter 5000') }}
-    security_txt:
-      mode: http
-      options:
-        - tcpka
-      httprequests: set-log-level silent
-      extra:
-        - errorfile 503 {{ errorfiles }}security.txt.http
     staticpages:
       {{ options('httpchk') }}
       {{ httpcheck('static.opensuse.org', 200, method='options') }}
