@@ -5,6 +5,13 @@
 {%- set country = salt['grains.get']('country') -%}
 {%- set address = salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[grains['host'], True]) -%}
 {%- set configure_ntp = salt['grains.get']('configure_ntp', True) %}
+{%- set id = grains['id'] %}
+
+{%- if country == 'cz' or id in ['slimhat.infra.opensuse.org', 'stonehat.infra.opensuse.org', 'provo-gate.infra.opensuse.org'] %}
+{%- set modern = True %}
+{%- else %}
+{%- set modern = False %}
+{%- endif %}
 
 include:
   - .bootloader
@@ -55,10 +62,10 @@ openldap:
   uri: ldaps://freeipa.infra.opensuse.org
 openssh:
   sshd_config_mode: '0640'
-  banner_string: Welcome to {{ grains['id'] }}!
+  banner_string: Welcome to {{ id }}!
 profile:
   log:
-    {%- if country == 'cz' %}
+    {%- if modern %}
     rsyslog_host: 2a07:de40:b27e:1203::50
     {%- else %}
     rsyslog_host: 172.16.164.40
@@ -70,7 +77,7 @@ profile:
       relayhost: '[relay.infra.opensuse.org]'
       myhostname: '{{ grains['host'] }}.infra.opensuse.org'
       smtpd_data_restrictions: reject_unauth_pipelining
-      {%- if country == 'cz' %}
+      {%- if modern %}
       inet_protocols: ipv6
       {%- endif %}
 rsyslog:
@@ -82,7 +89,7 @@ rsyslog:
   protocol: tcp
   target: syslog.infra.opensuse.org
 salt:
-  {%- if country == 'cz' %}
+  {%- if modern %}
   {#- to-do: deploy IPv6 globally #}
   ipv6: true
   {%- endif %}
@@ -161,7 +168,7 @@ sssd:
           ldap_tls_reqcert: demand
           ldap_uri: ldaps://freeipa.infra.opensuse.org
           ldap_user_search_base: cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org
-          {%- if grains.get('country') == 'cz' %}
+          {%- if modern %}
           lookup_family_order: ipv6_only
           {%- endif %}
       general_settings:
