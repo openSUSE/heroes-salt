@@ -1,0 +1,10 @@
+{{ pillar['managed_by_salt'] }}
+
+auth        required      pam_env.so
+auth        [default=1 ignore=ignore success=ok] pam_localuser.so
+auth        sufficient    pam_unix.so nullok try_first_pass
+auth        requisite     pam_succeed_if.so uid >= 1000 quiet_success
+auth        sufficient    pam_kanidm.so ignore_unknown_user
+auth        required      pam_deny.so
+
+

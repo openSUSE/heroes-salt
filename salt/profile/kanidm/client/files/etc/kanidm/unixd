@@ -1,0 +1,15 @@
+{{ pillar['managed_by_salt'] }}
+
+
+# TODO: Change the allowed login groups based on which group needs access
+# to the machine.
+pam_allowed_login_groups = ["kanidm-admins"]
+default_shell = "/bin/sh"
+home_prefix = "/home/"
+home_attr = "uuid"
+home_alias = "name"
+use_etc_skel = false
+uid_attr_map = "name"
+gid_attr_map = "name"
+selinux = true
+
