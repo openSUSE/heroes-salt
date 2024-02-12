@@ -82,7 +82,7 @@ prometheus:
             - job_name: nodes
               static_configs:
                 - targets:
-                    {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']).items() %}
+                    {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']) | dictsort(by='value') %}
                     - {{ fqdn }}:9100
                     {%- endfor %}
               relabel_configs:
