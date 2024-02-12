@@ -18,3 +18,17 @@ grains:
   weburls: []
 roles:
   - nameserver.legacy_secondary
+firewalld:
+  enabled: true
+  zones:
+    internal:
+      interfaces:
+        - private
+      services:
+        - dns
+        - nrpe
+    public:
+      interfaces:
+        - external
+      services:
+        - dns
