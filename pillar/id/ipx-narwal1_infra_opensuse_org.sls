@@ -21,3 +21,12 @@ grains:
     - https://studioexpress.opensuse.org
 roles:
   - web_static
+firewalld:
+  enabled: true
+  zones:
+    internal:
+      interfaces:
+        - private
+      services:
+        - http
+        - nrpe
