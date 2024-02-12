@@ -10,3 +10,14 @@ grains:
   partners: []
   weburls: []
 roles: []
+firewalld:
+  enabled: true
+  zones:
+    internal:
+      interfaces:
+        - private
+      services:
+        - nrpe
+    public:
+      interfaces:
+        - external
