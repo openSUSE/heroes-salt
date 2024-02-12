@@ -93,5 +93,4 @@ profile:
   monitoring:
     nrpe:
       server_address: 2a07:de40:b27e:5001::193
-roles:
-  - firewall
+roles: []

@@ -17,6 +17,7 @@ include:
   {%- endif %}
 
   - bootloader
+  - firewalld
   - os_update
   - rebootmgr
   - profile.etckeeper

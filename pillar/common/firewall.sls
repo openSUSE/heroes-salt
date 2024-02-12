@@ -1,4 +1,5 @@
 firewalld:
+  enabled: false
   FlushAllOnReload: 'yes'
   services:
     node_exporter:
