@@ -1,17 +1,29 @@
-{%- set files = [ 'arp_settings.conf', 'basic_net_forwarding_and_syncookie_handling.conf', 'disable_ipv6_autoconf.conf', 'gc_interval.conf', 'ha_setup.conf', 'martians.conf', 'pdns_recursor.conf', 'performance.conf', 'swapping.conf', 'syn_flooding_port_80.conf', 'tcp_timestamps.conf', 'tuning.conf', 'zzz_flush.conf', 'numa_balancing.conf' ] %}
+{%- set directory = '/etc/sysctl.d/' %}
+{%- set salt_file = '99-salt.conf' %}
+{%- set files = salt['file.find'](directory, print='name', type='f') %}
 
-{%- for file in files %}
-/etc/sysctl.d/{{ file }}:
-  file.absent
-{%- endfor %}
+{#- preserve the file containing our Salt managed values #}
+{%- if salt_file in files %}
+{%- do files.remove(salt_file) %}
+{%- endif %}
+
+{#- delete the rest #}
+{%- if files %}
+sysctl_purge:
+  file.absent:
+    - names:
+        {%- for file in files %}
+        - {{ directory }}{{ file }}
+        {%- endfor %}
 
 sysctl_update:
   cmd.run:
     - name: sysctl --system
     - onchanges:
-      {%- for file in files %}
-      - file: /etc/sysctl.d/{{ file }}
-      {%- endfor %}
+        - file: sysctl_purge
+    - require_in:
+        - sls: sysctl.param
+{%- endif %}
 
 include:
   - sysctl.param
