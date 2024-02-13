@@ -30,20 +30,27 @@ def run():
 
   for certificate, certificate_config in certificates.items():
     for target in certificate_config['targets']:
+      match = False
+      target_services = target.get('services', [])
 
       if host == target.get('host'):
-        _certificates.update({certificate: target.get('services', [])})
-        _extend_services(target.get('services', []))
+        match = True
+        _certificates.update({certificate: target_services})
+        _extend_services(target_services)
 
-      if 'macro' in target and target.get('macro') in macros:
+      if 'macro' in target and target['macro'] in macros:
         macro_config = macros[target['macro']]
 
         if host in macro_config['hosts']:
-          if certificate in _certificates:
-            _certificates[certificate].extend(macro_config['services'])
-          else:
-            _certificates.update({certificate: macro_config['services']})
-          _extend_services(macro_config['services'])
+          match = True
+          target_services = target_services + macro_config['services']
+
+      if match:
+        if certificate in _certificates:
+          _certificates[certificate].extend(target_services)
+        else:
+          _certificates.update({certificate: target_services})
+        _extend_services(target_services)
 
   if _certificates:
     commands = [
