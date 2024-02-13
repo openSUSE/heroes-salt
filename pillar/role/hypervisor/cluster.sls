@@ -3,6 +3,7 @@ include:
   - common.suse_ha
 
 firewalld:
+  enabled: true
   zones:
     main:
       description: Main network (openSUSE-bare)
