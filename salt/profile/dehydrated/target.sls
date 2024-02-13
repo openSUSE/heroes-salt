@@ -1,6 +1,19 @@
 {%- set top_directory = '/etc/ssl/services/' %}
 {%- set certificates = salt['pillar.get']('profile:certificate_target:certificates', {}) %}
 
+{%- macro crtkey_acl(certificate, name, type='user') %}
+profile_certificate_target_facl_{{ certificate }}_{{ user }}:
+  acl.present:
+    - names:
+        - {{ files['crt'] }}
+        - {{ files['key'] }}
+    - acl_type: {{ type }}
+    - acl_name: {{ name }}
+    - perms: r
+    - require:
+      - file: profile_certificate_target_directory_{{ certificate }}
+{%- endmacro %}
+
 {%- if certificates %}
 include:
   - users
@@ -64,27 +77,11 @@ profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
 {#- the following defines ACLs for services which run directly as a service user and read files in their user context
     - as opposed to services such as HAProxy which read certificate/key files as root and then drop privileges #}
 {%- if 'pgbouncer' in services %}
-profile_certificate_target_facl_{{ certificate }}_pgbouncer:
-  acl.present:
-    - name: {{ files['key'] }}
-    - acl_type: group
-    - acl_name: pgbouncer
-    - perms: r
-    - require:
-      - file: profile_certificate_target_directory_{{ certificate }}
+{{ crtkey_acl(certificate, 'pgbouncer', 'group') }}
 {%- endif %}
 
 {%- if 'salined' in services or 'salt-api' in services %}
-profile_certificate_target_facl_{{ certificate }}_salt:
-  acl.present:
-    - names:
-        - {{ files['crt'] }}
-        - {{ files['key'] }}
-    - acl_type: user
-    - acl_name: salt
-    - perms: r
-    - require:
-      - file: profile_certificate_target_directory_{{ certificate }}
+{{ crtkey_acl(certificate, 'salt') }}
 {%- endif %}
 
 {%- endfor %} {#- close certificate loop #}
