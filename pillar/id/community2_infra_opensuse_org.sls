@@ -1,8 +1,8 @@
 grains:
   country: cz
   hostusage:
-    - doc
-    - factory-dashboard
+    - doc.o.o
+    - factory-dashboard.o.o
   reboot_safe: yes
 
   aliases: []
@@ -11,3 +11,5 @@ grains:
   responsible: []
   partners: []
   weburls: []
+roles:
+  - factory-dashboard

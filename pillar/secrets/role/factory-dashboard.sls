@@ -1,0 +1,64 @@
+#!yaml|gpg
+
+rsync:
+  users:
+    coolo: |
+      -----BEGIN PGP MESSAGE-----
+
+      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
+      =+RFb
+      -----END PGP MESSAGE-----
