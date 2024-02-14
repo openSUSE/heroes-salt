@@ -15,7 +15,6 @@ grains:
   weburls:
     - https://monitor.opensuse.org
 roles:
-  - ircbot
   - syslog
   - monitoring
   - monitoring.master
