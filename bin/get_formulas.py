@@ -12,22 +12,6 @@ import yaml
 from pygit2.errors import GitError
 
 
-def check_open_pull_requests():
-    from github import Github
-
-    g = Github()
-    for formula, data in FORMULAS.items():
-        open_pull_requests = data.get('pending', [])
-        if open_pull_requests:
-            namespace = data.get('original_namespace', 'saltstack-formulas')
-            prefix = data.get('prefix', '')
-            org = g.get_organization(namespace)
-            for pull_request in open_pull_requests:
-                pr = int(pull_request.split('/')[-1])
-                state = org.get_repo(f'{prefix}{formula}-formula').get_pull(pr).state
-                print(f'{pull_request} is {state}')
-
-
 def git(cmd, cwd=None):
     # TODO migrate to pygit2
 
@@ -153,7 +137,6 @@ with open('pillar/FORMULAS.yaml', 'r') as f:
 FORMULAS = copy(FORMULAS_YAML)['git']
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the formulas from FORMULAS.yaml and performs one or more of the operations specified at the arguments.')
-parser.add_argument('-q', '--pull-requests', action='store_true', help='Prints the status of the Pull Requests that are defined in FORMULAS.yaml under "pending".')
 parser.add_argument('-d', '--destination', nargs=1, help='Destination absolute path of the cloned (or to-be-cloned) repositories of the formulas.')
 parser.add_argument('-f', '--formulas', action='append', nargs='+', help='Specify specific formulas to operate on, instead of working with all the specified FORMULAS.yaml formulas.')
 parser.add_argument('-c', '--clone', action='store_true', help='Clone the formulas to the destination specified with "--destination".')
@@ -177,10 +160,6 @@ parser.add_argument('--checkout', nargs=1, help='Checkout to the specified remot
 args = parser.parse_args()
 
 will_run = False
-
-if args.pull_requests:
-    will_run = True
-    check_open_pull_requests()
 
 if args.remove_symlinks:
     will_run = True
