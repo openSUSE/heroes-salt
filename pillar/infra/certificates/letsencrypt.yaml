@@ -142,6 +142,9 @@ pmya.opensuse.org:
 progress.opensuse.org:
   targets:
     - macro: atlas
+proxy-prg2.opensuse.org:
+  targets:
+    - macro: atlas
 proxy-prv.opensuse.org:
   sans:
     - proxy-prv1.opensuse.org
