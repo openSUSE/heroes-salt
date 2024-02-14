@@ -6,11 +6,14 @@ keepalived:
         weight: 1
         interval: 10
         timeout: 2
+      {#- always returns 1 if executed through keepalived but works fine if run via `sudo -u keepalived_script ...`
+          re-enable when a solution is found
       check_haproxy_status:
         script: /usr/local/libexec/keepalived/check_haproxy.sh
         weight: 3
         interval: 5
         timeout: 3
+      #}
   scripts:
     check_haproxy.sh:
       group: keepalived_script
