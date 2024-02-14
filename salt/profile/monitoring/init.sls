@@ -1,6 +1,3 @@
-include:
-  - .prometheus.node_exporter
-
 {%- set xinetdd = '/etc/xinetd.d/' %}
 
 common_monitoring_packages:

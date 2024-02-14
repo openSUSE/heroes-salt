@@ -33,3 +33,10 @@ profile:
   monitoring:
     nrpe:
       server_address: 2a07:de40:b27e:1203::2
+prometheus:
+  pkg:
+    component:
+      node_exporter:
+        environ:
+          args:
+            web.listen-address: '[2a07:de40:b27e:1203::2]:9100'
