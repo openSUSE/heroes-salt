@@ -14,10 +14,6 @@ Refresh: 600
   <link href="https://www.opensuse.org/build/css/openSUSE.min.css" type="text/css" rel="stylesheet" />
   <link href="https://www.opensuse.org/build/css/vendor.min.css"   type="text/css" rel="stylesheet" />
   <script src="https://www.opensuse.org/build/js/main.min.js"      type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="https://www.opensuse.org/oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://www.opensuse.org/oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
   <link rel="icon" type="image/png" href="https://static.opensuse.org/themes/bento/images/favicon.png" />
 </head>
 <body>
@@ -64,15 +60,15 @@ Refresh: 600
   <div><br /></div>
   <section id="opensuse-deprecated">
    <article class="container-fluid">
-      <h1>openSUSE deprecated service</h1>
       <div class="media-body">
-          <p lang="en">We are very sorry, but the service you want to access is not supported any longer.
-                       We decided to better shut it down instead providing anything which is probably insecure.
-                       If you are interested and want to become the new maintainer of the service, please
-                       <a href="https://en.opensuse.org/openSUSE:Heroes">get in touch</a> with us.</p>
+          <h1>openSUSE - deprecated service</h1>
           <img style="display: block; margin: 0 auto;" src="https://static.opensuse.org/images/Deprecated_geeko.png" alt="Deprecated Service" title="Service deprecated"/>
-          <p lang="en">Feel free to check our <a href="https://status.opensuse.org">status page</a> for services
-                       that might have known issues. This page also lists all currently supported openSUSE services.</p>
+          <p lang="en">We are very sorry, but the website you are trying to access no longer exists.
+                       <br>
+                       It was decided to shut it down to protect our infrastructure and its users from unmaintained and potentially insecure services.
+                       <br>
+                       If you are interested and would like become the new maintainer of this service, please
+                       <a href="https://en.opensuse.org/openSUSE:Heroes">get in touch</a> with us.</p>
       </div>
    </article>
   </section>
