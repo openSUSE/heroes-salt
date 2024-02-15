@@ -36,8 +36,6 @@ profile:
         branch: main
       monitor.opensuse.org:
         repo: https://github.com/openSUSE/monitor-o-o.git
-      debuginfod.opensuse.org:
-        repo: https://github.com/openSUSE/debuginfod-o-o.git
       get.opensuse.org:
         repo: https://github.com/openSUSE/get-o-o.git
         branch: main

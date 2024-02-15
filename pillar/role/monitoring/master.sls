@@ -27,15 +27,6 @@ prometheus:
 
           scrape_configs:
 
-            # https://debuginfod.opensuse.org/metrics
-            - job_name: debuginfod
-              scheme: https
-              static_configs:
-                - targets:
-                    - debuginfod.opensuse.org
-                  labels:
-                    alias: debuginfod
-
             - job_name: elasticsearch
               static_configs:
                 - targets:
