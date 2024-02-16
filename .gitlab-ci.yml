@@ -39,7 +39,6 @@ show_highstate:
     - .test_artifacts
   before_script:
     - bin/prepare_test_env.sh -g -o Leap,15,4 -s
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas'
   script: bin/test_show_highstate.sh
 
 test_haproxy:
@@ -50,7 +49,6 @@ test_haproxy:
   before_script:
     - bin/prepare_test_env.sh -g -s -n
     - bin/replace_secrets.sh
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' -f haproxy
   script: bin/test_haproxy.sh
 #     changes:
 #       - bin/test_haproxy.sh

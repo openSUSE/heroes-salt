@@ -3,3 +3,5 @@
 useradd cloneboy
 # saltmaster, error:   fatal: detected dubious ownership in repository at '/builds/infra/salt'
 git config --system --add safe.directory /builds/infra/salt
+# profile.salt.git.formulas runs Git as "cloneboy", but in the test environment this directory is already populated by the root executed clone_formulas.sh
+git config --system --add safe.directory /srv/formulas

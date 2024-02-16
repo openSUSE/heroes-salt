@@ -7,17 +7,16 @@ salt_git_user:
     - home: /var/lib/cloneboy
     - createhome: false
     - shell: /sbin/nologin
-    - require_in:
-      - file: salt_git_directory
-      - file: salt_formula_base_directories
 
 salt_git_directory:
   file.directory:
     - names:
         - /srv/salt-git
-        - /srv/formula-src
+        - /srv/formulas
     - user: cloneboy
     - group: salt
+    - require:
+        - user: salt_git_user
 
 {%- for l in ['salt', 'pillar'] %}
 salt_git_link_{{ l }}:
@@ -25,6 +24,8 @@ salt_git_link_{{ l }}:
     - name: /srv/{{ l }}
     - target: /srv/salt-git/{{ l }}
     - force: true
+    - require:
+        - file: salt_git_directory
 {%- endfor %}
 
 include:

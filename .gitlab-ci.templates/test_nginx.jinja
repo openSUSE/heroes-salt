@@ -3,7 +3,6 @@
   stage: test
   before_script:
     - bin/prepare_test_env.sh -g -s
-    - bin/get_formulas.py -c -d /srv/formula -s --clone-from 'https://gitlab.infra.opensuse.org/saltstack-formulas' -f nginx
   script: bin/test_nginx.sh
   tags:
     - docker
