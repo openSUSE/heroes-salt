@@ -13,6 +13,8 @@ rsync:
       read only: false
       uid: docserv
       gid: docserv
+      proxy protocol: true
       hosts allow:
-        - 2a07:de40:b27e:1204::11/128  # atlas1
-        - 2a07:de40:b27e:1204::12/128  # atlas2
+        - 10.151.132.20/32  # obs-gateway
+        - 10.151.132.21/32  # obs-gateway1
+        - 10.151.132.22/32  # obs-gateway2
