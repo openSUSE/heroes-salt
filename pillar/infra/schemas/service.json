@@ -1,0 +1,11 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/service.json",
+	"title": "Service",
+	"description": "Name of a system service",
+	"type": "array",
+	"items": {
+		"type": "string",
+		"pattern": "^[a-z0-9-]+$"
+	}
+}

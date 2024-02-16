@@ -13,11 +13,7 @@
 			}
 		},
 		"services": {
-			"type": "array",
-			"items": {
-				"type": "string",
-				"pattern": "^[a-z0-9-]+$"
-			}
+			"$ref": "infra/schemas/service.json"
 		}
 	},
 	"additionalProperties": false,
