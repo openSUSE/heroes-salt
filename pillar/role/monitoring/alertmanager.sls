@@ -34,7 +34,7 @@ prometheus:
                 - url: http://ipv6-localhost:8008/opensuse-admin-alerts
                   send_resolved: true
               email_configs:
-                - to: georg+opensuse@syscid.com
+                - to: admin-auto@opensuse.org
                   from: alertmanager@monitor.infra.opensuse.org
                   require_tls: false
                   smarthost: relay.infra.opensuse.org:25
