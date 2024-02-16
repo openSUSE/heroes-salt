@@ -138,9 +138,6 @@ $SSH sh <<-EOS || echo 'Test suite returned with errors.'
   sudo bin/prepare_test_env.sh -g -s || pfail
   sudo sed -i 's/download-prg.infra.opensuse.org/download.opensuse.org/' /etc/zypp/repos.d/*
 
-  pprint 'Preparing formulas'
-  bin/get_formulas.py -c -d /srv/salt-formulas -s --clone-from https://gitlab.infra.opensuse.org/saltstack-formulas || pfail
-
   pprint Testing: validate
   bin/test_validate.sh || pfail
 
