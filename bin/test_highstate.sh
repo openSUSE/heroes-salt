@@ -27,7 +27,12 @@ printf 'roles:\n- %s' "$role" >> "$IDFILE"
 if [ -x "test/setup/role/$role" ]
 then
   echo "Preparing test environment for role $role ..." >> "$out"
-  "test/setup/role/$role"
+  ROLE_SCRIPT="test/setup/role/$role"
+  if ! "$ROLE_SCRIPT"
+  then
+    echo "Execution of $ROLE_SCRIPT failed, refusing to proceed with role test."
+    exit 1
+  fi
 fi
 
 salt --out-file=cli.txt --out-file-append "$HOSTNAME" saltutil.refresh_pillar
