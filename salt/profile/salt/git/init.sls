@@ -17,6 +17,8 @@ salt_git_directory:
     - group: salt
     - require:
         - user: salt_git_user
+    - require_in:
+        - git: salt_formula_clone
 
 {%- for l in ['salt', 'pillar'] %}
 salt_git_link_{{ l }}:
