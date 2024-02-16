@@ -1,9 +1,3 @@
-{%- if 'witch' in grains['id'] %}
-{%- set do_full_git = False %}
-{%- else %}
-{%- set do_full_git = True %}
-{%- endif %}
-
 salt_git_user:
   user.present:
     - name: cloneboy
@@ -24,10 +18,6 @@ salt_git_directory:
         - /srv/formula-src
     - user: cloneboy
     - group: salt
-    {%- if do_full_git %}
-    - require_in:
-      - git: salt_repository
-    {%- endif %}
 
 {%- for l in ['salt', 'pillar'] %}
 salt_git_link_{{ l }}:
@@ -38,7 +28,4 @@ salt_git_link_{{ l }}:
 {%- endfor %}
 
 include:
-  {%- if do_full_git %}
-  - .base
-  {%- endif %}
   - .formulas
