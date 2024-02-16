@@ -1,0 +1,10 @@
+#!/bin/sh -eu
+
+# this did not happen before, it is not clear what changed ...
+# somehow it no longer handles the database not existing (even though it would be created in the same highstate run)
+#           ID: powerdns_add_supermaster_entries
+#     Function: sqlite3.row_present
+#         Name: supermaster_2a07:de40:b27e:1203::15_prg-ns1.infra.opensuse.org
+#       Result: False
+#      Comment: no such table: supermasters
+sqlite3 /var/lib/pdns/slave.db < /usr/share/doc/packages/pdns/schema.sqlite3.sql
