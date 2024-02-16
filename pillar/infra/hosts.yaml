@@ -465,8 +465,8 @@ mailman3:
       pseudo_ip4: 172.16.164.159
       source: x-os-internal
   legacy_boot: true
-  ram: 15360MB
-  vcpu: 6
+  ram: 32768MB
+  vcpu: 16
 man:
   cluster: falkor
   disks:
