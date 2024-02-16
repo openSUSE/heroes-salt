@@ -55,7 +55,7 @@ salt:
       production:
         - /srv/salt
         - /usr/share/salt-formulas/states
-        - /srv/formula
+        - /srv/formulas
     gather_job_timeout: 10
     ipc_write_buffer: dynamic
     timeout: 15
@@ -103,11 +103,6 @@ infrastructure:
 
 profile:
   salt:
-    formulas:
-      git:
-        {%- for formula, config in formulas_yaml['git'].items() %}
-        {{ formula }}: {{ config }}
-        {%- endfor %}
     saline:
       restapi:
         host: {{ address }}
