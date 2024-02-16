@@ -29,18 +29,20 @@ help() {
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
     echo "-n             OPTIONAL: Delete all repositories to speed up tests which do not install additional packages"
+    echo "-c             OPTIONAL: Do not install Git formulas"
     echo
 }
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts p:o:gsnh arg; do
+while getopts p:o:gsnch arg; do
     case ${arg} in
         p) PKG=( ${OPTARG//,/ } ) ;;
         o) OS=( ${OPTARG//,/ } ) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
         n) REPOSITORIES='False' ;;
+        c) FORMULAS='False' ;;
         h) help && exit ;;
         *) help && exit 1 ;;
     esac
@@ -61,6 +63,11 @@ then
   rm /etc/zypp/repos.d/*
 fi
 zypper lr -d || true
+
+if [ -z "$FORMULAS" ]
+then
+  bin/clone_formulas.sh
+fi
 
 bin/replace_secrets.sh
 $SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
@@ -90,6 +97,7 @@ if [[ -n "$HIGHSTATE" ]]; then
 	  base:
 	    - /srv/salt
 	    - /usr/share/salt-formulas/states
+	    - /srv/formulas
 	EOF
 
     cp "$IDFILE_BASE" "$IDFILE"
