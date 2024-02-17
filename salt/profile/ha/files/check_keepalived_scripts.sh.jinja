@@ -1,0 +1,20 @@
+#!/bin/sh
+{{ pillar['managed_by_salt'] }}
+# Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+set -eu
+
+rmtmpfiles() {
+  for file in /tmp/keepalived.data /tmp/keepalived_parent.data
+  do
+    if [ -f "$file" ]
+    then
+      rm "$file"
+    fi
+  done
+}
+
+rmtmpfiles
+systemctl is-active -q keepalived
+systemctl kill -sUSR1 keepalived
+grep -A8 'VRRP Script' /tmp/keepalived.data
+rmtmpfiles
