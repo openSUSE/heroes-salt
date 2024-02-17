@@ -38,6 +38,9 @@ profile:
                   {%- for service in macro_config['services'] %}
                   - {{ service }}
                   {%- endfor %}
+                  {%- for service in target.get('services', []) %}
+                  - {{ service }}
+                  {%- endfor %}
               {%- endfor %}
 
               {%- elif 'host' in target and 'services' in target %}
