@@ -18,6 +18,7 @@ include:
 
   - bootloader
   - firewalld
+  - profile.nftables
   - os_update
   - rebootmgr
   - profile.etckeeper

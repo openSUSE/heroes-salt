@@ -1,3 +1,5 @@
+{%- if pillar.get('nftables') is sameas true %}
+
 nftables_packages:
   pkg.installed:
     - name: nftables-service
@@ -40,3 +42,5 @@ nftables_status:
         - file: nftables_config_tree
     - onfail:
         - service: nftables_service
+
+{%- endif %} {#- close nftables pillar check #}
