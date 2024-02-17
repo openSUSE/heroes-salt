@@ -26,6 +26,7 @@ haproxy:
         - static                 if host_static
         - matrix-client          if path_matrix_client
         - matrix-federation      if path_matrix_federation
+        - mirrorcache            if host_mirrorcache_us
       redirects:
-        - scheme https code 301  if !is_ssl !host_conncheck
+        - scheme https code 301  if !is_ssl !host_conncheck !host_mirrorcache_us
         - code 301 prefix https://www.opensuse.org if host_mainpage !path_matrix_client !path_matrix_federation
