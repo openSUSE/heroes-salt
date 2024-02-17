@@ -4,6 +4,8 @@ include:
 {%- endif %}
 
 rsync:
+  defaults:
+    proxy protocol: true
   modules:
     rpm2docserv:
       auth users: docserv
@@ -13,7 +15,6 @@ rsync:
       read only: false
       uid: docserv
       gid: docserv
-      proxy protocol: true
       hosts allow:
         - 10.151.132.20/32  # obs-gateway
         - 10.151.132.21/32  # obs-gateway1
