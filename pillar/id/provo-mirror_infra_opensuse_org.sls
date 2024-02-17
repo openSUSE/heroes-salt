@@ -16,5 +16,4 @@ grains:
   weburls:
     - http://provo-mirror.opensuse.org/
     - http://twsnapshot.opensuse.org/
-roles:
-  - debuginfod
+roles: []

@@ -42,6 +42,7 @@ counter.opensuse.org:
 deadservices.opensuse.org:
   sans:
     - connect.opensuse.org
+    - debuginfod.opensuse.org
     - fate.opensuse.org
     - features.opensuse.org
     - idea.opensuse.org

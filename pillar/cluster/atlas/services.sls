@@ -42,6 +42,7 @@ haproxy:
         - host_doc          hdr(host)   -i doc.opensuse.org
         - host_etherpad     hdr(host)   -i etherpad.opensuse.org
         - host_deadservice  hdr(host)   -i connect.opensuse.org
+        - host_deadservice  hdr(host)   -i debuginfod.opensuse.org
         - host_deadservice  hdr(host)   -i fate.opensuse.org
         - host_deadservice  hdr(host)   -i features.opensuse.org
         - host_deadservice  hdr_reg(host) -i (idea|ideas).opensuse.org
