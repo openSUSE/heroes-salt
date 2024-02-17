@@ -34,6 +34,7 @@ haproxy:
         {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
         - host_chat         hdr(host)   -i {{ host_chat }}.opensuse.org
         {%- endfor %}
+        - host_ci           hdr(host)   -i ci.opensuse.org
         - host_community    hdr(host)   -i community.opensuse.org
         - host_community2   hdr(host)   -i factory-dashboard.opensuse.org
         - host_conncheck    hdr(host)   -i conncheck.opensuse.org
@@ -145,6 +146,7 @@ haproxy:
         - limesurvey      if host_limesurvey
         - lnt             if host_lnt
         - mailman3        if host_mailman3
+        - maintenance     if host_ci
         - man             if host_manpages
         - matomo          if host_beans
         - matrix          if host_chat || host_matrix || sni_matrix

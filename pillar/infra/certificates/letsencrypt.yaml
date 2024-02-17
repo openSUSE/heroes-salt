@@ -24,6 +24,9 @@ chat.opensuse.org:
     - webhook.opensuse.org
   targets:
     - macro: atlas
+ci.opensuse.org:
+  targets:
+    - macro: atlas
 code.opensuse.org:
   sans:
     - pages.opensuse.org
