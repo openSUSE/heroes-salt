@@ -188,6 +188,7 @@ zypper:
   config:
     zypp_conf:
       main:
+        download.connect_timeout: 10
         download.use_deltarpm: 'false'
         solver.onlyRequires: 'true'
   packages:
