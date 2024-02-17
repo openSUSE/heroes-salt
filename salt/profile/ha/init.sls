@@ -1,5 +1,6 @@
 include:
   - keepalived
+  - .keepalived-scripts
 
 monitoring-plugins-keepalived:
   pkg.installed
