@@ -24,21 +24,38 @@ prometheus:
     component:
       alertmanager:
         config:
+          time_intervals:
+            - name: update_window
+              time_intervals:
+                - times:
+                  - start_time: 00:00
+                    end_time: 05:00
           route:
             group_by:
               - alertname
-            receiver: opensuse-beta
+            receiver: opensuse-irc  # default if no routes match
+            routes:
+              - matchers:
+                  - monitor=opensuse
+                receiver: opensuse-irc
+                continue: true
+              - matchers:
+                  - monitor=opensuse
+                receiver: opensuse-mail
+                mute_time_intervals:
+                  - update_window
           receivers:
-            - name: opensuse-beta
+            - name: opensuse-irc
               webhook_configs:
                 - url: http://ipv6-localhost:8008/opensuse-admin-alerts
                   send_resolved: true
+            - name: opensuse-mail
               email_configs:
                 - to: admin-auto@opensuse.org
                   from: alertmanager@monitor.infra.opensuse.org
                   require_tls: false
                   smarthost: relay.infra.opensuse.org:25
-                  send_resolved: yes
+                  send_resolved: true
         environ:
           environ_arg_name: ARGS  # SUSE package specific
           args:
