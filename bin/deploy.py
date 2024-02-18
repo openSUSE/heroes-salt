@@ -237,7 +237,7 @@ class Salt:
   Various operations against a given list of minions or a single
   nodegroup, executed through the given Pepper API instance
   """
-  def __init__(self, api, minions=[], nodegroup=None, outdir=None):
+  def __init__(self, api, minions=[], nodegroup=None, outdir=None, state_output=None, state_verbose=None):  # noqa: PLR0913  # not easy to reduce arguments
     if ( not minions and not nodegroup ) or ( minions and nodegroup ):
       _fail('Illegal use of Salt().', exception=ValueError)
 
@@ -253,6 +253,11 @@ class Salt:
 
     self.pminions = ', '.join(self.minions)
     self.outdir = outdir
+
+    if state_output:
+      self.opts['state_output'] = state_output
+    if state_verbose:
+      self.opts['state_verbose'] = state_verbose in ['True', 'true', True]
 
     if self.minions:
       if '*' in self.minions:
@@ -372,7 +377,7 @@ class Salt:
     return self._call(payload)
 
 
-def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar': True, 'mine': True}):  # noqa: PLR0912  # too many nested if's .. hmm
+def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar': True, 'mine': True}, state_output=None, state_verbose=None):  # noqa: PLR0912, PLR0913  # too many nested if's and too many arguments .. hmm
   """
   Base application logic
   """
@@ -401,7 +406,7 @@ def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar
 
       if DO_SALT:
         log.debug(f'Initiating Salt for {target}')
-        minion = Salt(api, minions=target, outdir=outdir)
+        minion = Salt(api, minions=target, outdir=outdir, state_output=state_output, state_verbose=state_verbose)
 
         if target not in pinged_minions and '*' not in pinged_minions:
           log.debug(f'{target}: calling ping()')
@@ -440,7 +445,7 @@ def _main_cli():
   """
 
   argp = ArgumentParser(description='Coordinate and deploy Salt changes',
-                        formatter_class=lambda prog: RawTextHelpFormatter(prog,max_help_position=30),
+                        formatter_class=lambda prog: RawTextHelpFormatter(prog,max_help_position=35),
                         epilog=choices,
   )
   argp.add_argument('--repository', help='Set a custom Git repository to operate on (defaults to the parent directory of this script)')
@@ -451,6 +456,8 @@ def _main_cli():
   argp.add_argument('--no-mine-update', help='Skip mine update (does not apply in "dry" mode)', action='store_false')
   # it would be preferable to have --out-dir print _and_ write the output, but unfortunately salt/output/__init__.py line 120 calls an early return
   argp.add_argument('--out-dir', help='When applying states, write the output to files in the specified directory instead of printing it')
+  argp.add_argument('--state-output', help='See salt(1)')
+  argp.add_argument('--state-verbose', help='See salt(1)')
   args = argp.parse_args()
   log.setLevel(args.loglevel)
 
@@ -463,7 +470,7 @@ def _main_cli():
     if not args.no_mine_update:
       log.warning(f'--no-mine-update {msg_onlyuseful}')
 
-  coordinate(args.repository, mode=args.mode, debug=args.api_debug, outdir=args.out_dir, update={'pillar': args.no_pillar_refresh, 'mine': args.no_mine_update})
+  coordinate(args.repository, mode=args.mode, debug=args.api_debug, outdir=args.out_dir, update={'pillar': args.no_pillar_refresh, 'mine': args.no_mine_update}, state_output=args.state_output, state_verbose=args.state_verbose)
 
 if __name__ == '__main__':
   cli = True
