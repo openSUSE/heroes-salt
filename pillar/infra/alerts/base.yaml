@@ -3,6 +3,16 @@
 groups:
   - name: ioo-node_health
     rules:
+      - alert: Node away
+        expr: up{job="nodes"} == 0
+        for: 0s
+        labels:
+          severity: info
+        annotations:
+          title: >-
+            Host {{ $labels.instance }} down
+          description: >-
+            Node exporter on {{ $labels.instance }} became unreachable.
       - alert: Node down
         expr: up{job="nodes"} == 0
         for: 1m

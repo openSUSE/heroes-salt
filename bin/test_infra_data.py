@@ -34,7 +34,10 @@ from lib.colors import green, orange, red, reset
 from referencing import Registry, Resource
 
 # files we do not have schemas for
-excludes = ['alerts', 'clusters', 'domains', 'nameservers', 'networks']
+excludes = [
+  'clusters', 'domains', 'nameservers', 'networks',
+  'base', 'prometheus',  # alerts/
+]
 
 infradir = 'pillar/infra/'
 schemadir = f'{infradir}schemas/'
