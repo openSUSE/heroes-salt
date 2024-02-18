@@ -31,3 +31,4 @@ include:
   - profile.sysctl
   - profile.motd
   - profile.dehydrated.target
+  - prometheus.config.environ

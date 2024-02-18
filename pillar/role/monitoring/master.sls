@@ -5,7 +5,7 @@ include:
 prometheus:
   wanted:
     component:
-      - prometheus
+      prometheus: {}
 
   pkg:
     component:

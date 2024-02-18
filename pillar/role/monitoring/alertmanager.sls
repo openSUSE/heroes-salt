@@ -20,7 +20,7 @@ profile:
 prometheus:
   wanted:
     component:
-      - alertmanager
+      alertmanager: {}
   pkg:
     component:
       alertmanager:
