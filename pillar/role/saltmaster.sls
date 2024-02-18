@@ -5,7 +5,6 @@
 {%- set crt     =  ssldir ~ 'fullchain.pem'         -%}
 {%- set key     =  ssldir ~ 'privkey.pem'           -%}
 
-{%- import_yaml 'FORMULAS.yaml' as formulas_yaml -%}
 include:
   - infra.nodegroups
 {% if salt['grains.get']('include_secrets', True) %}
@@ -97,7 +96,24 @@ salt:
 infrastructure:
   salt:
     formulas:
-      {%- for formula in formulas_yaml['package'] %}
+      {%- for formula in [
+            'bootloader',
+            'infrastructure',
+            'grains',
+            'juniper_junos',
+            'libvirt',
+            'lunmap',
+            'multipath',
+            'network',
+            'os_update',
+            'rebootmgr',
+            'redmine',
+            'redis',
+            'rsync',
+            'suse_ha',
+            'zypper',
+          ]
+      %}
       - {{ formula }}-formula
       {%- endfor %}
 

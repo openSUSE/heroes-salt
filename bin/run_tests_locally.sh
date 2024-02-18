@@ -69,7 +69,7 @@ while getopts h:c:k:p:s arg; do
 done
 
 print 'Pre-flight check ...'
-test -L FORMULAS.yaml || fail 'Please run this script from the salt.git repository root.'
+test -f encrypted_pillar_recipients || fail 'Please run this script from the salt.git repository root.'
 command -v podman >/dev/null || fail 'Please install Podman first.'
 command -v ssh >/dev/null || fail 'Please install the OpenSSH client first.'
 command -v rsync >/dev/null || fail 'Please install rsync first.'
