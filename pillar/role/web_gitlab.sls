@@ -142,3 +142,12 @@ nginx:
                   - root: /srv/www/vhosts/gitlab-ce/public
                   - internal
         enabled: True
+
+sshd_config:
+  matches:
+    gitlab:
+      type:
+        User: git
+      options:
+        AuthorizedKeysCommand: /usr/lib/gitlab/shell/bin/gitlab-shell-authorized-keys-check gitlab %u %k
+        AuthorizedKeysCommandUser: gitlab
