@@ -1,4 +1,5 @@
 include:
+  - role.common.monitoring
   - .alerts
 
 prometheus:
