@@ -1,0 +1,97 @@
+{{ pillar['managed_by_salt_xml'] }}
+<domain type='kvm'>
+  <name>{{ vm_name }}</name>
+  <uuid>{{ vm_uuid }}</uuid>
+  {%- set memory_unit = vm_memory[-2:] %}
+  {%- set memory_min = vm_memory[:-2] | int %}
+  {%- set memory_max = ( memory_min * 1.5 ) | int %}
+  <memory unit='{{ memory_unit }}'>{{ memory_max }}</memory>
+  <currentMemory unit='{{ memory_unit }}'>{{ memory_min }}</currentMemory>
+  {%- set vcpu_min = vm_cores | int %}
+  {%- set vcpu_max = ( vcpu_min * 1.5 + 0.5 ) | int %}
+  <vcpu current='{{ vcpu_min }}'>{{ vcpu_max }}</vcpu>
+  <cpu mode='custom' match='exact'>
+    <model fallback='forbid'>Haswell-noTSX-IBRS</model>
+    <vendor>Intel</vendor>
+    <feature policy='require' name='vme'/>
+    <feature policy='require' name='ds'/>
+    <feature policy='require' name='acpi'/>
+    <feature policy='require' name='ss'/>
+    <feature policy='require' name='ht'/>
+    <feature policy='require' name='tm'/>
+    <feature policy='require' name='pbe'/>
+    <feature policy='require' name='dtes64'/>
+    <feature policy='require' name='monitor'/>
+    <feature policy='require' name='ds_cpl'/>
+    <feature policy='require' name='vmx'/>
+    <feature policy='require' name='smx'/>
+    <feature policy='require' name='est'/>
+    <feature policy='require' name='tm2'/>
+    <feature policy='require' name='xtpr'/>
+    <feature policy='require' name='pdcm'/>
+    <feature policy='require' name='f16c'/>
+    <feature policy='require' name='rdrand'/>
+    <feature policy='require' name='arat'/>
+    <feature policy='require' name='tsc_adjust'/>
+    <feature policy='require' name='md-clear'/>
+    <feature policy='require' name='stibp'/>
+    <feature policy='require' name='ssbd'/>
+    <feature policy='require' name='xsaveopt'/>
+    <feature policy='require' name='pdpe1gb'/>
+    <feature policy='require' name='abm'/>
+    <feature policy='require' name='invtsc'/>
+  </cpu>
+  <os>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    <loader secure='yes' readonly='yes' type='pflash'>/usr/share/qemu/ovmf-x86_64-opensuse-code.bin</loader>
+    <nvram template='/usr/share/qemu/ovmf-x86_64-opensuse-vars.bin'>/kvm/nvram/{{ vm_name }}.fd</nvram>
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    {%- macro disk(name, lv_uuid, letter) -%}
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none'/>
+      <source dev='/dev/disk/by-id/dm-uuid-LVM-KioYflK3JRqBMJ0G2rHD8dimPmxnJoQu{{ lv_uuid }}'/>
+      <backingStore/>
+      <target dev='vd{{ letter }}' bus='virtio'/>
+      <alias name='virtio-{{ name }}'/>
+    </disk>
+    {%- endmacro %}
+    <!-- root disk -->
+    {{ disk('root', vm_disks.pop('root'), 'a') }}
+    <!-- data disks -->
+    {%- for name, lv_uuid in vm_disks.items() %}
+    {{ disk(name, lv_uuid, letters[loop.index]) }}
+    {%- endfor %}
+    {%- for interface, ifconfig in vm_interfaces.items() %}
+    {%- set iftype = ifconfig['type'] %}
+    <interface type='{{ iftype }}'{{ ' trustGuestRxFilters=\'yes\'' if iftype == 'direct' else '' }}>
+      <mac address='{{ ifconfig['mac'] }}'/>
+      <source {{ 'bridge' if iftype == 'bridge' else 'dev' }}='{{ ifconfig['source'] }}'{{ ' mode=\'' ~ ifconfig['mode'] ~ '\'' if 'mode' in ifconfig else '' }}/>
+      <target dev='{{ vm_name[:8] }}{{ '_' ~ ifconfig['source'][:4] if iftype == 'bridge' else loop.index }}'/>
+      <model type='virtio'/>
+      <alias name='{{ vm_name.split('.')[0] ~ '_' ~ interface }}'/>
+    </interface>
+    {%- endfor %}
+    <serial type='pty'/>
+    <console type='pty'/>
+    <input type='keyboard' bus='ps2'/>
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+    </rng>
+    <channel type='unix'>
+      <source mode='bind' path='/var/lib/libvirt/qemu/channel/target/{{ vm_name }}/org.qemu.guest_agent.0'/>
+      <target type='virtio' name='org.qemu.guest_agent.0'/>
+    </channel>
+  </devices>
+  <seclabel type='dynamic' model='apparmor'/>
+</domain>
