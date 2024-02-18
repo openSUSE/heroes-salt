@@ -1,5 +1,6 @@
-{%- if salt['grains.get']('include_secrets', True) %}
 include:
+  - role.common.monitoring
+{%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.monitoring.alertmanager
 {%- endif %}
 
