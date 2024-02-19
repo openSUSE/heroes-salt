@@ -37,6 +37,7 @@ prometheus:
                   - start_time: 00:00
                     end_time: 05:00
           receivers:
+            - name: opensuse  # dashboard only
             - name: opensuse-irc
               webhook_configs:
                 - url: http://ipv6-localhost:8008/opensuse-admin-alerts
