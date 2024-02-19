@@ -32,10 +32,20 @@ kani2.infra.opensuse.org:
     - host: kani2
       services:
         - kanidm
+monitor.infra.opensuse.org:
+  sans:
+    - alertmanager.infra.opensuse.org
+    - alerts.infra.opensuse.org
+    - karma.infra.opensuse.org
+    - prometheus.infra.opensuse.org
+  targets:
+    - host: monitor
+      services:
+        - apache2
 witch1.infra.opensuse.org:
   sans:
-    - witch.infra.opensuse.org
     - salt.infra.opensuse.org
+    - witch.infra.opensuse.org
   targets:
     - host: witch1
       services:
