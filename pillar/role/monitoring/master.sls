@@ -209,3 +209,84 @@ prometheus:
           args:
             web.external-url: http://monitor.infra.opensuse.org:9090
 
+profile:
+  karma:
+    alertmanager:
+      interval: 15s
+      servers:
+        - name: local
+          healthcheck:
+            filters:
+              prometheus:
+                - alertname=DeadMansSwitch
+          proxy: true
+          readonly: false
+          timeout: 10s
+          uri: http://ipv6-localhost:9093
+    annotations:
+      hidden:
+        - description
+      order:
+        - title
+        - summary
+        - description
+    filters:
+      default:
+        - '@state!=suppressed'
+    history:
+      enabled: true
+      rewrite:
+        - proxy_url: string
+          source: http://localhost:9090
+          uri: http://monitor.infra.opensuse.org:9090
+      timeout: 10s
+      workers: 4
+    karma:
+      name: karma-heroes
+    labels:
+      color:
+        custom:
+          severity:
+            - color: '#87c4e0'
+              value: info
+            - color: '#ffae42'
+              value: warning
+            - color: '#ff220c'
+              value: critical
+        static:
+          - job
+        unique:
+          - cluster
+          - instance
+      strip:
+        - monitor
+        - receiver
+    listen:
+      address: '[::1]'
+      cors:
+        allowedOrigins:
+          - http://monitor.infra.opensuse.org
+      port: 9193
+      prefix: /
+    log:
+      config: false
+      level: info
+    receivers:
+      strip:
+        # opensuse-mail merely "duplicates" critical alerts already sent to opensuse-irc - avoid duplication in the UI
+        - opensuse-mail
+    silenceForm:
+      defaultAlertmanagers:
+        - local
+      strip:
+        labels:
+          - job
+    silences:
+      comments:
+        linkDetect:
+          rules:
+            - regex: (poo#[0-9]+)
+              uriTemplate: https://progress.opensuse.org/issues/$1
+    ui:
+      colorTitlebar: false
+      minimalGroupWidth: 600
