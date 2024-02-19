@@ -36,6 +36,11 @@ if '--indent' in args:
       def increase_indent(self, flow=False, *args, **kwargs): # noqa FBT002 # boolean is simple enough here
           return super().increase_indent(flow=flow, indentless=False)
 
+sort_lists = False
+if '--sort-lists' in args:
+  sort_lists = True
+  args.remove('--sort-lists')
+
 if len(args) < 2 or not args[1].endswith('.yaml'):
     _fail('Cannot operate without being passed a YAML file')
 
@@ -53,6 +58,26 @@ for file in files:
         _fail(f'Invalid data in file {file}')
 
     out.update({file: data})
+
+
+if sort_lists:
+  out_sort = out.copy()
+
+  # https://stackoverflow.com/a/56305689
+  def deepsort(obj):
+    if isinstance(obj, list):
+      return sorted(deepsort(item) for item in obj)
+    if isinstance(obj, dict):
+      return {key: deepsort(obj[key]) for key in sorted(obj)}
+    return obj
+
+  for file, data in out.items():
+    out_sort.update({file: {}})
+    for key, value in data.items():
+      out_sort[file].update({key: deepsort(value)})
+
+  out = out_sort
+
 
 for file, data in out.items():
     with open(file, 'w') as fh:
