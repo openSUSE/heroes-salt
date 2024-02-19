@@ -233,6 +233,10 @@ profile:
     filters:
       default:
         - '@state!=suppressed'
+    grid:
+      sorting:
+        order: label
+        label: instance
     history:
       enabled: true
       rewrite:
