@@ -1,6 +1,32 @@
 include:
+  - role.common.apache
   - role.common.monitoring
   - .alerts
+
+apache:
+  sites:
+    karma:
+      ServerName: karma.infra.opensuse.org
+      ServerAlias: alerts.infra.opensuse.org
+      ProxyRoute:
+        - ProxyPassSource: /
+          ProxyPassTarget: http://ipv6-localhost:9193/
+    monitor:
+      interface: '{{ grains['fqdn_ip6'][0] | ipwrap }}'
+      ServerName: monitor.opensuse.org
+      DocumentRoot: /srv/www/htdocs
+      Alias:
+        /heroes: /home/supybot/supybot/logs/ChannelLogger/libera/#opensuse-admin
+        /opensuse-admin: /home/supybot/supybot/logs/ChannelLogger/libera/#opensuse-admin
+      Directory:
+        /srv/www/htdocs:
+          Require: all granted
+        /home/supybot/supybot/logs/ChannelLogger/libera/#opensuse-admin:
+          AddType: text/plain .log
+          IndexOrderDefault: Descending Name
+          Options: Indexes
+          Require: all granted
+      Include: /etc/apache2/conf.d/icingaweb2.conf
 
 prometheus:
   wanted:
