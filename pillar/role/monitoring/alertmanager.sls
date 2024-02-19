@@ -54,11 +54,17 @@ prometheus:
             receiver: opensuse-irc  # default if no routes match
             routes:
               - matchers:
+                  - severity=~"none|info"
+                receiver: opensuse
+                continue: false
+              - matchers:
                   - monitor=opensuse
+                  - severity!=none
                 receiver: opensuse-irc
                 continue: true
               - matchers:
                   - monitor=opensuse
+                  - severity=critical
                 receiver: opensuse-mail
                 mute_time_intervals:
                   - update_window
