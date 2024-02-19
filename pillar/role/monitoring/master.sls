@@ -218,7 +218,7 @@ profile:
           healthcheck:
             filters:
               prometheus:
-                - alertname=DeadMansSwitch
+                - alertname=PrometheusDeadManSwitch
           proxy: true
           readonly: false
           timeout: 10s
@@ -288,5 +288,5 @@ profile:
             - regex: (poo#[0-9]+)
               uriTemplate: https://progress.opensuse.org/issues/$1
     ui:
-      colorTitlebar: false
+      colorTitlebar: true
       minimalGroupWidth: 600
