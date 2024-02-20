@@ -30,6 +30,14 @@ prometheus:
                 - alertname="Node down"
               target_matchers:
                 - alertname="Node away"
+              equal:
+                - instance
+            - source_matchers:
+                - alertname="Low disk space"
+              target_matchers:
+                - alertname="Low disk space predicted"
+              equal:
+                - instance
           time_intervals:
             - name: update_window
               time_intervals:

@@ -33,7 +33,7 @@ groups:
           ON (instance, device, mountpoint) node_filesystem_readonly == 0
         for: 1m
         labels:
-          severity: warning
+          severity: critical
         annotations:
           title: >-
             Host {{ $labels.instance }} low on disk space
