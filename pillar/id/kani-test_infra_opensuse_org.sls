@@ -13,4 +13,4 @@ grains:
   partners: []
   weburls: []
 roles:
-  - kanidm
+  - kanidm-client

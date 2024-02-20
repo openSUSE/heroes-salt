@@ -14,4 +14,5 @@ grains:
     - kani2.infra.opensuse.org
   weburls: []
 roles:
-  - kanidm
+  - kanidm-client
+  - kanidm-server
