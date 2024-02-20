@@ -144,6 +144,9 @@ sshd_config:
   ListenAddress: {{ address }}
   {%- endif %}
   PasswordAuthentication: no
+  PermitEmptyPasswords: no
+  GSSAPIAuthentication: no
+  KerberosAuthentication: no
   PermitRootLogin: without-password
   PrintMotd: yes
   # TODO: upstream fix is not sufficient https://github.com/saltstack-formulas/openssh-formula/pull/57
@@ -182,6 +185,9 @@ sssd:
           filter_users: root
         pam: {}
         ssh: {}
+kanidm:
+  config:
+    uri: https://idm.infra.opensuse.org
 timezone:
   name: UTC
   utc: True
@@ -194,6 +200,7 @@ zypper:
         solver.onlyRequires: 'true'
   packages:
     ca-certificates-freeipa-opensuse: {}
+    kanidm: {}
     {%- if osfullname == 'openSUSE Leap Micro' %}
     toolmux: {}
     patterns-microos-sssd_ldap: {}

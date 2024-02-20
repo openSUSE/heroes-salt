@@ -1,1 +1,2 @@
-# empty :-(
+include:
+  - profile.kanidm.client
