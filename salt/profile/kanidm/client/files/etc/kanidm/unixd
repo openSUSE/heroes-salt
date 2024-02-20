@@ -1,9 +1,9 @@
 {{ pillar['managed_by_salt'] }}
 
+{%- set roles = pillar.get('roles', []) -%}
 
-# TODO: Change the allowed login groups based on which group needs access
-# to the machine.
-pam_allowed_login_groups = ["kanidm-admins"]
+# You must be a member of at least one of these groups.
+pam_allowed_login_groups = [{%- for role in roles -%}"{{ role }}-admins",{%- endfor -%} "wheel"]
 default_shell = "/bin/sh"
 home_prefix = "/home/"
 home_attr = "uuid"
@@ -13,3 +13,5 @@ uid_attr_map = "name"
 gid_attr_map = "name"
 selinux = true
 
+# Allow wheel from IDM to override a locally provided version.
+allow_local_account_override = ["wheel"]
