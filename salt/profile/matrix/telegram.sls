@@ -30,7 +30,7 @@ synapse_appservice_telegram_file:
 
 telegram_service:
   service.running:
-    - name: mautrix-telegram
+    - name: telegram
     - enable: True
     - require:
       - service: synapse_service
