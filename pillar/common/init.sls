@@ -80,6 +80,8 @@ profile:
       smtpd_data_restrictions: reject_unauth_pipelining
       {%- if modern %}
       inet_protocols: ipv6
+      {%- else %}
+      inet_protocols: ipv4
       {%- endif %}
 rsyslog:
   custom:
