@@ -1,3 +1,5 @@
+{%- set listen = grains['fqdn_ip6'][0] %}
+
 include:
   - role.common.apache
   - role.common.monitoring
@@ -5,14 +7,25 @@ include:
 
 apache:
   sites:
+    http:
+      interface: '{{ listen | ipwrap }}'
+      Rewrite: |
+        RewriteRule ^(.*)$ https://%{HTTP_HOST}$1 [R=301,L]
     karma:
+      interface: '{{ listen | ipwrap }}'
+      port: 443
+      SSLCertificateFile: /etc/ssl/services/monitor.infra.opensuse.org/fullchain.pem
+      SSLCertificateKeyFile: /etc/ssl/services/monitor.infra.opensuse.org/privkey.pem
+      Protocols:
+        - h2
+        - http/1.1
       ServerName: karma.infra.opensuse.org
       ServerAlias: alerts.infra.opensuse.org
       ProxyRoute:
         - ProxyPassSource: /
           ProxyPassTarget: http://ipv6-localhost:9193/
     monitor:
-      interface: '{{ grains['fqdn_ip6'][0] | ipwrap }}'
+      interface: '{{ listen | ipwrap }}'
       ServerName: monitor.opensuse.org
       DocumentRoot: /srv/www/htdocs
       Alias:
