@@ -1138,6 +1138,7 @@ app_service_config_files:
   - /etc/matrix-synapse/appservices/appservice-{{ dir }}.yaml
   {% endfor %}
   - /etc/matrix-synapse/appservices/appservice-telegram.yaml
+  - /etc/matrix-synapse/appservices/appservice-heisenbridge.yaml
 
 # Uncomment to enable tracking of application service IP addresses. Implicitly
 # enables MAU tracking for application service users.
