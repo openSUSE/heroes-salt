@@ -1,4 +1,4 @@
-telegram_pgks:
+telegram_pkgs:
   pkg.installed:
     - resolve_capabilities: True
     - pkgs:
@@ -14,8 +14,6 @@ telegram_conf_file:
     - user: synapse
     - require_in:
       - service: telegram_service
-    - watch_in:
-      - module: telegram_restart
 
 telegram_appservice_file:
   file.managed:
@@ -23,16 +21,12 @@ telegram_appservice_file:
     - source: salt://profile/matrix/files/appservice-telegram.yaml
     - user: synapse
     - template: jinja
-    - watch_in:
-      - module: telegram_restart
 
 synapse_appservice_telegram_file:
   file.managed:
     - name: /etc/matrix-synapse/appservices/appservice-telegram.yaml
     - source: salt://profile/matrix/files/appservice-telegram.yaml
     - template: jinja
-    - watch_in:
-      - module: telegram_restart
 
 telegram_service:
   service.running:
@@ -40,11 +34,7 @@ telegram_service:
     - enable: True
     - require:
       - service: synapse_service
-
-telegram_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: mautrix-telegram
-    - require:
-      - service: synapse_service
-      - service: telegram_service
+    - watch:
+      - file: telegram_conf_file
+      - file: telegram_appservice_file
+      - file: synapse_appservice_telegram_file

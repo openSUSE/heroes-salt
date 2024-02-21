@@ -21,10 +21,6 @@ dimension_conf_file:
     - user: synapse
     - require:
       - file: /var/lib/matrix-synapse/dimension
-    - require_in:
-      - service: dimension_service
-    - watch_in:
-      - module: dimension_restart
 
 # dimension_boostrap:
 #   cmd.run:
@@ -54,11 +50,5 @@ dimension_service:
     - enable: True
     - require:
       - service: synapse_service
-
-dimension_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: dimension
-    - require:
-      - service: synapse_service
-      - service: dimension_service
+    - watch:
+      - file: dimension_conf_file

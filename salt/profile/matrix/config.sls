@@ -34,10 +34,8 @@ synapse_conf_file:
     - template: jinja
     - require:
       - file: matrix_conf_dirs
-    - require_in:
-      - service: synapse_service
     - watch_in:
-      - module: synapse_restart
+      - service: synapse_service
 
 /etc/matrix-synapse/signing.key:
   file.managed:
@@ -63,10 +61,8 @@ synapse_conf_file:
         config: {{ type.get('config') }}
     - require:
       - file: matrix_conf_dirs
-    - require_in:
-      - service: {{ worker }}_service
     - watch_in:
-      - module: {{ worker }}_restart
+      - service: {{ worker }}_service
 
 {%- endfor %}
 {%- endfor %}
