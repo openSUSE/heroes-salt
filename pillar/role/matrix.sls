@@ -186,6 +186,7 @@ nginx:
           - server:
               - server_name: matrix.opensuse.org
               - listen: '[::]:80'
+              - proxy_http_version: 1.1
               - proxy_set_header: Host $host
               - proxy_set_header: X-Forwarded-For $remote_addr
               - proxy_set_header: X-Forwarded-Proto https
