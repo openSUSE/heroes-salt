@@ -19,6 +19,16 @@ profile:
     # further runner configuration is in pillar/role/common/gitlab_runner/macros.jinja
     # included together with secrets in pillar/secrets/id/gitlab-runner*
 
+prometheus:
+  pkg:
+    component:
+      node_exporter:
+        environ:
+          args:
+            # is a bind mount, metrics from /data apply, exclude to avoid duplicates
+            # consider removing the exclude after a solution for https://github.com/prometheus/node_exporter/issues/600
+            collector.filesystem.mount-points-exclude: "'^/var/lib/containers$'"
+
 sysctl:
   params:
     vm.swappiness: 5
