@@ -11,7 +11,20 @@ apache:
       interface: '{{ listen | ipwrap }}'
       Rewrite: |
         RewriteRule ^(.*)$ https://%{HTTP_HOST}$1 [R=301,L]
-    karma:
+    {%- for vhost, vconfig in {
+          'karma': {
+            'port': 9193,
+            'alias': 'alerts',
+          },
+          'prometheus': {
+            'port': 9090,
+          },
+          'alertmanager': {
+            'port': 9093,
+          },
+        }.items()
+    %}
+    {{ vhost }}:
       interface: '{{ listen | ipwrap }}'
       port: 443
       SSLCertificateFile: /etc/ssl/services/monitor.infra.opensuse.org/fullchain.pem
@@ -19,11 +32,14 @@ apache:
       Protocols:
         - h2
         - http/1.1
-      ServerName: karma.infra.opensuse.org
-      ServerAlias: alerts.infra.opensuse.org
+      ServerName: {{ vhost }}.infra.opensuse.org
+      {%- if 'alias' in vconfig %}
+      ServerAlias: {{ vconfig['alias'] }}.infra.opensuse.org
+      {%- endif %}
       ProxyRoute:
         - ProxyPassSource: /
-          ProxyPassTarget: http://ipv6-localhost:9193/
+          ProxyPassTarget: http://ipv6-localhost:{{ vconfig['port'] }}/
+    {%- endfor %}
     monitor:
       interface: '{{ listen | ipwrap }}'
       ServerName: monitor.opensuse.org
