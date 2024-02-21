@@ -96,6 +96,11 @@ profile:
           workers:
             event1: 8541
             event2: 8542
+        - rest:
+            - ^/_matrix/client/(r0|v3|unstable)/room_keys/
+          workers:
+            room_keys: 8591
+
       pusher:
         - workers:
             pusher1: 8551
@@ -120,11 +125,6 @@ profile:
             frontend_proxy: 8601
           config:
             - worker_main_http_uri: http://127.0.0.1:8008
-      room_keys:
-        - rest:
-            - ^/_matrix/client/(r0|v3|unstable)/room_keys/
-          workers:
-            room_keys: 8591
 
     appservices:
       discord:
