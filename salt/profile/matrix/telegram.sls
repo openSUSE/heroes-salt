@@ -1,10 +1,11 @@
+{%- set python_version = salt['cmd.run']("python3 -c 'from platform import python_version_tuple; print(str().join(python_version_tuple()[:2]))'") %}
+
 telegram_pkgs:
   pkg.installed:
-    - resolve_capabilities: True
     - pkgs:
-      - python3-mautrix-telegram
+      - python{{ python_version }}-mautrix-telegram
       # Required for webm for stickers
-      - ffmpeg
+      - ffmpeg-5
 
 telegram_conf_file:
   file.managed:
