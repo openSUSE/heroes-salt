@@ -22,9 +22,13 @@ heisenbridge_appservice_file:
       - pkg: heisenbridge_pkgs
 
 synapse_appservice_heisenbridge_file:
-  file.symlink:
+  file.managed:
     - name: /etc/matrix-synapse/appservices/appservice-heisenbridge.yaml
-    - target: /etc/heisenbridge/registration.yaml
+    - source: salt://profile/matrix/files/appservice-heisenbridge.yaml
+    - user: synapse
+    - template: jinja
+    - require:
+      - pkg: heisenbridge_pkgs
 
 heisenbridge_service:
   service.running:

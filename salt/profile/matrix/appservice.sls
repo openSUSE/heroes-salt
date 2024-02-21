@@ -6,7 +6,7 @@ appservice_pkgs:
     - pkgs:
       - git
       - nodejs20
-      - nodejs-devel
+      - nodejs20-devel
       - nodejs-common
       - make
       - gcc
