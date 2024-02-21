@@ -1,6 +1,6 @@
 {% set appservices = salt['pillar.get']('profile:matrix:appservices') %}
 
-appservice_pgks:
+appservice_pkgs:
   pkg.installed:
     - resolve_capabilities: True
     - pkgs:
@@ -14,7 +14,9 @@ appservice_pgks:
       - cargo
       - yarn
 
-{% for dir, data in appservices.items() %}
+{%- for dir, data in appservices.items() %}
+{%- set repo = data.get('repo') %}
+
 /var/lib/matrix-synapse/{{ dir }}:
   file.directory:
     - user: synapse
@@ -23,7 +25,7 @@ appservice_pgks:
   file.directory:
     - user: synapse
 
-{{ data.get('repo') }}:
+{{ repo }}:
   git.latest:
     - branch: {{ data.get('branch', 'master') }}
     - target: /var/lib/matrix-synapse/{{ dir }}
@@ -39,10 +41,8 @@ appservice_pgks:
     - user: synapse
     - require:
       - file: /var/lib/matrix-synapse/{{ dir }}
-    - require_in:
-      - service: {{ dir }}_service
     - watch_in:
-      - module: {{ dir }}_restart
+      - service: {{ dir }}_service
 
 {{ dir }}_appservice_file:
   file.managed:
@@ -53,7 +53,7 @@ appservice_pgks:
     - require:
       - file: /var/lib/matrix-synapse/{{ dir }}
     - watch_in:
-      - module: {{ dir }}_restart
+      - service: {{ dir }}_service
 
 synapse_appservice_{{ dir }}_file:
   file.managed:
@@ -63,13 +63,15 @@ synapse_appservice_{{ dir }}_file:
     - require:
       - file: /var/lib/matrix-synapse/{{ dir }}
     - watch_in:
-      - module: {{ dir }}_restart
+      - service: {{ dir }}_service
 
-{{ dir }}_boostrap:
+{{ dir }}_bootstrap:
   cmd.run:
     - name: yarn install
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
+    - onchanges:
+      - git: {{ repo }}
 
 {% if data.get('build') == True %}
 {{ dir }}_build:
@@ -77,6 +79,8 @@ synapse_appservice_{{ dir }}_file:
     - name: yarn run build
     - cwd: /var/lib/matrix-synapse/{{ dir }}
     - runas: synapse
+    - onchanges:
+      - cmd: {{ dir }}_bootstrap
 {% endif %}
 
 {{ dir }}_systemd_file:
@@ -97,13 +101,6 @@ synapse_appservice_{{ dir }}_file:
     - require:
       - service: synapse_service
 
-{{ dir }}_restart:
-  module.wait:
-    - name: service.restart
-    - m_name: {{ dir }}
-    - require:
-      - service: synapse_service
-      - service: {{ dir }}_service
 {% endfor %}
 
 /var/lib/matrix-synapse/hookshot/passkey.pem:
