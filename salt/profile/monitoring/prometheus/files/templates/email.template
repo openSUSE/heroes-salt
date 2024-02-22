@@ -1,0 +1,58 @@
+{{/*
+plain text email template for openSUSE infrastructure alerts
+inspired by https://gitlab.torproject.org/tpo/tpa/team/-/issues/40214#note_2732922 (thank you!)
+*/}}
+{{ define "__subject" -}}
+[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.alertname }}{{ if .GroupLabels.instance }} on {{ .GroupLabels.instance }}{{ else if .CommonLabels.instance }} @ {{ .CommonLabels.instance }}{{ end }}
+{{ end -}}
+
+{{ define "email.ioo.txt" -}}
+{{ if .Alerts.Firing -}}
+=== Firing Alerts ===
+{{ range .Alerts.Firing -}}
+<----- 
+Time: {{ .StartsAt  }}
+{{ if .Annotations.summary }}Summary: {{ .Annotations.summary }}{{ else if .Annotations.title }}{{ .Annotations.title }}{{ end }}
+{{ if .Annotations.description }}Description:  {{ .Annotations.description }}{{ end }}
+
+= Labels =
+{{ range .Labels.SortedPairs -}}
+{{ .Name }} = {{ .Value }}
+{{ end -}}
+----->
+
+{{ end -}}
+{{ end }}
+
+{{ if .Alerts.Resolved -}}
+=== Resolved Alerts ===
+{{ range .Alerts.Resolved -}}
+<----- 
+Time: {{ .StartsAt  }} - {{ .EndsAt  }}
+{{ if .Annotations.summary }}Summary: {{ .Annotations.summary }}{{ else if .Annotations.title }}{{ .Annotations.title }}{{ end }}
+{{ if .Annotations.description }}Description:  {{ .Annotations.description }}{{ end }}
+----->
+
+{{ end -}}
+
+{{ end }}
+
+=== Totals ===
+{{ if gt (len .Alerts.Firing) 0 -}}
+Total firing alerts: {{ .Alerts.Firing | len }}
+{{ end -}}
+{{ if gt (len .Alerts.Resolved) 0 -}}
+Total resolved alerts: {{ .Alerts.Resolved | len }}
+{{ end }}
+
+=== Common Labels ===
+{{ range .CommonLabels.SortedPairs -}}
+{{ .Name }} = {{ .Value }}
+{{ end }}
+=== Group Labels ===
+{{ range .GroupLabels.SortedPairs -}}
+{{ .Name }} = {{ .Value }}
+{{ end }}
+
+=== EOF ===
+{{ end }}
