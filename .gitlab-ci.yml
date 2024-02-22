@@ -57,6 +57,12 @@ test_haproxy:
 #       - salt/profile/proxy/*
 #       - salt/role/proxy*
 
+test_nftables:
+  extends:
+    - .test_common
+  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nftables:latest
+  script: bin/test_nftables.pl
+
 # Dynamically generated jobs
 prepare_includes:
   script: bin/render_gitlab_ci_includes.py -w
