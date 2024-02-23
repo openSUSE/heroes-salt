@@ -68,13 +68,22 @@ foreach (@directories) {
     open(fh, '<', $file);
     my $next_line_interesting = 0;
     while (<fh>) {
+      chomp;
       if ( $_ =~ /^\s*#/ ) {
+        next;
+      }
+      if ( $_ =~ /[\s\t]+$/ ) {
+        print "Trailing spaces or tabs in $file, line $..\n";
+        $treestatus = 1;
         next;
       }
       my $interface;
       if ( $_ =~ /^\s*include "(.*)"$/ ) {
         my $include = $1;
-        if (index($include, '*')) {
+        if ($debug) {
+          print "Analyzing include $include ...\n";
+        }
+        if (index($include, '*') == -1) {
           if (! ( () = glob($include) ) ) {
             print "No files match include \"$include\" in $file.\n";
             $treestatus = 1;
@@ -109,6 +118,7 @@ foreach (@directories) {
         $interfaces{$interface} = ();
       }
     }
+    close(fh);
   }
 
   foreach my $interface (keys %interfaces) {
