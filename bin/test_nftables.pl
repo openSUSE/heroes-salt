@@ -68,7 +68,13 @@ foreach (@directories) {
     open(fh, '<', $file);
     my $next_line_interesting = 0;
     while (<fh>) {
+      chomp;
       if ( $_ =~ /^\s*#/ ) {
+        next;
+      }
+      if ( $_ =~ /[\s\t]+$/ ) {
+        print "Trailing spaces or tabs in $file, line $..\n";
+        $treestatus = 1;
         next;
       }
       my $interface;
@@ -109,6 +115,7 @@ foreach (@directories) {
         $interfaces{$interface} = ();
       }
     }
+    close(fh);
   }
 
   foreach my $interface (keys %interfaces) {
