@@ -80,7 +80,10 @@ foreach (@directories) {
       my $interface;
       if ( $_ =~ /^\s*include "(.*)"$/ ) {
         my $include = $1;
-        if (index($include, '*')) {
+        if ($debug) {
+          print "Analyzing include $include ...\n";
+        }
+        if (index($include, '*') == -1) {
           if (! ( () = glob($include) ) ) {
             print "No files match include \"$include\" in $file.\n";
             $treestatus = 1;
