@@ -98,6 +98,7 @@ network:
         {%- if ip6 is not none %}
         - {{ ip6 }}
         {%- endif %}
+      firewall: false
     {%- endif %}
 
     {#- configure addresses on any additional interfaces if IP addresses were found for them #}
@@ -112,6 +113,7 @@ network:
         {%- if 'ip6' in ifconfig %}
         - {{ ifconfig['ip6'] }}
         {%- endif %}
+      firewall: false
     {%- endif %} {#- close ip4/ip6 check #}
     {%- endfor %}
 
