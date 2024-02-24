@@ -535,7 +535,7 @@ mickey:
       source: x-os-internal
   legacy_boot: true
   ram: 16384MB
-  vcpu: 4
+  vcpu: 8
 minio:
   cluster: falkor
   disks:
