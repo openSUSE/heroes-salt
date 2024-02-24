@@ -22,7 +22,9 @@ include:
   - os_update
   - rebootmgr
   - profile.etckeeper
+  {%- if 'kanidm-client' not in grains['roles'] %}
   - profile.ldap.client
+  {%- endif %}
   - profile.accounts
   - profile.log
   - profile.monitoring
