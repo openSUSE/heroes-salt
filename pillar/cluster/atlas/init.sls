@@ -84,7 +84,7 @@ haproxy:
         - connect 5s
         - client 120m
         - server 120m
-      {{ rsync_backend_with_checks('2a07:de40:b27e:1203::130', extra='send-proxy-v2', listen_addresses=bind_v4_vip, listen_port=11874, listen_params=bindopts ~ ' ssl crt /etc/ssl/services/proxy-prg2.opensuse.org.pem') }}
+      {{ rsync_backend_with_checks('2a07:de40:b27e:1203::130', extra='send-proxy', listen_addresses=bind_v4_vip, listen_port=11874, listen_params=bindopts ~ ' ssl crt /etc/ssl/services/proxy-prg2.opensuse.org.pem') }}
 
     {%- for smtp_instance, smtp_config in {
           'smtp': {
