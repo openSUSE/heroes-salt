@@ -234,9 +234,13 @@ zypper:
 mine_functions:
   network.ip_addrs: []
   network.ip_addrs6: []
-  fqdn:
-    - mine_function: grains.get
+  grains:
+    - mine_function: grains.item
     - fqdn
+    - virtual
+  roles:
+    - mine_function: pillar.get
+    - roles
   ssh_host_keys:
     - mine_function: ssh.host_keys
     - private: False
