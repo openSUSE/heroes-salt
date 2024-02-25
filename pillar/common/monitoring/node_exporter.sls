@@ -12,8 +12,7 @@
 prometheus:
   wanted:
     component:
-      node_exporter:
-        name: golang-github-prometheus-node_exporter
+      - node_exporter
 
   pkg:
     component:
