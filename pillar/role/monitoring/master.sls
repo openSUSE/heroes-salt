@@ -126,12 +126,23 @@ prometheus:
                   regex: ^([\w\.-]+)\:3903
                   replacement: $1
 
+            {%- targets = {'physical': [], 'kvm': []} %}
+            {%- for minion, mined_grains in salt.saltutil.runner('mine.get', arg=['*', 'grains']) | dictsort %}
+            {%- if mined_grains['virtual'] in targets %}
+            {%- do targets[mined_grains['virtual']].append(fqdn) %}
+            {%- else %}
+            {%- do salt.log.warning('monitoring.master: unhandled virtual in mined minion ' ~ minion) %}
+            {%- endif %}
             - job_name: nodes
               static_configs:
-                - targets:
-                    {%- for minion, fqdn in salt.saltutil.runner('mine.get', arg=['*', 'fqdn']) | dictsort(by='value') %}
+                {%- for virtual, fqdns in targets.items() %}
+                - labels:
+                    virtual: {{ virtual }}
+                  targets:
+                    {%- for fqdn in fqdns | sort %}
                     - {{ fqdn }}:9100
                     {%- endfor %}
+                {%- endfor %}
               relabel_configs:
                 - source_labels:
                     - __address__
