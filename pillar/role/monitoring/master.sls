@@ -83,35 +83,81 @@ prometheus:
 
           scrape_configs:
 
+            {#- start collecting minions with a single mine call and pre-sort them into monitoring groups for
+                later referencing as scrape targets
+            #}
+            {%- set targets = {
+                      'all': {},
+                      'nodes': {
+                        'physical': [], 'kvm': []
+                      },
+                      'elasticsearch': [],
+                      'mysql': [],
+                      'salt': [],
+                    }
+            %}
+            {%- set mine = salt.saltutil.runner('mine.get', tgt='*', fun=['grains', 'roles']) %}
+
+            {%- for minion, mined_grains in mine.get('grains', {}).items() %}
+              {#- check if the virtual grain is known (there should not be any minions with "stray" virtual values around) #}
+              {%- if mined_grains['virtual'] in targets['nodes'] %}
+                {#- store FQDN in the virtual specific list #}
+                {%- do targets['nodes'][mined_grains['virtual']].append(mined_grains['fqdn']) %}
+                {#- store minion->FQDN map for referencing the FQDN in the role iterations, which would otherwise
+                    only have access to the minion ID which is served as the key of any mine query
+                    (although in theory, the IDs of our minions should always match their FQDN)
+                #}
+                {%- do targets['all'].update({minion: mined_grains['fqdn']}) %}
+              {%- else %}
+                {%- do salt.log.warning('monitoring.master: unhandled virtual in mined minion ' ~ minion) %}
+              {%- endif %}
+            {%- endfor %} {#- close grains loop #}
+
+            {#- collect role specific target groups
+                this allows for automatic enrollment of nodes running services covered by our monitoring
+                (i.e. services we deploy exporters for) to the respective service specific metric collections
+            #}
+            {%- for minion, roles in mine.get('roles', {}).items() %}
+              {%- if minion in targets['all'] %}
+
+                {#- MySQL (mysqld-exporter) #}
+                {%- if 'mariadb' in roles %}
+                  {%- do targets['mysql'].append(targets['all'][minion]) %}
+                {%- endif %}
+
+                {#- Salt (saline) #}
+                {%- if 'saltmaster' in roles %}
+                  {%- do targets['salt'].append(targets['all'][minion]) %}
+                {%- endif %}
+
+                {#- Elasticsearch (elasticsearch-exporter) #}
+                {%- if 'wikisearch' in roles %}
+                  {%- do targets['elasticsearch'].append(targets['all'][minion]) %}
+                {%- endif %}
+
+              {%- endif %} {#- close minion in targets check #}
+            {%- endfor %} {#- close roles loop #}
+
             - job_name: elasticsearch
               static_configs:
                 - targets:
-                    - water:9114
-                    - water3:9114
+                    {%- for fqdn in targets['elasticsearch'] | sort %}
+                    - {{ fqdn }}:9114
+                    {%- endfor %}
                   labels:
                     service: elasticsearch
               relabel_configs:
                 - source_labels:
                     - __address__
                   target_label: instance
-                  regex: (.*)\:9114
+                  regex: ^(\w+)\.infra\.opensuse\.org\:9114
                   replacement: $1
 
             - job_name: galera
               static_configs:
-                # original configuration uses one target per host, which I don't understand (yet)
-                #- targets: ['galera1:9104']
-                #  labels:
-                #    alias: galera1
-                #- targets: ['galera2:9104']
-                #  labels:
-                #    alias: galera2
-                #- targets: ['galera3:9104']
-                #  labels:
-                #    alias: galera3
                 - targets:
-                    {%- for i in [1, 2, 3] %}
-                    - galera{{ i }}.infra.opensuse.org:9104
+                    {%- for fqdn in targets['mysql'] | sort  %}
+                    - {{ fqdn }}:9104
                     {%- endfor %}
 
             - job_name: mail
@@ -126,16 +172,10 @@ prometheus:
                   regex: ^([\w\.-]+)\:3903
                   replacement: $1
 
-            {%- targets = {'physical': [], 'kvm': []} %}
-            {%- for minion, mined_grains in salt.saltutil.runner('mine.get', arg=['*', 'grains']) | dictsort %}
-            {%- if mined_grains['virtual'] in targets %}
-            {%- do targets[mined_grains['virtual']].append(fqdn) %}
-            {%- else %}
-            {%- do salt.log.warning('monitoring.master: unhandled virtual in mined minion ' ~ minion) %}
-            {%- endif %}
+
             - job_name: nodes
               static_configs:
-                {%- for virtual, fqdns in targets.items() %}
+                {%- for virtual, fqdns in targets['nodes'].items() %}
                 - labels:
                     virtual: {{ virtual }}
                   targets:
@@ -162,7 +202,9 @@ prometheus:
               scrape_timeout: 5s
               static_configs:
                 - targets:
-                    - witch1.infra.opensuse.org:8216
+                    {%- for fqdn in targets['salt'] | sort  %}
+                    - {{ fqdn }}:8216
+                    {%- endfor %}
                   labels:
                     __scheme__: https
               relabel_configs:
