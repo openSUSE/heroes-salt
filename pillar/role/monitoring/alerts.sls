@@ -9,7 +9,11 @@ def run():
       'extra_files': {},
     },
   }
-  for file in ['base', 'prometheus']:
+  for file in [
+      'base',
+      'mysql',
+      'prometheus',
+  ]:
     with open(f'/srv/pillar/infra/alerts/{file}.yaml') as fh:
       rules['prometheus']['extra_files'].update(
         {
