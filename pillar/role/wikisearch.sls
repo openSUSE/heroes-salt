@@ -23,3 +23,14 @@ elasticsearch:
     ES_PATH_CONF: /etc/elasticsearch
     ES_STARTUP_SLEEP_TIME: 5
   version: 6.8.22
+
+prometheus:
+  wanted:
+    component:
+      - elasticsearch_exporter
+  pkg:
+    component:
+      elasticsearch_exporter:
+        name: golang-github-justwatchcom-elasticsearch_exporter
+        service:
+          name: prometheus-elasticsearch_exporter
