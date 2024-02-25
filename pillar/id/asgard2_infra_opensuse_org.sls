@@ -34,6 +34,16 @@ profile:
     nrpe:
       server_address: 2a07:de40:b27e:1203::2
 prometheus:
+  extra_files:
+    ping_exporter:
+      config:
+        targets:
+          # provo-gate p2p
+          - 172.16.202.4
+          - fd4b:5292:d67e:4::2
+          # stonehat p2p
+          - 172.16.202.6
+          - 'fd4b:5292:d67e:6::'
   pkg:
     component:
       node_exporter:

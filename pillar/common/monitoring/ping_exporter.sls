@@ -12,4 +12,3 @@ prometheus:
   wanted:
     component:
       - ping_exporter
-
