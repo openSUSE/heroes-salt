@@ -238,6 +238,9 @@ mine_functions:
     - mine_function: grains.item
     - fqdn
     - virtual
+  roles:
+    - mine_function: pillar.get
+    - roles
   ssh_host_keys:
     - mine_function: ssh.host_keys
     - private: False
