@@ -33,10 +33,12 @@ from jsonschema import Draft202012Validator, ValidationError
 from lib.colors import green, orange, red, reset
 from referencing import Registry, Resource
 
-# files we do not have schemas for
-excludes = [
+# data we do not have schemas for
+excluded_files = [
   'clusters', 'domains', 'nameservers', 'networks',
-  'base', 'prometheus',  # alerts/
+]
+excluded_directories = [
+  'alerts',
 ]
 
 infradir = 'pillar/infra/'
@@ -191,13 +193,14 @@ def test_duplicates(data):
 def main():
     for file in Path(f'{infradir}').glob('**/*.yaml'):
       name = file.stem
+      parent = file.parent.name
       if len(file.parents) == 3:
         save_name = name
       elif len(file.parents) > 3:
-        save_name = f'{file.parent.name}/{name}'
+        save_name = f'{parent}/{name}'
       else:
         _fail('Unhandled repository layout')
-      if name not in excludes:
+      if name not in excluded_files and parent not in excluded_directories:
         with open(f'{file}') as fh:
           try:
             infra_data[save_name] = yaml.safe_load(fh)
