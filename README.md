@@ -24,6 +24,17 @@ Debugging Salt on a client (i.e. a machine running the salt-minion) is possible 
 
 Remember to have a lot of fun! :-)
 
+Formulas
+-------------------
+
+In addition to the Salt states in this repository various reusable states ("formulas") are in use.
+
+Our formulas (installed from packages):
+- https://github.com/openSUSE/salt-formulas (authoritative) or https://code.opensuse.org/heroes/salt-formulas (mirror)
+
+Upstream formulas and forks (installed from Git submodules):
+- https://gitlab.infra.opensuse.org/infra/salt-formulas-git (authoritative) or https://code.opensuse.org/heroes/salt-formulas-git (mirror)
+
 Tests
 -------------------
 
