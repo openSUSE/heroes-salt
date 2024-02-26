@@ -92,6 +92,7 @@ if [[ -n "$HIGHSTATE" ]]; then
     then
 	    mkdir /etc/salt/minion.d
     fi
+    echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
     tee /etc/salt/minion.d/roots.conf <<-EOF
 	file_roots:
 	  base:
