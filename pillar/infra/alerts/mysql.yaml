@@ -12,7 +12,7 @@ groups:
           summary: MySQL on instance {{ $labels.instance }} is down
           description: "MySQL instance is down on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: GaleraFragile
-        expr: sum(mysql_up{instance=~"galera[1-3].infra.opensuse.org:9104"}) < 3
+        expr: sum(mysql_up{instance=~"galera[1-3].infra.opensuse.org"}) < 3
         for: 20s
         labels:
           severity: critical

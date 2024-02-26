@@ -1,5 +1,14 @@
 {%- set listen = grains['fqdn_ip6'][0] %}
 
+{%- macro relabel_instance(port) %}
+              relabel_configs:
+                - source_labels:
+                    - __address__
+                  target_label: instance
+                  regex: ^([\w\.-]+)\:{{ port }}
+                  replacement: $1
+{%- endmacro %}
+
 include:
   - role.common.apache
   - role.common.monitoring
@@ -146,12 +155,7 @@ prometheus:
                     {%- endfor %}
                   labels:
                     service: elasticsearch
-              relabel_configs:
-                - source_labels:
-                    - __address__
-                  target_label: instance
-                  regex: ^(\w+)\.infra\.opensuse\.org\:9114
-                  replacement: $1
+              {{ relabel_instance(9114) }}
 
             - job_name: galera
               static_configs:
@@ -159,19 +163,14 @@ prometheus:
                     {%- for fqdn in targets['mysql'] | sort  %}
                     - {{ fqdn }}:9104
                     {%- endfor %}
+              {{ relabel_instance(9104) }}
 
             - job_name: mail
               scheme: http
               static_configs:
                 - targets:
                     - mx-test.infra.opensuse.org:3903
-              relabel_configs:
-                - source_labels:
-                    - __address__
-                  target_label: instance
-                  regex: ^([\w\.-]+)\:3903
-                  replacement: $1
-
+              {{ relabel_instance(3903) }}
 
             - job_name: nodes
               static_configs:
@@ -183,12 +182,7 @@ prometheus:
                     - {{ fqdn }}:9100
                     {%- endfor %}
                 {%- endfor %}
-              relabel_configs:
-                - source_labels:
-                    - __address__
-                  target_label: instance
-                  regex: ^([\w\.-]+)\:9100
-                  replacement: $1
+              {{ relabel_instance(9100) }}
 
             - job_name: prometheus
               scrape_interval: 5s
@@ -207,12 +201,7 @@ prometheus:
                     {%- endfor %}
                   labels:
                     __scheme__: https
-              relabel_configs:
-                - regex: ^([\w\.]+)\:8216
-                  replacement: $1
-                  source_labels:
-                    - __address__
-                  target_label: instance
+              {{ relabel_instance(8216) }}
 
             {%- set mioo = 'matrix.infra.opensuse.org' %}
             - job_name: synapse
