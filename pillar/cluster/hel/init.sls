@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, galeras, server, httpcheck %}
+{%- from 'common/haproxy/map.jinja' import bind, extra, galeras, server, httpcheck, metrics %}
 
 include:
   - common.haproxy
@@ -11,7 +11,8 @@ include:
 grains:
   configure_ntp: false
 
-{%- set bind_v6 = ['2a07:de40:b27e:1203::10', '2a07:de40:b27e:1203::11', '2a07:de40:b27e:1203::12'] %}
+{%- set bind_v6_standalone = ['2a07:de40:b27e:1203::11', '2a07:de40:b27e:1203::12'] %}
+{%- set bind_v6 = ['2a07:de40:b27e:1203::10'] + bind_v6_standalone %}
 
 haproxy:
 
@@ -41,6 +42,7 @@ haproxy:
         {%- endfor %}
 
   listens:
+    {{ metrics(bind_v6_standalone) }}
     stats:
       bind:
         {{ bind(bind_v6, 80, 'v6only tfo') }}

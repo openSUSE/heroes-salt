@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, server, rsync_backend_with_checks %}
+{%- from 'common/haproxy/map.jinja' import bind, extra, server, rsync_backend_with_checks, metrics %}
 {%- set host = grains['host'] %}
 
 {%- if host.startswith('runner-') %} {#- handle host based dictionaries in CI tests #}
@@ -16,7 +16,8 @@ include:
   {%- endif %}
 
 {%- set bind_v6_vip = ['2a07:de40:b27e:1204::10'] %}
-{%- set bind_v6 = bind_v6_vip + ['2a07:de40:b27e:1204::11', '2a07:de40:b27e:1204::12'] %}
+{%- set bind_v6_standalone = ['2a07:de40:b27e:1204::11', '2a07:de40:b27e:1204::12'] %}
+{%- set bind_v6 = bind_v6_vip + bind_v6_standalone %}
 {%- set bind_v4_vip = ['172.16.130.10'] %}
 {%- set bind_v4 = bind_v4_vip + ['172.16.130.11', '172.16.130.12'] %}
 
@@ -74,6 +75,8 @@ haproxy:
       sticktable: type ipv6 size 250k expire 1m store http_req_rate(30s)
 
   listens:
+    {{ metrics(bind_v6_standalone) }}
+
     rsync-community2:
       acls: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
       {{ rsync_backend_with_checks('2a07:de40:b27e:1203::129', listen_addresses=bind_v4_vip, listen_port=11873, listen_params=bindopts) }}

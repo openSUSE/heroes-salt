@@ -94,3 +94,20 @@
 {%- set extra_with_ssl = 'send-proxy-v2 ' ~ extra  ~ ' ssl verify required verifyhost ' ~ host ~ ' check-sni ' ~ host ~ ' sni str(' ~ host ~ ') ca-file /etc/ssl/ca-bundle.pem' %}
 {{ rsync_backend_with_checks(host=host, port=port, check_parameters=check_parameters, extra=extra_with_ssl, with_check=with_check, listen_addresses=listen_addresses, listen_port=listen_port, listen_params=listen_params, listen_protocol=listen_protocol, generate_section=generate_section) }}
 {%- endmacro %}
+
+{%- macro metrics(listen, v6=True) %}
+    {%- if v6 %}
+    {%- set options = 'v6only' %}
+    {%- else %}
+    {%- set options = None %}
+    {%- endif %}
+    metrics:
+      bind:
+        {{ bind(listen, 8404, options) }}
+      options:
+        - http-use-htx
+      httprequests:
+        - use-service prometheus-exporter if { path /metrics }
+        {#- we don't serve anything other than /metrics here #}
+        - return status 204
+{%- endmacro %}

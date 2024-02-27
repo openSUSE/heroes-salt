@@ -1,7 +1,8 @@
-{%- from 'common/haproxy/macros.jinja' import bind, extra, options, server, rsync_backend_with_checks, httpcheck -%}
+{%- from 'common/haproxy/macros.jinja' import bind, extra, options, server, rsync_backend_with_checks, httpcheck, metrics -%}
 {%- set bind = bind -%}{%- set extra = extra -%}{%- set options = options -%}{%- set server = server -%}
 {%- set rsync_backend_with_checks = rsync_backend_with_checks %}
 {%- set httpcheck = httpcheck %}
+{%- set metrics = metrics %}
 
 {%- set errorfiles = '/etc/haproxy/errorfiles/' %}
 {%- set narwals = {

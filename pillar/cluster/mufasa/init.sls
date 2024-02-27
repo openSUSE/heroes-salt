@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind %}
+{%- from 'common/haproxy/map.jinja' import bind, metrics %}
 
 include:
   - common.haproxy
@@ -20,3 +20,5 @@ haproxy:
         {{ bind(bind_v6, 443, 'v6only ' ~ tls_bindopts) }}
         {{ bind(bind_v4, 443, tls_bindopts) }}
 
+  listens:
+    {{ metrics(['192.168.67.2'], False) }}
