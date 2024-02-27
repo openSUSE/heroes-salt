@@ -23,31 +23,33 @@ include:
     - source: salt://profile/kanidm/client/files/etc/kanidm/unixd
     - mode: '0644'
 
-# TODO: Uncomment when ready
-#
 /etc/pam.d/common-account:
   file.managed:
     - template: jinja
     - source: salt://profile/kanidm/client/files/etc/pam.d/common-account
     - mode: '0644'
+    - follow_symlinks: False
 
 /etc/pam.d/common-auth:
   file.managed:
     - template: jinja
     - source: salt://profile/kanidm/client/files/etc/pam.d/common-auth
     - mode: '0644'
+    - follow_symlinks: False
 
 /etc/pam.d/common-session:
   file.managed:
     - template: jinja
     - source: salt://profile/kanidm/client/files/etc/pam.d/common-session
     - mode: '0644'
+    - follow_symlinks: False
 
 /etc/pam.d/common-password:
   file.managed:
     - template: jinja
     - source: salt://profile/kanidm/client/files/etc/pam.d/common-password
     - mode: '0644'
+    - follow_symlinks: False
 
 kanidm-unixd.service:
   service.running:
@@ -67,5 +69,6 @@ kanidm-unixd-tasks.service:
       - service: kanidm-unixd
 
 sssd.service:
-  service.disabled:
+  service.dead:
     - name: sssd
+    - disable: True
