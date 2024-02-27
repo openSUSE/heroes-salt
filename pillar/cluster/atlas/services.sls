@@ -150,7 +150,7 @@ haproxy:
         - man             if host_manpages
         - matomo          if host_beans
         - matrix          if host_chat || host_matrix || sni_matrix
-        - metrics         if host_metrics
+        - metricsioo      if host_metrics
         - minio           if host_minio
         - monitor         if host_monitor
         - nuka            if host_nuka

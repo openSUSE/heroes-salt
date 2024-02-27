@@ -85,7 +85,7 @@ haproxy:
     matrix:
       {{ options() }}
       {{ server('matrix', '2a07:de40:b27e:1203::b40') }}
-    metrics:
+    metricsioo:
       {{ options() }}
       {{ server('metrics', '2a07:de40:b27e:1203::141', 3000) }}
     minio:
