@@ -10,6 +10,8 @@
     when: always
     paths:
       - '*.txt'
+  rules:
+    - when: on_success
 
 {% for role in roles %}
 test_nginx_{{ role }}:

@@ -4,12 +4,16 @@ stages:
   - test
   - deploy
 
+.test_mr:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_COMMIT_BRANCH == 'production'
+
 .test_common:
+  extends:
+    - .test_mr
   stage: test
   tags:
     - docker
-  rules:
-    - if: $CI_COMMIT_BRANCH
 
 .test_artifacts:
   artifacts:
@@ -77,12 +81,16 @@ test_prometheus:
 
 # Dynamically generated jobs
 prepare_includes:
+  extends:
+    - .test_mr
   script: bin/render_gitlab_ci_includes.py -w
   artifacts:
     paths:
       - .gitlab-ci.includes/*.yml
 
 test_highstate:
+  extends:
+    - .test_mr
   needs:
     - prepare_includes
   trigger:
@@ -92,6 +100,8 @@ test_highstate:
     strategy: depend
 
 test_nginx:
+  extends:
+    - .test_mr
   needs:
     - prepare_includes
   trigger:

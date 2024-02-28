@@ -11,7 +11,7 @@
       - '*.txt'
       - 'render/*.txt'
   rules:
-    - if: $CI_COMMIT_BRANCH
+    - when: on_success
 
 {% for role in roles %}
 test_highstate_{{ role }}:
