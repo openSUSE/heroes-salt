@@ -16,5 +16,3 @@ selinux = true
 # Allow wheel from IDM to override a locally provided version.
 allow_local_account_override = ["wheel"]
 
-hsm_type = "soft"
-
