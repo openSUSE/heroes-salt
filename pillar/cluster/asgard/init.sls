@@ -1,4 +1,5 @@
 include:
+  - .monitoring
   - .network
   - .vrrp
   - .tayga
