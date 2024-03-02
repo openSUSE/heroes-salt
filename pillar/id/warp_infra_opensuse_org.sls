@@ -22,10 +22,3 @@ profile:
   monitoring:
     nrpe:
       server_address: 2a07:de40:b27e:1101::a
-prometheus:
-  pkg:
-    component:
-      node_exporter:
-        environ:
-          args:
-            web.listen-address: '[2a07:de40:b27e:1101::a]:9100'
