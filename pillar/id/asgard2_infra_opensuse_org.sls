@@ -44,9 +44,3 @@ prometheus:
           # stonehat p2p
           - 172.16.202.6
           - 'fd4b:5292:d67e:6::'
-  pkg:
-    component:
-      node_exporter:
-        environ:
-          args:
-            web.listen-address: '[2a07:de40:b27e:1203::2]:9100'
