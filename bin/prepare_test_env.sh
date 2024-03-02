@@ -62,7 +62,6 @@ elif [ "$REPOSITORIES" == 'False' ]
 then
   rm /etc/zypp/repos.d/*
 fi
-zypper lr -d || true
 
 if [ -z "$FORMULAS" ]
 then
