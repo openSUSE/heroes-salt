@@ -20,6 +20,7 @@ include:
   - .headers
   - .hosts
   - .limits
+  - .monitoring.listen
   - .monitoring.node_exporter
   - .motd
   - .network
