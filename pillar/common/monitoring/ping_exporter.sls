@@ -2,7 +2,6 @@ prometheus:
   extra_files:
     ping_exporter:
       component: ping_exporter
-      file: ping_exporter.yml
   pkg:
     component:
       ping_exporter:
