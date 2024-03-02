@@ -8,6 +8,7 @@ prometheus:
         name: prometheus-ping_exporter
         service:
           name: prometheus-ping_exporter
+          reload: false
   wanted:
     component:
       - ping_exporter
