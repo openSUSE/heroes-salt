@@ -60,11 +60,13 @@ echo "== $IDFILE END =="
 
 out='cli.txt'
 
+salt_args=( '-lcritical' '--log-file=setup_errors.txt' '--log-file-level=error' "--out-file=$out" '--out-file-append' "$HOSTNAME" )
+
 # Update pillar and mine
-salt --out-file="$out" --out-file-append "$HOSTNAME" saltutil.refresh_pillar
-salt --out-file="$out" --out-file-append "$HOSTNAME" mine.update
+salt "${salt_args[@]}" saltutil.refresh_pillar
+salt "${salt_args[@]}" mine.update
 
 
 ## Check
 
-salt-call --out-file="$out" --out-file-append test.ping
+salt "${salt_args[@]}" test.ping
