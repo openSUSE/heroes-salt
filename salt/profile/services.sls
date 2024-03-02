@@ -1,23 +1,22 @@
+{%- set file = '/etc/sysconfig/services' %}
+{%- set fillup_header = '## Path:\tSystem/Services\n' %}
+{%- set salt_header = pillar['managed_by_salt_sysconfig'] %}
+{%- set test = opts['test'] %}
 {%- set roles = pillar.get('roles', []) %}
 
-/etc/sysconfig/services:
-  file.managed:
-    - contents: |
-        ## Path:	System/Services
-        {{ pillar['managed_by_salt_sysconfig'] | indent(8) }}
+profile_services_header:
+  file.replace:
+    - name: {{ file }}
+    - ignore_if_missing: {{ test }}
+    - pattern: {{ ( '^' ~ fillup_header ~ '(?:' ~ salt_header ~ ')?' ) | yaml_encode }}
+    - repl: {{ ( fillup_header ~ salt_header ) | yaml_encode }}
+    - count: 1
+    - bufsize: file
 
-        ## Type:        yesno
-        ## Default:     no
-        #
-        # Do you want to disable the automatic restart of services when
-        # a new version gets installed?
-        #
-        DISABLE_RESTART_ON_UPDATE="{{ 'yes' if 'hypervisor.cluster' in roles or 'mariadb' in roles else 'no' }}"
-
-        ## Type:        yesno
-        ## Default:     no
-        #
-        # Do you want to disable the automatic shutdown of services when
-        # the corresponding package gets erased?
-        #
-        DISABLE_STOP_ON_REMOVAL="no"
+profile_services_config:
+  file.keyvalue:
+    - name: {{ file }}
+    - ignore_if_missing: {{ test }}
+    - key_values:
+        DISABLE_RESTART_ON_UPDATE: '"{{ 'yes' if 'hypervisor.cluster' in roles or 'mariadb' in roles else 'no' }}"'
+        DISABLE_STOP_ON_REMOVAL: '"no"'
