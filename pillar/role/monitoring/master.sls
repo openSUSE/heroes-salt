@@ -123,35 +123,43 @@ prometheus:
               {%- endif %}
             {%- endfor %} {#- close grains loop #}
 
-            {#- collect role specific target groups
-                this allows for automatic enrollment of nodes running services covered by our monitoring
+            {#- allow for automatic enrollment of nodes running services covered by our monitoring
                 (i.e. services we deploy exporters for) to the respective service specific metric collections
+
+                first, map the Prometheus target groups to Salt roles:
+                (idea: consider moving the roles lists into the targets dict to avoid having to declare target groups in two places)
             #}
+            {%- set groups_roles_map = {
+                      'elasticsearch': [
+                        'wikisearch',
+                      ],
+                      'gateway': [
+                        'gateway',
+                      ],
+                      'mysql': [
+                        'mariadb',
+                      ],
+                      'salt': [
+                        'saltmaster',
+                      ],
+                    }
+            %}
+
+            {#- then, collect the role specific target groups: #}
             {%- for minion, roles in mine.get('roles', {}).items() %}
               {%- if minion in targets['all'] %}
+                {%- set minion_target = targets['all'][minion] %}
+                {%- for target_group, target_roles in groups_roles_map.items() %}
+                  {%- for target_role in target_roles %}
+                    {%- if target_role in roles and minion_target not in targets[target_group] %}
+                      {%- do targets[target_group].append(minion_target) %}
+                    {%- endif %}
+                  {%- endfor %}
+                {%- endfor %}
+              {%- endif %}
+            {%- endfor %}
 
-                {#- Ping (ping-exporter) #}
-                {%- if 'gateway' in roles %}
-                  {%- do targets['gateway'].append(targets['all'][minion]) %}
-                {%- endif %}
-
-                {#- MySQL (mysqld-exporter) #}
-                {%- if 'mariadb' in roles %}
-                  {%- do targets['mysql'].append(targets['all'][minion]) %}
-                {%- endif %}
-
-                {#- Salt (saline) #}
-                {%- if 'saltmaster' in roles %}
-                  {%- do targets['salt'].append(targets['all'][minion]) %}
-                {%- endif %}
-
-                {#- Elasticsearch (elasticsearch-exporter) #}
-                {%- if 'wikisearch' in roles %}
-                  {%- do targets['elasticsearch'].append(targets['all'][minion]) %}
-                {%- endif %}
-
-              {%- endif %} {#- close minion in targets check #}
-            {%- endfor %} {#- close roles loop #}
+            {%- do salt.log.debug('role.monitoring.master - targets: ' ~ targets) %}
 
             - job_name: elasticsearch
               static_configs:
