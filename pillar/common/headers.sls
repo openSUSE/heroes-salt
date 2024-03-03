@@ -7,6 +7,15 @@ managed_by_salt: |
   # https://gitlab.infra.opensuse.org/infra/salt
   #
 
+managed_by_salt_sysconfig: |
+  #
+  #          THIS FILE IS MANAGED BY SALT
+  #
+  # If you would like to modify this file, please
+  # submit a merge request to our Salt repository:
+  # https://gitlab.infra.opensuse.org/infra/salt
+  #
+
 managed_by_salt_ini: |
   ;#################################################
   ;;          THIS FILE IS MANAGED BY SALT        ;;
