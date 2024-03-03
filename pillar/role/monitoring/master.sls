@@ -101,6 +101,7 @@ prometheus:
                         'physical': [], 'kvm': []
                       },
                       'elasticsearch': [],
+                      'haproxy': [],
                       'mysql': [],
                       'ping': [],
                       'salt': [],
@@ -135,6 +136,9 @@ prometheus:
                       ],
                       'gateway': [
                         'gateway',
+                      ],
+                      'haproxy': [
+                        'proxy',
                       ],
                       'mysql': [
                         'mariadb',
@@ -178,6 +182,14 @@ prometheus:
                     - {{ fqdn }}:9104
                     {%- endfor %}
               {{ relabel_instance(9104) }}
+
+            - job_name: haproxy
+              static_configs:
+                - targets:
+                    {%- for fqdn in targets['haproxy'] | sort  %}
+                    - {{ fqdn }}:8404
+                    {%- endfor %}
+              {{ relabel_instance(8404) }}
 
             - job_name: mail
               scheme: http
