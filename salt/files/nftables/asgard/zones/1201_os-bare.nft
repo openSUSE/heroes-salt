@@ -1,0 +1,18 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-bare {
+  jump global_internal
+
+  ip6 saddr $net6_os-bare ip6 daddr $self6_bare ip6 nexthdr icmpv6 accept
+
+ }
+
+ chain output_network_os-bare {
+   jump global_internal
+
+   # consider removing this after redundant squanchy
+   ip6 saddr $self6_bare ip6 daddr $net6_os-bare tcp dport 22 accept
+
+ }

@@ -1,0 +1,154 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-internal {
+  jump global_internal
+
+  # disabled 03/03/2024 - to remove
+  #ip6 saddr $net6_os-internal  tcp dport { 22 } accept
+  #ip6 daddr @lan_ipv6 ip6 nexthdr icmpv6 accept
+  ip6 saddr @net6_os-internal ip6 daddr @self6_internal ip6 nexthdr icmpv6 accept
+
+  # acme -> chip PDNS API
+  #ip6 saddr @host6_acme ip6 daddr $chip tcp dport 444 accept
+  # acme -> internet for Let's Encrypt (acme-v02.api.letsencrypt.org doesn't seem to use a fixed address)
+  ip6 saddr @host6_acme tcp dport { http, https } accept
+  # acme -> { atlas*, mx*, witch*, NAT64 } for certificate synchronization via SSH (scp)
+  ip6 saddr @host6_acme ip6 daddr @host6_atlas tcp dport ssh accept
+  ip6 saddr @host6_acme ip6 daddr @host6_mx tcp dport ssh accept
+  ip6 saddr @host6_acme ip6 daddr @host6_witch1 tcp dport ssh accept
+  ip6 saddr @host6_acme ip6 daddr $nat64_v6 tcp dport ssh accept
+
+  # paste, mailman3, discourse -> atlas1 (HTTPS / why? in case of mailman3, it seems it's required for OpenID login, metrics for susepaste)
+  ip6 saddr { $host6_paste, $host6_mailman3, $host6_discourse, $host6_metrics } ip6 daddr $host6_atlas tcp dport https accept
+
+  # galera{1,2,3} -> downloadcontent (HTTP repositories) (could use @acl6_internet_downloadcontent instead)
+  ip6 saddr @host6_galera ip6 daddr @host6_downloadcontent tcp dport https accept
+
+  # gitlab-runner* -> registry.o.o (HTTPS)
+  ip6 saddr @host6_gitlab-runner ip6 daddr @cloud6_obs-login tcp dport https accept
+  # -> * (temp)
+  #ip6 saddr @host6_gitlab-runner tcp dport { http, https } accept
+  #ip6 saddr @host6_gitlab-runner icmpv6 type { echo-request, echo-reply } accept
+
+  # * -> GitHub (HTTP/HTTPS/SSH) (further restricted using client whitelisting through @acl4_internet_github in forward.conf)
+  oifname nat64 ip6 daddr @cloud46_github_web icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 daddr @cloud46_github_web tcp dport { http, https, ssh } accept #log prefix "[GitHub v6 IN] " accept
+
+  # * -> Akismet/Sentry (HTTPS) (further restricted using client whitelisting through @acl4_internet_{akismet,sentry} in forward.conf)
+  ip6 daddr @cloud46_akismet icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 daddr @cloud46_akismet tcp dport https accept
+  ip6 daddr @cloud46_sentry_organization icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 daddr @cloud46_sentry_organization tcp dport https accept
+
+  # Fastly ACL -> fastly (HTTPS, for rubygems.org)
+  ip6 saddr @acl6_internet_fastly ip6 daddr @cloud6_fastly icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @acl6_internet_fastly ip6 daddr @cloud6_fastly tcp dport https accept
+
+  # OBS-Login ACL -> (HTTPS, for registry.o.o, api.o.o, ..)
+  ip6 saddr @acl6_internet_obs-login ip6 daddr @cloud6_obs-login icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @acl6_internet_obs-login ip6 daddr @cloud6_obs-login tcp dport https accept
+
+  # jekyll -> * (HTTP/HTTPS, for planet.o.o RSS feeds)
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_jekyll tcp dport { http, https } ip6 daddr != @lan_ipv6_nonat accept
+
+  # jekyll -> atlas (HTTPS for planet.o.o to news.o.o)
+  oif os-public ip6 saddr $host6_jekyll ip6 daddr $host6_atlas tcp dport https accept
+
+  # narwal5 -> narwal4 (rsync over ssh)
+  oifname nat64 ip6 saddr $host6_narwal5 ip6 daddr $host6_narwal4 tcp dport ssh accept
+  # narwal5 -> download.o.o (HTTPS for reaching download.o.o/report/mirrors)
+  oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_download icmpv6 type { echo-request, echo-reply } accept
+  oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_download tcp dport https accept
+  # narwal5 -> {rsync,stage}.o.o (rsync for generating /list/rsyncinfo{-stage}.o.o.txt)
+  oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_rsync icmpv6 type { echo-request, echo-reply } accept
+  oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_stage icmpv6 type { echo-request, echo-reply } accept
+  oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_rsync tcp dport rsync accept
+  oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_stage tcp dport rsync accept
+
+  # riesling -> atlas* (HTTPS for RSS feeds embedded in Wiki)
+  oif os-public ip6 saddr $host6_atlas tcp dport https accept
+
+  # gitlab-runner* -> witch1 (rsync + API access for Salt deployment)
+  oif os-salt ip6 saddr @host6_gitlab-runner ip6 daddr @host6_witch1 tcp dport rsync accept
+  oif os-salt ip6 saddr @host6_gitlab-runner ip6 daddr @host6_witch1 tcp dport 4550 log prefix "[Salt API] " accept
+
+  # matrix -> * (all ports for matrix federation)
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_matrix ip6 nexthdr tcp ip6 daddr != @lan_ipv6_nonat accept
+  # matrix -> atlas (HTTPS for access to "itself", for example Telegram tries to chat with Matrix over its public matrix.o.o proxy address)
+  oif os-public ip6 saddr $host6_matrix ip6 daddr $host6_atlas tcp dport https accept
+
+  # discourse -> * (would be good to restrict further, but download of assets during discourse-update as well as generating of arbitrary link previews makes it difficult)
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_discourse tcp dport { http, https } ip6 daddr != @lan_ipv6_nonat log prefix "[Discourse HTTP 1] " accept
+  # osc-collab -> * (https://github.com/openSUSE/osc-plugin-collab/blob/master/server/upstream/upstream-tarballs.txt)
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_osc-collab tcp dport { http, https, ftp } ip6 daddr != @lan_ipv6_nonat accept
+
+  # monitor -> provo-mirror (HTTPS, why ??) edit: probably Prometheus metrics for debuginfod
+  #oif os-p2p-pub ip6 saddr $host6_monitor ip6 daddr 2a07:de40:0401:0000:0000:0000:0000:0065/128 tcp dport https accept
+  # monitor -> LiberaChat (IRCS for heroes-bot)
+  oif os-p2p-pub ip6 saddr $host6_monitor ip6 daddr @cloud6_liberachat tcp dport ircs-u accept
+
+  # monitor -> * (Prometheus)
+  ip6 saddr $host6_monitor ip6 daddr @lan_ipv6 tcp dport 9100 accept # Node Exporter
+  ip6 saddr $host6_monitor ip6 daddr @net6_os-s-warp tcp dport 9100 accept
+  # monitor -> mx* (Prometheus mtail/postfix metrics collection)
+  ip6 saddr $host6_monitor ip6 daddr @host6_mx tcp dport { 3903, 9154 } accept
+  # monitor -> witch* (Prometheus saline/salt metrics collection)
+  ip6 saddr $host6_monitor ip6 daddr @host6_witch1 tcp dport 8216 accept
+
+  # chip -> all nameservers (DNS, query/notify)
+  ip6 saddr $host6_chip ip6 daddr @host6_all_dns udp dport domain accept
+
+  # * -> Packman Build Service (HTTPS) (further restricted using client whitelisting through @acl4_internet_pmbs in forward.conf)
+  ip6 daddr @cloud46_pmbs icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 daddr @cloud46_pmbs tcp dport https accept
+
+  # Hel -> global DNS (for recursion) and NTP (for upstream pool access)
+  #oif os-p2p-pub ip6 saddr @host6_hel udp dport { domain, ntp } accept
+  #oif os-p2p-pub ip6 saddr @host6_hel tcp dport domain accept
+  oif os-p2p-pub ip6 saddr @host6_hel udp dport ntp accept
+  # Hel -> prg-ns DNS (for forwarding)
+  oif os-public ip6 saddr @host6_hel ip6 daddr @host6_prg-ns udp dport { domain, 1053 } accept
+  oif os-public ip6 saddr @host6_hel ip6 daddr @host6_prg-ns tcp dport { domain, 1053 } accept
+  # Hel -> mx{1,2} SMTP (for mail proxying / relay.i.o.o)
+  oif os-mail ip6 saddr @host6_hel ip6 daddr @host6_mx tcp dport 26 accept # 26 is a secondary SMTP listener not passing through the spam filter
+  # Hel -> kani{1,2} HTTPS/LDAPS (for idm.i.o.o/ldap.i.o.o aka proxy for Heroes Authentication)
+  oif os-kani ip6 saddr @host6_hel ip6 daddr @host6_kani tcp dport { https, ldaps } accept
+
+  # FreeIPA -> global DNS (why?)
+  ip6 saddr $host6_freeipa udp dport domain accept
+  ip6 saddr $host6_freeipa tcp dport domain accept
+
+  # metrics -> download/pontifex2 (httpd log pulling)
+  ip6 saddr $host6_metrics ip6 daddr @host6_download tcp dport https accept
+
+  # nuka -> atlas (https for weblate to reach wwww.opensuse.org)
+  oif os-public ip6 saddr $host6_nuka ip6 daddr $host6_atlas tcp dport https accept
+  # nuka -> miscellaneous IPv6 capable services needed to be accessed by Weblate
+  oif os-p2p-pub ip6 saddr $host6_nuka ip6 daddr @cloud6_misc_weblate tcp dport { http, https } accept
+  oifname nat64 ip6 saddr $host6_nuka ip6 daddr @cloud46_misc_weblate tcp dport { http, https } accept
+  oif os-p2p-pub ip6 saddr $host6_nuka ip6 daddr @cloud6_misc_weblate icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr $host6_nuka ip6 daddr @cloud46_misc_weblate icmpv6 type { echo-request, echo-reply } accept
+
+  # progressoo -> mx{1,2} (SMTP, but why? should it not go via relay.i.o.o?)
+  oif os-public ip6 saddr $host6_progressoo ip6 daddr @host6_atlas_mx tcp dport smtp accept
+
+  # mailman3 -> publicsuffix (HTTPS, populating /list/public_suffix_list.dat)
+  oif os-p2p-pub ip6 saddr $host6_mailman3 ip6 daddr @cloud6_publicsuffix icmpv6 type { echo-request, echo-reply } accept
+  oif os-p2p-pub ip6 saddr $host6_mailman3 ip6 daddr @cloud6_publicsuffix tcp dport https accept
+
+  log prefix "[Internal Denied] " reject with icmpv6 type admin-prohibited
+
+ }
+
+ chain output_network_os-internal {
+  # Outbound for services the firewalls themselves need
+  # Syslog
+  ip6 saddr @self6_internal ip6 daddr $host6_monitor tcp dport 514 accept
+  # DNS and NTP
+  ip6 saddr @self6_internal ip6 daddr @host6_hel udp dport { domain, ntp } accept
+  # LDAP
+  ip6 saddr @self6_internal ip6 daddr $host6_freeipa tcp dport ldaps accept
+
+ }

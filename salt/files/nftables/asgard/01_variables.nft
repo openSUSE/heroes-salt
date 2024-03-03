@@ -1,0 +1,218 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+# SUSE
+define net6_os-p2p-pub = 2a07:de40:b27f:201::/64
+define net4_os-p2p-pub = 195.135.223.40/29
+
+# VLAN 1000 openSUSE-asgard-cluster
+define net6_os-asgard = fd4b:5292:d67e:1000::/64
+
+# VLAN 1100 openSUSE-thor
+define net6_os-thor   = 2a07:de40:b27e:1100::/64
+
+# VLAN 1101 openSUSE-SUSE-warp
+define net6_os-s-warp = 2a07:de40:b27e:1101::/64
+
+# VLAN 1102 openSUSE-odin
+define net6_os-odin   = 2a07:de40:b27e:1102::/64
+
+# VLAN 1200 openSUSE-salt
+define net6_os-salt     = 2a07:de40:b27e:1200::/64
+
+# VLAN 1201 openSUSE-bare
+define net6_os-bare     = 2a07:de40:b27e:1201::/64
+
+# VLAN 1202 openSUSE-IPMI-r
+define net6_os-ipmi-r   = 2a07:de40:b27e:1202::/64
+
+# VLAN 1203 openSUSE-internal
+define net4_os-internal = 172.16.129.0/24
+define net6_os-internal = 2a07:de40:b27e:1203::/64
+
+# VLAN 1204 openSUSE-public
+define net4_os-public   = 172.16.130.0/24
+define net6_os-public   = 2a07:de40:b27e:1204::/64
+
+# VLAN 1205 openSUSE-mirror
+define net6_os-mirror   = 2a07:de40:b27e:1205::/64
+
+# VLAN 1206 openSUSE-code
+define net6_os-code     = 2a07:de40:b27e:1206::/64
+
+# VLAN 1209 openSUSE-mail
+define net6_os-mail     = 2a07:de40:b27e:1209::/64
+
+# VLAN 1210 openSUSE-kani
+define net6_os-kani     = 2a07:de40:b27e:1210::/64
+
+define net6_vpn-udp     = 2a07:de40:b27e:5001::/64
+define net6_vpn-tcp     = 2a07:de40:b27e:5002::/64
+
+# WAN
+define net4_internet     = 195.135.223.48/28
+define net6_internet     = 2a07:de40:b27e::/42
+
+# WAN (allocated)
+# net4_internet1: public IP address for traffic from os-internal to the internet
+define net4_internet1    = 195.135.223.49
+# net4_internet2: public IP address for traffic from os-public to the internet
+define net4_internet2    = 195.135.223.50
+# net4_internet3: public IP address for miscellaneous open ports which shouldn't be visible on the proxy IP, for example Git SSH
+define net4_internet3    = 195.135.223.57
+# net4_internet4: public IP address for VPN access
+define net4_internet4    = 195.135.223.55
+# net4_internet5: public IP address for NS1
+define net4_internet5    = 195.135.223.53
+# net4_internet6: public IP address for NS2
+define net4_internet6    = 195.135.223.54
+# net4_internet_mx{1,2}: public IP address for mx{1,2}.o.o
+define net4_internet_mx1 = 195.135.223.51
+define net4_internet_mx2 = 195.135.223.52
+# only allocate further public IPv4 addresses wisely :)
+
+# NAT64
+define nat64_v6         = 2a07:de40:b27e:64::/96
+define nat64_v4         = 172.16.164.0/24
+
+# Idividual hosts
+#define self4_public      = 10.151.204.1/32
+define srx4_p2p          = 195.135.223.46/32
+define self6_p2p         = { 2a07:de40:b27f:201::11/128, 2a07:de40:b27f:201::12/128, 2a07:de40:b27f:201::1/128 }
+define self4_p2p         = { 195.135.223.41/32, 195.135.223.44/32, 195.135.223.45/32 }
+define self6_warp        = { 2a07:de40:b27e:1101::1/128, 2a07:de40:b27e:1101::2/128, 2a07:de40:b27e:1101::3/128 }
+define self6_salt        = { 2a07:de40:b27e:1200::1/128, 2a07:de40:b27e:1200::2/128, 2a07:de40:b27e:1200::3/128 }
+define self6_bare        = { 2a07:de40:b27e:1201::1/128, 2a07:de40:b27e:1201::2/128, 2a07:de40:b27e:1201::3/128 }
+define self6_internal    = { 2a07:de40:b27e:1203::1/128, 2a07:de40:b27e:1203::2/128, 2a07:de40:b27e:1203::3/128 }
+define self6_public      = { 2a07:de40:b27e:1204::1/128, 2a07:de40:b27e:1204::2/128, 2a07:de40:b27e:1204::3/128 }
+define self6_mirror      = { 2a07:de40:b27e:1205::1/128, 2a07:de40:b27e:1205::2/128, 2a07:de40:b27e:1205::3/128 }
+define self6_code        = { 2a07:de40:b27e:1206::1/128, 2a07:de40:b27e:1206::2/128, 2a07:de40:b27e:1206::3/128 }
+define witch1            = 2a07:de40:b27e:1200::a/128 # Salt Master
+define witch1_mapped     = 172.16.164.101/32
+define downloadtmp       = 2a07:de40:b27e:1205::a/128
+define host4_atlas       = 172.16.130.10
+define host4_atlas1      = 172.16.130.11
+define host4_atlas2      = 172.16.130.12
+define host6_atlas       = 2a07:de40:b27e:1204::10/128
+define host6_atlas1      = 2a07:de40:b27e:1204::11/128
+define host6_atlas2      = 2a07:de40:b27e:1204::12/128
+define host4_atlas_misc  = 172.16.130.13
+define host6_atlas_misc  = 2a07:de40:b27e:1204:0000:0000:0000:0013/128
+define host4_atlas_mx1   = 172.16.130.51
+define host6_atlas_mx1   = 2a07:de40:b27e:1204::51/128
+define host4_atlas_mx2   = 172.16.130.52
+define host6_atlas_mx2   = 2a07:de40:b27e:1204::52/128
+define host4_atlas_mx-test = 172.16.130.14
+define host6_atlas_mx-test = 2a07:de40:b27e:1204::14/128
+define host6_hel         = 2a07:de40:b27e:1203::10/128
+define host4_hel         = 172.16.164.6/32
+define host6_hel1        = 2a07:de40:b27e:1203::11/128
+define host4_hel1        = 172.16.164.13/32
+define host6_hel2        = 2a07:de40:b27e:1203::12/128
+define host4_hel2        = 172.16.164.14/32
+define xmonitor          = 172.16.164.40/32 # "monitor" is not a valid variable name ..
+define host6_monitor     = 2a07:de40:b27e:1203:0000:0000:0000:0050/128
+define thor1             = 2a07:de40:b27e:1100::a/128
+define thor2             = 2a07:de40:b27e:1100::b/128
+define host6_chip        = 2a07:de40:b27e:1203:0000:0000:0000:0015/128
+define host4_chip        = 172.16.164.30/32
+define limesurvey        = 2a07:de40:b27e:1203:0000:0000:0000:00b4/128
+define host6_dale        = 2a07:de40:b27e:1203::b16/128
+define host6_gitlab-runner1 = 2a07:de40:b27e:1203::126/128
+define host6_gitlab-runner2 = 2a07:de40:b27e:1203::127/128
+define host4_gitlab-runner1 = 172.16.164.126/32
+define host4_gitlab-runner2 = 172.16.164.127/32
+define host4_dale        = 172.16.164.138/32
+define host4_jekyll      = 172.16.164.111/32
+define host6_jekyll      = 2a07:de40:b27e:1203:0000:0000:0000:00e1/128
+define host4_pinot       = 172.16.164.137/32
+define host6_narwal5     = 2a07:de40:b27e:1203::e5/128
+define host4_narwal5     = 172.16.164.115/32
+define host6_narwal4     = 2a07:de40:b27e:0064:0000:0000:c0a8:4305/128
+define host6_lnt         = 2a07:de40:b27e:1203:0000:0000:0000:0b42/128
+define host6_nuka        = 2a07:de40:b27e:1203:0000:0000:0000:0b44/128
+define host4_nuka        = 172.16.164.157/32
+define host6_elections2  = 2a07:de40:b27e:1203:0000:0000:0000:0b41/128
+define host6_matrix      = 2a07:de40:b27e:1203:0000:0000:0000:0b40/128
+define host4_matrix      = 172.16.164.153/32
+define host6_gcc-stats   = 2a07:de40:b27e:1203:0000:0000:0000:0b45/128
+define host6_discourse   = 2a07:de40:b27e:1203:0000:0000:0000:0b47/128
+define host4_discourse   = 172.16.164.160/32
+define host6_pagure      = 2a07:de40:b27e:1206:0000:0000:0000:000a/128
+define host4_pagure      = 172.16.164.161/32
+define host6_mailman3    = 2a07:de40:b27e:1203:0000:0000:0000:0b46/128
+define host4_mailman3    = 172.16.164.159/32
+define host6_mickey      = 2a07:de40:b27e:1203:0000:0000:0000:0b43/128
+define host4_mickey      = 172.16.164.156/32
+define host6_odin        = 2a07:de40:b27e:1102:0000:0000:0000:000a/128
+define host4_odin        = 172.16.202.10
+define host6_nue-ns1     = 2a07:de40:b27e:0064:0000:0000:c0a8:2f3c/128
+define host6_nue-ns2     = 2a07:de40:b27e:0064:0000:0000:c0a8:2f3f/128
+define host6_provo-ns    = 2a07:de40:b27e:0064:0000:0000:c0a8:4304/128
+define host6_prg-ns1     = 2a07:de40:b27e:1204:0000:0000:0000:0021/128
+define host4_prg-ns1     = 172.16.130.21
+define host6_prg-ns2     = 2a07:de40:b27e:1204:0000:0000:0000:0022/128
+define host4_prg-ns2     = 172.16.130.22
+define host6_opi-proxy   = 2a07:de40:b27e:1203:0000:0000:0000:0134/128
+define host4_opi-proxy   = 172.16.164.162/32
+define host6_kubic       = 2a07:de40:b27e:1203:0000:0000:0000:0132/128
+#define host4_kubic       = todo
+define host6_svn         = 2a07:de40:b27e:1203:0000:0000:0000:0133/128
+define host6_osc-collab  = 2a07:de40:b27e:1203:0000:0000:0000:0131/128
+define host6_rpmlint     = 2a07:de40:b27e:1203:0000:0000:0000:0136/128
+define host6_obsreview   = 2a07:de40:b27e:1203:0000:0000:0000:0137/128
+define host4_obsreview   = 172.16.164.163/32
+define host6_freeipa     = 2a07:de40:b27e:1203:0000:0000:0000:0138/128
+define host4_freeipa     = 172.16.164.166/32
+define host6_freeipa2    = 2a07:de40:b27e:1203:0000:0000:0000:0135/128
+define host6_metrics     = 2a07:de40:b27e:1203:0000:0000:0000:0141/128
+define host6_progressoo  = 2a07:de40:b27e:1203:0000:0000:0000:0b17/128
+define host6_paste       = 2a07:de40:b27e:1203:0000:0000:0000:00c2/128
+define host6_minio       = 2a07:de40:b27e:1203:0000:0000:0000:00c1/128
+define host6_mirrordb1   = 2a07:de40:b27e:1203:0000:0000:0000:0b31/128
+define host6_mirrordb2   = 2a07:de40:b27e:1203:0000:0000:0000:0b32/128
+define host6_mybackup    = 2a07:de40:b27e:1203:0000:0000:0000:0b24/128
+define host6_mx1         = 2a07:de40:b27e:1209:0000:0000:0000:0011/128
+define host4_mx1         = 172.16.131.11
+define host6_mx2         = 2a07:de40:b27e:1209:0000:0000:0000:0012/128
+define host4_mx2         = 172.16.131.12
+define host6_mx-test     = 2a07:de40:b27e:1209:0000:0000:0000:0098/128
+define host4_mx-test     = 172.16.131.198
+define host6_calendar    = 2a07:de40:b27e:1203:0000:0000:0000:0b51/128
+define host4_calendar    = 172.16.164.149/32
+define host4_tsp         = 172.16.164.142/32
+define host6_tsp         = 2a07:de40:b27e:1203::b20/128
+define host6_community2  = 2a07:de40:b27e:1203:0000:0000:0000:0129/128
+define host6_man         = 2a07:de40:b27e:1203:0000:0000:0000:0130/128
+
+# Remote Gateways via P2P networks
+define host6_provo-gate_1  = fd4b:5292:d67e:3::2/128
+define host6_provo-gate_2  = fd4b:5292:d67e:4::2/128
+
+# Kanidm
+define host6_kani1       = 2a07:de40:b27e:1210:0000:0000:0000:000a/128
+define host6_kani2       = 2a07:de40:b27e:1210:0000:0000:0000:000b/128
+
+### Hosts at QSC
+define host4_stonehat    = 172.16.201.6/32
+define host6_stonehat    = 2a07:de40:b27e:0064:0000:0000:c0a8:5701/128
+define host6_stonehat_p2p = 2a07:de40:b27e:0064:0000:0000:ac10:c906/128
+define host6_ipx-proxy1  = 2a07:de40:b27e:0064:0000:0000:c0a8:5705/128
+define host4_ipx-proxy1  = 192.168.87.5/32
+define host6_qsc-ns3     = 2a07:de40:b27e:5002::186/128 # via OpenVPN
+#define host6_slimhat     = 2a07:de40:b27e:5002::193/128 # via OpenVPN (TCP)
+define host6_slimhat     = 2a07:de40:b27e:5001::193/128 # via OpenVPN (UDP)
+
+### SUSE Hosts on Atreju
+define host6_daffy       = 2a07:de40:b280:0086:0000:0000:0000:0010/128
+define host6_daffy1      = 2a07:de40:b280:0086:0000:0000:0000:0011/128
+define host6_daffy2      = 2a07:de40:b280:0086:0000:0000:0000:0012/128
+define host6_ldap-proxy_int = 2a07:de40:b280:0087:0000:0000:0000:0001/128 # address configured on the ldap-proxy main interface
+define host6_ldap-proxy_ext = 2a07:de40:b250:0087:0000:0000:0000:0001/128 # SUSE side NAT6
+
+### OBS hosts
+define host6_obs-gateway1 = 2a07:de40:b280:0132:0010:0151:0132:0021/128
+define host4_obs-gateway1 = 10.151.132.21/32
+define host6_obs-gateway2 = 2a07:de40:b280:132:10:151:132:22/128
+define host4_obs-gateway2 = 10.151.132.22/32

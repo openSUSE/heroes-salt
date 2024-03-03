@@ -1,0 +1,22 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-salt {
+  jump global_internal
+
+  ip6 saddr @lan_ipv6 ip6 daddr $net6_os-salt ip6 nexthdr icmpv6 accept
+  ip6 saddr $net6_os-salt ip6 daddr @lan_ipv6 ip6 nexthdr icmpv6 accept
+
+  # os-salt -> mickey (for GitLab repository access via HTTPS)
+  ip6 saddr $net6_os-salt ip6 daddr $host6_mickey tcp dport https accept
+
+ }
+
+ chain output_network_os-salt {
+   jump global_internal
+
+  # Salt access for asgard itself
+  ip6 saddr @self6_salt ip6 daddr @host6_witch1 tcp dport 4505-4506 accept
+
+ }

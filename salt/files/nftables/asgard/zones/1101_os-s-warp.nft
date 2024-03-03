@@ -1,0 +1,17 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-s-warp {
+  jump global_internal
+  ip6 saddr @net6_os-s-warp ip6 daddr @lan_ipv6 accept
+  ip6 nexthdr icmpv6 accept
+  ip6 saddr @host6_warp ip6 daddr @self6_warp tcp dport 22 log prefix "[asgard] Inbound Allowed: " accept
+
+  log prefix "[Warp Denied] " reject with icmpx type admin-prohibited
+
+ }
+
+ chain output_network_os-s-warp {
+
+ }

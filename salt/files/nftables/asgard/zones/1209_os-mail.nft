@@ -1,0 +1,31 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-mail {
+  jump global_internal
+
+  ip6 saddr $net6_os-mail ip6 daddr @self6_mail ip6 nexthdr icmpv6 accept
+  ip6 saddr $net6_os-mail ip6 daddr != @lan_ipv6 ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+
+  # mx* -> hosts related to relay_domains or hosts which use a local mail server for inbound application
+  # mail (SMTP)
+  ip6 saddr @host6_mx ip6 daddr { $host6_pagure, $host6_discourse, $host6_mailman3, $host6_progressoo } tcp dport smtp accept
+
+  # mx* -> wild internet (HTTPS/SMTP)
+  ip6 saddr @host6_mx ip6 daddr != @lan_ipv6_nonat tcp dport { https, smtp } accept
+  ip saddr @host4_mx ip daddr != $nat64_v4 tcp dport { https, smtp } accept
+
+  # mx* -> monitor (scripts calling send_nsca)
+  ip6 saddr @host6_mx ip6 daddr $host6_monitor tcp dport 5667 accept
+
+  #mx* -> Hel (MySQL for membership alias database)
+  ip6 daddr $host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @host6_mx ip6 daddr $host6_hel tcp dport 3307 accept
+
+  log prefix "[Mail Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-mail {
+
+ }

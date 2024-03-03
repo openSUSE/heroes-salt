@@ -1,0 +1,87 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-p2p-pub {
+  ip saddr @net4_blacklist drop
+
+  ip6 daddr @self6_p2p ip6 nexthdr icmpv6 limit rate 3/second accept
+  ip daddr @self4_p2p ip protocol icmp limit rate 3/second accept
+
+  jump global
+
+  # ping to public machines / atlas*.i.o.o
+  ip6 daddr $net6_os-public ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } limit rate 2/second accept
+  ip daddr @host4_atlas ip protocol icmp icmp type { echo-request, echo-reply } limit rate 3/second accept
+  ip daddr $host4_atlas_misc ip protocol icmp icmp type { echo-request, echo-reply } limit rate 1/second accept
+  ip daddr { $host4_atlas_mx1, $host4_atlas_mx2 } ip protocol icmp icmp type { echo-request, echo-reply } limit rate 1/second accept
+
+  # http(s) to atlas*.i.o.o
+  ip6 daddr @host6_atlas tcp dport { http, https } accept
+  ip daddr @host4_atlas tcp dport { http, https } accept
+  ip daddr $host4_atlas_misc tcp dport { http, https } accept
+
+  # rsync to atlas*.i.o.o (for factory-dashboard)
+  ip saddr 195.135.223.25/32 ip daddr @host4_atlas tcp dport 11873 log prefix "[Factory Dashboard Rsync] " accept
+  # rsync to atlas*.i.o.o (for man)
+  ip saddr @cloud4_obs-gateway ip daddr @host4_atlas tcp dport 11874 log prefix "[Man Rsync] " accept
+
+  # ssh to atlas*.i.o (SSH for Git to code.o.o)
+  ip6 daddr $host6_atlas_misc tcp dport ssh accept
+  ip daddr $host4_atlas_misc tcp dport ssh accept
+
+  # provo-gate -> asgard WireGuard
+  # odd issues with p2p hence public ended up being used (consider revisiting)
+  ip6 saddr 2a07:de40:401::69/128 ip6 daddr @self6_public udp dport { 52461, 52462 } log prefix "WG PRV " accept
+  #ip6 saddr 2a07:de40:401::69/128 ip6 daddr @self6_p2p udp dport { 52461, 52462 } log prefix "WG PRV " accept
+
+  # ping to odin
+  ip6 daddr $host6_odin ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } limit rate 3/second accept
+  ip daddr $host4_odin ip protocol icmp icmp type { echo-request, echo-reply } limit rate 3/second accept
+  # OpenVPN UDP to odin
+  ip6 daddr $host6_odin udp dport 1194 accept
+  ip daddr $host4_odin udp dport 1194 accept
+  # OpenVPN TCP to odin
+  ip6 daddr $host6_odin tcp dport https accept
+  ip daddr $host4_odin tcp dport https accept
+
+  # Public DNS to prg-ns{1,2}
+  ip6 daddr { $host6_prg-ns1, $host6_prg-ns2 } udp dport domain accept
+  ip6 daddr { $host6_prg-ns1, $host6_prg-ns2 } tcp dport domain accept
+  ip daddr { $host4_prg-ns1, $host4_prg-ns2 } ip protocol icmp icmp type { echo-request, echo-reply } limit rate 3/second accept
+  ip daddr { $host4_prg-ns1, $host4_prg-ns2 } udp dport domain accept
+  ip daddr { $host4_prg-ns1, $host4_prg-ns2 } tcp dport domain accept
+
+  ## Mail/SMTP (mx{1,2} via atlas{1,2})
+  ip6 daddr @host6_atlas_mx tcp dport smtp accept
+  ip daddr @host4_atlas_mx tcp dport smtp accept
+
+  # Georg/Per for debugging
+  #ip6 saddr { 2a02:1748:f7df:9c80::/64, 2a03:7520:4c68:1::/64 } tcp dport smtp accept
+
+  # daffy* -> hel* (ICMP/ping, DNS, NTP)
+  ip6 saddr @host6_daffy ip6 daddr @host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @host6_daffy ip6 daddr @host6_hel udp dport { domain, ntp } accept
+  ip6 saddr @host6_daffy ip6 daddr @host6_hel tcp dport domain accept
+  # daffy* -> atlas* (HTTPS access for reverse proxying - login proxy flow: daffy -> atlas -> backends)
+  ip6 saddr @host6_daffy ip6 daddr @host6_atlas_login ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @host6_daffy ip6 daddr @host6_atlas_login tcp dport https accept
+
+  # traceroute
+  ip protocol udp reject
+  ip6 nexthdr udp reject
+
+ }
+
+ chain output_network_os-p2p-pub {
+  jump global
+
+  ip protocol icmp accept
+  ip6 nexthdr icmpv6 accept
+
+  # WireGuard to NUE_QSC
+  ip6 saddr $self6_p2p udp dport { 52461, 52462 } accept
+  ip6 saddr $self6_p2p udp sport 52461 accept
+
+ }
+

@@ -1,0 +1,30 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain output {
+  type filter hook output priority 100
+  policy drop
+  jump global
+
+  ip6 nexthdr icmpv6 accept
+  ip protocol icmp accept
+
+  oif vmap {
+    os-asgard  : jump network_os-asgard,
+    os-s-warp  : jump output_network_os-s-warp,
+    os-bare    : jump output_network_os-bare,
+    os-p2p-pub : jump output_network_os-p2p-pub,
+    os-mirror  : jump output_network_os-mirror,
+    os-public  : jump output_network_os-public,
+    os-salt    : jump output_network_os-salt,
+    os-thor    : jump output_network_os-thor,
+    os-internal: jump output_network_os-internal,
+  }
+
+  oifname prv1_gate1 jump output_network_prv1
+  oifname nueqsc_stonehat jump output_network_nueqsc
+
+  log prefix "[asgard] Outbound Denied: " flags all
+  counter reject
+ }

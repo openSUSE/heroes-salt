@@ -1,0 +1,52 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-odin {
+  jump global_internal
+
+  ip6 saddr @vpn_ipv6 jump network_vpn
+
+  log prefix "[Odin Denied] " reject with icmpx type admin-prohibited
+
+ }
+
+ chain output_network_os-odin {
+
+ }
+
+ chain network_vpn {
+     # access to permitted networks (careful, some networks are purposefully only accessible through the thor bastions)
+     ip6 daddr { $net6_os-thor, $net6_os-internal, $net6_os-mirror, $nat64_v6 } ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+     ip6 daddr { $net6_os-thor, $net6_os-internal, $net6_os-mirror, $nat64_v6 } tcp dport { ssh, http, https } accept
+     ip6 daddr { $net6_os-internal, $net6_os-mirror, $nat64_v6 } udp dport 60000-61000 accept # Mosh
+
+     # qsc-ns3 -> chip (DNS query/AXFR)
+     ip6 saddr $host6_qsc-ns3 ip6 daddr $host6_chip udp dport domain accept
+     ip6 saddr $host6_qsc-ns3 ip6 daddr $host6_chip tcp dport domain accept
+
+     # VPN clients -> reverse proxy + backend on chip for access to PowerDNS web UI
+     ip6 daddr $host6_chip tcp dport { 444, 8081 } accept
+
+     # VPN clients -> FreeIPA for Kerberos
+     ip6 daddr $host6_freeipa tcp dport kerberos accept
+
+     # VPN clients -> test vhost on monitor
+     ip6 daddr $host6_monitor tcp dport 8024 accept
+
+     # VPN clients -> direct access to Prometheus and Alertmanager backends on monitor
+     ip6 daddr $host6_monitor tcp dport { 9090, 9093 } accept
+
+     # VPN clients -> mtail on mx-test (Georg's log monitoring testbed)
+     ip6 daddr $host6_mx-test ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+     ip6 daddr $host6_mx-test tcp dport 3903 accept
+
+     # Georg -> Salt API (TODO: implement role based ACLs for use with Pepper and allow this for everyone?)
+     ip6 saddr 2a07:de40:b27e:5001::152/128 ip6 daddr @host6_witch1 tcp dport 4550 log prefix "[Salt API] " accept
+     ip6 saddr 2a07:de40:b27e:5001::152/128 ip6 daddr @host6_witch1 ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+
+     # slimhat -> Salt (only for ping - Salt traffic is already allowed via global_internal)
+     ip6 saddr $host6_slimhat ip6 daddr @host6_witch1 ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+
+     log prefix "[VPN Denied] " reject with icmpx type admin-prohibited
+ }

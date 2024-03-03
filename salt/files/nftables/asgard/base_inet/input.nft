@@ -1,0 +1,37 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ # input chain, this is for traffic targeted towards the local system (i.e. this firewall itself)
+ chain input {
+  type filter hook input priority 0
+  policy drop
+
+  jump global
+
+  iif vmap {
+    os-asgard   : jump network_os-asgard,
+    os-s-warp   : jump input_network_os-s-warp,
+    os-internal : jump input_network_os-internal,
+    os-bare     : jump input_network_os-bare,
+    os-p2p-pub  : jump input_network_os-p2p-pub,
+    os-public   : jump input_network_os-public,
+    os-mirror   : jump input_network_os-mirror,
+    os-mirror   : jump input_network_os-mirror,
+    os-salt     : jump input_network_os-salt,
+    os-ipmi-r   : jump input_network_os-ipmi-r,
+    os-thor     : jump input_network_os-thor,
+    os-code     : jump input_network_os-code,
+    os-odin     : jump input_network_os-odin,
+    os-kani     : jump input_network_os-kani,
+    os-mail     : jump input_network_os-mail,
+  }
+
+  # WireGuard interfaces not using iif to prevent breakage on tunnel restarts
+  iifname prv1_gate1 jump input_network_prv1
+  iifname nueqsc_stonehat jump input_network_nueqsc
+
+  iif != os-p2p-pub log prefix "[asgard] Inbound Dropped: " flags all
+  counter reject
+ }
+

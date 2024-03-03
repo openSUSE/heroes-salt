@@ -1,0 +1,40 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+chain input_network_nat64 {
+  oif { os-salt, os-internal, os-thor, os-odin } ip6 saddr $nat64_v6 accept #log prefix "[Tayga v6 Forward] " accept
+  oifname { prv1_gate1, nueqsc_stonehat } ip saddr $nat64_v4 accept #log prefix "[Tayga v4 Forward] " accept
+  oifname os-public ip6 saddr { 2a07:de40:b27e:0064:0000:0000:c0a8:2f66/128, 2a07:de40:b27e:0064:0000:0000:c0a8:2f65/128 } ip6 daddr @host6_atlas tcp dport { http, https } accept
+
+  # GitHub web map (github.com), can be removed when GitHub starts being offered via IPv6 (so basically, never) - to-do: replace GH IP address with dynamically resolved set (nft-dns?)
+  oifname os-p2p-pub ip saddr @acl4_internet_github_web ip daddr @cloud4_github_web tcp dport { http, https } accept #log prefix "[GitHub v4 OUT] " accept
+  oifname os-p2p-pub ip saddr @acl4_internet_github_web_ssh ip daddr @cloud4_github_web tcp dport ssh accept #log prefix "[GitHub v4 OUT] " accept
+  # Github API map (api.github.com)
+  oifname os-p2p-pub ip saddr @acl4_internet_github_api ip daddr @cloud4_github_api tcp dport https accept
+
+  # Akismet map
+  oifname os-p2p-pub ip saddr @acl4_internet_akismet ip daddr @cloud4_akismet tcp dport https accept
+
+  # Sentry map
+  oifname os-p2p-pub ip saddr @acl4_internet_sentry_organization ip daddr @cloud4_sentry_organization tcp dport https accept
+
+  # Maxmind map
+  oifname os-p2p-pub ip saddr @acl4_internet_maxmind ip daddr @cloud4_maxmind tcp dport https accept
+
+  # for planet.o.o RSS feed pulling
+  oifname os-p2p-pub ip saddr $host4_jekyll ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } accept
+
+  # for matrix federation
+  oifname os-p2p-pub ip saddr $host4_matrix ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } ip protocol tcp accept
+
+  # discourse for debugging
+  oifname os-p2p-pub ip saddr $host4_discourse ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } log prefix "[Discourse HTTP 2] " accept
+
+  # for PMBS API access (https://pmbs.links2linux.de/)
+  oifname os-p2p-pub ip saddr @acl4_internet_pmbs ip daddr @cloud4_pmbs tcp dport https accept
+
+  # miscellaneous IPv4-only services needed to be accessed by Weblate (on nuka.i.o.o)
+  oifname os-p2p-pub ip saddr $host4_nuka ip daddr @cloud4_misc_weblate tcp dport { http, https } accept
+
+}

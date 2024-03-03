@@ -1,0 +1,13 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+table inet filter {
+  include "/etc/nftables.d/base_inet/*.nft"
+  include "/etc/nftables.d/zones/*.nft"
+}
+
+table inet nat {
+  include "/etc/nftables.d/base_nat/*.nft"
+}
+

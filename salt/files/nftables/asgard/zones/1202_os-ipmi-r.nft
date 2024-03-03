@@ -1,0 +1,8 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-ipmi-r {
+  jump global_internal
+
+ }
