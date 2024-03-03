@@ -102,6 +102,7 @@ prometheus:
                       },
                       'elasticsearch': [],
                       'mysql': [],
+                      'ping': [],
                       'salt': [],
                     }
             %}
@@ -128,6 +129,11 @@ prometheus:
             #}
             {%- for minion, roles in mine.get('roles', {}).items() %}
               {%- if minion in targets['all'] %}
+
+                {#- Ping (ping-exporter) #}
+                {%- if 'gateway' in roles %}
+                  {%- do targets['gateway'].append(targets['all'][minion]) %}
+                {%- endif %}
 
                 {#- MySQL (mysqld-exporter) #}
                 {%- if 'mariadb' in roles %}
@@ -183,6 +189,14 @@ prometheus:
                     {%- endfor %}
                 {%- endfor %}
               {{ relabel_instance(9100) }}
+
+            - job_name: ping
+              static_configs:
+                - targets:
+                    {%- for fqdn in targets['ping'] | sort  %}
+                    - {{ fqdn }}:9427
+                    {%- endfor %}
+              {{ relabel_instance(9427) }}
 
             - job_name: prometheus
               scrape_interval: 5s
