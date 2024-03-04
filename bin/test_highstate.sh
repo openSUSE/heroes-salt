@@ -35,7 +35,7 @@ then
   fi
 fi
 
-salt --out-file=cli.txt --out-file-append "$HOSTNAME" saltutil.refresh_pillar
+salt --out-file=setup.txt --out-file-append "$HOSTNAME" saltutil.refresh_pillar
 
 salt-call --out-file="$out" --out-file-append --retcode-passthrough --state-output=full --output-diff state.apply test=True
 rolestatus=$?
