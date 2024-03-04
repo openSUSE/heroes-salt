@@ -1,5 +1,5 @@
 #!jinja|yaml|gpg
-{%- from 'role/common/gitlab_runner/macros.jinja' import runner -%}
+{%- from 'role/common/gitlab_runner/macros.jinja' import runner %}
 
 profile:
   gitlab_runner:
