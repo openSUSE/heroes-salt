@@ -19,7 +19,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import salt.modules.file as file
+from platform import python_version_tuple
+
+from salt.modules import file
+
 
 # https://github.com/saltstack/salt/pull/65751
 def check_fc_host():
@@ -27,3 +30,9 @@ def check_fc_host():
   if file.directory_exists('/sys/class/fc_host'):
     grains['fc_host'] = True
   return grains
+
+def system_python():
+  """
+  Return the system Python version in a format usable as a prefix when referencing Python module packages
+  """
+  return {'system_python': 'python' + ''.join(python_version_tuple()[:2])}
