@@ -58,15 +58,30 @@ echo "== $IDFILE =="
 cat "$IDFILE"
 echo "== $IDFILE END =="
 
-out='cli.txt'
+out='setup.txt'
+out_errors='setup_errors.txt'
 
-salt_args=( '-lcritical' '--log-file=setup_errors.txt' '--log-file-level=error' "--out-file=$out" '--out-file-append' "$HOSTNAME" )
+salt_args=( '-lcritical' '--log-file=setup_errors.txt' '--log-file-level=info' "--out-file=$out" '--out-file-append' )
 
-# Update pillar and mine
-salt "${salt_args[@]}" saltutil.refresh_pillar
-salt "${salt_args[@]}" mine.update
+waited=0
+# a working ping takes between 5 and 10 seconds - salt-call tends to freeze upon TERM, hence follow with a KILL
+until timeout -k13 10 salt-call "${salt_args[@]}" -t3 test.ping
+do
+  waited=$(( waited + 1 ))
+  if [ "$waited" = 3 ]
+  then
+    echo 'Master is still not responding after three attempts, giving up.' | tee -a "$out" "$out_errors"
+    exit 1
+  else
+    echo 'Waiting for master ...' >> "$out"
+  fi
+done
 
+salt_args=( "${salt_args[@]}" "$HOSTNAME" )
 
-## Check
-
-salt "${salt_args[@]}" test.ping
+# Update grains modules, pillar and mine - execution and runner modules are already cached through prepare_test_env.sh
+for cmd in saltutil.sync_grains saltutil.refresh_pillar mine.update
+do
+  echo "--> $cmd" >> "$out"
+  salt "${salt_args[@]}" "$cmd"
+done
