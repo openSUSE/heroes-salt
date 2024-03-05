@@ -37,4 +37,4 @@ zypper:
   packages:
     # needed by Salt for TOML configuration serialization
     # move to the common pillar should we get more roles needing TOML
-    python3-toml: {}
+    {{ grains['system_python'] }}-toml: {}
