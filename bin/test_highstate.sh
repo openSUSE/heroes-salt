@@ -13,7 +13,7 @@ role="$1"
 
 source bin/get_colors.sh
 
-test/setup/master_minion
+test/setup/master_minion || exit 1
 
 IDFILE="pillar/id/$HOSTNAME.sls"
 
