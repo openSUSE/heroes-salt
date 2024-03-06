@@ -1,9 +1,15 @@
 {{ pillar['managed_by_salt'] }}
-
 {%- set roles = pillar.get('roles', []) -%}
 
+{%- if salt['pillar.get']('high-value-system', False) %}
+# This is a restricted system
 # You must be a member of at least one of these groups.
 pam_allowed_login_groups = [{%- for role in roles -%}"{{ role }}-admins",{%- endfor -%} "wheel"]
+{% else %}
+# This is an unrestricted system
+pam_allowed_login_groups = ["system_login", "wheel"]
+{% endif %}
+
 default_shell = "/bin/sh"
 home_prefix = "/home/"
 home_attr = "uuid"
