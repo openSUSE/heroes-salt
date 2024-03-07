@@ -1,7 +1,0 @@
-{%- set osrelease_info = salt['grains.get']('osrelease_info') -%}
-{%- set osarch         = salt['grains.get']('osarch') -%}
-{%- set version = osrelease_info[0]|string -%}
-{%- if osrelease_info|length == 2 -%}
-    {%- set version = version + '-SP' + osrelease_info[1]|string -%}
-{%- endif %}
-{%- set leap_equivalent = version ~ '.' ~ osrelease_info[1]|string -%}
