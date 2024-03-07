@@ -1,11 +1,12 @@
 grains:
   country: cz
   hostusage:
+    - doc
     - factory-dashboard
   reboot_safe: yes
 
   aliases: []
-  description: New machine for several old services (see community) that need to be migrated to new VMs
+  description: Machine for services with no home
   documentation: []
   responsible: []
   partners: []

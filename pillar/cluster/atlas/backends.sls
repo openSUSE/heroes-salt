@@ -5,11 +5,11 @@ haproxy:
     calendar:
       {{ options() }}
       {{ server('calendar', '2a07:de40:b27e:1203::b51') }}
-    community:
+    community: {#- community points to httpd on community2 #}
       {{ options ('httpchk') }}
       {{ httpcheck('community.opensuse.org', 200, method='options') }}
-      {{ server('community', '2a07:de40:b27e:1203::128') }}
-    community2:
+      {{ server('community', '2a07:de40:b27e:1203::129', 8080) }}
+    community2: {#- community2 points to nginx on community2 #}
       {{ options('httpchk') }}
       {{ httpcheck('factory-dashboard.opensuse.org', 200, '/check.txt', 'options') }}
       mode: http
