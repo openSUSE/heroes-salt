@@ -1,7 +1,7 @@
 {%- set country = grains.get('country') %}
 
 firewalld:
-  enable: true
+  enabled: true
   zones:
     internal:
       interfaces:
