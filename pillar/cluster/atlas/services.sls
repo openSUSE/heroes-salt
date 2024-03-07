@@ -13,11 +13,13 @@ haproxy:
         - path_dot_scm           path_beg    /.git/
         - path_dot_scm           path_beg    /.svn/
         - path_dot_scm           path_beg    /.bzr/
+        - path_ebooks            path_beg    /ebooks
         - path_favicon           path        /favicon.ico
         - path_grafana           path_beg    /grafana/
         - path_kubic_registry    path_beg    /v2/
         - path_matrix_client     path_beg    /.well-known/matrix/client
         - path_matrix_federation path_beg    /.well-known/matrix/server
+        - path_meetings          path_beg    /meetings
         - path_openid            path_beg    -i /openid
         - path_openid            path_beg    -i /common/app/
         - path_openid            path_beg    -i /openid-ldap
@@ -133,7 +135,6 @@ haproxy:
         # rules only depending on host_*
         - calendar        if host_calendar
         - conncheck       if host_conncheck
-        - community       if host_community
         - community       if host_doc
         - community2      if host_community2
         - deadservices    if host_deadservice
@@ -163,6 +164,8 @@ haproxy:
         - pinot           if host_pmya
         - redmine         if host_redmine
         - rpmlint         if host_rpmlint
+        - staticpages     if host_community path_ebooks
+        - staticpages     if host_community path_meetings
         - staticpages     if host_www || host_staticpages || host_static_o_o
         - svn             if host_svn
 
