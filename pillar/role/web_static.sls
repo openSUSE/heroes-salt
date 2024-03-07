@@ -50,6 +50,9 @@ nginx:
               - location ~ ^/themes/:
                   - autoindex: 'on'
               {% endif %}
+              {%- if website == 'community' %}
+              - autoindex: 'on'
+              {%- endif %}
               - error_page: 405 = $uri
               - error_page: 405 =200 $uri
               - error_page: 500 502 503 504 /50x.html
