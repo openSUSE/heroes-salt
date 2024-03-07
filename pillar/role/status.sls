@@ -27,6 +27,7 @@ profile:
   postfix:
     maincf:
       inet_protocols: all
+      mydestination: status2.opensuse.org
       myhostname: {{ grains.host }}.opensuse.org
       relayhost: ''
       smtp_tls_security_level: may
