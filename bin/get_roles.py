@@ -31,7 +31,7 @@ def get_roles_of_one_minion(minion):
         content = read_file_skip_jinja(file)
     except FileNotFoundError:
         print(f'File {file} not found.')
-        exit(1)
+        return []
     try:
         roles = yaml.safe_load(content)['roles']
     except KeyError:
