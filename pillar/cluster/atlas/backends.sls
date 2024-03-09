@@ -80,8 +80,9 @@ haproxy:
       {{ options() }}
       {{ server('matomo', '2a07:de40:b27e:1203::b19') }}
     mailman3:
-      {{ options() }}
-      {{ server('mailman3', '2a07:de40:b27e:1203::b46', extra_extra='inter 30000') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('lists.opensuse.org', 200, '/archives/') }}
+      {{ server('mailman3', '2a07:de40:b27e:1203::b46', extra_extra='inter 30s') }}
     matrix:
       {{ options() }}
       {{ server('matrix', '2a07:de40:b27e:1203::b40') }}
