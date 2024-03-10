@@ -26,7 +26,7 @@
   # rsync to atlas*.i.o.o (for man)
   ip saddr @cloud4_obs-gateway ip daddr @host4_atlas tcp dport 11874 log prefix "[Man Rsync] " accept
 
-  # ssh to atlas*.i.o (SSH for Git to code.o.o)
+  # ssh to atlas*.i.o.o (SSH for Git to code.o.o)
   ip6 daddr $host6_atlas_misc tcp dport ssh accept
   ip daddr $host4_atlas_misc tcp dport ssh accept
 

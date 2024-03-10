@@ -398,8 +398,8 @@ set host6_thor {
   type ipv6_addr
   flags interval
   elements = {
-    $thor1,
-    $thor2
+    $host6_thor1,
+    $host6_thor2
   }
 }
 
@@ -421,7 +421,7 @@ set host6_downloadtmp {
   }
 }
 
-# provo-gate.i.o.o (via P"P network)
+# provo-gate.i.o.o (via P2P network)
 set host6_provo-gate {
   type ipv6_addr
   flags interval
