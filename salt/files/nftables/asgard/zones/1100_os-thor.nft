@@ -1,0 +1,18 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-thor {
+  jump global_internal
+  ip6 nexthdr icmpv6 accept
+
+  # thor within PRG2
+  ip6 saddr @host6_thor ip6 daddr @lan_ipv6 tcp dport 22 log prefix "[asgard] Thor SSH Allowed: " accept
+
+  log prefix "[Thor Denied] " reject with icmpx type admin-prohibited
+
+ }
+
+ chain output_network_os-thor {
+
+ }

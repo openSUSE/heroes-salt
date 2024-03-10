@@ -1,0 +1,28 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_prv1 {
+  ip6 saddr @host6_provo-gate jump global_internal
+  jump global_internal_legacy
+
+  ip6 saddr @net6_p2p_prv1 ip6 daddr @net6_p2p_prv1 ip6 nexthdr icmpv6 accept
+  ip saddr @net4_p2p_prv1 ip daddr @net4_p2p_prv1 ip protocol icmp accept
+
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr { ospfigp, icmpv6 } accept
+
+  # provo-ns -> chip (DNS query/AXFR)
+  ip6 saddr $host6_provo-ns ip6 daddr $host6_chip tcp dport domain accept
+  ip6 saddr $host6_provo-ns ip6 daddr $host6_chip udp dport domain accept
+  ip saddr 192.168.67.4/30 ip daddr $host4_chip tcp dport domain accept
+  ip saddr 192.168.67.4/30 ip daddr $host4_chip udp dport domain accept
+
+  # * -> hel*
+  oifname nat64 ip daddr @host4_hel ip protocol icmp accept
+
+ }
+
+ chain output_network_prv1 {
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr { ospfigp, icmpv6 } accept
+
+ }

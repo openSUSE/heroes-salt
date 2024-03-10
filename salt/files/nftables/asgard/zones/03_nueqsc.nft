@@ -1,0 +1,25 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_nueqsc {
+  jump global_internal
+  oifname nat64 jump global_internal_legacy
+
+  ip6 saddr @net6_p2p_nueqsc ip6 daddr @net6_p2p_nueqsc ip6 nexthdr icmpv6 accept
+  ip saddr @net4_p2p_nueqsc ip daddr @net4_p2p_nueqsc ip protocol icmp accept
+
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr { ospfigp, icmpv6 } accept
+
+  # QSC nameservers -> chip (DNS query/AXFR)
+  ip6 saddr { $host6_stonehat, $host6_ipx-proxy1 } ip6 daddr $host6_chip tcp dport domain accept
+  ip6 saddr { $host6_stonehat, $host6_ipx-proxy1 } ip6 daddr $host6_chip udp dport domain accept
+  ip saddr { $host4_stonehat, $host4_ipx-proxy1 } ip daddr $host4_chip tcp dport domain accept
+  ip saddr { $host4_stonehat, $host4_ipx-proxy1 } ip daddr $host4_chip udp dport domain accept
+
+ }
+
+ chain output_network_nueqsc {
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr { ospfigp, icmpv6 } accept
+
+ }

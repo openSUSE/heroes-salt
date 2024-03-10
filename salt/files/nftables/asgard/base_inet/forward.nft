@@ -1,0 +1,46 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain forward {
+  type filter hook forward priority 0
+  policy drop
+  jump global
+
+  iif vmap {
+    os-bare     : jump input_network_os-bare,
+    os-internal : jump input_network_os-internal,
+    os-s-warp   : jump input_network_os-s-warp,
+    os-p2p-pub  : jump input_network_os-p2p-pub,
+    os-mirror   : jump input_network_os-mirror,
+    os-salt     : jump input_network_os-salt,
+    os-public   : jump input_network_os-public,
+    os-thor     : jump input_network_os-thor,
+    os-code     : jump input_network_os-code,
+    os-odin     : jump input_network_os-odin,
+    os-kani     : jump input_network_os-kani,
+    os-mail     : jump input_network_os-mail,
+  }
+  oif vmap {
+    os-bare     : jump output_network_os-bare,
+    os-internal : jump output_network_os-internal,
+    os-s-warp   : jump output_network_os-s-warp,
+    os-p2p-pub  : jump output_network_os-p2p-pub,
+    os-mirror   : jump output_network_os-mirror,
+    os-salt     : jump output_network_os-salt,
+    os-thor     : jump output_network_os-thor,
+    os-code     : jump output_network_os-code,
+    os-odin     : jump output_network_os-odin,
+    os-kani     : jump output_network_os-kani,
+    os-mail     : jump output_network_os-mail,
+  }
+
+  # WireGuard interfaces not using iif to prevent breakage on tunnel restarts
+  iifname prv1_gate1 jump input_network_prv1
+  iifname nueqsc_stonehat jump input_network_nueqsc
+
+  # Tayga (-> zones/05_nat64.nft)
+  iifname nat64 jump input_network_nat64
+
+  iif != os-p2p-pub log prefix "[asgard] Forward Dropped: " flags all
+ }

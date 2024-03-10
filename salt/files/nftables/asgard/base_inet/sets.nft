@@ -1,0 +1,1140 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+# This file has three sections:
+# 1. Networks (VLANs)
+# 2. Addresses of this firewall cluster
+# 3. Addresses of other hosts
+
+
+set lan_ipv6 {
+  type ipv6_addr
+  flags interval
+  auto-merge
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-odin, $net6_os-kani, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+}
+
+set lan_ipv6_nonat {
+  type ipv6_addr
+  flags interval
+  auto-merge
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-kani, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+}
+
+set vpn_ipv6 {
+    type ipv6_addr
+    flags interval
+    auto-merge
+    elements = {
+        $net6_vpn-udp,
+        $net6_vpn-tcp
+    }
+}
+
+## Networks
+
+# VLAN 3201 (openSUSE-SUSE-p2p-pub)
+set net6_os-p2p-pub {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27f:201::/64
+  }
+}
+set net4_os-p2p-pub {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.223.40/29
+  }
+}
+
+# VLAN 1000 openSUSE-asgard-cluster
+set net6_os-asgard {
+  type ipv6_addr
+  flags interval
+  elements = {
+    fd4b:5292:d67e:1000::/64
+  }
+}
+
+# VLAN 1100 openSUSE-thor
+set net6_os-thor {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1100::/64
+  }
+}
+
+# VLAN 1101 openSUSE-SUSE-warp
+set net6_os-s-warp {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1101::/64
+  }
+}
+
+# VLAN 1200 openSUSE-salt
+set net6_os-s-salt {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1200::/64
+  }
+}
+
+# VLAN 1201 openSUSE-bare
+set net6_os-bare {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1201::/64
+  }
+}
+
+# VLAN 1202 openSUSE-IPMI-r
+set net6_os-ipmi-r {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1202::/64
+  }
+}
+
+# VLAN 1203 openSUSE-internal
+set net6_os-internal {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::/64
+  }
+}
+set net4_os-internal {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.129.0/24
+  }
+}
+
+# VLAN 1204 openSUSE-public
+set net6_os-public {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1204::/64
+  }
+}
+set net4_os-public {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.130.0/24
+  }
+}
+
+# VLAN 1205 openSUSE-mirror
+set net6_os-mirror {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1205::/64
+  }
+}
+
+# VLAN 1206 openSUSE-vpn
+# set net4_os-vpn ...
+# set net6_os-vpn ...
+
+# P2P PRG2 (asgard) <-> PRV1 (gate1)
+set net6_p2p_prv1 {
+  type ipv6_addr
+  flags interval
+  elements = {
+    fd4b:5292:d67e:3::/126,
+    fd4b:5292:d67e:4::/126
+  }
+}
+set net4_p2p_prv1 {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.201.4/30,
+    172.16.202.4/30
+  }
+}
+
+# P2P PRG2 (asgard) <-> NUE_QSC (stonehat)
+set net6_p2p_nueqsc {
+  type ipv6_addr
+  flags interval
+  elements = {
+      fd4b:5292:d67e:5::/127,
+      fd4b:5292:d67e:6::/127
+  }
+}
+set net4_p2p_nueqsc {
+  type ipv4_addr
+  flags interval
+  elements = {
+      172.16.201.6/31,
+      172.16.202.6/31
+  }
+}
+
+# der WANsinn
+set net6_os-internet {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e::/42
+  }
+}
+set net4_os-internet {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.223.48/28
+  }
+}
+
+# WAN (allocated)
+# .49: public IP for NAT os-salt/os-mirror/os-internal -> internet
+set net4_internet1 {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.223.49/32
+  }
+}
+# .50: public IP for NAT os-public -> internet and port forwards internet -> os-public
+set net4_internet2 {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.223.50/32
+  }
+}
+# please think wisely before allocating more public IPv4 addresses :)
+
+## This firewall
+# os-p2p-pub
+set self6_p2p {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27f:201::11/128, # asgard1
+    2a07:de40:b27f:201::12/128, # asgard2
+    2a07:de40:b27f:201::1/128   # asgard HA VIP
+  }
+}
+set self4_p2p {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.223.41/32, # asgard1
+    195.135.223.44/32, # asgard2
+    195.135.223.45/32  # asgard HA VIP
+  }
+}
+
+# prv1
+set self6_prv1 {
+  type ipv6_addr
+  flags interval
+  elements = {
+    fd4b:5292:d67e:3::1/128,
+    fd4b:5292:d67e:4::1/128
+  }
+}
+set self4_prv1 {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.201.5/32,
+    172.16.202.5/32
+  }
+}
+set prv1_private {
+  type ipv4_addr
+  flags interval
+  elements = {
+    192.168.67.0/24
+  }
+}
+
+
+# os-s-warp
+set self6_warp {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1101::1/128,
+    2a07:de40:b27e:1101::2/128,
+    2a07:de40:b27e:1101::3/128
+  }
+}
+
+# os-salt
+set self6_salt {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1200::1/128,
+    2a07:de40:b27e:1200::2/128,
+    2a07:de40:b27e:1200::3/128
+  }
+}
+
+# os-bare
+set self6_bare {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1201::1/128,
+    2a07:de40:b27e:1201::2/128,
+    2a07:de40:b27e:1201::3/128
+  }
+}
+
+# os-internal
+set self6_internal {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::1/128,
+    2a07:de40:b27e:1203::2/128,
+    2a07:de40:b27e:1203::3/128
+  }
+}
+
+# os-public
+set self6_public {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1204::1/128,
+    2a07:de40:b27e:1204::2/128,
+    2a07:de40:b27e:1204::3/128,
+  }
+}
+
+# os-mirror
+set self6_mirror {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1205::1/128,
+    2a07:de40:b27e:1205::2/128,
+    2a07:de40:b27e:1205::3/128
+  }
+}
+
+# os-odin
+set self6_odin {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:1102::1/128,
+        2a07:de40:b27e:1102::2/128,
+        2a07:de40:b27e:1102::3/128,
+    }
+}
+
+# os-mail
+set self6_mail {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:1209::1/128,
+        2a07:de40:b27e:1209::2/128,
+        2a07:de40:b27e:1209::3/128,
+    }
+}
+
+# os-kani
+set self6_kani {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:1210::1/128,
+        2a07:de40:b27e:1210::2/128,
+        2a07:de40:b27e:1210::3/128,
+    }
+}
+
+## Other individual hosts
+
+# SUSE firewall (our gate to the outside)
+set host4_suse_gw {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.223.46/32
+  }
+}
+set host6_suse_gw {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27f:201:ffff:ffff:ffff:ffff/128
+  }
+}
+
+# warp.i.o.o (SUSE -> openSUSE jump server)
+set host6_warp {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1101::a/128
+  }
+}
+
+# thor{1,2}.i.o.o (admin jump host)
+set host6_thor {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $host6_thor1,
+    $host6_thor2
+  }
+}
+
+# witch1.i.o.o (Salt Master)
+set host6_witch1 {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1200::a/128
+  }
+}
+
+# downloadtmp.i.o.o (temporary internal mirror / download.i.o.o)
+set host6_downloadtmp {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1205::a/128
+  }
+}
+
+# provo-gate.i.o.o (via P2P network)
+set host6_provo-gate {
+  type ipv6_addr
+  flags interval
+  elements = {
+      $host6_provo-gate_1,
+      $host6_provo-gate_2
+  }
+}
+
+set host4_acme {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.129.90/32
+  }
+}
+set host6_acme {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::100/128
+  }
+}
+
+# Atlas
+set host6_atlas {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $host6_atlas,
+    $host6_atlas1,
+    $host6_atlas2,
+  }
+}
+set host4_atlas {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $host4_atlas,
+    $host4_atlas1,
+    $host4_atlas2,
+  }
+}
+
+# Hel
+set host6_hel {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_hel,
+        $host6_hel1,
+        $host6_hel2
+    }
+}
+set host4_hel {
+    type ipv4_addr
+    flags interval
+    elements = {
+        $host4_hel,
+        $host4_hel1,
+        $host4_hel2
+    }
+}
+
+# PRG-NS
+set host6_prg-ns {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_prg-ns1,
+        $host6_prg-ns2
+    }
+}
+set host4_prg-ns {
+    type ipv4_addr
+    flags interval
+    elements = {
+        $host4_prg-ns1,
+        $host4_prg-ns2
+    }
+}
+
+# Galera
+set host6_galera {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203:0000:0000:0000:0b21/128,
+    2a07:de40:b27e:1203:0000:0000:0000:0b22/128,
+    2a07:de40:b27e:1203:0000:0000:0000:0b23/128,
+  }
+}
+
+# Kanidm
+set host6_kani {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_kani1,
+        $host6_kani2
+    }
+}
+
+# Download
+set host6_download {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b250:131:10:151:131:30/128
+  }
+}
+
+# downloadcontent.o.o
+set host6_downloadcontent {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b250:131:10:151:131:31/128
+  }
+}
+
+# stage.o.o
+set host6_stage {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b250:131:10:151:131:32/128
+  }
+}
+
+# rsync.o.o
+set host6_rsync {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a01:138:a004::202/128
+  }
+}
+
+# Narwals
+set host6_narwal {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::e5/128,
+    2a07:de40:b27e:1203::e6/128,
+    2a07:de40:b27e:1203::e7/128,
+    2a07:de40:b27e:1203::e8/128
+  }
+}
+
+set cloud4_github_web {
+  type ipv4_addr
+  flags interval
+  elements = { # https://api.github.com/meta -> "web"
+    192.30.252.0/22,
+    185.199.108.0/22,
+    140.82.112.0/20,
+    143.55.64.0/20,
+    20.201.28.151/32,
+    20.205.243.166/32,
+    20.87.245.0/32,
+    20.248.137.48/32,
+    20.207.73.82/32,
+    20.27.177.113/32,
+    20.200.245.247/32,
+    20.175.192.147/32,
+    20.233.83.145/32,
+    20.29.134.23/32
+  }
+}
+set cloud4_github_api {
+  type ipv4_addr
+  flags interval
+  elements = { # https://api.github.com/meta -> "api"
+    192.30.252.0/22,
+    185.199.108.0/22,
+    140.82.112.0/20,
+    143.55.64.0/20,
+    20.201.28.148/32,
+    20.205.243.168/32,
+    20.87.245.6/32,
+    20.248.137.49/32,
+    20.207.73.85/32,
+    20.27.177.116/32,
+    20.200.245.245/32,
+    20.175.192.149/32,
+    20.233.83.146/32,
+    20.29.134.17/32
+  }
+}
+
+set cloud4_akismet {
+  type ipv4_addr
+  flags interval
+  elements = { # https://akismet.com/support/general/connection-issues/
+    192.0.80.244,
+    192.0.80.246,
+    192.0.96.247,
+    192.0.96.248,
+    192.0.123.250,
+    195.234.111.251 ,
+    195.234.111.252
+  }
+}
+
+set cloud4_sentry_apex {
+  type ipv4_addr
+  flags interval
+  elements = { # https://docs.sentry.io/product/security/ip-ranges/
+    35.186.247.156/32
+  }
+}
+set cloud4_sentry_organization {
+  type ipv4_addr
+  flags interval
+  elements = { # https://docs.sentry.io/product/security/ip-ranges/
+    34.120.195.249/32
+  }
+}
+
+set cloud4_telegram {
+  type ipv4_addr
+  flags interval
+  elements = { # https://core.telegram.org/resources/cidr.txt
+    91.108.56.0/22,
+    91.108.4.0/22,
+    91.108.8.0/22,
+    91.108.16.0/22,
+    91.108.12.0/22,
+    149.154.160.0/20,
+    91.105.192.0/23,
+    91.108.20.0/22,
+    185.76.151.0/24,
+  }
+}
+
+set cloud4_pmbs {
+  type ipv4_addr
+  flags interval
+  elements = {
+      157.90.50.188/32
+  }
+}
+
+set host6_daffy {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_daffy,
+        $host6_daffy1,
+        $host6_daffy2
+    }
+}
+
+# miscellaneous services needed to be accessed by Weblate (on nuka.i.o.o) which do not justify
+# their own cloud4_ set and acl
+set cloud4_misc_weblate {
+    type ipv4_addr
+    flags interval
+    elements = {
+        68.183.241.124/32, # www.icewm.org
+        152.228.162.27/32, # rofi.roger-ferrer.org
+        3.123.208.30/32, # documentation.suse.com
+        3.70.94.181/32,  # ^
+    }
+}
+# their own cloud6_set and acl
+set cloud6_misc_weblate {
+  type ipv6_addr
+  flags interval
+  elements = {
+      2606:50c0:8002::153/128, # uyuni-project.org
+      2606:50c0:8000::153/128, # ^
+      2606:50c0:8001::153/128, # ^
+      2606:50c0:8003::153/128, # ^
+      2001:1528:136:dead:beef:4242:0:30/128, # weblate.org
+  }
+}
+
+set cloud6_telegram {
+  type ipv6_addr
+  flags interval
+  elements = { # https://core.telegram.org/resources/cidr.txt
+    2001:b28:f23d::/48,
+    2001:b28:f23f::/48,
+    2001:67c:4e8::/48,
+    2001:b28:f23c::/48,
+    2a0a:f280::/32,
+  }
+}
+
+set cloud6_liberachat {
+  type ipv6_addr
+  flags interval
+  elements = {
+      2001:4b7a:a008::6667,
+      2a01:270:0:666f::1,
+      2001:6b0:e:2a18::120,
+      2001:6b0:78::100,
+      2001:1bc0:c1::1000,
+      2001:41d0:801:1000::a44,
+      2604:6600:2002:15::2, # v-- new January 2024
+      2001:708:40:2001::11ba,
+      2001:6b0:78::102
+  }
+}
+
+set cloud6_obs-gateway { # pontifex etc.
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_obs-gateway1,
+        $host6_obs-gateway2
+    }
+}
+set cloud4_obs-gateway { # pontifex etc.
+    type ipv4_addr
+    flags interval
+    elements = {
+        $host4_obs-gateway1,
+        $host4_obs-gateway2
+    }
+}
+
+set cloud6_obs-login { # api.o.o, build.o.o, registry.o.o
+  type ipv6_addr
+  flags interval
+  elements = {
+      2a07:de40:b250:131:10:151:131:20/128
+  }
+}
+
+set cloud6_login2 { # daffy - login-prg2.o.o, daffy1 - login-prg2-1.o.o, daffy2 - login-prg2-2.o.o
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b250:86::10/128,
+        2a07:de40:b250:86::11/128,
+        2a07:de40:b250:86::12/128
+    }
+}
+
+set cloud6_idoo {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_ldap-proxy_ext
+    }
+}
+
+set cloud6_publicsuffix {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2600:1901:0:4c10::/128
+    }
+}
+
+
+set cloud46_akismet {
+  type ipv6_addr
+  flags interval
+  elements = { # generated using https://gitlab.infra.opensuse.org/infra/scripts/-/blob/master/4to6/akismet-4to6.py
+    2a07:de40:b27e:64::c000:50f4/128,
+    2a07:de40:b27e:64::c000:50f6/128,
+    2a07:de40:b27e:64::c000:60f7/128,
+    2a07:de40:b27e:64::c000:60f8/128,
+    2a07:de40:b27e:64::c000:7bfa/128,
+    2a07:de40:b27e:64::c3ea:6ffb/128,
+    2a07:de40:b27e:64::c3ea:6ffc/128
+  }
+}
+
+set cloud46_sentry_apex {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:64::23ba:f79c/128
+  }
+}
+set cloud46_sentry_organization {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:64::2278:c3f9/128
+  }
+}
+
+set cloud46_github_web {
+  type ipv6_addr
+  flags interval
+  elements = { # generated using https://gitlab.infra.opensuse.org/infra/scripts/-/blob/master/4to6/github-4to6.py
+    2a07:de40:b27e:64::141b:b171/128,
+    2a07:de40:b27e:64::141d:8617/128,
+    2a07:de40:b27e:64::1457:f500/128,
+    2a07:de40:b27e:64::14af:c093/128,
+    2a07:de40:b27e:64::14c8:f5f7/128,
+    2a07:de40:b27e:64::14c9:1c97/128,
+    2a07:de40:b27e:64::14cd:f3a6/128,
+    2a07:de40:b27e:64::14cf:4952/128,
+    2a07:de40:b27e:64::14e9:5391/128,
+    2a07:de40:b27e:64::14f8:8930/128,
+    2a07:de40:b27e:64::8c52:7000/116,
+    2a07:de40:b27e:64::8f37:4000/116,
+    2a07:de40:b27e:64::b9c7:6c00/118,
+    2a07:de40:b27e:64::c01e:fc00/118
+  }
+}
+set cloud46_github_api {
+  type ipv6_addr
+  flags interval
+  elements = { # https://api.github.com/meta -> "api"
+    2a07:de40:b27e:64::141b:b174/128,
+    2a07:de40:b27e:64::141d:8611/128,
+    2a07:de40:b27e:64::1457:f506/128,
+    2a07:de40:b27e:64::14af:c095/128,
+    2a07:de40:b27e:64::14c8:f5f5/128,
+    2a07:de40:b27e:64::14c9:1c94/128,
+    2a07:de40:b27e:64::14cd:f3a8/128,
+    2a07:de40:b27e:64::14cf:4955/128,
+    2a07:de40:b27e:64::14e9:5392/128,
+    2a07:de40:b27e:64::14f8:8931/128,
+    2a07:de40:b27e:64::8c52:7000/116,
+    2a07:de40:b27e:64::8f37:4000/116,
+    2a07:de40:b27e:64::b9c7:6c00/118,
+    2a07:de40:b27e:64::c01e:fc00/118
+  }
+}
+
+set cloud46_pmbs {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:64::9d5a:32bc/128
+    }
+}
+
+set cloud46_misc_weblate {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:64::44b7:f17c/128, # www.icewm.org          / 68.183.241.124
+        2a07:de40:b27e:64::98e4:a21b/128, # rofi.roger-ferrer.org  / 152.228.162.27
+        2a07:de40:b27e:64::37b:d01e/128,  # documentation.suse.com / 3.123.208.30
+        2a07:de40:b27e:64::346:5eb5/128,  # ^                      / 3.70.94.181
+    }
+}
+
+set cloud6_fastly { # addresses tend to differ between services but are probably shared between fastly customers?
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a04:4e42::483/128,      # rubygems:
+    2a04:4e42:200::483/128,
+    2a04:4e42:600::483/128,
+    2a04:4e42:400::483/128,
+    2a04:4e42:400::223/128,  # pypi:
+    2a04:4e42:600::223/128,
+    2a04:4e42::223/128,
+    2a04:4e42:200::223/128,
+    2a04:4e42:41::311/128, # files.pythonhosted.org:
+    2a04:4e42::311/128,
+    2a04:4e42:400::311/128,
+    2a04:4e42:600::311/128,
+  }
+}
+
+set cloud4_maxmind {
+  type ipv4_addr
+  flags interval
+  elements = { # https://dev.maxmind.com/maxmind-server-ip-addresses
+    162.159.134.22/32,
+    162.159.135.22/32
+  }
+}
+
+set acl6_internet_fastly {
+    type ipv6_addr
+    flags interval
+    elements = {
+      $host6_dale, # ruby
+      $host6_obsreview, # ruby
+      $host6_nuka, # python
+      $host6_calendar, # ruby
+    }
+}
+
+set acl6_internet_downloadcontent {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_metrics,
+        $host6_rpmlint,
+        $host6_progressoo,
+        $host6_minio,
+        $host6_paste,
+        $host6_gcc-stats,
+        $host6_obsreview,
+        $host6_mirrordb1,
+        $host6_mirrordb2,
+        $host6_monitor,
+        $host6_mybackup,
+        $host6_svn,
+        $host6_osc-collab, # HW19 repository (! FIXME: ask DimStart to move this to a subproject under openSUSE:infrastructure)
+        $host6_kani1, # temporary for kanidm patch
+        $host6_kani2, # ^
+        $host6_mailman3, # temporary for Mailman hotfix packages
+    }
+}
+
+set acl6_internet_obs-login {
+    type ipv6_addr
+    flags interval
+    elements = {
+      $host6_opi-proxy,  # access to api.o.o
+      $host6_obsreview,  # access to registry.o.o
+      $host6_nuka,       # access to build.o.o
+      $host6_osc-collab, # access to api.o.o
+      $host6_rpmlint,    # access to build.o.o
+    }
+}
+
+set acl6_internet_idoo {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_progressoo,
+        $host6_mailman3,
+        $host6_nuka,
+        $host6_paste,
+        $host6_pagure,
+        $host6_calendar
+    }
+}
+
+# Pseudo-v4 hosts allowed to reach GitHub
+# should be changed to IPv6 to facilitate operation after static v4-maps are dropped
+set acl4_internet_github_web {
+  type ipv4_addr
+  flags interval
+  elements = {
+   172.16.164.111/32, #jekyll
+   $host4_narwal5,
+   172.16.164.132/32, #paste
+   $host4_dale,
+   $host4_gitlab-runner1,
+   $host4_gitlab-runner2,
+   $host4_pinot,
+   $host4_mailman3, # access to openSUSE/lists-o-o.git
+   $host4_pagure, # repository mirroring (?)
+   $host4_opi-proxy, # software updates
+   $host4_calendar, # source download and build
+   172.16.164.201/32, # kubic, Jekyll blog updates (https://progress.opensuse.org/issues/152841), todo: use static address
+   $host4_tsp,
+  }
+}
+
+# not implemented
+#set acl6_internet_github_web {
+#  type ipv6_addr
+#  flags interval
+#  elements = {
+#      $host6_calendar
+#  }
+#}
+
+set acl4_internet_github_web_ssh {
+  type ipv4_addr
+  flags interval
+  elements = {
+   $host4_opi-proxy, # software updates (?)
+   $host4_narwal5, # git push for mirrors-static
+   $host4_nuka, # weblate
+   $host4_mickey, # push mirrors
+  }
+}
+
+set acl4_internet_github_api {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $host4_obsreview
+  }
+}
+
+
+set acl4_internet_akismet {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $host4_dale
+  }
+}
+
+set acl4_internet_maxmind {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $host4_discourse
+  }
+}
+
+#set acl4_internet_sentry_apex {
+#  type ipv4_addr
+#  flags interval
+#  elements = {
+#  }
+#}
+set acl4_internet_sentry_organization {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $host4_dale
+  }
+}
+
+
+set acl4_internet_pmbs {
+  type ipv4_addr
+  flags interval
+  elements = {
+      $host4_opi-proxy
+  }
+}
+
+
+# gitlab-runner{1,2}
+set host6_gitlab-runner {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $host6_gitlab-runner1,
+    $host6_gitlab-runner2
+  }
+}
+
+# mx{1,2,-test}
+set host6_mx {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_mx1,
+        $host6_mx2,
+        $host6_mx-test
+    }
+}
+set host4_mx {
+    type ipv4_addr
+    flags interval
+    elements = {
+        $host4_mx1,
+        $host4_mx2,
+        $host4_mx-test
+    }
+}
+
+# mx{1,2} via Atlas
+set host6_atlas_mx {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_atlas_mx1,
+        $host6_atlas_mx2
+    }
+}
+set host4_atlas_mx {
+    type ipv4_addr
+    flags interval
+    elements = {
+        $host4_atlas_mx1,
+        $host4_atlas_mx2
+    }
+}
+
+# login{1,2} via Atlas
+set host6_atlas_login {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:1204::7/128,  # atlas-login.i.o.o  (VIP)
+        2a07:de40:b27e:1204::8/128,  # atlas-login1.i.o.o (atlas1)
+        2a07:de40:b27e:1204::9/128   # atlas-login2.i.o.o (atlas2)
+    }
+}
+
+
+# DNS servers
+set host6_all_dns {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $host6_chip,
+    $host6_nue-ns1,
+    $host6_nue-ns2,
+    $host6_stonehat,
+    $host6_stonehat_p2p,
+    $host6_ipx-proxy1,
+    $host6_provo-ns,
+    $host6_prg-ns1,
+    $host6_prg-ns2,
+    $host6_qsc-ns3,
+    2a01:0138:a004:0000:0000:0000:0000:0204/128, # ns1.o.o external
+    2a07:de40:0401:0000:0000:0000:0000:0068/128, # ns3.o.o external
+  }
+}
+
+
+# Blacklist - internet traffic from these source networks will be dropped!
+set net4_blacklist {
+    type ipv4_addr
+    flags interval
+    elements = {
+        185.169.4.136/32  # ~500 SMTP connections against mx2 in CLOSE_WAIT (HAProxy problem or malicious source?)
+    }
+}

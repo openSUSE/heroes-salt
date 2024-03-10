@@ -1,0 +1,20 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain network_os-asgard {
+  jump global_internal
+
+  # SSH
+  ip6 saddr $net6_os-asgard ip6 daddr $net6_os-asgard tcp dport ssh accept
+
+  # ICMP (echo, neighbor discovery, etc.), OSPF (BIRD), VRRP (Keepalived),
+  ip6 nexthdr { icmpv6, ospfigp, vrrp } accept
+  ip protocol vrrp accept
+
+  # conntrackd
+  ip6 nexthdr udp udp dport 3780 accept
+
+  # TODO: drop
+  log prefix "[asgard misc] " accept
+ }

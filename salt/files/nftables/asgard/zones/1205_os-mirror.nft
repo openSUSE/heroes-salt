@@ -1,0 +1,28 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-mirror {
+  jump global_internal
+
+  ip6 saddr $net6_os-bare ip6 daddr $net6_os-mirror ip6 nexthdr icmpv6 accept
+  ip6 saddr $net6_os-bare ip6 daddr $net6_os-mirror tcp dport http accept
+  ip6 saddr $net6_os-mirror ip6 daddr $self6_mirror ip6 nexthdr icmpv6 accept
+
+  ip6 saddr { $net6_os-s-warp, $net6_os-thor } ip6 daddr $downloadtmp tcp dport ssh accept
+
+  ip6 saddr $downloadtmp tcp dport { http, https, rsync } accept
+  ip6 saddr $downloadtmp udp dport domain accept
+
+  # not sure why 135 (nd-neighbor-solicit) in global_internal doesn't work
+  ip6 saddr fe80::/10 ip6 daddr $net6_os-mirror ip6 nexthdr icmpv6 accept
+
+ }
+
+ chain output_network_os-mirror {
+   jump global_internal
+
+   # repository access for the firewalls themselves
+   ip6 saddr $self6_mirror ip6 daddr $net6_os-mirror tcp dport http accept
+
+ }

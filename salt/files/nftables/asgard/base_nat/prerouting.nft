@@ -1,0 +1,46 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain prerouting {
+   type nat hook prerouting priority -100
+   ip daddr $net4_internet2 ip protocol icmp dnat to $host4_atlas
+   ip daddr $net4_internet2 tcp dport { http, https } dnat to $host4_atlas
+
+   # factory-dashboard rsync from botmaster
+   ip saddr 195.135.223.25/32 ip daddr $net4_internet2 tcp dport 11873 dnat to $host4_atlas
+   # man (rpm2docserv output) rsync from pontifex (via obs-gateway)
+   ip saddr @cloud4_obs-gateway ip daddr $net4_internet2 tcp dport 11874 dnat to $host4_atlas
+
+   ## Atlas "misc-services" VIP
+   # ping
+   ip daddr $net4_internet3 ip protocol icmp dnat to $host4_atlas_misc
+   # http(s) + SSH (for Git access to pagure/code.o.o)
+   ip daddr $net4_internet3 tcp dport { http, https, ssh } dnat to $host4_atlas_misc
+
+   ## VPN
+   # ping
+   ip daddr $net4_internet4 ip protocol icmp dnat to $host4_odin
+   # OpenVPN UDP
+   ip daddr $net4_internet4 udp dport 1194 dnat to $host4_odin
+   # OpenVPN TCP
+   ip daddr $net4_internet4 tcp dport 443 dnat to $host4_odin
+
+   ## DNS
+   # ping
+   ip daddr $net4_internet5 ip protocol icmp dnat to $host4_prg-ns1
+   ip daddr $net4_internet6 ip protocol icmp dnat to $host4_prg-ns2
+   # DNS using TCP
+   ip daddr $net4_internet5 tcp dport domain dnat to $host4_prg-ns1
+   ip daddr $net4_internet6 tcp dport domain dnat to $host4_prg-ns2
+   # DNS using UDP
+   ip daddr $net4_internet5 udp dport domain dnat to $host4_prg-ns1
+   ip daddr $net4_internet6 udp dport domain dnat to $host4_prg-ns2
+
+   ## Mail/SMTP (mx{1,2} via atlas{1,2})
+   ip daddr $net4_internet_mx1 ip protocol icmp dnat to $host4_atlas_mx1
+   ip daddr $net4_internet_mx2 ip protocol icmp dnat to $host4_atlas_mx2
+   ip daddr $net4_internet_mx1 tcp dport smtp dnat to $host4_atlas_mx1
+   ip daddr $net4_internet_mx2 tcp dport smtp dnat to $host4_atlas_mx2
+
+ }

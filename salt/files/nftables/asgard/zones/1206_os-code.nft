@@ -1,0 +1,30 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-code {
+  jump global_internal
+
+  ip6 saddr $net6_os-code ip6 daddr $self6_code ip6 nexthdr icmpv6 accept
+  ip6 saddr $net6_os-thor ip6 daddr $net6_os-code tcp dport ssh accept
+
+  # PostgreSQL
+  ip6 saddr $host6_pagure ip6 daddr $host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr $host6_pagure ip6 daddr $host6_hel tcp dport postgresql accept
+
+  # * -> GitHub (HTTP/HTTPS) (further restricted using client whitelisting through @acl4_internet_github in forward.conf)
+  ip6 saddr $net6_os-code ip6 daddr @cloud46_github_web icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr $net6_os-code ip6 daddr @cloud46_github_web tcp dport { http, https } log prefix "[GitHub v6 IN Code] " accept
+
+  # pagure -> atlas misc listener (needs to query "itself" through the public endpoint)
+  ip6 saddr $host6_pagure ip6 daddr $host6_atlas_misc tcp dport https accept
+
+  # pagure -> atlas regular listener (needed for /login, but why? does it use legacy www.o.o/openid instead of id.o.o for querying metadata?)
+  ip6 saddr $host6_pagure ip6 daddr $host6_atlas tcp dport https accept
+
+ }
+
+ chain output_network_os-code {
+  jump global_internal
+
+ }

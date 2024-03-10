@@ -1,0 +1,18 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-kani {
+  jump global_internal
+
+  ip6 saddr $net6_os-kani ip6 daddr @self6_kani ip6 nexthdr icmpv6 accept
+
+  # Kanidm needs to query itself through idm.i.o.o
+  ip6 saddr $net6_os-kani ip6 daddr @host6_hel tcp dport https accept
+
+  log prefix "[Kani Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-kani {
+
+ }

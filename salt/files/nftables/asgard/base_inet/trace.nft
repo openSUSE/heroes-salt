@@ -1,0 +1,8 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ #chain trace_chain {
+ # type filter hook input priority -1
+ # meta nftrace set 1
+ #}

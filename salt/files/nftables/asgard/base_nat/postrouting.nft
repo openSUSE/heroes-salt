@@ -1,0 +1,29 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+# This file manages SNAT (outbound address mapping) for IPv4
+ chain postrouting {
+  type nat hook postrouting priority 100
+
+  # outbound from os-mirror
+  iif os-mirror oif os-p2p-pub snat ip to $net4_internet1
+
+  # outbound from os-public
+  iif os-public oif os-p2p-pub snat ip to $net4_internet2
+
+  # outbound from os-odin
+  iif os-odin   oif os-p2p-pub snat ip to $net4_internet4
+
+  # outbound from prg-ns{1,2}
+  iif os-public oif os-p2p-pub ip saddr $host4_prg-ns1 snat ip to $net4_internet5
+  iif os-public oif os-p2p-pub ip saddr $host4_prg-ns2 snat ip to $net4_internet6
+
+  # outbound from mx{1,2}
+  iif os-mail oif os-p2p-pub ip saddr $host4_mx1 snat ip to $net4_internet_mx1
+  iif os-mail oif os-p2p-pub ip saddr $host4_mx2 snat ip to $net4_internet_mx2
+
+  # Tayga
+  iifname nat64 oif os-p2p-pub snat ip to $net4_internet1
+
+ }

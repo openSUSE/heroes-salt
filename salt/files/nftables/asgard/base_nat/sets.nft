@@ -1,0 +1,20 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+set cloud6_obs-gateway { # pontifex etc.
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_obs-gateway1,
+        $host6_obs-gateway2,
+    }
+}
+set cloud4_obs-gateway { # pontifex etc.
+    type ipv4_addr
+    flags interval
+    elements = {
+        $host4_obs-gateway1,
+        $host4_obs-gateway2,
+    }
+}

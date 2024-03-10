@@ -1,0 +1,87 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-public {
+  jump global_internal
+
+  ip6 nexthdr icmpv6 limit rate 5/second accept
+
+  # provo-gate -> asgard WireGuard
+  ip6 saddr 2a07:de40:401::69/128 ip6 daddr @self6_public udp dport 52461 log accept
+
+  # prg-ns{1,2} -> chip (DNS XFR) + internet (DNS recursion)
+  ip6 saddr @host6_prg-ns ip6 daddr $host6_chip udp dport 53 accept
+  ip6 saddr @host6_prg-ns ip6 daddr $host6_chip tcp dport 53 accept
+  ip6 saddr @host6_prg-ns ip6 daddr != @lan_ipv6_nonat udp dport 53 accept
+  ip6 saddr @host6_prg-ns ip6 daddr != @lan_ipv6_nonat tcp dport 53 accept
+  ip saddr @host4_prg-ns ip daddr != $nat64_v4 udp dport 53 accept
+  ip saddr @host4_prg-ns ip daddr != $nat64_v4 tcp dport 53 accept
+
+  ### Proxied services:
+  # atlas -> {community{,2},dale,jekyll,limesurvey,man,matomo,minio,monitor,paste,pinot,riesling,tsp,ldap-proxy,discourse,gcc-stats,mailman3,pagure,opi-proxy,kubic,svn}
+  # TODO: replace addresses with variables
+  ip6 saddr @host6_atlas ip6 daddr {
+      2a07:de40:b27e:1203::128/128,
+      $host6_community2,
+      2a07:de40:b27e:1203::b16/128,
+      2a07:de40:b27e:1203::e1/128,
+      2a07:de40:b27e:1203::130/128,
+      2a07:de40:b27e:1203::b19/128,
+      2a07:de40:b27e:1203::c1/128,
+      2a07:de40:b27e:64::c0a8:2f07/128,
+      2a07:de40:b27e:1203::c2/128,
+      2a07:de40:b27e:1203::b15/128,
+      2a07:de40:b27e:1203::b2/128,
+      2a07:de40:b27e:1203::b20/128,
+      2a07:de40:b27e:64::c0a8:2f03/128,
+      $host6_calendar,
+      $host6_discourse,
+      $host6_gcc-stats,
+      $host6_kubic,
+      $host6_limesurvey,
+      $host6_mailman3,
+      $host6_obsreview,
+      $host6_opi-proxy,
+      $host6_osc-collab,
+      $host6_pagure,
+      $host6_rpmlint,
+      $host6_svn,
+  } tcp dport http accept
+  # atlas -> narwal*
+  ip6 saddr @host6_atlas ip6 daddr @host6_narwal tcp dport http accept
+  # atlas -> progressoo (Redmine)
+  ip6 saddr @host6_atlas ip6 daddr 2a07:de40:b27e:1203::b17/128 tcp dport 3001 accept
+  # atlas -> etherpad (Etherpad)
+  ip6 saddr @host6_atlas ip6 daddr 2a07:de40:b27e:1203::b18/128 tcp dport 9001 accept
+  # atlas -> dale (Hackweek)
+  ip6 saddr @host6_atlas ip6 daddr 2a07:de40:b27e:1203::b16/128 tcp dport 81 accept
+  # atlas -> community2 (factory-dashboard sync from botmaster), man (rpm2docserv sync from pontifex for man.o.o)
+  ip6 saddr @host6_atlas ip6 daddr { $host6_community2, $host6_man } tcp dport rsync accept
+  # atlas -> lnt (lnt.o.o)
+  ip6 saddr @host6_atlas ip6 daddr $host6_lnt tcp dport 8080 accept
+  # atlas -> nuka (Weblate; i18n.o.o, l10n.o.o)
+  ip6 saddr @host6_atlas ip6 daddr $host6_nuka tcp dport http accept
+  # atlas -> elections2 (Helios, elections.o.o)
+  ip6 saddr @host6_atlas ip6 daddr $host6_elections2 tcp dport http accept
+  # atlas -> matrix (Synapse, Element; chat.o.o, matrix.o.o, dimension.o.o, webhook.o.o)
+  ip6 saddr @host6_atlas ip6 daddr $host6_matrix tcp dport { http, 8008 } accept
+  # atlas -> pagure01 (for Git via SSH to code.o.o)
+  ip6 saddr @host6_atlas ip6 daddr $host6_pagure tcp dport ssh accept
+  # atlas -> monitor (monitor.o.o, grafana)
+  ip6 saddr @host6_atlas ip6 daddr $host6_monitor tcp dport { http, 3000 } accept
+  # atlas -> metrics (metrics.o.o)
+  ip6 saddr @host6_atlas ip6 daddr $host6_metrics tcp dport 3000 accept
+  # atlas -> mx{1,2} (Mail/SMTP)
+  ip6 saddr @host6_atlas ip6 daddr @host6_mx tcp dport smtp accept
+  # atlas -> ldap-proxy (HTTPS for proxying www.o.o/openid)
+  ip6 saddr @host6_atlas ip6 daddr $host6_ldap-proxy_ext tcp dport https accept
+
+ }
+
+ chain output_network_os-public {
+  # ?
+  ip daddr $net4_os-public tcp dport http accept
+  ip6 daddr $net6_os-public tcp dport http accept
+
+ }
