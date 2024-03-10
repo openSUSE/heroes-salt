@@ -5,6 +5,8 @@
  chain input_network_os-odin {
   jump global_internal
 
+  ip6 saddr $net6_os-odin ip6 daddr @self6_odin ip6 nexthdr icmpv6 accept
+
   ip6 saddr @vpn_ipv6 jump network_vpn
 
   log prefix "[Odin Denied] " reject with icmpx type admin-prohibited
