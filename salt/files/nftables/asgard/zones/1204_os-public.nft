@@ -58,6 +58,8 @@
   ip6 saddr @host6_atlas ip6 daddr 2a07:de40:b27e:1203::b16/128 tcp dport 81 accept
   # atlas -> community2 (factory-dashboard sync from botmaster), man (rpm2docserv sync from pontifex for man.o.o)
   ip6 saddr @host6_atlas ip6 daddr { $host6_community2, $host6_man } tcp dport rsync accept
+  # atlas -> community2 (doc.o.o to legacy Apache httpd)
+  ip6 saddr @host6_atlas ip6 daddr $host6_community2 tcp dport 8080 accept
   # atlas -> lnt (lnt.o.o)
   ip6 saddr @host6_atlas ip6 daddr $host6_lnt tcp dport 8080 accept
   # atlas -> nuka (Weblate; i18n.o.o, l10n.o.o)
