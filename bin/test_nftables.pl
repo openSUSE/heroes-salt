@@ -36,11 +36,13 @@ if ( $> != 0 ) {
   die "Needs to run with root privileges.\n";
 }
 
+use File::Basename;
 use File::Find::Rule;
 use File::Copy::Recursive 'dircopy';
 use File::Path 'rmtree';
 
 my $debug = $ENV{TEST_NFT_DEBUG};
+my $dumpif = $ENV{TEST_NFT_DUMP_INTERFACES};
 my $indir = $ENV{TEST_NFT_INDIR};
 if (! $indir) {
   $indir = 'salt/files/nftables'
@@ -137,11 +139,24 @@ foreach (@directories) {
     $exit = 1;
   }
 
+  my $ifout = basename($tree) . '.interfaces';
+  if ($dumpif) {
+    if ($debug) {
+      print "Writing interfaces to $ifout\n";
+    }
+    open(IFH, '>', $ifout);
+  }
   foreach my $interface (keys %interfaces) {
     if ($debug) {
       print "Deleting dummy interface: $interface\n";
     }
     system( ip => l => d => $interface );
+    if ($dumpif) {
+      print IFH "$interface\n";
+    }
+  }
+  if ($dumpif) {
+    close(IFH);
   }
 }
 
