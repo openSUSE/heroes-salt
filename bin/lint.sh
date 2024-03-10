@@ -42,7 +42,7 @@ STATUS_JINJA="$?"
 
 
 echo_INFO 'Linting Python files ...'
-ruff .
+ruff check .
 STATUS_PYTHON="$?"
 
 
@@ -57,7 +57,7 @@ find salt/profile -type f -name '*.py' \
     grep -Ev "{(%|{|#)" "$FILE" > "$TMP_PY/$FILE"
     ' x {} \;
 pushd "$TMP_PY" >/dev/null || EXIT=1
-ruff --config "$OLDPWD"/ruff.toml .
+ruff check --config "$OLDPWD"/ruff.toml .
 STATUS_PYTHON_PROFILE="$?"
 popd >/dev/null || EXIT=1
 rm -r "$TMP_PY"
