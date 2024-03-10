@@ -39,5 +39,8 @@ ignore = [
 preview = true
 explicit-preview-rules = true
 
+[lint.per-file-ignores]
+"test/pytest/*/*.py" = ["S101"]  # allow "assert" in test suites
+
 [lint.pydocstyle]
 convention = "pep257"
