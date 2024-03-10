@@ -74,7 +74,7 @@
   oif os-salt ip6 saddr @host6_gitlab-runner ip6 daddr @host6_witch1 tcp dport rsync accept
   oif os-salt ip6 saddr @host6_gitlab-runner ip6 daddr @host6_witch1 tcp dport 4550 log prefix "[Salt API] " accept
 
-  # matrix -> * (all ports for matrix federation)
+  # matrix -> * (Matrix federation, all ports to facilitate connectivity to other homeservers using arbitrary ports)
   oifname { nat64, os-p2p-pub } ip6 saddr $host6_matrix ip6 nexthdr tcp ip6 daddr != @lan_ipv6_nonat accept
   # matrix -> atlas (HTTPS for access to "itself", for example Telegram tries to chat with Matrix over its public matrix.o.o proxy address)
   oif os-public ip6 saddr $host6_matrix ip6 daddr $host6_atlas tcp dport https accept

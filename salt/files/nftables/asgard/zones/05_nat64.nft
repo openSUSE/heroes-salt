@@ -25,7 +25,7 @@ chain input_network_nat64 {
   # for planet.o.o RSS feed pulling
   oifname os-p2p-pub ip saddr $host4_jekyll ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } accept
 
-  # for matrix federation
+  # Matrix federation, see v6 explanation in 1203_os-internal.nft
   oifname os-p2p-pub ip saddr $host4_matrix ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } ip protocol tcp accept
 
   # discourse for debugging
