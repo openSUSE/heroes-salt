@@ -237,7 +237,7 @@ class Salt:
   Various operations against a given list of minions or a single
   nodegroup, executed through the given Pepper API instance
   """
-  def __init__(self, api, minions=[], nodegroup=None, outdir=None, state_output=None, state_verbose=None):  # noqa: PLR0913  # not easy to reduce arguments
+  def __init__(self, api, minions=[], nodegroup=None, outdir=None, state_output=None, state_verbose=None):
     if ( not minions and not nodegroup ) or ( minions and nodegroup ):
       _fail('Illegal use of Salt().', exception=ValueError)
 
@@ -377,7 +377,7 @@ class Salt:
     return self._call(payload)
 
 
-def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar': True, 'mine': True}, state_output=None, state_verbose=None):  # noqa: PLR0912, PLR0913  # too many nested if's and too many arguments .. hmm
+def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar': True, 'mine': True}, state_output=None, state_verbose=None):  # noqa: PLR0912  # too many nested if's
   """
   Base application logic
   """
