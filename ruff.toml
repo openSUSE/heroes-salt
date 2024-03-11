@@ -44,3 +44,6 @@ explicit-preview-rules = true
 
 [lint.pydocstyle]
 convention = "pep257"
+
+[lint.pylint]
+max-args = 10  # allow more function arguments (default is 5)
