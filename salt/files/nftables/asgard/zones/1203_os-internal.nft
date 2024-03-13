@@ -138,6 +138,9 @@
   oif os-p2p-pub ip6 saddr $host6_mailman3 ip6 daddr @cloud6_publicsuffix icmpv6 type { echo-request, echo-reply } accept
   oif os-p2p-pub ip6 saddr $host6_mailman3 ip6 daddr @cloud6_publicsuffix tcp dport https accept
 
+  # mickey -> atlas (SSH for GitLab -> Pagure Git repository mirror)
+  oif os-public ip6 saddr $host6_mickey ip6 daddr $host6_atlas_misc tcp dport ssh accept
+
   log prefix "[Internal Denied] " reject with icmpv6 type admin-prohibited
 
  }
