@@ -4,7 +4,6 @@ zypper:
   packages:
     conntrackd: {}
     nftables: {}
-    nftables-service: {}
     vnstat: {}
     wireguard-tools: {}
 
