@@ -200,9 +200,8 @@ define host6_stonehat    = 2a07:de40:b27e:0064:0000:0000:c0a8:5701/128
 define host6_stonehat_p2p = 2a07:de40:b27e:0064:0000:0000:ac10:c906/128
 define host6_ipx-proxy1  = 2a07:de40:b27e:0064:0000:0000:c0a8:5705/128
 define host4_ipx-proxy1  = 192.168.87.5/32
-define host6_qsc-ns3     = 2a07:de40:b27e:5002::186/128 # via OpenVPN
-#define host6_slimhat     = 2a07:de40:b27e:5002::193/128 # via OpenVPN (TCP)
-define host6_slimhat     = 2a07:de40:b27e:5001::193/128 # via OpenVPN (UDP)
+define host6_qsc-ns3     = 2a07:de40:b27e:5002:c707:5ca1:19e:ce5e/128 # via OpenVPN (TCP)
+define host6_slimhat     = 2a07:de40:b27e:5001:4b26:fce8:5810:cf57/128 # via OpenVPN (UDP)
 
 ### SUSE Hosts on Atreju
 define host6_daffy       = 2a07:de40:b280:0086:0000:0000:0000:0010/128

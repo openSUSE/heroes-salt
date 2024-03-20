@@ -44,8 +44,8 @@
      ip6 daddr $host6_mx-test tcp dport 3903 accept
 
      # Georg -> Salt API (TODO: implement role based ACLs for use with Pepper and allow this for everyone?)
-     ip6 saddr 2a07:de40:b27e:5001::152/128 ip6 daddr @host6_witch1 tcp dport 4550 log prefix "[Salt API] " accept
-     ip6 saddr 2a07:de40:b27e:5001::152/128 ip6 daddr @host6_witch1 ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+     ip6 saddr 2a07:de40:b27e:5001:f797:9eb7:983:bc9f/128 ip6 daddr @host6_witch1 tcp dport 4550 log prefix "[Salt API] " accept
+     ip6 saddr 2a07:de40:b27e:5001:f797:9eb7:983:bc9f/128 ip6 daddr @host6_witch1 ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
 
      # slimhat -> Salt (only for ping - Salt traffic is already allowed via global_internal)
      ip6 saddr $host6_slimhat ip6 daddr @host6_witch1 ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
