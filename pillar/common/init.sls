@@ -222,7 +222,6 @@ zypper:
     {%- if grains['efi'] %}
     shim: {}
     {%- endif %}
-    sssd-ldap: {}
     tcpdump: {}
     tmux: {}
     traceroute: {}

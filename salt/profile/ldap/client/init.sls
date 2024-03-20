@@ -1,5 +1,3 @@
-{%- if 'kanidm-client' not in pillar.get('roles', {}) %}
-
 include:
   - openldap.client
   - sssd
@@ -16,5 +14,3 @@ include:
     - pattern: ^{{ setting }}:.*$
     - repl: '{{ setting }}: compat sss'
 {%- endfor %}
-
-{%- endif %}

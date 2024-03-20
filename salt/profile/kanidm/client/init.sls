@@ -1,8 +1,7 @@
 include:
   - zypper.packages
+  - .legacy
 
-# TODO: Uncomment when ready to change to kanidm.
-#
 {%- for setting in ['passwd', 'group'] %}
 /etc/nsswitch.conf_{{ setting }}:
   file.replace:
@@ -56,19 +55,17 @@ kanidm-unixd.service:
     - name: kanidm-unixd
     - enable: True
     - watch:
-      - file: /etc/kanidm/config
-      - file: /etc/kanidm/unixd
+        - file: /etc/kanidm/config
+        - file: /etc/kanidm/unixd
     - require:
-      - pkg: zypper_packages
+        - pkg: zypper_packages
 
 kanidm-unixd-tasks.service:
   service.running:
     - name: kanidm-unixd-tasks
     - enable: True
     - require:
-      - service: kanidm-unixd
-
-sssd.service:
-  service.dead:
-    - name: sssd
-    - disable: True
+        - service: kanidm-unixd
+    - require_in:
+        # to ensure sssd is removed/stopped
+        - pkg: remove_old_ldap_auth_packages
