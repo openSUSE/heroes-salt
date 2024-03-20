@@ -11,11 +11,16 @@
         'memberUid', []
       )
 %}
+{%- set prefixes = {
+      'tcp': '2a07:de40:b27e:5002::',
+      'udp': '2a07:de40:b27e:5001::',
+    }
+%}
 
 {%- set dir_etc       = '/etc/openvpn/' %}
 {%- set dir_tcp       = dir_etc ~ 'ccd-tcp/' %}
 {%- set dir_udp       = dir_etc ~ 'ccd-udp/' %}
-{%- set check_cmd     = 'grep -hoP "::\K(\d{2,4})" ' ~ dir_tcp %}
+{%- set check_cmd     = 'awk "/^ifconfig/{ print $2 }" ' %}
 
 {%- set desired_ccds  = [] %}
 {%- set existing_ccds = salt['file.find'](dir_etc ~ 'ccd-*', type='f', print='name') | unique | sort %}
@@ -39,28 +44,35 @@ openvpn_ccd_files:
               and
               salt['file.file_exists'](dir_udp ~ user)
         %}
-        {%- set number =
-              salt['cmd.run'](
-                check_cmd ~ user
-              )
+        {%- set addresses = {
+              'tcp': salt['cmd.run'](
+                 check_cmd ~ dir_tcp ~ user
+              ),
+              'udp': salt['cmd.run'](
+                 check_cmd ~ dir_udp ~ user
+              ),
+            }
         %}
         {%- else %}
-        {%- set number =
-              salt['cmd.shell'](
-                check_cmd ~ '*|sort|tail -n1'
-              )
+        {%- set addresses = {
+              'tcp': salt['os_network.sixify'](
+                user, prefixes['tcp']
+              ),
+              'udp': salt['os_network.sixify'](
+                user, prefixes['udp']
+              ),
+            }
         %}
         {%- endif %}
-        {%- do salt.log.debug('vpn.ccd: number for user ' ~ user ~ ' set to ' ~ number) %}
 
       - {{ dir_tcp }}{{ user }}:
         - context:
-            prefix: '2a07:de40:b27e:5002::'
-            number: {{ number }}
+            address: {{ addresses['tcp'] }}
+            prefix: '{{ prefixes['tcp'] }}'
       - {{ dir_udp }}{{ user }}:
         - context:
-            prefix: '2a07:de40:b27e:5001::'
-            number: {{ number }}
+            address: {{ addresses['udp'] }}
+            prefix: '{{ prefixes['udp'] }}'
       {%- endfor %}
 
     - source: salt://profile/vpn/openvpn/files/ccd.jinja
