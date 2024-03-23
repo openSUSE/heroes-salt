@@ -486,6 +486,18 @@ set host4_hel {
     }
 }
 
+# All individual HAProxy nodes
+# (hel is not listed here yet since the set is currently only used for rules in the same zone as hel)
+set host6_haproxy {
+    type ipv6_addr
+    flags interval
+    elements = {
+      $host6_atlas1,
+      $host6_atlas2,
+      $host6_provo-proxy1,
+    }
+}
+
 # PRG-NS
 set host6_prg-ns {
     type ipv6_addr
