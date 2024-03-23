@@ -27,6 +27,13 @@
      ip6 saddr $host6_qsc-ns3 ip6 daddr $host6_chip udp dport domain accept
      ip6 saddr $host6_qsc-ns3 ip6 daddr $host6_chip tcp dport domain accept
 
+     # VPN clients -> Atlas (same rules as the ones in zones/3201_os-p2p-pub to allow for the same access as over the internet)
+     ip6 daddr @host6_atlas ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+     ip6 daddr @host6_atlas tcp dport https accept
+     ip6 daddr $host6_atlas_misc tcp dport https accept
+     ip6 daddr $host6_atlas_misc tcp dport ssh accept
+     ip6 daddr @host6_atlas_mx tcp dport smtp accept
+
      # VPN clients -> reverse proxy + backend on chip for access to PowerDNS web UI
      ip6 daddr $host6_chip tcp dport { 444, 8081 } accept
 
