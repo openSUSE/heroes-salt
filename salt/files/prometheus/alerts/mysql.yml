@@ -1,4 +1,7 @@
 # yamllint disable rule:line-length
+#####################################################
+## MANAGED BY SALT in salt/files/prometheus/alerts ##
+#####################################################
 ---
 groups:
   - name: ioo-mysql

@@ -12,7 +12,6 @@
 include:
   - role.common.apache
   - role.common.monitoring
-  - .alerts
 
 apache:
   sites:
