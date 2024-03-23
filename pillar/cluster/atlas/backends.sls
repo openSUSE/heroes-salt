@@ -52,6 +52,14 @@ haproxy:
       mode: http
       {{ options() }}
       {{ server('dale_hackweek', '2a07:de40:b27e:1203::b16', 81) }}
+    internal:
+      mode: http
+      httprequests:
+        - >-
+          return status 511
+          content-type text/html
+          file {{ errorfiles }}internal.html
+          hdr Cache no-cache
     jekyll:
       {{ options('httpchk') }}
       {{ httpcheck('search.opensuse.org', 200, method='options') }}

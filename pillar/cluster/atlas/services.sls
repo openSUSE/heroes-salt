@@ -3,6 +3,7 @@ haproxy:
     http:
       acls:
         - annoying_clients src 47.128.0.0/14  # Amazon EC2
+        - internal_clients src 2a07:de40:b27e::/48  # PRG2
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
@@ -15,6 +16,7 @@ haproxy:
         - path_dot_scm           path_beg    /.bzr/
         - path_ebooks            path_beg    /ebooks
         - path_favicon           path        /favicon.ico
+        - path_grafana_login     path        /grafana/login
         - path_grafana           path_beg    /grafana/
         - path_kubic_registry    path_beg    /v2/
         - path_matrix_client     path_beg    /.well-known/matrix/client
@@ -124,6 +126,7 @@ haproxy:
         - matrix-client       if path_matrix_client
         - matrix-federation   if path_matrix_federation
         - security_txt        if path_security
+        - internal            if path_grafana_login !internal_clients
 
         # path-specific rules
         - jekyll          if host_monitor path_slash
