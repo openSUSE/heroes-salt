@@ -98,6 +98,8 @@
   ip6 saddr $host6_monitor ip6 daddr @host6_witch1 tcp dport 8216 accept
   # monitor -> all HAProxy nodes (Prometheus HAProxy metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_haproxy tcp dport 8404 accept
+  # monitor -> asgard* (Prometheus ping metrics collection)
+  ip6 saddr $host6_monitor ip6 daddr @self6_internal tcp dport 9427 accept
 
   # chip -> all nameservers (DNS, query/notify)
   ip6 saddr $host6_chip ip6 daddr @host6_all_dns udp dport domain accept
