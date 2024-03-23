@@ -31,6 +31,6 @@ prometheus:
   pkg:
     component:
       elasticsearch_exporter:
-        name: golang-github-justwatchcom-elasticsearch_exporter
+        name: prometheus-elasticsearch_exporter
         service:
           name: prometheus-elasticsearch_exporter
