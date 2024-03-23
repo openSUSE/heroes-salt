@@ -9,7 +9,7 @@ include:
 /etc/systemd/system/elasticsearch.service.d/es-apparmor.conf:
   file.managed:
     - contents:
-      - '[service]'
+      - '[Service]'
       - AppArmorProfile=elasticsearch
     - require_in:
       - elasticsearch
