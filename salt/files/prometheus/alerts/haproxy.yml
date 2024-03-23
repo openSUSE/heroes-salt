@@ -1,0 +1,241 @@
+# yamllint disable rule:line-length
+#####################################################
+## MANAGED BY SALT in salt/files/prometheus/alerts ##
+#####################################################
+---
+groups:
+  - name: ioo-haproxy
+    rules:
+
+      - alert: HAProxyHighHttp4xxErrorRateBackend
+        annotations:
+          description: |
+            Too many HTTP requests with status 4xx (> 5%) for backend {{ $labels.proxy }} on {{ $labels.instance }}
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy high HTTP 4xx error rate backend ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          (
+            (
+              sum by (instance, proxy) (rate(haproxy_server_http_responses_total{code="4xx"}[5m]))
+              /
+              sum by (instance, proxy) (rate(haproxy_server_http_responses_total[5m]))
+              * 100
+            )
+            > 5
+          )
+          and on (instance, proxy) (rate(haproxy_server_http_responses_total{code="4xx"}[5m]) * 60)
+            > 10
+        for: 1m
+        labels:
+          severity: info
+      - alert: HAProxyHighHttp5xxErrorRateBackend
+        annotations:
+          description: |
+            Too many HTTP requests with status 5xx (> 5%) for backend {{ $labels.proxy }} on {{ $labels.instance }}
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy high HTTP 5xx error rate backend ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          (
+          sum by (instance, proxy) (rate(haproxy_server_http_responses_total{code="5xx"}[1m]))
+          /
+          sum by (instance, proxy) (rate(haproxy_server_http_responses_total[1m]))
+          * 100
+          )
+          > 5
+        for: 1m
+        labels:
+          # should be warning, but there are existing problematic backends :-(
+          severity: info
+
+      # ErrorRateServer rules are only engaged for backends with more than one server to avoid duplicating the above
+      - alert: HAProxyHighHttp4xxErrorRateServer
+        annotations:
+          description: |
+            Too many HTTP requests with status 4xx (> 5%) for server {{ $labels.server }} on {{ $labels.instance }}.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy high HTTP 4xx error rate server ({{ $labels.instance }}/{{ $labels.server }})
+        expr: >-
+          (
+            (
+              sum by (instance, proxy, server) (rate(haproxy_server_http_responses_total{code="4xx"}[5m]))
+              /
+              sum by (instance, proxy, server) (rate(haproxy_server_http_responses_total[5m]))
+              * 100
+            )
+            > 5
+          )
+          and on (instance, proxy, server) (rate(haproxy_server_http_responses_total{code="4xx"}[5m]) * 60)
+            > 10
+          and on(instance, proxy) haproxy_backend_active_servers
+            > 1
+        for: 1m
+        labels:
+          severity: info
+      - alert: HAProxyHighHttp5xxErrorRateServer
+        annotations:
+          description: |
+            Too many HTTP requests with status 5xx (> 5%) for server {{ $labels.server }} on {{ $labels.instance }}.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy high HTTP 5xx error rate server ({{ $labels.instance }}/{{ $labels.server }})
+        expr: >-
+          (
+          sum by (instance, proxy, server) (rate(haproxy_server_http_responses_total{code="5xx"}[1m]) * 100)
+          /
+          sum by (instance, proxy, server) (rate(haproxy_server_http_responses_total[1m]))
+          and on(instance, proxy) haproxy_backend_active_servers > 1
+          )
+          > 5
+        for: 1m
+        labels:
+          # should be warning, but there are existing problematic backends :-(
+          severity: info
+
+      - alert: HAProxyServerResponseErrors
+        annotations:
+          description: |
+            Too many response errors to server {{ $labels.server }} on {{ $labels.instance }} (> 5%).
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy server response errors ({{ $labels.instance }}/{{ $labels.server }})
+        expr: >-
+          sum by (instance, server) (rate(haproxy_server_response_errors_total[1m]) * 100)
+          /
+          sum by (instance, server) (rate(haproxy_server_http_responses_total[1m]))
+          > 5
+        for: 1m
+        labels:
+          severity: warning
+
+      # filter out backends with no servers because ones serving only errorfiles (for example conncheck) seem to report bogus connection errors
+      - alert: HAProxyBackendConnectionErrors
+        annotations:
+          description: |
+            Too many connection errors to backend {{ $labels.proxy }} from {{ $labels.instance }} (> 100 req/s). Request throughput may be too high.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy backend connection errors ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          (
+          sum by (instance, proxy) (rate(haproxy_backend_connection_errors_total[1m]))
+          and on(instance, proxy) haproxy_backend_active_servers > 0
+          )
+          > 100
+        for: 1m
+        labels:
+          severity: critical
+
+      # ServerConnectionErrors rule is only engaged for backends with more than one server to avoid duplicating the above
+      - alert: HAProxyServerConnectionErrors
+        annotations:
+          description: |
+            Too many connection errors to server {{ $labels.server }} from {{ $labels.instance }} (> 100 req/s). Request throughput may be too high.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy server connection errors ({{ $labels.instance }}/{{ $labels.proxy }}/{{ $labels.server }})
+        expr: >-
+          (
+          sum by (instance, proxy, server) (rate(haproxy_server_connection_errors_total[1m]))
+          and on(instance, proxy) haproxy_backend_active_servers > 1
+          )
+          > 100
+        for: 0m
+        labels:
+          severity: critical
+
+      - alert: HAProxyBackendMaxActiveSession
+        annotations:
+          description: |
+            HAProxy backend {{ $labels.proxy }} on {{ $labels.instance }} is reaching the session limit (> 80%).
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy backend max active session ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          (
+          sum by (proxy) (avg_over_time(haproxy_backend_max_sessions[2m]) * 100)
+          /
+          sum by (proxy) (avg_over_time(haproxy_backend_limit_sessions[2m]))
+          )
+          > 80
+        for: 2m
+        labels:
+          severity: warning
+
+      - alert: HAProxyPendingRequests
+        annotations:
+          description: |
+            Some proxy requests are pending on backend {{ $labels.proxy }} on {{ $labels.instance }}.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy pending requests ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          sum by (proxy) (haproxy_backend_current_queue)
+          > 0
+        for: 2m
+        labels:
+          severity: warning
+
+      # I do not fully understand this metric, dividing by 1024 feels wrong, but the HELP text says:
+      # "haproxy_backend_total_time_average_seconds Avg. total time for last 1024 successful connections"
+      # https://github.com/haproxy/haproxy/issues/2317
+      - alert: HAProxyBackendSlowingDown
+        annotations:
+          description: |
+            Average request time is increasing for backend {{ $labels.proxy }} on {{ $labels.instance }}.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy backend slowing down ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          avg by (proxy)
+          (
+          haproxy_backend_total_time_average_seconds / 1024
+          )
+          > 1
+        for: 1m
+        labels:
+          severity: warning
+
+      - alert: HAProxyRetryHigh
+        annotations:
+          description: |
+            High rate of retry on backend {{ $labels.proxy }} on {{ $labels.instance }}.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy retry high ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          sum by (proxy) (rate(haproxy_backend_retry_warnings_total[1m]))
+          > 3
+        for: 2m
+        labels:
+          severity: warning
+
+      - alert: HAProxyBackendServerDown
+        annotations:
+          description: |
+            HAProxy server {{ $labels.server }} in backend {{ $labels.proxy }} on {{ $labels.instance }} is down.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy server down ({{ $labels.instance }}/{{ $labels.proxy }}/{{ $labels.server }})
+        expr: >-
+          haproxy_server_status{state="DOWN"}
+          > 0
+        for: 30s
+        labels:
+          severity: warning
+
+      - alert: HAProxyFailedHealthChecks
+        annotations:
+          description: |
+            HAProxy health checks for server {{ $labels.server }} in backend {{ $labels.proxy }} on {{ $labels.instance }} are failing.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy failed health checks ({{ $labels.instance }}/{{ $labels.proxy }}/{{ $labels.server }})
+        expr: >-
+          increase(haproxy_server_check_failures_total[1m])
+          > 0
+        for: 1m
+        labels:
+          severity: warning
