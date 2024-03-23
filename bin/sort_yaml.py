@@ -41,7 +41,7 @@ if '--sort-lists' in args:
   sort_lists = True
   args.remove('--sort-lists')
 
-if len(args) < 2 or not args[1].endswith('.yaml'):
+if len(args) < 2 or not args[1].endswith(('.yaml', '.yml')):
     _fail('Cannot operate without being passed a YAML file')
 
 files = sys.argv[1:]
