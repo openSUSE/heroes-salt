@@ -19,6 +19,7 @@
   # http(s) to atlas*.i.o.o
   ip6 daddr @host6_atlas tcp dport { http, https } accept
   ip daddr @host4_atlas tcp dport { http, https } accept
+  ip6 daddr $host6_atlas_misc tcp dport { http, https } accept
   ip daddr $host4_atlas_misc tcp dport { http, https } accept
 
   # rsync to atlas*.i.o.o (for factory-dashboard)
