@@ -38,6 +38,12 @@ prometheus:
                 - alertname="Low disk space predicted"
               equal:
                 - instance
+            - source_matchers:
+                - alertname="Member aliases update failed due to too many removals"
+              target_matchers:
+                - alertname="Member aliases update failed"
+              equal:
+                - instance
           time_intervals:
             - name: update_window
               time_intervals:
