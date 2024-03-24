@@ -29,8 +29,8 @@ if test $removed -gt 20
 then
         printf "New member-aliases list (%u entries) would remove %u aliases ?\n" $total $removed
         write_metrics '1' "$added" "$removed" "$total"
-	# tidy up
-	rm -Rf "$tmp"
+        # tidy up
+        rm -Rf "$tmp"
         exit 1
 fi
 
@@ -39,10 +39,10 @@ if test $added -gt 0 -o $removed -gt 0
 then
         printf "virtual-opensuse-users updated: %u additions, %u removals, now %u entries\n" $added $removed $total
         write_metrics '0' "$added" "$removed" "$total"
-	# debug
-	diff -B -b /etc/postfix/virtual-opensuse-users member.aliases.ordered
+        # debug
+        diff -B -b /etc/postfix/virtual-opensuse-users member.aliases.ordered
 
-	mv member.aliases.ordered /etc/postfix/virtual-opensuse-users
+        mv member.aliases.ordered /etc/postfix/virtual-opensuse-users
         postmap /etc/postfix/virtual-opensuse-users
         postfix reload
 else
