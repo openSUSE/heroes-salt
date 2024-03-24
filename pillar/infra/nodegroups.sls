@@ -10,6 +10,9 @@ salt:
         {%- endfor %}
       {%- endfor %}
       hypervisors: N@{{ ' and N@'.join(clusters.keys()) }}
+      asgard:
+        - asgard1.infra.opensuse.org
+        - asgard2.infra.opensuse.org
       atlas:
         - atlas1.infra.opensuse.org
         - atlas2.infra.opensuse.org
