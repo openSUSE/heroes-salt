@@ -37,4 +37,5 @@ include:
   - profile.sysctl
   - profile.motd
   - profile.dehydrated.target
+  - profile.monitoring.prometheus.textfiles
   - prometheus.config
