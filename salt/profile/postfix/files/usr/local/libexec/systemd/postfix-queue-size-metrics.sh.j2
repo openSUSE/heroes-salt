@@ -1,0 +1,21 @@
+#!/bin/sh -Cefu
+{{ pillar['managed_by_salt'] }}
+
+# Inspired by https://gitlab.torproject.org/tpo/tpa/grafana-dashboards/-/issues/1
+
+queues='active bounce corrupt deferred flush hold incoming maildrop'
+spool_dir='/var/spool/postfix'
+
+{
+		for queue in ${queues}
+		do
+				if [ -d "${spool_dir}/${queue}" ]
+				then
+						>&2 echo "Checking $queue"
+						printf 'postfix_queue_length{postfix_instance="postfix", queue="%s"} ' "$queue"
+						find "${spool_dir}/${queue}" -type f | wc -l
+				else
+						>&2 echo "Skipping $queue"
+				fi
+		done
+} | sponge /var/spool/prometheus/postfix_queues.prom

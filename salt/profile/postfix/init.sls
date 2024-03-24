@@ -57,3 +57,25 @@ postfix_alias_present_{{ user }}:
     - onchanges:
       - file: /etc/postfix/discard_ndrs
 {%- endif %}
+
+profile_postfix_queue_size_metrics_files:
+  file.managed:
+    - names:
+        - /usr/local/libexec/systemd/postfix-queue-size-metrics.sh:
+            - source: salt://{{ slspath }}/files/usr/local/libexec/systemd/postfix-queue-size-metrics.sh.j2
+            - makedirs: True
+            - mode: '0750'
+        - /etc/systemd/system/postfix-queue-size-metrics.service:
+            - source: salt://{{ slspath }}/files/etc/systemd/system/postfix-queue-size-metrics.service.j2
+        - /etc/systemd/system/postfix-queue-size-metrics.timer:
+            - source: salt://{{ slspath }}/files/etc/systemd/system/postfix-queue-size-metrics.timer.j2
+    - template: jinja
+
+profile_postfix_queue_size_metrics_timer:
+  service.running:
+    - name: postfix-queue-size-metrics.timer
+    - enable: True
+    - require:
+        - service: postfix
+    - watch:
+        - file: profile_postfix_queue_size_metrics_files
