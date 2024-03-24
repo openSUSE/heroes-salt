@@ -4,17 +4,15 @@
 tmp=$(mktemp -p /tmp -d memberaliases.XXXXXXXXXX)
 cd "$tmp" || exit 1
 
-nsca_client_name='{{grains.id}}'
-nsca_client_service='openSUSE virtual_users'
-nsca_server='monitor.infra.opensuse.org'
-nsca_config='/etc/send_nsca.cfg'
-#status_code=3
-#status_message='unknown'
+metrics_base='virtual_opensuse_users'
 
-send_nsca_message(){
-	local status_code="$1"
-	local status_message="$2"
-	echo -e "$nsca_client_name\t$nsca_client_service\t$status_code\t$status_message" | send_nsca -H $nsca_server -c "$nsca_config"
+write_metrics() {
+  {
+    printf '%s_status %i\n' "$metrics_base" "$1"
+    printf '%s_add %i\n'    "$metrics_base" "$2"
+    printf '%s_remove %i\n' "$metrics_base" "$3"
+    printf '%s_total %i\n'  "$metrics_base" "$4"
+  } | sponge /var/spool/prometheus/get_member_aliases.prom
 }
 
 mysql -h mysql.infra.opensuse.org -P3307 -Dmembers -NB -e 'select addr, email_target from email_aliases' >member.aliases.new
@@ -30,7 +28,7 @@ total=$(wc -l <member.aliases.ordered)
 if test $removed -gt 20
 then
         printf "New member-aliases list (%u entries) would remove %u aliases ?\n" $total $removed
-	send_nsca_message "1" "New member-aliases list ($total entries)  would remove $removed aliases | total=$total; added=$added; removed=$removed;"
+        write_metrics '1' "$added" "$removed" "$total"
 	# tidy up
 	rm -Rf "$tmp"
         exit 1
@@ -40,7 +38,7 @@ fi
 if test $added -gt 0 -o $removed -gt 0
 then
         printf "virtual-opensuse-users updated: %u additions, %u removals, now %u entries\n" $added $removed $total
-        send_nsca_message "0" "virtual-opensuse-users updated: $added additions, $removed removals, now $total entries | total=$total; added=$added; removed=$removed;"
+        write_metrics '0' "$added" "$removed" "$total"
 	# debug
 	diff -B -b /etc/postfix/virtual-opensuse-users member.aliases.ordered
 
@@ -49,7 +47,7 @@ then
         postfix reload
 else
 #        printf "virtual-opensuse-users not updated, no changes found.\n"
-        send_nsca_message "0" "virtual-opensuse-users not updated, no changes found | total=$total; added=$added; removed=$removed;" >/dev/null
+        write_metrics '0' "$added" "$removed" "$total"
 fi
 
 # tidy up
