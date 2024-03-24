@@ -27,6 +27,7 @@ groups:
           description: >-
             Failed to scrape node exporter on {{ $labels.instance }} for over 1 minute, host seems to be down.
 
+      # small partitions
       - alert: Low disk space
         expr: >-
           ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10
@@ -34,6 +35,8 @@ groups:
           ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
           and
           ON (instance, device, mountpoint) node_filesystem_readonly == 0
+          and
+          ON (instance, device, mountpoint) node_filesystem_size_bytes < 100000000000
         for: 1m
         labels:
           severity: critical
@@ -45,11 +48,32 @@ groups:
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
+      # big partitions
+      - alert: Low disk space
+        expr: >-
+          ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 1
+          and
+          ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+          and
+          ON (instance, device, mountpoint) node_filesystem_readonly == 0
+          and
+          ON (instance, device, mountpoint) node_filesystem_size_bytes >= 100000000000
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          title: >-
+            Host {{ $labels.instance }} low on disk space
+          description: |
+            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is filled over 99%.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
       - alert: Low disk space predicted
         expr: >-
           ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10
           and
-          ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[1h], 24 * 3600) < 0
+          ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[6h], 43200) < 0
           and
           ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
         for: 2m
@@ -59,7 +83,7 @@ groups:
           summary: >-
             Host {{ $labels.instance }} might run low on disk space
           description: |
-            Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is predicted to run out of space within the next 24 hours at the current write rate
+            Based off data gathered in the last six hours, the filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is predicted to run out of space within the next twelve hours at the current write rate.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
