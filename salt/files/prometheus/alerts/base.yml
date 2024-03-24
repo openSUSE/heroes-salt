@@ -28,7 +28,7 @@ groups:
             Failed to scrape node exporter on {{ $labels.instance }} for over 1 minute, host seems to be down.
 
       # small partitions
-      - alert: Low disk space
+      - alert: Low disk space (small)
         expr: >-
           ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10
           and
@@ -49,7 +49,7 @@ groups:
             LABELS = {{ $labels }}
 
       # big partitions
-      - alert: Low disk space
+      - alert: Low disk space (big)
         expr: >-
           ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 1
           and
