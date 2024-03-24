@@ -216,6 +216,7 @@ zypper:
     htop: {}
     less: {}
     lsof: {}
+    moreutils: {}
     {%- if virtual == 'kvm' %}
     qemu-guest-agent: {}
     {%- endif %}

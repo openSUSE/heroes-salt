@@ -22,5 +22,6 @@ prometheus:
               )$'"
             collector.netdev.device-exclude: "'^d-o?s-[a-z]+$'"
             collector.zfs: false
+            collector.textfile.directory: /var/spool/prometheus
             collector.thermal_zone: false
             collector.powersupplyclass: false
