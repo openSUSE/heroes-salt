@@ -43,7 +43,8 @@ haproxy:
         - server 30m
       {{ server('etherpad', '2a07:de40:b27e:1203::b18', 9001, extra_extra='inter 5000') }}
     forums:
-      {{ options() }}
+      {{ options('httpchk') }}
+      {{ httpcheck('forums.opensuse.org', 200, '/srv/status') }}
       {{ server('discourse01', '2a07:de40:b27e:1203::b47') }}
     gccstats:
       {{ options() }}
