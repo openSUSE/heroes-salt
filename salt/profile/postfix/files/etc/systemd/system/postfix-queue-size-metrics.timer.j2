@@ -1,0 +1,11 @@
+{{ pillar['managed_by_salt'] }}
+
+[Unit]
+BindsTo=postfix.service
+
+[Timer]
+OnCalendar=*:0/5
+AccuracySec=1us
+
+[Install]
+WantedBy=timers.target
