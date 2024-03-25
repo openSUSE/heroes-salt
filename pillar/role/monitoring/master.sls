@@ -106,6 +106,13 @@ prometheus:
                 physical: []
                 kvm: []
 
+            discourse:
+              port: 9405
+              roles:
+                - discourse
+              simple: true
+              targets: []
+
             elasticsearch:
               port: 9114
               roles:
