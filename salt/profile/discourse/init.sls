@@ -1,9 +1,10 @@
 {%- from 'macros.jinja' import puma_service_dropin %}
 
-discourse_pgks:
+discourse_pkgs:
   pkg.installed:
     - pkgs:
       - discourse
+      - discourse-plugin-prometheus
       - ruby3.2-rubygem-discourse_mail_receiver
       - nginx-module-brotli
 
@@ -65,3 +66,12 @@ discourse_sidekiq_service:
   service.running:
     - name: discourse-puma
     - enable: True
+    - require:
+        - pkg: discourse_pkgs
+
+discourse_prometheus_collector:
+  service.running:
+    - name: discourse-prometheus-collector
+    - enable: True
+    - require:
+        - pkg: discourse_pkgs

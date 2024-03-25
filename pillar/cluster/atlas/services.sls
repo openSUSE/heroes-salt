@@ -22,6 +22,7 @@ haproxy:
         - path_matrix_client     path_beg    /.well-known/matrix/client
         - path_matrix_federation path_beg    /.well-known/matrix/server
         - path_meetings          path_beg    /meetings
+        - path_metrics           path        /metrics
         - path_openid            path_beg    -i /openid
         - path_openid            path_beg    -i /common/app/
         - path_openid            path_beg    -i /openid-ldap
@@ -126,9 +127,10 @@ haproxy:
         - matrix-client       if path_matrix_client
         - matrix-federation   if path_matrix_federation
         - security_txt        if path_security
-        - internal            if path_grafana_login !internal_clients
 
         # path-specific rules
+        - internal        if host_forums path_metrics !internal_clients
+        - internal        if host_monitor path_grafana_login !internal_clients
         - jekyll          if host_monitor path_slash
         #- kubic          if host_mainpage path_kubic_registry
         - monitor_grafana if host_monitor path_grafana
