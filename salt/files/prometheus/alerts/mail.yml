@@ -9,55 +9,55 @@ groups:
       - alert: Postfix queue
         expr: >-
           postfix_queue_length{queue!~"deferred|flush"} > 0
-        for: 30s
+        for: 310s
         labels:
           severity: warning
         annotations:
           title: >-
             Large mail queue on {{ $labels.instance }}
           description: |
-            The Postfix "{{ $labels.queue }}" queue on {{ $labels.instance }} exceeds 0 messages for over thirty seconds.
+            The Postfix "{{ $labels.queue }}" queue on {{ $labels.instance }} exceeds 0 messages for over five minutes.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
       - alert: Postfix flush queue
         expr: >-
           postfix_queue_length{queue="flush"} > 1
-        for: 30s
+        for: 310s
         labels:
           severity: warning
         annotations:
           title: >-
             Large flush mail queue on {{ $labels.instance }}
           description: |
-            The Postfix "flush" queue on {{ $labels.instance }} exceeds 1 message for over thirty seconds.
+            The Postfix "flush" queue on {{ $labels.instance }} exceeds 1 message for over five minutes.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
       - alert: Postfix deferred queue
         expr: >-
           postfix_queue_length{instance!~"mx[1-4].infra.opensuse.org", queue="deferred"} > 1
-        for: 30s
+        for: 310s
         labels:
           severity: warning
         annotations:
           title: >-
             Large deferred mail queue on {{ $labels.instance }}
           description: |
-            The Postfix "deferred" queue on {{ $labels.instance }} exceeds 1 held message for over thirty seconds.
+            The Postfix "deferred" queue on {{ $labels.instance }} exceeds 1 held message for over five minutes.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
       - alert: Large Postfix deferred queue
         expr: >-
           postfix_queue_length{instance=~"mx[1-4].infra.opensuse.org", queue="deferred"} > 400
-        for: 30s
+        for: 310s
         labels:
           severity: critical
         annotations:
           title: >-
             Large deferred mail queue on {{ $labels.instance }}
           description: |
-            The Postfix "deferred" queue on {{ $labels.instance }} exceeds 400 held messages for over thirty seconds.
+            The Postfix "deferred" queue on {{ $labels.instance }} exceeds 400 held messages for over five minutes.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
