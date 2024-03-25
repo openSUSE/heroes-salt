@@ -52,9 +52,9 @@
   # ping to witch1/freeipa
   ip daddr { $witch1_mapped, $host4_freeipa } ip protocol icmp icmp type { echo-request, echo-reply } accept
 
-  # DNS/NTP/LDAPS (to hel)
+  # DNS/NTP/LDAPS/SMTP (to hel)
+  ip daddr @host4_hel tcp dport { domain, ntp, ldaps, smtp } accept
   ip daddr @host4_hel udp dport { domain, ntp } accept
-  ip daddr @host4_hel tcp dport { domain, ntp, ldaps } accept
 
   # Salt (to witch1)
   ip daddr $witch1_mapped tcp dport 4505-4506 accept
