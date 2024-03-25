@@ -69,9 +69,20 @@ discourse_sidekiq_service:
     - require:
         - pkg: discourse_pkgs
 
+discourse_collector_acl:
+  file.managed:
+    - name: /etc/systemd/system/discourse-prometheus-collector.service.d/salt.conf
+    - makedirs: True
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - '[Service]'
+        - IPAddressAllow=2a07:de40:b27e:1203::50
+
 discourse_prometheus_collector:
   service.running:
     - name: discourse-prometheus-collector
     - enable: True
     - require:
         - pkg: discourse_pkgs
+    - watch:
+        - file: discourse_collector_acl
