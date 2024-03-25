@@ -127,10 +127,10 @@ haproxy:
         - matrix-client       if path_matrix_client
         - matrix-federation   if path_matrix_federation
         - security_txt        if path_security
-        - internal            if path_grafana_login !internal_clients
-        - internal            if host_forums path_metrics !internal_clients
 
         # path-specific rules
+        - internal        if host_forums path_metrics !internal_clients
+        - internal        if host_monitor path_grafana_login !internal_clients
         - jekyll          if host_monitor path_slash
         #- kubic          if host_mainpage path_kubic_registry
         - monitor_grafana if host_monitor path_grafana
