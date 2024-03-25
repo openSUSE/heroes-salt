@@ -55,7 +55,7 @@ gen_ssl () {
 
 check_prometheus () {
 	logfile="$1"
-	if ! mispipe 'promtool check config /etc/prometheus/prometheus.yml' "tee -a $logfile"
+	if ! mispipe 'promtool check config --lint-fatal /etc/prometheus/prometheus.yml' "tee -a $logfile"
 	then
 		echo 'Configuration is invalid' | tee -a "$logfile"
 		return 1
