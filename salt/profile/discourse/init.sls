@@ -5,7 +5,7 @@ discourse_pkgs:
     - pkgs:
       - discourse
       - discourse-plugin-prometheus
-      - ruby3.2-rubygem-discourse_mail_receiver
+      - ruby3.3-rubygem-discourse_mail_receiver
       - nginx-module-brotli
 
 discourse_config:
