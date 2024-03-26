@@ -13,7 +13,7 @@ calendar_dependencies:
       - postgresql-server-devel
       - {{ ruby }}-devel
       - system-user-wwwrun
-      - nodejs
+      - nodejs20
       - libyaml-devel
 
 calendar_user:
