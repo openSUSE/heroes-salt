@@ -1,7 +1,9 @@
+{%- from 'macros.jinja' import redis %}
+
 include:
-{% if salt['grains.get']('include_secrets', True) %}
+{%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.pagure
-{% endif %}
+{%- endif %}
   - role.common.nginx
 
 sshd_config:
@@ -26,26 +28,16 @@ profile:
     database_user: pagure
     database_host: postgresql.infra.opensuse.org
 
-{% set listenhttps6='[::]:443 ssl http2' %}
+{%- set listenhttps6='[::]:80' %}
 
 nginx:
   servers:
     managed:
-      redirhttp.conf:
-        config:
-          - server:
-              - include: acme-challenge
-              - server_name: '_'
-              - listen: '[::]:80 default_server'
-              - location /:
-                  - return: '301 https://$host$request_uri'
-        enabled: True
       code.opensuse.org.conf:
         config:
           - server:
               - server_name: code.opensuse.org
               - listen: '{{ listenhttps6 }}'
-              - include: ssl-config
               - location @pagure:
                   - client_max_body_size: 0
                   - proxy_set_header: Host $http_host
@@ -64,7 +56,6 @@ nginx:
           - server:
               - server_name: releases.opensuse.org
               - listen: '{{ listenhttps6 }}'
-              - include: ssl-config
               - location /:
                   - alias: /srv/www/pagure-releases/
                   - autoindex: 'on'
@@ -74,7 +65,6 @@ nginx:
           - server:
               - server_name: ev.opensuse.org
               - listen: '{{ listenhttps6 }}'
-              - include: ssl-config
               - location @pagure_ev:
                   - proxy_set_header: Host $http_host
                   - proxy_set_header: X-Real-IP $remote_addr
@@ -89,7 +79,6 @@ nginx:
           - server:
               - server_name: pages.opensuse.org
               - listen: '{{ listenhttps6 }}'
-              - include: ssl-config
               - location @pagure_docs:
                   - proxy_set_header: Host $http_host
                   - proxy_set_header: X-Real-IP $remote_addr
@@ -99,6 +88,13 @@ nginx:
               - location /:
                   - try_files: $uri @pagure_docs
         enabled: True
+
+{{ redis('pagure') }}
+
+groups:
+  redis:
+    members:
+      - git
 
 zypper:
   repositories:

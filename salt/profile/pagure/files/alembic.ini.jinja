@@ -1,4 +1,4 @@
-# A generic, single database configuration.
+{{ pillar['managed_by_salt'] }}
 
 [alembic]
 # path to migration scripts
@@ -20,7 +20,6 @@ script_location = /usr/share/pagure/alembic
 # versions/ directory
 # sourceless = false
 
-#sqlalchemy.url = driver://user:pass@localhost/dbname
 sqlalchemy.url = postgres://{{ pillar['profile']['pagure']['database_user'] }}:{{ pillar['postgres']['users']['pagure']['password'] }}@{{ pillar['profile']['pagure']['database_host'] }}/pagure
 
 

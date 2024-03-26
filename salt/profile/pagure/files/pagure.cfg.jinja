@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 import os
 from datetime import timedelta
 
@@ -22,8 +24,6 @@ PRIVATE_PROJECTS = False
 SECRET_KEY='{{ pillar['profile']['pagure']['secret_key'] }}'
 
 ### url to the database server:
-#DB_URL = 'mysql://user:pass@host/db_name'
-#DB_URL = 'postgres://user:pass@host/db_name'
 DB_URL = 'postgres://{{ pillar['profile']['pagure']['database_user'] }}:{{ pillar['postgres']['users']['pagure']['password'] }}@{{ pillar['profile']['pagure']['database_host'] }}/pagure'
 
 ### Send FedMsg notifications of events in pagure
@@ -236,8 +236,7 @@ WEBHOOK = True
 ### Redis configuration
 # A redis server is required for both the Event-Source server or the web-hook
 # server.
-REDIS_HOST = '0.0.0.0'
-REDIS_PORT = 6379
+REDIS_SOCKET = '/run/redis/pagure.sock'
 REDIS_DB = 0
 
 # Authentication related configuration option
