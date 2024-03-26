@@ -1,3 +1,4 @@
+cluster: orbit
 grains:
   country: cz
   hostusage:
