@@ -149,7 +149,7 @@ devcon:
       mac: 1a:eb:8a:3d:1a:82
       source: x-s-na-mgmt
   primary_interface: os-internal
-  ram: 768MB
+  ram: 1024MB
   vcpu: 1
 discourse01:
   cluster: falkor
@@ -956,7 +956,7 @@ warp:
       mac: d6:f7:c1:31:ce:81
       source: x-s-j-os-out
   primary_interface: os-s-warp
-  ram: 768MB
+  ram: 1024MB
   vcpu: 1
 water:
   cluster: falkor

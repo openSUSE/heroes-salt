@@ -11,7 +11,7 @@ Example, values enclosed in `< >` are to be substituted:
 ```
 <hostname>:                       # short hostname, will turn into <hostname>.infra.opensuse.org
   cluster: <cluster>              # hypervisor cluster, needs to exist in clusters.yaml
-  ram: 1024MB                     # memory, currently requires MB for min/max calculations (minimum should be 768MB)
+  ram: 1024MB                     # memory, currently requires MB for min/max calculations (minimum should be 1024MB)
   vcpu: 1                         # CPU cores
 
   interfaces:
