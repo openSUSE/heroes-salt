@@ -6,9 +6,11 @@
 groups:
   - name: ioo-mail
     rules:
+
+      # Generic rule for everything without more specific declarations
       - alert: Postfix queue
         expr: >-
-          postfix_queue_length{queue!~"deferred|flush"} > 0
+          postfix_queue_length{queue!~"active|deferred|flush|incoming"} > 0
         for: 310s
         labels:
           severity: warning
@@ -20,6 +22,7 @@ groups:
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
+      # Flush queue for all machines (1 entry is normal due to flush(8) not truncating unless woken up)
       - alert: Postfix flush queue
         expr: >-
           postfix_queue_length{queue="flush"} > 1
@@ -34,9 +37,55 @@ groups:
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
+      # Active queue for all machines except mailman3 and mx*
+      - alert: Postfix active queue
+        expr: >-
+          postfix_queue_length{instance!~"^(?:mailman3|mx[1-4]).infra.opensuse.org$", queue="active"} > 0
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large active mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "active" queue on {{ $labels.instance }} exceeds 0 messages for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Active queue specific to mx*
+      - alert: Large Postfix active queue (MX)
+        expr: >-
+          postfix_queue_length{instance=~"^mx[1-4].infra.opensuse.org$", queue="active"} > 70
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large active mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "active" queue on {{ $labels.instance }} exceeds 70 messages for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Active queue specific to mailman3
+      - alert: Large Postfix active queue (Mailman)
+        expr: >-
+          postfix_queue_length{instance=~"^mailman3.infra.opensuse.org$", queue="active"} > 30
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large active mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "active" queue on {{ $labels.instance }} exceeds 30 messages for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Deferred queue for all machines except mx*
       - alert: Postfix deferred queue
         expr: >-
-          postfix_queue_length{instance!~"mx[1-4].infra.opensuse.org", queue="deferred"} > 1
+          postfix_queue_length{instance!~"^mx[1-4].infra.opensuse.org$", queue="deferred"} > 1
         for: 310s
         labels:
           severity: warning
@@ -48,9 +97,10 @@ groups:
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
+      # Deferred queue specific to mx*
       - alert: Large Postfix deferred queue
         expr: >-
-          postfix_queue_length{instance=~"mx[1-4].infra.opensuse.org", queue="deferred"} > 400
+          postfix_queue_length{instance=~"^mx[1-4].infra.opensuse.org$", queue="deferred"} > 400
         for: 310s
         labels:
           severity: critical
@@ -59,5 +109,35 @@ groups:
             Large deferred mail queue on {{ $labels.instance }}
           description: |
             The Postfix "deferred" queue on {{ $labels.instance }} exceeds 400 held messages for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Incoming queue for all machines except mx*
+      - alert: Postfix incoming queue
+        expr: >-
+          postfix_queue_length{instance!~"^mx[1-4].infra.opensuse.org$", queue="incoming"} > 0
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large incoming mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "incoming" queue on {{ $labels.instance }} exceeds 0 messages for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Incoming queue specific to mx*
+      - alert: Large Postfix incoming queue (MX)
+        expr: >-
+          postfix_queue_length{instance=~"^mx[1-4].infra.opensuse.org$", queue="incoming"} > 5
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large incoming mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "incoming" queue on {{ $labels.instance }} exceeds 5 messages for over five minutes.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
