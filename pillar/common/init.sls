@@ -134,7 +134,7 @@ ssh_config:
     - -chacha20‐poly1305@openssh.com
 sshd_config:
   AuthorizedKeysFile: .ssh/authorized_keys
-  AuthorizedKeysCommand: /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
+  AuthorizedKeysCommand: /usr/sbin/kanidm_ssh_authorizedkeys %u
   AuthorizedKeysCommandUser: nobody
   Ciphers:
     - -chacha20‐poly1305@openssh.com
@@ -148,6 +148,7 @@ sshd_config:
   {%- endif %}
   PasswordAuthentication: no
   PermitEmptyPasswords: no
+  PubkeyAuthentication: yes
   GSSAPIAuthentication: no
   KerberosAuthentication: no
   PermitRootLogin: without-password
