@@ -1,4 +1,4 @@
-{%- macro bond(name, slave0, slave1) -%}
+{%- macro bond(name, slave0, slave1, bootproto=None) -%}
     bond-{{ name }}:
       usercontrol: false
       bonding_master: true
@@ -6,6 +6,9 @@
       bonding_slave0: {{ slave0 }}
       bonding_slave1: {{ slave1 }}
       firewall: false
+      {%- if bootproto %}
+      bootproto: {{ bootproto }}
+      {%- endif %}
 {%- endmacro -%}
 
 {%- macro slave(name) -%}
