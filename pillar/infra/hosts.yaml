@@ -21,6 +21,7 @@ asgard1:
   interfaces:
     eth0:
       mac: d2:e1:4b:98:46:1f
+      mode: passthrough
       source: bond-fib
   node: orbit20.infra.opensuse.org
   ram: 4096MB
@@ -33,6 +34,7 @@ asgard2:
   interfaces:
     eth0:
       mac: d2:e1:4b:98:46:2f
+      mode: passthrough
       source: bond-fib
   node: orbit21.infra.opensuse.org
   ram: 4096MB
