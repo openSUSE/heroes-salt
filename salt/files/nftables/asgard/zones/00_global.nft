@@ -17,8 +17,8 @@
   # ping to witch1/downloadtmp/freeipa
   ip6 saddr @lan_ipv6 ip6 daddr { $witch1, $downloadtmp, $host6_freeipa, $host6_freeipa2 } ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
-  # DNS/NTP/LDAPS/SMTP (to hel)
-  ip6 daddr @host6_hel tcp dport { domain, ntp, ldaps, smtp } accept
+  # DNS/HTTPS/NTP/LDAPS/SMTP (to hel)
+  ip6 daddr @host6_hel tcp dport { domain, https, ntp, ldaps, smtp } accept
   ip6 daddr @host6_hel udp dport { domain, ntp } accept
 
   # Salt (to witch1)
@@ -52,8 +52,8 @@
   # ping to witch1/freeipa
   ip daddr { $witch1_mapped, $host4_freeipa } ip protocol icmp icmp type { echo-request, echo-reply } accept
 
-  # DNS/NTP/LDAPS/SMTP (to hel)
-  ip daddr @host4_hel tcp dport { domain, ntp, ldaps, smtp } accept
+  # DNS/HTTPS/NTP/LDAPS/SMTP (to hel)
+  ip daddr @host4_hel tcp dport { domain, https, ntp, ldaps, smtp } accept
   ip daddr @host4_hel udp dport { domain, ntp } accept
 
   # Salt (to witch1)
