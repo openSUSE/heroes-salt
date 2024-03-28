@@ -22,21 +22,6 @@ groups:
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
-      # Flush queue for all machines (1 entry is normal due to flush(8) not truncating unless woken up)
-      - alert: Postfix flush queue
-        expr: >-
-          postfix_queue_length{queue="flush"} > 1
-        for: 310s
-        labels:
-          severity: warning
-        annotations:
-          title: >-
-            Large flush mail queue on {{ $labels.instance }}
-          description: |
-            The Postfix "flush" queue on {{ $labels.instance }} exceeds 1 message for over five minutes.
-            VALUE = {{ $value }}
-            LABELS = {{ $labels }}
-
       # Active queue for all machines except mailman3 and mx*
       - alert: Postfix active queue
         expr: >-
@@ -109,6 +94,36 @@ groups:
             Large deferred mail queue on {{ $labels.instance }}
           description: |
             The Postfix "deferred" queue on {{ $labels.instance }} exceeds 400 held messages for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Flush queue for all machines without additional relay_domains (1 entry per domain normal due to flush(8) not truncating unless woken up)
+      - alert: Postfix flush queue
+        expr: >-
+          postfix_queue_length{instance!~"^mx[1-4].infra.opensuse.org$", queue="flush"} > 1
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large flush mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "flush" queue on {{ $labels.instance }} exceeds 1 message for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Flush queue for mx* (comparison value should be the amount of relay_domains + 1)
+      - alert: Postfix flush queue (MX)
+        expr: >-
+          postfix_queue_length{instance=~"^mx[1-4].infra.opensuse.org$", queue="flush"} > 5
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large flush mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "flush" queue on {{ $labels.instance }} exceeds 5 messages for over five minutes.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 

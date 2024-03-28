@@ -88,6 +88,7 @@ profile:
         pcre:/etc/postfix/virtual-opensuse-mm3-bounces.pcre,
         lmdb:/etc/postfix/virtual-opensuse-users,
         lmdb:/etc/postfix/virtual-opensuse-mailinglists
+      # amount of relay_domains must align with the "Postfix flush queue (MX)" alerting threshold in salt/files/prometheus/alerts/mail.yml
       relay_domains: 'code.opensuse.org,forums.opensuse.org,lists.opensuse.org,lists.uyuni-project.org'
       smtpcox_destination_concurrency_limit: 2
       smtpcox_destination_rate_delay: '615s'
