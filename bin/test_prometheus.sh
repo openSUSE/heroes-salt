@@ -74,7 +74,8 @@ check_alertmanager () {
 }
 
 check_rules_files () {
-	find pillar/infra/alerts -type f -name '*.yaml' | while read file
+	find salt/files/prometheus/alerts -type f -name '*.yaml' > rule_files || return 1
+	while read file
 	do
 		file="$(basename "$file")"
 		if ! test -f /etc/prometheus/rules/"${file%.yaml}.yml"
@@ -82,7 +83,7 @@ check_rules_files () {
 			echo "Missing file: $file!"
 			return 1
 		fi
-	done
+	done < rule_files
 }
 
 run () {
