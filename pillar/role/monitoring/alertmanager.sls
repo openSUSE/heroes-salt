@@ -16,6 +16,15 @@ profile:
           # these are channels the bot will pre-join to
           # note that the bot can also dynamically join channels alerts are sent to without them being listed here
           - name: '#opensuse-admin-alerts'
+      promact:
+        config:
+          loglevel: debug
+          alerts:
+            MySQLTooManyConnections:
+              status: firing
+              shell: /usr/local/libexec/promact/check-mysql.sh
+              map:
+                instance: INSTANCE
 
 prometheus:
   wanted:
@@ -93,3 +102,4 @@ prometheus:
 zypper:
   packages:
     alertmanager-irc-relay: {}
+    promact: {}

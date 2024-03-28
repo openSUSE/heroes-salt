@@ -64,6 +64,14 @@ apache:
           Options: Indexes
           Require: all granted
       Include: /etc/apache2/conf.d/icingaweb2.conf
+    monitor-internal:
+      interface: '{{ listen | ipwrap }}'
+      ServerName: monitor.infra.opensuse.org
+      DocumentRoot: /srv/www/monitor-internal
+      Directory:
+        /srv/www/monitor-internal:
+          Options: indexes
+          Require: all granted
 
 prometheus:
   wanted:
