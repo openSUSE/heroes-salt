@@ -1,3 +1,5 @@
+{%- set osfullname = grains['osfullname'] %}
+
 include:
   - profile.legacy
   - network.wicked
@@ -8,7 +10,7 @@ include:
   - profile.qemu-guest-agent
   {%- endif %}
 
-  {%- if grains['osfullname'] == 'openSUSE Leap Micro' %}
+  {%- if osfullname == 'openSUSE Leap Micro' %}
   - profile.tukit
   - profile.salt.micro
   {%- else %}
@@ -35,3 +37,8 @@ include:
   - profile.dehydrated.target
   - profile.monitoring.prometheus.textfiles
   - prometheus.config
+
+{%- if osfullname == 'Leap' %}
+/usr/local/libexec:
+  file.directory
+{%- endif %}
