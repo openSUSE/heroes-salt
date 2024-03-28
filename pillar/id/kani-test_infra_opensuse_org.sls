@@ -12,5 +12,4 @@ grains:
     - firstyear
   partners: []
   weburls: []
-roles:
-  - kanidm-client
+roles: []
