@@ -11,7 +11,7 @@ haproxy:
     user: haproxy
     group: haproxy
     daemon: true
-    stats_sockets:
+    stats:
       /var/lib/haproxy/stats-rw:
         level: operator
       /var/lib/haproxy/stats-ro:
