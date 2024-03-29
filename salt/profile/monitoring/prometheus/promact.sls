@@ -1,6 +1,7 @@
 /etc/opt/promact/config.yaml:
   file.managed:
     - source: salt://{{ slspath }}/files/promact/config.yaml.jinja
+    - template: jinja
 
 /etc/opt/promact/my.cnf:
   file.managed:
@@ -22,6 +23,7 @@
     - source: salt://{{ slspath }}/files/promact/scripts
     - file_mode: '0755'
     - clean: true
+    - template: jinja
 
 /etc/systemd/system/promact.service.d/salt.conf:
   file.managed:
