@@ -11,3 +11,5 @@ grains:
     - lrupp
   partners: []
   weburls: []
+roles:
+  - backup
