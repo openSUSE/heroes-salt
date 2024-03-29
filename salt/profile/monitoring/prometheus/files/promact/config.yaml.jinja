@@ -1,0 +1,3 @@
+{{ pillar['managed_by_salt'] }}
+---
+{{ salt['pillar.get']('profile:monitoring:prometheus:promact:config') | yaml(False) }}
