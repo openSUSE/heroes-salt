@@ -825,6 +825,7 @@ prg-ns2:
 progressoo:
   cluster: falkor
   disks:
+    data0: 3600a09803831494f635d554b394f7844
     root: 3600a0980383041622f2455736d434c69
   interfaces:
     os-internal:
