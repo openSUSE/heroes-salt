@@ -72,6 +72,10 @@ prometheus:
                   require_tls: false
                   smarthost: relay.infra.opensuse.org:25
                   send_resolved: true
+            - name: opensuse-action
+              webhook_configs:
+                - url: http://ipv6-localhost:8010/call
+                  send_resolved: false
           route:
             group_by:
               - alertname
@@ -92,6 +96,10 @@ prometheus:
                 receiver: opensuse-mail
                 mute_time_intervals:
                   - update_window
+                continue: true
+              - matchers:
+                  - monitor=opensuse
+                receiver: opensuse-action
         environ:
           environ_arg_name: ARGS  # SUSE package specific
           args:
