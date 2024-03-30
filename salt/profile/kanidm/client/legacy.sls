@@ -7,7 +7,9 @@ remove_old_ldap_auth_packages:
         - libdhash1
         - libini_config5
         - libldb2
+        {%- if grains['osfullname'] != 'openSUSE Tumbleweed' %}
         - libnss_usrfiles2
+        {%- endif %}
         - libpath_utils1
         - libref_array1
         - libsss_certmap0
