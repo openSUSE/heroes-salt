@@ -1,6 +1,18 @@
+{%- set host = grains['host'] %}
+
 os-update:
   ignore_services_from_restart:
     - postgresql
+
+nfs:
+  mount:
+    {{ host }}:
+      mountpoint: /backup
+      location: backup:/backup/{{ host }}
+      opts:
+        - _netdev
+        - defaults
+        - nofail
 
 profile:
   monitoring:
