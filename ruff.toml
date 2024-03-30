@@ -2,8 +2,6 @@ line-length = 100
 
 [lint]
 exclude = [
-  # TODO: implement ignore rules for Salt dunders and lint modules
-  "salt/_*/*.py",
   # should we touch application scripts (Helios, Mailman, ...)?
   "salt/profile/*/files/*.py"
 ]

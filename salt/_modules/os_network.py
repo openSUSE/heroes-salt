@@ -50,5 +50,5 @@ def sixify(instring, prefix):
   try:
     return str(ipaddress.IPv6Address(address))
   except ipaddress.AddressValueError as error:
-    __salt__['log.error'](f'sixify: failed to convert {instring}: {error}')
+    __salt__['log.error'](f'sixify: failed to convert {instring}: {error}')  # noqa F821
     return None
