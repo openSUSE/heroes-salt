@@ -14,7 +14,7 @@ paste_dependencies:
       - postgresql-server-devel
       - {{ ruby }}-devel
       - system-user-wwwrun
-      - nodejs
+      - nodejs20
 
 paste_user:
   user.present:
@@ -38,6 +38,7 @@ paste_bundler_deployment:
     - env:
       - RAILS_ENV: 'production'
     - runas: paste
+    - creates: /srv/www/paste-o-o/.bundle/config
 
 paste_ruby_dependencies:
   cmd.run:
@@ -46,6 +47,7 @@ paste_ruby_dependencies:
     - env:
       - RAILS_ENV: 'production'
     - runas: paste
+    - unless: bundler.{{ ruby }} check
 
 paste_db_migration:
   cmd.run:
@@ -54,6 +56,7 @@ paste_db_migration:
     - env:
       - RAILS_ENV: 'production'
     - runas: paste
+    - onlyif: bin/rails db:migrate:status | grep down
 
 paste_assets_precompile:
   cmd.run:
@@ -62,6 +65,7 @@ paste_assets_precompile:
     - env:
       - RAILS_ENV: 'production'
     - runas: paste
+    - creates: /srv/www/calendar-o-o/public/assets/
 
 /etc/systemd/system/paste.service:
   file.managed:
@@ -87,10 +91,8 @@ paste_assets_precompile:
     - source: salt://profile/paste/files/{{ config }}.yml
     - template: jinja
     - user: paste
-    - require_in:
-      - service: paste_service
     - watch_in:
-      - module: paste_service
+      - service: paste_service
 {%- endfor %}
 
 /srv/www/paste-o-o/config/master.key:
@@ -120,4 +122,4 @@ paste_sidekiq_service:
     - name: paste-sidekiq.service
     - enable: True
     - require:
-      - service: paste_service
+        - service: paste_service
