@@ -1,6 +1,7 @@
 production:
   program_name: openSUSE Calendar
   tagline: openSUSE Contributor meetings are open for everyone to join
+  hostname: calendar.opensuse.org
   theme: openSUSE
   mail:
     from: calendar@opensuse.org
@@ -9,6 +10,8 @@ production:
       openid_connect:
         name: :oidc
         title: SUSE Community Accounts
+        discovery: true
+        issuer: https://id.opensuse.org/openidc/
         scope:
         - :openid
         - :email
@@ -21,7 +24,7 @@ production:
           host: id.opensuse.org
           identifier: "{{ pillar['profile']['calendar']['openidc']['client_id'] }}"
           secret: "{{ pillar['profile']['calendar']['openidc']['secret'] }}"
-          redirect_uri: https://calendar.opensuse.org/auth/oidc/callback
+          redirect_uri: https://calendar.opensuse.org/users/auth/oidc/callback
     sign_up:
     - name: SUSE Community Accounts
       link: https://idp-portal.suse.com/univention/self-service/#page=createaccount
