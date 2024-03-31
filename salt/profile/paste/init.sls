@@ -65,7 +65,7 @@ paste_assets_precompile:
     - env:
       - RAILS_ENV: 'production'
     - runas: paste
-    - creates: /srv/www/calendar-o-o/public/assets/
+    - creates: /srv/www/paste-o-o/public/assets/
 
 /etc/systemd/system/paste.service:
   file.managed:
