@@ -3,7 +3,7 @@ from hashlib import sha256
 
 
 def gw_with_cidr(gw, net):
-    network, slash, cidr = net.partition('/')
+    _, slash, cidr = net.partition('/')
     return f'{gw}{slash}{cidr}'
 
 
@@ -50,5 +50,5 @@ def sixify(instring, prefix):
   try:
     return str(ipaddress.IPv6Address(address))
   except ipaddress.AddressValueError as error:
-    __salt__['log.error'](f'sixify: failed to convert {instring}: {error}')
+    __salt__['log.error'](f'sixify: failed to convert {instring}: {error}')  # noqa F821
     return None
