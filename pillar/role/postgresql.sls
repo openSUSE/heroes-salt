@@ -7,8 +7,8 @@ os-update:
 nfs:
   mount:
     {{ host }}:
+      location: backup:/
       mountpoint: /backup
-      location: backup:/backup/{{ host }}
       opts:
         - _netdev
         - defaults
