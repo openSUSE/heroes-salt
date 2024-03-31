@@ -165,7 +165,7 @@ sshd_config:
         Banner: /etc/ssh/banner
 sssd:
   settings:
-    sssd: True
+    sssd: true
     sssd_conf:
       domains:
         infra.opensuse.org:
@@ -196,7 +196,7 @@ nfs:
   v4: true
 timezone:
   name: UTC
-  utc: True
+  utc: true
 zypper:
   config:
     zypp_conf:
@@ -247,5 +247,5 @@ mine_functions:
     - roles
   ssh_host_keys:
     - mine_function: ssh.host_keys
-    - private: False
-    - certs: False
+    - private: false
+    - certs: false
