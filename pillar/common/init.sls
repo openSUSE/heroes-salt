@@ -192,6 +192,8 @@ sssd:
 kanidm:
   config:
     uri: https://idm.infra.opensuse.org
+nfs:
+  v4: true
 timezone:
   name: UTC
   utc: True
