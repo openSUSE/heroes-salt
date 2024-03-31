@@ -13,5 +13,4 @@ mailman_pkgs:
       - python3-mailman-hyperkitty
       # html => text for mailman
       - lynx
-      - memcached
       - nginx-rewrite-lists-openSUSE
