@@ -30,6 +30,7 @@ redis:
     tcp-backlog: 512
     timeout: 0
     {%- if tcp %}
+    bind: ::1
     port: 6379
     {%- else %}
     port: 0
