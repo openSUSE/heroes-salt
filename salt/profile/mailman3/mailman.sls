@@ -1,4 +1,4 @@
-mailman_pgks:
+mailman_pkgs:
   pkg.installed:
     - resolve_capabilities: True
     - pkgs:

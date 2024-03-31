@@ -218,12 +218,12 @@ HAYSTACK_CONNECTIONS = {
 
 # Using the cache infrastructure can significantly improve performance on a
 # production setup. This is an example with a local Memcached server.
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-#         'LOCATION': '127.0.0.1:11211',
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': 'unix:/run/memcached/memcached.sock',
+    }
+}
 
 USE_L10N = False
 TIME_FORMAT = 'H:i'

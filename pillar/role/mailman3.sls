@@ -75,6 +75,18 @@ nginx:
                   - proxy_pass: http://mailmanweb
         enabled: True
 
+groups:
+  memcached:
+    system: true
+    members:
+      - mailmanweb
+
+memcached:
+  listen_socket: /run/memcached/memcached.sock
+  memory_cap: 8192
+  slab_size_limit: 64m
+  unix_mask: 600
+
 zypper:
   packages:
     archrwr: {}
