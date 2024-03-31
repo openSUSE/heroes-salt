@@ -64,7 +64,7 @@ discourse_puma_service:
 
 discourse_sidekiq_service:
   service.running:
-    - name: discourse-puma
+    - name: discourse-sidekiq
     - enable: True
     - require:
         - pkg: discourse_pkgs
