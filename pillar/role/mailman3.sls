@@ -85,7 +85,7 @@ memcached:
   listen_socket: /run/memcached/memcached.sock
   memory_cap: 8192
   slab_size_limit: 64m
-  unix_mask: 600
+  unix_mask: 660
 
 zypper:
   packages:
