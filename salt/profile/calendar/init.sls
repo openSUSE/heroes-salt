@@ -16,10 +16,6 @@ calendar_dependencies:
       - nodejs20
       - libyaml-devel
 
-calendar_user:
-  user.present:
-    - name: calendar
-
 /srv/www/calendar-o-o:
   file.directory:
     - user: calendar

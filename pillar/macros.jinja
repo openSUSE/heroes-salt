@@ -29,8 +29,9 @@ redis:
     databases: 1
     tcp-backlog: 512
     timeout: 0
-    {#- TODO: switch Redis consumers on localhost to Unix sockets #}
     {%- if tcp %}
     port: 6379
+    {%- else %}
+    port: 0
     {%- endif %}
 {%- endmacro %}

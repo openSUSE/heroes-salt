@@ -41,4 +41,14 @@ nginx:
               - error_log: /var/log/nginx/calendar.error.log
         enabled: True
 
-{{ redis('calendar', True) }}
+users:
+  calendar:
+    system: true
+
+groups:
+  redis:
+    system: true
+    members:
+      - calendar
+
+{{ redis('calendar') }}
