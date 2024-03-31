@@ -10,6 +10,7 @@ User=calendar
 WorkingDirectory=/srv/www/calendar-o-o
 
 Environment="RAILS_ENV=production"
+Environment=REDIS_URL=unix:///run/redis/calendar.sock
 
 ExecStart=/usr/bin/bundler.{{ ruby }} exec sidekiq
 
