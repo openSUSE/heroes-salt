@@ -53,6 +53,8 @@ prometheus:
                 - alertname="Member aliases update failed"
               equal:
                 - instance
+          templates:
+            - /etc/prometheus/templates/*.template
           time_intervals:
             - name: update_window
               time_intervals:
@@ -72,6 +74,8 @@ prometheus:
                   require_tls: false
                   smarthost: relay.infra.opensuse.org:25
                   send_resolved: true
+                  html: ''
+                  text: {% raw -%} '{{ template "email.ioo.txt" . }}' {%- endraw %}
             - name: opensuse-action
               webhook_configs:
                 - url: http://ipv6-localhost:8010/call
