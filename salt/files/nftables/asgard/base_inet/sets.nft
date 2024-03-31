@@ -919,6 +919,7 @@ set acl6_internet_fastly {
       $host6_obsreview, # ruby
       $host6_nuka, # python
       $host6_calendar, # ruby
+      $host6_paste,    # ruby
     }
 }
 
