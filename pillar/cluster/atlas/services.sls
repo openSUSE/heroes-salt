@@ -2,7 +2,7 @@ haproxy:
   frontends:
     http:
       acls:
-        - annoying_clients src 47.128.0.0/14  # Amazon EC2
+        - annoying_clients src -f /etc/haproxy/blacklists/networks -n  # salt/profile/proxy/files/etc/haproxy/blacklists/networks
         - internal_clients src 2a07:de40:b27e::/48  # PRG2
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org

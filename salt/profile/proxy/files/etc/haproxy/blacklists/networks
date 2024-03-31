@@ -1,0 +1,18 @@
+{{ pillar['managed_by_salt'] }}
+
+## Networks qualify to be listed here if they:
+##   - generate absurd amounts of HTTP(S) connections
+##   - cause high load on backends
+##   - are unlikely to be used for human/legitimate purposes
+
+# Alibaba
+47.76.0.0/16
+59.82.78.0/24
+
+# Amazon
+3.224.0.0/12
+23.20.0.0/14
+47.128.0.0/14
+
+# DataForSEO
+136.243.220.208/29
