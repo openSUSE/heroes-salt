@@ -22,6 +22,12 @@ provo-proxy:
     - provo-proxy1
   services:
     - haproxy
+stage:
+  hosts:
+    - stage3
+  services:
+    - apache2
+    - nginx
 status:
   hosts:
     - status1

@@ -55,6 +55,18 @@ deadservices.opensuse.org:
     - users.opensuse.org
   targets:
     - macro: atlas
+download.opensuse.org:
+  sans:
+    - codecs.opensuse.org
+    - download-repositories.opensuse.org
+    - download.opensuse.org
+    - downloadcontent.opensuse.org
+    - mirrorcache-eu.opensuse.org
+    - mirrorcache.opensuse.org
+    - tracker.opensuse.org
+    - tumbleweed.opensuse.org
+  targets:
+    - macro: stage
 elections.opensuse.org:
   targets:
     - macro: atlas
