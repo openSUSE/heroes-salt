@@ -7,22 +7,20 @@ remove_old_ldap_auth_packages:
         - libdhash1
         - libini_config5
         - libldb2
+        - libnss_usrfiles2
         - libpath_utils1
         - libref_array1
         - libsss_certmap0
         - libsss_idmap0
         - libsss_nss_idmap0
         - libtdb1
+        - pam-config
         - sssd
         - sssd-common
         - sssd-krb5-common
         - sssd-ldap
         {%- if 'kanidm-server' not in pillar.get('roles', {}) %}
         - openldap2-client
-        {%- endif %}
-        {%- if grains['osfullname'] != 'openSUSE Tumbleweed' %}
-        - libnss_usrfiles2
-        - pam-config
         {%- endif %}
 
 remove_old_ldap_auth_files:
