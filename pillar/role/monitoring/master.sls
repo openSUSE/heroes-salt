@@ -423,7 +423,8 @@ profile:
       level: info
     receivers:
       strip:
-        # opensuse-mail merely "duplicates" critical alerts already sent to opensuse-irc - avoid duplication in the UI
+        # these routes merely "duplicate" critical alerts already sent to opensuse-irc - avoid duplication in the UI
+        - opensuse-action
         - opensuse-mail
     silenceForm:
       defaultAlertmanagers:
