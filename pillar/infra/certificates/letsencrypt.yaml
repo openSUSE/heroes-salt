@@ -88,6 +88,9 @@ gcc.opensuse.org:
 hackweek.opensuse.org:
   targets:
     - macro: atlas
+ip.opensuse.org:
+  targets:
+    - macro: atlas
 jekyll.opensuse.org:
   sans:
     - 101.opensuse.org

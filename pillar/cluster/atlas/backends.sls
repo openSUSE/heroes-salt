@@ -61,6 +61,12 @@ haproxy:
           content-type text/html
           file {{ errorfiles }}internal.html
           hdr Cache no-cache
+    ip:
+      httprequests:
+        - >-
+          return status 200
+          content-type application/json
+          lf-file {{ errorfiles }}ip.html
     jekyll:
       {{ options('httpchk') }}
       {{ httpcheck('search.opensuse.org', 200, method='options') }}

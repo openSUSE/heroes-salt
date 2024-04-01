@@ -58,6 +58,7 @@ haproxy:
         - host_forums       hdr(host)   -i forums.opensuse.org
         - host_gcc          hdr(host)   -i gcc.opensuse.org
         - host_get_o_o      hdr(host)   -i get.opensuse.org
+        - host_ip           hdr(host)   ip.opensuse.org
         {%- for host_jekyll in ['101', 'planet', 'news', 'news-test', 'search-test', 'search', 'security', 'universe', 'yast'] %}
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
@@ -146,6 +147,7 @@ haproxy:
         - etherpad        if host_etherpad
         - forums          if host_forums
         - gccstats        if host_gcc
+        - ip              if host_ip
         - jekyll          if host_jekyll || host_www_test || host_get_o_o
         - kubic           if host_kubic
         - kubic           if host_microos
@@ -175,7 +177,7 @@ haproxy:
         - svn             if host_svn
 
       redirects:
-        - scheme https code 301                                              if !is_ssl !host_get_o_o !host_conncheck
+        - scheme https code 301                                              if !is_ssl !host_get_o_o !host_conncheck !host_ip
         - code 301 location https://search.opensuse.org                      if host_www path_searchpage
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_mailman3
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
