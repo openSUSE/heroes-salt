@@ -29,7 +29,7 @@
 
      # VPN clients -> Atlas (same rules as the ones in zones/3201_os-p2p-pub to allow for the same access as over the internet)
      ip6 daddr @host6_atlas ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
-     ip6 daddr @host6_atlas tcp dport https accept
+     ip6 daddr @host6_atlas tcp dport { http, https } accept
      ip6 daddr $host6_atlas_misc tcp dport https accept
      ip6 daddr $host6_atlas_misc tcp dport ssh accept
      ip6 daddr @host6_atlas_mx tcp dport smtp accept
