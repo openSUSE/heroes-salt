@@ -14,10 +14,13 @@ haproxy_dhparam:
     - watch_in:
       - service: haproxy.service
 
-haproxy_errorfiles:
+haproxy_trees:
   file.recurse:
-    - name: /etc/haproxy/errorfiles
-    - source: salt://{{ slspath }}/files/etc/haproxy/errorfiles
+    - names:
+        - /etc/haproxy/blacklists:
+            - source: salt://{{ slspath }}/files/etc/haproxy/blacklists
+        - /etc/haproxy/errorfiles:
+            - source: salt://{{ slspath }}/files/etc/haproxy/errorfiles
     - clean: true
     - template: jinja
     - require:
