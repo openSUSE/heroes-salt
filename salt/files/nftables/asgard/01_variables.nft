@@ -216,3 +216,6 @@ define host6_obs-gateway1 = 2a07:de40:b280:0132:0010:0151:0132:0021/128
 define host4_obs-gateway1 = 10.151.132.21/32
 define host6_obs-gateway2 = 2a07:de40:b280:132:10:151:132:22/128
 define host4_obs-gateway2 = 10.151.132.22/32
+
+### Remote openSUSE hosts
+define host6_stage3       = 2a01:04f8:010b:4655:0000:0000:0000:0002/128
