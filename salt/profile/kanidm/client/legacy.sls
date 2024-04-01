@@ -33,3 +33,4 @@ remove_old_ldap_auth_files:
         - /etc/pam.d/common-session-pc
         - /etc/sssd
         - /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
+        - /var/log/sssd
