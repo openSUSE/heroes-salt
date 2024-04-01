@@ -23,14 +23,3 @@ haproxy:
     extra:
       - compression algo gzip
       - compression type text/html text/plain text/css text/xml application/xhtml+xml image/svg+xml application/javascript application/json
-
-apparmor:
-  local:
-    usr.sbin.haproxy:
-      - /etc/haproxy/** r
-      - /etc/ssl/services/* r
-      - /etc/step/certs/* r
-      - /usr/share/pki/trust/anchors/** r
-      - capability dac_read_search
-      - capability dac_override
-      - /var/lib/haproxy/stats-{ro,rw}{,.*.{bak,tmp}} rwl  # noqa 206
