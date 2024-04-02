@@ -40,5 +40,6 @@ include:
 
 {%- if osfullname == 'Leap' %}
 /usr/local/libexec:
-  file.directory
+  file.directory:
+    - mode: '0755'
 {%- endif %}
