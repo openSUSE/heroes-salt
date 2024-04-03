@@ -22,3 +22,7 @@ selinux = true
 # Allow wheel from IDM to override a locally provided version.
 allow_local_account_override = ["wheel"]
 
+# Raise the pam connection timeout
+conn_timeout = 30
+# Cache timeout of 5 minutes before refresh.
+cache_timeout = 300
