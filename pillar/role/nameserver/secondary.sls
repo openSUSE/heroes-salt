@@ -11,7 +11,7 @@ powerdns:
     launch: gsqlite3
     setgid: pdns
     setuid: pdns
-    slave: 'yes'
+    secondary: 'yes'
     gsqlite3-database: /var/lib/pdns/slave.db
     gsqlite3-pragma-synchronous: 0
     gsqlite3-pragma-foreign-keys: 1

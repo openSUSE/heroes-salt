@@ -38,12 +38,12 @@ powerdns:
     only-notify: {{ ','.join(data.only_notify) }}
     default-soa-edit: INCEPTION-INCREMENT
     default-soa-edit-signed: INCEPTION-EPOCH
-    master: 'yes'
+    primary: 'yes'
     setgid: pdns
     setuid: pdns
     launch: 'gmysql'
     gmysql-socket: /run/mysql/mysql.sock
     gmysql-dbname: pdns
     gmysql-dnssec: yes
-    slave-renotify: 'yes'
+    secondary-do-renotify: 'yes'
     api: 'yes'
