@@ -36,3 +36,5 @@ forward-zones-recurse={{ config.forward_zones_recurse }}
 {%- if 'lua_dns_script' in config and config.lua_dns_script %}
 lua-dns-script=/etc/pdns/pdns.lua
 {%- endif %}
+
+extended-resolution-errors=yes
