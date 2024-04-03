@@ -8,6 +8,16 @@
                   regex: ^([\w\.-]+)\:{{ port }}
                   replacement: $1
 {%- endmacro %}
+{%- macro vhost_defaults(name) %}
+      interface: '{{ listen | ipwrap }}'
+      port: 443
+      SSLCertificateFile: /etc/ssl/services/monitor.infra.opensuse.org/fullchain.pem
+      SSLCertificateKeyFile: /etc/ssl/services/monitor.infra.opensuse.org/privkey.pem
+      Protocols:
+        - h2
+        - http/1.1
+      ServerName: {{ name }}.infra.opensuse.org
+{%- endmacro %}
 
 include:
   - role.common.apache
@@ -33,14 +43,7 @@ apache:
         }.items()
     %}
     {{ vhost }}:
-      interface: '{{ listen | ipwrap }}'
-      port: 443
-      SSLCertificateFile: /etc/ssl/services/monitor.infra.opensuse.org/fullchain.pem
-      SSLCertificateKeyFile: /etc/ssl/services/monitor.infra.opensuse.org/privkey.pem
-      Protocols:
-        - h2
-        - http/1.1
-      ServerName: {{ vhost }}.infra.opensuse.org
+      {{ vhost_defaults(vhost) }}
       {%- if 'alias' in vconfig %}
       ServerAlias: {{ vconfig['alias'] }}.infra.opensuse.org
       {%- endif %}
@@ -65,8 +68,7 @@ apache:
           Require: all granted
       Include: /etc/apache2/conf.d/icingaweb2.conf
     monitor-internal:
-      interface: '{{ listen | ipwrap }}'
-      ServerName: monitor.infra.opensuse.org
+      {{ vhost_defaults('monitor') }}
       DocumentRoot: /srv/www/monitor-internal
       Directory:
         /srv/www/monitor-internal:
