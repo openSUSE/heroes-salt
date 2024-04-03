@@ -27,7 +27,3 @@ powerdns:
         name: chip.infra.opensuse.org
       - address: 2a07:de40:b27e:1203::15
         name: ns1.opensuse.org
-
-zypper:
-  packages:
-    sqlite3: {}
