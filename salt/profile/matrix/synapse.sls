@@ -12,21 +12,21 @@ synapse:
 synapse_systemd_override:
   file.managed:
     - name: /etc/systemd/system/matrix-synapse.service.d/override.conf
-    - source: salt://profile/matrix/files/synapse.service
+    - source: salt://profile/matrix/files/synapse.service.override
     - require_in:
       - service: synapse_service
 
 synapse_systemd_file:
   file.managed:
     - name: /etc/systemd/system/matrix-synapse.target
-    - source: salt://profile/matrix/files/synapse.target
+    - source: salt://profile/matrix/files/matrix-synapse.target
     - require_in:
       - service: synapse_service
 
 synapse_worker_systemd_file:
   file.managed:
     - name: /etc/systemd/system/matrix-synapse-worker@.service
-    - source: salt://profile/matrix/files/synapse@.service
+    - source: salt://profile/matrix/files/matrix-synapse-worker@.service
     - require_in:
       - service: synapse_service
 
