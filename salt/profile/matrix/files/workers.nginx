@@ -1,15 +1,16 @@
-{% set workers = salt['pillar.get']('profile:matrix:workers') %}
+{%- set workers = salt['pillar.get']('profile:matrix:workers') %}
 
 {% for app, types in workers.items() %}
-{% for type in types %}
+{%- for type in types %}
+{%- set worker_index = loop.index %}
 
 {%- if type.get('rest') %}
 {%- for uri in type.get('rest') %}
 location ~ {{ uri }} {
-    proxy_pass http://{{ app }}_{{ loop.index }}$request_uri;
+    proxy_pass http://{{ app }}_{{ worker_index }}$request_uri;
 }
-{% endfor %}
-{% endif %}
+{%- endfor %}
+{%- endif %}
 
-{% endfor %}
+{%- endfor %}
 {% endfor %}
