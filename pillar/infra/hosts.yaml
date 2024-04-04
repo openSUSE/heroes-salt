@@ -634,7 +634,7 @@ mybackup:
       pseudo_ip4: 172.16.164.146
       source: x-os-internal
   legacy_boot: true
-  ram: 8192MB
+  ram: 12288MB
   vcpu: 2
 narwal5:
   cluster: falkor
