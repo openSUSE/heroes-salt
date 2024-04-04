@@ -1,7 +1,7 @@
-{% set workers = salt['pillar.get']('profile:matrix:workers') %}
+{%- set workers = salt['pillar.get']('profile:matrix:workers') %}
 
-{% for app, types in workers.items() %}
-{% for type in types %}
+{%- for app, types in workers.items() %}
+{%- for type in types %}
 
 upstream {{ app }}_{{ loop.index }} {
     {%- if type.get('upstream_balancing') %}
@@ -12,5 +12,5 @@ upstream {{ app }}_{{ loop.index }} {
     {%- endfor %}
 }
 
-{% endfor %}
-{% endfor %}
+{%- endfor %}
+{%- endfor %}
