@@ -230,7 +230,7 @@ galera1:
       pseudo_ip4: 172.16.164.143
       source: x-os-internal
   legacy_boot: true
-  ram: 51200MB
+  ram: 24576MB
   vcpu: 4
 galera2:
   cluster: falkor
@@ -245,7 +245,7 @@ galera2:
       pseudo_ip4: 172.16.164.144
       source: x-os-internal
   legacy_boot: true
-  ram: 51200MB
+  ram: 24576MB
   vcpu: 4
 galera3:
   cluster: falkor
@@ -260,7 +260,7 @@ galera3:
       pseudo_ip4: 172.16.164.145
       source: x-os-internal
   legacy_boot: true
-  ram: 51200MB
+  ram: 24576MB
   vcpu: 4
 gcc-stats:
   cluster: falkor
@@ -548,7 +548,7 @@ mirrordb1:
       pseudo_ip4: 172.16.164.151
       source: x-os-internal
   legacy_boot: true
-  ram: 68608MB
+  ram: 24576MB
   vcpu: 8
 mirrordb2:
   cluster: falkor
@@ -562,7 +562,7 @@ mirrordb2:
       pseudo_ip4: 172.16.164.152
       source: x-os-internal
   legacy_boot: true
-  ram: 68608MB
+  ram: 24576MB
   vcpu: 8
 monitor:
   cluster: falkor
@@ -577,7 +577,7 @@ monitor:
       pseudo_ip4: 172.16.164.40
       source: x-os-internal
   legacy_boot: true
-  ram: 20480MB
+  ram: 12288MB
   vcpu: 4
 mx-test:
   cluster: falkor
@@ -591,7 +591,7 @@ mx-test:
       source: x-os-mail
   legacy_boot: true
   ram: 4096MB
-  vcpu: 4
+  vcpu: 2
 mx1:
   cluster: falkor
   disks:
