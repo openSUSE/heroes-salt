@@ -17,6 +17,11 @@ mx:
     - mx2
   services:
     - postfix
+mx-test:
+  hosts:
+    - mx-test
+  services:
+    - postfix
 provo-proxy:
   hosts:
     - provo-proxy1
