@@ -1,8 +1,12 @@
-{% if salt['grains.get']('include_secrets', True) %}
 include:
+  - .common.mtail
+{%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.mailserver
-{% endif %}
+{%- endif %}
 
+mtail:
+  programs:
+    - postfix
 
 profile:
   mailserver:

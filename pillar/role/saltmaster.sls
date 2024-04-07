@@ -104,6 +104,7 @@ infrastructure:
             'libvirt',
             'lock',
             'lunmap',
+            'mtail',
             'multipath',
             'network',
             'os_update',
