@@ -1,0 +1,7 @@
+{{ pillar['managed_by_salt'] }}
+
+[Unit]
+Description=Metrics collector for zypper
+
+[Service]
+ExecStart=/usr/local/libexec/systemd/zypper-metrics.sh
