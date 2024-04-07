@@ -23,6 +23,9 @@
   ip6 daddr $host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_mx ip6 daddr $host6_hel tcp dport 3307 accept
 
+  #mx-test -> * (evaluating DCC)
+  ip6 saddr $host6_mx-test udp dport 6277 log prefix "[DCC out] " accept
+
   log prefix "[Mail Denied] " reject with icmpv6 type admin-prohibited
  }
 
