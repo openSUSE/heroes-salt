@@ -33,10 +33,8 @@ hypervisor_image_checksum_signature_download:
   file.managed:
     - name: {{ image_destination_leap }}.sha256.asc
     - source: {{ image_source_leap }}.sha256.asc
+    - keep_source: False
     - skip_verify: True
-    {%- if salt['cp.is_cached'](image_source_leap ~ '.sha256.asc') %}
-    - use_etag: True
-    {%- endif %}
 
 hypervisor_image_checksum_verify:
   cmd.run:
