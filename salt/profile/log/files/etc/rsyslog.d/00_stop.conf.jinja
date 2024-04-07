@@ -1,0 +1,5 @@
+{%- set roles = pillar.get('roles', []) -%}
+{{ pillar['managed_by_salt'] }}
+{%- if 'mailserver' in roles %}
+if ($syslogfacility-text == 'mail' and $msg contains 'connect from atlas') then stop
+{%- endif %}

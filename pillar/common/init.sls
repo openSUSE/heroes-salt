@@ -87,6 +87,7 @@ profile:
 rsyslog:
   custom:
     - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja
+    - salt://profile/log/files/etc/rsyslog.d/00_stop.conf.jinja
   custom_config_template: salt://profile/log/files/etc/rsyslog.conf
   exclusive: false
   imjournal: true
