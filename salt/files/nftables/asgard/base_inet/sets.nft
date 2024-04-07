@@ -12,14 +12,14 @@ set lan_ipv6 {
   type ipv6_addr
   flags interval
   auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-odin, $net6_os-kani, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-odin, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
 }
 
 set lan_ipv6_nonat {
   type ipv6_addr
   flags interval
   auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-kani, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
 }
 
 set vpn_ipv6 {
@@ -366,6 +366,17 @@ set self6_kani {
     }
 }
 
+# os-netbox
+set self6_netbox {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:1211::1/128,
+        2a07:de40:b27e:1211::2/128,
+        2a07:de40:b27e:1211::3/128,
+    }
+}
+
 ## Other individual hosts
 
 # SUSE firewall (our gate to the outside)
@@ -534,6 +545,15 @@ set host6_kani {
     elements = {
         $host6_kani1,
         $host6_kani2
+    }
+}
+
+# NetBox
+set host6_netbox {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_netbox1,
     }
 }
 

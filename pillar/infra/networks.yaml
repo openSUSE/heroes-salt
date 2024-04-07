@@ -66,6 +66,11 @@ cz:
     net6: 2a07:de40:b27e:1210::/64
     gw6: 2a07:de40:b27e:1210::3
     id: 1210
+  openSUSE-netbox:
+    short: os-netbox
+    net6: 2a07:de40:b27e:1211::/64
+    gw6: 2a07:de40:b27e:1211::3
+    id: 1211
 
 # below are mapping networks and not VLANs
 pseudo:

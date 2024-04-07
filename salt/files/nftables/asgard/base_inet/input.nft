@@ -24,6 +24,7 @@
     os-code     : jump input_network_os-code,
     os-odin     : jump input_network_os-odin,
     os-kani     : jump input_network_os-kani,
+    os-netbox   : jump input_network_os-netbox,
     os-mail     : jump input_network_os-mail,
   }
 

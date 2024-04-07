@@ -37,6 +37,7 @@ network:
           'os-code': 1206,
           'os-mail': 1209,
           'os-kani': 1210,
+          'os-netbox': 1211,
         }.items() %}
     {{ vlantap(vlan_name, vlan_id, 'bond-fib') }}
     {%- endfor %}

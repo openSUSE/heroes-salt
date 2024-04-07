@@ -178,7 +178,7 @@ network:
 
     {#-
       for machines in locations we have not yet equipped with internal IPv6 routing,
-      but which have an IPv6 route to the internet, install a blackhole route to our os-internal, os-kani and os-salt networks in PRG2
+      but which have an IPv6 route to the internet, install a blackhole route to our os-internal, os-kani, os-netbox and os-salt networks in PRG2
       this allows machines in these locations which have an IPv6 route to the internet to communicate with internal
       services in PRG2 via IPv4 instead of sending affected packets to the internet
       (which either leads to timeouts or stuck sessions, since we do not allow internal services to be reached over the internet)
@@ -187,6 +187,7 @@ network:
           '2a07:de40:b27e:1200::',
           '2a07:de40:b27e:1203::',
           '2a07:de40:b27e:1210::',
+          '2a07:de40:b27e:1211::',
     ] %}
     {{ prefix }}/64:
       options:

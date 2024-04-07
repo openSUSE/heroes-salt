@@ -19,6 +19,7 @@
     os-code     : jump input_network_os-code,
     os-odin     : jump input_network_os-odin,
     os-kani     : jump input_network_os-kani,
+    os-netbox   : jump input_network_os-netbox,
     os-mail     : jump input_network_os-mail,
   }
   oif vmap {
@@ -32,6 +33,7 @@
     os-code     : jump output_network_os-code,
     os-odin     : jump output_network_os-odin,
     os-kani     : jump output_network_os-kani,
+    os-netbox   : jump output_network_os-netbox,
     os-mail     : jump output_network_os-mail,
   }
 

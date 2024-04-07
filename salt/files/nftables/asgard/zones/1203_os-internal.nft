@@ -127,6 +127,8 @@
   oif os-mail ip6 saddr @host6_hel ip6 daddr @host6_mx tcp dport 26 accept # 26 is a secondary SMTP listener not passing through the spam filter
   # Hel -> kani{1,2} HTTPS/LDAPS (for idm.i.o.o/ldap.i.o.o aka proxy for Heroes Authentication)
   oif os-kani ip6 saddr @host6_hel ip6 daddr @host6_kani tcp dport { https, ldaps } accept
+  # Hel -> netbox HTTPS (for netbox.i.o.o proxy)
+  oif os-netbox ip6 saddr @host6_netbox ip6 daddr @host6_netbox tcp dport https accept
 
   # FreeIPA -> global DNS (why?)
   ip6 saddr $host6_freeipa udp dport domain accept
