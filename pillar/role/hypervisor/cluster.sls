@@ -44,6 +44,7 @@ sudoers:
       - >-
         {{ grains['host'] }}=(root) NOPASSWD:
         /sbin/multipath -f [[\:alnum\:]]*,
+        /sbin/multipath -l [a-z0-9/]*,
         /sbin/multipath -ll [[\:alnum\:]]*,
         /sbin/multipathd -k\ disablequeueing\ multipath\ [[\:alnum\:]]*,
         /sbin/multipathd -k\ resize\ map\ [[\:alnum\:]]*,
