@@ -1,0 +1,38 @@
+#!/bin/sh -Cefu
+{{ pillar['managed_by_salt'] }}
+# Gathers Prometheus textfile metrics for pending updates and reboots
+# Copyright (C) 2024 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+command -v zypper 1>/dev/null || exit 0
+command -v transactional-update 1>/dev/null && exit 0
+
+zypper_count_pending_updates () {
+  zypper --no-refresh --xmlout lu | grep -c '<update '
+}
+
+zypper_needs_rebooting () {
+  zypper needs-rebooting 1>/dev/null
+  case "$?" in
+    0 ) echo 0 ;;
+    102 ) echo 1 ;;
+    * ) exit 1 ;;
+  esac
+}
+
+{
+  echo "zypper_pending_updates $(zypper_count_pending_updates)"
+  echo "zypper_needs_rebooting $(zypper_needs_rebooting)"
+} | sponge /var/spool/prometheus/zypper.prom

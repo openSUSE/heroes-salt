@@ -1,0 +1,11 @@
+{{ pillar['managed_by_salt'] }}
+
+[Unit]
+Description=Metrics scheduler for zypper
+
+[Timer]
+OnCalendar=hourly
+AccuracySec=1us
+
+[Install]
+WantedBy=timers.target
