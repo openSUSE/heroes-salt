@@ -33,6 +33,7 @@
      ip6 daddr $host6_atlas_misc tcp dport https accept
      ip6 daddr $host6_atlas_misc tcp dport ssh accept
      ip6 daddr @host6_atlas_mx tcp dport smtp accept
+     ip6 daddr $host6_atlas_mx-test tcp dport smtp accept
 
      # VPN clients -> reverse proxy + backend on chip for access to PowerDNS web UI
      ip6 daddr $host6_chip tcp dport { 444, 8081 } accept
