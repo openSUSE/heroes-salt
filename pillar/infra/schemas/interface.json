@@ -10,6 +10,11 @@
 			"type": "string",
 			"pattern": "^(x-o?s|bond)-[\\w-]{1,9}$"
 		},
+		"mode": {
+			"description": "https://libvirt.org/formatdomain.html#direct-attachment-to-physical-interface",
+			"type": "string",
+			"pattern": "^(bridge|passthrough)$"
+		},
 		"mac": {
 			"description": "MAC (hardware) address",
 			"type": "string",
