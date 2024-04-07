@@ -32,6 +32,7 @@ table inet filter {
 		ip6 saddr @galera accept
 		ip6 saddr @hel tcp dport { mysql, 8000 } accept
 		ip6 saddr 2a07:de40:b27e:1203::50/128 tcp dport { mysql, 9100, 9104 } accept  # monitoring
+		ip6 saddr mybackup.infra.opensuse.org tcp dport mysql accept  # replication for backups
 
 		tcp dport 22 counter accept
 

@@ -1,0 +1,39 @@
+#####################################################
+## MANAGED BY SALT in salt/files/nftables/mybackup ##
+#####################################################
+
+table inet filter {
+	set galera {
+		type ipv6_addr
+		flags interval
+		elements = {
+			galera1.infra.opensuse.org,
+			galera2.infra.opensuse.org,
+			galera3.infra.opensuse.org,
+		}
+	}
+
+	chain INPUT {
+		type filter hook input priority filter
+		policy drop
+		iif lo accept
+		ct state established, related counter accept
+		ct state invalid drop
+		ip6 nexthdr icmpv6 accept
+		ip6 saddr @galera tcp dport { ssh, mysql } accept  # replica initialization script and status checks
+		ip6 saddr monitor.infra.opensuse.org tcp dport { mysql, 9100, 9104 } accept  # monitoring
+
+		tcp dport 22 counter accept
+
+		log prefix "[Rejected] "
+		ip protocol tcp counter reject with tcp reset
+		ip protocol udp counter reject
+		reject with icmp type prot-unreachable
+	}
+
+	chain OUTPUT {
+		type filter hook output priority filter
+		policy accept
+		oif lo accept
+	}
+}
