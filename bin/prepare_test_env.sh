@@ -73,6 +73,7 @@ $SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
 $SUDO ln -s "$PWD/salt" /srv/salt
 salt-call --local saltutil.runner saltutil.sync_runners
 salt-call --local saltutil.sync_modules
+salt-call --local saltutil.sync_states
 $SUDO ln -s "$PWD/pillar" /srv/pillar
 
 ID=$(/usr/bin/hostname -f)
