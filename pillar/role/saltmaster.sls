@@ -113,6 +113,7 @@ infrastructure:
             'redmine',
             'rsync',
             'suse_ha',
+            'sysconfig',
             'zypper',
           ]
       %}
