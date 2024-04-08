@@ -65,7 +65,7 @@ haproxy:
       httprequests:
         - >-
           return status 200
-          content-type application/json
+          content-type text/plain
           lf-file {{ errorfiles }}ip.html
     jekyll:
       {{ options('httpchk') }}
