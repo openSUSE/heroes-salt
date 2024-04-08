@@ -209,6 +209,7 @@ haproxy:
     http-login:
       acls:                              # daffy1              # daffy2
         - src_login         src          2a07:de40:b280:86::11 2a07:de40:b280:86::12
+        - annoying_clients  req.hdr_ip(X-Forwarded-For) -f /etc/haproxy/blacklists/networks -n
 
         - host_dale         hdr(host)    events.opensuse.org
         - host_dale         hdr(host)    events-test.opensuse.org
@@ -233,7 +234,7 @@ haproxy:
 
     http-misc:
       acls:
-        - annoying_clients src 47.128.0.0/14  # Amazon EC2
+        - annoying_clients src -f /etc/haproxy/blacklists/networks -n
         - is_ssl          dst_port    443
 
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}

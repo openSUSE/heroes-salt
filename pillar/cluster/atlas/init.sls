@@ -58,6 +58,9 @@ haproxy:
     http-login:
       bind:
         {{ bind(bind_v6_login[host], 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
+      httprequests:
+        - deny:
+          - deny_status 429 if annoying_clients
 
     http-misc:
       bind:
