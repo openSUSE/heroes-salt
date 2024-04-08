@@ -53,3 +53,7 @@ profile:
   postfix:
     maincf:
       smtpd_sender_restrictions: lmdb:/etc/postfix/discard_ndrs,reject_unknown_sender_domain
+
+zypper:
+  packages:
+    google-opensans-fonts: {}
