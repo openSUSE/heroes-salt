@@ -210,6 +210,9 @@ haproxy:
       acls:                              # daffy1              # daffy2
         - src_login         src          2a07:de40:b280:86::11 2a07:de40:b280:86::12
         - annoying_clients  req.hdr_ip(X-Forwarded-For) -f /etc/haproxy/blacklists/networks -n
+        - odd_clients       req.hdr_cnt(Accept-Language) 0
+
+        - path_indexphp     path_beg     /index.php
 
         - host_dale         hdr(host)    events.opensuse.org
         - host_dale         hdr(host)    events-test.opensuse.org

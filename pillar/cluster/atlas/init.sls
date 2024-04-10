@@ -61,6 +61,8 @@ haproxy:
       httprequests:
         - deny:
           - deny_status 429 if annoying_clients
+        - return:
+          - status 406 if odd_clients host_mediawiki path_indexphp
 
     http-misc:
       bind:
