@@ -1,6 +1,28 @@
 include:
   - profile.cron
   - zypper.packages
+{%- if grains['id'] == 'mx-test.infra.opensuse.org' %}
+{#- dcc is currently not used in production #}
+  - .dcc
+
+spamassassin_enable_dcc:
+  file.uncomment:
+    - name: /etc/mail/spamassassin/v310.pre
+    - regex: ^loadplugin Mail::SpamAssassin::Plugin::DCC$
+    - backup: false
+    - watch_in:
+        - service: spampd
+
+{%- for z in ['Pyzor', 'Razor2'] %}
+spamassassin_disable_{{ z }}:
+  file.comment:
+    - name: /etc/mail/spamassassin/v310.pre
+    - regex: ^loadplugin Mail::SpamAssassin::Plugin::{{ z }}
+    - backup: false
+    - watch_in:
+        - service: spampd
+{%- endfor %}
+{%- endif %}
 
 /etc/postfix/master.cf:
   file.managed:

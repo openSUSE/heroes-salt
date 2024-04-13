@@ -34,3 +34,10 @@ score URIBL_RED     0
 ifplugin Mail::SpamAssassin::Plugin::SPF
 score SPF_FAIL 5
 endif
+
+{%- if grains['id'] == 'mx-test.infra.opensuse.org' %}
+dcc_home /var/lib/dcc
+dcc_dccifd_path /run/dcc/dccifd.sock
+# set X-Spam-DCC
+add_header all DCC _DCCB_:_DCCR_:_DCCREP_
+{%- endif %}
