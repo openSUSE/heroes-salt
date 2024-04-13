@@ -1,0 +1,4 @@
+#!/bin/sh -eu
+
+# acl.present fails in test mode if target does not yet exist
+mkfifo /var/log/syslog
