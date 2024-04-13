@@ -16,7 +16,7 @@ acme:
 asgard1:
   cluster: orbit
   disks:
-    root: 20G
+    root: 15G
   image: admin-micro-5_4
   interfaces:
     eth0:
@@ -29,7 +29,7 @@ asgard1:
 asgard2:
   cluster: orbit
   disks:
-    root: 20G
+    root: 15G
   image: admin-micro-5_4
   interfaces:
     eth0:
