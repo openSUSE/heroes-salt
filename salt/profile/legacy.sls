@@ -22,3 +22,13 @@ remove_decommissioned_packages:
         - hdparm
         - mdadm
         {%- endif %}
+
+{%- if grains['osfullname'] == 'Leap' %}
+{#- remove stock "openSUSE-Leap-15.x-x" repositories duplicating the pillar.osfullname managed repo-oss #}
+{%- for repository_file in salt['file.find']('/etc/zypp/repos.d', maxdepth=1, mindepth=1, name='*.repo', type='f') %}
+{%- if 'openSUSE-Leap-' in repository_file %}
+{{ repository_file }}:
+  file.absent
+{%- endif %}
+{%- endfor %}
+{%- endif %}
