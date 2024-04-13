@@ -45,6 +45,7 @@ kanidm-unixd-tasks.service:
   service.running:
     - name: kanidm-unixd-tasks
     - enable: True
-    - require_in:
-        # to ensure sssd is removed/stopped
+    - require:
+        - service: kanidm-unixd.service
         - pkg: remove_old_ldap_auth_packages
+        - pkg: zypper_packages
