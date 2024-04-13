@@ -97,6 +97,7 @@ infrastructure:
   salt:
     formulas:
       {%- for formula in [
+            'backupscript',
             'bootloader',
             'grains',
             'infrastructure',
