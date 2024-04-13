@@ -16,4 +16,4 @@ grains:
     - galera3.infra.opensuse.org
   weburls: []
 roles:
-  - mariadb
+  - mariadb.backup
