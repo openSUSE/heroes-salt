@@ -76,7 +76,11 @@ def get_roles_including(query):
     """
     roles = []
     for role in get_roles():
-        role_sls = read_file_skip_jinja('salt/role/%s.sls' % role.replace('.', '/'))
+        role2 = role.replace('.', '/')
+        file = f'salt/role/{role2}.sls'
+        if not os.path.isfile(file):
+          file = f'salt/role/{role2}/init.sls'
+        role_sls = read_file_skip_jinja(file)
         if query in role_sls:
             roles.append(role)
     return roles
