@@ -1,5 +1,5 @@
 include:
-  - .common.backup
+  - role.common.backup
 
 os-update:
   ignore_services_from_restart:

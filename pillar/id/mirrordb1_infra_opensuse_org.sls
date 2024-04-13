@@ -12,4 +12,4 @@ grains:
     - mirrordb2.infra.opensuse.org
   weburls: []
 roles:
-  - postgresql
+  - postgresql.backup
