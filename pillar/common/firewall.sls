@@ -1,6 +1,7 @@
 firewalld:
   enabled: false
   FlushAllOnReload: 'yes'
+  purge_zones: true
   services:
     node_exporter:
       description: Prometheus Node Exporter
