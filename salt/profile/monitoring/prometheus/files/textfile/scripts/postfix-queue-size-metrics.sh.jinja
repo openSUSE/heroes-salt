@@ -3,6 +3,7 @@
 
 # Inspired by https://gitlab.torproject.org/tpo/tpa/grafana-dashboards/-/issues/1
 
+DEBUG="${DEBUG:-0}"
 queues='active bounce corrupt deferred flush hold incoming maildrop'
 spool_dir='/var/spool/postfix'
 
@@ -11,11 +12,11 @@ spool_dir='/var/spool/postfix'
 		do
 				if [ -d "${spool_dir}/${queue}" ]
 				then
-						>&2 echo "Checking $queue"
+						[ "$DEBUG" = 1 ] && >&2 echo "Checking $queue"
 						printf 'postfix_queue_length{postfix_instance="postfix", queue="%s"} ' "$queue"
 						find "${spool_dir}/${queue}" -type f -printf \\n | wc -l
 				else
-						>&2 echo "Skipping $queue"
+						[ "$DEBUG" = 1 ] && >&2 echo "Skipping $queue"
 				fi
 		done
 } | sponge /var/spool/prometheus/postfix_queues.prom
