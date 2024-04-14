@@ -206,7 +206,7 @@ zypper:
         download.use_deltarpm: 'false'
         solver.onlyRequires: 'true'
   packages:
-    ca-certificates-freeipa-opensuse: {}
+    ca-certificates-opensuse: {}
     kanidm: {}
     {%- if osfullname == 'openSUSE Leap Micro' %}
     toolmux: {}
