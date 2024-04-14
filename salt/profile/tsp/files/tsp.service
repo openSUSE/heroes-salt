@@ -10,7 +10,9 @@ Type=simple
 User=tsp
 
 WorkingDirectory=/srv/www/travel-support-program
+RuntimeDirectory=%N
 Environment="RAILS_ENV=production"
+Environment=BIND=unix:///run/tsp/puma.socket
 
 ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/travel-support-program/config/puma.rb ./config.ru
 

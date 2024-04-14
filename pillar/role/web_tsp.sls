@@ -15,7 +15,7 @@ nginx:
       tsp.opensuse.org.conf:
         config:
           - upstream tsp:
-            - server: unix:///var/cache/tsp/puma.socket
+            - server: unix:///run/tsp/puma.socket
           - server:
               - listen: '[::]:80 default_server'
               - server_name: tsp.opensuse.org
