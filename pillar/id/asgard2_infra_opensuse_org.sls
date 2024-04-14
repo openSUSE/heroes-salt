@@ -16,6 +16,9 @@ roles:
   - gateway
   - ha
   - tayga
+bird:
+  server:
+    router_id: 0.0.1.2
 network:
   interfaces:
     os-p2p-pub:
