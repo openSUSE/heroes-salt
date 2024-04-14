@@ -163,7 +163,7 @@
   ip6 saddr @self6_internal ip6 daddr $host6_monitor tcp dport 514 accept
   # DNS and NTP
   ip6 saddr @self6_internal ip6 daddr @host6_hel udp dport { domain, ntp } accept
-  # LDAP
-  ip6 saddr @self6_internal ip6 daddr $host6_freeipa tcp dport ldaps accept
+  # HTTPS (for idm.i.o.o)
+  ip6 saddr @self6_internal ip6 daddr @host6_hel tcp dport https accept
 
  }
