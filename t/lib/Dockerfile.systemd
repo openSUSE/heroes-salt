@@ -10,7 +10,7 @@ RUN test ! -f /var/log/zypper.log || mv /var/log/zypper.log /var/log/zypper.log.
 # these are needed to run test
 RUN zypper ar https://download.opensuse.org/repositories/openSUSE:/infrastructure/\$releasever/ infra && \
     zypper --gpg-auto-import-keys ref
-RUN ( zypper -vvvn ref || zypper -vvvn ref || zypper -vvvn ref ) && zypper -vvvn install systemd salt-minion curl sudo iputils ca-certificates-suse ca-certificates-freeipa-opensuse zypper-formula
+RUN ( zypper -vvvn ref || zypper -vvvn ref || zypper -vvvn ref ) && zypper -vvvn install systemd salt-minion curl sudo iputils ca-certificates-suse ca-certificates-opensuse zypper-formula
 
 ##DUMMY
 
