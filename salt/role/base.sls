@@ -1,5 +1,11 @@
 {%- set osfullname = grains['osfullname'] %}
 
+{%- if osfullname == 'Leap' %}
+/usr/local/libexec:
+  file.directory:
+    - mode: '0755'
+{%- endif %}
+
 include:
   - profile.legacy
   - network.wicked
@@ -37,9 +43,3 @@ include:
   - profile.dehydrated.target
   - profile.monitoring.prometheus.textfiles
   - prometheus.config
-
-{%- if osfullname == 'Leap' %}
-/usr/local/libexec:
-  file.directory:
-    - mode: '0755'
-{%- endif %}
