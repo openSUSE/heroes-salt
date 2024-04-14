@@ -66,14 +66,30 @@
       <alias name='virtio-{{ disk }}'/>
     </disk>
     {%- endfor %}
+    {%- set vm_name_short = vm_name.split('.')[0] %}
+    {%- set vm_name_last_character = vm_name_short[-1] %}
+    {%- if vm_name_last_character.isdigit() %}
+    {%- set vm_cluster_index = vm_name_last_character %}
+    {%- else %}
+    {%- set vm_cluster_index = None %}
+    {%- endif %}
+    {%- set vm_interface_name = vm_name_short[:8] %}
+    {%- if not vm_interface_name.endswith(vm_name_last_character) and vm_cluster_index is not none %} {#- if name isn't short enough to already implicitly use its trailing number #}
+    {%- if '-' in vm_name_short %} {#- avoid confusion between, for example, "gitlab" and a truncated "gitlab-runner" #}
+    {%- set vm_name_short_split = vm_name_short.split('-') %}
+    {%- set vm_interface_name = vm_name_short_split[0][:6] ~ '-' ~ vm_name_short_split[1][:1] ~ vm_cluster_index %}
+    {%- else %}
+    {%- set vm_interface_name = vm_name_short[:8] ~ vm_cluster_index %}
+    {%- endif %}
+    {%- endif %}
     {%- for interface, ifconfig in vm_interfaces.items() %}
     {%- set iftype = ifconfig['type'] %}
     <interface type='{{ iftype }}'{{ ' trustGuestRxFilters=\'yes\'' if iftype == 'direct' else '' }}>
       <mac address='{{ ifconfig['mac'] }}'/>
       <source {{ 'bridge' if iftype == 'bridge' else 'dev' }}='{{ ifconfig['source'] }}'{{ ' mode=\'' ~ ifconfig['mode'] ~ '\'' if 'mode' in ifconfig else '' }}/>
-      <target dev='{{ vm_name[:8] }}{{ '_' ~ ifconfig['source'][:4] if iftype == 'bridge' else loop.index }}'/>
+      <target dev='{{ vm_interface_name }}_{{ ifconfig['source'][:4] if iftype == 'bridge' else loop.index }}'/>
       <model type='virtio'/>
-      <alias name='{{ vm_name.split('.')[0] ~ '_' ~ interface }}'/>
+      <alias name='{{ vm_name_short ~ '_' ~ interface }}'/>
     </interface>
     {%- endfor %}
     <serial type='pty'/>
