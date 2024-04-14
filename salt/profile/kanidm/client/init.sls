@@ -10,45 +10,26 @@ include:
     - repl: '{{ setting }}: compat kanidm'
 {%- endfor %}
 
-/etc/kanidm/config:
+kanidm_config:
   file.managed:
-    - template: jinja
-    - source: salt://profile/kanidm/client/files/etc/kanidm/config
-    - mode: '0644'
-
-/etc/kanidm/unixd:
-  file.managed:
-    - template: jinja
-    - source: salt://profile/kanidm/client/files/etc/kanidm/unixd
-    - mode: '0644'
-
-/etc/pam.d/common-account:
-  file.managed:
-    - template: jinja
-    - source: salt://profile/kanidm/client/files/etc/pam.d/common-account
-    - mode: '0644'
+    - names:
+        - /etc/kanidm/config:
+            - source: salt://profile/kanidm/client/files/etc/kanidm/config
+        - /etc/kanidm/unixd:
+            - source: salt://profile/kanidm/client/files/etc/kanidm/unixd
+        - /etc/pam.d/common-account:
+            - source: salt://profile/kanidm/client/files/etc/pam.d/common-account
+        - /etc/pam.d/common-auth:
+            - source: salt://profile/kanidm/client/files/etc/pam.d/common-auth
+        - /etc/pam.d/common-session:
+            - source: salt://profile/kanidm/client/files/etc/pam.d/common-session
+        - /etc/pam.d/common-password:
+            - source: salt://profile/kanidm/client/files/etc/pam.d/common-password
     - follow_symlinks: False
-
-/etc/pam.d/common-auth:
-  file.managed:
-    - template: jinja
-    - source: salt://profile/kanidm/client/files/etc/pam.d/common-auth
     - mode: '0644'
-    - follow_symlinks: False
-
-/etc/pam.d/common-session:
-  file.managed:
     - template: jinja
-    - source: salt://profile/kanidm/client/files/etc/pam.d/common-session
-    - mode: '0644'
-    - follow_symlinks: False
-
-/etc/pam.d/common-password:
-  file.managed:
-    - template: jinja
-    - source: salt://profile/kanidm/client/files/etc/pam.d/common-password
-    - mode: '0644'
-    - follow_symlinks: False
+    - require:
+        - pkg: zypper_packages
 
 kanidm-unixd.service:
   service.running:
@@ -64,6 +45,7 @@ kanidm-unixd-tasks.service:
   service.running:
     - name: kanidm-unixd-tasks
     - enable: True
-    - require_in:
-        # to ensure sssd is removed/stopped
+    - require:
+        - service: kanidm-unixd.service
         - pkg: remove_old_ldap_auth_packages
+        - pkg: zypper_packages
