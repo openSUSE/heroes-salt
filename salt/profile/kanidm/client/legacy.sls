@@ -24,9 +24,6 @@ remove_old_ldap_auth_packages:
 remove_old_ldap_auth_files:
   file.absent:
     - names:
-        - /etc/pam.d/common-account-pc
-        - /etc/pam.d/common-auth-pc
-        - /etc/pam.d/common-session-pc
         - /etc/sssd
         - /usr/local/bin/fetch_freeipa_ldap_sshpubkey.sh
         - /var/log/sssd
