@@ -2,39 +2,6 @@ include:
   - role.common.nginx
 
 nginx:
-  certificates:
-    gitlab.infra.opensuse.org:
-      public_cert: |
-        -----BEGIN CERTIFICATE-----
-        MIICizCCAjKgAwIBAgIQYFYplMcg9h1T8yhiHMIsszAKBggqhkjOPQQDAjBKMRsw
-        GQYDVQQKExJIZXJvZXMgaW50ZXJuYWwgQ0ExKzApBgNVBAMTIkhlcm9lcyBpbnRl
-        cm5hbCBDQSBJbnRlcm1lZGlhdGUgQ0EwHhcNMjMxMjI2MTQ0NzUyWhcNMjQxMjI1
-        MTQ0NzUxWjAkMSIwIAYDVQQDExlnaXRsYWIuaW5mcmEub3BlbnN1c2Uub3JnMIGb
-        MBAGByqGSM49AgEGBSuBBAAjA4GGAAQB13oP2JI/k/0zEBClt18ZfJn9wuYNXY6y
-        kMGJePdu7SyidJ0fEZgyjiMEu9AIaWQRUcHsEpsH1IopluOm1wzsu3cAuztE5esp
-        GNDLHqs1hSU/Vt49exZdpc4jnjRro379iu4oCTJEpAGlmgStM45zWki5HUwiFe3O
-        Y+6ltNma6NqWQhCjgdwwgdkwDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQGCCsG
-        AQUFBwMBBggrBgEFBQcDAjAdBgNVHQ4EFgQUxxJ///3vhHrofS3YLRp/7zMzpiAw
-        HwYDVR0jBBgwFoAU6nbAOLNZKEWtchF/2j1cLSmoZmQwaAYDVR0RBGEwX4IZZ2l0
-        bGFiLmluZnJhLm9wZW5zdXNlLm9yZ4IfZ2l0bGFiLXBhZ2VzLmluZnJhLm9wZW5z
-        dXNlLm9yZ4IhKi5naXRsYWItcGFnZXMuaW5mcmEub3BlbnN1c2Uub3JnMAoGCCqG
-        SM49BAMCA0cAMEQCIDMkQ7oMN45LNEl1cijWtihP3VsjHhoPO6Ap2brOFlhvAiAn
-        cbqJ0ylLu44GeKC4+YMONT6CYP0+mr373QK+Ffg2qw==
-        -----END CERTIFICATE-----
-        -----BEGIN CERTIFICATE-----
-        MIIB8TCCAZegAwIBAgIRAKUPy6g1pK/iPT3xlHXD4SUwCgYIKoZIzj0EAwIwQjEb
-        MBkGA1UEChMSSGVyb2VzIGludGVybmFsIENBMSMwIQYDVQQDExpIZXJvZXMgaW50
-        ZXJuYWwgQ0EgUm9vdCBDQTAeFw0yMTAzMjYxNDU2MzBaFw0zMTAzMjQxNDU2MzBa
-        MEoxGzAZBgNVBAoTEkhlcm9lcyBpbnRlcm5hbCBDQTErMCkGA1UEAxMiSGVyb2Vz
-        IGludGVybmFsIENBIEludGVybWVkaWF0ZSBDQTBZMBMGByqGSM49AgEGCCqGSM49
-        AwEHA0IABCjVMdnPT83h/pbT+p0RftUhOgAa/6kUfds/KQqpHWfSeGUC1q63uqMt
-        zJEY7ayXiclvN2q5Pp7tb48ij1BBjyqjZjBkMA4GA1UdDwEB/wQEAwIBBjASBgNV
-        HRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQWBBTqdsA4s1koRa1yEX/aPVwtKahmZDAf
-        BgNVHSMEGDAWgBTcDTCZTLQozqIWRXU9drYriGctSzAKBggqhkjOPQQDAgNIADBF
-        AiEAn+Tkp4uD38dYq0zGCJ6RYk/zFSrsZYYbGdbn3qMQRKUCIEJiKrMy36hfcHKT
-        ryjDcdoH37uPupe6AcZTMWX/6kne
-        -----END CERTIFICATE-----
-      # private_key included from pillar/secrets/role/web_gitlab.sls
   servers:
     managed:
       gitlab.infra.opensuse.org.conf:
