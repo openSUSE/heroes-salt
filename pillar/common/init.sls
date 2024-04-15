@@ -250,3 +250,5 @@ mine_functions:
     - mine_function: ssh.host_keys
     - private: false
     - certs: false
+  states:
+    - mine_function: state.show_states

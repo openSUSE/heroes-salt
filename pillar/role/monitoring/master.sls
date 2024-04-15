@@ -105,6 +105,7 @@ prometheus:
               <job name>:
                 port: <integer - port the exporter is listening on>
                 roles: [<list - Salt roles the minions in which to target>]
+                states: [<list - Salt states of which the minions including them to target>]
                 simple: <boolean - true for simple exporters exposing /metrics and not requiring special settings, false (default) for ones with custom scrape_config blocks>
                 targets: [<empty list - automatically populated>]
             #}
@@ -144,6 +145,14 @@ prometheus:
               simple: true
               targets: []
 
+            nginx:
+              port: 9113
+              roles: []
+              states:
+                - nginx.config
+              simple: true
+              targets: []
+
             ping:
               port: 9427
               roles:
@@ -163,7 +172,7 @@ prometheus:
                 later referencing as scrape targets
             #}
             {%- set targets = {} %}
-            {%- set mine = salt.saltutil.runner('mine.get', tgt='*', fun=['grains', 'roles']) %}
+            {%- set mine = salt.saltutil.runner('mine.get', tgt='*', fun=['grains', 'roles', 'states']) %}
 
             {#- gather targets for the "nodes" job, i.e. node exporters running on all minions #}
             {%- for minion, mined_grains in mine.get('grains', {}).items() %}
@@ -184,17 +193,19 @@ prometheus:
             {#- gather role specific targets
                 (based off the roles listed in the job configuration in the "monitors" YAML block)
             #}
-            {%- for minion, roles in mine.get('roles', {}).items() %}
+            {%- for x in ['states', 'roles'] %}
+            {%- for minion, roles in mine.get(x, {}).items() %}
               {%- if minion in targets %}
                 {%- set minion_target = targets[minion] %}
                 {%- for job, job_config in monitors.items() %}
-                  {%- for role in job_config.get('roles', []) %}
+                  {%- for role in job_config.get(x, []) %}
                     {%- if role in roles and minion_target not in monitors[job]['targets'] %}
                       {%- do monitors[job]['targets'].append(minion_target) %}
                     {%- endif %}
                   {%- endfor %}
                 {%- endfor %}
               {%- endif %}
+            {%- endfor %}
             {%- endfor %}
 
             {%- do salt.log.debug('role.monitoring.master - targets: ' ~ targets) %}
