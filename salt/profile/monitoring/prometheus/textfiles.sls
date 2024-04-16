@@ -22,16 +22,21 @@
 textfile_files:
   file.managed:
     - names:
+        {%- set source = 'salt://' ~ slspath ~ '/files/textfile/' %}
         {%- for collector in collectors %}
         {%- set script = collector ~ '-metrics' %}
         - /usr/local/libexec/systemd/{{ script }}.sh:
-            - source: salt://{{ slspath }}/files/textfile/scripts/{{ script }}.sh.jinja
+            - source: {{ source }}scripts/{{ script }}.sh.jinja
             - mode: '0750'
         - /etc/systemd/system/{{ script }}.service:
-            - source: salt://{{ slspath }}/files/textfile/systemd/{{ script }}.service.jinja
+            - source: {{ source }}systemd/{{ script }}.service.jinja
         - /etc/systemd/system/{{ script }}.timer:
-            - source: salt://{{ slspath }}/files/textfile/systemd/{{ script }}.timer.jinja
+            - source: {{ source }}systemd/{{ script }}.timer.jinja
         {%- endfor %}
+        - /var/spool/prometheus/salt.prom:
+            - source: {{ source }}salt.prom.jinja
+            - mode: '0640'
+            - group: prometheus
     - template: jinja
     - require:
         - file: /usr/local/libexec/systemd

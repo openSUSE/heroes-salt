@@ -1,0 +1,24 @@
+{{ pillar['managed_by_salt'] }}
+{%- set namespace = 'ioo' %}
+{%- for source, mappings in salt['pillar.get']('profile:monitoring:prometheus:salt_metrics', {}).items() %}
+  {%- for content_key, target in mappings.items() %}
+    {%- set values = salt[source ~ '.get'](content_key) -%}
+    {%- if values is string or values is not iterable -%}
+      {%- set values = [values] -%}
+    {%- endif -%}
+    {%- for value in values %}
+      {%- if value or value is sameas false %}
+        {%- if value is string %}
+          {%- set metric_name = namespace -%}
+          {%- set label_pair = '{' ~ target ~ '="' ~ value ~ '"}' -%}
+          {%- set metric_value = 1 -%}
+        {%- else %}
+          {%- set metric_name = namespace ~ '_' ~ target -%}
+          {%- set label_pair = '{}' -%}
+          {%- set metric_value = value | int -%}
+        {%- endif %}
+{{ metric_name ~ label_pair ~ ' ' ~ metric_value }}
+      {%- endif %}
+    {%- endfor %}
+  {%- endfor %}
+{%- endfor %}
