@@ -16,6 +16,10 @@ salt:
       atlas:
         - atlas1.infra.opensuse.org
         - atlas2.infra.opensuse.org
+      galera:
+        - galera1.infra.opensuse.org
+        - galera2.infra.opensuse.org
+        - galera3.infra.opensuse.org
       hel:
         - hel1.infra.opensuse.org
         - hel2.infra.opensuse.org
