@@ -355,6 +355,8 @@ prometheus:
         environ:
           environ_arg_name: ARGS  # SUSE package specific
           args:
+            storage.tsdb.path: /data/prometheus/metrics
+            storage.tsdb.retention.time: 1y
             web.external-url: http://monitor.infra.opensuse.org:9090
 
 profile:
