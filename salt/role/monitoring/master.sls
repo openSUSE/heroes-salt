@@ -3,3 +3,4 @@ include:
   - prometheus.config
   - profile.monitoring.prometheus.alerts
   - profile.karma
+  - nfs.mount
