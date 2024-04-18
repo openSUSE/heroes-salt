@@ -74,6 +74,9 @@ printf 'roles:\n- %s' "$role" >> "$IDFILE"
 # to bind to any configured listen IP
 sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" "pillar/role/$role.sls"
 
+# RuntimeDirectory
+mkdir /run/nginx
+
 if grep -q profile "$sls_role"
 then
     #for profile in "$(grep -h '\- profile' $sls_role | yq -o t)" // to-do: add yq to container
