@@ -47,6 +47,9 @@ define net6_os-mail     = 2a07:de40:b27e:1209::/64
 # VLAN 1210 openSUSE-kani
 define net6_os-kani     = 2a07:de40:b27e:1210::/64
 
+# VLAN 1211 openSUSE-netbox
+define net6_os-netbox   = 2a07:de40:b27e:1211::/64
+
 define net6_vpn-udp     = 2a07:de40:b27e:5001::/64
 define net6_vpn-tcp     = 2a07:de40:b27e:5002::/64
 
@@ -194,6 +197,9 @@ define host6_provo-gate_2  = fd4b:5292:d67e:4::2/128
 # Kanidm
 define host6_kani1       = 2a07:de40:b27e:1210:0000:0000:0000:000a/128
 define host6_kani2       = 2a07:de40:b27e:1210:0000:0000:0000:000b/128
+
+# NetBox
+define host6_netbox1     = 2a07:de40:b27e:1211:0000:0000:0000:000a/128
 
 ### Hosts at QSC
 define host4_stonehat    = 172.16.201.6/32

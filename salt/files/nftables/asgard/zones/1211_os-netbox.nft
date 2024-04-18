@@ -1,0 +1,16 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-netbox {
+  jump global_internal
+
+  ip6 saddr $net6_os-netbox ip6 daddr @self6_netbox ip6 nexthdr icmpv6 accept
+  ip6 saddr @host6_netbox ip6 daddr @host6_hel tcp dport postgresql accept
+
+  log prefix "[Netbox Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-netbox {
+
+ }
