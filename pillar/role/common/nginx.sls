@@ -28,3 +28,24 @@ nginx:
         real_ip_header: X-Forwarded-For
         real_ip_recursive: 'on'
       worker_processes: auto
+  servers:
+    managed:
+      status.conf:
+        config:
+          - server:
+              - listen:
+                  - unix:/run/nginx/status.sock
+              - location = /:
+                  - stub_status: ''
+        enabled: true
+
+prometheus:
+  wanted:
+    component:
+      - nginx_exporter
+  pkg:
+    component:
+      nginx_exporter:
+        name: prometheus-nginx_exporter
+        service:
+          name: prometheus-nginx_exporter.socket
