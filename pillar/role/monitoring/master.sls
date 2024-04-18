@@ -21,6 +21,7 @@
 
 include:
   - role.common.apache
+  - role.common.backup
   - role.common.monitoring
 
 apache:

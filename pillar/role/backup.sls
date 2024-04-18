@@ -10,3 +10,8 @@ nfs:
           - no_subtree_check
           - rw
       {%- endfor %}
+      /backup/monitor:
+        monitor.infra.opensuse.org:
+          - fsid=0
+          - no_root_squash
+          - rw

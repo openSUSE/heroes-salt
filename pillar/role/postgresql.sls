@@ -1,18 +1,9 @@
-{%- set host = grains['host'] %}
+include:
+  - .common.backup
 
 os-update:
   ignore_services_from_restart:
     - postgresql
-
-nfs:
-  mount:
-    {{ host }}:
-      location: backup:/
-      mountpoint: /backup
-      opts:
-        - _netdev
-        - defaults
-        - nofail
 
 profile:
   monitoring:
