@@ -26,6 +26,7 @@ hypervisor_image_checksum_download:
   file.managed:
     - name: {{ image_destination_leap }}.sha256
     - source: {{ image_source_leap }}.sha256
+    - keep_source: False
     - skip_verify: True
     - use_etag: True
 
