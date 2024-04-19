@@ -39,6 +39,7 @@ salt:
         - mx1.infra.opensuse.org
         - mx2.infra.opensuse.org
       narwal:
+        - ipx-narwal1.infra.opensuse.org
         {%- for i in [4, 5, 6, 7, 8] %}
         - narwal{{ i }}.infra.opensuse.org
         {%- endfor %}
