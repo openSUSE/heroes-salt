@@ -53,6 +53,9 @@ nginx:
               {%- if website == 'community' %}
               - autoindex: 'on'
               {%- endif %}
+              {%- if website == 'mirrors' %}
+              - rewrite: ^/report/mirrors/(.*)$ https://download.opensuse.org/report/mirrors/$1 redirect
+              {%- endif %}
               - error_page: 405 = $uri
               - error_page: 405 =200 $uri
               - error_page: 500 502 503 504 /50x.html
