@@ -9,7 +9,8 @@ apache:
     LogFormat: combined env=!dontlog
   sites:
     status:
-      interface: ipv6-localhost:8181
+      interface: ipv6-localhost
+      port: 8181
       Location:
         /server-status:
           SetHandler: server-status
