@@ -1,1 +1,2 @@
-# empty :-(
+include:
+  - role.common.nginx
