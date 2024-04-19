@@ -6,6 +6,16 @@ include:
 {%- endif %}
   - role.common.nginx
 
+firewalld:
+  enabled: true
+  zones:
+    internal:
+      interfaces:
+        - os-code
+      services:
+        - http
+        - https
+
 sshd_config:
   matches:
     git_user:

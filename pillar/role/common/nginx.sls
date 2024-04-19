@@ -1,5 +1,11 @@
 {% set country = salt['grains.get']('country') %}
 
+firewalld:
+  zones:
+    internal:
+      services:
+        - prometheus-nginx_exporter
+
 nginx:
   lookup:
     server_available: /etc/nginx/vhosts.d
