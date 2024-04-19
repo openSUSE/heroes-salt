@@ -206,19 +206,6 @@ freeipa:
   legacy_boot: true
   ram: 12288MB
   vcpu: 4
-freeipa2:
-  cluster: falkor
-  disks:
-    root: 3600a0980383041622f2455736d434d44
-  interfaces:
-    os-internal:
-      ip6: 2a07:de40:b27e:1203::135/64
-      mac: 52:54:00:1d:5a:23
-      pseudo_ip4: 172.16.164.165
-      source: x-os-internal
-  legacy_boot: true
-  ram: 6144MB
-  vcpu: 4
 galera1:
   cluster: falkor
   disks:
