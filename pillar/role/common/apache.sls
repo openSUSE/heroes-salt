@@ -24,6 +24,6 @@ prometheus:
         name: golang-github-lusitaniae-apache_exporter
         environ:
           args:
-            scrape_uri: http://ipv6-localhost:8181/server-status/?auto
+            scrape_uri: http://[::1]:8181/server-status/?auto
         service:
           name: prometheus-apache_exporter
