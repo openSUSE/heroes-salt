@@ -205,6 +205,7 @@ define host6_netbox1     = 2a07:de40:b27e:1211:0000:0000:0000:000a/128
 define host4_stonehat    = 172.16.201.6/32
 define host6_stonehat    = 2a07:de40:b27e:0064:0000:0000:c0a8:5701/128
 define host6_stonehat_p2p = 2a07:de40:b27e:0064:0000:0000:ac10:c906/128
+define host6_ipx-narwal1 = 2a07:de40:b27e:0064:0000:0000:c0a8:5706/128
 define host6_ipx-proxy1  = 2a07:de40:b27e:0064:0000:0000:c0a8:5705/128
 define host4_ipx-proxy1  = 192.168.87.5/32
 define host6_qsc-ns3     = 2a07:de40:b27e:5002:c707:5ca1:19e:ce5e/128 # via OpenVPN (TCP)
