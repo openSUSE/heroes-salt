@@ -51,6 +51,7 @@ prometheus:
     component:
       {%- for exporter, port in {
             'node': 9100,
+            'apache': 9117,
             'ping': 9427,
           }.items()
       %}

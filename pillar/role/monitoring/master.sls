@@ -118,6 +118,14 @@ prometheus:
                 physical: []
                 kvm: []
 
+            apache:
+              port: 9117
+              roles: []
+              states:
+                - apache.config.modules.mod_status
+              simple: true
+              targets: []
+
             discourse:
               port: 9405
               roles:
