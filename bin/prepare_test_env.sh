@@ -12,12 +12,8 @@ SECRETS="False"
 PKG=''
 
 if [[ $(whoami) != 'root' ]]; then
-    if [[ -f /usr/bin/sudo ]]; then
-        SUDO='/usr/bin/sudo'
-    else
-        echo 'Please install sudo first, or run this script as root'
-        exit 1
-    fi
+    echo 'Can only be run as root'
+    exit 1
 fi
 
 help() {
@@ -55,8 +51,8 @@ then
   sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
   
   if [ -n "${PKG[*]}" ]; then
-      $SUDO zypper --gpg-auto-import-keys ref
-      $SUDO zypper -qn install --no-recommends "${PKG[@]}"
+      zypper --gpg-auto-import-keys ref
+      zypper -qn install --no-recommends "${PKG[@]}"
   fi
 elif [ "$REPOSITORIES" == 'False' ]
 then
@@ -69,7 +65,7 @@ then
 fi
 
 bin/replace_secrets.sh
-$SUDO rm -rf /srv/{salt,pillar} 2>/dev/null
+rm -rf /srv/{salt,pillar} 2>/dev/null
 
 ID=$(/usr/bin/hostname -f)
 IDFILE="pillar/id/${ID//./_}.sls"
@@ -99,13 +95,13 @@ if [[ -n "$HIGHSTATE" ]]; then
     cp "$IDFILE_BASE" "$IDFILE"
 fi
 
-$SUDO ln -s "$PWD/salt" /srv/salt
+ln -s "$PWD/salt" /srv/salt
 
 salt-call --local saltutil.runner saltutil.sync_runners
 salt-call --local saltutil.sync_modules
 salt-call --local saltutil.sync_states
 
 # we reference custom modules in the pillar, hence only link it after they are available
-$SUDO ln -s "$PWD/pillar" /srv/pillar
+ln -s "$PWD/pillar" /srv/pillar
 
 ln -s "$PWD" /srv/salt-git
