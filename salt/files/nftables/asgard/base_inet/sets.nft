@@ -1168,6 +1168,7 @@ set net4_blacklist {
     type ipv4_addr
     flags interval
     elements = {
-        185.169.4.136/32  # ~500 SMTP connections against mx2 in CLOSE_WAIT (HAProxy problem or malicious source?)
+        185.169.4.136/32,  # ~500 SMTP connections against mx2 in CLOSE_WAIT (HAProxy problem or malicious source?)
+        108.165.237.45/32, # ~600 HTTP connections against matomo
     }
 }
