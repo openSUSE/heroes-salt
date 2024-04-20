@@ -114,9 +114,12 @@
   # chip -> all nameservers (DNS, query/notify)
   ip6 saddr $host6_chip ip6 daddr @host6_all_dns udp dport domain accept
 
-  # * -> Packman Build Service (HTTPS) (further restricted using client whitelisting through @acl4_internet_pmbs in forward.conf)
+  # * -> Packman Build Service (HTTPS) (further restricted using client whitelisting through @acl4_internet_pmbs in sets.nft)
   ip6 daddr @cloud46_pmbs icmpv6 type { echo-request, echo-reply } accept
   oifname nat64 ip6 daddr @cloud46_pmbs tcp dport https accept
+
+  # * -> DB-IP (HTTPS) (further restricted using client whitelisting through @acl4_internet_db-ip in sets.nft)
+  oifname nat64 ip6 daddr @cloud46_db-ip tcp dport https accept
 
   # Hel -> global DNS (for recursion) and NTP (for upstream pool access)
   #oif os-p2p-pub ip6 saddr @host6_hel udp dport { domain, ntp } accept
