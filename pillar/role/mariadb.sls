@@ -31,3 +31,7 @@ prometheus:
         name: golang-github-prometheus-mysqld_exporter
         service:
           name: prometheus-mysqld_exporter
+
+sysctl:
+  params:
+    fs.aio-max-nr: 1048576
