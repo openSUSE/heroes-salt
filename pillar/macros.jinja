@@ -22,7 +22,7 @@
       bootproto: none
       vlan_id: {{ vlan_id }}
       etherdevice: {{ device }}
-      zone: drop
+      firewall: false
 {%- endmacro -%}
 
 {%- macro redis(instance, tcp=False) -%}
