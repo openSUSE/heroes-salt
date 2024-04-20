@@ -28,9 +28,6 @@ prometheus:
             collect.info_schema.tables: true
             collect.info_schema.tablestats: true
             collect.info_schema.userstats: true
-            collect.perf_schema.indexiowaits: true
-            collect.perf_schema.tableiowaits: true
-            collect.perf_schema.tablelocks: true
         name: golang-github-prometheus-mysqld_exporter
         service:
           name: prometheus-mysqld_exporter
