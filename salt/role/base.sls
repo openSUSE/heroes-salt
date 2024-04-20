@@ -4,6 +4,7 @@
 /usr/local/libexec:
   file.directory:
     - mode: '0755'
+    - order: 1
 {%- endif %}
 
 include:
