@@ -82,6 +82,7 @@ salt:
       port: 4550
       ssl_crt: {{ crt }}
       ssl_key: {{ key }}
+    show_jid: True
     sock_pool_size: 30
     state_aggregate: True
     state_compress_ids: True
