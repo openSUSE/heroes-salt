@@ -12,4 +12,5 @@ grains:
   partners: []
   weburls: []
 roles:
+  - documentation-legacy
   - factory-dashboard
