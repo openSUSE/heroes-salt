@@ -121,6 +121,9 @@ infrastructure:
       %}
       - {{ formula }}-formula
       {%- endfor %}
+    git:
+      formulas:
+        repository: https://gitlab.infra.opensuse.org/infra/salt-formulas-git.git
 
 profile:
   salt:
