@@ -1,8 +1,9 @@
 include:
+  - .bird
   - .monitoring
   - .network
-  - .vrrp
   - .tayga
+  - .vrrp
 
 profile:
   conntrackd:

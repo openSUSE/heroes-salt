@@ -1,3 +1,3 @@
 include:
+  - bird
   - profile.conntrackd
-  # other bits still missing
