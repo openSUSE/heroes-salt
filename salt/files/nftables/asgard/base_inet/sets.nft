@@ -699,6 +699,16 @@ set cloud4_pmbs {
   }
 }
 
+set cloud4_db-ip {
+  type ipv4_addr
+  flags interval
+  elements = {
+      104.26.4.15/32,
+      104.26.5.15/32,
+      172.67.75.166/32,
+  }
+}
+
 set host6_daffy {
     type ipv6_addr
     flags interval
@@ -892,6 +902,16 @@ set cloud46_pmbs {
     }
 }
 
+set cloud46_db-ip {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:64::681a:40f/128,
+        2a07:de40:b27e:64::681a:50f/128,
+        2a07:de40:b27e:64::ac43:4ba6/128,
+    }
+}
+
 set cloud46_misc_weblate {
     type ipv6_addr
     flags interval
@@ -1072,12 +1092,19 @@ set acl4_internet_sentry_organization {
   }
 }
 
-
 set acl4_internet_pmbs {
   type ipv4_addr
   flags interval
   elements = {
       $host4_opi-proxy
+  }
+}
+
+set acl4_internet_db-ip {
+  type ipv4_addr
+  flags interval
+  elements = {
+      $host4_matomo,
   }
 }
 

@@ -22,6 +22,9 @@ chain input_network_nat64 {
   # Maxmind map
   oifname os-p2p-pub ip saddr @acl4_internet_maxmind ip daddr @cloud4_maxmind tcp dport https accept
 
+  # DB-IP map
+  oifname os-p2p-pub ip saddr @acl4_internet_db-ip ip daddr @cloud4_db-ip tcp dport https accept
+
   # for planet.o.o RSS feed pulling
   oifname os-p2p-pub ip saddr $host4_jekyll ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } accept
 
