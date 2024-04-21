@@ -4,29 +4,13 @@ apache:
     doc:
       listen: '{{ grains['fqdn_ip6'][0] }}:8080'
       ServerName: {{ website }}
-      ServerAlias: >-
-        rtfm.opensuse.org
-        docs.opensuse.org
-        activedoc.opensuse.org
-        www.activedoc.opensuse.org
       ServerAdmin: webmaster@opensuse.org
       Documentroot: /srv/www/vhosts-legacy/doc-htdocs
-      Alias:
-        /release-notes: /srv/www/vhosts-legacy/release-notes-htdocs
       Directory:
         /srv/www/vhosts-legacy/doc-htdocs:
           Options: FollowSymLinks
           AllowOverride: All
           Require: all granted
-        /srv/www/vhosts-legacy/release-notes-htdocs:
-          Options: >-
-            Indexes
-            MultiViews
-          AllowOverride: None
-          Require: all granted
-      Rewrite: |
-        RewriteCond %{SERVER_NAME} ^(docs|(www\.)?activedoc|rtfm)\.opensuse\.org$
-        RewriteRule ^/(.*)$ https://doc.opensuse.org/$1 [R=seeother,L]
       RedirectMatch:
         ^(/products/other/WebYaST/webyast-(vendor|user))$: https://doc.opensuse.org/$1_sd/
         ^(/products/other/WebYaST/webyast-(vendor|user))/(.*)$: https://doc.opensuse.org/$1_sd/$3
