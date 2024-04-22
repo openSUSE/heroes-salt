@@ -20,8 +20,7 @@ include:
   - .headers
   - .hosts
   - .limits
-  - .monitoring.listen
-  - .monitoring.node_exporter
+  - .monitoring
   - .motd
   - .network
   - .sudo
