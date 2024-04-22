@@ -139,8 +139,6 @@ sshd_config:
   Ciphers:
     - -chacha20‐poly1305@openssh.com
   HostKey:
-    - /etc/ssh/ssh_host_rsa_key
-    - /etc/ssh/ssh_host_dsa_key
     - /etc/ssh/ssh_host_ecdsa_key
     - /etc/ssh/ssh_host_ed25519_key
   {%- if address is not none %}
