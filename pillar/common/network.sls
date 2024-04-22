@@ -205,6 +205,9 @@ network:
       - {{ nameserver }}
       {%- endfor %}
     netconfig_dns_static_searchlist: infra.opensuse.org
+    netconfig_dns_resolver_options:
+      - rotate
+      - timeout:3
 {%- endif %}
 
 {%- endif %} {#- close country/ip4/ip6/reduced_interfaces check #}
