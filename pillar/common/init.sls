@@ -220,6 +220,7 @@ zypper:
     less: {}
     lsof: {}
     moreutils: {}
+    pam_pwquality: {}
     {%- if virtual == 'kvm' %}
     qemu-guest-agent: {}
     {%- endif %}
