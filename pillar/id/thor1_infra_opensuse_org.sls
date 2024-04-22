@@ -10,4 +10,5 @@ grains:
   partners:
     - thor2.infra.opensuse.org
   weburls: []
-roles: []
+roles:
+  - bastion
