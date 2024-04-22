@@ -163,32 +163,6 @@ sshd_config:
         User: root
       options:
         Banner: /etc/ssh/banner
-sssd:
-  settings:
-    sssd: true
-    sssd_conf:
-      domains:
-        infra.opensuse.org:
-          auth_provider: ldap
-          id_provider: ldap
-          ldap_group_search_base: cn=groups,cn=compat,dc=infra,dc=opensuse,dc=org
-          ldap_search_base: dc=infra,dc=opensuse,dc=org
-          ldap_tls_reqcert: demand
-          ldap_uri: ldaps://freeipa.infra.opensuse.org
-          ldap_user_search_base: cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org
-          {%- if modern %}
-          lookup_family_order: ipv6_only
-          {%- endif %}
-      general_settings:
-        config_file_version: 2
-        domains: infra.opensuse.org
-        services: nss, pam, ssh
-      services:
-        nss:
-          filter_groups: root
-          filter_users: root
-        pam: {}
-        ssh: {}
 kanidm:
   config:
     uri: https://idm.infra.opensuse.org
@@ -209,7 +183,6 @@ zypper:
     kanidm: {}
     {%- if osfullname == 'openSUSE Leap Micro' %}
     toolmux: {}
-    patterns-microos-sssd_ldap: {}
     {%- else %}
     {#- either not available, part of the basesystem, or not needed on Micro #}
     aaa_base-extras: {}
