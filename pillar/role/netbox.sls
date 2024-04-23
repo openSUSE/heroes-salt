@@ -33,3 +33,8 @@ apache:
 zypper:
   packages:
     netbox: {}
+  repositories:
+    openSUSE:infrastructure:netbox:
+      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/netbox/$releasever/
+      priority: 98
+      refresh: true
