@@ -35,8 +35,6 @@ textfile_files:
         {%- endfor %}
         - /var/spool/prometheus/salt.prom:
             - source: {{ source }}salt.prom.jinja
-            - mode: '0640'
-            - group: prometheus
     - template: jinja
     - require:
         - file: /usr/local/libexec/systemd
