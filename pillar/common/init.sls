@@ -132,6 +132,7 @@ salt:
 ssh_config:
   Ciphers:
     - -chacha20‐poly1305@openssh.com
+  HostKeyAlgorithms: ssh-ed25519
 sshd_config:
   AuthorizedKeysFile: .ssh/authorized_keys
   AuthorizedKeysCommand: /usr/sbin/kanidm_ssh_authorizedkeys %u
