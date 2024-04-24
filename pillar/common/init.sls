@@ -178,6 +178,8 @@ zypper:
         solver.onlyRequires: 'true'
   packages:
     ca-certificates-opensuse: {}
+    etckeeper: {}
+    etckeeper-zypp-plugin: {}
     kanidm: {}
     {%- if osfullname == 'openSUSE Leap Micro' %}
     toolmux: {}
