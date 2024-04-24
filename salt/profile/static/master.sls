@@ -16,13 +16,21 @@ static_master_pgks:
 
 /home/web_static/.ssh/known_hosts:
   file.managed:
-    - contents:
-        - {{ pillar['managed_by_salt'] | yaml_encode }}
-        {%- for entry in salt['pillar.get']('profile:web_static:ssh_known_hosts') %}
-        - {{ entry }}
-        {%- endfor %}
     - mode: '0644'
     - user: root
+    - replace: false
+
+{%- for target, keys in salt['mine.get'](salt['pillar.get']('profile:web_static:server_list', []), 'ssh_host_keys', 'list').items() %}
+{%- if 'ed25519.pub' in keys %}
+web_static_known_hosts_{{ target }}:
+  ssh_known_hosts.present:
+    - name: {{ target }}
+    - user: web_static
+    - key: {{ keys['ed25519.pub'].split()[1] }}
+    - enc: ssh-ed25519
+    - hash_known_hosts: False
+{%- endif %}
+{%- endfor %}
 
 /home/web_static/bin:
   file.directory:
