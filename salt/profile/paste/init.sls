@@ -30,6 +30,7 @@ https://github.com/openSUSE/paste-o-o.git:
     - target: /srv/www/paste-o-o
     - rev: main
     - user: paste
+    - force_fetch: True
 
 paste_bundler_deployment:
   cmd.run:
