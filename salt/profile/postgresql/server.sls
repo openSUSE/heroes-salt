@@ -36,6 +36,7 @@ postgresql.service:
   service.running:
     - name: postgresql
     - enable: True
+    - reload: True
     - watch:
       - file: /etc/postgresql/pg_hba.conf
       - file: /etc/postgresql/pg_ident.conf
