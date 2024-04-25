@@ -1,0 +1,87 @@
+# yamllint disable rule:line-length
+#####################################################
+## MANAGED BY SALT in salt/files/prometheus/alerts ##
+#####################################################
+---
+groups:
+  - name: ioo-zypper
+    rules:
+      - alert: Pending updates (not reboot safe)
+        expr: >-
+          zypper_pending_updates > 30
+          and on (instance)
+          ioo_reboot_safe == 0
+        for: 7d
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Updates pending on on {{ $labels.instance }}
+          description: >-
+            More than 30 updates are pending on on {{ $labels.instance }} for over 7 days. This machine is configured to only receive security patches automatically - please initiate a full update.
+
+      - alert: Pending updates (reboot safe)
+        expr: >-
+          zypper_pending_updates > 5
+          and on (instance)
+          ioo_reboot_safe == 1
+        for: 2d
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Updates pending on on {{ $labels.instance }}
+          description: >-
+            More than 5 updates are pending on {{ $labels.instance }} for over 2 days. Automatic updates might be stuck.
+
+      - alert: Pending updates
+        expr: >-
+          zypper_pending_updates > 50
+        for: 14d
+        labels:
+          severity: critical
+        annotations:
+          title: >-
+            Updates pending on on {{ $labels.instance }}
+          description: >-
+            More than 50 updates are pending on {{ $labels.instance }} for over 14 days.
+
+      - alert: Needs rebooting (not reboot safe)
+        expr: >-
+          zypper_needs_rebooting > 0
+          and on (instance)
+          ioo_reboot_safe == 0
+        for: 3d
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Machine {{ $labels.instance }} needs rebooting.
+          description: >-
+            A reboot is pending for {{ $labels.instance }} since over 3 days. This machine is configured to skip automatic reboots - please initiate a manual maintenance/reboot.
+
+      - alert: Needs rebooting (reboot safe)
+        expr: >-
+          zypper_needs_rebooting > 0
+          and on (instance)
+          ioo_reboot_safe == 1
+        for: 2d
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Machine {{ $labels.instance }} needs rebooting.
+          description: >-
+            A reboot is pending for {{ $labels.instance }} since over 2 days, albeit the machine being configured for automatic reboots.
+
+      - alert: Needs rebooting
+        expr: >-
+          zypper_needs_rebooting > 0
+        for: 7d
+        labels:
+          severity: critical
+        annotations:
+          title: >-
+            Machine {{ $labels.instance }} needs rebooting.
+          description: >-
+            A reboot is pending for {{ $labels.instance }} since over 7 days.
