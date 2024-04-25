@@ -30,6 +30,9 @@ apache:
         - ProxyPassSource: /
           ProxyPassTarget: unix:/run/netbox/gunicorn/socket
 
+{%- from 'macros.jinja' import redis %}
+{{ redis('netbox') }}
+
 zypper:
   packages:
     netbox: {}
