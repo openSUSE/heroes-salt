@@ -48,6 +48,18 @@ prometheus:
               equal:
                 - instance
             - source_matchers:
+                - alertname="Pending updates"
+              target_matchers:
+                - alertname=~"Pending updates \((?:not )?reboot safe\)"
+              equal:
+                - instance
+            - source_matchers:
+                - alertname="Needs rebooting"
+              target_matchers:
+                - alertname=~"Needs rebooting \((?:not )?reboot safe\)"
+              equal:
+                - instance
+            - source_matchers:
                 - alertname="Member aliases update failed due to too many removals"
               target_matchers:
                 - alertname="Member aliases update failed"
