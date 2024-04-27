@@ -1,7 +1,13 @@
+include:
+  - .sysconfig
+
 postfix:
   pkg.installed: []
   service.running:
     - enable: True
+    - require:
+        - suse_sysconfig: /etc/sysconfig/mail
+        - suse_sysconfig: /etc/sysconfig/services
 
 # update /etc/aliases
 {%- for user, target in salt['pillar.get']('profile:postfix:aliases', {}).items() %}
