@@ -10,7 +10,7 @@ suse_ha:
     stonith_enable: True
   management:
     allow-migrate: True
-    migration-limit: 20
+    migration-limit: 15
     no-quorum-policy: stop
 firewalld:
   services:
