@@ -983,6 +983,7 @@ set acl6_internet_downloadcontent {
         $host6_kani1, # temporary for kanidm patch
         $host6_kani2, # ^
         $host6_mailman3, # temporary for Mailman hotfix packages
+        $host6_netbox1,
     }
 }
 

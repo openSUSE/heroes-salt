@@ -37,6 +37,10 @@ zypper:
   packages:
     netbox: {}
   repositories:
+    devel:languages:python:backports:
+      baseurl: https://downloadcontent.opensuse.org/repositories/devel:/languages:/python:/backports/$releasever/
+      priority: 100
+      refresh: true
     openSUSE:infrastructure:netbox:
       baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/netbox/$releasever/
       priority: 98
