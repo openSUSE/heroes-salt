@@ -26,6 +26,10 @@ libvirt:
     auth_tcp: none
     max_client_requests: 256
     max_workers: 128
+  virtlockd:
+    max_client_requests: 256
+  virtlogd:
+    max_client_requests: 256
 
 multipath:
   blacklist:
