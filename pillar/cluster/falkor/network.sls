@@ -27,7 +27,7 @@ network:
       firewall: false
 
     # VLAN interfaces for generic (non-VRRP) VM connectivity
-    {%- for vlan_name, vlan_id in {
+    {%- set vlanmap = {
           'os-thor': 1100,
           'os-odin': 1102,
           'os-salt': 1200,
@@ -38,6 +38,16 @@ network:
           'os-mail': 1209,
           'os-kani': 1210,
           'os-netbox': 1211,
-        }.items() %}
+        }
+    %}
+    {%- for vlan_name, vlan_id in vlanmap.items() %}
     {{ vlantap(vlan_name, vlan_id, 'bond-fib') }}
     {%- endfor %}
+
+firewalld:
+  zones:
+    drop:
+      interfaces:
+        {%- for vlan_name in vlanmap.keys() %}
+        - x-{{ vlan_name }}
+        {%- endfor %}

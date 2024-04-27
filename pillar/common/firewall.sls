@@ -9,6 +9,8 @@ firewalld:
         tcp:
           - 9100
   zones:
+    drop:
+      target: DROP
     internal:
       services:
         - node_exporter

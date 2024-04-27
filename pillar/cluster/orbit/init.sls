@@ -37,6 +37,9 @@ network:
 firewalld:
   enabled: true
   zones:
+    drop:
+      interfaces:
+        - x-os-internal
     internal:
       interfaces:
         - os-bare

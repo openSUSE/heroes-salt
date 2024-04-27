@@ -25,7 +25,7 @@ network:
     {{ vlantap('os-ipmi-ur', 1001, 'bond-mgmt') }}
 
     # VLAN interfaces for generic VM connectivity
-    {%- for vlan_name, vlan_id in {
+    {%- set vlanmap = {
           'os-thor': 1100,
           'os-internal': 1203,
           'os-mirror': 1205,
@@ -33,6 +33,16 @@ network:
           'os-s-warp': 1101,
           's-j-os-out': 3202,
           's-na-mgmt': 3339
-        }.items() %}
+        }
+    %}
+    {%- for vlan_name, vlan_id in vlanmap.items() %}
     {{ vlantap(vlan_name, vlan_id, 'bond-ob') }}
     {%- endfor %}
+
+firewalld:
+  zones:
+    drop:
+      interfaces:
+        {%- for vlan_name in vlanmap.keys() %}
+        - x-{{ vlan_name }}
+        {%- endfor %}
