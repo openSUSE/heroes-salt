@@ -3,6 +3,13 @@
       'openSUSE:infrastructure': 'gpg-pubkey-20f13aac-6531532b'
     }
 %}
+{%- set repositories = pillar.get('zypper', {}).get('repositories', {}) %}
+{%- if 'devel:languages:python' in repositories or 'devel:languages:python:backports' in repositories %}
+{%- do keys.update({
+      'devel:languages:python': 'gpg-pubkey-edf0d733-64c6ae0d'
+    })
+%}
+{%- endif %}
 
 rpmkey_dir:
   file.directory:
