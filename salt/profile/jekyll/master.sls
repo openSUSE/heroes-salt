@@ -1,3 +1,4 @@
+{%- from 'macros.jinja' import known_hosts %}
 {% set git_repos = salt['pillar.get']('profile:web_jekyll:git_repos') %}
 
 include:
@@ -27,11 +28,7 @@ jekyll_master_pgks:
     - mode: '0600'
     - user: web_jekyll
 
-/home/web_jekyll/.ssh/known_hosts:
-  file.managed:
-    - contents_pillar: profile:web_jekyll:ssh_known_hosts
-    - mode: '0644'
-    - user: root
+{{ known_hosts(salt['pillar.get']('profile:web_jekyll:server_list'), 'web_jekyll') }}
 
 /home/web_jekyll/bin:
   file.directory:

@@ -11,3 +11,17 @@
         - {{ apend }}
         {%- endfor %}
 {%- endmacro %}
+
+{%- macro known_hosts(hosts, user) %}
+{%- for target, keys in salt['mine.get'](hosts, 'ssh_host_keys', 'list').items() %}
+{%- if 'ed25519.pub' in keys %}
+web_static_known_hosts_{{ target }}:
+  ssh_known_hosts.present:
+    - name: {{ target }}
+    - user: user
+    - key: {{ keys['ed25519.pub'].split()[1] }}
+    - enc: ssh-ed25519
+    - hash_known_hosts: False
+{%- endif %}
+{%- endfor %}
+{%- endmacro %}

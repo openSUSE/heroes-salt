@@ -44,10 +44,6 @@ profile:
         branch: main
     server_list:
       - jekyll.infra.opensuse.org
-    ssh_known_hosts: >-
-        jekyll.infra.opensuse.org
-        ecdsa-sha2-nistp256
-        AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDIQrbRoDfhX4IYr5qALDKfslpvvJ8SJRLBqkUiHifEq05SMbsqWxoylIYrQRvHw5v0jl3UNWgISWRZ1AtBDVVQ=
 
 zypper:
   repositories:
