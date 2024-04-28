@@ -47,7 +47,7 @@ netbox.infra.opensuse.org:
     - macro: hel
 netbox1.infra.opensuse.org:
   targets:
-    - host: netbox
+    - host: netbox1
       services:
         - apache2
 witch1.infra.opensuse.org:
