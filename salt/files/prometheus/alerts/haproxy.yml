@@ -218,7 +218,7 @@ groups:
             HAProxy server {{ $labels.server }} in backend {{ $labels.proxy }} on {{ $labels.instance }} is down.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
-          summary: HAProxy server down ({{ $labels.instance }}/{{ $labels.proxy }}/{{ $labels.server }})
+          summary: HAProxy backend server down ({{ $labels.instance }}/{{ $labels.proxy }}/{{ $labels.server }})
         expr: >-
           haproxy_server_status{state="DOWN"}
           > 0
