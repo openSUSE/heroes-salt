@@ -28,3 +28,5 @@ firewalld:
         - ssh
         - libvirt
         - libvirtd-relocation-server
+sysctl:
+  kernel.hostname: {{ grains['id'] }}
