@@ -42,7 +42,7 @@ groups:
           severity: critical
         annotations:
           title: >-
-            Host {{ $labels.instance }} low on disk space
+            Host {{ $labels.instance }} is low on disk space
           description: |
             Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is filled over 90%.
             VALUE = {{ $value }}
@@ -63,7 +63,7 @@ groups:
           severity: critical
         annotations:
           title: >-
-            Host {{ $labels.instance }} low on disk space
+            Host {{ $labels.instance }} is low on disk space
           description: |
             Filesystem mounted at {{ $labels.mountpoint }} on {{ $labels.instance }} is filled over 99%.
             VALUE = {{ $value }}
@@ -96,7 +96,7 @@ groups:
           severity: warning
         annotations:
           summary: >-
-            Host {{ $labels.instance }} running out of memory
+            Host {{ $labels.instance }} is running out of memory
           description: |
             Memory is filling up on {{ $labels.instance }} (< 10% left).
             VALUE = {{ $value }}
@@ -110,7 +110,7 @@ groups:
           severity: warning
         annotations:
           summary: >-
-            Host {{ $labels.instance }} high on CPU usage
+            Host {{ $labels.instance }} is high on CPU usage
           description: |
             CPU load on {{ $labels.instance }} is > 80%
             VALUE = {{ $value }}
