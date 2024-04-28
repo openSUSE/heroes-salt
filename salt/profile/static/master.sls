@@ -1,3 +1,4 @@
+{%- from 'macros.jinja' import known_hosts %}
 {% set git_repos = salt['pillar.get']('profile:web_static:git_repos') %}
 
 include:
@@ -20,17 +21,7 @@ static_master_pgks:
     - user: root
     - replace: false
 
-{%- for target, keys in salt['mine.get'](salt['pillar.get']('profile:web_static:server_list', []), 'ssh_host_keys', 'list').items() %}
-{%- if 'ed25519.pub' in keys %}
-web_static_known_hosts_{{ target }}:
-  ssh_known_hosts.present:
-    - name: {{ target }}
-    - user: web_static
-    - key: {{ keys['ed25519.pub'].split()[1] }}
-    - enc: ssh-ed25519
-    - hash_known_hosts: False
-{%- endif %}
-{%- endfor %}
+{{ known_hosts(salt['pillar.get']('profile:web_static:server_list', []), 'web_static') }}
 
 /home/web_static/bin:
   file.directory:
