@@ -57,7 +57,7 @@ synapse_conf_file:
         worker: {{ worker }}
         port: {{ port }}
         app: {{ app }}
-        resources: {{ type.get('resources') }}
+        resources: {{ type.get('resources', []) }}
         config: {{ type.get('config') }}
     - require:
       - file: matrix_conf_dirs
