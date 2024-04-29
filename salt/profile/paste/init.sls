@@ -116,7 +116,7 @@ paste_service:
     - name: paste.service
     - enable: True
     - watch:
-        - file: paste_puma_service_custom
+        - file: paste.service_custom
 
 paste_sidekiq_service:
   service.running:

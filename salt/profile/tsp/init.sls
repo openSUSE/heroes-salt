@@ -111,4 +111,4 @@ tsp_service:
         - file: /etc/systemd/system/tsp.service
         - file: /srv/www/travel-support-program/config/site.yml
         - file: /srv/www/travel-support-program/config/database.yml
-        - file: tsp_puma_service_custom
+        - file: tsp.service_custom

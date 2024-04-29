@@ -60,7 +60,7 @@ discourse_puma_service:
     - enable: True
     - watch:
         - file: discourse_puma_rb
-        - file: discourse-puma_puma_service_custom
+        - file: discourse-puma.service_custom
 
 discourse_sidekiq_service:
   service.running:
