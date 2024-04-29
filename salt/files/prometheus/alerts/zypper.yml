@@ -16,9 +16,9 @@ groups:
           severity: warning
         annotations:
           title: >-
-            Updates pending on on {{ $labels.instance }}
+            Updates pending on {{ $labels.instance }}
           description: >-
-            More than 30 updates are pending on on {{ $labels.instance }} for over 7 days. This machine is configured to only receive security patches automatically - please initiate a full update.
+            More than 30 updates are pending on {{ $labels.instance }} for over 7 days. This machine is configured to only receive security patches automatically - please initiate a full update.
 
       - alert: Pending updates (reboot safe)
         expr: >-
@@ -30,7 +30,7 @@ groups:
           severity: warning
         annotations:
           title: >-
-            Updates pending on on {{ $labels.instance }}
+            Updates pending on {{ $labels.instance }}
           description: >-
             More than 5 updates are pending on {{ $labels.instance }} for over 2 days. Automatic updates might be stuck.
 
@@ -42,7 +42,7 @@ groups:
           severity: critical
         annotations:
           title: >-
-            Updates pending on on {{ $labels.instance }}
+            Updates pending on {{ $labels.instance }}
           description: >-
             More than 50 updates are pending on {{ $labels.instance }} for over 14 days.
 
