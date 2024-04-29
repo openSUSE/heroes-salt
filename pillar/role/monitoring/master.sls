@@ -371,6 +371,18 @@ prometheus:
                     instance: {{ mioo }}
                     job: synapse_room_keys
                     index: 1
+                - targets:
+                    - {{ mioo }}:18581
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_media_repository
+                    index: 1
+                - targets:
+                    - {{ mioo }}:18582
+                  labels:
+                    instance: {{ mioo }}
+                    job: synapse_media_repository
+                    index: 2
 
         environ:
           environ_arg_name: ARGS  # SUSE package specific

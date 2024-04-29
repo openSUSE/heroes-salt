@@ -109,15 +109,20 @@ profile:
         - workers:
             federation_sender1: 8571
             federation_sender2: 8572
-      # Media repository endpoints are a little broken right now
-      # media_repository:
-      #   - rest:
-      #       - ^/_matrix/media/
-      #     workers:
-      #       media1: 8581
-      #       media2: 8582
-      #     resources:
-      #     - media
+      media_repository:
+        - rest:
+            - ^/_matrix/media/
+            - ^/_synapse/admin/v1/purge_media_cache$
+            - ^/_synapse/admin/v1/room/.*/media.*$
+            - ^/_synapse/admin/v1/user/.*/media.*$
+            - ^/_synapse/admin/v1/media/.*$
+            - ^/_synapse/admin/v1/quarantine_media/.*$
+            - ^/_synapse/admin/v1/users/.*/media$
+          workers:
+            media1: 8581
+            media2: 8582
+          resources:
+            - media
       frontend_proxy:
         - rest:
             - ^/_matrix/client/(api/v1|r0|v3|unstable)/keys/upload
