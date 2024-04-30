@@ -31,6 +31,7 @@ appservice_pkgs:
     - target: /var/lib/matrix-synapse/{{ dir }}
     - rev: {{ data.get('branch', 'master') }}
     - user: synapse
+    - force_fetch: True
 
 
 {{ dir }}_conf_file:
