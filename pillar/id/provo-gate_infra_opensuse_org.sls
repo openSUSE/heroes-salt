@@ -1,3 +1,6 @@
+include:
+  - secrets.include_id
+
 grains:
   country: us
   hostusage:
@@ -13,7 +16,8 @@ grains:
     - lrupp
   partners: []
   weburls: []
-roles: []
+roles:
+  - vpn.site_to_site
 
 sysctl:
   params:

@@ -1,0 +1,67 @@
+---
+
+- asgard1:
+    addresses:
+      - fd4b:5292:d67e:4::1/126
+      - 172.16.202.5/31
+    link_local: fe80::216:3eff:fe51:fd8c/64
+    interface: prv1_gate1
+    listen: '[2a07:de40:b27e:1204::1]:52461'
+    public_key: 'gmhidsF2GW0K1O/3alwZnjTLhVvC4/Dv3Gff9qJxeBs='
+  provo-gate:
+    addresses:
+      - fd4b:5292:d67e:3::2/126
+      - 172.16.201.4/31
+    link_local: fe80::216:3eff:fe3c:8cde/64
+    interface: prg2_asgard1
+    listen: '[2a07:de40:401::69]:52461'
+    public_key: 'KaruyY78cy+M9UnGAaPooTDTVrivGk3MSPj20YL6w3I='
+
+- asgard2:
+    addresses:
+      - fd4b:5292:d67e:3::1/126
+      - 172.16.201.5/31
+    link_local: fe80::216:3eff:ff51:fd8c/64
+    interface: prv1_gate1
+    listen: '[2a07:de40:b27e:1204::2]:52461'
+    public_key: 'GFfcHcTgjGEjI7ZOw6lC8dBfCSkdqrwa/DqMPK7MeWg='
+  provo-gate:
+    addresses:
+      - fd4b:5292:d67e:4::2/126
+      - 172.16.202.4/31
+    link_local: fe80::216:3eff:fe3c:8cde/64
+    interface: prg2_asgard2
+    listen: '[2a07:de40:401::69]:52462'
+    public_key: '2baFrj8/HA7BMkXQ7lvKAKJilWl3XhBBkgqXcYzEuGg='
+
+- asgard1:
+    addresses:
+      - fd4b:5292:d67e:5::1/127
+      - 172.16.201.7/31
+    link_local: fe80::216:3eaa:fe51:fd8c/64
+    interface: nueqsc_stonehat
+    public_key: 'n3NnWpxrm5Jp+lQAsYdMUa6zkpgZGPdIlo7AngptvQM='
+  stonehat:
+    addresses:
+      - fd4b:5292:d67e:5::/127
+      - 172.16.201.6/31
+    link_local: fe80::216:3edd:fe2c:8cde/64
+    interface: prg2_asgard1
+    listen: '[2a01:138:a004::210]:52461'
+    public_key: 'N9VzRkoVHeGpzSFGGQJP2i600jdoDnq0vzAmxHyz43s='
+
+- asgard2:
+    addresses:
+      - fd4b:5292:d67e:6::1/127
+      - 172.16.202.7/31
+    link_local: fe80::216:3ebb:fe51:fd8c/64
+    interface: nueqsc_stonehat
+    public_key: 'uC+SwUpJFuhw5quP7h3ybdFxtTzsEOmySm8IkTxk0h4='
+  stonehat:
+    addresses:
+      - fd4b:5292:d67e:6::/127
+      - 172.16.202.6/31
+    link_local: fe80::216:3eee:fe2c:8cde/64
+    interface: prg2_asgard2
+    listen: '[2a01:138:a004::210]:52462'
+    public_key: 'onGTn/HXKclx/oJCQeliRMmEg4SdgvR2NKySsdxzlGk='

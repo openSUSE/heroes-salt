@@ -34,7 +34,6 @@ zypper:
     conntrackd: {}
     nftables: {}
     vnstat: {}
-    wireguard-tools: {}
 
 sysctl:
   params:

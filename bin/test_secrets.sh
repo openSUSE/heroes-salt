@@ -10,7 +10,7 @@ HEADER_REGEX='^(#!yaml\|gpg|#!gpg\|yaml|#!jinja\|yaml\|gpg)$'
 HEADER_EMPTY='^(# empty)$'
 STATUS=0
 
-SECRETS_SLS=( $(find pillar/secrets -name '*.sls' 2> /dev/null) )
+SECRETS_SLS=( $(find pillar/secrets -name '*.sls' -not -name include_id.sls 2> /dev/null) )
 if [[ -n "${SECRETS_SLS[0]}" ]];  then
     for secret_sls in "${SECRETS_SLS[@]}"; do
         HEADER_LINE="$(head -n 1 "$secret_sls")"
