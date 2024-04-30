@@ -6,8 +6,8 @@ worker_listeners:
     port: {{ port }}
     resources:
       - names:
-        {%- if resources is mapping %}
-        {%- for resource in resources.items() %}
+        {%- if resources %}
+        {%- for resource in resources %}
         - {{ resource }}
         {%- endfor %}
         {%- else %}
