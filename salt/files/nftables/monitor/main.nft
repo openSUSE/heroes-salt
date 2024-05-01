@@ -1,0 +1,10 @@
+####################################################
+## MANAGED BY SALT in salt/files/nftables/monitor ##
+####################################################
+
+table inet filter {
+	chain output {
+		type filter hook output priority filter
+		meta skgid != { root, prometheus, karma, www } tcp dport 9090 counter log prefix "Prometheus denied " reject with icmpx type admin-prohibited
+	}
+}

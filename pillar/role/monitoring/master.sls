@@ -52,6 +52,11 @@ apache_httpd:
       {%- endif %}
       ProxyPass:
         /: http://ipv6-localhost:{{ vconfig['port'] }}/
+      {%- if vhost == 'prometheus' %}
+      Location:
+        /api/v1/admin:
+          Require: all denied
+      {%- endif %}
     {%- endfor %}
     monitor:
       listen: '{{ listen | ipwrap }}:80'
@@ -450,7 +455,9 @@ prometheus:
           args:
             storage.tsdb.path: /data/prometheus/metrics
             storage.tsdb.retention.time: 1y
-            web.external-url: http://monitor.infra.opensuse.org:9090
+            web.enable-admin-api: true
+            web.external-url: https://prometheus.infra.opensuse.org
+            web.listen-address: '[::1]:9090'
 
 profile:
   karma:
@@ -484,8 +491,8 @@ profile:
       enabled: true
       rewrite:
         - proxy_url: string
-          source: http://localhost:9090
-          uri: http://monitor.infra.opensuse.org:9090
+          source: https://prometheus.infra.opensuse.org
+          uri: http://ipv6-localhost:9090
       timeout: 10s
       workers: 4
     karma:
@@ -538,3 +545,5 @@ profile:
     ui:
       colorTitlebar: true
       minimalGroupWidth: 600
+
+nftables: true
