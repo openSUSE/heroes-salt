@@ -22,6 +22,7 @@
   ip6 saddr @host6_acme ip6 daddr @host6_mx icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr @host6_witch1 icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr @host6_netbox icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @host6_acme ip6 daddr @host6_kani icmpv6 type { echo-request, echo-reply } accept
   # SSH for the certificate synchronization using scp and for remote service reloads
   ip6 saddr @host6_acme ip6 daddr $nat64_v6 tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr $host6_stage3 tcp dport ssh accept
@@ -29,6 +30,7 @@
   ip6 saddr @host6_acme ip6 daddr @host6_mx tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_witch1 tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_netbox tcp dport ssh accept
+  ip6 saddr @host6_acme ip6 daddr @host6_kani tcp dport ssh accept
 
   # paste, mailman3, discourse -> atlas1 (HTTPS / why? in case of mailman3, it seems it's required for OpenID login, metrics for susepaste)
   ip6 saddr { $host6_paste, $host6_mailman3, $host6_discourse, $host6_metrics } ip6 daddr $host6_atlas tcp dport https accept
