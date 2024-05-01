@@ -53,6 +53,7 @@ prometheus:
             'node': 9100,
             'apache': 9117,
             'ping': 9427,
+            'postgres': 9187,
           }.items()
       %}
       {{ exporter }}_exporter:

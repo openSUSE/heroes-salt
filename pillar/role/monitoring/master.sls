@@ -169,6 +169,13 @@ prometheus:
               simple: true
               targets: []
 
+            postgres:
+              port: 9187
+              roles:
+                - postgresql
+              simple: true
+              targets: []
+
             salt:
               port: 8216
               roles:
