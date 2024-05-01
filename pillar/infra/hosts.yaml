@@ -537,7 +537,7 @@ mirrordb1:
       pseudo_ip4: 172.16.164.151
       source: x-os-internal
   legacy_boot: true
-  ram: 24576MB
+  ram: 32768MB
   vcpu: 8
 mirrordb2:
   cluster: falkor
@@ -551,7 +551,7 @@ mirrordb2:
       pseudo_ip4: 172.16.164.152
       source: x-os-internal
   legacy_boot: true
-  ram: 24576MB
+  ram: 32768MB
   vcpu: 8
 monitor:
   cluster: falkor
