@@ -153,6 +153,8 @@
   oifname nat64 ip6 saddr $host6_nuka ip6 daddr @cloud46_misc_weblate tcp dport { http, https } accept
   oif os-p2p-pub ip6 saddr $host6_nuka ip6 daddr @cloud6_misc_weblate icmpv6 type { echo-request, echo-reply } accept
   oifname nat64 ip6 saddr $host6_nuka ip6 daddr @cloud46_misc_weblate icmpv6 type { echo-request, echo-reply } accept
+  # nuka -> Weblate cloud backup
+  oif os-p2p-pub ip6 saddr $host6_nuka ip6 daddr 2a01:04f8:0b12:2000:0000:0000:0000:0003/128 tcp dport 23 accept
 
   # progressoo -> mx{1,2} (SMTP, but why? should it not go via relay.i.o.o?)
   oif os-public ip6 saddr $host6_progressoo ip6 daddr @host6_atlas_mx tcp dport smtp accept
