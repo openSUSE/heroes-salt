@@ -12,6 +12,19 @@ profile:
       check_postgres_locks: "/usr/lib/nagios/plugins/check_postgres_locks --warning='60' --critical='total=50:waiting=1:exclusive=20'"
       check_postgres_wal_files: "/usr/lib/nagios/plugins/check_postgres_wal_files --critical='120' --warning='100'"
 
+prometheus:
+  wanted:
+    component:
+      - postgres_exporter
+  pkg:
+    component:
+      postgres_exporter:
+        environ:
+          extra:
+            DATA_SOURCE_NAME: >-
+              host=/run/postgresql
+              user=postgres
+
 sysctl:
   params:
     ## https://www.postgresql.org/docs/current/static/kernel-resources.html
