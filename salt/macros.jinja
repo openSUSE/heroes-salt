@@ -1,15 +1,29 @@
-{%- macro puma_service_dropin(service, append=[]) %}
-{{ service }}_puma_service_custom:
+{%- macro service_dropin(service_name, unit=[], service=[]) %}
+{%- if not '.' in service_name -%}
+{%- set service_name = service_name ~ '.service' -%}
+{%- endif -%}
+{{ service_name }}_custom:
   file.managed:
-    - name: /etc/systemd/system/{{ service }}.service.d/salt.conf
+    - name: /etc/systemd/system/{{ service_name }}.d/salt.conf
     - makedirs: True
     - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
-        - '[Service]'
-        - Environment=RAILS_LOG_TO_STDOUT=1
-        {%- for append in append %}
-        - {{ apend }}
+        {%- if unit %}
+        - '[Unit]'
+        {%- for line in unit %}
+        - '{{ line }}'
         {%- endfor %}
+        {%- endif %} {#- close unit #}
+        {%- if service %}
+        - '[Service]'
+        {%- for line in service %}
+        - '{{ line }}'
+        {%- endfor %}
+        {%- endif %} {#- close service #}
+{%- endmacro %}
+
+{%- macro puma_service_dropin(service, append=[]) %}
+{{ service_dropin(service, service=['Environment=RAILS_LOG_TO_STDOUT=1'] + append) }}
 {%- endmacro %}
 
 {%- macro known_hosts(hosts, user) %}
