@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # functions in this file use complicated branching, but are not feasible to reformat
 # ruff: noqa: PLR0912
 
+import ipaddress
 import json
 import logging
 import sys
@@ -51,6 +52,33 @@ infra_data = {}
 schemas = {}
 lun_mappers = []
 
+format_checker = Draft202012Validator.FORMAT_CHECKER
+
+def has_cidr(instance: str) -> bool:
+  if '/' not in instance:
+    raise ValueError('Must contain a network mask in CIDR notation')
+
+@format_checker.checks('ipv6_net', (ValueError, ipaddress.AddressValueError))
+def is_ipv6_network(instance: object) -> bool:
+  if not isinstance(instance, str):
+    return False
+  has_cidr(instance)
+  return bool(ipaddress.IPv6Network(instance, strict=False))
+
+@format_checker.checks('ipv4_net', (ValueError, ipaddress.AddressValueError))
+def is_ipv4_network(instance: object) -> bool:
+  if not isinstance(instance, str):
+    return False
+  has_cidr(instance)
+  return bool(ipaddress.IPv4Network(instance, strict=False))
+
+@format_checker.checks('ip_net', ValueError)
+def is_ip_network(instance: object) -> bool:
+  if not isinstance(instance, str):
+    return False
+  has_cidr(instance)
+  return bool(ipaddress.ip_network(instance, strict=False))
+
 def _fail(msg=None):
     if msg is not None:
         log.error(msg)
@@ -71,6 +99,24 @@ def test_schema_meta(data):
         log.error(myerror.message)
     _fail('Failed to validate schema against reference schema.')
 
+def test_schema_entry(entry, entry_config, validator):
+  log.debug(f'Validating entry {entry} ... ')
+
+  try:
+      result = validator.validate(entry_config)
+      if result is None:
+          log.debug(f'Entry {entry} is {green}valid{reset}!')
+      else:
+          log.error('failed, but unable to determine the cause. :(')
+  except ValidationError as myerror:
+      log.error(f'{red}FAIL!{reset} Error in entry {entry} -> {myerror.json_path}:')
+      log.error(myerror.message)
+      if myerror.cause is not None:
+        log.error(myerror.cause)
+      return False
+
+  return True
+
 def test_schema():
     returns = {}
 
@@ -87,7 +133,7 @@ def test_schema():
     )
     validators = {}
     for schema in schemas:
-      validators[schema] = Draft202012Validator(schema=schemas[schema], registry=registry)
+      validators[schema] = Draft202012Validator(schema=schemas[schema], registry=registry, format_checker=format_checker)
 
     for file, contents in infra_data.items():
       log.info(f'Validating dataset "{file}" ...')
@@ -116,20 +162,18 @@ def test_schema():
           log.error(myerror.message)
           _fail(f'{red}Invalid{reset} {file} file, aborting.')
 
-      returns[file] = True
-      for entry, entry_config in contents.items():
-          log.debug(f'Validating entry {entry} ... ')
-          try:
-              result = validators[entry_validator_name].validate(entry_config)
-              if result is None:
-                  log.debug(f'Entry {entry} is {green}valid{reset}!')
-              else:
-                  log.error('failed, but unable to determine the cause. :(')
-          except ValidationError as myerror:
-              log.error(f'{red}FAIL!{reset} Error in entry {entry} -> {myerror.json_path}:')
-              log.error(myerror.message)
-              returns[file] = False
+      if isinstance(contents, dict):
+        for entry, entry_config in contents.items():
+            returns[file] = test_schema_entry(entry, entry_config, validators[entry_validator_name])
+            if not returns[file]:
               break
+      elif isinstance(contents, list):
+        for entry in contents:
+            returns[file] = test_schema_entry(entry, entry, validators[entry_validator_name])
+            if not returns[file]:
+              break
+      else:
+        _fail(f'Unsupported entry format: {entry}')
 
     return returns
 
