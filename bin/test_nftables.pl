@@ -57,6 +57,7 @@ my $exit = 0;
 foreach (@directories) {
   my $tree = $_;
   my %interfaces;
+  my %groups;
   my $treestatus = 0;
   print "Analyzing nftables tree \"$tree\" ...\n";
   rmtree($workdir);
@@ -91,6 +92,7 @@ foreach (@directories) {
         next;
       }
       my $interface;
+      my $group;
       if ( $_ =~ /^\s*include "(.*)"$/ ) {
         my $include = $1;
         if ($debug) {
@@ -123,13 +125,32 @@ foreach (@directories) {
           }
           next;
         }
+        # meta skgid != { foo, bar, ... }
+        # meta skgid foo
+      } elsif ( $_ =~ /meta skgid (?:!= )?(?:\{ )?((?:[\w]+(?:, )?)+)(?: \})? / ) {
+        $group = $1;
       }
+
       if ($interface) {
         if ($debug) {
-          print "Found $interface in $file\n";
+          print "Found interface $interface in $file\n";
         }
         $interfaces{$interface} = ();
       }
+
+      if ($group) {
+        if ($debug) {
+          print "Found group(s) $group in $file\n";
+        }
+        if (index($group, ',') == -1) {
+          $groups{$group} = ();
+        } else {
+          foreach my $group (split(', ', $group)) {
+            $groups{$group} = ();
+          }
+        }
+      }
+
     }
     close(fh);
   }
@@ -139,6 +160,13 @@ foreach (@directories) {
       print "Creating dummy interface: $interface\n";
     }
     system( ip => l => a => $interface => type => 'dummy' );
+  }
+
+  foreach my $group (keys %groups) {
+    if ($debug) {
+      print "Creating group: $group\n";
+    }
+    system( "getent group $group >/dev/null || groupadd $group" );
   }
   
   my $return = system( nft => -c => "flush ruleset ; include \"$workdir/*.nft\"" );
