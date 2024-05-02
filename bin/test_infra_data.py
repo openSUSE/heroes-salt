@@ -118,7 +118,7 @@ def test_schema_entry(entry, entry_config, validator):
   return True
 
 def test_schema():
-    returns = {}
+    result = True
 
     for schema, schema_data in schemas.items():
         log.info(f'Validating schema "{schema}" against reference schema ...')
@@ -164,18 +164,16 @@ def test_schema():
 
       if isinstance(contents, dict):
         for entry, entry_config in contents.items():
-            returns[file] = test_schema_entry(entry, entry_config, validators[entry_validator_name])
-            if not returns[file]:
-              break
+            if not test_schema_entry(entry, entry_config, validators[entry_validator_name]):
+              result = False
       elif isinstance(contents, list):
         for entry in contents:
-            returns[file] = test_schema_entry(entry, entry, validators[entry_validator_name])
-            if not returns[file]:
-              break
+            if not test_schema_entry(entry, entry, validators[entry_validator_name]):
+              result = False
       else:
         _fail(f'Unsupported entry format: {entry}')
 
-    return returns
+    return result
 
 def test_duplicates(data):
     def test_key(key, value):
@@ -261,16 +259,10 @@ def main():
     checks = {'schema': {}}
 
     log.debug(f'{orange}Executing schema check ...{reset}')
-    for file, result in test_schema().items():
-      if result is False:
-        checks['schema'] = False
-        break
+    checks['schema'] = test_schema()
 
     log.debug(f'{orange}Executing duplicates check ...{reset}')
-    if test_duplicates(infra_data['hosts']):
-        checks['duplicates'] = False
-    else:
-        checks['duplicates'] = True
+    checks['duplicates'] = not test_duplicates(infra_data['hosts'])
 
     fail = False
     for check, result in checks.items():
