@@ -47,10 +47,6 @@ profile:
 
 zypper:
   repositories:
-    openSUSE:infrastructure:jekyll:
-      baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/jekyll/$releasever/
-      priority: 100
-      refresh: True
     devel:languages:ruby:
       baseurl: https://downloadcontent.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
       priority: 100
