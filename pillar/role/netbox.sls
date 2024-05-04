@@ -30,6 +30,12 @@ apache:
         - ProxyPassSource: /
           ProxyPassTarget: unix:/run/netbox/gunicorn/socket
 
+groups:
+  redis:
+    system: true
+    members:
+      - _netbox
+
 {%- from 'macros.jinja' import redis %}
 {{ redis('netbox') }}
 
