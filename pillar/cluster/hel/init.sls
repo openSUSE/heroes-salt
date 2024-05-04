@@ -48,7 +48,7 @@ haproxy:
       mode: http
       options:
         - httpchk
-      {{ httpcheck('netbox.infra.opensuse.org', 200, '/healthcheck', tls=True) }}
+      {{ httpcheck('netbox.infra.opensuse.org', 200, '/plugins/netbox_healthcheck_plugin/healthcheck/', tls=True) }}
       {{ server('netbox1', 'netbox1.infra.opensuse.org', 443,
                   extra_extra='ssl verify required ca-file ' ~ heroes_ca,
                 ) }}
