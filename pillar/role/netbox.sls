@@ -28,7 +28,7 @@ apache:
         - ProxyPassSource: /static
           ProxyPassTarget: '!'
         - ProxyPassSource: /
-          ProxyPassTarget: unix:/run/netbox/gunicorn/socket
+          ProxyPassTarget: unix:/run/netbox/gunicorn/socket|http://localhost/
 
 groups:
   redis:
