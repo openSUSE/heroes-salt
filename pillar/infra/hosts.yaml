@@ -692,7 +692,7 @@ netbox1:
       ip6: 2a07:de40:b27e:1211::a/64
       mac: 00:16:3e:12:3f:52
       source: x-os-netbox
-  ram: 1024MB
+  ram: 2048MB
   vcpu: 1
 nuka:
   cluster: falkor
