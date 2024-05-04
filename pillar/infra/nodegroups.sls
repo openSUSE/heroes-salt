@@ -38,6 +38,9 @@ salt:
       mail-prg:
         - mx1.infra.opensuse.org
         - mx2.infra.opensuse.org
+      mirrordb:
+        - mirrordb1.infra.opensuse.org
+        - mirrordb2.infra.opensuse.org
       narwal:
         - ipx-narwal1.infra.opensuse.org
         {%- for i in [4, 5, 6, 7, 8] %}
