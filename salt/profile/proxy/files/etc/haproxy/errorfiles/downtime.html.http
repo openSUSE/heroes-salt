@@ -72,9 +72,7 @@ Refresh: 600
   <main class="page-content flex-fill" aria-label="Content">
     <div class="container py-3">
       <p class="alert alert-danger">We are very sorry, but the requested service is currently not available.</p>
-      <p class="alert alert-warning">Please check our <a href="https://status.opensuse.org/">Status page</a>, if the problem is already known.</p>
-      <p class="alert alert-info">Note: we have a regular maintenance window each Thursday, from 08:00 - 10:00 CET. More information about this maintenance window is provided in the <a href="https://en.opensuse.org/openSUSE:Downtime">openSUSE wiki</a>.</p>
-
+      <p class="alert alert-warning">Please visit our <a href="https://status.opensuse.org/">status page</a> to check if the problem is already known or related to a scheduled maintenance.</p>
 
       <p><img src="https://en.opensuse.org/images/4/43/Failgeeko.png" alt="Go grab some coffee meanwhile"/></p>
 </body>
