@@ -37,7 +37,7 @@ groups:
       - _netbox
 
 {%- from 'macros.jinja' import redis %}
-{{ redis('netbox') }}
+{{ redis('netbox', databases=2) }}
 
 zypper:
   packages:

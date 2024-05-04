@@ -25,11 +25,11 @@
       firewall: false
 {%- endmacro -%}
 
-{%- macro redis(instance, tcp=False) -%}
+{%- macro redis(instance, tcp=False, databases=1) -%}
 redis:
   {{ instance }}:
     acllog-max-len: 64
-    databases: 1
+    databases: {{ databases }}
     tcp-backlog: 512
     timeout: 0
     {%- if tcp %}
