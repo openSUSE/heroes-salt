@@ -211,9 +211,13 @@ GRAVATAR_DEFAULT_SECURE = True
 #
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'xapian_backend.XapianEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index')
-    },
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://localhost:8983/solr/mailman',
+        'ADMIN_URL': 'http://localhost:8983/solr/admin/cores',
+        'TIMEOUT': 60 * 5,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    }
 }
 
 # Using the cache infrastructure can significantly improve performance on a

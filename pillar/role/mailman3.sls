@@ -87,6 +87,17 @@ memcached:
   slab_size_limit: 64m
   unix_mask: 660
 
+prometheus:
+  wanted:
+    component:
+      - solr_exporter
+  pkg:
+    component:
+      solr_exporter:
+        name: prometheus-solr_exporter
+        service:
+          name: prometheus-solr_exporter
+
 zypper:
   packages:
     archrwr: {}
