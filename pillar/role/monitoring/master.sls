@@ -162,6 +162,13 @@ prometheus:
               simple: true
               targets: []
 
+            pgbouncer:
+              port: 9127
+              roles:
+                - pgbouncer
+              simple: true
+              targets: []
+
             ping:
               port: 9427
               roles:
