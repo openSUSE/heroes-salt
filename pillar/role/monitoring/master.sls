@@ -180,6 +180,7 @@ prometheus:
               port: 9187
               roles:
                 - postgresql
+                - postgresql.backup
               simple: true
               targets: []
 
