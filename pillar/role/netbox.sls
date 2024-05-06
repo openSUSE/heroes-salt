@@ -14,14 +14,9 @@ apache:
       SSLStaplingCache: '"shmcb:logs/ssl_stapling(32768)"'
       SSLUseStapling: true
       Alias:
-        /static: /usr/share/netbox/netbox/static
+        /static: /usr/share/netbox/static
       Directory:
-        /usr/share/netbox/netbox/static:
-          Options: >-
-            Indexes
-            FollowSymLinks
-            MultiViews
-          AllowOverride: None
+        /usr/share/netbox/static:
           Require: all granted
       RequestHeader: set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
       ProxyRoute:
