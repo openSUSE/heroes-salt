@@ -147,6 +147,7 @@ profile_dehydrated_{{ instance }}_hook:
 {%- for certificate, certificate_config in instance_config.get('certificates', {}).items() %}
 {%- do salt.log.debug('dehydrated: parsing certificate ' ~ certificate) %}
 {%- set targets = certificate_config.get('targets') %}
+{%- set metrics_textfile = '/var/spool/prometheus/dehydrated-hook-' ~ certificate.replace('.', '_') ~ '.prom' %}
 
 {%- if targets %}
 profile_dehydrated_{{ instance }}_hook_{{ certificate }}:
@@ -157,12 +158,21 @@ profile_dehydrated_{{ instance }}_hook_{{ certificate }}:
     - context:
         instance: {{ instance }}
         certificate: {{ certificate }}
+        metrics_textfile: {{ metrics_textfile }}
         targets: {{ targets }}
     - group: dehydrated
     - mode: '0750'
     - require:
       - pkg: profile_dehydrated_packages
       - file: profile_dehydrated_{{ instance }}_sub_directories
+
+profile_dehydrated_{{ instance }}_hook_{{ certificate }}_prometheus:
+  file.managed:
+    - name: {{ metrics_textfile }}
+    - user: dehydrated
+    - group: prometheus
+    - mode: '0644'
+    - replace: False
 {%- endif %}
 
 {%- endfor %} {#- close second certificates loop #}
