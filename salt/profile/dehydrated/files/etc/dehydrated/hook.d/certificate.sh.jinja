@@ -17,6 +17,15 @@ DATE="$(date -Iseconds)"
 STATUS=0
 SKIP_RELOAD="${SKIP_RELOAD:-0}"
 
+write_metrics() {
+  metrics_base='dehydrated_hook'
+  labels='{certificate="{{ certificate }}", dehydrated_instance="{{ instance }}"}'
+  {
+    printf '%s_status%s %i\n' "$metrics_base" "$labels" "$1"
+    date -u +"${metrics_base}_last_run${labels} %s"
+  } | sponge {{ metrics_textfile }}
+}
+
 fail() {
   echo "$1,${2:-local},$DATE" >> "$FAILED"
   STATUS=1
@@ -97,6 +106,8 @@ then
     rm -v "$FAILED"
   fi
 fi
+
+write_metrics "$STATUS"
 
 rm "$COMBINED_PEM"
 exit 0
