@@ -57,7 +57,7 @@ haproxy:
     {{ metrics(bind_v6_standalone) }}
     stats:
       bind:
-        {{ bind(bind_v6, 80, 'v6only tfo') }}
+        {{ bind(bind_v6, 8080, 'v6only tfo') }}
       stats:
         enable: true
         hide-version: ''
