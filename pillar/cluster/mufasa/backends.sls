@@ -4,7 +4,6 @@ haproxy:
   backends:
     conncheck:
       mode: http
-      options: ['tcpka']
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}conncheck.txt.http

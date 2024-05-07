@@ -4,15 +4,11 @@ haproxy:
   backends:
     error_403:
       mode: http
-      options:
-        - tcpka
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}403.html.http
     security_txt:
       mode: http
-      options:
-        - tcpka
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}security.txt.http

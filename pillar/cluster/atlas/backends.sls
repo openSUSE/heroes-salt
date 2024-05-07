@@ -16,7 +16,6 @@ haproxy:
       {{ server('community2', '2a07:de40:b27e:1203::129') }}
     conncheck:
       mode: http
-      options: ['tcpka']
       httprequests: set-log-level silent
       extra:
         - errorfile 503 {{ errorfiles }}conncheck.txt.http
@@ -25,7 +24,6 @@ haproxy:
       {{ httpcheck('events.opensuse.org', 200, '/robots.txt') }}
       {{ server('dale', '2a07:de40:b27e:1203::b16', 80) }}
     deadservices:
-      options: ['tcpka']
       mode: http
       httprequests: set-log-level silent
       extra:

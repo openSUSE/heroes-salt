@@ -73,7 +73,7 @@ haproxy:
       balance: source
       options:
         - tcplog
-        - tcpka
+        - srvtcpka
         - httpchk
       {{ httpcheck('localhost:8000', 200, method='get') }}
       timeouts:

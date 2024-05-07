@@ -1,4 +1,4 @@
-{%- set backendopts = ['forwardfor', 'tcpka'] -%}
+{%- set backendopts = ['forwardfor', 'srvtcpka'] -%}
 {%- macro bind(addresses, port, options=None) -%}
         {%- for address in addresses %}
         - '{{ address }}:{{ port }}{{ ' ' ~ options if options is not none else '' }}'
