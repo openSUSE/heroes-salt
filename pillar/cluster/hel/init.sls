@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, galeras, server, httpcheck, metrics %}
+{%- from 'common/haproxy/map.jinja' import bind, extra, galeras, server, httpcheck, metrics, options %}
 {%- set heroes_ca = '/usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem' %}
 
 include:
@@ -46,8 +46,7 @@ haproxy:
 
     netbox:
       mode: http
-      options:
-        - httpchk
+      {{ options('httpchk') }}
       {{ httpcheck('netbox.infra.opensuse.org', 200, '/plugins/netbox_healthcheck_plugin/healthcheck/', tls=True) }}
       {{ server('netbox1', 'netbox1.infra.opensuse.org', 443,
                   extra_extra='ssl verify required ca-file ' ~ heroes_ca,
