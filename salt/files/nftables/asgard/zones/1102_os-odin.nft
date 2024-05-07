@@ -49,7 +49,7 @@
      ip6 daddr $host6_monitor tcp dport { 9090, 9093 } accept
 
      # VPN clients -> Hel HAProxy stats page
-     ip6 daddr @host6_hel tcp dport http-alt accept
+     ip6 daddr @host6_hel tcp dport 8080 accept
 
      # VPN clients -> mtail on mx-test (Georg's log monitoring testbed)
      ip6 daddr $host6_mx-test ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
