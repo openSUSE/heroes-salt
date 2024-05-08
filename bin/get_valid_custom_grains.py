@@ -25,7 +25,7 @@ def get_countries():
 def print_valid_localized_grains():
     results = []
     for country in get_countries():
-        results.append('%s' % (country))
+        results.append(country)
     print('\n'.join(results))
 
 

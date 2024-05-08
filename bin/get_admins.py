@@ -20,7 +20,7 @@ def get_admins_of_a_role(admins, role):
         print('Role not found')
         sys.exit(1)
 
-    conn.search('%s' % BASE_DN, '(cn=%s-admins)' % role, attributes=['cn', 'member'])
+    conn.search(BASE_DN, f'(cn={role}-admins)', attributes=['cn', 'member'])
 
     try:
         members = conn.entries[0].member
@@ -92,14 +92,14 @@ conn = Connection(ldap_server)
 conn.open()
 ldap_exclude_accounts = ''
 for account in EXCLUDE_ACCOUNTS:
-    ldap_exclude_accounts += '(uid=%s)' % account
-conn.search('%s' % BASE_DN, '(&(uid=*)(!(|%s)))' % ldap_exclude_accounts, attributes=['uid', 'gecos', 'mail'])
+    ldap_exclude_accounts += f'(uid={account})'
+conn.search(BASE_DN, f'(&(uid=*)(!(|{ldap_exclude_accounts})))', attributes=['uid', 'gecos', 'mail'])
 all_admins_from_ldap = conn.entries
 for admin in all_admins_from_ldap:
     if len(admin.gecos):
         admins[admin.uid[0]] = {'name': admin.gecos[0], 'mail': admin.mail[0] if len(admin.mail) else 'n/a', 'groups': [], 'roles': []}
 
-conn.search('%s' % BASE_DN, '(&(class=group)(cn=*-admins))', attributes=['cn', 'member'])
+conn.search(BASE_DN, '(&(class=group)(cn=*-admins))', attributes=['cn', 'member'])
 all_admin_groups_from_ldap = conn.entries
 for group in all_admin_groups_from_ldap:
     members = group.member

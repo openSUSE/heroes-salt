@@ -47,7 +47,7 @@ for sls in all_ids:
     if sls == 'README.md':
         continue
 
-    content = read_file_skip_jinja("pillar/id/%s" % sls)
+    content = read_file_skip_jinja(f'pillar/id/{sls}')
     mygrains = yaml.safe_load(content)['grains']
 
     for key, valid_values in valid_global_grains.items():
