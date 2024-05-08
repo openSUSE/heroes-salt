@@ -65,6 +65,15 @@ prometheus:
                 - alertname="Member aliases update failed"
               equal:
                 - instance
+            - source_matchers:
+                - alertname="HAProxyBackendServerDown"
+                - proxy="galera"
+              target_matchers:
+                - alertname="HAProxyBackendServerDown"
+                - proxy="galera-slave"
+              equal:
+                - instance
+                - server
           templates:
             - /etc/prometheus/templates/*.template
           time_intervals:
