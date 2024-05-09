@@ -151,6 +151,7 @@ prometheus:
               port: 9104
               roles:
                 - mariadb
+                - mariadb.backup
               simple: true
               targets: []
 
