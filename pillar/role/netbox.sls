@@ -1,11 +1,15 @@
-apache:
-  sites:
+include:
+  - role.common.apache
+
+apache_httpd:
+  vhosts:
     netbox:
-      interface: '{{ grains['fqdn_ip6'][0] }}'
-      port: 443
+      listen: '{{ grains['fqdn_ip6'][0] }}:443'
       ServerName: netbox1.infra.opensuse.org
       Header: always set Strict-Transport-Security "max-age=63072000"
-      Protocols: h2 http/1.1
+      Protocols:
+        - h2
+        - http/1.1
       SSLCertificateFile: /etc/ssl/services/netbox1.infra.opensuse.org/fullchain.pem
       SSLCertificateKeyFile: /etc/ssl/services/netbox1.infra.opensuse.org/privkey.pem
       SSLHonorCipherOrder: false
@@ -19,11 +23,9 @@ apache:
         /usr/share/netbox/static:
           Require: all granted
       RequestHeader: set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
-      ProxyRoute:
-        - ProxyPassSource: /static
-          ProxyPassTarget: '!'
-        - ProxyPassSource: /
-          ProxyPassTarget: unix:/run/netbox/gunicorn/socket|http://localhost/
+      ProxyPass:
+        /static: '!'
+        /: unix:/run/netbox/gunicorn/socket|http://localhost/
 
 groups:
   redis:

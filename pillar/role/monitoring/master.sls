@@ -9,8 +9,7 @@
                   replacement: $1
 {%- endmacro %}
 {%- macro vhost_defaults(name) %}
-      interface: '{{ listen | ipwrap }}'
-      port: 443
+      listen: '{{ listen | ipwrap }}:443'
       SSLCertificateFile: /etc/ssl/services/monitor.infra.opensuse.org/fullchain.pem
       SSLCertificateKeyFile: /etc/ssl/services/monitor.infra.opensuse.org/privkey.pem
       Protocols:
@@ -24,12 +23,12 @@ include:
   - role.common.backup
   - role.common.monitoring
 
-apache:
-  sites:
+apache_httpd:
+  vhosts:
     http:
-      interface: '{{ listen | ipwrap }}'
-      Rewrite: |
-        RewriteRule ^(.*)$ https://%{HTTP_HOST}$1 [R=301,L]
+      listen: '{{ listen | ipwrap }}:80'
+      RewriteRule:
+        - ^(.*)$ https://%{HTTP_HOST}$1 [R=301,L]
     {%- for vhost, vconfig in {
           'karma': {
             'port': 9193,
@@ -48,12 +47,11 @@ apache:
       {%- if 'alias' in vconfig %}
       ServerAlias: {{ vconfig['alias'] }}.infra.opensuse.org
       {%- endif %}
-      ProxyRoute:
-        - ProxyPassSource: /
-          ProxyPassTarget: http://ipv6-localhost:{{ vconfig['port'] }}/
+      ProxyPass:
+        /: http://ipv6-localhost:{{ vconfig['port'] }}/
     {%- endfor %}
     monitor:
-      interface: '{{ listen | ipwrap }}'
+      listen: '{{ listen | ipwrap }}:80'
       ServerName: monitor.opensuse.org
       DocumentRoot: /srv/www/htdocs
       Alias:
