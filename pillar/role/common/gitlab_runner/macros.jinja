@@ -19,4 +19,11 @@
               - /cache
             shm_size: 0
             helper_image: registry.opensuse.org/home/darix/apps/containers/gitlab-runner-helper:x86_64-latest
+            extra_hosts:
+              # GitLab CI seems to overwrite the default hosts file with one not matching the openSUSE defaults
+              # this line adds an additional hosts entry for "::1" to runner containers in order for forward lookups of "ipv6-localhost" to work - reverse will only return "localhost" due to the
+              #   existing "::1" entry mapping to "localhost"
+              # there's currently no known way to replace or extend the existing "::1" entry but we currently do not have anything expecting a reverse lookup of "::1" to return "ipv6-localhost",
+              #   making it not an issue
+              - ipv6-localhost:::1
 {%- endmacro -%}
