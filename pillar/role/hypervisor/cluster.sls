@@ -41,6 +41,11 @@ os-update:
     - pacemaker
     - sbd
 
+prometheus:
+  wanted:
+    component:
+      - hacluster_exporter
+
 sudoers:
   groups:
     hypervisor.cluster-admins:
