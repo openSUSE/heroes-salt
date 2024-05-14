@@ -140,6 +140,16 @@ prometheus:
               simple: true
               targets: []
 
+            ha_cluster:
+              port: 9664
+              roles:
+                - hypervisor.cluster
+              scrape:
+                interval: 5m
+                timeout: 1m
+              simple: true
+              targets: []
+
             haproxy:
               port: 8404
               roles:

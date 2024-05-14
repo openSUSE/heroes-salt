@@ -52,6 +52,7 @@ prometheus:
       {%- for exporter, port in {
             'node': 9100,
             'apache': 9117,
+            'hacluster': 9664,
             'pgbouncer': 9127,
             'ping': 9427,
             'postgres': 9187,
