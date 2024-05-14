@@ -256,12 +256,6 @@ test.opensuse.org:
 tsp.opensuse.org:
   targets:
     - macro: atlas
-weblate.opensuse.org:
-  sans:
-    - i18n.opensuse.org
-    - l10n.opensuse.org
-  targets:
-    - macro: atlas
 wiki.opensuse.org:
   sans:
     - cn.opensuse.org

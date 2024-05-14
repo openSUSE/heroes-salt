@@ -74,8 +74,6 @@ haproxy:
         - host_microos      hdr(host)   -i microos.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
         - host_monitor      hdr(host)   -i monitor.opensuse.org
-        - host_nuka         hdr(host)   -i i18n.opensuse.org
-        - host_nuka         hdr(host)   -i l10n.opensuse.org
         - host_obsreview    hdr(host)   -i obs-reviewlab.opensuse.org
         - host_opi_proxy    hdr(host)   -i opi-proxy.opensuse.org
         - host_osc_collab   hdr(host)   -i osc-collab.opensuse.org
@@ -161,7 +159,6 @@ haproxy:
         - metricsioo      if host_metrics
         - minio           if host_minio
         - monitor         if host_monitor
-        - nuka            if host_nuka
         - obsreview       if host_obsreview
         - opi_proxy       if host_opi_proxy
         - osc_collab      if host_osc_collab

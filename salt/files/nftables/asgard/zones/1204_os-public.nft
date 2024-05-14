@@ -62,8 +62,6 @@
   ip6 saddr @host6_atlas ip6 daddr $host6_community2 tcp dport 8080 accept
   # atlas -> lnt (lnt.o.o)
   ip6 saddr @host6_atlas ip6 daddr $host6_lnt tcp dport 8080 accept
-  # atlas -> nuka (Weblate; i18n.o.o, l10n.o.o)
-  ip6 saddr @host6_atlas ip6 daddr $host6_nuka tcp dport http accept
   # atlas -> elections2 (Helios, elections.o.o)
   ip6 saddr @host6_atlas ip6 daddr $host6_elections2 tcp dport http accept
   # atlas -> matrix (Synapse, Element; chat.o.o, matrix.o.o, dimension.o.o, webhook.o.o)

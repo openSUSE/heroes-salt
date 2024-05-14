@@ -730,31 +730,6 @@ set host6_daffy {
     }
 }
 
-# miscellaneous services needed to be accessed by Weblate (on nuka.i.o.o) which do not justify
-# their own cloud4_ set and acl
-set cloud4_misc_weblate {
-    type ipv4_addr
-    flags interval
-    elements = {
-        68.183.241.124/32, # www.icewm.org
-        152.228.162.27/32, # rofi.roger-ferrer.org
-        3.123.208.30/32, # documentation.suse.com
-        3.70.94.181/32,  # ^
-    }
-}
-# their own cloud6_set and acl
-set cloud6_misc_weblate {
-  type ipv6_addr
-  flags interval
-  elements = {
-      2606:50c0:8002::153/128, # uyuni-project.org
-      2606:50c0:8000::153/128, # ^
-      2606:50c0:8001::153/128, # ^
-      2606:50c0:8003::153/128, # ^
-      2001:1528:136:dead:beef:4242:0:30/128, # weblate.org
-  }
-}
-
 set cloud6_telegram {
   type ipv6_addr
   flags interval
@@ -923,17 +898,6 @@ set cloud46_db-ip {
     }
 }
 
-set cloud46_misc_weblate {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:64::44b7:f17c/128, # www.icewm.org          / 68.183.241.124
-        2a07:de40:b27e:64::98e4:a21b/128, # rofi.roger-ferrer.org  / 152.228.162.27
-        2a07:de40:b27e:64::37b:d01e/128,  # documentation.suse.com / 3.123.208.30
-        2a07:de40:b27e:64::346:5eb5/128,  # ^                      / 3.70.94.181
-    }
-}
-
 set cloud6_fastly { # addresses tend to differ between services but are probably shared between fastly customers?
   type ipv6_addr
   flags interval
@@ -968,7 +932,6 @@ set acl6_internet_fastly {
     elements = {
       $host6_dale, # ruby
       $host6_obsreview, # ruby
-      $host6_nuka, # python
       $host6_calendar, # ruby
       $host6_paste,    # ruby
     }
@@ -1004,7 +967,6 @@ set acl6_internet_obs-login {
     elements = {
       $host6_opi-proxy,  # access to api.o.o
       $host6_obsreview,  # access to registry.o.o
-      $host6_nuka,       # access to build.o.o
       $host6_osc-collab, # access to api.o.o
       $host6_rpmlint,    # access to build.o.o
       $host6_pinot,      # access to build.o.o
@@ -1017,7 +979,6 @@ set acl6_internet_idoo {
     elements = {
         $host6_progressoo,
         $host6_mailman3,
-        $host6_nuka,
         $host6_paste,
         $host6_pagure,
         $host6_calendar
@@ -1061,7 +1022,6 @@ set acl4_internet_github_web_ssh {
   elements = {
    $host4_opi-proxy, # software updates (?)
    $host4_narwal5, # git push for mirrors-static
-   $host4_nuka, # weblate
    $host4_mickey, # push mirrors
   }
 }

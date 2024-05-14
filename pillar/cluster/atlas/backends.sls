@@ -107,10 +107,6 @@ haproxy:
     monitor_grafana:
       {{ options() }}
       {{ server('grafana', '2a07:de40:b27e:1203::50', 3000, extra_extra='inter 30000') }}
-    nuka:
-      {{ options('httpchk') }}
-      {{ httpcheck('l10n.opensuse.org', 200, '/static/weblate-128.png') }}
-      {{ server('nuka', '2a07:de40:b27e:1203::b44') }}
     obsreview:
       {{ options() }}
       {{ server('obsreview', '2a07:de40:b27e:1203::137') }}
