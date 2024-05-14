@@ -241,6 +241,14 @@ prometheus:
             {%- if job_config.get('simple', False) and 'port' in job_config %}
             {%- set port = job_config['port'] %}
             - job_name: {{ job }}
+              {%- if 'scrape' in job_config %}
+                {%- if 'interval' in job_config['scrape'] %}
+              scrape_interval: {{ job_config['scrape']['interval'] }}
+                {%- endif %}
+                {%- if 'timeout' in job_config['scrape'] %}
+              scrape_timeout: {{ job_config['scrape']['timeout'] }}
+                {%- endif %}
+              {%- endif %}
               static_configs:
                 - targets:
                     {%- for fqdn in job_config['targets'] | sort %}
