@@ -10,4 +10,5 @@ profile:
           reboot_safe: reboot_safe
           responsible: responsible
         pillar:
+          cluster: cluster
           roles: role
