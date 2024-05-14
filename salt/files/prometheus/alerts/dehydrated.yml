@@ -1,0 +1,45 @@
+# yamllint disable rule:line-length
+#####################################################
+## MANAGED BY SALT in salt/files/prometheus/alerts ##
+#####################################################
+---
+groups:
+  - name: ioo-dehydrated
+    rules:
+
+      - alert: DehydratedHookFailure
+        annotations:
+          description: |
+            Dehydrated hook for certificate {{ $labels.certificate }} is failing on {{ $labels.instance }} since over two days.
+          summary: Certificate {{ $labels.certificate }} hook failure
+        expr: >-
+          dehydrated_hook_status{certificate!="example1.opensuse.org"} > 0
+        for: 2d
+        labels:
+          severity: critical
+
+      - alert: DehydratedHookFailureDeadManSwitch
+        annotations:
+          description: |
+            Dehydrated hook for certificate {{ $labels.certificate }} is expected to fail, but succeeded on {{ $labels.instance }}.
+          summary: Certificate {{ $labels.certificate }} hook did not fail
+        expr: >-
+          dehydrated_hook_status{certificate="example1.opensuse.org"} < 1
+        for: 1m
+        labels:
+          severity: warning
+
+      - alert: DehydratedHookLastRun
+        annotations:
+          description: |
+            Dehydrated hook for certificate {{ $labels.certificate }} did not run on {{ $labels.instance }} since over 30 days.
+          summary: Certificate {{ $labels.certificate }} hook not executed
+        expr: >-
+          (
+            time() - dehydrated_hook_last_run
+          )
+          / 86400
+          > 30
+        for: 1h
+        labels:
+          severity: critical
