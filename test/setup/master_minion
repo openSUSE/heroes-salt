@@ -85,3 +85,6 @@ do
   echo "--> $cmd" >> "$out"
   salt "${salt_args[@]}" "$cmd"
 done
+
+# monitor user in role.base
+groupadd monitor

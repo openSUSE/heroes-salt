@@ -3,7 +3,7 @@
 
 /usr/local/libexec/systemd:
   file.directory:
-    - mode: '0750'
+    - mode: '0755'
 
 {%- set roles_map = {
       'base': [
@@ -27,6 +27,7 @@ textfile_files:
         {%- set script = collector ~ '-metrics' %}
         - /usr/local/libexec/systemd/{{ script }}.sh:
             - source: {{ source }}scripts/{{ script }}.sh.jinja
+            - group: monitor
             - mode: '0750'
         - /etc/systemd/system/{{ script }}.service:
             - source: {{ source }}systemd/{{ script }}.service.jinja

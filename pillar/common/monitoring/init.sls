@@ -12,3 +12,9 @@ profile:
         pillar:
           cluster: cluster
           roles: role
+
+users:
+  monitor:
+    fullname: Moni Toring
+    createhome: false
+    system: true
