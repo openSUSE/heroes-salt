@@ -605,6 +605,17 @@ set host6_narwal {
   }
 }
 
+# Falkor
+set host6_falkor {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1201::f0/128, # falkor20
+    2a07:de40:b27e:1201::f1/128, # falkor21
+    2a07:de40:b27e:1201::f2/128, # falkor22
+  }
+}
+
 set cloud4_github_web {
   type ipv4_addr
   flags interval

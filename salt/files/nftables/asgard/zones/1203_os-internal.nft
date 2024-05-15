@@ -114,6 +114,8 @@
   ip6 saddr $host6_monitor ip6 daddr @self6_internal tcp dport 9427 accept
   # monitor -> pagure01 (Prometheus nginx metrics collection)
   ip6 saddr $host6_monitor ip6 daddr { $host6_pagure, $host6_ipx-narwal1, $host6_narwal4 } tcp dport 9113 accept
+  # monitor -> falkor* (Prometheus HA cluster metrics collection)
+  ip6 saddr $host6_monitor ip6 daddr @host6_falkor tcp dport 9664 accept
 
   # chip -> all nameservers (DNS, query/notify)
   ip6 saddr $host6_chip ip6 daddr @host6_all_dns udp dport domain accept
