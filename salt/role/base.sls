@@ -38,6 +38,7 @@ include:
   - profile.monitoring
   - profile.regional
   - infrastructure.salt.minion
+  - profile.security
   - profile.services
   - profile.sysctl
   - profile.motd
