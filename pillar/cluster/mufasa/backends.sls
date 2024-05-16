@@ -1,12 +1,7 @@
-{%- from 'common/haproxy/map.jinja' import errorfiles, options, server, httpcheck %}
+{%- from 'common/haproxy/map.jinja' import options, server, httpcheck %}
 
 haproxy:
   backends:
-    conncheck:
-      mode: http
-      httprequests: set-log-level silent
-      extra:
-        - errorfile 503 {{ errorfiles }}conncheck.txt.http
     mirrorcache:
       {{ options('httpchk') }}
       {{ httpcheck('mirrorcache-us.opensuse.org', 200) }}

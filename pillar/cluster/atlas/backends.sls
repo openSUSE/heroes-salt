@@ -14,11 +14,6 @@ haproxy:
       {{ httpcheck('factory-dashboard.opensuse.org', 200, '/check.txt', 'options') }}
       mode: http
       {{ server('community2', '2a07:de40:b27e:1203::129') }}
-    conncheck:
-      mode: http
-      httprequests: set-log-level silent
-      extra:
-        - errorfile 503 {{ errorfiles }}conncheck.txt.http
     dale:
       {{ options('httpchk') }}
       {{ httpcheck('events.opensuse.org', 200, '/robots.txt') }}

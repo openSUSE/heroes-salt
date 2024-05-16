@@ -1,3 +1,5 @@
+{%- from 'common/haproxy/map.jinja' import errorfiles %}
+
 haproxy:
   frontends:
     http:
@@ -25,6 +27,11 @@ haproxy:
           - Referrer-Policy no-referrer-when-downgrade if is_ssl
           - Strict-Transport-Security max-age=15768000
   backends:
+    conncheck:
+      mode: http
+      httprequests: set-log-level silent
+      extra:
+        - errorfile 503 {{ errorfiles }}conncheck.txt.http
     matrix-client:
       mode: http
       httprequests:
