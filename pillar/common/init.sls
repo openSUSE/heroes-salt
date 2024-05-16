@@ -62,7 +62,7 @@ openldap:
   tls_reqcert: demand
   uri: ldaps://freeipa.infra.opensuse.org
 openssh:
-  sshd_config_mode: '0640'
+  sshd_config_mode: '0600'
   banner_string: Welcome to {{ id }}!
 profile:
   log:
