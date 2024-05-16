@@ -25,7 +25,7 @@ zypper_count_pending_updates () {
 
 zypper_needs_rebooting () {
   set +e
-  zypper needs-rebooting 1>/dev/null
+  zypper --quiet needs-rebooting
   case "$?" in
     0 ) echo 0 ;;
     102 ) echo 1 ;;
