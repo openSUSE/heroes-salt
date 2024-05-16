@@ -4,4 +4,7 @@
 Description=Metrics collector for zypper
 
 [Service]
+User=monitor
+Group=monitor
+
 ExecStart=/usr/local/libexec/systemd/zypper-metrics.sh
