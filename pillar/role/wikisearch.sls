@@ -34,3 +34,7 @@ prometheus:
         name: prometheus-elasticsearch_exporter
         service:
           name: prometheus-elasticsearch_exporter
+
+sysctl:
+  params:
+    vm.max_map_count: 262144
