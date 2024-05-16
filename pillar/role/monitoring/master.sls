@@ -201,6 +201,12 @@ prometheus:
                 - saltmaster
               targets: []
 
+            solr:
+              port: 8989
+              roles:
+                - mailman3
+              targets: []
+
             {%- endload %}
 
             {#- start collecting minions with a single mine call and pre-sort them into monitoring groups for
@@ -307,6 +313,17 @@ prometheus:
                   labels:
                     __scheme__: https
               {{ relabel_instance(monitors['salt']['port']) }}
+
+            - job_name: solr
+              metrics_path: /
+              scrape_interval: 2m
+              scrape_timeout: 10s
+              static_configs:
+                - targets:
+                    {%- for fqdn in monitors['solr']['targets'] %}
+                    - {{ fqdn }}:{{ monitors['solr']['port'] }}
+                    {%- endfor %}
+              {{ relabel_instance(monitors['solr']['port']) }}
 
             {%- set mioo = 'matrix.infra.opensuse.org' %}
             - job_name: synapse
