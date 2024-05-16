@@ -15,4 +15,5 @@ mailman_pkgs:
       - uwsgi
       - {{ python }}-mailmanclient
       - {{ python }}-psycopg2
+      - {{ python }}-pysolr
       - {{ python }}-xapian
