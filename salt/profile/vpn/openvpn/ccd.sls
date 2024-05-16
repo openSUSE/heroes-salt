@@ -64,8 +64,8 @@ def run():
         for protocol in protocols
       }
 
-    ccd_files.extend(
-      [
+    for protocol in protocols:
+      ccd_files.append(
         {
           dirs_ccd[protocol] + user: [
             {
@@ -76,9 +76,7 @@ def run():
             },
           ],
         }
-        for protocol in protocols
-      ],
-    )
+      )
 
   states['openvpn_ccd_files'] = {
     'file.managed': [
