@@ -97,14 +97,14 @@ groups:
       - alert: HAProxyServerResponseErrors
         annotations:
           description: |
-            Too many response errors to server {{ $labels.server }} on {{ $labels.instance }} (> 5%).
+            Too many response errors to server {{ $labels.server }} in proxy {{ $labels.proxy }} on {{ $labels.instance }} (> 5%).
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
           summary: HAProxy server response errors ({{ $labels.instance }}/{{ $labels.server }})
         expr: >-
-          sum by (instance, server) (rate(haproxy_server_response_errors_total[1m]) * 100)
+          sum by (instance, proxy, server) (rate(haproxy_server_response_errors_total[1m]) * 100)
           /
-          sum by (instance, server) (rate(haproxy_server_http_responses_total[1m]))
+          sum by (instance, proxy, server) (rate(haproxy_server_http_responses_total[1m]))
           > 5
         for: 1m
         labels:
