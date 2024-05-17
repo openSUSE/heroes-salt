@@ -36,6 +36,9 @@ textfile_files:
         {%- endfor %}
         - /var/spool/prometheus/salt.prom:
             - source: {{ source }}salt.prom.jinja
+        - /var/spool/prometheus/zypper.prom:
+            - replace: False
+            - user: monitor
     - template: jinja
     - require:
         - file: /usr/local/libexec/systemd
