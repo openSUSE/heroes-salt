@@ -104,7 +104,25 @@ groups:
 
       - alert: High CPU load
         expr: >-
-          (sum by (instance) (avg by (mode, instance) (rate(node_cpu_seconds_total{mode!="idle"}[2m]))) > 0.8) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+          (
+            sum by (instance)
+            (
+              avg by (mode, instance)
+              (
+                rate(
+                  node_cpu_seconds_total{mode!="idle"}[2m]
+                )
+              )
+            )
+            > 0.8
+          )
+          *
+          on(instance)
+          group_left (nodename)
+          node_uname_info{
+            nodename=~".+",
+            instance!~"gitlab-runner[12].infra.opensuse.org"
+          }
         for: 5m
         labels:
           severity: warning
