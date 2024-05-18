@@ -188,6 +188,7 @@ nginx:
               - proxy_set_header: Host $host
               - proxy_set_header: X-Forwarded-For $remote_addr
               - proxy_set_header: X-Forwarded-Proto https
+              - client_max_body_size: 2M
               - location /:
                   - return: 301 https://chat.opensuse.org
               - location /_matrix:
