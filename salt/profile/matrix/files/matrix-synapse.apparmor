@@ -17,6 +17,9 @@ profile matrix-synapse {
     owner /data/matrix/ r,
     owner /data/matrix/** rw,
 
+    # PrivateTmp
+    owner /tmp/* rw,
+
     /usr/bin/bash Cx -> bash,
 
     profile bash {
