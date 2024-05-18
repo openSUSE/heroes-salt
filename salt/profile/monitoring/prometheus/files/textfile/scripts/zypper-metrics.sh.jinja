@@ -20,7 +20,7 @@ command -v zypper 1>/dev/null || exit 0
 command -v transactional-update 1>/dev/null && exit 0
 
 zypper_count_pending_updates () {
-  zypper --no-refresh --xmlout lu | grep -c '<update '
+  mispipe 'zypper --no-refresh --xmlout lu' 'grep -c "<update "'
 }
 
 zypper_needs_rebooting () {
@@ -29,12 +29,15 @@ zypper_needs_rebooting () {
   case "$?" in
     0 ) echo 0 ;;
     102 ) echo 1 ;;
-    * ) exit 1 ;;
+    * ) return 1 ;;
   esac
   set -e
 }
 
+pending_updates="$(zypper_count_pending_updates)"
+needs_rebooting="$(zypper_needs_rebooting)"
+
 {
-  echo "zypper_pending_updates $(zypper_count_pending_updates)"
-  echo "zypper_needs_rebooting $(zypper_needs_rebooting)"
+  echo "zypper_pending_updates $pending_updates"
+  echo "zypper_needs_rebooting $needs_rebooting"
 } | sponge /var/spool/prometheus/zypper.prom
