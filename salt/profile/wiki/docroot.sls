@@ -44,11 +44,11 @@
 {%- endfor %}
 
 {%- if version != '1_27' %}  # don't deploy LocalSettings.php and wiki_settings.php for wikis still using 1_27
-/srv/www//{{ wiki }}.opensuse.org/public/LocalSettings.php:
+/srv/www/{{ wiki }}.opensuse.org/public/LocalSettings.php:
   file.managed:
     - source: salt://profile/wiki/files/LocalSettings.php
 
-/srv/www//{{ wiki }}.opensuse.org/wiki_settings.php:
+/srv/www/{{ wiki }}.opensuse.org/wiki_settings.php:
   file.managed:
     - context:
         data: {{ data }}
@@ -60,7 +60,7 @@
     - template: jinja
 {%- endif %}
 
-/srv/www//{{ wiki }}.opensuse.org/public/robots.txt:
+/srv/www/{{ wiki }}.opensuse.org/public/robots.txt:
   file.managed:
     - source: salt://profile/wiki/files/{{ data.get('robots', 'robots.txt') }}
 
