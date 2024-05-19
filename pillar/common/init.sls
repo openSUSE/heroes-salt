@@ -26,6 +26,9 @@ include:
   - .sudo
   - .sysctl
   - .update
+  {%- if virtual == 'physical' %}
+  - .smart
+  {%- endif %}
 
 apparmor:
   profiles:

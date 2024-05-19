@@ -14,6 +14,7 @@ grains:
     - lrupp
   partners: []
   weburls: []
+roles: []
 
 # Firewall configuration
 firewalld:
@@ -93,4 +94,8 @@ profile:
   monitoring:
     nrpe:
       server_address: 2a07:de40:b27e:5001:4b26:fce8:5810:cf57
-roles: []
+smartmontools:
+  smartd:
+    config:
+      - /dev/sda
+      - /dev/sdb

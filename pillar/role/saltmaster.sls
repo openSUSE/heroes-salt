@@ -114,6 +114,7 @@ infrastructure:
             'redis',
             'redmine',
             'rsync',
+            'smartmontools',
             'suse_ha',
             'sysconfig',
             'zypper',

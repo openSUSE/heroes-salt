@@ -1,4 +1,5 @@
 {%- set osfullname = grains['osfullname'] %}
+{%- set virtual    = grains['virtual'] %}
 
 {%- if osfullname == 'Leap' %}
 /usr/local/libexec:
@@ -13,7 +14,7 @@ include:
   - hostsfile.pillar_only
   - profile.rpmkeys
   - zypper
-  {%- if grains['virtual'] == 'kvm' %}
+  {%- if virtual == 'kvm' %}
   - profile.qemu-guest-agent
   {%- endif %}
 
@@ -45,3 +46,7 @@ include:
   - profile.dehydrated.target
   - profile.monitoring.prometheus.textfiles
   - prometheus.config
+
+  {%- if virtual == 'physical' %}
+  - smartmontools.smartd
+  {%- endif %}
