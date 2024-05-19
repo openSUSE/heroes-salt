@@ -8,6 +8,7 @@ firewalld:
     main:
       description: Main network (openSUSE-bare)
       services:
+        - hacluster_exporter
         - node_exporter
         - ssh
     nfs:

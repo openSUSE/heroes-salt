@@ -20,6 +20,10 @@ firewalld:
           - 5404
           - 5405
           - 5406
+    hacluster_exporter:
+      ports:
+        tcp:
+          - 9664
   zones:
     cluster:
       description: Cluster network (openSUSE-falkor-cluster-ur)
