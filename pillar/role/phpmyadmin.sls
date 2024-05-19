@@ -1,7 +1,8 @@
-{% if salt['grains.get']('include_secrets', True) %}
 include:
+  - role.common.apache_legacy
+{%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.phpmyadmin
-{% endif %}
+{%- endif %}
 
 # apparmor: see salt/profile/countdown for the Apache AppArmor profile, it includes a ^vhost_phpmyadmin hat
 
