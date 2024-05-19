@@ -1,3 +1,6 @@
+include:
+  - role.common.apache_legacy
+
 apparmor:
   profiles:
     httpd2-prefork:

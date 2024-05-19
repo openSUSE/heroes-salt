@@ -1,8 +1,4 @@
 apache2:
-  pkg.installed:
-    - pkgs:
-      - apache2-mod_apparmor
-      - apache2-prefork
   service.running:
     - enable: True
 

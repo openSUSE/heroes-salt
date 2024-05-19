@@ -1,8 +1,6 @@
 phpmyadmin:
   pkg.installed:
     - pkgs:
-      - apache2-mod_apparmor
-      - apache2-prefork
       - phpMyAdmin
 
   service.running:
