@@ -67,10 +67,10 @@ groups:
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
-      # Deferred queue for all machines except mx*
+      # Deferred queue for all machines except mx*/status*
       - alert: Postfix deferred queue
         expr: >-
-          postfix_queue_length{instance!~"^mx[1-4].infra.opensuse.org$", queue="deferred"} > 1
+          postfix_queue_length{instance!~"^(?:mx|status)[1-4].infra.opensuse.org$", queue="deferred"} > 1
         for: 310s
         labels:
           severity: warning
@@ -94,6 +94,21 @@ groups:
             Large deferred mail queue on {{ $labels.instance }}
           description: |
             The Postfix "deferred" queue on {{ $labels.instance }} exceeds 400 held messages for over five minutes.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      # Deferred queue specific to status*
+      - alert: Postfix deferred queue (Status)
+        expr: >-
+          postfix_queue_length{instance=~"^status[1-4].infra.opensuse.org$", queue="deferred"} > 10
+        for: 310s
+        labels:
+          severity: warning
+        annotations:
+          title: >-
+            Large deferred mail queue on {{ $labels.instance }}
+          description: |
+            The Postfix "deferred" queue on {{ $labels.instance }} exceeds 10 held messages for over five minutes.
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
 
