@@ -16,3 +16,4 @@ prometheus:
         name: prometheus-pgbouncer_exporter
         service:
           name: prometheus-pgbouncer_exporter
+          reload: false
