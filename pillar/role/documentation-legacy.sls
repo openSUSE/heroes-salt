@@ -1,3 +1,6 @@
+include:
+  - role.common.apache
+
 {%- set website = 'doc.opensuse.org' %}
 apache_httpd:
   vhosts:
