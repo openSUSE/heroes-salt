@@ -23,3 +23,9 @@ zypper:
       gpgautoimport: True
       priority: 100
       refresh: True
+    {%- if grains['virtual'] == 'physical' %}
+    openSUSE:infrastructure:physical:
+      baseurl: http://{{ mirror }}/repositories/openSUSE:/infrastructure:/physical/$releasever/
+      priority: 98
+      refresh: True
+    {%- endif %}
