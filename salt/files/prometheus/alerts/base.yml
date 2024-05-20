@@ -133,3 +133,25 @@ groups:
             CPU load on {{ $labels.instance }} is > 80%
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
+
+      # OOM alerting is currently limited to virtual machines due to https://progress.opensuse.org/issues/155992
+      - alert: OOMKill
+        expr: >-
+          (
+            increase(node_vmstat_oom_kill{virtual!="physical"}[1m])
+            > 0
+          )
+          *
+          on(instance)
+          group_left (nodename)
+          node_uname_info{nodename=~".+"}
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: >-
+            OOM kill on {{ $labels.instance }}
+          description: |
+            Out of memory kill(s) are happening on {{ $labels.instance }}
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
