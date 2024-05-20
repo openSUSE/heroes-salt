@@ -10,6 +10,9 @@ grains:
   documentation: []
   responsible: []
   partners: []
-  weburls: []
+  weburls:
+    - doc.opensuse.org
+    - factory-dashboard.opensuse.org
 roles:
+  - documentation-legacy
   - factory-dashboard
