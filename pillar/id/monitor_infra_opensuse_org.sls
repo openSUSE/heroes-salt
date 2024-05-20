@@ -7,13 +7,16 @@ grains:
   reboot_safe: yes
 
   aliases: []
-  description: Monitoring server running Icinga2 and an IRC Bot
+  description: Monitoring server running various Prometheus components, Grafana, a syslog server and an IRC Bot
   documentation:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Monitorinfraopensuseorg
-  responsible: []
+  responsible:
+    - crameleon
   partners: []
   weburls:
     - https://monitor.opensuse.org
+    - https://alerts.infra.opensuse.org
+    - https://prometheus.infra.opensuse.org
 roles:
   - syslog
   - monitoring

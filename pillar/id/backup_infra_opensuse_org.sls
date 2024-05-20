@@ -1,14 +1,14 @@
 grains:
   country: cz
   hostusage:
-    - general backup host
+    - backup storage
   reboot_safe: yes
 
   aliases: []
   description: Generic backup server
   documentation: []
   responsible:
-    - lrupp
+    - crameleon
   partners: []
   weburls: []
 roles:
