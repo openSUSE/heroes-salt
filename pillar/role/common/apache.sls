@@ -6,6 +6,10 @@ apache_httpd:
       SetEnvIf:
         Request_URI:
           ^/check.txt$: donotlog
+    tls:
+      SSLSessionTickets: false
+      SSLStaplingCache: '"shmcb:logs/ssl_stapling(32768)"'
+      SSLUseStapling: true
   vhosts:
     status:
       listen: ipv6-localhost:8181
