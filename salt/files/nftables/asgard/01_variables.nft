@@ -129,6 +129,7 @@ define host4_gitlab-runner2 = 172.16.164.127/32
 define host4_dale        = 172.16.164.138/32
 define host4_jekyll      = 172.16.164.111/32
 define host6_jekyll      = 2a07:de40:b27e:1203:0000:0000:0000:00e1/128
+define host6_pinot       = 2a07:de40:b27e:1203:0000:0000:0000:0b15/128
 define host4_pinot       = 172.16.164.137/32
 define host6_narwal5     = 2a07:de40:b27e:1203::e5/128
 define host4_narwal5     = 172.16.164.115/32
