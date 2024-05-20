@@ -52,7 +52,7 @@ relsync_directories:
     - mode: '0755'
     - source: salt://profile/documentation/files/002-doc.conf
 
-git -C {{ repodir }} pull -q && /home/relsync/bin/update_release_notes:
+git -C {{ repodir }} pull -q && /home/relsync/bin/update_release_notes && rsync -a --delete-after /home/relsync/release-notes/ /srv/www/vhosts/doc.opensuse.org/release-notes/:
   cron.present:
     - user: relsync
     - minute: 0
