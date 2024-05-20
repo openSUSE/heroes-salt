@@ -23,6 +23,8 @@ apache_httpd:
         /usr/share/netbox/static:
           Require: all granted
       RequestHeader: set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
+      RewriteRule:
+        ^/login/$: /oauth/login/oidc/ [R]
       ProxyPass:
         /static: '!'
         /: unix:/run/netbox/gunicorn/socket|http://localhost/
