@@ -25,3 +25,4 @@ prometheus:
             collector.textfile.directory: /var/spool/prometheus
             collector.thermal_zone: false
             collector.powersupplyclass: false
+            collector.systemd: true
