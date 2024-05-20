@@ -24,6 +24,9 @@ include:
   - role.common.monitoring
 
 apache_httpd:
+  modules:
+    - proxy
+    - proxy_http
   vhosts:
     http:
       listen: '{{ listen | ipwrap }}:80'
