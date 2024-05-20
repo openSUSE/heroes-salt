@@ -1,5 +1,5 @@
 {%- set website = 'doc.opensuse.org' %}
-apache:
+apache_httpd:
   vhosts:
     doc:
       listen: '{{ grains['fqdn_ip6'][0] }}:8080'
