@@ -2,6 +2,9 @@ include:
   - role.common.apache
 
 apache_httpd:
+  modules:
+    - proxy
+    - proxy_http
   vhosts:
     netbox:
       listen: '{{ grains['fqdn_ip6'][0] }}:443'
