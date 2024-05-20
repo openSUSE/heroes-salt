@@ -1,0 +1,49 @@
+# yamllint disable rule:line-length
+#####################################################
+## MANAGED BY SALT in salt/files/prometheus/alerts ##
+#####################################################
+---
+groups:
+  - name: ioo-raid
+    rules:
+      - alert: RAID Array Inactive
+        expr: >-
+          (
+            node_md_state{state="inactive"}
+            > 0
+          )
+          *
+          on(instance)
+          group_left (nodename)
+          node_uname_info{nodename=~".+"}
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: >-
+            Degraded RAID array on {{ $labels.instance }}
+          description: |
+            RAID array {{ $labels.device }} on {{ $labels.instance }} is in a degraded state.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      - alert: RAID Disk Failure
+        expr: >-
+          (
+            node_md_disks{state="failed"}
+            > 0
+          )
+          *
+          on(instance)
+          group_left (nodename)
+          node_uname_info{nodename=~".+"}
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: >-
+            RAID disk failure on instance {{ $labels.instance }}
+          description: |
+            At least one disk in RAID array {{ $labels.device }} on {{ $labels.instance }} failed.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
