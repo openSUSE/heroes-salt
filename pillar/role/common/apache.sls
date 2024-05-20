@@ -20,9 +20,14 @@ prometheus:
   pkg:
     component:
       apache_exporter:
-        name: golang-github-lusitaniae-apache_exporter
+        name: false
         environ:
           args:
             scrape_uri: http://[::1]:8181/server-status/?auto
         service:
           name: prometheus-apache_exporter
+
+zypper:
+  packages:
+    golang-github-lusitaniae-apache_exporter:
+      fromrepo: openSUSE:infrastructure
