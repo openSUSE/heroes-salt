@@ -20,7 +20,13 @@ command -v zypper 1>/dev/null || exit 0
 command -v transactional-update 1>/dev/null && exit 0
 
 zypper_count_pending_updates () {
+  set +e
   mispipe 'zypper --no-refresh --xmlout lu' 'grep -c "<update "'
+  case "$?" in
+    106 ) return 0 ;;
+    * ) return "$?" ;;
+  esac
+  set -e
 }
 
 zypper_needs_rebooting () {
