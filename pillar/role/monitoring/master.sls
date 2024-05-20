@@ -123,7 +123,7 @@ prometheus:
               port: 9117
               roles: []
               states:
-                - apache.config.modules.mod_status
+                - apache_httpd
               simple: true
               targets: []
 
