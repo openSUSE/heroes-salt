@@ -2,13 +2,12 @@ grains:
   country: cz
   hostusage:
     - progress.o.o
-  reboot_safe: unknown
+  reboot_safe: yes
   aliases: []
-  description: Redmine (progress.o.o) server
+  description: Redmine server
   documentation: []
   responsible:
     - crameleon
-    - Looking_For_Maintainers
   partners: []
   weburls:
     - https://progress.opensuse.org

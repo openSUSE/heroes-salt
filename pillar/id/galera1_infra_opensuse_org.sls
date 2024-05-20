@@ -10,7 +10,7 @@ grains:
     - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Galera_Cluster
     - https://www.symmcom.com/docs/how-tos/databases/how-to-recover-mariadb-galera-cluster-after-partial-or-full-crash
   responsible:
-    - lrupp
+    - crameleon
   partners:
     - galera2.infra.opensuse.org
     - galera3.infra.opensuse.org
