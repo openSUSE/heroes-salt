@@ -4,5 +4,5 @@
 	"title": "Disk",
 	"description": "Disk size (for standalone hypervisors) or mapped LUN UUID (for HA hypervisor clusters)",
 	"type": [ "integer", "string" ],
-	"pattern": "^(\\d{1,2}GB?|[a-z0-9]{33})$"
+	"pattern": "^(\\d{1,2}G|[a-z0-9]{33})$"
 }
