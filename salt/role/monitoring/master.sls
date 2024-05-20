@@ -1,5 +1,5 @@
 include:
-  - apache.config
+  - apache_httpd
   - prometheus.config
   - profile.monitoring.prometheus.alerts
   - profile.karma

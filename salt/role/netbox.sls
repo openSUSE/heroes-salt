@@ -1,3 +1,3 @@
 include:
-  - apache.config
+  - apache_httpd
   - redis

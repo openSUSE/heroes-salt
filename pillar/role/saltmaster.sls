@@ -98,6 +98,7 @@ infrastructure:
   salt:
     formulas:
       {%- for formula in [
+            'apache_httpd',
             'backupscript',
             'bootloader',
             'grains',

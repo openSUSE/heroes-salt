@@ -1,16 +1,14 @@
-apache:
-  purge: True
-  global:
-    SetEnvIfs:
-      - attribute: Request_URI
-        regex: ^/check.txt$
-        variables: donotlog
-    CustomLog: /var/log/apache2/access_log
-    LogFormat: combined env=!dontlog
-  sites:
+apache_httpd:
+  modules:
+    - status
+  configs:
+    log:
+      SetEnvIf:
+        Request_URI:
+          ^/check.txt$: donotlog
+  vhosts:
     status:
-      interface: ipv6-localhost
-      port: 8181
+      listen: ipv6-localhost:8181
       Location:
         /server-status:
           SetHandler: server-status
