@@ -46,3 +46,11 @@ firewalld:
         {%- for vlan_name in vlanmap.keys() %}
         - x-{{ vlan_name }}
         {%- endfor %}
+
+smartmontools:
+  smartd:
+    config:
+      - /dev/sda
+      - /dev/sdb
+      - /dev/sdc
+      - /dev/sdd
