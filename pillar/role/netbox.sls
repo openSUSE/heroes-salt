@@ -23,6 +23,7 @@ apache_httpd:
         /usr/share/netbox/static:
           Require: all granted
       RequestHeader: set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
+      RewriteEngine: true
       RewriteRule:
         ^/login/$: /oauth/login/oidc/ [R]
       ProxyPass:
