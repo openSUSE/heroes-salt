@@ -17,9 +17,6 @@ apache_httpd:
       SSLCertificateKeyFile: /etc/ssl/services/netbox1.infra.opensuse.org/privkey.pem
       SSLHonorCipherOrder: false
       SSLProtocol: all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1 -TLSv1.2
-      SSLSessionTickets: false
-      SSLStaplingCache: '"shmcb:logs/ssl_stapling(32768)"'
-      SSLUseStapling: true
       Alias:
         /static: /usr/share/netbox/static
       Directory:
