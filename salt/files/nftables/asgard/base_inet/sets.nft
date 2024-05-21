@@ -1007,6 +1007,7 @@ set acl6_internet_obs-login {
       $host6_nuka,       # access to build.o.o
       $host6_osc-collab, # access to api.o.o
       $host6_rpmlint,    # access to build.o.o
+      $host6_pinot,      # access to build.o.o
     }
 }
 
