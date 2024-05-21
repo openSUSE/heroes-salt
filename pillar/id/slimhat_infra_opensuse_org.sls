@@ -99,3 +99,12 @@ smartmontools:
     config:
       - /dev/sda
       - /dev/sdb
+prometheus:
+  pkg:
+    component:
+      smartctl_exporter:
+        environ:
+          args:
+            smartctl.device:
+              - sda
+              - sdb

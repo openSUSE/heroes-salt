@@ -56,6 +56,7 @@ prometheus:
             'pgbouncer': 9127,
             'ping': 9427,
             'postgres': 9187,
+            'smartctl': 9633,
           }.items()
       %}
       {{ exporter }}_exporter:

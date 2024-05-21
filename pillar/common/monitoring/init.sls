@@ -1,6 +1,9 @@
 include:
   - .listen
   - .node_exporter
+  {%- if grains['virtual'] == 'physical' %}
+  - .smartctl_exporter
+  {%- endif %}
 
 profile:
   monitoring:

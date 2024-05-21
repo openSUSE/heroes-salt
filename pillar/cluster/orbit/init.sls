@@ -1,4 +1,4 @@
-{%- from 'macros.jinja' import bond, slave, vlantap %}
+{%- from 'macros.jinja' import bond, slave, smart, vlantap %}
 
 grains:
   virt_cluster: orbit-bare
@@ -44,12 +44,16 @@ firewalld:
       interfaces:
         - os-bare
 
-smartmontools:
-  smartd:
-    config:
-      # orbit20 has 4, orbit21 5 disks
-      # the 5th is in pillar/id/orbit21_infra_opensuse_org.sls
-      - /dev/sda
-      - /dev/sdb
-      - /dev/sdc
-      - /dev/sdd
+{%- set disks = [
+      'sda',
+      'sdb',
+      'sdc',
+      'sdd',
+    ]
+%}
+
+{%- if grains['id'] == 'orbit21.infra.opensuse.org' %}
+{%- do disks.append('sde') %}
+{%- endif %}
+
+{{ smart(disks) }}
