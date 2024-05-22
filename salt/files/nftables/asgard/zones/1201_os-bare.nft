@@ -7,6 +7,8 @@
 
   ip6 saddr $net6_os-bare ip6 daddr $self6_bare ip6 nexthdr icmpv6 accept
 
+  ip6 saddr @net6_os-bare ip6 daddr $host6_backup tcp dport nfs accept
+
  }
 
  chain output_network_os-bare {
