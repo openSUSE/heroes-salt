@@ -1,4 +1,4 @@
-{%- from 'macros.jinja' import bond, slave, vlantap %}
+{%- from 'macros.jinja' import bond, slave, smart, vlantap %}
 
 grains:
   virt_cluster: squanchy-bare
@@ -47,10 +47,9 @@ firewalld:
         - x-{{ vlan_name }}
         {%- endfor %}
 
-smartmontools:
-  smartd:
-    config:
-      - /dev/sda
-      - /dev/sdb
-      - /dev/sdc
-      - /dev/sdd
+{{ smart([
+      'sda',
+      'sdb',
+      'sdc',
+      'sdd',
+]) }}

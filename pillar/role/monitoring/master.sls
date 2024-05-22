@@ -202,6 +202,15 @@ prometheus:
                 - saltmaster
               targets: []
 
+            smartctl:
+              port: 9633
+              states:
+                - smartmontools.smartd
+              scrape:
+                interval: 5m
+              simple: true
+              targets: []
+
             solr:
               port: 8989
               roles:

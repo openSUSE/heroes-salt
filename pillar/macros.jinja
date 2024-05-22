@@ -39,3 +39,20 @@ redis:
     port: 0
     {%- endif %}
 {%- endmacro %}
+
+{%- macro smart(devices) -%}
+smartmontools:
+  smartd:
+    config:
+      {%- for device in devices %}
+      - /dev/{{ device }}
+      {%- endfor %}
+
+prometheus:
+  pkg:
+    component:
+      smartctl_exporter:
+        environ:
+          args:
+            smartctl.device: {{ devices }}
+{%- endmacro -%}

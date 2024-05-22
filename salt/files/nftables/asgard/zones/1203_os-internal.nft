@@ -116,6 +116,8 @@
   ip6 saddr $host6_monitor ip6 daddr { $host6_pagure, $host6_ipx-narwal1, $host6_narwal4 } tcp dport 9113 accept
   # monitor -> falkor* (Prometheus HA cluster metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_falkor tcp dport 9664 accept
+  # monitor -> all bare metal (Prometheus smartctl metrics collection)
+  ip6 saddr $host6_monitor ip6 daddr @net6_os-bare tcp dport 9633 accept
 
   # chip -> all nameservers (DNS, query/notify)
   ip6 saddr $host6_chip ip6 daddr @host6_all_dns udp dport domain accept

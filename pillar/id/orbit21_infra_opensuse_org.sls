@@ -28,9 +28,3 @@ prometheus:
         environ:
           args:
             web.listen-address: '[2a07:de40:b27e:1201::a1]:9100'
-
-smartmontools:
-  smartd:
-    config:
-      # remaining disks are in pillar/cluster/orbit/init.sls
-      - /dev/sde
