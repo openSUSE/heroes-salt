@@ -191,6 +191,7 @@ define host6_man         = 2a07:de40:b27e:1203:0000:0000:0000:0130/128
 define host6_provo-proxy1 = 2a07:de40:b27e:0064:0000:0000:c0a8:4302/128
 define host4_matomo      = 172.16.164.141/32
 define host6_matomo      = 2a07:de40:b27e:1203:0000:0000:0000:0b19/128
+define host6_backup      = 2a07:de40:b27e:1203:0000:0000:0000:0140/128
 
 # Remote Gateways via P2P networks
 define host6_provo-gate_1  = fd4b:5292:d67e:3::2/128
