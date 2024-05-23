@@ -106,5 +106,5 @@ prometheus:
         environ:
           args:
             smartctl.device:
-              - sda
-              - sdb
+              - /dev/sda
+              - /dev/sdb
