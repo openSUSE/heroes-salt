@@ -54,5 +54,8 @@ prometheus:
       smartctl_exporter:
         environ:
           args:
-            smartctl.device: {{ devices }}
+            smartctl.device:
+              {%- for device in devices %}
+              - /dev/{{ device }}
+              {%- endfor %}
 {%- endmacro -%}
