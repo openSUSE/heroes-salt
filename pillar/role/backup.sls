@@ -17,5 +17,5 @@ nfs:
         monitor.infra.opensuse.org: {{ export_options }}
       /backup/falkor:
         {%- for i in [0, 1, 2] %}
-        falkor{{ i }}.infra.opensuse.org: {{ export_options }}
+        falkor2{{ i }}.infra.opensuse.org: {{ export_options }}
         {%- endfor %}
