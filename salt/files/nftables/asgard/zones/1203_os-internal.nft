@@ -110,6 +110,8 @@
   ip6 saddr $host6_monitor ip6 daddr @host6_witch1 tcp dport 8216 accept
   # monitor -> all HAProxy nodes (Prometheus HAProxy metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_haproxy tcp dport 8404 accept
+  # monitor -> all Apache httpd nodes (Prometheus Apache metrics collection)
+  ip6 saddr $host6_monitor ip6 daddr $host6_netbox1 tcp dport 9117 accept
   # monitor -> asgard* (Prometheus ping metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @self6_internal tcp dport 9427 accept
   # monitor -> pagure01 (Prometheus nginx metrics collection)
