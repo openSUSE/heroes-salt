@@ -1188,8 +1188,6 @@ set host6_all_dns {
   flags interval
   elements = {
     $host6_chip,
-    $host6_nue-ns1,
-    $host6_nue-ns2,
     $host6_stonehat,
     $host6_stonehat_p2p,
     $host6_ipx-proxy1,
