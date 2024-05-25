@@ -74,6 +74,13 @@ prometheus:
               equal:
                 - instance
                 - server
+            - source_matchers:
+                - alertname="SMART Very High Device Temperature"
+              target_matchers:
+                - alertname="SMART High Device Temperature"
+              equal:
+                - instance
+                - device
           templates:
             - /etc/prometheus/templates/*.template
           time_intervals:
