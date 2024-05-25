@@ -52,6 +52,7 @@ firewalld:
       services:
         - monitoring
         - munin-node
+        - smartctl_exporter
     heroes-external:
       short: heroes-external
       description: >-

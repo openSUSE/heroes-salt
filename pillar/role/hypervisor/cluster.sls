@@ -10,6 +10,7 @@ firewalld:
       services:
         - hacluster_exporter
         - node_exporter
+        - smartctl_exporter
         - ssh
     nfs:
       description: NFS network (openSUSE-falkor-nfs-ur)

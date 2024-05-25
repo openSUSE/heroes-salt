@@ -1,3 +1,11 @@
+firewalld:
+  services:
+    smartctl_exporter:
+      description: Prometheus smartctl Exporter
+      ports:
+        tcp:
+          - 9633
+
 prometheus:
   pkg:
     component:
