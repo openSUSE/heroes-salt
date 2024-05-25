@@ -158,6 +158,14 @@ prometheus:
               simple: true
               targets: []
 
+            mail:
+              port: 3903
+              roles:
+                - mailman3
+                - mailserver
+              simple: true
+              targets: []
+
             mysql:
               port: 9104
               roles:
@@ -285,13 +293,6 @@ prometheus:
             {%- endfor %}
 
             {#- jobs with custom settings: #}
-
-            - job_name: mail
-              scheme: http
-              static_configs:
-                - targets:
-                    - mx-test.infra.opensuse.org:3903
-              {{ relabel_instance(3903) }}
 
             - job_name: nodes
               static_configs:
