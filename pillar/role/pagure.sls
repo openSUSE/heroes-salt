@@ -17,9 +17,19 @@ firewalld:
     internal:
       interfaces:
         - os-code
+    atlas:
+      description: Public traffic from Atlas proxy servers
+      sources:
+        - 2a07:de40:b27e:1204::11/128
+        - 2a07:de40:b27e:1204::12/128
       services:
         - http
         - https
+      ports:
+        - comment: Public SSH for Git
+          port: 2222
+          protocol: tcp
+
 
 profile:
   pagure:
