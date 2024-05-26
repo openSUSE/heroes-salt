@@ -170,8 +170,8 @@ discourse01:
 download:
   cluster: squanchy
   disks:
-    root: 15G
     data0: 1000G
+    root: 15G
   interfaces:
     os-mirror:
       ip6: 2a07:de40:b27e:1205::a/64

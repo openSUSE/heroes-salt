@@ -16,9 +16,10 @@ mirror_bin:
             - source: salt://{{ slspath }}/files/bin/{{ file }}.jinja
         {%- endfor %}
     - mode: '0750'
-    - user: mirror
+    - user: root
+    - group: mirror
     - require:
-        - user: user_mirror_user
+        - user: users_mirror_user
 
 mirror_cscreenrc:
   file.managed:
