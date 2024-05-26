@@ -14,6 +14,7 @@ pagure_ssh_config:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
         - Include /etc/ssh/sshd_config
         - ListenAddress localhost:2222
+        - UseDNS no
         - AllowUsers git
         - Match User git
         -   AuthorizedKeysCommand /usr/lib/pagure/keyhelper.py "%u" "%h" "%t" "%f"
