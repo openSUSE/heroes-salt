@@ -6,6 +6,11 @@ include:
 {%- endif %}
   - role.common.nginx
 
+apparmor:
+  local:
+    go-mmproxy:
+      - /etc/go-mmproxy.subnets r
+
 firewalld:
   enabled: true
   zones:
@@ -15,23 +20,6 @@ firewalld:
       services:
         - http
         - https
-
-sshd_config:
-  matches:
-    git_user:
-      type:
-        User: git
-      options:
-        AuthorizedKeysCommand: /usr/lib/pagure/keyhelper.py "%u" "%h" "%t" "%f"
-        AuthorizedKeysCommandUser: git
-    proxy:
-      type:
-        Address:
-          - 2a07:de40:b27e:1204::11  # atlas1
-          - 2a07:de40:b27e:1204::12  # atlas2
-      options:
-        AllowUsers:
-          - git
 
 profile:
   pagure:
@@ -107,6 +95,8 @@ groups:
       - git
 
 zypper:
+  packages:
+    go-mmproxy: {}
   repositories:
     openSUSE:infrastructure:pagure:
       baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/$releasever/

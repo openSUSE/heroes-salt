@@ -1,3 +1,6 @@
+include:
+  - .ssh
+
 pagure_packages:
   pkg.installed:
     - pkgs:
