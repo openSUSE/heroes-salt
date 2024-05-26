@@ -61,7 +61,7 @@ pagure_mmproxy_config:
         ARGS: >-
           -4 127.0.0.1:2222
           -6 [::1]:2222
-          -l {{ grains['fqdn_ip6'][0] }}:2222
+          -l {{ grains['fqdn_ip6'][0] | ipwrap }}:2222
           -v 1
           --allowed-subnets /etc/go-mmproxy.subnets
     - require:
