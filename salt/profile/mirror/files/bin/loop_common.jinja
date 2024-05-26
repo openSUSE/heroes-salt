@@ -1,0 +1,48 @@
+{{ pillar['managed_by_salt'] }}
+
+# to be included in loop scripts
+export LC_TIME=en_DK.utf8 # for ISO8601 date format
+export TZ=UTC0
+RSYNC_OPTIONS=" -avH --stats --timeout=600 --no-motd --chown mirror:mirror --max-delete=40000 --temp-dir=/tmp/rsyncin/ --exclude=*.src.rpm"
+RSYNC_OPTIONS1="--ignore-existing"
+RSYNC_OPTIONS2="--delay-updates --delete-delay"
+
+RSYNC_SOURCE=rsync://stage.opensuse.org/opensuse-really-full
+RSYNC_DEST=/data/srv/www
+basewait=60
+
+function random_delay()
+{
+    rand=${1:-200}
+    basewait=${2:-$basewait}
+    [ -n "$3" ] && WHAT=$3
+    PAUSE=$(( ( $RANDOM % $rand ) + $basewait ))
+    printf "%s waiting %u seconds before starting sync of %s\n" "$(date)" $PAUSE $WHAT
+    sleep ${PAUSE}s
+    printf "%s starting sync of %s\n" "$(date)" $WHAT
+}
+
+function sync_repo1()
+{       
+        local opts="$1"
+        rsync $RSYNC_OPTIONS $opts \
+                $RSYNC_SOURCE/$repo/ \
+                $RSYNC_DEST/$repo/
+}
+
+function sync_repo()
+{
+        local repo=$1
+        for opts in "$RSYNC_OPTIONS1" "$RSYNC_OPTIONS2" ; do
+                sync_repo1 "$opts"
+        done
+}
+
+function sync_loop()
+{   
+        while true ; do
+                random_delay
+                sync_repo $WHAT
+                printf "%s sync of %s completed.\n" "$(date)" $WHAT
+        done
+}

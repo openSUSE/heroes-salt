@@ -1,0 +1,48 @@
+#!/bin/bash     
+{{ pillar['managed_by_salt'] }}
+WHAT=( 'update/leap/15.5' 'update/tumbleweed' )
+. /home/mirror/bin/loop_common
+RSYNC_SOURCE=rsync://stage3.opensuse.org/opensuse-full-with-factory/opensuse
+ping -q -c2 stage3.opensuse.org || { echo "Could not reach stage3.opensuse.org" >&2; exit 1; }
+basewait=10     
+                
+RSYNC_OPTIONS="$RSYNC_OPTIONS 
+        --exclude=*debuginfo*
+        --exclude=*Mesa*
+        --exclude=Mozilla*
+        --exclude=texlive*
+        --exclude=Aeon*
+        --exclude=cross-*
+        --exclude=chrom*
+        --exclude=NetworkManager*
+        --exclude=*/s390x/*
+        --exclude=*/ppc64le/*
+        --exclude=i586
+        --exclude=i686
+        --exclude=*/aarch64/*
+        --exclude=*/*/kernel-*devel*
+        --exclude=*/*/kernel-source*
+        --exclude=*/*/libreoffice*
+        --exclude=*/*/kernel-azure*
+        --exclude=*aarch64*
+        --exclude=*/*/virtualbox*
+        --exclude=non-oss/*
+        --exclude=*/*/kernel-rt*
+        --exclude=*/*/kernel-obs*
+        --exclude=*/*/gnome*
+        --exclude=*/*/kernel-zfcpdump*
+        --exclude=*/*/kernel-debug*
+        --delete-excluded"
+
+function sync_loop2()
+{
+        while sleep 5 ; do
+		for W in ${WHAT[@]} ; do
+                  sync_repo $W
+                  printf "%s sync of %s completed.\n" "$(date)" $W
+		done
+                random_delay
+        done
+}
+
+sync_loop2

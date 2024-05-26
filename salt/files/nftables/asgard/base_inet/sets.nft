@@ -423,12 +423,12 @@ set host6_witch1 {
   }
 }
 
-# downloadtmp.i.o.o (temporary internal mirror / download.i.o.o)
-set host6_downloadtmp {
+# download.i.o.o (internal mirror)
+set host6_download {
   type ipv6_addr
   flags interval
   elements = {
-    2a07:de40:b27e:1205::a/128
+    $host6_download,
   }
 }
 

@@ -5,14 +5,11 @@
  chain input_network_os-mirror {
   jump global_internal
 
-  ip6 saddr $net6_os-bare ip6 daddr $net6_os-mirror ip6 nexthdr icmpv6 accept
-  ip6 saddr $net6_os-bare ip6 daddr $net6_os-mirror tcp dport http accept
   ip6 saddr $net6_os-mirror ip6 daddr $self6_mirror ip6 nexthdr icmpv6 accept
 
-  ip6 saddr { $net6_os-s-warp, $net6_os-thor } ip6 daddr $downloadtmp tcp dport ssh accept
+  ip6 saddr { $net6_os-s-warp, $net6_os-thor } ip6 daddr $host6_download tcp dport ssh accept
 
-  ip6 saddr $downloadtmp tcp dport { http, https, rsync } accept
-  ip6 saddr $downloadtmp udp dport domain accept
+  ip6 saddr $host6_download tcp dport { http, https, rsync } ip6 daddr != @lan_ipv6_nonat accept
 
   # not sure why 135 (nd-neighbor-solicit) in global_internal doesn't work
   ip6 saddr fe80::/10 ip6 daddr $net6_os-mirror ip6 nexthdr icmpv6 accept
