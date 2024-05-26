@@ -140,5 +140,6 @@ haproxy:
       servers:
         ssh_pagure01:
           check: check inter 10s
+          extra: send-proxy-v2
           host: 2a07:de40:b27e:1206::a
-          port: 22
+          port: 2222

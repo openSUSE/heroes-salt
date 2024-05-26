@@ -69,7 +69,7 @@
   # atlas -> matrix (Synapse, Element; chat.o.o, matrix.o.o, dimension.o.o, webhook.o.o)
   ip6 saddr @host6_atlas ip6 daddr $host6_matrix tcp dport { http, 8008 } accept
   # atlas -> pagure01 (for Git via SSH to code.o.o)
-  ip6 saddr @host6_atlas ip6 daddr $host6_pagure tcp dport ssh accept
+  ip6 saddr @host6_atlas ip6 daddr $host6_pagure tcp dport 2222 accept
   # atlas -> monitor (monitor.o.o, grafana)
   ip6 saddr @host6_atlas ip6 daddr $host6_monitor tcp dport { http, 3000 } accept
   # atlas -> metrics (metrics.o.o)
