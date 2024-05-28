@@ -54,3 +54,10 @@ pagure_gunicorn_override:
     - name: {{ service }}
     - enable: True
 {%- endfor %}
+
+pagure_robots:
+  file.managed:
+    - name: /srv/www/htdocs/robots.txt
+    - contents:
+        - 'User-agent: *'
+        - 'Disallow: /'
