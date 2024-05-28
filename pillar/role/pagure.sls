@@ -55,6 +55,8 @@ nginx:
                   - proxy_pass: http://unix:/srv/gitolite/.pagure_web.sock
               - location /:
                   - try_files: $uri @pagure
+              - location /robots.txt:
+                  - alias: /srv/www/htdocs/robots.txt
               - location /releases:
                   - alias: /srv/www/pagure-releases/
                   - autoindex: 'on'
