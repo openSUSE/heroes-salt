@@ -42,7 +42,17 @@ pagure_gunicorn_override:
     - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
         - '[Service]'
-        - GUNICORN_CMD_ARGS=--workers=8
+        - ExecStart=
+        - >-
+          ExecStart =
+          /usr/bin/gunicorn
+          --workers=8
+          --timeout=60
+          --env PAGURE_CONFIG=/etc/pagure/pagure.cfg
+          --access-logfile /var/log/pagure/access_web.log
+          --error-logfile /var/log/pagure/error_web.log
+          --bind unix:/srv/gitolite/.pagure_web.sock
+          "pagure.flask_app:create_app()"
     - watch_in:
       - service: pagure_web_service
 
