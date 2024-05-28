@@ -46,6 +46,18 @@ pagure_gunicorn_override:
     - watch_in:
       - service: pagure_web_service
 
+pagure_worker_override:
+  file.managed:
+    - names:
+        - /etc/systemd/system/pagure_worker.service.d/salt.conf
+    - makedirs: True
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - '[Service]'
+        - Environment=TMPDIR=/data/pagure/tmp
+    - watch_in:
+      - service: pagure_worker_service
+
 {%- set services = ['pagure_web', 'pagure_docs_web', 'pagure_worker', 'pagure_authorized_keys_worker', 'pagure_api_key_expire_mail.timer', 'pagure_mirror_project_in.timer'] %}
 
 {%- for service in services %}
