@@ -13,6 +13,7 @@ pagure_ssh_config:
     - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
         - Include /etc/ssh/sshd_config
+        - Port 2221
         - ListenAddress localhost:2222
         - UseDNS no
         - AllowUsers git
