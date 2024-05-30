@@ -128,7 +128,8 @@ haproxy:
       {{ options() }}
       {{ server('pagure', '2a07:de40:b27e:1206::a', extra_extra='inter 5000') }}
     paste:
-      {{ options() }}
+      {{ options('httpchk') }}
+      {{ httpcheck('paste.opensuse.org', 200, '/up') }}
       {{ server('paste', '2a07:de40:b27e:1203::c2') }}
     pinot:
       {{ options() }}
