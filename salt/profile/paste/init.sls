@@ -5,16 +5,17 @@ paste_dependencies:
   pkg.installed:
     - resolve_capabilities: True
     - pkgs:
-      - git
-      - tar
-      - make
       - gcc-c++
-      - zlib-devel
+      - git
+      - libyaml-devel
+      - make
+      - nodejs20
       - postgresql-devel
       - postgresql-server-devel
-      - {{ ruby }}-devel
       - system-user-wwwrun
-      - nodejs20
+      - tar
+      - zlib-devel
+      - {{ ruby }}-devel
 
 paste_user:
   user.present:
