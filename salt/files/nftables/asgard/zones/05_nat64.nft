@@ -37,7 +37,4 @@ chain input_network_nat64 {
   # for PMBS API access (https://pmbs.links2linux.de/)
   oifname os-p2p-pub ip saddr @acl4_internet_pmbs ip daddr @cloud4_pmbs tcp dport https accept
 
-  # miscellaneous IPv4-only services needed to be accessed by Weblate (on nuka.i.o.o)
-  oifname os-p2p-pub ip saddr $host4_nuka ip daddr @cloud4_misc_weblate tcp dport { http, https } accept
-
 }
