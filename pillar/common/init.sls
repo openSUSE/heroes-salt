@@ -103,6 +103,8 @@ salt:
   minion_remove_config: true
   minion:
     backup_mode: minion
+    disable_modules:
+      - npm
     enable_gpu_grains: false
     grains_cache: true
     grains_cache_expiration: 86400
