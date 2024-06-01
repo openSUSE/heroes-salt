@@ -103,8 +103,77 @@ salt:
   minion_remove_config: true
   minion:
     backup_mode: minion
+    # keep disable_modules in sync with bin/prepare_test_env.sh
     disable_modules:
+      - artifactory
+      - bigip
+      - composer
+      - consul
+      - cpan
+      - dnsmasq
+      - gem
+      - genesis
+      - glassfish
+      - gnomedesktop
+      - google_chat
+      - helm
+      - incron
+      - iosconfig
+      - iptables
+      - jboss7
+      - jboss7_cli
+      - k8s
+      - kubeadm
+      - ldapmod
+      - mandrill
+      - mattermost
+      - modjk
+      - msteams
+      - nagios
+      - nagios_rpc
+      - namecheap_domains
+      - namecheap_domains_dns
+      - namecheap_domains_ns
+      - namecheap_ssl
+      - namecheap_users
+      - nexus
+      - nova
       - npm
+      - nxos
+      - nxos_api
+      - nxos_upgrade
+      - openscap
+      - openstack_config
+      - opsgenie
+      - pagerduty
+      - pagerduty_util
+      - parallels
+      - peeringdb
+      - philips_hue
+      - pip
+      - pushover_notify
+      - pyenv
+      - random_org
+      - rbenv
+      - rest_sample_utils
+      - restartcheck
+      - rvm
+      - s3
+      - s6
+      - serverdensity_device
+      - solrcloud
+      - statuspage
+      - supervisord
+      - telegram
+      - telemetry
+      - travisci
+      - vault
+      - vbox_guest
+      - virtualenv_mod
+      - vsphere
+      - zabbix
+      - zcbuildout
+      - zenoss
     enable_gpu_grains: false
     grains_cache: true
     grains_cache_expiration: 86400

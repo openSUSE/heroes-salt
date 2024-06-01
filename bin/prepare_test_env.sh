@@ -84,6 +84,58 @@ if [[ -n "$HIGHSTATE" ]]; then
 	    mkdir /etc/salt/minion.d
     fi
     echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
+    tee /etc/salt/minion.d/modules.conf <<-EOF
+	disable_modules:
+	  - artifactory
+	  - bigip
+	  - composer
+	  - consul
+	  - cpan
+	  - dnsmasq
+	  - gem
+	  - genesis
+	  - glassfish
+	  - gnomedesktop
+	  - google_chat
+	  - helm
+	  - incron
+	  - iosconfig
+	  - iptables
+	  - jboss7
+	  - jboss7_cli
+	  - k8s
+	  - kubeadm
+	  - ldapmod
+	  - mandrill
+	  - mattermost
+	  - modjk
+	  - msteams
+	  - nagios
+	  - nagios_rpc
+	  - namecheap_domains
+	  - namecheap_domains_dns
+	  - namecheap_domains_ns
+	  - namecheap_ssl
+	  - namecheap_users
+	  - nexus
+	  - nova
+	  - npm
+	  - nxos
+	  - nxos_api
+	  - nxos_upgrade
+	  - openscap
+	  - openstack_config
+	  - opsgenie
+	  - pagerduty
+	  - pagerduty_util
+	  - parallels
+	  - peeringdb
+	  - philips_hue
+	  - pip
+	  - pushover_notify
+	  - pyenv
+	  - random_org
+	EOF
     tee /etc/salt/minion.d/roots.conf <<-EOF
 	file_roots:
 	  base:
