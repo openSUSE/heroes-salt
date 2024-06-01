@@ -116,6 +116,7 @@ salt:
     master:
       - witch1.infra.opensuse.org
       #- witch2.infra.opensuse.org (not ready yet)
+    mine_interval: 720
     {%- if osfullname == 'openSUSE Leap Micro' %}
     module_executors:
       - transactional_update
