@@ -26,6 +26,7 @@ include:
   - .sudo
   - .sysctl
   - .update
+  - .users
   {%- if virtual == 'physical' %}
   - .smart
   {%- endif %}
