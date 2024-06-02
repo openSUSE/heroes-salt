@@ -22,7 +22,7 @@ elasticsearch:
     # elasticsearch-formula rewrites the sysconfig file from scratch, therefore we have to copy all of its contents here
     ES_PATH_CONF: /etc/elasticsearch
     ES_STARTUP_SLEEP_TIME: 5
-  version: 6.8.22
+  version: 6.8.23
 
 prometheus:
   wanted:
