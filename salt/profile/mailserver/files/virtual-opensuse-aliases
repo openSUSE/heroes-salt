@@ -22,11 +22,9 @@ hostmaster@opensuse.fr  admin-auto@opensuse.org
 webmaster@opensuse.fr   admin-auto@opensuse.org
 noc@opensuse.fr         admin-auto@opensuse.org
 
-# 20200810 this is a kludge
-ml-admin@opensuse.org	per@opensuse.org
+ml-admin@opensuse.org   admin@opensuse.org
 
-# 20201210 i want to see what this is
-mailer-daemon           per@opensuse.org
+mailer-daemon           admin-auto@opensuse.org
 
 redmine@opensuse.org    redmine+admin@progressoo.infra.opensuse.org
 

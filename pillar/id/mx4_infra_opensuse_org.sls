@@ -3,9 +3,8 @@ grains:
   hostusage: []
   reboot_safe: yes
   aliases: []
-  description: to be filled by pjessen
-  responsible:
-    - pjessen
+  description: unused mail server
+  responsible: []
   partners: []
   weburls: []
 roles: []

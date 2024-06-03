@@ -7,7 +7,7 @@ grains:
   aliases: []
   description: MX test machine
   responsible:
-    - pjessen
+    - crameleon
   partners: []
 roles:
   - mailserver
