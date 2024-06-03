@@ -18,7 +18,6 @@ haproxy:
         - path_favicon           path        /favicon.ico
         - path_grafana_login     path        /grafana/login
         - path_grafana           path_beg    /grafana/
-        - path_kubic_registry    path_beg    /v2/
         - path_matrix_client     path_beg    /.well-known/matrix/client
         - path_matrix_federation path_beg    /.well-known/matrix/server
         - path_meetings          path_beg    /meetings
@@ -131,7 +130,6 @@ haproxy:
         - internal        if host_forums path_metrics !internal_clients
         - internal        if host_monitor path_grafana_login !internal_clients
         - jekyll          if host_monitor path_slash
-        #- kubic          if host_mainpage path_kubic_registry
         - monitor_grafana if host_monitor path_grafana
         - pinot           if host_doc path_relnotes
         - www_openid_ldap if host_www path_openid
@@ -179,7 +177,7 @@ haproxy:
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_mailman3
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_staticpages
         - code 301 location https://static.opensuse.org/favicon.ico code 302 if path_favicon host_www
-        - code 301 prefix   https://www.opensuse.org                         if host_mainpage !path_kubic_registry !path_matrix_client !path_matrix_federation
+        - code 301 prefix   https://www.opensuse.org                         if host_mainpage !path_matrix_client !path_matrix_federation
 
         # redirects with host_redirect_*-only condition
         - code 301 location https://gitlab.com/apparmor/apparmor/wikis/home  if host_redirect_apparmor
