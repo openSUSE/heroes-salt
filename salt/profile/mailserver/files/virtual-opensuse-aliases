@@ -22,7 +22,7 @@ hostmaster@opensuse.fr  admin-auto@opensuse.org
 webmaster@opensuse.fr   admin-auto@opensuse.org
 noc@opensuse.fr         admin-auto@opensuse.org
 
-ml-admin@opensuse.org   admin@opensuse.org
+ml-admin@opensuse.org   admin-auto@opensuse.org
 
 mailer-daemon           admin-auto@opensuse.org
 
