@@ -105,6 +105,7 @@ infrastructure:
             'infrastructure',
             'juniper_junos',
             'libvirt',
+            'lldpd',
             'lock',
             'lunmap',
             'mtail',

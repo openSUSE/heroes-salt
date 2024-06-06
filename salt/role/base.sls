@@ -48,5 +48,8 @@ include:
   - prometheus.config
 
   {%- if virtual == 'physical' %}
+  {%- if grains.get('country') == 'cz' %}
+  - lldpd
+  {%- endif %}
   - smartmontools.smartd
   {%- endif %}

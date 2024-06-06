@@ -28,6 +28,9 @@ include:
   - .update
   - .users
   {%- if virtual == 'physical' %}
+  {%- if country == 'cz' %}
+  - .lldp
+  {%- endif %}
   - .smart
   {%- endif %}
 
