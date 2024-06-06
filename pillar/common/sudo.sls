@@ -23,14 +23,4 @@ sudoers:
   users:
     root:
       - 'ALL=(ALL) ALL'
-    nagios:
-      - >-
-        ALL=(ALL) NOPASSWD:
-        /usr/sbin/zypp-refresh,
-        /usr/bin/zypper ref,
-        /usr/bin/zypper sl,
-        /usr/bin/zypper --xmlout --non-interactive list-updates -t package -t patch
-      {%- if grains['virtual'] == 'physical' %}
-      - 'ALL=(ALL) NOPASSWD: /usr/lib/nagios/plugins/check_md_raid, /sbin/multipath, /usr/bin/ipmitool'
-      {%- endif %}
   purge_includedir: true

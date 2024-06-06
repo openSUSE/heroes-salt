@@ -17,10 +17,6 @@ network:
   interfaces:
     os-bare:
       address: 2a07:de40:b27e:1201::a0/64
-profile:
-  monitoring:
-    nrpe:
-      server_address: 2a07:de40:b27e:1201::a0
 prometheus:
   pkg:
     component:

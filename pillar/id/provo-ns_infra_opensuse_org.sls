@@ -26,7 +26,6 @@ firewalld:
         - private
       services:
         - dns
-        - nrpe
     public:
       interfaces:
         - external
