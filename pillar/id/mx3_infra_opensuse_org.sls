@@ -15,8 +15,6 @@ firewalld:
     internal:
       interfaces:
         - private
-      services:
-        - nrpe
     public:
       interfaces:
         - external

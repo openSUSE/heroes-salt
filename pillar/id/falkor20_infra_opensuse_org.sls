@@ -23,7 +23,3 @@ suse_ha:
     nodeid: 1
   multicast:
     bind_address: fd4b:5292:d67e:1002::f0
-profile:
-  monitoring:
-    nrpe:
-      server_address: 2a07:de40:b27e:1201::f0

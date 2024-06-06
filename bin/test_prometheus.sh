@@ -129,9 +129,6 @@ then
 	exit 1
 fi
 
-# avoid installation of icinga2 in test environment, we decommission it soon, but currently still required in httpd include
-touch /etc/apache2/conf.d/icingaweb2.conf
-
 IDFILE="pillar/id/$(hostname).sls"
 cp "$IDFILE" "$IDFILE".orig
 hack_pillar

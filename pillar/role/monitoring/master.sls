@@ -68,7 +68,6 @@ apache_httpd:
           IndexOrderDefault: Descending Name
           Options: Indexes
           Require: all granted
-      Include: /etc/apache2/conf.d/icingaweb2.conf
     monitor-internal:
       {{ vhost_defaults('monitor') }}
       DocumentRoot: /srv/www/monitor-internal

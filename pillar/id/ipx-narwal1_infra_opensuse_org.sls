@@ -29,4 +29,3 @@ firewalld:
         - private
       services:
         - http
-        - nrpe

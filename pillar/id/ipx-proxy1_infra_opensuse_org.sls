@@ -21,7 +21,6 @@ firewalld:
         - dns
         - http
         - https
-        - nrpe
     public:
       interfaces:
         - external

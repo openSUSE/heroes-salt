@@ -19,6 +19,5 @@ grains:
     - https://prometheus.infra.opensuse.org
 roles:
   - syslog
-  - monitoring
   - monitoring.master
   - monitoring.alertmanager

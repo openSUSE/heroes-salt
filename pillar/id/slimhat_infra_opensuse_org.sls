@@ -23,13 +23,6 @@ firewalld:
   default_zone: public
 
   services:
-    monitoring:
-      short: monitoring
-      description: >-
-        This port is required for monitoring based on NRPE.
-      ports:
-        tcp:
-          - 5665
     wireguard:
       short: VPN interconnect
       description: >-
@@ -91,10 +84,6 @@ firewalld:
       short: Work
     trusted:
       short: Trusted
-profile:
-  monitoring:
-    nrpe:
-      server_address: 2a07:de40:b27e:5001:4b26:fce8:5810:cf57
 smartmontools:
   smartd:
     config:
