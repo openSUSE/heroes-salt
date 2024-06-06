@@ -42,7 +42,7 @@ prometheus:
               equal:
                 - instance
             - source_matchers:
-                - alertname="Low disk space"
+                - alertname=~"Low disk space \(?:big|small\)"
               target_matchers:
                 - alertname="Low disk space predicted"
               equal:
