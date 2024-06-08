@@ -15,6 +15,7 @@ prometheus:
                 |devpts\
                 |devtmpfs\
                 |fusectl\
+                |nfs4?\
                 |overlay\
                 |proc\
                 |procfs\
