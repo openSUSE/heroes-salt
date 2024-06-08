@@ -3,4 +3,3 @@ bind_pgks:
     - pkgs:
       - bind
       - bind-utils
-      - monitoring-plugins-bind9

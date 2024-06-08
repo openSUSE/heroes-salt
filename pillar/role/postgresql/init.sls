@@ -33,7 +33,6 @@ zypper:
     postgresql-llvmjit: {}
     postgresql-contrib: {}
     postgresql-server: {}
-    monitoring-plugins-postgres: {}
   repositories:
     server_database_postgresql:
       baseurl: https://downloadcontent.opensuse.org/repositories/server:/database:/postgresql/$releasever/
