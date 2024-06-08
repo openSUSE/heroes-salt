@@ -22,6 +22,8 @@
     os-ipmi-r   : jump input_network_os-ipmi-r,
     os-thor     : jump input_network_os-thor,
     os-code     : jump input_network_os-code,
+    os-ghr-c    : jump input_network_os-ghr-c,
+    os-ghr-os   : jump input_network_os-ghr-os,
     os-odin     : jump input_network_os-odin,
     os-kani     : jump input_network_os-kani,
     os-netbox   : jump input_network_os-netbox,

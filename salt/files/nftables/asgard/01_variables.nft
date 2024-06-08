@@ -41,6 +41,12 @@ define net6_os-mirror   = 2a07:de40:b27e:1205::/64
 # VLAN 1206 openSUSE-code
 define net6_os-code     = 2a07:de40:b27e:1206::/64
 
+# VLAN 1207 openSUSE-GHR-Cobbler
+define net6_os-ghr-c    = 2a07:de40:b27e:1207::/64
+
+# VLAN 1208 openSUSE-GHR-openSUSE
+define net6_os-ghr-os   = 2a07:de40:b27e:1208::/64
+
 # VLAN 1209 openSUSE-mail
 define net6_os-mail     = 2a07:de40:b27e:1209::/64
 

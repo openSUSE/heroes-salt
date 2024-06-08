@@ -54,6 +54,16 @@ cz:
     net6: 2a07:de40:b27e:1206::/64
     gw6: 2a07:de40:b27e:1206::3
     id: 1206
+  openSUSE-GHR-Cobbler:
+    short: os-ghr-c
+    net6: 2a07:de40:b27e:1207::/64
+    gw6: 2a07:de40:b27e:1207::3
+    id: 1207
+  openSUSE-GHR-openSUSE:
+    short: os-ghr-os
+    net6: 2a07:de40:b27e:1208::/64
+    gw6: 2a07:de40:b27e:1208::3
+    id: 1208
   openSUSE-mail:
     short: os-mail
     net6: 2a07:de40:b27e:1209::/64
