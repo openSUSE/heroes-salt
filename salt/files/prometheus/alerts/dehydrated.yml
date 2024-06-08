@@ -39,7 +39,7 @@ groups:
             time() - dehydrated_hook_last_run
           )
           / 86400
-          > 30
-        for: 1h
+          > 60
+        for: 1d
         labels:
           severity: critical
