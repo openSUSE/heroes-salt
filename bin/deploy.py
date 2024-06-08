@@ -96,7 +96,7 @@ def normalize_role(role):
     _fail(f'Unhandled role construct: {role} - please investigate this.', 3, RuntimeError)
 
 
-def get_targets(paths):  # noqa: PLR0915  # function needs more statements than usual
+def get_targets(paths):  # noqa: PLR0912, PLR0915  # function needs more statements than usual
   """
   Returns a dictionary of minions and nodegroups affected by
   the given paths to files
