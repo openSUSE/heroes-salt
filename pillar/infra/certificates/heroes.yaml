@@ -1,4 +1,11 @@
 ---
+download.infra.opensuse.org:
+  sans:
+    - download-prg.infra.opensuse.org
+  targets:
+    - host: download
+      services:
+        - nginx
 git.infra.opensuse.org:
   sans:
     - gitlab.infra.opensuse.org

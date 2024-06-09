@@ -28,7 +28,7 @@
   ip6 daddr $host6_freeipa tcp dport ldaps accept
 
   # Repositories
-  ip6 daddr $host6_download tcp dport http accept
+  ip6 daddr $host6_download tcp dport { http, https } accept
 
   # Syslog
   ip6 daddr $host6_monitor udp dport syslog accept
