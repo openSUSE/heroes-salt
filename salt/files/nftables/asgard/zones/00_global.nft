@@ -14,8 +14,8 @@
  chain global_internal {
   icmpv6 type { mld2-listener-report, nd-neighbor-solicit, nd-neighbor-advert, nd-router-solicit, nd-router-advert } accept
 
-  # ping to witch1/downloadtmp/freeipa
-  ip6 saddr @lan_ipv6 ip6 daddr { $witch1, $downloadtmp, $host6_freeipa } ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  # ping to witch1/download/freeipa
+  ip6 saddr @lan_ipv6 ip6 daddr { $witch1, $host6_download, $host6_freeipa } ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
   # DNS/HTTPS/NTP/LDAPS/SMTP (to hel)
   ip6 daddr @host6_hel tcp dport { domain, https, ntp, ldaps, smtp } accept
@@ -28,7 +28,7 @@
   ip6 daddr $host6_freeipa tcp dport ldaps accept
 
   # Repositories
-  ip6 daddr $downloadtmp tcp dport http accept
+  ip6 daddr $host6_download tcp dport http accept
 
   # Syslog
   ip6 daddr $host6_monitor udp dport syslog accept

@@ -167,6 +167,18 @@ discourse01:
   legacy_boot: true
   ram: 8192MB
   vcpu: 4
+download:
+  cluster: squanchy
+  disks:
+    data0: 1000G
+    root: 15G
+  interfaces:
+    os-mirror:
+      ip6: 2a07:de40:b27e:1205::a/64
+      mac: a6:f4:8a:dd:b7:7a
+      source: x-os-mirror
+  ram: 1024MB
+  vcpu: 1
 elections2:
   cluster: falkor
   disks:

@@ -1,0 +1,42 @@
+#!/bin/bash
+{{ pillar['managed_by_salt'] }}
+. /home/mirror/bin/loop_common
+
+WHAT=repos
+REPOS=" tumbleweed/repo/oss/x86_64 tumbleweed/repo/oss/noarch tumbleweed/repo/oss/repodata"
+
+RSYNC_OPTIONS="$RSYNC_OPTIONS 
+        --exclude=*debuginfo*
+        --exclude=*Mesa*
+        --exclude=kernel-firmware*
+        --exclude=Mozilla*
+        --exclude=texlive*
+        --exclude=Aeon*
+        --exclude=cross-*
+        --exclude=chrom*
+        --exclude=NetworkManager*
+        --exclude=*/s390x/*
+        --exclude=*/ppc64le/*
+        --exclude=i586
+        --exclude=i686
+        --exclude=*/aarch64/*
+        --exclude=*/*/kernel-*devel*
+        --exclude=*/*/kernel-source*
+        --exclude=*/*/libreoffice*
+        --exclude=*/*/kernel-azure*
+        --exclude=*aarch64*
+        --exclude=*/*/virtualbox*
+        --exclude=non-oss/*
+        --exclude=*/*/kernel-rt*
+        --exclude=*/*/kernel-obs*
+        --exclude=*/*/gnome*
+        --exclude=*/*/kernel-zfcpdump*
+        --exclude=*/*/kernel-debug*
+        --delete-excluded"
+
+while sleep 5 ; do
+        random_delay 300
+        for repo in $REPOS; do
+                sync_repo $repo
+        done
+done
