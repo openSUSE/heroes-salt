@@ -16,6 +16,7 @@ nginx:
                   - snippets/download
           - server:
               - listen: '[::]:443 ssl'
+              - http2: ''
               {%- set tlsdir = '/etc/ssl/services/download.infra.opensuse.org/' %}
               - ssl_certificate: {{ tlsdir }}/fullchain.pem
               - ssl_certificate_key: {{ tlsdir }}/privkey.pem
