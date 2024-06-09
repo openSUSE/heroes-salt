@@ -1,6 +1,13 @@
 include:
   - nginx.config
   - nginx.servers
+  {%- if 'snippets' in pillar.get('nginx', {}) %}
+  - nginx.snippets
+  {%- else %}
+
+/etc/nginx/snippets:
+  file.absent
+  {%- endif %}
 
 /etc/nginx/ssl:
   file.absent
