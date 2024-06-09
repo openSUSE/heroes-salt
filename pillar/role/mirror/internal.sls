@@ -8,14 +8,14 @@ nginx:
         - lib64/nginx/modules/ngx_http_fancyindex_module.so
   servers:
     managed:
-      download:
+      download.conf:
         config:
           - server:
-              - listen: '[::]:80 ipv6_only=on'
+              - listen: '[::]:80'
               - include:
                   - snippets/download
           - server:
-              - listen: '[::]:443 ipv6only=on ssl'
+              - listen: '[::]:443 ssl'
               {%- set tlsdir = '/etc/ssl/services/download.infra.opensuse.org/' %}
               - ssl_certificate: {{ tlsdir }}/fullchain.pem
               - ssl_certificate_key: {{ tlsdir }}/privkey.pem
