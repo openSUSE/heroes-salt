@@ -53,7 +53,7 @@ mirror_cscreenrc:
 
 mirror_cscreen_service:
   service.running:
-    - name: cscreen
+    - name: cscreend
     - enable: true
     - watch:
         - file: mirror_cscreenrc
