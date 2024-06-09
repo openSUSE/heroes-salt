@@ -1,0 +1,12 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-ghr-os {
+  jump global_internal
+
+  log prefix "[GHR-OS Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-ghr-os {
+ }
