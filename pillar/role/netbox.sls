@@ -19,8 +19,11 @@ apache_httpd:
       SSLProtocol: all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1 -TLSv1.2
       Alias:
         /static: /usr/share/netbox/static
+        /static/docs: /usr/share/doc/packages/netbox/docs
       Directory:
         /usr/share/netbox/static:
+          Require: all granted
+        /usr/share/doc/packages/netbox/docs:
           Require: all granted
       RequestHeader: set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
       RewriteEngine: true
