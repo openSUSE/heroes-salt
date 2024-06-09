@@ -18,6 +18,7 @@ mirror_bin:
     - mode: '0750'
     - user: root
     - group: mirror
+    - template: jinja
     - require:
         - user: users_mirror_user
 
