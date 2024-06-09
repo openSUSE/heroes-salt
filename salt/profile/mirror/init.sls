@@ -18,13 +18,14 @@ mirror_bin:
     - mode: '0750'
     - user: root
     - group: mirror
+    - template: jinja
     - require:
         - user: users_mirror_user
 
 mirror_cscreenrc:
   file.managed:
     - name: /etc/cscreenrc
-    - contents: |
+    - contents:
         - {{ pillar['managed_by_salt'] | yaml_encode }}
         - multiuser on
         - acladd admin root
