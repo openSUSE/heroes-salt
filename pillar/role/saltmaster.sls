@@ -64,7 +64,9 @@ salt:
     {#- _needs_ to align with the "ipv6" setting in pillar.common! #}
     interface: '::'
     {%- endif %}
+    job_cache_store_endtime: True
     key_cache: sched
+    master_job_cache: redis
     netapi_enable_clients:
       - local
     ping_on_rotate: True
@@ -77,6 +79,8 @@ salt:
       __env__:
         - /srv/pillar
     pillar_source_merging_strategy: smart
+    redis.db: 1
+    redis.unix_socket_path: /run/redis/salt.sock
     rest_cherrypy:
       host: {{ address }}
       port: 4550
@@ -141,7 +145,7 @@ profile:
 redis:
   salt:
     acllog-max-len: 64
-    databases: 1
+    databases: 2
     port: 0
     tcp-backlog: 511
     timeout: 0
