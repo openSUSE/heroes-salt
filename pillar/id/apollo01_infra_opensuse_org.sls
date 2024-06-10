@@ -10,7 +10,8 @@ grains:
   responsible:
     - SchoolGuy
   weburls: []
-roles: []
+roles:
+  - github_runner
 
 network:
   interfaces:
