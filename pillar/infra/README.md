@@ -41,5 +41,5 @@ Example, values enclosed in `< >` are to be substituted:
     data0: 20G
 
   # the base OS image to apply - the "admin-minimal-xx_x" images should link to the latest build
-  image: admin-minimal-15_5
+  image: admin-minimal-15_6
 ```

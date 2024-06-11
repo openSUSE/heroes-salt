@@ -1,5 +1,5 @@
 {#- version needs to match the build target in OBS _and_ the Kiwi image file name #}
-{%- set version = '15.5' %}
+{%- set version = '15.6' %}
 
 {%- set topdir = salt['pillar.get']('infrastructure:kvm_topdir', '/kvm') %}
 {%- set imagetype = salt['pillar.get']('infrastructure:image_type') %}

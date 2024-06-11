@@ -40,4 +40,4 @@ profile:
       - tw
       - wa
       - zh
-    redirect_target: 'Portal:15.5'
+    redirect_target: 'Portal:15.6'

@@ -21,7 +21,7 @@ help() {
     echo
     echo "Arguments:"
     echo "-p <pkg1,pkg2> Comma-separated list of additional packages to be installed"
-    echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,15,5\""
+    echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,15,6\""
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
     echo "-n             OPTIONAL: Delete all repositories to speed up tests which do not install additional packages"

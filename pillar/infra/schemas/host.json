@@ -32,7 +32,7 @@
 			"description": "Base image to apply on the root disk",
 			"type": "string",
 			"enum": [
-					"admin-minimal-15_5",
+					"admin-minimal-15_6",
 					"admin-minimal-micro-5_4",
 					"admin-micro-5_4"
 			]
