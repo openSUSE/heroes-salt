@@ -104,8 +104,6 @@
     metrics:
       bind:
         {{ bind(listen, 8404, options) }}
-      options:
-        - http-use-htx
       httprequests:
         - use-service prometheus-exporter if { path /metrics }
         {#- we don't serve anything other than /metrics here #}
