@@ -1,9 +1,9 @@
 #!/bin/bash
 {{ pillar['managed_by_salt'] }}
+
 . /home/mirror/bin/loop_common
 
-WHAT=repos
-REPOS=" repositories/openSUSE:/infrastructure repositories/openSUSE:/infrastructure: repositories/home:/darix:/apps repositories/home:/crameleon:/misc"
+WHAT=( 'repositories/openSUSE:/infrastructure' 'repositories/openSUSE:/infrastructure:' 'repositories/home:/darix:/apps' 'repositories/home:/crameleon:/misc' )
 
 RSYNC_OPTIONS="$RSYNC_OPTIONS --exclude=openSUSE_Factory_ARM --exclude=openSUSE_Factory_PPC --exclude=openSUSE_Factory_PowerPC --exclude=openSUSE_Factory_zSystems --exclude=openSUSE_Factory-z
         --exclude=Fedora_* --exclude openSUSE_Leap_*
@@ -12,9 +12,4 @@ RSYNC_OPTIONS="$RSYNC_OPTIONS --exclude=openSUSE_Factory_ARM --exclude=openSUSE_
         --exclude=*.src.rpm
         --delete-excluded"
 
-while sleep 5 ; do
-        random_delay 300
-        for repo in $REPOS; do
-                sync_repo $repo
-        done
-done
+sync_loop

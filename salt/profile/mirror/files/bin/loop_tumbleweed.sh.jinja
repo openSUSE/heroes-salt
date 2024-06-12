@@ -1,9 +1,9 @@
 #!/bin/bash
 {{ pillar['managed_by_salt'] }}
+
 . /home/mirror/bin/loop_common
 
-WHAT=repos
-REPOS=" tumbleweed/repo/oss/x86_64 tumbleweed/repo/oss/noarch tumbleweed/repo/oss/repodata"
+WHAT=( 'tumbleweed/repo/oss/x86_64' 'tumbleweed/repo/oss/noarch' 'tumbleweed/repo/oss/repodata' )
 
 RSYNC_OPTIONS="$RSYNC_OPTIONS 
         --exclude=*debuginfo*
@@ -34,9 +34,4 @@ RSYNC_OPTIONS="$RSYNC_OPTIONS
         --exclude=*/*/kernel-debug*
         --delete-excluded"
 
-while sleep 5 ; do
-        random_delay 300
-        for repo in $REPOS; do
-                sync_repo $repo
-        done
-done
+sync_loop

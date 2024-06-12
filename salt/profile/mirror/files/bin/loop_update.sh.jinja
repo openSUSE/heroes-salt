@@ -1,5 +1,6 @@
 #!/bin/bash     
 {{ pillar['managed_by_salt'] }}
+
 WHAT=( 'update/leap/15.5' 'update/leap/15.6' 'update/tumbleweed' )
 . /home/mirror/bin/loop_common
 RSYNC_SOURCE=rsync://stage3.opensuse.org/opensuse-full-with-factory/opensuse
@@ -34,15 +35,4 @@ RSYNC_OPTIONS="$RSYNC_OPTIONS
         --exclude=*/*/kernel-debug*
         --delete-excluded"
 
-function sync_loop2()
-{
-        while sleep 5 ; do
-		for W in ${WHAT[@]} ; do
-                  sync_repo $W
-                  printf "%s sync of %s completed.\n" "$(date)" $W
-		done
-                random_delay
-        done
-}
-
-sync_loop2
+sync_loop
