@@ -136,7 +136,6 @@ devcon:
   cluster: squanchy
   disks:
     root: 15G
-  image: admin-minimal-15_5
   interfaces:
     os-internal:
       ip6: 2a07:de40:b27e:1203::de/64
@@ -989,7 +988,6 @@ witch1:
   cluster: squanchy
   disks:
     root: 15G
-  image: admin-minimal-15_5
   interfaces:
     os-salt:
       ip6: 2a07:de40:b27e:1200::a/64
