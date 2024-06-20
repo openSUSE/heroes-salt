@@ -1,9 +1,9 @@
 {{ pillar['managed_by_salt'] }}
-
 # to be included in loop scripts
+
 export LC_TIME=en_DK.utf8 # for ISO8601 date format
 export TZ=UTC0
-RSYNC_OPTIONS=" -avH --stats --timeout=600 --no-motd --chown mirror:mirror --max-delete=40000 --temp-dir=/tmp/rsyncin/ --exclude=*.src.rpm"
+RSYNC_OPTIONS=" -avH --stats --timeout=600 --no-motd --chown mirror:mirror --max-delete=40000 --temp-dir=/data/tmp/mirror/ --exclude=*.src.rpm"
 RSYNC_OPTIONS1="--ignore-existing"
 RSYNC_OPTIONS2="--delay-updates --delete-delay"
 
@@ -23,7 +23,7 @@ function random_delay()
 }
 
 function sync_repo1()
-{       
+{
         local opts="$1"
         rsync $RSYNC_OPTIONS $opts \
                 $RSYNC_SOURCE/$repo/ \
@@ -39,10 +39,13 @@ function sync_repo()
 }
 
 function sync_loop()
-{   
+{
+
         while true ; do
+                for W in ${WHAT[@]} ; do
+                        sync_repo $W
+                        printf "%s sync of %s completed.\n" "$(date)" $W
+                done
                 random_delay
-                sync_repo $WHAT
-                printf "%s sync of %s completed.\n" "$(date)" $WHAT
         done
 }

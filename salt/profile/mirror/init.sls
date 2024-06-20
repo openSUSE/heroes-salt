@@ -44,6 +44,7 @@ mirror_cscreenrc:
         - zombie "x "
         - log on
         - zombie_timeout 11
+        - screen -L 0:sync_distribution   bash --login -c "/home/mirror/bin/loop_distribution.sh"
         - screen -L 0:sync_updates        bash --login -c "/home/mirror/bin/loop_update.sh"
         - screen -L 0:sync_tumbleweed     bash --login -c "/home/mirror/bin/loop_tumbleweed.sh"
         - screen -L 0:sync_repositories   bash --login -c "/home/mirror/bin/loop_repositories.sh"
