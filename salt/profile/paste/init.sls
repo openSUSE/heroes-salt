@@ -118,6 +118,7 @@ paste_service:
     - enable: True
     - watch:
         - file: paste.service_custom
+        - git: https://github.com/openSUSE/paste-o-o.git
 
 paste_sidekiq_service:
   service.running:
@@ -125,3 +126,5 @@ paste_sidekiq_service:
     - enable: True
     - require:
         - service: paste_service
+    - watch:
+        - git: https://github.com/openSUSE/paste-o-o.git
