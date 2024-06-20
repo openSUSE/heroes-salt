@@ -5,27 +5,27 @@ WHAT=( 'distribution/leap/15.5' 'distribution/leap/15.6' )
 
 . /home/mirror/bin/loop_common
 
-RSYNC_OPTIONS="$RSYNC_OPTIONS 
+RSYNC_OPTIONS="$RSYNC_OPTIONS
         --exclude=appliances/
         --exclude=ChangeLogs/
-	--exclude=iso/
-	--exclude=live/
-	--exclude=repo/non-oss/
+        --exclude=iso/
+        --exclude=live/
+        --exclude=repo/non-oss/
         --exclude=*aarch64*
-	--exclude=*aws*
-	--exclude=*azure*
-	--exclude=*bluetooth*
+        --exclude=*aws*
+        --exclude=*azure*
+        --exclude=*bluetooth*
         --exclude=*debuginfo*
-	--exclude=*libreoffice*
-	--exclude=*lxqt*
-	--exclude=*texlive*
+        --exclude=*libreoffice*
+        --exclude=*lxqt*
+        --exclude=*texlive*
         --exclude=*virtualbox*
-	--exclude=*ppc64le*
-	--exclude=*s390x*
+        --exclude=*ppc64le*
+        --exclude=*s390x*
         --exclude=*Mesa*
         --exclude=*Mozilla*
         --exclude=*chromium*
-	--exclude=*-cross*
+        --exclude=*-cross*
         --exclude=cross-*
         --exclude=NetworkManager*
 "
