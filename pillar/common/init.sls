@@ -231,7 +231,8 @@ sshd_config:
   GSSAPIAuthentication: no
   KerberosAuthentication: no
   PermitRootLogin: without-password
-  PrintMotd: yes
+  # motd is printed by pam_motd.so
+  PrintMotd: no
   # TODO: upstream fix is not sufficient https://github.com/saltstack-formulas/openssh-formula/pull/57
   Subsystem: sftp /usr/lib/ssh/sftp-server
   UseDNS: yes
