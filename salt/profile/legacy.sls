@@ -127,6 +127,9 @@ remove_decommissioned_packages:
         - monitoring-plugins-zypper
         - monitoring-tools
         - nrpe
+        - nsca
+        - nsca-client
+        - nsca-ng-server
 
 {%- if grains['osfullname'] == 'Leap' %}
 {#- remove stock "openSUSE-Leap-15.x-x" repositories duplicating the pillar.osfullname managed repo-oss #}
