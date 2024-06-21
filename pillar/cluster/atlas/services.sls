@@ -18,6 +18,7 @@ haproxy:
         - path_favicon           path        /favicon.ico
         - path_grafana_login     path        /grafana/login
         - path_grafana           path_beg    /grafana/
+        - path_matomo            path        /matomo/index.php
         - path_matrix_client     path_beg    /.well-known/matrix/client
         - path_matrix_federation path_beg    /.well-known/matrix/server
         - path_meetings          path_beg    /meetings
@@ -28,6 +29,7 @@ haproxy:
         - path_openid            path_beg    -i /idp
         - host_paste             hdr(host)   -i paste.opensuse.org
         - host_paste             hdr(host)   -i paste-test.opensuse.org
+        - path_piwik             path        /piwik/index.php
         - path_relnotes          path_beg    /release-notes/
         - path_security          path_end    /.well-known/security.txt
         - path_searchpage        path_beg    -i /searchPage
@@ -118,6 +120,9 @@ haproxy:
 
         - sni_matrix               ssl_fc_sni    matrix.opensuse.org
 
+        - param_matomo_module_loginoidc  urlp(module)  LoginOIDC
+        - param_matomo_action_signin     urlp(action)  signin
+
       default_backend: redirect_www_o_o
       use_backends:
         # special paths with common handling for all hosts
@@ -129,6 +134,8 @@ haproxy:
         # path-specific rules
         - internal        if host_forums path_metrics !internal_clients
         - internal        if host_monitor path_grafana_login !internal_clients
+        - internal        if host_beans path_matomo param_matomo_module_loginoidc param_matomo_action_signin !internal_clients
+        - internal        if host_beans path_piwik param_matomo_module_loginoidc param_matomo_action_signin !internal_clients
         - jekyll          if host_monitor path_slash
         - monitor_grafana if host_monitor path_grafana
         - pinot           if host_doc path_relnotes
