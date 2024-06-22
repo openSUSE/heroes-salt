@@ -82,7 +82,7 @@
   oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_stage tcp dport rsync accept
 
   # riesling -> atlas* (HTTPS for RSS feeds embedded in Wiki)
-  oif os-public ip6 saddr $host6_atlas tcp dport https accept
+  oif os-public ip6 saddr $host6_riesling ip6 daddr $host6_atlas tcp dport https accept
 
   # gitlab-runner* -> witch1 (rsync + API access for Salt deployment)
   oif os-salt ip6 saddr @host6_gitlab-runner ip6 daddr @host6_witch1 tcp dport rsync accept
