@@ -89,8 +89,7 @@ groups:
 
       - alert: Low memory
         expr: >-
-          (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10) * on(instance)
-          group_left (nodename) node_uname_info{nodename=~".+"}
+          node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
         for: 1m
         labels:
           severity: warning
