@@ -167,6 +167,13 @@ pmya.opensuse.org:
 progress.opensuse.org:
   targets:
     - macro: atlas
+provo-mirror.opensuse.org:
+  sans:
+    - provo-downloadcontent.opensuse.org
+  targets:
+    - host: provo-mirror
+      services:
+        - nginx
 proxy-prg2.opensuse.org:
   targets:
     - macro: atlas
