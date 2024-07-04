@@ -7,6 +7,7 @@ paste_dependencies:
     - pkgs:
       - gcc-c++
       - git
+      - libvips42
       - libyaml-devel
       - make
       - nodejs20
