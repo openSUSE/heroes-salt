@@ -382,7 +382,7 @@ def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar
   Base application logic
   """
   if mode not in modes or not isinstance(update, dict):
-    ValueError('Invalid function call')
+    raise ValueError('Invalid function call')
   DO_SALT = False
   if mode in modes_salt:
     DO_SALT = True
