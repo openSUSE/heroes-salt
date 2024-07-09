@@ -225,6 +225,7 @@ sshd_config:
   {%- if address is not none %}
   ListenAddress: {{ address }}
   {%- endif %}
+  KbdInteractiveAuthentication: no
   PasswordAuthentication: no
   PermitEmptyPasswords: no
   PubkeyAuthentication: yes
