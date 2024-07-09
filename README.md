@@ -55,6 +55,12 @@ Merge requests to the repository trigger a test suite:
   using NGINX - finds pillar and NGINX syntax errors
 - `test_highstate`: Salt `state.test` for every role - finds most
   pillar/state errors
+- `test_nftables`: Lints and validates the nftables configuration
+  under salt/files/nftables/ - finds cosmetic and syntax issues
+- `test_prometheus`: Validates the Prometheus and Alertmanager
+  configurations as well as the alerting rules under
+  salt/files/prometheus/ - finds monitoring pillar and configuration
+  issues including invalid rules
 
 If the pipeline succeeds and the merge request gets merged, the new
 data will be copied to all Salt Masters.
