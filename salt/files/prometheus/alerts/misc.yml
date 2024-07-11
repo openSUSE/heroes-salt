@@ -30,4 +30,4 @@ groups:
           title: >-
             Failed to update member aliases on {{ $labels.instance }}
           description: >-
-            Failed to update member aliases through get_member_aliases on {{ $labels.instance }}, would have removed {{ $labels.value }} entries.
+            Failed to update member aliases through get_member_aliases on {{ $labels.instance }}, would have removed {{ $value }} entries.
