@@ -1,4 +1,4 @@
-{% set websites = ['html5test', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community', 'ignite', 'oom', 'mirrors'] %}
+{% set websites = ['html5test', 'fontinfo', 'people', 'shop', 'static', 'studioexpress', 'lizards', 'www', 'community', 'ignite', 'oom', 'mirrors'] %}
 
 {%- if grains.get('country') == 'de' %} {#- no IPv6 yet in NUE #}
 {%- set listen = '80' %}
