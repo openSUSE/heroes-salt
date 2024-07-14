@@ -33,12 +33,12 @@ kani1.infra.opensuse.org:
   targets:
     - host: kani1
       services:
-        - kanidm
+        - kanidmd
 kani2.infra.opensuse.org:
   targets:
     - host: kani2
       services:
-        - kanidm
+        - kanidmd
 monitor.infra.opensuse.org:
   sans:
     - alertmanager.infra.opensuse.org
