@@ -277,6 +277,7 @@ zypper:
     lsof: {}
     moreutils: {}
     pam_pwquality: {}
+    purge-kernels-service: {}
     {%- if virtual == 'kvm' %}
     qemu-guest-agent: {}
     {%- endif %}
