@@ -1,0 +1,14 @@
+{{ pillar['managed_by_salt'] }}
+
+auth        requisite   pam_nologin.so
+auth        include     common-auth
+
+account     requisite   pam_nologin.so
+account     include     common-account
+
+password    include     common-password
+
+session     include     common-session
+session     required    pam_loginuid.so require_auditd
+session     optional    pam_keyinit.so  force revoke
+session     optional    pam_motd.so
