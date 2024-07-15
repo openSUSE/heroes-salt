@@ -29,12 +29,25 @@ firewalld:
         - comment: Public SSH for Git
           port: 2222
           protocol: tcp
+    mx:
+      description: Traffic from mail servers
+      sources:
+        - 2a07:de40:b27e:1209::11/128
+        - 2a07:de40:b27e:1209::12/128
+      services:
+        - smtp
 
 
 profile:
   pagure:
     database_user: pagure
     database_host: postgresql.infra.opensuse.org
+  postfix:
+    aliases:
+      reply: /dev/null
+    maincf:
+      non_smtpd_milters: unix:/run/pagure/paguresock
+      smtpd_milters: unix:/run/pagure/paguresock
 
 {%- set listenhttps6='[::]:80' %}
 

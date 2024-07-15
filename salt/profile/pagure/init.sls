@@ -68,7 +68,19 @@ pagure_worker_override:
     - watch_in:
       - service: pagure_worker_service
 
-{%- set services = ['pagure_web', 'pagure_docs_web', 'pagure_worker', 'pagure_authorized_keys_worker', 'pagure_api_key_expire_mail.timer', 'pagure_mirror_project_in.timer'] %}
+# pagure_milter service runs as postfix:postfix (consider patching that to something more sensible upstream)
+pagure_postfix_acl:
+  acl.present:
+    - name: /etc/pagure/pagure.cfg
+    - acl_type: group
+    - acl_name: postfix
+    - perms: r
+    - require:
+      - pkg: pagure_packages
+    - require_in:
+      - service: pagure_milter_service
+
+{%- set services = ['pagure_web', 'pagure_docs_web', 'pagure_worker', 'pagure_authorized_keys_worker', 'pagure_milter', 'pagure_api_key_expire_mail.timer', 'pagure_mirror_project_in.timer'] %}
 
 {%- for service in services %}
 {{ service }}_service:
