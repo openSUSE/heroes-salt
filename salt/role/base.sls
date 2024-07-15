@@ -33,6 +33,7 @@ include:
   - rebootmgr
   - profile.etckeeper
 
+  - profile.pam
   - profile.kanidm.client
   - profile.accounts
   - profile.log
