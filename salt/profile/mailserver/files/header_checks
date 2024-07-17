@@ -2,6 +2,7 @@
 
 /^X-Spam-Virus:[\s\t]+yes[\s]+(.+)/     reject Virus identified $1
 /^X-Spam-Status:[\s\t]+yes.*score=([0-9.]+).*required=([0-9.]+)/        reject Spam identified ($1/$2)
+/^X-Spam-DCC:[\s\t]+[\w-]+:mx[\d\w-]+\s\d+;\sbulk\sBody=([4-9][0-9]*)\sFuz1=([4-9][0-9]*)\sFuz2=([4-9][0-9]*):.*$/     reject Bulk identified ($1/$2/$3)
 
 if /^Subject:.*New Tumbleweed snapshot.*released/
 if /^To:.*(factory@lists.|opensuse-factory@)opensuse.org/
