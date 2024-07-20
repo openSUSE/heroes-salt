@@ -1,20 +1,20 @@
 grains:
   country: de
   hostusage:
+    - Hypervisor
     - IPMI access
   reboot_safe: yes
 
   aliases: []
-  description: IPMI backdoor for widehat.infra.opensuse.org (Remote access) and hypervisor for VMs
+  description: Hypervisor and IPMI bastion for stonehat.infra.opensuse.org
   documentation: []
   responsible:
     - bmwiedemann
     - gpfuetzenreuter
-    - mcaj
-    - lrupp
   partners: []
   weburls: []
-roles: []
+roles:
+  - hypervisor.standalone
 
 # Firewall configuration
 firewalld:
