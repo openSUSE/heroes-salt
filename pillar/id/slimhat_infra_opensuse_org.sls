@@ -14,7 +14,8 @@ grains:
     - lrupp
   partners: []
   weburls: []
-roles: []
+roles:
+  - hypervisor.standalone
 
 # Firewall configuration
 firewalld:
