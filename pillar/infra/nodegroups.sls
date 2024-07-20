@@ -30,7 +30,7 @@ salt:
         - qsc-ns3.infra.opensuse.org
       dns-prg:
         - prg-ns1.infra.opensuse.org
-        - prg.ns2.infra.opensuse.org
+        - prg-ns2.infra.opensuse.org
       mail:
         {%- for i in [1, 2, 3, 4] %}
         - mx{{ i }}.infra.opensuse.org
