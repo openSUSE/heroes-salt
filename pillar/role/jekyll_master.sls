@@ -14,7 +14,7 @@ profile:
         repo: https://github.com/openSUSE/planet-o-o.git
       search.opensuse.org:
         repo: https://github.com/openSUSE/search-o-o.git
-      www.opensuse.org:
+      www-test.opensuse.org:
         branch: main
         repo: https://github.com/openSUSE/www-o-o.git
       yast.opensuse.org:
