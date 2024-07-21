@@ -19,3 +19,7 @@ falkor:
     vs_primary: vs_opensuse
     igroup_primary: falkor
   storage: san
+slimhat:
+  nodes:
+    - slimhat
+  storage: local
