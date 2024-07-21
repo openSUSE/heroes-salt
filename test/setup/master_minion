@@ -71,6 +71,8 @@ do
   if [ "$waited" = 5 ]
   then
     echo 'Master is still not responding after five attempts, giving up.' | tee -a "$out" "$out_errors"
+    cp /var/log/salt/minion minion_log.txt
+    cp /var/log/salt/master master_log.txt
     exit 1
   else
     echo 'Waiting for master ...' >> "$out"
