@@ -75,8 +75,8 @@ printf "grains:\n  country: de\n  hostusage: test\n  reboot_safe: no\n" > "$IDFI
 cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
-    printf 'country: cz\ndomain: %s\ninclude_secrets: %s' "$DOMAIN" "$SECRETS" > /etc/salt/grains
-    [[ -n "${OS[0]}" ]] && printf '\nosfullname: %s\nosmajorrelease: %s\nosrelease_info: [%s, %s]\n' "${OS[0]}" "${OS[1]}" "${OS[1]}" "${OS[2]}" >> /etc/salt/grains
+    printf 'country: cz\ndomain: %s\ninclude_secrets: %s\n' "$DOMAIN" "$SECRETS" > /etc/salt/grains
+    [[ -n "${OS[0]}" ]] && printf 'osfullname: %s\nosmajorrelease: %s\nosrelease_info: [%s, %s]\n' "${OS[0]}" "${OS[1]}" "${OS[1]}" "${OS[2]}" >> /etc/salt/grains
     bin/get_roles.py -o yaml >> "$IDFILE"
 
     if [ ! -d /etc/salt/minion.d ]
