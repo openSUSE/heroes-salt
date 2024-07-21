@@ -64,9 +64,6 @@ haproxy:
       {{ options('httpchk') }}
       {{ httpcheck('search.opensuse.org', 200, method='options') }}
       {{ server('jekyll', '2a07:de40:b27e:1203::e1') }}
-      acls:
-        - is_jekyll_test          hdr_reg(host) -i (.*)-test\.opensuse\.org
-      extra: http-request replace-header HOST (.*)-test(.*) \1\2 if is_jekyll_test
     kubic:
       {{ options ('httpchk') }}
       {{ httpcheck('kubic.opensuse.org', 200, '/check.txt') }}
