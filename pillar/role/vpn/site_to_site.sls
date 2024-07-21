@@ -59,7 +59,7 @@ def run():
         },
       )
       if 'listen' in my_config:
-        pillar[interface].update(
+        pillar[interface]['config'].update(
           {
             'ListenPort': my_config['listen'].rpartition(':')[2],
           },
