@@ -63,11 +63,6 @@ locale:
   default:
     name: en_US.UTF-8
     requires: en_US.UTF-8 UTF-8
-openldap:
-  base: dc=infra,dc=opensuse,dc=org
-  tls_cacertdir: /etc/ssl/certs/
-  tls_reqcert: demand
-  uri: ldaps://freeipa.infra.opensuse.org
 openssh:
   sshd_config_mode: '0600'
   banner_string: Welcome to {{ id }}!

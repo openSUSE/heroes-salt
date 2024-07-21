@@ -39,9 +39,6 @@
      # VPN clients -> reverse proxy + backend on chip for access to PowerDNS web UI
      ip6 daddr $host6_chip tcp dport { 444, 8081 } accept
 
-     # VPN clients -> FreeIPA for Kerberos
-     ip6 daddr $host6_freeipa tcp dport kerberos accept
-
      # VPN clients -> test vhost on monitor
      ip6 daddr $host6_monitor tcp dport 8024 accept
 

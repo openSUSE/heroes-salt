@@ -21,7 +21,7 @@ grains:
   documentation: []        ## Links to additional documentation about the machine and the services
                            ## running on it.
                            ## Everything that is helpful in case the machine/ service is down.
-  responsible: []          ## logins from the main admins of the machine - please use FreeIPA logins here!
+  responsible: []          ## logins from the main admins of the machine - please use Heroes IDP logins here!
   partners: []             ## In case of HA-clusters, please name the partner machines.
   weburls: []              ## Name the URLs the machine is reachable from extern.
 ```

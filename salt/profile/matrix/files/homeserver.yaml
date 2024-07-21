@@ -1603,23 +1603,6 @@ email:
   #template_dir: "res/templates"
 
 
-#password_providers:
-#    - module: "ldap_auth_provider.LdapAuthProvider"
-#      config:
-#        enabled: true
-#        uri: "ldaps://freeipa.infra.opensuse.org"
-#        start_tls: true
-#        base: "cn=users,cn=accounts,dc=infra,dc=opensuse,dc=org"
-#        attributes:
-#           uid: "uid"
-#           mail: "mail"
-#           name: "displayname"
-#        #bind_dn:
-#        #bind_password:
-#        #filter: "(objectClass=posixAccount)"
-
-
-
 # Clients requesting push notifications can either have the body of
 # the message sent in the notification poke along with other details
 # like the sender, or just the event ID and room ID (`event_id_only`).
