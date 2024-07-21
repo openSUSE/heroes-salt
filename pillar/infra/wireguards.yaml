@@ -2,8 +2,8 @@
 
 - asgard1:
     addresses:
-      - fd4b:5292:d67e:4::1/126
-      - 172.16.202.5/31
+      - fd4b:5292:d67e:3::1/126
+      - 172.16.201.5/31
     link_local: fe80::216:3eff:fe51:fd8c/64
     interface: prv1_gate1
     listen: '[2a07:de40:b27e:1204::1]:52461'
@@ -19,8 +19,8 @@
 
 - asgard2:
     addresses:
-      - fd4b:5292:d67e:3::1/126
-      - 172.16.201.5/31
+      - fd4b:5292:d67e:4::1/126
+      - 172.16.202.5/31
     link_local: fe80::216:3eff:ff51:fd8c/64
     interface: prv1_gate1
     listen: '[2a07:de40:b27e:1204::2]:52461'
