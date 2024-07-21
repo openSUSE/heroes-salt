@@ -37,7 +37,6 @@ my $table_style="width='1820' border='1' style='table-layout:fixed;'";
 my $td_style="style='word-wrap:break-word; padding-left:.5em'";
 my $td_color_even='#f6f6f6';
 my $td_color_odd='fcf8e3';
-my $freeipa_user_url='https://freeipa.infra.opensuse.org/ipa/ui/#/e/user/details';
 
 sub getFiles($$) {
     my $path=shift;
@@ -162,9 +161,6 @@ if ( "$sls_files" ne "0" ){
 						else {
 							if ("$entry" eq "partners"){
 								print "[$string](#$string) ";
-							}
-							elsif ("$entry" eq "responsible"){
-								print "[$string]($freeipa_user_url/$string) ";
 							}
 							else {
 								print "$string ";

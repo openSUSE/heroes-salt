@@ -14,8 +14,8 @@
  chain global_internal {
   icmpv6 type { mld2-listener-report, nd-neighbor-solicit, nd-neighbor-advert, nd-router-solicit, nd-router-advert } accept
 
-  # ping to witch1/download/freeipa
-  ip6 saddr @lan_ipv6 ip6 daddr { $witch1, $host6_download, $host6_freeipa } ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  # ping to witch1/download
+  ip6 saddr @lan_ipv6 ip6 daddr { $witch1, $host6_download } ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
   # DNS/HTTPS/NTP/LDAPS/SMTP (to hel)
   ip6 daddr @host6_hel tcp dport { domain, https, ntp, ldaps, smtp } accept
@@ -23,9 +23,6 @@
 
   # Salt (to witch1)
   ip6 daddr $witch1 tcp dport 4505-4506 accept
-
-  # LDAPS (to freeipa)
-  ip6 daddr $host6_freeipa tcp dport ldaps accept
 
   # Repositories
   ip6 daddr $host6_download tcp dport { http, https } accept
@@ -49,8 +46,8 @@
  }
 
  chain global_internal_legacy {
-  # ping to witch1/freeipa
-  ip daddr { $witch1_mapped, $host4_freeipa } ip protocol icmp icmp type { echo-request, echo-reply } accept
+  # ping to witch1
+  ip daddr $witch1_mapped ip protocol icmp icmp type { echo-request, echo-reply } accept
 
   # DNS/HTTPS/NTP/LDAPS/SMTP (to hel)
   ip daddr @host4_hel tcp dport { domain, https, ntp, ldaps, smtp } accept
@@ -58,9 +55,6 @@
 
   # Salt (to witch1)
   ip daddr $witch1_mapped tcp dport 4505-4506 accept
-
-  # LDAPS (to freeipa)
-  ip daddr $host4_freeipa tcp dport ldaps accept
 
   # Syslog
   ip daddr $host4_monitor tcp dport 514 accept

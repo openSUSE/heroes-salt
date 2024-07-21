@@ -148,10 +148,6 @@
   # Hel -> netbox HTTPS (for netbox.i.o.o proxy)
   oif os-netbox ip6 saddr @host6_hel ip6 daddr @host6_netbox tcp dport https accept
 
-  # FreeIPA -> global DNS (why?)
-  ip6 saddr $host6_freeipa udp dport domain accept
-  ip6 saddr $host6_freeipa tcp dport domain accept
-
   # metrics -> download/pontifex2 (httpd log pulling)
   ip6 saddr $host6_metrics ip6 daddr @host6_download tcp dport https accept
 
