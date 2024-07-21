@@ -1,0 +1,7 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/wireguards.json",
+	"title": "WireGuard groups",
+	"description": "Site-to-site VPN peer groups",
+	"type": "array"
+}

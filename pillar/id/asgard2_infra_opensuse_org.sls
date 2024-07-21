@@ -1,3 +1,6 @@
+include:
+  - secrets.include_id
+
 cluster: asgard
 grains:
   country: cz
@@ -16,6 +19,7 @@ roles:
   - gateway
   - ha
   - tayga
+  - vpn.site_to_site
 bird:
   server:
     router_id: 0.0.1.2

@@ -1,0 +1,46 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/wireguard.json",
+	"title": "WireGuard group",
+	"description": "Site-to-site VPN tunnel using WireGuard",
+	"type": "object",
+	"patternProperties": {
+		"^[a-z0-9-]+$": {
+			"type": "object",
+			"properties": {
+				"addresses": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "ip_net"
+					}
+				},
+				"interface": {
+					"type": "string",
+					"pattern": "^[\\w\\d_-]{1,15}$"
+				},
+				"listen": {
+					"type": "string",
+					"pattern": "^\\[.*\\]:5\\d{4}$"
+				},
+				"link_local": {
+					"type": "string",
+					"format": "ipv6_net"
+				},
+				"public_key": {
+					"type": "string",
+					"pattern": "^[A-Za-z0-9+/]{42}[AEIMQUYcgkosw480]=$"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"addresses",
+				"interface",
+				"link_local",
+				"public_key"
+			]
+
+		}
+	},
+	"additionalProperties": false
+}
