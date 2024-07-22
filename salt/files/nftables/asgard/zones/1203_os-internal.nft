@@ -5,13 +5,9 @@
  chain input_network_os-internal {
   jump global_internal
 
-  # disabled 03/03/2024 - to remove
-  #ip6 saddr $net6_os-internal  tcp dport { 22 } accept
-  #ip6 daddr @lan_ipv6 ip6 nexthdr icmpv6 accept
   ip6 saddr @net6_os-internal ip6 daddr @self6_internal ip6 nexthdr icmpv6 accept
 
   # acme -> chip PDNS API
-  #ip6 saddr @host6_acme ip6 daddr $chip tcp dport 444 accept
   # acme -> internet for Let's Encrypt (acme-v02.api.letsencrypt.org doesn't seem to use a fixed address)
   ip6 saddr @host6_acme tcp dport { http, https } accept
   # acme -> { certificate deployment targets } 
@@ -42,9 +38,6 @@
 
   # gitlab-runner* -> registry.o.o (HTTPS)
   ip6 saddr @host6_gitlab-runner ip6 daddr @cloud6_obs-login tcp dport https accept
-  # -> * (temp)
-  #ip6 saddr @host6_gitlab-runner tcp dport { http, https } accept
-  #ip6 saddr @host6_gitlab-runner icmpv6 type { echo-request, echo-reply } accept
 
   # * -> GitHub (HTTP/HTTPS/SSH) (further restricted using client whitelisting through @acl4_internet_github in forward.conf)
   oifname nat64 ip6 daddr @cloud46_github_web icmpv6 type { echo-request, echo-reply } accept
@@ -98,8 +91,6 @@
   # osc-collab -> * (https://github.com/openSUSE/osc-plugin-collab/blob/master/server/upstream/upstream-tarballs.txt)
   oifname { nat64, os-p2p-pub } ip6 saddr $host6_osc-collab tcp dport { http, https, ftp } ip6 daddr != @lan_ipv6_nonat accept
 
-  # monitor -> provo-mirror (HTTPS, why ??) edit: probably Prometheus metrics for debuginfod
-  #oif os-p2p-pub ip6 saddr $host6_monitor ip6 daddr 2a07:de40:0401:0000:0000:0000:0000:0065/128 tcp dport https accept
   # monitor -> LiberaChat (IRCS for heroes-bot)
   oif os-p2p-pub ip6 saddr $host6_monitor ip6 daddr @cloud6_liberachat tcp dport ircs-u accept
 
@@ -135,8 +126,6 @@
   oifname nat64 ip6 daddr @cloud46_db-ip tcp dport https accept
 
   # Hel -> global DNS (for recursion) and NTP (for upstream pool access)
-  #oif os-p2p-pub ip6 saddr @host6_hel udp dport { domain, ntp } accept
-  #oif os-p2p-pub ip6 saddr @host6_hel tcp dport domain accept
   oif os-p2p-pub ip6 saddr @host6_hel udp dport ntp accept
   # Hel -> prg-ns DNS (for forwarding)
   oif os-public ip6 saddr @host6_hel ip6 daddr @host6_prg-ns udp dport { domain, 1053 } accept

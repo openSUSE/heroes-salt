@@ -57,9 +57,6 @@
   ip6 daddr @host6_atlas_mx tcp dport smtp accept
   ip daddr @host4_atlas_mx tcp dport smtp accept
 
-  # Georg/Per for debugging
-  #ip6 saddr { 2a02:1748:f7df:9c80::/64, 2a03:7520:4c68:1::/64 } tcp dport smtp accept
-
   # daffy* -> hel* (ICMP/ping, DNS, NTP)
   ip6 saddr @host6_daffy ip6 daddr @host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_daffy ip6 daddr @host6_hel udp dport { domain, ntp } accept
