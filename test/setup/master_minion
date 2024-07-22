@@ -1,5 +1,10 @@
 #!/bin/bash -eu
 
+copy_logs () {
+    cp /var/log/salt/minion minion_log.txt
+    cp /var/log/salt/master master_log.txt
+}
+
 ## Salt Master setup
 
 # Pre-seed the minion key
@@ -71,8 +76,7 @@ do
   if [ "$waited" = 5 ]
   then
     echo 'Master is still not responding after five attempts, giving up.' | tee -a "$out" "$out_errors"
-    cp /var/log/salt/minion minion_log.txt
-    cp /var/log/salt/master master_log.txt
+    copy_logs
     exit 1
   else
     echo 'Waiting for master ...' >> "$out"
@@ -85,7 +89,7 @@ salt_args=( "${salt_args[@]}" "$HOSTNAME" )
 for cmd in saltutil.sync_grains saltutil.refresh_pillar mine.update
 do
   echo "--> $cmd" >> "$out"
-  salt "${salt_args[@]}" "$cmd"
+  salt "${salt_args[@]}" "$cmd" || { copy_logs ; exit 1 ; }
 done
 
 # monitor user in role.base
