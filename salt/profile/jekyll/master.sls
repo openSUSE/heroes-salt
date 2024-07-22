@@ -1,6 +1,9 @@
 {%- from 'macros.jinja' import known_hosts %}
 {% set git_repos = salt['pillar.get']('profile:web_jekyll:git_repos') %}
 
+{%- set home = '/home/web_jekyll/' %}
+{%- set gitroot = home ~ 'git/' %}
+
 include:
   - profile.cron
 
@@ -28,11 +31,11 @@ jekyll_master_pgks:
 
 {{ known_hosts(salt['pillar.get']('profile:web_jekyll:server_list'), 'web_jekyll') }}
 
-/home/web_jekyll/bin:
+{{ home }}bin:
   file.directory:
     - user: root
 
-/home/web_jekyll/bin/fetch_build_and_rsync_jekyll:
+{{ home }}bin/fetch_build_and_rsync_jekyll:
   cron.present:
     - user: web_jekyll
     - minute: 0
@@ -45,15 +48,15 @@ jekyll_master_pgks:
     - template: jinja
     - user: root
 
-/home/web_jekyll/git:
+{{ gitroot }}:
   file.directory:
     - user: web_jekyll
 
-/home/web_jekyll/jekyll:
+{{ home }}jekyll:
   file.directory:
     - user: web_jekyll
 
-/home/web_jekyll/log:
+{{ home }}log:
   file.directory:
     - user: web_jekyll
 
@@ -62,10 +65,23 @@ jekyll_master_pgks:
 {{ data.repo }}:
   git.cloned:
     - branch: {{ data.get('branch', 'master') }}
-    - target: /home/web_jekyll/git/{{ dir }}
+    - target: {{ gitroot }}{{ dir }}
     - user: web_jekyll
 
-/home/web_jekyll/jekyll/{{ dir }}:
+{{ home }}jekyll/{{ dir }}:
   file.directory:
     - user: web_jekyll
 {% endfor %}
+
+{#- remove unmanaged repositories #}
+{%- set repositories = git_repos.keys() %}
+{%- for repository in salt['file.find'](gitroot, maxdepth=1, mindepth=1, print='name', type='d') %}
+  {%- if repository not in repositories %}
+jekyll_purge_{{ repository }}:
+  file.absent:
+    - names:
+        - {{ gitroot }}{{ repository }}
+        - {{ home }}jekyll/{{ repository }}
+        - {{ home }}log/{{ repository }}.log
+  {%- endif %}
+{%- endfor %}
