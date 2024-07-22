@@ -976,10 +976,6 @@ set acl6_internet_downloadcontent {
         $host6_monitor,
         $host6_mybackup,
         $host6_svn,
-        $host6_osc-collab, # HW19 repository (! FIXME: ask DimStart to move this to a subproject under openSUSE:infrastructure)
-        $host6_kani1, # temporary for kanidm patch
-        $host6_kani2, # ^
-        $host6_mailman3, # temporary for Mailman hotfix packages
         $host6_netbox1,
     }
 }
