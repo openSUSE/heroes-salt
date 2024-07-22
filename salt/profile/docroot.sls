@@ -1,37 +1,48 @@
-{%- set websites = {
-      'web_jekyll': salt['pillar.get']('profile:web_jekyll:websites', []),
-      'web_static': salt['pillar.get']('profile:web_static:websites', []),
-    }
-%}
+#!py
 
-{%- set exclusions = ['oom'] %}
+def run():
+  states = {}
 
-{%- set vhroot = '/srv/www/vhosts/' %}
-{%- set domain = '.opensuse.org' %}
+  websites = {
+    'web_jekyll': __salt__['pillar.get']('profile:web_jekyll:websites', []),
+    'web_static': __salt__['pillar.get']('profile:web_static:websites', []),
+  }
 
-docroot_top:
-  file.directory:
-    - name: {{ vhroot }}
+  exclusions = [
+    'oom',
+  ]
 
-{%- for user, sites in websites.items() %}
-  {%- for site in sites %}
-    {%- if site not in exclusions %}
-docroot_{{ site }}:
-  file.directory:
-    - name: {{ vhroot }}{{ site }}{{ domain }}
-    - user: {{ user }}
-    - require:
-        - file: docroot_top
-    {%- endif %}
-  {%- endfor %}
-{%- endfor %}
+  vhroot = '/srv/www/vhosts/'
+  domain = '.opensuse.org'
 
-{#- remove unmanaged docroots #}
-{%- set all_sites = websites['web_jekyll'] + websites['web_static'] %}
-{%- for docroot in salt['file.find'](vhroot, maxdepth=1, mindepth=1, print='name', type='d') %}
-  {%- if docroot.replace(domain, '') not in all_sites %}
-docroot_purge_{{ docroot }}:
-  file.absent:
-    - name: {{ vhroot }}{{ docroot }}
-  {%- endif %}
-{%- endfor %}
+  states['docroot_top'] = {
+    'file.directory': [{
+      'name': vhroot,
+    }],
+  }
+
+  for user, sites in websites.items():
+    for site in sites:
+      if site not in exclusions:
+        states[f'docroot_{site}'] = {
+          'file.directory': [{
+            'name': f'{vhroot}{site}{domain}',
+            'user': user,
+            'require': [{
+              'file': 'docroot_top',
+            }],
+          }],
+        }
+
+  # remove unmanaged docroots
+  all_sites = [ site for _, sites in websites.items() for site in sites ]
+
+  for docroot in __salt__['file.find'](vhroot, maxdepth=1, mindepth=1, print='name', type='d'):
+    if docroot.replace(domain, '') not in all_sites:
+      states[f'docroot_purge_{docroot}'] = {
+        'file.absent': [{
+          'name': f'{vhroot}{docroot}',
+        }],
+      }
+
+  return states
