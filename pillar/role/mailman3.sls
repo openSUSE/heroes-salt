@@ -47,6 +47,7 @@ nginx:
               - proxy_send_timeout: 600
               - proxy_read_timeout: 600
               - send_timeout: 600
+              - rewrite: ^(/archives)/lists/(.*)$ $1/list/$2 redirect
               - if ($lists_rewritemap):
                   - rewrite: ^(.*)$ $lists_rewritemap permanent
               - if ($feeds_rewritemap):
