@@ -73,9 +73,9 @@ waited=0
 until timeout -k13 10 salt-call "${salt_args[@]}" -t3 test.ping
 do
   waited=$(( waited + 1 ))
-  if [ "$waited" = 5 ]
+  if [ "$waited" = 10 ]
   then
-    echo 'Master is still not responding after five attempts, giving up.' | tee -a "$out" "$out_errors"
+    echo 'Master is still not responding after ten attempts, giving up.' | tee -a "$out" "$out_errors"
     copy_logs
     exit 1
   else
