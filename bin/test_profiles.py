@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Script to test for Salt profiles not included in any roles.
+Script to test for Salt profiles not included in any profiles or roles.
 
 Copyright (C) 2024 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
 
@@ -27,29 +27,34 @@ from lib.colors import red, reset
 
 def test_profiles():
   profiles = set(get_profiles())
-  included_profiles = set()
 
-  for role_file in Path('salt/role').rglob('*.sls'):
-    with open(role_file) as fh:
-      role_includes = []
+  def get_recursive_sls_includes(directory):
+    includes = set()
 
-      for line in fh:
-        line = line.lstrip().rstrip()
+    for file in Path(f'salt/{directory}').rglob('*.sls'):
+      with open(file) as fh:
+        low_includes = []
 
-        if line and line[0] ==  '-':
-          role_includes.append(line.replace('- profile.', ''))
+        for line in fh:
+          line = line.lstrip().rstrip()
 
-      role_includes = set(role_includes)
-      inter = role_includes.intersection(profiles)
+          if line and line[0] ==  '-':
+            low_includes.append(line.replace('- profile.', ''))
 
-      if inter:
-        included_profiles.update(inter)
+        includes.update(set(low_includes))
 
-  return sorted(profiles - included_profiles)
+    return includes
+
+  all_includes = set()
+  for part in ['profile', 'role']:
+    all_includes.update(get_recursive_sls_includes(part))
+
+  return sorted(profiles - all_includes)
+
 
 if __name__ == '__main__':
   result = test_profiles()
   if result:
-    print(f'{red}Fail{reset} - the following profiles are not included in any roles - please delete or include them:')
+    print(f'{red}Fail{reset} - the following profiles are not included in any profiles or roles - please delete or include them:')
     print('\n'.join(test_profiles()))
     exit(1)
