@@ -28,28 +28,35 @@ def get_profiles(directory='salt/profile', do_subprofiles=False):  # noqa PLR091
 
   for profile in Path(directory).iterdir():
     suffix = profile.suffix
-    if suffix == '.sls':
+    if suffix == '.sls' and profile.is_file():
       profiles.append(profile.stem)
 
-    elif not suffix:
+    elif not suffix and profile.is_dir():
       if not do_subprofiles:
         subprofiles_low = []
 
       for profile_low in profile.iterdir():
-        if profile_low.name == 'init.sls':
-          profiles.append(profile.name)
+        if profile_low.is_file():
+          if profile_low.name == 'init.sls':
+            profiles.append(profile.name)
 
-          if not do_subprofiles:
-            break
+            if not do_subprofiles:
+              break
 
-        elif profile_low.suffix == '.sls':
-          subprofile = f'{profile.name}.{profile_low.stem}'
+          elif profile_low.suffix == '.sls':
+            subprofile = f'{profile.name}.{profile_low.stem}'
 
-          if do_subprofiles:
-            subprofiles.append(subprofile)
+            if do_subprofiles:
+              subprofiles.append(subprofile)
 
-          else:
-            subprofiles_low.append(subprofile)
+            else:
+              subprofiles_low.append(subprofile)
+
+        elif not profile_low.suffix and profile_low.is_dir():
+          continue
+
+        else:
+          raise RuntimeError(f'Invalid subprofile: {profile_low}')
 
       else:
         # including subprofiles albeit subprofiles not being enabled due to no init.sls
@@ -57,7 +64,7 @@ def get_profiles(directory='salt/profile', do_subprofiles=False):  # noqa PLR091
           profiles.extend(subprofiles_low)
 
     else:
-      print(f'Confused about: {profile}')
+      raise RuntimeError(f'Invalid profile: {profile}')
 
   if do_subprofiles:
     profiles.extend(subprofiles)
