@@ -119,8 +119,9 @@ test_nginx:
 
 sync:
   extends: .deploy
+  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-deployment-rsync:latest
   script:
-    - "rsync -a --delete --super --owner --group --chown=477:479 --chmod='u=rwX,g=rX,o=' $PWD/ rsync://saltpush@witch1.infra.opensuse.org:873/salt-push/"
+    - "rsync -a --delete --super --chown=477:479 --chmod='u=rwX,g=rX,o=' $PWD/ rsync://saltpush@witch1.infra.opensuse.org:873/salt-push/"
 
 deploy:
   extends: .deploy
