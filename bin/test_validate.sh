@@ -9,6 +9,7 @@ TESTS=(
     test_extension.sh
     test_empty_files.sh
     test_secrets.sh
+    test_profiles.py
     test_roles.py
     test_custom_grains.py
     test_infra_data.sh
