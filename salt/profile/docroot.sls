@@ -11,7 +11,7 @@ def run():
   ]
 
   exclusions = [
-    'oom',
+    'oom',  # => profile.oomanalyser
   ]
 
   vhroot = '/srv/www/vhosts/'
