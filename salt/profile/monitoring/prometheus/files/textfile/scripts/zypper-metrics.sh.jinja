@@ -40,10 +40,30 @@ zypper_needs_rebooting () {
   set -e
 }
 
+zypper_count_orphaned () {
+  set +e
+  mispipe 'sudo zypper --quiet pa --orphaned' 'grep -c "^i"'
+}
+
+rpmconfigcheck_count () {
+  set +e
+  mispipe 'sudo rpmconfigcheck' 'awk "
+          BEGIN { new=0; orig=0; save=0; }
+          /\.rpmnew$/ { new++ }
+          /\.rpmorig$/ { orig++ }
+          /\.rpmsave$/ { save++ }
+          END { printf \"rpmconfigcheck_rpmnew %i\nrpmconfigcheck_rpmorig %i\nrpmconfigcheck_rpmsave %i\", new, orig, save }
+          "'
+}
+
 pending_updates="$(zypper_count_pending_updates)"
 needs_rebooting="$(zypper_needs_rebooting)"
+orphaned_packages="$(zypper_count_orphaned)"
+rpmconfigcheck_metrics="$(rpmconfigcheck_count)"
 
 {
   echo "zypper_pending_updates $pending_updates"
   echo "zypper_needs_rebooting $needs_rebooting"
+  echo "zypper_orphaned_packages $orphaned_packages"
+  echo "$rpmconfigcheck_metrics"
 } | sponge /var/spool/prometheus/zypper.prom
