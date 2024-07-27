@@ -32,16 +32,33 @@ def test_profiles():
     includes = set()
 
     for file in Path(f'salt/{directory}').rglob('*.sls'):
+      low_includes = []
+
       with open(file) as fh:
-        low_includes = []
+        interesting = False
+        potential_jinja_block = False
 
         for line in fh:
           line = line.lstrip().rstrip()
 
-          if line and line[0] ==  '-':
-            low_includes.append(line.replace('- profile.', ''))
+          # Jinja
+          if line and line[0] == '{':
+            potential_jinja_block = True
 
-        includes.update(set(low_includes))
+          # consider subsequent lines as includes
+          if line == 'include:':
+            interesting = True
+
+          if interesting and line != 'include:':
+            if line.startswith('- profile'):
+              low_includes.append(line.replace('- profile.', ''))
+
+            elif line and line[0] not in ['-', '#'] and not potential_jinja_block:
+              break
+
+
+        else:
+          includes.update(set(low_includes))
 
     return includes
 
