@@ -42,7 +42,7 @@ STATUS_JINJA="$?"
 
 
 echo_INFO 'Linting Python files ...'
-ruff check .
+ruff check --config etc/ruff.toml .
 STATUS_PYTHON="$?"
 
 
@@ -57,7 +57,7 @@ find salt/profile -type f -name '*.py' \
     grep -Ev "{(%|{|#)" "$FILE" > "$TMP_PY/$FILE"
     ' x {} \;
 pushd "$TMP_PY" >/dev/null || EXIT=1
-ruff check --config "$OLDPWD"/ruff.toml .
+ruff check --config "$OLDPWD"/etc/ruff.toml .
 STATUS_PYTHON_PROFILE="$?"
 popd >/dev/null || EXIT=1
 rm -r "$TMP_PY"
@@ -66,13 +66,13 @@ rm -r "$TMP_PY"
 echo_INFO 'Linting Shell files ...'
 # TODO: Include all optional suggestions, except for require-double-brackets and require-variable-braces (-o all -e SC2250,SC2292)
 find . -not -path ./t/\* -type f -name '*.sh' \
-  -exec shellcheck -x {} +
+  -exec shellcheck --rcfile etc/shellcheckrc -x {} +
 STATUS_SHELL="$?"
 
 
 echo_INFO 'Linting SLS files ...'
 find . -type f -name '*.sls' \
-  -exec salt-lint {} +
+  -exec salt-lint -c etc/salt-lint.yaml {} +
 STATUS_SLS="$?"
 
 
