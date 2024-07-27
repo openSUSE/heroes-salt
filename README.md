@@ -46,6 +46,7 @@ Merge requests to the repository trigger a test suite:
   - File header and suffix check
   - Empty files check
   - PGP secrets check
+  - Profiles check
   - Roles check
 - `show_highstate`: Salt `state.show_highstate` for every country
    with all roles enabled - finds basic pillar/state template errors
