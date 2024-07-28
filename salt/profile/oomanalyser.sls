@@ -1,5 +1,5 @@
 include:
-  - .static.docroot
+  - profile.docroot
 
 OOMAnalyser:
   pkg.installed
