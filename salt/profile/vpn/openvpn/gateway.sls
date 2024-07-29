@@ -26,11 +26,25 @@ vpn_gateway_login_directory:
     - group: wheel
     - mode: '0750'
 
+vpn_user_config_directory:
+  file.directory:
+    - name: /var/lib/vpn_logins
+    - user: nobody
+    - group: heroes
+    - mode: '0070'
+
 vpn_gateway_login_script:
   file.managed:
     - name: /usr/local/bin/log_openvpn_login.sh
     - mode: '0755'
     - source: salt://profile/vpn/openvpn/files/log_vpn_login.sh.jinja
+    - template: jinja
+
+vpn_user_manage_script:
+  file.managed:
+    - name: /usr/local/bin/manage_inactive_accounts.py
+    - mode: '0755'
+    - source: salt://profile/vpn/openvpn/files/manage_inactive_accounts.py.jinja
     - template: jinja
 
 vpn_gateway_services:

@@ -1,0 +1,273 @@
+#!/usr/bin/python3
+
+import json
+import logging
+import os
+import sys
+from datetime import datetime
+from smtplib import SMTPConnectError
+
+import urllib3
+from dateutil import parser, tz
+
+"""
+{{ pillar['managed_by_salt'] }}
+
+Desciption:
+  This script performs two jobs:
+   1. Find inactive users & notify them to login timely
+   2. if the user did not login even after notice, Report them to the admin
+
+See: https://progress.opensuse.org/issues/160508
+
+Author: karthik@opensuse.org
+"""
+# the no of days for which the user did not login
+_inactive_days = 179
+# notice days for user
+_user_notice_days = 14
+# the directory of the vpn logs
+vpn_log_dir: str = "/var/log/vpn_logins"
+
+api_base_url: str = "https://idm.infra.opensuse.org"
+
+_db_name: str = "/var/lib/vpn_logins/inactive-users.json"
+
+
+def api_key() -> str:
+    """get api key from the KANIDM_API_KEY environment variable"""
+    key = os.getenv("KANIDM_API_KEY")
+    if key is not None:
+        return key
+    stop_script("KANIDM_API_KEY not set!")
+    return ""
+
+
+def log():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+    handler = logging.StreamHandler()
+
+    formatter = logging.Formatter("[%(levelname)s] %(asctime)s %(message)s")
+    handler.setFormatter(formatter)
+
+    logger.addHandler(handler)
+    return logger
+
+
+def stop_script(msg):
+    """stops the script with non success status"""
+    log().critical(msg)
+    sys.exit(1)
+
+
+def date_now() -> datetime:
+    return datetime.now(tz.UTC)
+
+
+def days_since(date: str) -> int:
+    """Number of days elapsed since given date"""
+    date_obj = parser.parse(date)
+    today = date_now()
+    elapsed_days = (today - date_obj).days
+    return elapsed_days
+
+
+# extracts & returns the last login date of the user from their
+# respective vpn log
+def last_login(file: str) -> str:
+    """User's last login date"""
+    try:
+        with open(f"{vpn_log_dir}/{file}", "r") as f:
+            contents = f.read().split(";")
+            return contents[2]
+    except FileNotFoundError:
+        stop_script("cannot fetch last_login details")
+        return ""
+
+
+def send_email(to: str, subject: str, body: str):
+    """Sends email to the `to` address"""
+    log().info(f"sending email to {to} {subject} {body}")
+    # Import smtplib for the actual sending function
+    import smtplib
+
+    # Import the email modules we'll need
+    from email.message import EmailMessage
+
+    # Create a text/plain message
+    msg = EmailMessage()
+
+    msg["From"] = "admin@opensuse.org"
+    msg["To"] = to
+    msg["Subject"] = subject
+    msg.set_content(body)
+
+    try:
+        # Send the message via our own SMTP server.
+        s = smtplib.SMTP("localhost")
+        s.send_message(msg)
+        s.quit()
+    except SMTPConnectError:
+        log().error(f"Failed to send email to {to}")
+
+
+def notify_user(user: str, msg_type: int = 1):
+    """notify the user to login to the VPN"""
+    # for existing users
+    mail_body = f"""
+            Hello {user}
+
+            You did not connect to the Heroes VPN for more than {_inactive_days + 1} days.
+
+            To keep your account active, please login within {_user_notice_days + 1} days of this notice.
+
+            Failing to do so, Your account will be marked for removal.
+
+            This is an automated mail. Please do not respond.
+            """
+    email_ids = user_info(user)
+    if msg_type == 0:
+        # for users who did not login even once
+        mail_body = f"""
+        Hello {user}
+
+        You did not login to the Heroes VPN yet.
+
+        To keep your account active, please login within {_user_notice_days + 1} days of this notice.
+
+        This is an automated mail. Please do not respond.
+        """
+    if email_ids is not None:
+        # an user can have multiple emails
+        # sending mails to all the accounts
+        for mail in email_ids:
+            subject = "[openSUSE] Action required for your Heroes account"
+            send_email(mail, subject, mail_body)
+
+    # TODO: some users do not have email id
+    # explore better ways to handle this case
+    else:
+        log().error(f"{user} email not found")
+
+
+def notify_admin(user: str):
+    """informs the admin to remove a user"""
+    send_email("admin@opensuse.org", f"[VPN] {user} is inactive", "Prepare the user for removal")
+
+
+def db_load() -> dict:
+    """load database from the file & return it"""
+    try:
+        with open(_db_name, "r") as f:
+            obj = json.loads(f.read())
+            return obj
+    except ValueError as e:
+        raise e
+
+
+def db_save(config: dict):
+    """save database to a file"""
+    with open(_db_name, "wt") as f:
+        f.write(json.dumps(config, indent=2))
+
+
+def inactive_users() -> list[str]:
+    """Returns list of users who did not login for more than _inactive_days"""
+    log_dir = users_in_vpn_logs()
+    u = []
+    for user in log_dir:
+        days = days_since(last_login(user))
+        if days >= _inactive_days:
+            u.append(user)
+    return u
+
+
+def users_in_kanidm_group() -> list[str]:
+    """users who are part of the kanidm vpn group"""
+
+    api = f"{api_base_url}/v1/group/vpn/_attr/member"
+    r = urllib3.request(method="GET", url=api, headers={"Authorization": f"Bearer {api_key()}"})
+    if r.status == 200:
+        return [string.split("@")[0] for string in r.json()]
+    else:
+        stop_script(f"Failed to access the {api}")
+    return []
+
+
+def users_in_vpn_logs() -> list[str]:
+    """list all users in vpn logs"""
+    try:
+        return os.listdir(vpn_log_dir)
+    except ValueError:
+        stop_script("Failed to access the log dir")
+    return []
+
+
+def user_info(u: str):
+    """fetche the user email via api"""
+    api = f"{api_base_url}/v1/person/{u}/_attr/mail"
+    r = urllib3.request(method="GET", url=api, headers={"Authorization": f"Bearer {api_key()}"})
+    if r.status == 200:
+        return r.json()
+    else:
+        stop_script(f"Failed to access {api}")
+        return []
+
+
+# User management logic begins
+##############################
+db: dict = {}
+try:
+    db = db_load()
+except ValueError:
+    log().info("database not found")
+
+# check for users who are part of vpn group but did not login even once
+for user in users_in_kanidm_group():
+    # if user does not have a matching vpn log, It means that they did not login even once
+    # notify them to login
+    if user not in users_in_vpn_logs():
+        notify_user(user=user, msg_type=0)
+        db[user] = {"notified_on": str(date_now())}
+    # if the user is in db & notified previously
+    # check if the notice period is over
+    if user in db and days_since(db[user]["notified_on"]) > _user_notice_days:
+        # even then, if the user does not exist in vpn logs, report to admin
+        if user not in users_in_vpn_logs():
+            notify_admin(user)
+            db[user]["notified_admin_on"] = str(date_now())
+
+# check the inactive users from vpn logs
+for user in inactive_users():
+    # if user already exists in the db
+    # check if 15 day notice is completed
+    if user in db:
+        notice_days = days_since(db[user]["notified_on"])
+        # if 15 day notice period is complete
+        # report the user to the admin to take action
+        if notice_days >= _user_notice_days:
+            notify_admin(user)
+            db[user]["notified_admin_on"] = str(date_now())
+    # else proceed to notify the inactive users
+    else:
+        notify_user(user)
+        db[user] = {"notified_on": str(date_now())}
+
+# Database Cleanup
+for user in db:
+    # remove user from db if the they are not in vpn group anymore
+    if user not in users_in_kanidm_group():
+        # it means the user was removed by admin
+        # so we can delete the user from our db
+        log().info(f"removing {user} not found in kanidm, from the db")
+        del db[user]
+
+    # remove the user even if they have a recent login activity
+    if user in users_in_vpn_logs():
+        if days_since(last_login(user)) <= _inactive_days:
+            log().info(f"removing {user} not found in vpn logs, from the db")
+            del db[user]
+
+db_save(db)
