@@ -15,3 +15,4 @@ zypper:
     python3-python-dateutil: {}
     # needed by salt/profile/vpn/openvpn/files/manage_inactive_accounts.py.jinja
     python311: {}
+    python311-urllib3: {}
