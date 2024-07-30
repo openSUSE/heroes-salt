@@ -16,3 +16,4 @@ zypper:
     # needed by salt/profile/vpn/openvpn/files/manage_inactive_accounts.py.jinja
     python311: {}
     python311-urllib3: {}
+    python311-python-dateutil: {}
