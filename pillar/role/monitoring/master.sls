@@ -490,8 +490,7 @@ profile:
     history:
       enabled: true
       rewrite:
-        - proxy_url: string
-          source: https://prometheus.infra.opensuse.org
+        - source: https://prometheus.infra.opensuse.org
           uri: http://ipv6-localhost:9090
       timeout: 10s
       workers: 4
