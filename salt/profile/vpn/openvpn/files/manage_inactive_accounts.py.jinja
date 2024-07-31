@@ -221,7 +221,7 @@ def user_info(u: str):
 db: dict = {}
 try:
     db = db_load()
-except ValueError:
+except FileNotFoundError:
     log().info("database not found")
 
 # check for users who are part of vpn group but did not login even once
