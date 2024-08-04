@@ -76,14 +76,16 @@ tsp_assets_precompile:
     - require:
         - cmd: tsp_ruby_dependencies
 
-/etc/systemd/system/tsp.service:
+{% for service in ['tsp', 'tsp-delayed-job'] %}
+/etc/systemd/system/{{ service }}.service:
   file.managed:
-    - source: salt://profile/tsp/files/tsp.service
+    - source: salt://profile/tsp/files/{{ service }}.service
     - template: jinja
     - context:
         ruby: {{ ruby }}
     - require_in:
       - service: tsp_service
+{% endfor %}
 
 /srv/www/travel-support-program/config/site.yml:
   file.managed:
@@ -105,10 +107,13 @@ tsp_assets_precompile:
 
 tsp_service:
   service.running:
-    - name: tsp
+    - names:
+        - tsp
+        - tsp-delayed-job
     - enable: True
     - watch:
         - file: /etc/systemd/system/tsp.service
+        - file: /etc/systemd/system/tsp-delayed-job.service
         - file: /srv/www/travel-support-program/config/site.yml
         - file: /srv/www/travel-support-program/config/database.yml
         - file: tsp.service_custom

@@ -1,0 +1,21 @@
+{{ pillar['managed_by_salt'] }}
+
+[Unit]
+Description=Travel Support Program Delayed Job
+After=network.target
+
+[Service]
+Type=forking
+
+User=tsp
+
+WorkingDirectory=/srv/www/travel-support-program
+Environment="RAILS_ENV=production"
+
+ExecStart=/usr/bin/bundler.{{ ruby }} exec script/delayed_job start
+ExecStop=/usr/bin/bundler.{{ ruby }} exec script/delayed_job stop
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
