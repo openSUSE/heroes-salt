@@ -24,6 +24,6 @@ sudoers:
     root:
       - 'ALL=(ALL) ALL'
     monitor:
-      - 'ALL = (root) NOPASSWD: zypper --quiet pa --orphaned'
-      - 'ALL = (root) NOPASSWD: rpmconfigcheck'
+      - 'ALL = (root) NOPASSWD: /usr/bin/zypper --quiet pa --orphaned'
+      - 'ALL = (root) NOPASSWD: /usr/sbin/rpmconfigcheck'
   purge_includedir: true
