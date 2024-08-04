@@ -77,8 +77,9 @@ profile:
     aliases:
       root: admin-auto@opensuse.org
     maincf:
-      relayhost: '[relay.infra.opensuse.org]'
+      mydestination: '$myhostname, localhost.$mydomain, localhost'
       myhostname: '{{ grains['host'] }}.infra.opensuse.org'
+      relayhost: '[relay.infra.opensuse.org]'
       smtpd_data_restrictions: reject_unauth_pipelining
       {%- if modern %}
       inet_protocols: ipv6
