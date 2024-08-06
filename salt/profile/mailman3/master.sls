@@ -5,6 +5,17 @@ https://github.com/openSUSE/lists-o-o.git:
     - rev: master
     - user: mailman
 
+mailman_refresh:
+  cmd.run:
+    - names:
+        - /usr/bin/mailman-web collectstatic
+        - /usr/bin/mailman-web compress
+    - shell: /bin/sh
+    - onchanges:
+        - git: https://github.com/openSUSE/lists-o-o.git
+    - watch_in:
+        - service: mailman_web_service
+
 /var/lib/mailman/templates:
   file.symlink:
     - target: /var/lib/mailman/lists-o-o/mailman-templates
