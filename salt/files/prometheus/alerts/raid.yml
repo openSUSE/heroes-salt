@@ -21,6 +21,26 @@ groups:
           severity: critical
         annotations:
           summary: >-
+            Inactive RAID array on {{ $labels.instance }}
+          description: |
+            RAID array {{ $labels.device }} on {{ $labels.instance }} is in an inactive state.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+
+      - alert: RAID Array Degraded
+        expr: >-
+          (
+            (
+              node_md_disks_required - on(device, instance)
+              node_md_disks{state="active"}
+            )
+            > 0
+          )
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: >-
             Degraded RAID array on {{ $labels.instance }}
           description: |
             RAID array {{ $labels.device }} on {{ $labels.instance }} is in a degraded state.
