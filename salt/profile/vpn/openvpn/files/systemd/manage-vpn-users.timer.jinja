@@ -1,0 +1,10 @@
+{{ pillar['managed_by_salt'] }}
+
+[Unit]
+Description=Manage inactive VPN users
+
+[Timer]
+OnCalendar=*-*-* 00:00:00 UTC
+
+[Install]
+WantedBy=timers.target
