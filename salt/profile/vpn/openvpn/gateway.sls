@@ -23,15 +23,15 @@ vpn_gateway_login_directory:
   file.directory:
     - name: /var/log/vpn_logins
     - user: nobody
-    - group: wheel
+    - group: manage_vpn_users
     - mode: '0750'
 
 vpn_user_config_directory:
   file.directory:
     - name: /var/lib/vpn_logins
-    - user: nobody
-    - group: heroes
-    - mode: '0070'
+    - user: manage_vpn_users
+    - group: manage_vpn_users
+    - mode: '0700'
 
 vpn_gateway_login_script:
   file.managed:
@@ -46,6 +46,25 @@ vpn_user_manage_script:
     - mode: '0755'
     - source: salt://profile/vpn/openvpn/files/manage_inactive_accounts.py.jinja
     - template: jinja
+
+vpn_user_manage_service:
+  file.managed:
+    - name: /etc/systemd/system/manage-vpn-users.service
+    - mode: '0644'
+    - source: salt://profile/vpn/openvpn/files/systemd/manage-vpn-users.service.jinja
+    - template: jinja
+
+vpn_user_manage_timer:
+  file.managed:
+    - name: /etc/systemd/system/manage-vpn-users.timer
+    - mode: '0644'
+    - source: salt://profile/vpn/openvpn/files/systemd/manage-vpn-users.timer.jinja
+    - template: jinja
+
+run_vpn_user_manage_timer:
+  service.running:
+    - name: manage-vpn-users.timer
+    - enable: True
 
 vpn_gateway_services:
   service.running:

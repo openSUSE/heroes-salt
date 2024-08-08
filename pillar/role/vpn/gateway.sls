@@ -17,3 +17,7 @@ zypper:
     python311: {}
     python311-urllib3: {}
     python311-python-dateutil: {}
+
+users:
+  manage_vpn_users:
+    system: true

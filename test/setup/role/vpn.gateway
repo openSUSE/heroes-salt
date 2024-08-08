@@ -5,3 +5,4 @@ echo '1204::100' > /etc/openvpn/ccd-tcp/foo
 pushd "$PWD"/salt/profile/vpn/openvpn/files/
 ln -s odin "$HOSTNAME"
 popd
+groupadd manage_vpn_users
