@@ -6,6 +6,8 @@ apache_httpd:
   vhosts:
     doc:
       listen: '{{ grains['fqdn_ip6'][0] }}:8080'
+      CustomLog:
+        env: =!donotlog
       ServerName: {{ website }}
       ServerAdmin: webmaster@opensuse.org
       Documentroot: /srv/www/vhosts-legacy/doc-htdocs

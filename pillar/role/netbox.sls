@@ -8,6 +8,8 @@ apache_httpd:
   vhosts:
     netbox:
       listen: '{{ grains['fqdn_ip6'][0] }}:443'
+      CustomLog:
+        env: =!donotlog
       ServerName: netbox1.infra.opensuse.org
       Header: always set Strict-Transport-Security "max-age=63072000"
       Protocols:
