@@ -3,7 +3,8 @@
 haproxy:
   backends:
     calendar:
-      {{ options() }}
+      {{ options('httpchk') }}
+      {{ httpcheck('calendar.opensuse.org', 200, '/up') }}
       {{ server('calendar', '2a07:de40:b27e:1203::b51') }}
     community: {#- community points to httpd on community2 #}
       {{ options ('httpchk') }}
