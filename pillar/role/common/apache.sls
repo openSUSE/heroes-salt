@@ -8,6 +8,8 @@ apache_httpd:
       SetEnvIf:
         Request_URI:
           ^/check.txt$: donotlog
+      SetEnvIfExpr:
+         '"-R ''::1'' && req(''User-Agent'') =~ m#^Prometheus-Apache-Exporter/\d+\.\d+\.\d+$#"': donotlog_exporter
     remote:
       RemoteIPHeader: X-Forwarded-For
       RemoteIPTrustedProxy:
@@ -28,6 +30,8 @@ apache_httpd:
   vhosts:
     status:
       listen: ipv6-localhost:8181
+      CustomLog:
+        env: =!donotlog_exporter
       Location:
         /server-status:
           SetHandler: server-status
