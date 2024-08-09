@@ -10,6 +10,7 @@ apache_httpd:
           ^/check.txt$: donotlog
       SetEnvIfExpr:
          '"-R ''::1'' && req(''User-Agent'') =~ m#^Prometheus-Apache-Exporter/\d+\.\d+\.\d+$#"': donotlog_exporter
+         '"-R ''2a07:de40:b27e:1203::/64'' || -R ''2a07:de40:b27e:1204::/64'' && req(''User-Agent'') = ''haproxy/health-check''"': donotlog
     remote:
       RemoteIPHeader: X-Forwarded-For
       RemoteIPTrustedProxy:

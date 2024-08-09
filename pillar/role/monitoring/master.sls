@@ -60,6 +60,8 @@ apache_httpd:
     {%- endfor %}
     monitor:
       listen: '{{ listen | ipwrap }}:80'
+      CustomLog:
+        env: =!donotlog
       ServerName: monitor.opensuse.org
       DocumentRoot: /srv/www/htdocs
       Alias:
