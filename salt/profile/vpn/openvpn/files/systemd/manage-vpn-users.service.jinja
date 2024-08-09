@@ -7,4 +7,4 @@ Description=Manage inactive VPN users
 User=manage_vpn_users
 Group=manage_vpn_users
 Environment=KANIDM_API_KEY={{ salt['pillar.get']('profile:vpn:openvpn:manage_vpn_users') }}
-ExecStart=/usr/local/bin/manage_inactive_users.py
+ExecStart=/usr/local/bin/manage_inactive_accounts.py
