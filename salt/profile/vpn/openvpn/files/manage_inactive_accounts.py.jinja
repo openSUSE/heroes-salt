@@ -89,7 +89,7 @@ def last_login(file: str) -> str:
 
 def send_email(to: str, subject: str, body: str):
     """Sends email to the `to` address"""
-    log().info(f"sending email to {to} {subject} {body}")
+    log().info(f"sending email to {to}")
     # Import smtplib for the actual sending function
     import smtplib
 
@@ -231,7 +231,7 @@ for user in users_in_kanidm_group():
     if user not in users_in_vpn_logs():
         notify_user(user=user, msg_type=0)
         db[user] = {"notified_on": str(date_now())}
-    # if the user is in db & notified previously
+    # if the user is in the db & notified previously
     # check if the notice period is over
     if user in db and days_since(db[user]["notified_on"]) > _user_notice_days:
         # even then, if the user does not exist in vpn logs, report to admin
@@ -255,19 +255,25 @@ for user in inactive_users():
         notify_user(user)
         db[user] = {"notified_on": str(date_now())}
 
-# Database Cleanup
+# Database Cleanup Tasks
+to_be_removed: list = []
+
 for user in db:
     # remove user from db if the they are not in vpn group anymore
     if user not in users_in_kanidm_group():
         # it means the user was removed by admin
         # so we can delete the user from our db
-        log().info(f"removing {user} not found in kanidm, from the db")
-        del db[user]
+        log().info(f"db: removing {user} not found in kanidm")
+        to_be_removed.append(user)
 
-    # remove the user even if they have a recent login activity
+    # remove the user if they have a recent login activity
     if user in users_in_vpn_logs():
         if days_since(last_login(user)) <= _inactive_days:
-            log().info(f"removing {user} not found in vpn logs, from the db")
-            del db[user]
+            log().info(f"db: removing {user} not found in vpn logs")
+            to_be_removed.append(user)
+
+# remove the collected list of users from the db
+for u in to_be_removed:
+    del db[u]
 
 db_save(db)
