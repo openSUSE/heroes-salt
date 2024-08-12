@@ -8,8 +8,8 @@
 {%- endif %}
 
 {%- from 'cluster/asgard/macros.jinja' import vrrp with context %}
-{%- import_yaml 'infra/networks.yaml' as country_networks %}
-{%- set networks = country_networks['cz'] %}
+{%- import_yaml 'infra/networks.yaml' as site_networks %}
+{%- set networks = site_networks['prg2'] %}
 
 keepalived:
   config:

@@ -1,5 +1,5 @@
 grains:
-  country: us
+  site: prv1
   hostusage:
     - Galera node (MySQL)
   reboot_safe: no

@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - Galera node (MySQL)
   reboot_safe: no

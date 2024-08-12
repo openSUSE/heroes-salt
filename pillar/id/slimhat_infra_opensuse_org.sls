@@ -1,5 +1,5 @@
 grains:
-  country: de
+  site: nue-ipx
   hostusage:
     - Hypervisor
     - IPMI access

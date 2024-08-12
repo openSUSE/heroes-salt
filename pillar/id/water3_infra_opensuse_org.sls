@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - en.o.o search backend
   reboot_safe: yes

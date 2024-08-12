@@ -48,7 +48,7 @@ Merge requests to the repository trigger a test suite:
   - PGP secrets check
   - Profiles check
   - Roles check
-- `show_highstate`: Salt `state.show_highstate` for every country
+- `show_highstate`: Salt `state.show_highstate` for every site
    with all roles enabled - finds basic pillar/state template errors
 - `test_haproxy`: Validates the HAProxy configuration for all
   proxy clusters - finds pillar and HAProxy syntax errors

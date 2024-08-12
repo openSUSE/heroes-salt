@@ -1,6 +1,6 @@
 cluster: apollo-cobbler
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - GitHub Runner
     - K3S

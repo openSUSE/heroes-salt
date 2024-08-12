@@ -18,19 +18,19 @@ def get_valid_global_grains():
     return get_valid_custom_grains()['global']
 
 
-def get_countries():
-    return get_valid_custom_grains()['countries']
+def get_sites():
+    return get_valid_custom_grains()['sites']
 
 
 def print_valid_localized_grains():
     results = []
-    for country in get_countries():
-        results.append(country)
+    for site in get_sites():
+        results.append(site)
     print('\n'.join(results))
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the pillar/valid_custom_grains.py and returns a list of valid custom grains in the form of "country".')
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the pillar/valid_custom_grains.py and returns a list of valid custom grains in the form of "site".')
     args = parser.parse_args()
 
     print_valid_localized_grains()

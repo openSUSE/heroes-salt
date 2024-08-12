@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - rpmlint.o.o
   reboot_safe: unknown

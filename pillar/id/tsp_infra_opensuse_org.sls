@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - Travel Support Program webapp
   reboot_safe: unknown

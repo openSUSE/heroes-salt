@@ -2,7 +2,7 @@ include:
   - secrets.include_id
 
 grains:
-  country: us
+  site: prv1
   hostusage:
     - gate.o.o
   reboot_safe: yes

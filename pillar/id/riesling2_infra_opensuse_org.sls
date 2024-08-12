@@ -1,5 +1,5 @@
 grains:
-  country: us
+  site: prv1
   hostusage:
     - en.o.o (read-only)
   reboot_safe: unknown

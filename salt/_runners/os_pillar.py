@@ -95,9 +95,9 @@ def get_host_pseudo_ip4(host):
     return config.get('pseudo_ip4')
 
 
-def get_network(country, name):
+def get_network(site, name):
     config = _load_networks()
-    return config.get(country, {}).get(name, {})
+    return config.get(site, {}).get(name, {})
 
 
 def get_host_ip4to6(host, prefix=None, network=None):

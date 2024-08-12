@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - countdown.o.o, release-notes etc.
   reboot_safe: yes

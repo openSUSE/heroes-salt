@@ -1,16 +1,16 @@
-{%- set country = grains.get('country') %}
+{%- set site = grains.get('site') %}
 
 firewalld:
   enabled: true
   zones:
     internal:
       interfaces:
-        {%- if country == 'cz' %}
+        {%- if site == 'prg2' %}
         - os-internal
         {%- else %}
         - private
         {%- endif %}
-    {%- if country == 'cz' %}
+    {%- if site == 'prg2' %}
       services:
         - http
         - https

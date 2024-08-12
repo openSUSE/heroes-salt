@@ -17,8 +17,8 @@ RUN_TEST='salt-call --local --retcode-passthrough state.show_highstate'
 STATUS=0
 
 write_grains() {
-    $SUDO sed -i -e "s/\(country:\).*/\1 $1/" -e "s/\(domain:\).*/\1 $2/" -e "s/\(virtual:\).*/\1 $3/" /etc/salt/grains
-    echo_INFO "Grains: country: $1, domain: $2, virtual: $3"
+    $SUDO sed -i -e "s/\(site:\).*/\1 $1/" -e "s/\(domain:\).*/\1 $2/" -e "s/\(virtual:\).*/\1 $3/" /etc/salt/grains
+    echo_INFO "Grains: site: $1, domain: $2, virtual: $3"
 }
 
 show_highstate() {
@@ -47,8 +47,8 @@ show_highstate() {
 }
 
 ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
-for country in "${ALL_LOCATIONS[@]}"; do
-    show_highstate "$country" 'infra.opensuse.org' 'kvm'
+for site in "${ALL_LOCATIONS[@]}"; do
+    show_highstate "$site" 'infra.opensuse.org' 'kvm'
 done
 
 exit "$STATUS"

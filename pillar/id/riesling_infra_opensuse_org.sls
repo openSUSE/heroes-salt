@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - en.o.o (all *.o.o wikis)
   reboot_safe: yes

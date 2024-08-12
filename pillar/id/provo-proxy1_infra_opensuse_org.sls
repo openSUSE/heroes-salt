@@ -2,7 +2,7 @@ include:
   - cluster.mufasa
 
 grains:
-  country: us
+  site: prv1
   hostusage:
     - proxy
   reboot_safe: yes

@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - SUSE -> openSUSE jump host
   reboot_safe: yes

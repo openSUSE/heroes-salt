@@ -1,5 +1,5 @@
 grains:
-  country: us
+  site: prv1
   hostusage:
     - PostgreSQL node
   reboot_safe: yes

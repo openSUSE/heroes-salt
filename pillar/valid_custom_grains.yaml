@@ -7,7 +7,7 @@ global:
     - no
     # yamllint enable rule:truthy
     - unknown
-countries:
-  - de
-  - us
-  - cz
+sites:
+  - nue-ipx
+  - prg2
+  - prv1
