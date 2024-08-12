@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - static.o.o
     - static.o.o master

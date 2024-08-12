@@ -10,8 +10,8 @@ network:
       vlan_id: 3201
       etherdevice: eth0
 
-    {%- import_yaml 'infra/networks.yaml' as country_networks %}
-    {%- set networks = country_networks['cz'] %}
+    {%- import_yaml 'infra/networks.yaml' as site_networks %}
+    {%- set networks = site_networks['prg2'] %}
 
     {%- for vlan, config in networks.items() %}
     {{ config['short'][:14] }}:

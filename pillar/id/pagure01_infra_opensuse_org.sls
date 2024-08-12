@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - pagure
   reboot_safe: yes

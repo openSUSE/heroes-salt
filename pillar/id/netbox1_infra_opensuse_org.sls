@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - NetBox
   reboot_safe: yes

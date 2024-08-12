@@ -8,7 +8,7 @@ if there is nothing to put into that tag. Just the comments behind ```##```
 
 ```
 grains:
-  country: de              ## The country of the machine.
+  site: nue-ipx            ## The site the machine is located in.
   hostusage: []            ## This will end up in the bash prompt (comma separated values).
                            ## Please keep this short to avoid long lines on the machine.
   roles: []                ## This corresponds to pillar/role/$role.sls and salt/role/$role.sls.

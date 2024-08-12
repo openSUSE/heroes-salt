@@ -1,5 +1,5 @@
 grains:
-  country: us
+  site: prv1
   hostusage:
     - login3.o.o
   reboot_safe: yes

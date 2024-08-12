@@ -11,9 +11,9 @@ zypper:
       gpgautoimport: True
 
 
-{% set country = salt['grains.get']('country') %}
+{% set site = salt['grains.get']('site') %}
 
-{%- if country == 'us' %}
+{%- if site == 'prv1' %}
 
 mirrorcache:
   redirect: downloadcontentcdn.opensuse.org

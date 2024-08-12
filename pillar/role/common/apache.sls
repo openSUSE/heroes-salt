@@ -1,4 +1,4 @@
-{%- set country = salt['grains.get']('country', 'cz') %}
+{%- set site = salt['grains.get']('site', 'prg2') %}
 
 apache_httpd:
   modules:
@@ -14,12 +14,12 @@ apache_httpd:
     remote:
       RemoteIPHeader: X-Forwarded-For
       RemoteIPTrustedProxy:
-        {%- if country == 'cz' %}
+        {%- if site == 'prg2' %}
         - 2a07:de40:b27e:1204::11
         - 2a07:de40:b27e:1204::12
-        {%- elif country == 'de' %}
+        {%- elif site == 'nue-ipx' %}
         - 192.168.87.5
-        {%- elif country == 'us' %}
+        {%- elif site == 'prv1' %}
         - 192.168.67.1
         - 192.168.67.2
         - 192.168.67.3

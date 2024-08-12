@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - mx-test.o.o
   reboot_safe: yes

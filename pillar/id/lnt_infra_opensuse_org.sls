@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - lnt.o.o
   reboot_safe: unknown

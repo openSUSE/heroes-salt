@@ -1,4 +1,4 @@
-{% set country = salt['grains.get']('country') %}
+{% set site = salt['grains.get']('site') %}
 
 firewalld:
   zones:
@@ -23,11 +23,11 @@ nginx:
           - conf.d/*.conf
           - vhosts.d/*.conf
         set_real_ip_from:
-          {%- if country == 'us' %}
+          {%- if site == 'prv1' %}
           - 192.168.67.1
           - 192.168.67.2
           - 192.168.67.3
-          {%- elif country == 'cz' %}
+          {%- elif site == 'prg2' %}
           - 2a07:de40:b27e:1204::11
           - 2a07:de40:b27e:1204::12
           {%- endif %}

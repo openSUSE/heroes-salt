@@ -2,12 +2,12 @@
 {% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
 {% set osrelease = salt['grains.get']('osrelease') %}
 {%- set virtual = salt['grains.get']('virtual') -%}
-{%- set country = salt['grains.get']('country') -%}
+{%- set site = salt['grains.get']('site') -%}
 {%- set address = salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[grains['host'], True]) -%}
 {%- set configure_ntp = salt['grains.get']('configure_ntp', True) %}
 {%- set id = grains['id'] %}
 
-{%- if country == 'cz' or id in ['slimhat.infra.opensuse.org', 'stonehat.infra.opensuse.org', 'provo-gate.infra.opensuse.org'] %}
+{%- if site == 'prg2' or id in ['slimhat.infra.opensuse.org', 'stonehat.infra.opensuse.org', 'provo-gate.infra.opensuse.org'] %}
 {%- set modern = True %}
 {%- else %}
 {%- set modern = False %}
@@ -28,7 +28,7 @@ include:
   - .update
   - .users
   {%- if virtual == 'physical' %}
-  {%- if country == 'cz' %}
+  {%- if site == 'prg2' %}
   - .lldp
   {%- endif %}
   - .smart
@@ -195,7 +195,7 @@ salt:
     snapper_states: true
     features:
         x509_v2: true
-    {%- if country == 'us' %}
+    {%- if site == 'prv1' %}
     {#- high latency tuning #}
     auth_timeout: 15
     ping_interval: 30

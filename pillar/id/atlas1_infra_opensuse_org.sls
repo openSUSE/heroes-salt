@@ -1,6 +1,6 @@
 cluster: atlas
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - Proxy
   reboot_safe: yes

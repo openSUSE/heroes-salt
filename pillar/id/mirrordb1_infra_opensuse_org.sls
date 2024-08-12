@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - postgreSQL cluster
   reboot_safe: no

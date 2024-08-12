@@ -3,7 +3,7 @@ include:
 
 cluster: asgard
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - Firewall
     - Router

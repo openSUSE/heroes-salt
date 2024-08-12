@@ -71,11 +71,11 @@ ID=$(/usr/bin/hostname -f)
 IDFILE="pillar/id/${ID//./_}.sls"
 IDFILE_BASE="$IDFILE.base.sls"
 
-printf "grains:\n  country: de\n  hostusage: test\n  reboot_safe: no\n" > "$IDFILE"
+printf "grains:\n  site: prg2\n  hostusage: test\n  reboot_safe: no\n" > "$IDFILE"
 cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
-    printf 'country: cz\ndomain: %s\ninclude_secrets: %s\n' "$DOMAIN" "$SECRETS" > /etc/salt/grains
+    printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' "$DOMAIN" "$SECRETS" > /etc/salt/grains
     [[ -n "${OS[0]}" ]] && printf 'osfullname: %s\nosmajorrelease: %s\nosrelease_info: [%s, %s]\n' "${OS[0]}" "${OS[1]}" "${OS[1]}" "${OS[2]}" >> /etc/salt/grains
     bin/get_roles.py -o yaml >> "$IDFILE"
 

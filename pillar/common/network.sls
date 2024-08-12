@@ -1,16 +1,16 @@
 {#- source infrastructure data #}
 {%- import_yaml 'infra/hosts.yaml' as hosts %}
-{%- import_yaml 'infra/networks.yaml' as country_networks %}
-{%- import_yaml 'infra/nameservers.yaml' as country_nameservers %}
+{%- import_yaml 'infra/networks.yaml' as site_networks %}
+{%- import_yaml 'infra/nameservers.yaml' as site_nameservers %}
 
 {#- set generic variables #}
 {%- set host = grains['host'] %}
-{%- set country = grains.get('country') %}
-{%- set networks = country_networks.get(country, {}) %}
+{%- set site = grains.get('site') %}
+{%- set networks = site_networks.get(site, {}) %}
 
 {#- locations without internal IPv6 routing (https://progress.opensuse.org/issues/151192) #}
-{%- set legacy_countries = ['de', 'us'] %}
-{#- gateway machines which have internal IPv6 routing, as opposed to other machines in the legacy countries #}
+{%- set legacy_sites = ['nue-ipx', 'prv1'] %}
+{#- gateway machines which have internal IPv6 routing, as opposed to other machines in the legacy sites #}
 {%- set legacy_excludes = {'de': ['slimhat', 'stonehat'], 'us': ['provo-gate']} %}
 {%- set ip6_gw = grains['ip6_gw'] %}
 
@@ -18,7 +18,7 @@
 {%- set log = salt.log.debug %}
 
 {#- check if machine needs modern or legacy IP configuration #}
-{%- if country in legacy_countries and not host in legacy_excludes.get(country, []) and ip6_gw %}
+{%- if site in legacy_sites and not host in legacy_excludes.get(site, []) and ip6_gw %}
 {%- set do_legacy = True %}
 {%- else %}
 {%- set do_legacy = False %}
@@ -82,7 +82,7 @@
 {%- endif %} {#- close host in hosts check #}
 
 {#- configure interfaces if the previous logic found any with usable IP addresses #}
-{%- if country in country_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces or do_legacy %}
+{%- if site in site_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces or do_legacy %}
 network:
 
 {%- if ip4 is not none or ip6 is not none or reduced_interfaces %}
@@ -149,7 +149,7 @@ network:
     {%- set common_destinations = ['172.16.164.0/24', '172.16.130.0/24', '192.168.252.0/24', '192.168.253.0/24', '192.168.254.0/24'] %}
 
     {#- install default routes on machines in Provo which use external default gateways #}
-    {%- if country == 'us' %}        {#- v NUE QSC #}
+    {%- if site == 'prv1' %}      {#- v NUE QSC #}
     {%- do common_destinations.append('192.168.87.0/24') %}
     default4:
       gateway: 91.193.113.94
@@ -161,7 +161,7 @@ network:
       gateway: 192.168.67.20
     {%- endfor %}
 
-    {%- elif country == 'de' %}      {# v PRV              v os-p2p-nue1/1    v os-p2p-nue1/2 #}
+    {%- elif site == 'nue-ipx' %}       {# v PRV              v os-p2p-nue1/1    v os-p2p-nue1/2 #}
     {%- do common_destinations.extend(['192.168.67.0/24', '172.16.201.0/31', '172.16.202.0/31']) %}
     {#- install default routes on machines in Nuremberg (QSC) which use external default gateways #}
     default4:
@@ -174,7 +174,7 @@ network:
       gateway: 192.168.87.1
     {%- endfor %}
 
-    {%- endif %} {#- close country check #}
+    {%- endif %} {#- close site check #}
 
     {#-
       for machines in locations we have not yet equipped with internal IPv6 routing,
@@ -198,10 +198,10 @@ network:
 {%- endif %} {#- close shortnet check #}
 
 {#- configure nameservers if any managed ones are available for the location the minion is in #}
-{%- if country in country_nameservers %}
+{%- if site in site_nameservers %}
   config:
     netconfig_dns_static_servers:
-      {%- for nameserver in country_nameservers[country] %}
+      {%- for nameserver in site_nameservers[site] %}
       - {{ nameserver }}
       {%- endfor %}
     netconfig_dns_static_searchlist: infra.opensuse.org
@@ -210,4 +210,4 @@ network:
       - timeout:3
 {%- endif %}
 
-{%- endif %} {#- close country/ip4/ip6/reduced_interfaces check #}
+{%- endif %} {#- close site/ip4/ip6/reduced_interfaces check #}

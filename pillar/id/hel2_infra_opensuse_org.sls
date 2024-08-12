@@ -1,6 +1,6 @@
 cluster: hel
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - Int. Proxy
     - Int. DNS

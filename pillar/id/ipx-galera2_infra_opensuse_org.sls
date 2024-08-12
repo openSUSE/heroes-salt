@@ -1,5 +1,5 @@
 grains:
-  country: de
+  site: nue-ipx
   hostusage:
     - Galera node (MySQL)
   reboot_safe: yes

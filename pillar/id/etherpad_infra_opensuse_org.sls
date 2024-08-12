@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - etherpad.o.o
   reboot_safe: yes

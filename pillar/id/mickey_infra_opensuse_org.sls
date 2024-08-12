@@ -1,5 +1,5 @@
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - gitlab.i.o.o
     - gitlab runner

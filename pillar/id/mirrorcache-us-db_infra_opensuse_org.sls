@@ -2,7 +2,7 @@ mirrorcache:
   backstage_workers: 12
 
 grains:
-  country: us
+  site: prv1
   hostusage:
     - mirrorcache-us-db
   reboot_safe: yes

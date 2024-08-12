@@ -1,6 +1,6 @@
 cluster: prg-ns
 grains:
-  country: cz
+  site: prg2
   hostusage:
     - DNS
   reboot_safe: yes

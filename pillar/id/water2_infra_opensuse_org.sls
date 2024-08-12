@@ -1,5 +1,5 @@
 grains:
-  country: us
+  site: prv1
   hostusage:
     - en.o.o wiki search backend
   reboot_safe: unknown
