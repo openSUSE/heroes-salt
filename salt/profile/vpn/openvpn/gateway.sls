@@ -31,7 +31,7 @@ vpn_user_config_directory:
     - name: /var/lib/vpn_logins
     - user: manage_vpn_users
     - group: manage_vpn_users
-    - mode: '0700'
+    - mode: '0740'
 
 vpn_gateway_login_script:
   file.managed:
