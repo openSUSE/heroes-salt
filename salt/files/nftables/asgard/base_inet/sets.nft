@@ -145,10 +145,6 @@ set net6_os-mirror {
   }
 }
 
-# VLAN 1206 openSUSE-vpn
-# set net4_os-vpn ...
-# set net6_os-vpn ...
-
 # P2P PRG2 (asgard) <-> PRV1 (gate1)
 set net6_p2p_prv1 {
   type ipv6_addr
