@@ -1,4 +1,4 @@
-cluster: apollo-cobbler
+cluster: apollo.cobbler
 grains:
   site: prg2
   hostusage:
