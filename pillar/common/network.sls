@@ -11,7 +11,7 @@
 {#- locations without internal IPv6 routing (https://progress.opensuse.org/issues/151192) #}
 {%- set legacy_sites = ['nue-ipx', 'prv1'] %}
 {#- gateway machines which have internal IPv6 routing, as opposed to other machines in the legacy sites #}
-{%- set legacy_excludes = {'de': ['slimhat', 'stonehat'], 'us': ['provo-gate']} %}
+{%- set legacy_excludes = {'nue-ipx': ['slimhat', 'stonehat'], 'prv1': ['provo-gate']} %}
 {%- set ip6_gw = grains['ip6_gw'] %}
 
 {%- set msg = 'common.network, host ' ~ host ~ ': ' %}
