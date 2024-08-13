@@ -1,4 +1,5 @@
 ---
+# PRG2
 orbit:
   nodes:
     - orbit20
@@ -23,3 +24,26 @@ slimhat:
   nodes:
     - slimhat
   storage: local
+
+# SLC1
+kepler:
+  nodes:
+    - kepler20
+    - kepler21
+  storage: local
+chaplin:
+  nodes:
+    - chaplin20
+    - chaplin21
+  storage: local
+arches:
+  nodes:
+    - arches20
+    - arches21
+    - arches22
+  primary_node: arches20.infra.opensuse.org
+  netapp:
+    host: null
+    vs_primary: vs_opensuse
+    igroup_primary: arches
+  storage: san
