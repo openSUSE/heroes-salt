@@ -60,7 +60,7 @@ salt:
     timeout: 15
     gitfs_ssl_verify: True
     hash_type: sha512
-    {%- if grains.get('site') == 'prg2' %}
+    {%- if grains.get('site') in ['prg2', 'slc1'] %}
     {#- _needs_ to align with the "ipv6" setting in pillar.common! #}
     interface: '::'
     {%- endif %}
@@ -161,7 +161,7 @@ rsync:
       auth users: saltpush
       read only: false
       hosts allow:
-        {%- if grains.get('site') == 'prg2' %}
+        {%- if grains.get('site') in ['prg2', 'slc1'] %}
         - 2a07:de40:b27e:1203::126 # gitlab-runner1
         - 2a07:de40:b27e:1203::127 # gitlab-runner2
         {%- else %}

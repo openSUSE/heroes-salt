@@ -7,7 +7,7 @@
 {%- set configure_ntp = salt['grains.get']('configure_ntp', True) %}
 {%- set id = grains['id'] %}
 
-{%- if site == 'prg2' or id in ['slimhat.infra.opensuse.org', 'stonehat.infra.opensuse.org', 'provo-gate.infra.opensuse.org'] %}
+{%- if site in ['prg2', 'slc1'] or id in ['slimhat.infra.opensuse.org', 'stonehat.infra.opensuse.org', 'provo-gate.infra.opensuse.org'] %}
 {%- set modern = True %}
 {%- else %}
 {%- set modern = False %}
@@ -28,7 +28,7 @@ include:
   - .update
   - .users
   {%- if virtual == 'physical' %}
-  {%- if site == 'prg2' %}
+  {%- if site in ['prg2', 'slc1'] %}
   - .lldp
   {%- endif %}
   - .smart
