@@ -49,7 +49,7 @@ include:
   - prometheus.config
 
   {%- if virtual == 'physical' %}
-  {%- if grains.get('site') == 'prg2' %}
+  {%- if grains.get('site') in ['prg2', 'slc1'] %}
   - lldpd
   {%- endif %}
   - smartmontools.smartd

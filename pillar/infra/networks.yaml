@@ -82,6 +82,8 @@ prg2:
     gw6: 2a07:de40:b27e:1211::3
     id: 1211
 
+slc1: {}
+
 # below are mapping networks and not VLANs
 pseudo:
   openSUSE-NAT46-Pool:
