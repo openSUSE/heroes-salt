@@ -86,7 +86,6 @@ define nat64_v6         = 2a07:de40:b27e:64::/96
 define nat64_v4         = 172.16.164.0/24
 
 # Idividual hosts
-#define self4_public      = 10.151.204.1/32
 define srx4_p2p          = 195.135.223.46/32
 define self6_p2p         = { 2a07:de40:b27f:201::11/128, 2a07:de40:b27f:201::12/128, 2a07:de40:b27f:201::1/128 }
 define self4_p2p         = { 195.135.223.41/32, 195.135.223.44/32, 195.135.223.45/32 }
@@ -163,7 +162,6 @@ define host4_prg-ns2     = 172.16.130.22
 define host6_opi-proxy   = 2a07:de40:b27e:1203:0000:0000:0000:0134/128
 define host4_opi-proxy   = 172.16.164.162/32
 define host6_kubic       = 2a07:de40:b27e:1203:0000:0000:0000:0132/128
-#define host4_kubic       = todo
 define host6_svn         = 2a07:de40:b27e:1203:0000:0000:0000:0133/128
 define host6_osc-collab  = 2a07:de40:b27e:1203:0000:0000:0000:0131/128
 define host6_rpmlint     = 2a07:de40:b27e:1203:0000:0000:0000:0136/128
