@@ -69,7 +69,7 @@ calendar_assets_precompile:
     - template: jinja
     - context:
         ruby: {{ ruby }}
-    - require_in:
+    - watch_in:
       - service: calendar_service
 
 /etc/systemd/system/calendar-sidekiq.service:
@@ -78,7 +78,7 @@ calendar_assets_precompile:
     - template: jinja
     - context:
         ruby: {{ ruby }}
-    - require_in:
+    - watch_in:
       - service: calendar_sidekiq_service
 
 /etc/systemd/system/calendar-clockwork.service:
@@ -87,7 +87,7 @@ calendar_assets_precompile:
     - template: jinja
     - context:
         ruby: {{ ruby }}
-    - require_in:
+    - watch_in:
       - service: calendar_clockwork_service
 
 {%- for config in ['site', 'database'] %}
@@ -96,7 +96,7 @@ calendar_assets_precompile:
     - source: salt://profile/calendar/files/{{ config }}.yml
     - template: jinja
     - user: calendar
-    - require_in:
+    - watch_in:
       - service: calendar_service
 {%- endfor %}
 
@@ -117,6 +117,11 @@ calendar_service:
   service.running:
     - name: calendar.service
     - enable: True
+    - watch:
+        - cmd: calendar_ruby_dependencies
+        - cmd: calendar_assets_precompile
+        - file: /srv/www/calendar-o-o/config/master.key
+        - file: /srv/www/calendar-o-o/config/credentials.yml.enc
 
 calendar_sidekiq_service:
   service.running:
@@ -124,6 +129,8 @@ calendar_sidekiq_service:
     - enable: True
     - require:
       - service: calendar_service
+    - watch:
+        - cmd: calendar_ruby_dependencies
 
 calendar_clockwork_service:
   service.running:
@@ -131,3 +138,5 @@ calendar_clockwork_service:
     - enable: True
     - require:
       - service: calendar_service
+    - watch:
+        - cmd: calendar_ruby_dependencies
