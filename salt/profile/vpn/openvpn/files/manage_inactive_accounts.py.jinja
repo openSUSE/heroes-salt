@@ -127,7 +127,7 @@ def notify_user(user: str, msg_type: int = 1):
 
             This is an automated mail. Please do not respond.
             """
-    email_ids = user_info(user)
+
     if msg_type == 0:
         # for users who did not login even once
         mail_body = f"""
@@ -139,6 +139,9 @@ def notify_user(user: str, msg_type: int = 1):
 
         This is an automated mail. Please do not respond.
         """
+
+    email_ids = user_info(user)
+
     if email_ids is not None:
         # an user can have multiple emails
         # sending mails to all the accounts
@@ -206,7 +209,7 @@ def users_in_vpn_logs() -> list[str]:
 
 
 def user_info(u: str):
-    """fetche the user email via api"""
+    """fetch the user email via api"""
     api = f"{api_base_url}/v1/person/{u}/_attr/mail"
     r = urllib3.request(method="GET", url=api, headers={"Authorization": f"Bearer {api_key()}"})
     if r.status == 200:
@@ -269,7 +272,7 @@ for user in db:
     # remove the user if they have a recent login activity
     if user in users_in_vpn_logs():
         if days_since(last_login(user)) <= _inactive_days:
-            log().info(f"db: removing {user} not found in vpn logs")
+            log().info(f"db: removing {user} due to their recent login activity")
             to_be_removed.append(user)
 
 # remove the collected list of users from the db
