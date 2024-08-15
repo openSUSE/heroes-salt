@@ -11,7 +11,7 @@ profile:
         irc_host: irc.ipv6.libera.chat
         irc_nickname: heroes-monitor
         irc_realname: openSUSE Alertmanager IRC Relay
-        # secrets are in pillar/secrets/role/monitoring/alertmanager.sls 
+        # secrets are in pillar/secrets/role/monitoring/alertmanager.sls
         irc_channels:
           # these are channels the bot will pre-join to
           # note that the bot can also dynamically join channels alerts are sent to without them being listed here

@@ -10,7 +10,7 @@
   # acme -> chip PDNS API
   # acme -> internet for Let's Encrypt (acme-v02.api.letsencrypt.org doesn't seem to use a fixed address)
   ip6 saddr @host6_acme tcp dport { http, https } accept
-  # acme -> { certificate deployment targets } 
+  # acme -> { certificate deployment targets }
   # ICMP/ping the pre-deployment connectivity check
   ip6 saddr @host6_acme ip6 daddr $nat64_v6 icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr $host6_stage3 icmpv6 type { echo-request, echo-reply } accept

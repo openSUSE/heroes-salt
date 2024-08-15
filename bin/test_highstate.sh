@@ -111,7 +111,7 @@ then
       pillar_files=()
       for pillar in "${pillar_references[@]}"
       do
-        pillar_lines+=( ${pillar//:/ } ) 
+        pillar_lines+=( ${pillar//:/ } )
 
         while read file
         do

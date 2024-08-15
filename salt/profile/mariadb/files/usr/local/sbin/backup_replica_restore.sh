@@ -55,7 +55,7 @@ if [ "$1" ]; then
 				esac
 		done
 		shift $(( OPTIND - 1 ))
-else 
+else
 		usage
 		exit 1
 fi

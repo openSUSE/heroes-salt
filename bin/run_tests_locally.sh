@@ -86,7 +86,7 @@ then
     print 'Pulling container ...'
     podman pull -q registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-development-systemd \
       || fail 'Failed to pull container'
-    
+
     print 'Preparing ...'
     PORT=2222
     while [ -n "$(ss -Htlno state listening sport = $PORT)" ]
@@ -94,7 +94,7 @@ then
       PORT=$((PORT+1))
     done
     echo "$PORT"
-    
+
     print 'Starting ...'
     CONTAINER=$( \
       podman run -de SSH_KEY="$(cat "$PUBKEY")" --health-interval 10s --health-start-period 15s "${CONTAINER_ARGS[@]}" -p "[::1]:$PORT:22" -v .:/home/geeko/salt-workspace:ro \

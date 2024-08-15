@@ -10,7 +10,7 @@ inspired by https://gitlab.torproject.org/tpo/tpa/team/-/issues/40214#note_27329
 {{ if .Alerts.Firing -}}
 === Firing Alerts ===
 {{ range .Alerts.Firing -}}
-<----- 
+<-----
 Time: {{ .StartsAt  }}
 {{ if .Annotations.summary }}Summary: {{ .Annotations.summary }}{{ else if .Annotations.title }}{{ .Annotations.title }}{{ end }}
 {{ if .Annotations.description }}Description:  {{ .Annotations.description }}{{ end }}
@@ -27,7 +27,7 @@ Time: {{ .StartsAt  }}
 {{ if .Alerts.Resolved -}}
 === Resolved Alerts ===
 {{ range .Alerts.Resolved -}}
-<----- 
+<-----
 Time: {{ .StartsAt  }} - {{ .EndsAt  }}
 {{ if .Annotations.summary }}Summary: {{ .Annotations.summary }}{{ else if .Annotations.title }}{{ .Annotations.title }}{{ end }}
 {{ if .Annotations.description }}Description:  {{ .Annotations.description }}{{ end }}

@@ -52,6 +52,6 @@ header   __TWSNAPSHOT1   Subject =~ /New Tumbleweed snapshot [0-9]+ released/
 header   __TWSNAPSHOT2   From:addr =~ /(dimstar\@suse.de|dimstar\@opensuse.org)/
 header   __TWSNAPSHOT3   To:addr =~ /factory\@lists.opensuse.org/
 meta     OSU_TWSNAPSHOT   __TWSNAPSHOT1 && !__TWSNAPSHOT2 && __TWSNAPSHOT3
-describe OSU_TWSNAPSHOT  Please do not reply to the Tumbleweed snapshot messages. 
+describe OSU_TWSNAPSHOT  Please do not reply to the Tumbleweed snapshot messages.
 score    OSU_TWSNAPSHOT  10
 
