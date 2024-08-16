@@ -6,6 +6,21 @@ download.infra.opensuse.org:
     - host: download
       services:
         - nginx
+galera1.infra.opensuse.org:
+  targets:
+    - host: galera1
+      services:
+        - mariadb
+galera2.infra.opensuse.org:
+  targets:
+    - host: galera2
+      services:
+        - mariadb
+galera3.infra.opensuse.org:
+  targets:
+    - host: galera3
+      services:
+        - mariadb
 git.infra.opensuse.org:
   sans:
     - gitlab.infra.opensuse.org
@@ -49,6 +64,11 @@ monitor.infra.opensuse.org:
     - host: monitor
       services:
         - apache2
+mybackup.infra.opensuse.org:
+  targets:
+    - host: mybackup
+      services:
+        - mariadb
 netbox.infra.opensuse.org:
   targets:
     - macro: hel

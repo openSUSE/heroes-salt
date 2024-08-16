@@ -60,7 +60,12 @@ then
   if [ "$COPY_STATUS" = 0 ] && [ "$SKIP_RELOAD" = 0 ]
   then
     {%- for service in services %}
-    {{ ssh }} {{ target }} 'systemctl is-active --quiet {{ service }} || exit "$?" ; sudo systemctl try-reload-or-restart {{ service }}'
+    {{ ssh }} {{ target }} \
+    {%- if service == 'mariadb' %}
+      'systemctl is-active --quiet mariadb || exit "$?" ; mariadb-admin -S /run/mysql/mysql.sock --connect-timeout=10 --wait=2 flush-ssl'
+    {%- else %}
+      'systemctl is-active --quiet {{ service }} || exit "$?" ; sudo systemctl try-reload-or-restart {{ service }}'
+    {%- endif %}
     SSH_STATUS="$?"
     case "$SSH_STATUS" in
       0 )

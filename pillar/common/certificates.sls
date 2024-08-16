@@ -8,9 +8,15 @@ cas  = ['letsencrypt-test', 'letsencrypt', 'heroes']
 _certificates = {}
 _services = []
 
+# services which use a special command instead of sudo based service reload
+# entries here go along with a conditional in salt/profile/dehydrated/files/etc/dehydrated/hook.d/certificate.sh.jinja
+_service_excludes = [
+  'mariadb',
+]
+
 def _extend_services(low_services):
   for service in low_services:
-    if service not in _services:
+    if service not in _services and service not in _service_excludes:
       _services.append(service)
 
 def run():
