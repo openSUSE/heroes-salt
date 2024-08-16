@@ -22,7 +22,6 @@ DEBUG='yes'
 
 HOST="$(hostname -s)"
 FQDN="$(hostname -f)"
-SMS=$(mktemp /tmp/master_status.XXXXXX)
 BEGIN_SECONDS=$(date +%s)
 DATE=$(date "+%Y%m%d")
 
@@ -48,6 +47,20 @@ LOG(){
 }
 
 LOG "Starting at $(date)"
+
+finish () {
+	LOG 'Cleaning up ...'
+	rm "$SMS"
+	rm -r "$SOURCE_BACKUP"
+	LOG "Finished at $(date)"
+}
+
+#
+# Pre-flight check
+#
+ssh "$BACKUP_CLIENT" -- true
+
+SMS="$(mktemp /tmp/master_status.XXXXXX)"
 
 #
 # Dump databases
@@ -75,10 +88,33 @@ LOG "Preparing backup"
 mariadb-backup --prepare --target-dir="$SOURCE_BACKUP"
 LOG 'Backup is ready'
 
+BACKUP_SIZE="$(du -s "$SOURCE_BACKUP" | awk '{ print $1 }')"
+
 #
 # Transfer dump to slave
 #
-TARGET_BACKUP="/backup/bootstrap/${DATE}"
+TARGET_BACKUP_BASE='/backup/bootstrap/'
+TARGET_BACKUP="$TARGET_BACKUP_BASE/$DATE"
+
+if ! ssh -q "$BACKUP_CLIENT" -- test -d "$TARGET_BACKUP_BASE"
+then
+    if ! ssh -q "$BACKUP_CLIENT" -- mountpoint -q "$(dirname "$TARGET_BACKUP_BASE")"
+    then
+	    LOG 'Expected a mountpoint, cautiously bailing out.'
+	    finish
+	    exit 1
+    fi
+    ssh -q "$BACKUP_CLIENT" -- mkdir "$TARGET_BACKUP_BASE"
+fi
+
+TARGET_BACKUP_FREE="$(ssh -q "$BACKUP_CLIENT" -- stat -fc'%a' "$TARGET_BACKUP_BASE")"
+
+if [ "$BACKUP_SIZE" -gt "$TARGET_BACKUP_FREE" ]
+then
+	LOG "Insufficient disk space on target ($BACKUP_SIZE > $TARGET_BACKUP_FREE), bailing out."
+	finish
+	exit 1
+fi
 
 LOG "Starting transfer to $BACKUP_CLIENT"
 rsync -a -e'ssh -q' --info=progress2 "$SOURCE_BACKUP"/ "$BACKUP_CLIENT":"$TARGET_BACKUP"
@@ -96,10 +132,7 @@ LOG "$BACKUP_STATE"
 #
 # Cleanup
 #
-LOG 'Cleaning up ...'
-rm "$SMS"
-rm -r "$SOURCE_BACKUP"
-LOG "Finished at $(date)"
+finish
 
 #
 # Print local status
