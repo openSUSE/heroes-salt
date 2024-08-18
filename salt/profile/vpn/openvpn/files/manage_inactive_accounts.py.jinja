@@ -1,15 +1,17 @@
 #!/usr/bin/python3.11
 
 import json
+import logging
 import os
+import smtplib
 import sys
 from datetime import datetime
-from smtplib import SMTPConnectError
-import smtplib
 from email.message import EmailMessage
+from smtplib import SMTPConnectError
+
 import urllib3
 from dateutil import parser, tz
-import logging
+
 """
 {{ pillar['managed_by_salt'] }}
 

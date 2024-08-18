@@ -1,5 +1,10 @@
 line-length = 100
 
+include = [
+  "*.py",
+  "*.py.jinja"
+]
+
 [lint]
 exclude = [
   # should we touch application scripts (Helios, Mailman, ...)?
