@@ -148,7 +148,7 @@ def notify_user(user: str):
 
 def notify_admin(user: str):
     """informs the admin to remove a user"""
-    send_email("admin@opensuse.org", f"[VPN] {user} is inactive", "Prepare the user for removal")
+    send_email("admin@opensuse.org", f"[Heroes VPN] {user} is inactive", "Prepare the user for removal")
 
 
 def db_load() -> dict:
@@ -236,7 +236,6 @@ for user in shortlisted_users:
     if user in db:
         # for inactive users with logs
         if user in users_in_vpn_logs() and days_since(db[user]["notified_on"]) > _user_notice_days:
-            log.info(f"{user}'s notice period has ended")
             # if the user did not login after the notice period ended
             if days_since(last_login(user)) > _inactive_days:
                 log.info(f"{user} did not login even after notice period")
@@ -248,8 +247,8 @@ for user in shortlisted_users:
 
         # user who is in vpn group but still not in logs
         if user in users_in_kanidm_group() and user not in users_in_vpn_logs():
-            log.info(f"{user} did not login even once after the notice period")
             if days_since(db[user]["notified_on"]) > _user_notice_days:
+                log.info(f"{user} notice period ended, still never logged in")
                 # if not reported to admin yet, report them
                 if "notified_admin_on" not in db[user]:
                     log.info(f"Reporting {user} to the admin")
