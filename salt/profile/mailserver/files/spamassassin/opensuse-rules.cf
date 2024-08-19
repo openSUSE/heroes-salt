@@ -45,6 +45,9 @@ score   OSU_GOLDTRUST   5
 header  OSU_WINELADIES  From:addr =~ /wineladies/
 score   OSU_WINELADIES  5
 
+body    OSU_MALAYSIAN_EXPORT  /Malaysian Export Academy/
+score   OSU_MALAYSIAN_EXPORT  10
+
 header   __TWSNAPSHOT1   Subject =~ /New Tumbleweed snapshot [0-9]+ released/
 header   __TWSNAPSHOT2   From:addr =~ /(dimstar\@suse.de|dimstar\@opensuse.org)/
 header   __TWSNAPSHOT3   To:addr =~ /factory\@lists.opensuse.org/
