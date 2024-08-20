@@ -64,6 +64,6 @@ profile:
           ocsp_fetch: yes
           {%- endif %}
           {%- if instance == 'letsencrypt-test' %}
-          renew_days: 15
+          renew_days: 45
           {%- endif %}
       {%- endfor %} {#- close instance loop #}
