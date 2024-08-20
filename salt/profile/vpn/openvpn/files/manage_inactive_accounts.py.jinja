@@ -37,7 +37,7 @@ api_base_url: str = "https://idm.infra.opensuse.org"
 _db_name: str = "/var/lib/vpn_logins/inactive-users.json"
 
 # logging config
-logging.basicConfig(format='%(asctime)s %(levelname)s [L%(lineno)d]: %(message)s', datefmt='[%Y-%m-%d %H:%M:%S]', level=logging.INFO)
+logging.basicConfig(format='%(levelname)s [L%(lineno)d]: %(message)s', datefmt='[%Y-%m-%d %H:%M:%S]', level=logging.INFO)
 log = logging.getLogger('manage-vpn-users')
 
 def api_key() -> str:
