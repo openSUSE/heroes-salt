@@ -802,6 +802,14 @@ set cloud6_obs-login { # api.o.o, build.o.o, registry.o.o
   }
 }
 
+set cloud6_openqa { # openqa.opensuse.org
+  type ipv6_addr
+  flags interval
+  elements = {
+      2a07:de40:b251:2:10:150:2:10/128
+  }
+}
+
 set cloud6_login2 { # daffy - login-prg2.o.o, daffy1 - login-prg2-1.o.o, daffy2 - login-prg2-2.o.o
     type ipv6_addr
     flags interval
@@ -985,6 +993,14 @@ set acl6_internet_obs-login {
       $host6_osc-collab, # access to api.o.o
       $host6_rpmlint,    # access to build.o.o
       $host6_pinot,      # access to build.o.o
+    }
+}
+
+set acl6_internet_openqa {
+    type ipv6_addr
+    flags interval
+    elements = {
+      $host6_metrics,  # access openqa.o.o
     }
 }
 
