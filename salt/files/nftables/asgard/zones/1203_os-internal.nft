@@ -57,6 +57,10 @@
   ip6 saddr @acl6_internet_obs-login ip6 daddr @cloud6_obs-login icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @acl6_internet_obs-login ip6 daddr @cloud6_obs-login tcp dport https accept
 
+  # openQA ACL -> (HTTPS, for openqa.o.o)
+  ip6 saddr @acl6_internet_openqa ip6 daddr @cloud6_openqa icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @acl6_internet_openqa ip6 daddr @cloud6_openqa tcp dport https accept
+
   # jekyll -> * (HTTP/HTTPS, for planet.o.o RSS feeds)
   oifname { nat64, os-p2p-pub } ip6 saddr $host6_jekyll tcp dport { http, https } ip6 daddr != @lan_ipv6_nonat accept
 
