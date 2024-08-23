@@ -36,9 +36,16 @@ api_base_url: str = "https://idm.infra.opensuse.org"
 # file where user info is stored
 _db_name: str = "/var/lib/vpn_logins/inactive-users.json"
 
+# NOTE: only used for caching purpose
+# do not use this dict directly in logic
+cache: dict[str, list[str]] = {"vpn_group": [], "vpn_logs": []}
 # logging config
-logging.basicConfig(format='%(levelname)s [L%(lineno)d]: %(message)s', datefmt='[%Y-%m-%d %H:%M:%S]', level=logging.INFO)
-log = logging.getLogger('manage-vpn-users')
+logging.basicConfig(
+    format="%(levelname)s [L%(lineno)d]: %(message)s", level=logging.INFO,
+)
+
+log = logging.getLogger("manage-vpn-users")
+
 
 def api_key() -> str:
     """get api key from the KANIDM_API_KEY environment variable"""
@@ -104,6 +111,7 @@ def send_email(to: str, subject: str, body: str):
     except ConnectionRefusedError as e:
         stop_script(f"Failed to send email to {to}\nReason: {e}")
 
+
 def notify_user(user: str):
     """notify the user to login to the VPN"""
 
@@ -145,12 +153,16 @@ def notify_user(user: str):
     # TODO: some users do not have email id
     # Reason could be that the admin forgot to add their id  during creating their account
     else:
-        stop_script(f"{user} email not found")
+        log.error(f"{user} email not found")
 
 
 def notify_admin(user: str):
     """informs the admin to remove a user"""
-    send_email("admin@opensuse.org", f"[Heroes VPN] {user} is inactive", "Prepare the user for removal")
+    send_email(
+        "admin@opensuse.org",
+        f"[Heroes VPN] {user} is inactive",
+        "Prepare the user for removal",
+    )
 
 
 def db_load() -> dict:
@@ -183,34 +195,54 @@ def inactive_users() -> list[str]:
 def users_in_kanidm_group() -> list[str]:
     """users who are part of the kanidm vpn group"""
 
+    cached_result = cache["vpn_group"]
+
+    if len(cached_result) > 0:
+        return cached_result
+
     api = f"{api_base_url}/v1/group/vpn/_attr/member"
-    r = urllib3.request(method="GET", url=api, headers={"Authorization": f"Bearer {api_key()}"})
+    r = urllib3.request(
+        method="GET", url=api, headers={"Authorization": f"Bearer {api_key()}"},
+    )
     if r.status == 200:
-        return [string.split("@")[0] for string in r.json()]
+        res = [string.split("@")[0] for string in r.json()]
+        cache["vpn_group"] = res
+        return res
     else:
         stop_script(f"Failed to access the {api}")
-    return []
+        return []
 
 
 def users_in_vpn_logs() -> list[str]:
     """list all users in vpn logs"""
+
+    cached_result = cache["vpn_logs"]
+
+    if len(cached_result) > 0:
+        return cached_result
+
     try:
-        return os.listdir(vpn_log_dir)
+        logs = os.listdir(vpn_log_dir)
+        cache["vpn_logs"] = logs
+        return logs
 
     except FileNotFoundError as e:
         stop_script(f"Failed to access the log dir\n{e}")
-    return []
+        return []
 
 
 def user_info(u: str):
     """fetch the user email via api"""
     api = f"{api_base_url}/v1/person/{u}/_attr/mail"
-    r = urllib3.request(method="GET", url=api, headers={"Authorization": f"Bearer {api_key()}"})
+    r = urllib3.request(
+        method="GET", url=api, headers={"Authorization": f"Bearer {api_key()}"},
+    )
     if r.status == 200:
         return r.json()
     else:
         stop_script(f"Failed to access {api}")
         return []
+
 
 def users_without_logs() -> list[str]:
     """These users did not login to  vpn even once"""
@@ -237,7 +269,10 @@ for user in shortlisted_users:
     # if the user exists in db
     if user in db:
         # for inactive users with logs
-        if user in users_in_vpn_logs() and days_since(db[user]["notified_on"]) > _user_notice_days:
+        if (
+            user in users_in_vpn_logs()
+            and days_since(db[user]["notified_on"]) > _user_notice_days
+        ):
             # if the user did not login after the notice period ended
             if days_since(last_login(user)) > _inactive_days:
                 log.info(f"{user} did not login even after notice period")
