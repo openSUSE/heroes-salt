@@ -49,7 +49,7 @@ DOMAIN='infra.opensuse.org'
 if [ -z "$REPOSITORIES" ]
 then
   sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
-  
+
   if [ -n "${PKG[*]}" ]; then
       zypper --gpg-auto-import-keys ref
       zypper -qn install --no-recommends "${PKG[@]}"

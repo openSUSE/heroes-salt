@@ -1,13 +1,13 @@
-#!/bin/bash     
+#!/bin/bash
 {{ pillar['managed_by_salt'] }}
 
 WHAT=( 'update/leap/15.5' 'update/leap/15.6' 'update/tumbleweed' )
 . /home/mirror/bin/loop_common
 RSYNC_SOURCE=rsync://stage3.opensuse.org/opensuse-full-with-factory/opensuse
 ping -q -c2 stage3.opensuse.org || { echo "Could not reach stage3.opensuse.org" >&2; exit 1; }
-basewait=10     
-                
-RSYNC_OPTIONS="$RSYNC_OPTIONS 
+basewait=10
+
+RSYNC_OPTIONS="$RSYNC_OPTIONS
         --exclude=*debuginfo*
         --exclude=*Mesa*
         --exclude=Mozilla*

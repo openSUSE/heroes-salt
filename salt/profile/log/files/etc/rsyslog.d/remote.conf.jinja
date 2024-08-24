@@ -1,7 +1,7 @@
 {{ pillar['managed_by_salt'] }}
 {%- set config = salt['pillar.get']('rsyslog', {}) %}
 ##
-## === When you're using remote logging, enable on-disk queues ===  
+## === When you're using remote logging, enable on-disk queues ===
 ## === in rsyslog.d/remote.conf. When neccesary also set the   ===
 ## === SYSLOG_REQUIRES_NETWORK=yes in /etc/sysconfig/syslog,   ===
 ## === e.g. when rsyslog has to receive on a specific IP only. ===
@@ -35,7 +35,7 @@ $ActionResumeRetryCount -1    # infinite retries if host is down
 #$ActionResumeRetryCount -1    # infinite retries if host is down
 {%- endif %}
 
-# ######### Sending Messages to Remote Hosts ########## 
+# ######### Sending Messages to Remote Hosts ##########
 
 # Remote Logging using TCP for reliable delivery
 # remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
@@ -53,7 +53,7 @@ $ActionResumeRetryCount -1    # infinite retries if host is down
 #*.* @remote-host
 {% endif %}
 
-# ######### Receiving Messages from Remote Hosts ########## 
+# ######### Receiving Messages from Remote Hosts ##########
 # TCP Syslog Server:
 # provides TCP syslog reception and GSS-API (if compiled to support it)
 {%- if config.listentcp|default(false) %}
@@ -77,7 +77,7 @@ $UDPServerRun 514         # start a UDP syslog server at standard port 514
 {% endif %}
 
 ########### Encrypting Syslog Traffic with TLS ##########
-# -- TLS Syslog Server: 
+# -- TLS Syslog Server:
 ## make gtls driver the default
 #$DefaultNetstreamDriver gtls
 #

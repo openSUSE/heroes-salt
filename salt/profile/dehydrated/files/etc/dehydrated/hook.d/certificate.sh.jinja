@@ -3,7 +3,7 @@
 {%- set ssh_user   = 'cert' %}
 {%- set ssh_common = ' -qi /etc/dehydrated/.ssh/id_ed25519 -oHostKeyAlgorithms=ssh-ed25519 -oCheckHostIP=no' %}
 {%- set scp        = 'scp -B' ~ ssh_common %}
-{%- set ssh        = 'ssh -l ' ~ ssh_user ~ ' -oBatchMode=yes' ~ ssh_common %} 
+{%- set ssh        = 'ssh -l ' ~ ssh_user ~ ' -oBatchMode=yes' ~ ssh_common %}
 {%- set src_base   = '/etc/dehydrated-' ~ instance ~ '/certs/' ~ certificate %}
 {%- set dst_top    = '/etc/ssl/services/' %}
 {%- set dst_base   =  dst_top ~ certificate %}
@@ -56,7 +56,7 @@ then
   {%- if services and services != ['haproxy'] %}
   {{ scp }} "$CRT_PEM" "$KEY_PEM" {{ ssh_user }}@{{ target }}:"$DST_BASE" || COPY_STATUS=1
   {%- endif %}
-  
+
   if [ "$COPY_STATUS" = 0 ] && [ "$SKIP_RELOAD" = 0 ]
   then
     {%- for service in services %}

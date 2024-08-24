@@ -2,7 +2,7 @@
 
 # Add your own customisations to this file.  See 'man Mail::SpamAssassin::Conf'
 # for details of what can be tweaked.
-# 
+#
 use_bayes 0
 trusted_networks 192.168.0.0/16
 

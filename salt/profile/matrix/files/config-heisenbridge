@@ -42,7 +42,7 @@ HEISENBRIDGE_HOMESERVER_URL="http://127.0.0.1:8008"
 ## Config:      heisenbridge
 ## ServiceRestart:      heisenbridge
 #
-# you do not need to set the following options here 
+# you do not need to set the following options here
 #
 #   --config=...
 #   --listen-address=...

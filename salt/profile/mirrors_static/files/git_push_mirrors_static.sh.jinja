@@ -41,7 +41,7 @@ rsync -az --exclude={'.git','README.md'} --delete-after \
 
 # make some adjustments for the static content:
 cd "$GIT_DIR/mirrors_static/"
-sed -i '/meta name="csrf-token"/d ; /meta name="csrf-param"/d' index.html 
+sed -i '/meta name="csrf-token"/d ; /meta name="csrf-param"/d' index.html
 
 # push into the GIT repository
 export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$SSH_HOSTSFILE -i $SSH_KEYFILE"

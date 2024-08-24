@@ -1,10 +1,10 @@
 {{ pillar['managed_by_salt'] }}
 
 auth      requisite   pam_nologin.so
-auth      required    pam_env.so      
+auth      required    pam_env.so
 auth      required    pam_sss.so
-account   sufficient  pam_localuser.so 
-account   required    pam_sss.so 
+account   sufficient  pam_localuser.so
+account   required    pam_sss.so
 password  requisite   pam_cracklib.so
 password  required    pam_sss.so       use_authtok
 session   required    pam_loginuid.so

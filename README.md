@@ -73,7 +73,7 @@ The general workflow should be to create a branch (either directly in this repos
 
 On the other side, we do not want to block anyone from being productive. So here are the general rules:
 
-* **Always use merge requests.** 
+* **Always use merge requests.**
 * We allow to merge those requests on your own - but we want to make use of the benefits of merge requests (notifications, tests, visibility).
 
 

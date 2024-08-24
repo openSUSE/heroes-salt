@@ -71,10 +71,10 @@ $0 Usage Information:
  -r        | --dumpforredmine    : Print including a short manual for direct copy and paste into the Redmine wiki.
  -h        | --help              : This help
 
-Use this script to generate a HTML page (or just a HTML table), based on the 
+Use this script to generate a HTML page (or just a HTML table), based on the
 static pillar information provided in YAML files.
-Currently the list of tags that end up in the HTML is hardcoded in the script. If you 
-want to change it, please edit the line starting with 
+Currently the list of tags that end up in the HTML is hardcoded in the script. If you
+want to change it, please edit the line starting with
   my \@wanted=...
 
 
@@ -111,7 +111,7 @@ List of machines
 
 Getopt::Long::Configure('bundling');
 
-GetOptions(    
+GetOptions(
     'h|help'            => \$print_help,
     'd|pillardir=s'     => \$pillar_id_path,
     'r|dumpforredmine'  => \$dumpforredmine,
@@ -126,7 +126,7 @@ my $sls_files=getFiles($pillar_id_path,'.sls');
 if ( "$sls_files" ne "0" ){
     my $i=1;
 	if ( $dumpforredmine ){
-		print "$redmine_header\n";	
+		print "$redmine_header\n";
 	}
 	print "|# ";
 	print "|Hostname ";
@@ -157,7 +157,7 @@ if ( "$sls_files" ne "0" ){
 					foreach my $string (sort(@{$grains->{'grains'}->{$entry}})){
 						if ("$string" =~ m/^http.*/){
 							print "[$string]($string) ";
-						} 
+						}
 						else {
 							if ("$entry" eq "partners"){
 								print "[$string](#$string) ";

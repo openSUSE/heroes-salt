@@ -42,7 +42,7 @@
 # postfix will also try just the IP-address
 /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/					dunno
 # ipv6 addresses are the only ones that contain a ':'
-/:/                                                                     dunno   
+/:/                                                                     dunno
 
 # domain names consisting entirely of numerics.
 /^[^.]+\.[0-9]+(\.net?|\.com?)?\.[a-z]+$/				dunno
@@ -66,7 +66,7 @@
 /^mail[0-9]+.*\.eircom\.net$/						dunno
 # not sure who these guys are
 /^mta[0-9]+.*\.dartmail\.net$/						dunno
-# 
+#
 /^[0-9.]+\.omessage\.com$/						dunno
 # google outbound mail servers
 /^[a-z]+-out-[0-9]+\.google\.com$/					dunno
@@ -76,7 +76,7 @@
 /[0-9]+-[0-9]+\.blackberry\.net$/					dunno
 # hertz
 /^[^.]+\.hertz\.com$/							dunno
-# 
+#
 /^ironport[0-9]*\.cable\.net\.co$/					dunno
 # dhl.com
 /^gateway[^.]*\.dhl\.com$/						dunno
@@ -142,7 +142,7 @@
 /\.mail\.comcast\.net$/							dunno
 /^mail[^.]+\.credit-suisse\.com$/					dunno
 # www01.ch.easynet.net
-/^[^.]+\.ch\.easynet\.net$/						dunno 
+/^[^.]+\.ch\.easynet\.net$/						dunno
 # 2007/11/29
 /^[^.]+\.amazon\.com$/							dunno
 # 2007/12/04
@@ -274,7 +274,7 @@
 /^[^.]+\.bluehost\.com$/						dunno
 # e3pmta103.emarsys.net
 /^[^.]+\.emarsys\.net$/							dunno
-# eurocentre50.com 
+# eurocentre50.com
 /^90\.37\.96-84\.rev\.gaoland\.net$/					dunno
 # smtp0001.bern.ch
 /^smtp[^.]+\.bern\.ch$/							dunno
@@ -297,7 +297,7 @@
 /^[^.]+\.decisionnewsmedia\.com$/					dunno
 # rotronic.co.uk
 /^87-194-161-248\.dsl\.cnl\.uk\.net$/					dunno
-# 
+#
 /\.kunder\.linpro\.no$/							dunno
 # altec-ag.ch
 /^gate\.altec-ag\.ch$/							dunno
@@ -357,13 +357,13 @@
 /^campaignserver2\.co\.uk$/						dunno
 # foxfilm.at, itpm.at
 /^62-99-235-178\.afrikanergasse\.xdsl-line\.inode\.at$/			dunno
-# 
+#
 /^mailserver\.doerigfenster\.com$/					dunno
 #
 /^[^.]+\.be3a\.com$/							dunno
 # poorly configured mail servers
 /^host[0-9-]+static\.[^.]+\.business\.telecomitalia\.it$/		dunno
-# 
+#
 /^smtpgw[0-9]*\.world4you\.com$/					dunno
 /^server\.domainandspace\.net$/						dunno
 /^[^.]+\.topica-diamond-y\.com$/					dunno
@@ -401,7 +401,7 @@
 /\.mail\.saunalahti\.fi$/						dunno
 /^[^.]+\.ra\.rockwell\.com$/						dunno
 /^mailhost\.publisuisse\.ch$/						dunno
-/^mail[0-9]*\.mxmfb\.com$/						dunno 
+/^mail[0-9]*\.mxmfb\.com$/						dunno
 /^[^.]+\.intnet\.mu$/							dunno
 /^smtp[^.]*\.ptcl\.net$/						dunno
 # heavy email marketing site.
@@ -673,8 +673,8 @@
 
 # some of these TLD have a subdivision of co.xx, com.xx, net.xx, org.xx, some even with
 # geographical subdivisions (seems to former eastern block, and former soviet republics),
-# some with subdivision and some without. 
-# for instance '.ge' could have  
+# some with subdivision and some without.
+# for instance '.ge' could have
 # 1) a plain version "<xxxx>.ge"
 # 2) a co/org/net version "<xxxx>.net.ge"
 # 3) a geographical version "<xxxx>.<gggg>.ge"
@@ -743,7 +743,7 @@
 # 2006/12/08 - #16
 /\.upc-[a-z]\.chello\.nl$/						greylist
 
-# 2006/12/08 - #18 
+# 2006/12/08 - #18
 /\.[a-z]{2}\.home\.nl$/							greylist
 
 # 2006/12/08 - #19
@@ -814,7 +814,7 @@
 # thai academic institutions catch-all
 /\.ac\.th$/								greylist
 
-# korean academic institutions catch-all	
+# korean academic institutions catch-all
 /[0-9-]{2}\.[^.]+\.ac\.kr$/						greylist
 
 # turkish educational institutions catch-all
@@ -891,7 +891,7 @@
 # (whois timed out, but presumably turkish)
 # Adelphia Communications Corp.
 /.adelphia\.net$/							greylist
-# 
+#
 /\.cablenet-va\.com$/							greylist
 # Pacific Internet (Singapore), pacnet.com
 /\.pacific\.net\.sg$/							greylist
@@ -922,7 +922,7 @@
 /\.clickfollowing\.com$/						greylist
 # d150-170-112.home.cgocable.net
 /\.home[0-9]*\.cgocable\.net$/						greylist
-# FLH1Aat058.hkd.mesh.ad.jp				
+# FLH1Aat058.hkd.mesh.ad.jp
 /\.mesh\.ad\.jp$/							greylist
 #
 /Yahoo.+\.bbtec\.net$/							greylist
@@ -1005,7 +1005,7 @@
 /kctv.+\.ccnw\.ne\.jp$/							greylist
 /\.flatrate\.dk$/							greylist
 # Bostadsrättsföreningen Torpet, Anderstorp i Skellefteå.
-# .ac = Ascension Island 
+# .ac = Ascension Island
 /lgh.+\.torpet\.ac$/							greylist
 # 2005/03/19
 # University of Warmia and Mazury
@@ -1014,7 +1014,7 @@
 # Monarch Communications Inc., cable operator in California.
 /mnet.+\.monarch\.net$/							greylist
 /mdoc.+\.monarch\.net$/							greylist
-# KagawaTV Broadcast Network 
+# KagawaTV Broadcast Network
 /[a-z][0-9]+\.kbn\.ne\.jp$/						greylist
 # 2005/03/20
 /cm.+\.liwest\.at$/							greylist
@@ -1166,7 +1166,7 @@
 /\.SPEEDe\.golden\.net$/						greylist
 /\.mtm-info\.pl$/							greylist
 /ip.+\.chouteautel\.com$/						greylist
-#/inre\.asu\.edu$/							greylist 
+#/inre\.asu\.edu$/							greylist
 /[^.]{5}\.media4\.pl$/						greylist
 /\.interaktif\.net\.tr$/						greylist
 /[^.]{6,}\.cinergycom\.net$/					greylist
@@ -1251,7 +1251,7 @@
 /\.prodigy\.net\.mx$/							greylist
 /p[0-9]+\.net\.upc\.nl$/						greylist
 /sealcomm\.com$/							greylist
-/prinpictures\.com$/							greylist	
+/prinpictures\.com$/							greylist
 /sealfilms\.com$/							greylist
 /\.micasaeap\.com$/							greylist
 /([a-z0-9-]+\.){2,}satnet\.net$/					greylist
@@ -1294,12 +1294,12 @@
 /\.dtr\.fr$/		 						greylist
 /\.acisgroup\.gr$/							greylist
 /\.cts\.com\.er$/							greylist
-/\.asg\.jp$/								greylist 
+/\.asg\.jp$/								greylist
 /\.b2bnewsportal\.com$/							greylist
 /\.servertweak\.com$/							greylist
 /\.adtechsysinc\.com$/							greylist
 /imgez\.com$/								greylist
-/\.instantdomainsales\.com$/						greylist 
+/\.instantdomainsales\.com$/						greylist
 /node-[0-9a-f]+.*\.uu\.net$/						greylist
 /[a-z0-9-]{6,}\.hawaiiantel\.net$/					greylist
 /pc.+\.med\.uoi\.gr$/							greylist
@@ -1361,7 +1361,7 @@
 /vp[0-9]+.*\.hknet\.com$/						greylist
 /^[0-9]+.*\.astinet\.telkom\.net\.id$/					greylist
 /nat.*\.northhempstead\.net$/						greylist
-/dsl\.compuage\.net$/							greylist 
+/dsl\.compuage\.net$/							greylist
 /ad.+\.net\.t-com\.hr$/							greylist
 /gateway\.nirel\.org\.il$/						greylist
 /astra\.go\.com\.jo$/							greylist
@@ -1392,7 +1392,7 @@
 /dede1.ch$/								greylist
 /web.+\.web-cafe\.gr$/							greylist
 /public.+\.centertel\.pl$/						greylist
-/gtwyn\.fishersci\.com$/						greylist 
+/gtwyn\.fishersci\.com$/						greylist
 /dsl.+\.tricom\.net$/							greylist
 /webhostingmail\.bravehost\.com$/					greylist
 /radius\.parks\.lv$/							greylist
@@ -1411,13 +1411,13 @@
 /\.zory\.msk\.pl$/							greylist
 /n[0-9]+\.satfilm\.pl$/							greylist
 /\.static\.uni2\.es$/							greylist
-/\.dynamic\.uni2\.es$/							greylist 
+/\.dynamic\.uni2\.es$/							greylist
 /[0-9]+.*\.sm-rozstaje\.pl$/						greylist
 /[a-z][0-9]+\.osiedle\.net\.pl$/					greylist
 /stm.*\.brightohio\.net$/						greylist
 /ar.*\.net\.t-com\.hr$/							greylist
 /[0-9]+\.static\.mls\.com\.br$/						greylist
-/ww.*\.winsdns\.com$/							greylist 
+/ww.*\.winsdns\.com$/							greylist
 /[0-9-]+\.area.*\.spcsdns\.net$/					greylist
 /server[0-9]+\.adrom\.net$/						greylist
 /\.static\.theplanet\.com$/						greylist
@@ -1456,13 +1456,13 @@
 /[0-9]+\.onlinehome-server\.info$/					greylist
 /\.meri\.net\.pl$/							greylist
 /[0-9-]+\.users\.colocall\.net$/					greylist
-/[0-9-]+\.cnt\.nerim\.net$/						greylist 
+/[0-9-]+\.cnt\.nerim\.net$/						greylist
 /dsl.*\.network-i\.net$/						greylist
 /[0-9-]+\.communicomm\.com$/						greylist
 /[0-9]+\.directconnect\.no$/						greylist
 /[0-9]+\.amsnet\.pl$/							greylist
 /[0-9]+\.mailer-service\.de$/						greylist
-/[0-9]+\.nationalgeographic\.com$/					greylist 
+/[0-9]+\.nationalgeographic\.com$/					greylist
 /\.client\.across\.or\.jp$/						greylist
 /[0-9-]+\.telecable\.com\.do$/						greylist
 /[0-9-]+\.zonasa\.com$/							greylist
@@ -1489,7 +1489,7 @@
 /[0-9-]+\.kbtelecom\.net\.tw$/						greylist
 /dsl\.cistron\.nl$/							greylist
 /[0-9]{6,}\.ptvk\.pl$/							greylist
-/[0-9-]\.rampant\.com$/							greylist 
+/[0-9-]\.rampant\.com$/							greylist
 /[0-9]\.abaks\.pl$/							greylist
 /[0-9-]+orange\.orange\.sk$/						greylist
 # not really right, but there's a pattern here
@@ -1748,7 +1748,7 @@
 /[0-9]{2,}\.stavtelekom\.ru$/	greylist
 /wlan.*\.lanzona\.hu$/	greylist
 /(sdi|dsl)\.tpnet\.pl$/                                                 greylist
-# 
+#
 /[0-9]{2,}\.neoline\.com\.br$/		greylist
 /ip.*\.fastnet\.lv$/			greylist
 /[0-9]{2,}\.in\.tarnow\.pl$/		greylist
@@ -1988,7 +1988,7 @@
 /[0-9-]{3,}\.intnet\.mu$/		greylist
 /[0-9]{2,}\.zugernet\.ch$/		greylist
 /[0-9-]{3,}\.powerdsl\.com\.au$/	greylist
-# Telecom Italia San Marino SpA 
+# Telecom Italia San Marino SpA
 /[0-9-]{3,}\.intelcom\.sm$/		greylist
 /[0-9]{3,}\.metrored\.net\.ar$/		greylist
 /[0-9-]{3,}\.travedsl\.de$/		greylist
@@ -2068,7 +2068,7 @@
 /DSL\.mnsi\.net$/			greylist
 /[0-9]{2,}\.asia\.info\.net$/		greylist
 /([^.]+\.){2,}cytanet\.com\.cy$/	greylist
-# Broadband4U, Ghana Telecom 
+# Broadband4U, Ghana Telecom
 /dhcp.*\.4u\.com\.gh$/			greylist
 /[0-9-]{3,}\.subisu\.net\.np$/		greylist
 /[0-9]{6,}\.a1\.net$/			greylist
@@ -2117,7 +2117,7 @@
 /_[^.]*\.mactelecom\.net$/	greylist
 /\.cablevision\.net\.mx$/	greylist
 /([^.]+\.){2}wincom\.net$/	greylist
-# .su = Soviet Union 
+# .su = Soviet Union
 /DSL.*\.soes\.su$/		greylist
 /[0-9]\.dawsoncollege\.qc\.ca$/	greylist
 /([^.]+\.){2}iquest\.net$/	greylist

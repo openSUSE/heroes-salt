@@ -1,6 +1,6 @@
 {{ pillar['managed_by_salt'] }}
 
-# helos that have no '.' 
+# helos that have no '.'
 /^[^.]+$/                       greylist
 /^localhost$/                   greylist
 /^localhost\.localdomain$/      greylist

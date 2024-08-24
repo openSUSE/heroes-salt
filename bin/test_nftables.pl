@@ -168,7 +168,7 @@ foreach (@directories) {
     }
     system( "getent group $group >/dev/null || groupadd $group" );
   }
-  
+
   my $return = system( nft => -c => "flush ruleset ; include \"$workdir/*.nft\"" );
   my $msg = "nftables tree \"$tree\" is";
   if ($return == 0 && $treestatus == 0) {
