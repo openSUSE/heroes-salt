@@ -127,3 +127,67 @@ profile:
             sLLGSO9zvbueonaBiWk5JG3onn7kOuPD6YWMJySXGhRmUQ7VuoB+bHOtBg==
             =sGTG
             -----END PGP MESSAGE-----
+  dehydrated:
+    target:
+      secrets:
+        mariadb: |
+          -----BEGIN PGP MESSAGE-----
+
+          hQQOA7A9CHm0S6RyEA/+In9IhWOjoGO4peMN1T3fGKnVJSvHze8Nj/KgCEE5JdMp
+          upXgPiJ5nv/YQyvMBFvZSmQk8qry/9WAlaur1pMFIXLbRxgVWj33YJrXlrRLIMj0
+          jghEFMVPuQ5XfZqMK7fyRrTXulWnlaZriMuodb5LcOe/zblwj4LN1W/tyJhV+0di
+          tCUbFsScOwKhsZ82AUMUdHso/zSfSo5gYkDo9tFEVssdf0HuR+ct+EusRwREA5TJ
+          3v8w94c6rSNg86yh8N8S/4CYjrkuVjttjfz2QNowqcLUdBGXjHEbDeQphfYZa+o+
+          y07QVqnWy0mfjzOJ6icI0vq7Tkcz9sADB/eTJ68V52mKld41+30xi80vgzmxfrPO
+          A4d8FsrawjFlj/C9Y05z3fmVGMdVidNTQqIAppwHpFk4NNOzJBiuVhGDEIbIzQqV
+          4zlfPfaiS6/QXjOkxisbzT2avqrccPROLktSrAFN0+nJIsDb3wIcOFbNuztK+mhh
+          jEZkKAGU4rP55dqc6xx3iqRpiUJ+ug0ecxfgeomncodNb/MkZCGtqyLo85Cyqf3i
+          +5SOipFpBdhLP0nr48GXWIXonzf5LBfvNeMRtSt7sXoS5x54KyejINvtKOv7iElH
+          gCB2xozuRVAC5ZDwNDTcMVVSIw+ylzLy4JEc+mmtX2MAvmxFy1is05OaEkfmlqkP
+          +QFcIshPtNZVjc+evYeVHn6r3fox3HiT+JCWMiRMvSNKmfrFcjvvR6rHaYkc4Lcc
+          n1JwTSO3S06Rx+WNeFSTxI3/nYrhv4OJr0/jFjI3XpT/pjKoskRgiitAHnfoUkfn
+          hG74VH3mh7edyAB3qL1uniikDXCA2EvQCv9r06KH+vwaYeHTZuXSGx5zU/tPAtyo
+          kXCli8RUuW0UfClHhXD/HQkgHj3lNhwXD0WaAm+AEBAqrd7fV43bIEQr0jWjBhAC
+          FkkcmpcgWOBICyRyLWVykCnZbcqsXPrA56KUnenuCH2vd2rq1ciys7/KJzF6f4UU
+          Edqy5xB26lWc9SIiZ72EZqZ3R4pvYtXhpdZkDXm1T2qUI7Q/Md7b2+/SfmZ6ou7w
+          gJ7LHLZwFLQoU55TRAfgppqJ9m/lMsvbEX9XmBfcRkzNGhdRNs3XsE5HnthGedST
+          T0lbdQKpVxWRP1oLOxI5jn3RieGmTynUfazHMfBhIZaem3Jj9yw3yB5DfzYaF6mp
+          LBbl7gcsp1aofiAInRtE2ZMEMxoMjXH4VzPKSPZxbeLLjvBXtbbYBmBvfpCL78Fr
+          PSN739JmOrpsY76D/CbrGDMH0h+OgQB528nqo0iTr5KljMAyk5KJnlfcwoPBp+QZ
+          NxpAUoPizMy0qTC6egr+5A8kaG3MA2th65XrJH1qEjgvhQIMA8amgupjyC8cARAA
+          nJX0d+luCbIy6dEOTtjIR0B6mhtyzDwup3yj+rGaHAB2EXLSRHFaH+sGj4Uqe1rl
+          ZlQcrna6zG9CEUw8BZQjdojR9coJIvUv8PT7CsGNOuX6CBo575KdLMUZumS/Kjwq
+          9QHdz4Ta8t0b+Luhf56YY2PPbGwgOe4umQIptIm1Co3ThCXZlAd+3IEVhcraYZ3N
+          73JhmUtOI1avTA5ipirS3X2BKfM4AmDS9Yvv7S5G5xlQUxbbuHiRbTugF23G9zYd
+          aU4PoYVggna45eXQokjNcfyw8vtnzP0ejQii1e2Yx2B6oSAikyT4zFUrgShj6tNd
+          ytzCZzvke30xoaThG4Y7FtqFHfzIbXBmXHPx7hLb3MqWf1TDVvjN9mwR0p2eNkWX
+          JQyhzIRpBdXEPjWdHtwr8RTUl/rSGlI3IvHeQGHvJnYDNgxQwt5y/kwacjnXAHOq
+          Gda0L7e8aQCqUBQNloRyE2hWUzfdxRvUvEJFdGgzJGqhE3FIxfnsu2kEHXmTZcki
+          8Dj2Xdgp2PbJPExP31Hh6qxc+EPlSAZIvdYLAv9+/yIvLRl8Mk9PXzzYRQ4DP3QC
+          6YDgRaFuSSABo+G7nXVIvwrA6FuaOnwMksSI5wENpZaimEwnLZIIiehuq+RToeUf
+          dRAMn3wCnJYqn67NaOKxl+mW6W3FqccLtm2SUwBHeHWFAQ4DslgfDDfB4G8QA/0d
+          CL6jyWDUJUq6TRN+dDoayYEcs9hEgC4lOHg3yCBO7F3cbtFDjWCg+maJLPaJRBr2
+          6CkxCfq+4mKSoW2mRohdFliDo/OmU60ku7LRkDMeEd2M0TcA9czMjwe75xtVBN+C
+          cldEto9J3UbmuxCcH5wc0pXGb4rcDaJLoATcR49kCwQAq1Wz+bIf+z/GGZmrbb78
+          /Oeq+uag+iAvunl8T4kYQgHBHYt5FfOrI/kc23Xcsc6uazj0122HucHqWvS0oHYf
+          +xAdKz+ppsL9sZCFUoFDD9D10yfYHhU/0fGNvaPTwFR50v2GPSUAVAS3bpmU1yQ9
+          22Olty6FAyvW2vGItSQDjZ+FAg4DiLcKbyvsTOYQB/0WtXX2HTF+z2hqQcugVY3P
+          pBhMxdwUM+xRlfB1jleo/Ov+7H/R+7IVO8CbSugExmnWmVIWh1rsUPtfvuYkc8Ae
+          iB/9soNBX1PaUVRQ0nL1bJpBrKipuppc31hrCBjt5VXmIIl9ofwxlnJ4rTbS/k2D
+          Bt2/O0rWeK7wqKdursp57qUO3Suiasfzo+Y262QXZPIBnDnsXWIFU+mz+WHrV08w
+          LwphyKHTjG6mpEYPAJPE6Z76GMM6385QLyKIA9yiHQtcnRgiyrkKKb+DOvsee32c
+          uDotycddoyc+FuNTAz/HgiN7woSvmWc81JkFovOhLEGNhLRzmUdUJf/W22hhAKbK
+          CACuHpMK71711klhB5pwutKeUurQjP1GoaW/6+yqWIRPbObc8CTMS86jJVanUnJp
+          KPxtMKeyiKwycko2BQsdx2+G+cj7Xus3Ob5Ch6AHB/NAe7zV0UfnbraDGDkFJtoJ
+          GCO7aCgBGx7QqouhLrEee+m2imA8dIQutnTdzKS/aclxy0Ge6kQg0kO8oDhaB/xP
+          hWYn30h30FaVzwMkY5mSkZWUKAJbbsW7nEGeNf59v2Rgcvkmlsx0Foe79ZG9aZsg
+          P0eDFvg1gxurCzFPmMcSxuQP0AyImffGt9AAJesPdygyu9GrjhcOhjX+S13hYg+R
+          d+1OGVJGqaKWZbWjEasyPt9ehF4Dx56WF/g6QEwSAQdAUs62E+0bbETRTJxq9bxc
+          oBhmzIt1hC8iMiPa6ldWgHowo5WF//3tZ7bgaFt+lfcCZhcBhxq+6XOLRkLxJOs/
+          3SJSaRSPvZml6MKRPo2qJaCUhF4D+qb0QqJGs2ASAQdAQEcg5GbP3khZnGpzKk16
+          Oq1Ut2zgQ3pOS1MZNjVjv3gwUqd/gGy3eIs66yzfmoW20CpQ4HbaKhlqzgj2ed3E
+          bNzQ9l/RwAL2NAeU1hG60bZ00lMBPbGbQYeEfOsNx4q0cjadEViRl1BFE8fJ7mTl
+          14XDv+zjTltwVYqBfN0+m+AbXWiskPkNvRlEpHMAusz5tgiDZ2huBgn0pt+2BjY5
+          RoQEOs6zFQ==
+          =BN4Z
+          -----END PGP MESSAGE-----
