@@ -82,6 +82,21 @@ find pillar/ salt/files/ -type f \( -name '*.yaml' -o -name '*.yml' \) \
 STATUS_YAML="$?"
 
 
+echo_INFO 'Checking for trailing whitespaces ...'
+STATUS_TWS=0
+while read file
+do
+  tws_found=0
+  # we have some files with CRLF line endings ...
+  tws_findings="$(dos2unix -O -q "$file" | grep --color=always -n '\s$')" && tws_found=1
+  if [ "$tws_found" = 1 ]
+  then
+    printf 'Lines with trailing whitespace in file %s:\n%s\n\n' "$file" "$tws_findings"
+    STATUS_TWS=1
+  fi
+done < <(find . -not -path './.git/*' -not -path './.ruff_cache/*' -not -name '*.pyc' -type f)
+
+
 echo
 echo '==================='
 echo '===== SUMMARY ====='
@@ -143,6 +158,15 @@ else
   echo '--> YAML: PASS'
 fi
 echo
+
+if [ "$STATUS_TWS" = 1 ]
+then
+  echo '--> TRAILING WHITESPACE: FAIL'
+  echo 'Please remove useless trailing spaces from the files/lines listed above.'
+  EXIT=5
+else
+  echo '--> TRAILING WHITESPACE: PASS'
+fi
 
 if [ "$EXIT" = 5 ]
 then
