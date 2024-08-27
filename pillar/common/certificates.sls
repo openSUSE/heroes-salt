@@ -73,13 +73,6 @@ def run():
               ],
           },
       },
-      'sudoers': {
-        'users': {
-          'cert': [
-            f'{host}=(root) NOPASSWD: {", ".join(commands)}',
-          ],
-        },
-      },
       'profile': {
         'certificate_target': {
           'certificates': _certificates,
@@ -91,5 +84,16 @@ def run():
         },
       },
     })
+
+    if commands:
+      result.update({
+        'sudoers': {
+          'users': {
+            'cert': [
+              f'{host}=(root) NOPASSWD: {", ".join(commands)}',
+            ],
+          },
+        },
+      })
 
   return result
