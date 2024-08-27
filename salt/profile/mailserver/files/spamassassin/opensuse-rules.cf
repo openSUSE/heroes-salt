@@ -44,6 +44,8 @@ header  OSU_GOLDTRUST   From:addr =~ /gold[^\@]*trust/
 score   OSU_GOLDTRUST   5
 header  OSU_WINELADIES  From:addr =~ /wineladies/
 score   OSU_WINELADIES  5
+header  OSU_LIUNHTTP    List-Unsubscribe =~ /^http:\/\//
+score   OSU_LIUNHTTP    4
 
 body    OSU_MALAYSIAN_EXPORT  /Malaysian Export Academy/
 score   OSU_MALAYSIAN_EXPORT  10
