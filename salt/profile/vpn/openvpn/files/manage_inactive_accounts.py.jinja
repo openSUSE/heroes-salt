@@ -87,15 +87,15 @@ def last_login(file: str) -> str:
         return ""
 
 
-def send_email(to: str, subject: str, body: str):
-    """Sends email to the `to` address"""
-    log.info(f"sending email to {to}")
+def send_email(to_addr: str, subject: str, body: str, from_addr: str = "admin@opensuse.org"):
+    """Sends email to the specified email address"""
+    log.debug(f"sending email to {to_addr}")
 
     # Create a text/plain message
     msg = EmailMessage()
 
-    msg["From"] = "admin@opensuse.org"
-    msg["To"] = to
+    msg["From"] = from_addr
+    msg["To"] = to_addr
     msg["Subject"] = subject
     msg.set_content(body)
 
@@ -106,10 +106,10 @@ def send_email(to: str, subject: str, body: str):
         s.quit()
 
     except SMTPConnectError as e:
-        stop_script(f"Failed to send email to {to}\nReason: {e}")
+        stop_script(f"Failed to send email to {to_addr}\nReason: {e}")
 
     except ConnectionRefusedError as e:
-        stop_script(f"Failed to send email to {to}\nReason: {e}")
+        stop_script(f"Failed to send email to {to_addr}\nReason: {e}")
 
 
 def notify_user(user: str):
@@ -151,7 +151,7 @@ def notify_user(user: str):
             send_email(mail, subject, mail_body)
 
     # TODO: some users do not have email id
-    # Reason could be that the admin forgot to add their id  during creating their account
+    # Reason could be that the admin forgot to add their id during creating their account
     else:
         log.error(f"{user} email not found")
 
@@ -161,7 +161,8 @@ def notify_admin(user: str):
     send_email(
         "admin@opensuse.org",
         f"[Heroes VPN] {user} is inactive",
-        "Prepare the user for removal",
+        "Please prepare the user for removal",
+        "inactive-heroes@opensuse.org",
     )
 
 
