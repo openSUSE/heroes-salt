@@ -13,7 +13,3 @@ include:
       - AppArmorProfile=elasticsearch
     - require_in:
       - elasticsearch
-  cmd.run:
-    - name: systemctl daemon-reload
-    - onchanges:
-      - file: /etc/systemd/system/elasticsearch.service.d/es-apparmor.conf
