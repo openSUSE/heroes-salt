@@ -111,6 +111,8 @@
   ip6 saddr $host6_monitor ip6 daddr $host6_netbox1 tcp dport 9117 accept
   # monitor -> asgard* (Prometheus ping metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @self6_internal tcp dport 9427 accept
+  # BuddyCheck
+  ip6 saddr @self6_internal ip6 daddr @self6_internal tcp dport 9100 accept
   # monitor -> all nginx nodes (Prometheus nginx metrics collection)
   ip6 saddr $host6_monitor ip6 daddr { $host6_pagure, $host6_ipx-narwal1, $host6_narwal4, $host6_download } tcp dport 9113 accept
   # monitor -> falkor* (Prometheus HA cluster metrics collection)
@@ -166,5 +168,7 @@
   ip6 saddr @self6_internal ip6 daddr @host6_hel udp dport { domain, ntp } accept
   # HTTPS (for idm.i.o.o)
   ip6 saddr @self6_internal ip6 daddr @host6_hel tcp dport https accept
+  # BuddyCheck
+  ip6 saddr @self6_internal ip6 daddr @self6_internal tcp dport 9100 accept
 
  }
