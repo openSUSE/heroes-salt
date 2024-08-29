@@ -31,3 +31,8 @@ rebootmgr:
   {%- if not reboot_safe %}
   strategy: 'off'
   {%- endif %}
+
+profile:
+  buddycheck:
+    services:
+      - os-update
