@@ -54,3 +54,5 @@ include:
   {%- endif %}
   - smartmontools.smartd
   {%- endif %}
+
+  - profile.systemd.daemon-reload
