@@ -2,7 +2,6 @@ vpn_gateway_packages:
   pkg.installed:
     - pkgs:
         - openvpn
-        - openvpn-auth-pam-plugin
 
 vpn_gateway_config:
   file.managed:
@@ -12,8 +11,6 @@ vpn_gateway_config:
       - /etc/openvpn/{{ file }}.conf:
         - source: {{ source }}/etc/openvpn/{{ file }}.conf.jinja
       {%- endfor %}
-      - /etc/pam.d/common-vpn:
-        - source: {{ source }}/etc/pam.d/common-vpn.jinja
     - mode: '0644'
     - template: jinja
     - require:
