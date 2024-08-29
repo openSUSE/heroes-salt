@@ -28,3 +28,6 @@ network:
     default6:
       options:
         - src 2a07:de40:b27e:1204::11
+profile:
+  buddycheck:
+    buddy: atlas2

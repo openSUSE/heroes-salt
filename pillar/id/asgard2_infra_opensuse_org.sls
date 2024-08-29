@@ -36,6 +36,9 @@ sshd_config:
     - fd4b:5292:d67e:2::1
     - fd4b:5292:d67e:4::1
     - fd4b:5292:d67e:1000::2
+profile:
+  buddycheck:
+    buddy: 2a07:de40:b27e:1203::1
 prometheus:
   extra_files:
     ping_exporter:

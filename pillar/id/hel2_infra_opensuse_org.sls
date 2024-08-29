@@ -20,6 +20,8 @@ roles:
   - pgbouncer
 
 profile:
+  buddycheck:
+    buddy: hel1
   dns:
     powerdns:
       recursor:
