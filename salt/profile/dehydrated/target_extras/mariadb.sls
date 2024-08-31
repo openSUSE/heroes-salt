@@ -6,6 +6,6 @@
         - '[client]'
         - user = cert
         - password = {{ salt['pillar.get']('profile:dehydrated:target:secrets:mariadb') }}
-    - mode: '0400'
-    - group: root
+    - mode: '0440'
+    - group: cert
     - user: root
