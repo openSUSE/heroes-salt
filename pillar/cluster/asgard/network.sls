@@ -6,6 +6,10 @@ network:
       bootproto: none
       startmode: auto
 
+    os-asgard:
+      vlan_id: 1000
+      etherdevice: eth0
+
     os-p2p-pub:
       vlan_id: 3201
       etherdevice: eth0
