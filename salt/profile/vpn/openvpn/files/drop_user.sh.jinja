@@ -1,0 +1,27 @@
+#!/bin/sh -Cefu
+#{{ pillar['managed_by_salt'] }}
+# Script to revoke/disable openSUSE admin users
+# Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+if [ "$(id -u)" = 0 ]
+then
+	echo 'Do not run me as root, please.'
+	exit 1
+fi
+
+targetusers="$*"
+
+kanidm reauth -D"$USER"
+sudo true
+
+for user in $targetusers
+do
+	kanidm group list-members vpn | grep "^\"$user@infra.opensuse.org\"$" && kanidm group remove-members vpn "$user"
+	for cert in $(sudo find /etc/easy-rsa/pki/issued -type f -iname "$user".crt)
+	do
+		sudo sh -c "cd /etc/easy-rsa && easyrsa revoke $(basename "$cert" .crt)"
+	done
+	kanidm person validity expire-at "$user" now
+done
+
+sudo sh -c 'cd /etc/easy-rsa && easyrsa gen-crl'

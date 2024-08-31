@@ -30,18 +30,19 @@ vpn_user_config_directory:
     - group: manage_vpn_users
     - mode: '0750'
 
-vpn_gateway_login_script:
+vpn_gateway_scripts:
   file.managed:
-    - name: /usr/local/bin/log_openvpn_login.sh
+    - names:
+        {%- for script in [
+              'drop_user.sh',
+              'log_openvpn_login.sh',
+              'manage_inactive_accounts.py',
+            ]
+        %}
+        - /usr/local/bin/{{ script }}:
+          - source: salt://profile/vpn/openvpn/files/{{ script }}.jinja
+        {%- endfor %}
     - mode: '0755'
-    - source: salt://profile/vpn/openvpn/files/log_vpn_login.sh.jinja
-    - template: jinja
-
-vpn_user_manage_script:
-  file.managed:
-    - name: /usr/local/bin/manage_inactive_accounts.py
-    - mode: '0755'
-    - source: salt://profile/vpn/openvpn/files/manage_inactive_accounts.py.jinja
     - template: jinja
 
 vpn_user_manage_service:
