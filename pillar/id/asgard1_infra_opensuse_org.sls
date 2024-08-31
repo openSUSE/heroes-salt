@@ -25,6 +25,10 @@ bird:
     router_id: 0.0.1.1
 network:
   interfaces:
+    os-asgard:
+      addresses:
+        - fd4b:5292:d67e:1000::1/64
+        - 172.16.128.1/30
     os-p2p-pub:
       addresses:
         - 195.135.223.44/29

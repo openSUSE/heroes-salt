@@ -42,3 +42,10 @@ keepalived:
 
       {{ vrrp('os-p2p-pub',   '2a07:de40:b27f:201::1/64', 253) }}
       {{ vrrp('os-p2p-pub',   '195.135.223.41/29',        254, true) }}
+
+network:
+  interfaces:
+    d-os-p2p-pub:
+      bootproto: none
+      interfacetype: dummy
+      startmode: auto
