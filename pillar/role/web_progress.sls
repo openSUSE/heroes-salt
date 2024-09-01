@@ -48,6 +48,8 @@ redmine:
         # username/password -> secrets.role.web_progress
         encoding: utf8mb4
         timeout: 15
+        variables:
+          tx_isolation: READ-COMMITTED
 
 profile:
   postfix:
