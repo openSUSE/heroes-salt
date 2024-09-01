@@ -87,6 +87,10 @@ profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
 {{ crtkey_acl(certificate, 'salt', individual_files) }}
 {%- endif %}
 
+{%- if 'mariadb' in services %}
+{{ crtkey_acl(certificate, 'mysql', individual_files) }}
+{%- endif %}
+
 {%- endfor %} {#- close certificate loop #}
 
 {%- for x in ['d', 'f'] %}
