@@ -23,6 +23,15 @@ vpn_gateway_login_directory:
     - group: manage_vpn_users
     - mode: '0750'
 
+vpn_gateway_login_archive_directory:
+  file.directory:
+    - name: /var/log/vpn_logins/archive
+    - user: root
+    - group: manage_vpn_users
+    - mode: '0750'
+    - require:
+        - file: vpn_gateway_login_directory
+
 vpn_user_config_directory:
   file.directory:
     - name: /var/lib/vpn_logins

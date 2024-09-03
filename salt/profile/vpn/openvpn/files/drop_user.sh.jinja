@@ -10,6 +10,7 @@ then
 fi
 
 targetusers="$*"
+logindir='/var/log/vpn_logins'
 
 kanidm reauth -D"$USER"
 sudo true
@@ -20,6 +21,11 @@ do
 	for cert in $(sudo find /etc/easy-rsa/pki/issued -type f -iname "$user".crt)
 	do
 		sudo sh -c "cd /etc/easy-rsa && easyrsa revoke $(basename "$cert" .crt)"
+		loginfile="$logindir/$cert"
+		if [ -f "$loginfile" ]
+		then
+			sudo mv -v "$loginfile" "$logindir/archive/"
+		fi
 	done
 	kanidm person validity expire-at "$user" now
 done
