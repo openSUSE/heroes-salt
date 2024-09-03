@@ -224,6 +224,8 @@ def users_in_vpn_logs() -> list[str]:
 
     try:
         logs = os.listdir(vpn_log_dir)
+        # we do not need the archive dir
+        logs.remove("archive")
         cache["vpn_logs"] = logs
         return logs
 
