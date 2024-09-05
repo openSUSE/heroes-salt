@@ -3,13 +3,13 @@
 {%- set padding     = '%02d' %}
 
 {%- if host_index.isdigit() %}
-{%- set hour        = ( ( host_index | int * 15 ) / 60 ) %}
+{%- set hour        = host_index | int %}
 {%- else %}
 {%- set hour        = 0 %}
 {%- set host_index  = 1 %}
 {%- endif %}
 
-{%- set minute      = ( ( host_index | int * 15 ) % 60 ) %}
+{%- set minute      = 15 %}
 {%- set minute_plus = padding % ( minute + 5 ) %}
 {%- set minute      = padding % minute %}
 
@@ -18,6 +18,7 @@
 
 os-update:
   time: {{ update_time }}
+  randomizeddelaysec: 300
   reboot_cmd: rebootmgr
   {%- if grains.get('osfullname') == 'Leap' and not reboot_safe %}
   update_cmd: security
