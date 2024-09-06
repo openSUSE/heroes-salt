@@ -1199,5 +1199,7 @@ set net4_blacklist {
     elements = {
         185.169.4.136/32,  # ~500 SMTP connections against mx2 in CLOSE_WAIT (HAProxy problem or malicious source?)
         108.165.237.45/32, # ~600 HTTP connections against matomo
+        101.47.17.0/24,    # bytedance.com, crawling websites for no apparent reason
+        101.47.18.0/24,    # ^
     }
 }
