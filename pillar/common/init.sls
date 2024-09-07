@@ -227,7 +227,7 @@ sshd_config:
   PubkeyAuthentication: yes
   GSSAPIAuthentication: no
   KerberosAuthentication: no
-  PermitRootLogin: without-password
+  PermitRootLogin: no
   # motd is printed by pam_motd.so
   PrintMotd: no
   # TODO: upstream fix is not sufficient https://github.com/saltstack-formulas/openssh-formula/pull/57
