@@ -1,5 +1,4 @@
 include:
-  - ssh_keys.groups.download_infra
   - secrets.mirrorcache
 
 zypper:
