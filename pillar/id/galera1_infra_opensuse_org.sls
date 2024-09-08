@@ -1,3 +1,6 @@
+include:
+  - secrets.include_id
+
 grains:
   site: prg2
   hostusage:
