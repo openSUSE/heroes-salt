@@ -42,6 +42,8 @@ nginx:
               - error_log: /var/log/nginx/{{ website }}.error.log
 
 rsync:
+  defaults:
+    proxy protocol: true
   modules:
     {{ website }}:
       auth users: coolo
@@ -50,8 +52,7 @@ rsync:
       read only: false
       uid: dashboard
       hosts allow:
-        - atlas1.infra.opensuse.org
-        - atlas2.infra.opensuse.org
+        - 195.135.223.25/32
 
 users:
   dashboard: {}
