@@ -66,17 +66,16 @@
         - tcplog
       {%- if with_check %}
         - tcp-check
-      extra:
-        - 'tcp-check comment "Client Initialization"'
-        - 'tcp-check expect rstring "@RSYNCD: [0-9.]+"'
-        - 'tcp-check comment "Server Initialization"'
-        - 'tcp-check send "@RSYNCD: 28.0\n"'
-        - 'tcp-check comment "Client Query (module name rsync-health)"'
-        - 'tcp-check send "#list\n"'
-        - 'tcp-check comment "Data (module name rsync-health)"'
-        - 'tcp-check expect string "@RSYNCD: EXIT\n"'
-        - 'tcp-check comment "Cleanup"'
-        - 'tcp-check send "@RSYNCD: EXIT\n"'
+      tcpchecks:
+        - connect default linger
+        - 'comment "Rsync Client Initialization"'
+        - 'expect rstring "@RSYNCD: [0-9.]+"'
+        - 'comment "Rsync Server Initialization"'
+        - 'send "@RSYNCD: 28.0\n"'
+        - 'comment "Rsync Module Query"'
+        - 'send "#list\n"'
+        - 'comment "Rsync Over"'
+        - 'expect string "@RSYNCD: EXIT\n"'
       {%- endif %}
       servers:
         rsync_server:
