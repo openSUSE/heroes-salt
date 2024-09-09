@@ -1,3 +1,6 @@
+include:
+  - ssh_keys.users.firstyear
+
 kanidm:
   config:
     # Each kanidmd instances points at itself to avoid load balancer outages giving
@@ -7,3 +10,6 @@ kanidm:
 # This system has high security impact, and should only be accessible
 # to accounts responsible for the system.
 high-value-system: True
+
+sshd_config:
+  PermitRootLogin: prohibit‐password
