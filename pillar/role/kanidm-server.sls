@@ -12,4 +12,4 @@ kanidm:
 high-value-system: True
 
 sshd_config:
-  PermitRootLogin: prohibit‐password
+  PermitRootLogin: prohibit-password
