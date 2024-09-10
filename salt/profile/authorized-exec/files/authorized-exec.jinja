@@ -2,7 +2,7 @@
 (
 	{%- for user, uconfig in config.items() %}
 		{%- if 'pubkey' in uconfig %}
-			{%- set user = user ~ ':' ~ pubkey %}
+			{%- set user = user ~ ':' ~ uconfig['pubkey'] %}
 		{%- endif %}
 	'{{ user }}' => [
 		{%- for command in uconfig.get('commands', []) %}
