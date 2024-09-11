@@ -101,6 +101,8 @@ synapse_appservice_{{ dir }}_file:
     - enable: True
     - require:
       - service: synapse_service
+    - watch:
+      - cmd: {{ dir }}_bootstrap
 
 {% endfor %}
 
