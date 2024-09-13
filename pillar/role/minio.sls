@@ -31,6 +31,6 @@ nginx:
 zypper:
   repositories:
     server:database:
-      baseurl: https://downloadcontent.opensuse.org/repositories/server:/database/$releasever/
+      baseurl: https://$mirror_ext/repositories/server:/database/$releasever/
       priority: 100
       refresh: True

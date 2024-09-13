@@ -49,10 +49,10 @@ zypper:
     netbox: {}
   repositories:
     devel:languages:python:backports:
-      baseurl: https://downloadcontent.opensuse.org/repositories/devel:/languages:/python:/backports/$releasever/
+      baseurl: https://$mirror_ext/repositories/devel:/languages:/python:/backports/$releasever/
       priority: 100
       refresh: true
     openSUSE:infrastructure:netbox:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/netbox/$releasever/
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/netbox/$releasever/
       priority: 98
       refresh: true

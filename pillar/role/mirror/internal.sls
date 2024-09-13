@@ -42,6 +42,6 @@ zypper:
     nginx-module-fancyindex: {}
   repositories:
     openSUSE:infrastructure:nginx-next:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/nginx-next/$releasever/
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/nginx-next/$releasever/
       priority: 98
       refresh: true

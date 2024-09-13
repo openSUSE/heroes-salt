@@ -4,7 +4,7 @@ include:
 zypper:
   repositories:
     mc:
-      baseurl: http://download-prv.infra.opensuse.org/repositories/openSUSE:/infrastructure:/MirrorCache/$releasever/
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/MirrorCache/$releasever/
       priority: 100
       refresh: False
       gpgautoimport: True

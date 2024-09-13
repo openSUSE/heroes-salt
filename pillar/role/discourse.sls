@@ -221,10 +221,10 @@ nginx:
 zypper:
   repositories:
     darix:apps:
-      baseurl: http://download-prg.infra.opensuse.org/repositories/home:/darix:/apps/openSUSE_Tumbleweed/
+      baseurl: http://$mirror_int/repositories/home:/darix:/apps/openSUSE_Tumbleweed/
       priority: 100
       refresh: True
     openSUSE:infrastructure:discourse:
-      baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/discourse/openSUSE_Tumbleweed/
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/discourse/openSUSE_Tumbleweed/
       priority: 100
       refresh: True

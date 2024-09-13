@@ -124,6 +124,6 @@ zypper:
     go-mmproxy: {}
   repositories:
     openSUSE:infrastructure:pagure:
-      baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/pagure/$releasever/
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/pagure/$releasever/
       priority: 100
       refresh: True
