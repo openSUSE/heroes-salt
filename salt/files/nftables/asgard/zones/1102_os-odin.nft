@@ -19,9 +19,9 @@
 
  chain network_vpn {
      # access to permitted networks (careful, some networks are purposefully only accessible through the thor bastions)
-     ip6 daddr { $net6_os-thor, $net6_os-internal, $net6_os-mirror, $net6_os-netbox, $nat64_v6 } ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+     ip6 daddr { $net6_os-thor, $net6_os-internal, $net6_os-mirror, $net6_os-netbox, $net6_os-log, $nat64_v6 } ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
      ip6 daddr { $net6_os-thor, $net6_os-internal, $net6_os-mirror, $nat64_v6 } tcp dport { ssh, http, https } accept
-     ip6 daddr $net6_os-netbox tcp dport ssh accept
+     ip6 daddr { $net6_os-netbox, $net6_os-log } tcp dport ssh accept
      ip6 daddr { $net6_os-internal, $net6_os-mirror, $nat64_v6 } udp dport 60000-61000 accept # Mosh
 
      # qsc-ns3 -> chip (DNS query/AXFR)

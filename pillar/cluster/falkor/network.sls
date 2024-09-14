@@ -38,6 +38,7 @@ network:
           'os-mail': 1209,
           'os-kani': 1210,
           'os-netbox': 1211,
+          'os-log': 1215,
         }
     %}
     {%- for vlan_name, vlan_id in vlanmap.items() %}

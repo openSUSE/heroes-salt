@@ -12,14 +12,14 @@ set lan_ipv6 {
   type ipv6_addr
   flags interval
   auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-odin, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-odin, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
 }
 
 set lan_ipv6_nonat {
   type ipv6_addr
   flags interval
   auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
 }
 
 set vpn_ipv6 {
@@ -395,6 +395,17 @@ set self6_netbox {
     }
 }
 
+# os-log
+set self6_log {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2a07:de40:b27e:1215::1/128,
+        2a07:de40:b27e:1215::2/128,
+        2a07:de40:b27e:1215::3/128,
+    }
+}
+
 ## Other individual hosts
 
 # SUSE firewall (our gate to the outside)
@@ -572,6 +583,22 @@ set host6_netbox {
     flags interval
     elements = {
         $host6_netbox1,
+    }
+}
+
+# Log
+set host6_logger {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_logger-prg,
+    }
+}
+set host4_logger {
+    type ipv4_addr
+    flags interval
+    elements = {
+        $host4_logger-prg,
     }
 }
 

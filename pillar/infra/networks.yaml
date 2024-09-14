@@ -81,6 +81,11 @@ prg2:
     net6: 2a07:de40:b27e:1211::/64
     gw6: 2a07:de40:b27e:1211::3
     id: 1211
+  openSUSE-log:
+    short: os-log
+    net6: 2a07:de40:b27e:1215::/64
+    gw6: 2a07:de40:b27e:1215::3
+    id: 1215
 
 slc1: {}
 

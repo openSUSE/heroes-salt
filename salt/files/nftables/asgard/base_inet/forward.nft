@@ -10,6 +10,7 @@
   iif vmap {
     os-bare     : jump input_network_os-bare,
     os-internal : jump input_network_os-internal,
+    os-log      : jump input_network_os-log,
     os-s-warp   : jump input_network_os-s-warp,
     os-p2p-pub  : jump input_network_os-p2p-pub,
     os-mirror   : jump input_network_os-mirror,
@@ -27,6 +28,7 @@
   oif vmap {
     os-bare     : jump output_network_os-bare,
     os-internal : jump output_network_os-internal,
+    os-log      : jump output_network_os-log,
     os-s-warp   : jump output_network_os-s-warp,
     os-p2p-pub  : jump output_network_os-p2p-pub,
     os-mirror   : jump output_network_os-mirror,

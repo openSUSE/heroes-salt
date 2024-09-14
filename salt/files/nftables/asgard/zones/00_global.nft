@@ -30,6 +30,7 @@
   # Syslog
   ip6 daddr $host6_monitor udp dport syslog accept
   ip6 daddr $host6_monitor tcp dport 514 accept # why tcp in addition to udp??
+  ip6 daddr @host6_logger tcp dport 514 accept
 
   # downloadcontent.o.o ACL
   ip6 saddr @acl6_internet_downloadcontent ip6 daddr @host6_downloadcontent icmpv6 type { echo-request, echo-reply } accept
@@ -58,6 +59,7 @@
 
   # Syslog
   ip daddr $host4_monitor tcp dport 514 accept
+  ip daddr @host4_logger tcp dport 514 accept
 
   # traceroute
   udp dport != { 53, 123, 514 } ip protocol udp log prefix "[UDP Rejected] " reject

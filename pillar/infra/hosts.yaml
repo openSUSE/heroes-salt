@@ -412,6 +412,19 @@ lnt:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
+logger:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b394f7865
+    root: 3600a098038304161792455736d424e4d
+  interfaces:
+    os-log:
+      ip6: 2a07:de40:b27e:1215::a/64
+      mac: 00:16:3e:20:7f:df
+      pseudo_ip4: 172.16.164.41
+      source: x-os-log
+  ram: 1536MB
+  vcpu: 1
 mailman3:
   cluster: falkor
   disks:

@@ -13,6 +13,7 @@
     os-asgard   : jump network_os-asgard,
     os-s-warp   : jump input_network_os-s-warp,
     os-internal : jump input_network_os-internal,
+    os-log      : jump input_network_os-log,
     os-bare     : jump input_network_os-bare,
     os-p2p-pub  : jump input_network_os-p2p-pub,
     os-public   : jump input_network_os-public,
