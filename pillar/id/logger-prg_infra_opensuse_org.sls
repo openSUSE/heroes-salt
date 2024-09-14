@@ -10,4 +10,5 @@ grains:
     - crameleon
   partners: []
   weburls: []
-roles: []
+roles:
+  - logger
