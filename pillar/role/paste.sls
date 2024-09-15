@@ -43,6 +43,6 @@ nginx:
 zypper:
   repositories:
     devel:languages:ruby:
-      baseurl: https://downloadcontent.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
+      baseurl: https://$mirror_ext/repositories/devel:/languages:/ruby/$releasever/
       priority: 100
       refresh: True

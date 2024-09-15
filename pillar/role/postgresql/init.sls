@@ -35,6 +35,6 @@ zypper:
     postgresql-server: {}
   repositories:
     server_database_postgresql:
-      baseurl: https://downloadcontent.opensuse.org/repositories/server:/database:/postgresql/$releasever/
+      baseurl: https://$mirror_ext/repositories/server:/database:/postgresql/$releasever/
       priority: 99
       refresh: True

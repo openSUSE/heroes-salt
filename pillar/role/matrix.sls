@@ -217,6 +217,6 @@ apparmor:
 zypper:
   repositories:
     openSUSE:infrastructure:matrix:
-      baseurl: http://download-prg.infra.opensuse.org/repositories/openSUSE:/infrastructure:/matrix/openSUSE_Tumbleweed/
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/matrix/openSUSE_Tumbleweed/
       priority: 100
       refresh: True

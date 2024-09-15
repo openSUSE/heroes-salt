@@ -1,0 +1,22 @@
+{%- set site = grains.get('site') %}
+
+{#- defaults #}
+{%- set mirror_int = 'download.infra.opensuse.org' %}
+{%- set mirror_ext = 'downloadcontent.opensuse.org' %}
+
+{#- location specific overrides #}
+{%- if site == 'prg2' or grains['id'] == 'slimhat.infra.opensuse.org' %}
+  {%- set mirror_int = 'download-prg.infra.opensuse.org' %}
+{%- elif site in ['prv1', 'slc1'] %}
+  {%- set mirror_int = 'download-prv.infra.opensuse.org' %}
+  {%- set mirror_ext = 'provo-mirror.opensuse.org' %}
+{%- elif site == 'nue-ipx' %}
+  {%- set mirror_int = 'download-nue.infra.opensuse.org' %}
+  {%- set mirror_ext = 'rsync.opensuse.org' %}
+{%- endif %}
+
+{%- set mirrors = {
+      'internal': mirror_int,
+      'external': mirror_ext,
+    }
+%}

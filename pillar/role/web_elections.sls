@@ -49,6 +49,6 @@ profile:
 zypper:
   repositories:
     openSUSE:infrastructure:elections.opensuse.org:
-      baseurl: http://download.infra.opensuse.org/repositories/openSUSE:/infrastructure:/elections.opensuse.org/$releasever/
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/elections.opensuse.org/$releasever/
       priority: 100
       refresh: True

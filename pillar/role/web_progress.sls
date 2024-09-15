@@ -61,10 +61,10 @@ zypper:
     google-opensans-fonts: {}
   repositories:
     devel:languages:ruby:
-      baseurl: https://downloadcontent.opensuse.org/repositories/devel:/languages:/ruby/$releasever/
+      baseurl: https://$mirror_ext/repositories/devel:/languages:/ruby/$releasever/
       priority: 99
       refresh: True
     devel:languages:ruby:extensions:
-      baseurl: https://downloadcontent.opensuse.org/repositories/devel:/languages:/ruby:/extensions/$releasever/
+      baseurl: https://$mirror_ext/repositories/devel:/languages:/ruby:/extensions/$releasever/
       priority: 99
       refresh: True

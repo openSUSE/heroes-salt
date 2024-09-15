@@ -1,3 +1,4 @@
+{%- from 'map.jinja' import mirrors %}
 {%- set osfullname = salt['grains.get']('osfullname') %}
 {% set osmajorrelease = salt['grains.get']('osmajorrelease')|int %}
 {% set osrelease = salt['grains.get']('osrelease') %}
@@ -288,6 +289,9 @@ zypper:
     withlock: {}
     {%- endif %} {#- Close Leap Micro check #}
   refreshdb_force: false
+  variables:
+    mirror_int: {{ mirrors['internal'] }}
+    mirror_ext: {{ mirrors['external'] }}
 
 mine_functions:
   network.ip_addrs: []
