@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+"""
+{{ pillar['managed_by_salt'] }}
+
+Author: Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+"""
+
+import sys
+from os import getenv
+
+import mailmanclient
+
+# hint: 01_Heroes/mailman3.infra.opensuse.org/mailman/api/mailman
+secret = getenv('MAILMAN_SECRET')
+if not secret:
+    print('How about setting MAILMAN_SECRET?')
+    sys.exit(1)
+
+client = mailmanclient.Client('http://127.0.0.1:8001/3.1', 'mailman', secret)
+
+args = sys.argv
+
+if len(args) < 2 or not args[1]:
+    sys.exit(1)
+
+address = args[1]
+
+print(f'Searching for "{address}" ...')
+
+for mlist in client.lists:
+    try:
+        member = mlist.get_member(address)
+    # why does get_member() not return None for no result!?
+    except ValueError:
+        continue
+    mlname = mlist.settings.get('list_name')
+    print(f'Unsubscribing from {mlname} ... ', end='')
+    member.unsubscribe()
+    print('ok')
+
+print('Done.')

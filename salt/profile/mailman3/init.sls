@@ -3,6 +3,7 @@ include:
   - profile.mailman3.config
   - profile.mailman3.master
   - .archrwr
+  - .scripts
 
 mailman_service:
   service.running:
