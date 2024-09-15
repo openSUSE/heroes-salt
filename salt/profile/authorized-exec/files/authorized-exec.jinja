@@ -1,0 +1,13 @@
+{{ pillar['managed_by_salt'] }}
+(
+	{%- for user, uconfig in config.items() %}
+		{%- if 'pubkey' in uconfig %}
+			{%- set user = user ~ ':' ~ uconfig['pubkey'] %}
+		{%- endif %}
+	'{{ user }}' => [
+		{%- for command in uconfig.get('commands', []) %}
+		'{{ command }}',
+		{%- endfor %}
+	],
+	{%- endfor %}
+)

@@ -55,4 +55,5 @@ include:
   - smartmontools.smartd
   {%- endif %}
 
+  - profile.authorized-exec
   - profile.systemd.daemon-reload
