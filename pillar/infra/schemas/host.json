@@ -9,7 +9,10 @@
 			"description": "Name of the virtualization cluster, as found in clusters.yaml",
 			"type": "string",
 			"enum": [
+					"arches",
+					"chaplin",
 					"falkor",
+					"kepler",
 					"orbit",
 					"squanchy"
 			]
