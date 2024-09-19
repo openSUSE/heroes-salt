@@ -49,8 +49,8 @@
   <os>
     <type arch='x86_64' machine='q35'>hvm</type>
     {%- if not vm_extra.get('legacy', False) %}
-    <loader secure='yes' readonly='yes' type='pflash'>/usr/share/qemu/ovmf-x86_64-opensuse-code.bin</loader>
-    <nvram template='/usr/share/qemu/ovmf-x86_64-opensuse-vars.bin'>/kvm/nvram/{{ vm_name }}.fd</nvram>
+    <loader secure='yes' readonly='yes' type='pflash'>/usr/share/qemu/ovmf-x86_64-smm-suse-code.bin</loader>
+    <nvram template='/usr/share/qemu/ovmf-x86_64-smm-suse-vars.bin'>/kvm/nvram/{{ vm_name }}.fd</nvram>
     {%- endif %}
     <boot dev='hd'/>
   </os>
