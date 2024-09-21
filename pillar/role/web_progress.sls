@@ -24,6 +24,7 @@ redmine:
     - openid_connect
     - plugin-views-revisions
     - reopen-issues-by-mail
+    - wysiwyg_editor
   config:
     configuration:
       default:
