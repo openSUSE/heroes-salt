@@ -19,6 +19,7 @@ haproxy:
         - path_grafana_login     path        /grafana/login
         - path_grafana           path_beg    /grafana/
         - path_matomo            path        /matomo/index.php
+        - path_matrix_block      path_beg    /_matrix/federation/v2/invite
         - path_matrix_client     path_beg    /.well-known/matrix/client
         - path_matrix_federation path_beg    /.well-known/matrix/server
         - path_meetings          path_beg    /meetings
@@ -132,6 +133,8 @@ haproxy:
         - security_txt        if path_security
 
         # path-specific rules
+        - error_403       if host_matrix path_matrix_block
+        - error_403       if sni_matrix path_matrix_block
         - internal        if host_forums path_metrics !internal_clients
         - internal        if host_monitor path_grafana_login !internal_clients
         - internal        if host_beans path_matomo param_matomo_module_loginoidc param_matomo_action_signin !internal_clients
