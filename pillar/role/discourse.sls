@@ -170,6 +170,7 @@ nginx:
                       - proxy_pass: http://discourse
                       - break
                   - location ~ ^/(svg-sprite/|letter_avatar/|letter_avatar_proxy/|user_avatar|highlight-js|stylesheets|theme-javascripts|favicon/proxied|service-worker):  # noqa 204
+                      - access_log: "off"
                       - proxy_set_header: Host $http_host
                       - proxy_set_header: X-Real-IP $remote_addr
                       - proxy_set_header: X-Request-Start "t=${msec}"
@@ -187,6 +188,7 @@ nginx:
                       - proxy_pass: http://discourse
                       - break
                   - location /message-bus/:
+                      - access_log: "off"
                       - proxy_set_header: Host $http_host
                       - proxy_set_header: X-Real-IP $remote_addr
                       - proxy_set_header: X-Request-Start "t=${msec}"
