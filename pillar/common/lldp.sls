@@ -5,5 +5,4 @@ lldpd:
     lldpd_options: >-
       -C !*
       -I fib*,free*,mgmt*,ob*
-      {{ '-m ' ~ addresses | first if addresses else '' }}
-      -M 1
+      {{ '-m ' ~ addresses | first if addresses else '' }} -M1
