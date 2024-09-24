@@ -17,4 +17,5 @@ grains:
     - https://webhook.opensuse.org/
     - https://dimension.opensuse.org/
 roles:
+  - draupnir
   - matrix
