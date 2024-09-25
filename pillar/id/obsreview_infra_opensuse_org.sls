@@ -15,3 +15,4 @@ grains:
     - https://obs-reviewlab.opensuse.org/dashboard/
 roles:
   - docker
+  - obsreview
