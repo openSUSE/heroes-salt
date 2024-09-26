@@ -1,6 +1,6 @@
 draupnir_package:
   pkg.installed:
-    - pkg: draupnir
+    - name: draupnir
 
 draupnir_config:
   file.managed:
