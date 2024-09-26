@@ -21,7 +21,7 @@ homeserverUrl: https://matrix.opensuse.org
 managementRoom: '#draupnir-mgmt:opensuse.org'
 mentionLimitProtection:
   maxMentions: 3
-pollReports: true
+pollReports: false # This is currently broken
 protections:
   wordlist:
     minutesBeforeTrusting: 0
