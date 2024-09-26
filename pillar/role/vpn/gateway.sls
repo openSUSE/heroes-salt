@@ -11,6 +11,8 @@ sysctl:
 
 zypper:
   packages:
+    # needed by salt/profile/vpn/openvpn/files/create_user.sh.jinja
+    jq: {}
     # needed by salt/profile/vpn/openvpn/ccd.sls
     python3-python-dateutil: {}
     # needed by salt/profile/vpn/openvpn/files/manage_inactive_accounts.py.jinja

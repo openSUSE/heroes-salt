@@ -43,6 +43,7 @@ vpn_gateway_scripts:
   file.managed:
     - names:
         {%- for script in [
+              'create_user.sh',
               'drop_user.sh',
               'log_openvpn_login.sh',
               'manage_inactive_accounts.py',
