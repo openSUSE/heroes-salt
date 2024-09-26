@@ -20,7 +20,7 @@ draupnir_token:
 
 draupnir_service:
   service.running:
-    - name: draupnir
+    - name: draupnir-bot
     - enable: true
     - require:
         - pkg: draupnir_package
