@@ -1,0 +1,34 @@
+# {{ pillar['managed_by_salt'] }}
+---
+
+admin:
+  enableMakeRoomAdminCommand: true
+autojoinOnlyIfManager: true
+automaticallyRedactForReasons:
+  - '*'
+backgroundDelayMS: 10
+commands:
+  ban:
+    defaultReasons:
+      - harassment
+      - scam
+      - spam
+      - transphobia
+dataPath: /var/lib/draupnir
+displayReports: true
+fasterMembershipChecks: true
+homeserverUrl: https://matrix.opensuse.org
+managementRoom: '#draupnir-mgmt:opensuse.org'
+mentionLimitProtection:
+  maxMentions: 3
+pollReports: true
+protections:
+  wordlist:
+    minutesBeforeTrusting: 0
+    words:
+      - faggot
+      - nigger
+      - tranny
+      - ywnbaw
+recordIgnoredInvites: true
+verboseLogging: false
