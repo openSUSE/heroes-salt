@@ -1,0 +1,36 @@
+#!/bin/sh -Cef
+#{{ pillar['managed_by_salt'] }}
+# Script to create openSUSE admin users
+# Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+if [ "$(id -u)" = 0 ]
+then
+	echo 'Do not run me as root, please.'
+	exit 1
+fi
+
+if [ "$1" = '--help' ] || [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]
+then
+	echo "$0 <username> <fullname> <email> <public ssh key>"
+	exit 1
+fi
+
+set -u
+
+username="$1"
+fullname="$2"
+email="$3"
+sshkey="$4"
+
+set -x
+
+kanidm reauth -D"$USER"
+
+kanidm person list -ojson | jq -r '.[]["name"][]' | grep "^$username$"
+
+kanidm person create "$username" "$fullname"
+kanidm person posix set --shell /bin/sh "$username"
+kanidm person update "$username" --mail "$email"
+kanidm person ssh add-publickey "$username" untitled0 "$sshkey"
+kanidm group add-members vpn "$username"
+kanidm person credential create-reset-token "$username"
