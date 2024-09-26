@@ -14,7 +14,7 @@ sudoers:
 # (c|sh)ould be improved by fetching users from kanidm here
 groups:
   synapse:
-    members:
+    addusers:
       - rorysys
   systemd-journal:
     members:
