@@ -63,7 +63,7 @@ nginx:
               - server_name: forums.opensuse.org
               - server_tokens: "off"
               - listen: '[::]:80 default_server'
-              - access_log: /var/log/nginx/discourse.access.log log_discourse flush=2m gzip=8
+              - access_log: /var/log/nginx/discourse.access.log.gz log_discourse flush=2m gzip=8
               - gzip: "on"
               - gzip_vary: "on"
               - gzip_min_length: 1000

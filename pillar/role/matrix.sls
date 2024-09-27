@@ -163,7 +163,7 @@ nginx:
                   - proxy_pass: https://static.opensuse.org/chat/favicons/
               - location ~* \.(?:ttf|otf|eot|woff)$:
                   - add_header: Access-Control-Allow-Origin "*"
-              - access_log: /var/log/nginx/chat.access.log combined flush=2m gzip=8
+              - access_log: /var/log/nginx/chat.access.log.gz combined flush=2m gzip=8
               - error_log: /var/log/nginx/chat.error.log
         enabled: True
       dimension.opensuse.org.conf:
@@ -196,7 +196,7 @@ nginx:
               - location /_matrix:
                   - proxy_pass: http://localhost:8008
               - include: /etc/matrix-synapse/workers/nginx.conf
-              - access_log: /var/log/nginx/matrix.access.log combined flush=2m gzip=8
+              - access_log: /var/log/nginx/matrix.access.log.gz combined flush=2m gzip=8
               - error_log: /var/log/nginx/matrix.error.log
         enabled: True
       webhook.opensuse.org.conf:

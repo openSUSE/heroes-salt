@@ -55,3 +55,7 @@ prometheus:
         name: prometheus-nginx_exporter
         service:
           name: prometheus-nginx_exporter.socket
+
+zypper:
+  packages:
+    nginx-logrotate-recompress: {}
