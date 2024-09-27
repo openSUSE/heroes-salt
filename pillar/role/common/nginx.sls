@@ -42,6 +42,7 @@ nginx:
               - listen:
                   - unix:/run/nginx/status.sock
               - location = /:
+                  - access_log: 'off'
                   - stub_status: ''
         enabled: true
 
