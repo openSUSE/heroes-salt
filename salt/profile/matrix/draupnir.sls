@@ -22,7 +22,9 @@ draupnir_service:
   service.running:
     - name: draupnir-bot
     - enable: true
-    - require:
-        - pkg: draupnir_package
+    - reload: false
+    - watch:
         - file: draupnir_config
         - file: draupnir_token
+    - require:
+        - pkg: draupnir_package
