@@ -10,4 +10,5 @@ grains:
   partners: []
   weburls: []
 roles:
+  - ca
   - dehydrated.central
