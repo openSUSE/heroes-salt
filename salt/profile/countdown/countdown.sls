@@ -4,8 +4,8 @@ countdown_packages:
       - adobe-sourcesanspro-fonts
       - git
       - google-opensans-fonts
-      - inkscape
       - optipng
+      - python3-CairoSVG
       - rsync
       - google-noto-sans-jp-regular-fonts
       - google-noto-sans-kr-regular-fonts
