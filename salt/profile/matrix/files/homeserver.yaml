@@ -772,15 +772,8 @@ url_preview_enabled: true
 # you uncomment the following list as a starting point.
 #
 url_preview_ip_range_blacklist:
-  - '127.0.0.0/8'
-  - '10.0.0.0/8'
-  - '172.16.0.0/12'
-  - '192.168.0.0/16'
-  - '100.64.0.0/10'
-  - '169.254.0.0/16'
-  - '::1/128'
-  - 'fe80::/64'
-  - 'fc00::/7'
+  - '::/0'
+  - '0.0.0.0/0'
 
 # List of IP address CIDR ranges that the URL preview spider is allowed
 # to access even if they are specified in url_preview_ip_range_blacklist.
@@ -788,8 +781,8 @@ url_preview_ip_range_blacklist:
 # target IP ranges - e.g. for enabling URL previews for a specific private
 # website only visible in your network.
 #
-#url_preview_ip_range_whitelist:
-#   - '192.168.1.1'
+url_preview_ip_range_whitelist:
+  - '2a07:de40:b27e::/48'  # openSUSE PRG2
 
 # Optional list of URL matches that the URL preview spider is
 # denied from accessing.  You should use url_preview_ip_range_blacklist
