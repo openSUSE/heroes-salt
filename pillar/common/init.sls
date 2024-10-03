@@ -231,8 +231,7 @@ sshd_config:
   PermitRootLogin: no
   # motd is printed by pam_motd.so
   PrintMotd: no
-  # TODO: upstream fix is not sufficient https://github.com/saltstack-formulas/openssh-formula/pull/57
-  Subsystem: sftp /usr/lib/ssh/sftp-server
+  Subsystem: sftp internal-sftp
   UseDNS: yes
   UsePAM: yes
   matches:
