@@ -217,6 +217,8 @@ apparmor:
       source: salt://profile/matrix/files/matrix-synapse.apparmor
 
 zypper:
+  packages:
+    python310-matrix-synadm: {}
   repositories:
     openSUSE:infrastructure:matrix:
       baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/matrix/openSUSE_Tumbleweed/
