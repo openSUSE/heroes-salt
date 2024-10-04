@@ -32,7 +32,8 @@
   /usr/sbin/chronyd mr,
   owner /etc/chrony.conf r,
   owner /etc/chrony.d/{,*} r,
-  owner /run/chrony/{,chronyd.pid,chronyd.sock} w,
+  owner /run/chrony/{,chronyd.sock} w,
+  /run/chrony/chronyd.pid w,
   owner /var/lib/chrony/drift{,.tmp} rw,
 
   include if exists <local/usr.sbin.chronyd>
