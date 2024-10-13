@@ -1,6 +1,41 @@
 suse_ha:
   cluster:
     name: falkor
+  constraints:
+    {%- for vmpair in [
+          'atlas',
+          'gitlab-runner',
+          'hel',
+          'kani',
+          'mirrordb',
+          'mx',
+          'prg-ns',
+        ]
+    %}
+    colo_{{ vmpair }}:
+      type: rsc_colocation
+      score: -100  # negative score to prefer having the VM resources _not_ run on the same node
+      resources:
+        - VM_{{ vmpair }}1.infra.opensuse.org
+        - VM_{{ vmpair }}2.infra.opensuse.org
+    {%- endfor %}
+    colo_galera:
+      type: rsc_colocation
+      score: -100
+      sets:
+        colo_galera-0:
+          VM_galera1.infra.opensuse.org: {}
+          VM_galera2.infra.opensuse.org: {}
+          VM_galera3.infra.opensuse.org: {}
+    colo_narwal:
+      type: rsc_colocation
+      score: -100
+      sets:
+        colo_narwal-0:
+          VM_narwal5.infra.opensuse.org: {}
+          VM_narwal6.infra.opensuse.org: {}
+          VM_narwal7.infra.opensuse.org: {}
+          VM_narwal8.infra.opensuse.org: {}
   fencing:
     stonith_enable: true
     sbd:
