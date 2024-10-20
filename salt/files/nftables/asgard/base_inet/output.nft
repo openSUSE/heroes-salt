@@ -20,6 +20,7 @@
     os-salt    : jump output_network_os-salt,
     os-thor    : jump output_network_os-thor,
     os-internal: jump output_network_os-internal,
+    os-log     : jump output_network_os-log,
   }
 
   oifname prv1_gate1 jump output_network_prv1

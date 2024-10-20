@@ -56,6 +56,9 @@ define net6_os-kani     = 2a07:de40:b27e:1210::/64
 # VLAN 1211 openSUSE-netbox
 define net6_os-netbox   = 2a07:de40:b27e:1211::/64
 
+# VLAN 1215 openSUSE-log
+define net6_os-log      = 2a07:de40:b27e:1215::/64
+
 define net6_vpn-udp     = 2a07:de40:b27e:5001::/64
 define net6_vpn-tcp     = 2a07:de40:b27e:5002::/64
 
@@ -202,6 +205,10 @@ define host6_kani2       = 2a07:de40:b27e:1210:0000:0000:0000:000b/128
 
 # NetBox
 define host6_netbox1     = 2a07:de40:b27e:1211:0000:0000:0000:000a/128
+
+# Loggers
+define host4_logger-prg  = 172.16.164.41/32
+define host6_logger-prg  = 2a07:de40:b27e:1215:0000:0000:0000:000a/128
 
 ### Hosts at QSC
 define host4_stonehat    = 172.16.201.6/32

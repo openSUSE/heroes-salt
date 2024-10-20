@@ -1,0 +1,14 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-log {
+  jump global_internal
+
+  log prefix "[Log Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-log {
+  # Syslog
+  ip6 saddr @self6_log ip6 daddr $host6_logger-prg tcp dport 514 accept
+ }
