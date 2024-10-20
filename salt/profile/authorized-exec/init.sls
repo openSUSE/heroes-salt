@@ -25,7 +25,7 @@ authorized-exec_configs:
         {%- endfor %}
     - source: salt://profile/authorized-exec/files/authorized-exec.jinja
     - check_cmd: perl -c
-    - mode: '0640'
+    - mode: '0644'
     - template: jinja
 
 {%- else %}
