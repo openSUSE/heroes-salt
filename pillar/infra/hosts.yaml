@@ -412,7 +412,7 @@ lnt:
   legacy_boot: true
   ram: 4096MB
   vcpu: 2
-logger:
+logger-prg:
   cluster: falkor
   disks:
     data0: 3600a09803831494f635d554b394f7865
