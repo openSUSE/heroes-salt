@@ -10,7 +10,10 @@
 
 Authoritative source of this repository is https://gitlab.infra.opensuse.org/infra/salt. Merge requests can be filed there, but access requires the openSUSE Heroes VPN.
 
-Read-only mirrors are available at https://code.opensuse.org/heroes/salt and https://github.com/openSUSE/heroes-salt.
+Read-only mirrors are available at:
+  * https://github.com/openSUSE/heroes-salt
+  * https://code.opensuse.org/heroes/salt (currently not receiving updates)
+  * https://progress.opensuse.org/projects/opensuse-admin/repository
 
 Documentation can be found in the [openSUSE admin wiki](https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki).
 
