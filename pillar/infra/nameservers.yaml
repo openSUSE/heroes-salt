@@ -1,8 +1,8 @@
 ---
-cz:
+prg2:
   - 2a07:de40:b27e:1203::11  # hel1
   - 2a07:de40:b27e:1203::12  # hel2
-us:
+prv1:
   # we need new local resolvers in PRV
   - 172.16.164.13  # hel1
   - 172.16.164.14  # hel2
