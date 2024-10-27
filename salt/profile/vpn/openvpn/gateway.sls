@@ -69,9 +69,9 @@ vpn_user_manage_timer:
     - source: salt://profile/vpn/openvpn/files/systemd/manage-vpn-users.timer.jinja
     - template: jinja
 
-/etc/myservice/kanidm-api-key.txt:
+/etc/kanidm-api-key.env:
   file.managed:
-    - contents: {{ salt['pillar.get']('profile:vpn:openvpn:manage_vpn_users') }}
+    - contents: KANIDM_API_KEY={{ salt['pillar.get']('profile:vpn:openvpn:manage_vpn_users') }}
     - mode: '0400'
     - user: manage_vpn_users
     - group: manage_vpn_users
