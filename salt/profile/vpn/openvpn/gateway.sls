@@ -71,10 +71,10 @@ vpn_user_manage_timer:
 
 /etc/kanidm-api-key.env:
   file.managed:
-    - contents: KANIDM_API_KEY={{ salt['pillar.get']('profile:vpn:openvpn:manage_vpn_users') }}
+    - contents:
+      - {{ pillar['managed_by_salt'] | yaml_encode }}
+      - KANIDM_API_KEY={{ salt['pillar.get']('profile:vpn:openvpn:manage_vpn_users') }}
     - mode: '0400'
-    - user: manage_vpn_users
-    - group: manage_vpn_users
 
 run_vpn_user_manage_timer:
   service.running:
