@@ -53,7 +53,7 @@ profile:
         repo: https://github.com/openSUSE/mirrors-static.git
         branch: main
     server_list:
-      - narwal4.infra.opensuse.org
+    #  - narwal4.infra.opensuse.org
       - narwal5.infra.opensuse.org
       - narwal6.infra.opensuse.org
       - narwal7.infra.opensuse.org
