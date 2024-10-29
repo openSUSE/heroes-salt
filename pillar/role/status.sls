@@ -10,7 +10,7 @@ firewalld:
         {%- else %}
         - private
         {%- endif %}
-    {%- if site == 'prg2' %}
+    {%- if site in ['prg2', 'nue-ipx'] %}
       services:
         - http
         - https
