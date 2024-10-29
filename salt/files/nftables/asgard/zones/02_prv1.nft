@@ -20,6 +20,10 @@
   # * -> hel*
   oifname nat64 ip daddr @host4_hel ip protocol icmp accept
 
+  # status2 (Provo) -> status1 (Nuremberg) when routed via Prague
+  oifname nueqsc_stonehat ip saddr 192.168.67.13/32 ip daddr 192.168.87.3/32 ip protocol icmp accept
+  oifname nueqsc_stonehat ip saddr 192.168.67.13/32 ip daddr 192.168.87.3/32 tcp dport ssh accept
+
  }
 
  chain output_network_prv1 {
