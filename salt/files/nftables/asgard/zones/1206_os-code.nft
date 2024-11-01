@@ -22,6 +22,7 @@
   # pagure -> atlas regular listener (needed for /login, but why? does it use legacy www.o.o/openid instead of id.o.o for querying metadata?)
   ip6 saddr $host6_pagure ip6 daddr $host6_atlas tcp dport https accept
 
+  reject with icmpv6 type admin-prohibited
  }
 
  chain output_network_os-code {
