@@ -57,8 +57,6 @@ firewalld:
         - 195.135.220.0/22
         # SUSE's public network (Prague)
         - 213.151.88.128/25
-        # provo-mirror.o.o etc
-        - 91.193.113.0/24
         # QSC public networks (i.e. widehat)
         - 62.146.92.200/29
         - 62.146.92.208/29

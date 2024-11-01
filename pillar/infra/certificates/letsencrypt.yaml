@@ -136,7 +136,7 @@ metrics.opensuse.org:
     - macro: atlas
 mirrorcache-us.opensuse.org:
   targets:
-    - macro: provo-proxy
+    - macro: atlas
 mirrors.opensuse.org:
   targets:
     - macro: atlas
@@ -171,9 +171,7 @@ provo-mirror.opensuse.org:
   sans:
     - provo-downloadcontent.opensuse.org
   targets:
-    - host: provo-mirror
-      services:
-        - nginx
+    - macro: atlas
 proxy-prg2.opensuse.org:
   targets:
     - macro: atlas

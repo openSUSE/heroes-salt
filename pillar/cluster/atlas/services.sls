@@ -119,6 +119,10 @@ haproxy:
         - host_redirect_wiki_gone  hdr(host)     -i is.opensuse.org
         - host_redirect_wiki_gone  hdr(host)     -i vi.opensuse.org
 
+        # temporary
+        - host_mirrorcache_us      hdr(host)     -i mirrorcache-us.opensuse.org
+        - host_provo_mirror        hdr(host)     -i provo-mirror.opensuse.org
+
         - sni_matrix               ssl_fc_sni    matrix.opensuse.org
 
         - param_matomo_module_loginoidc  urlp(module)  LoginOIDC
@@ -180,6 +184,10 @@ haproxy:
         - staticpages     if host_community path_meetings
         - staticpages     if host_www || host_staticpages || host_static_o_o
         - svn             if host_svn
+
+        # temporary
+        - maintenance     if host_mirrorcache_us
+        - maintenance     if host_provo_mirror
 
       redirects:
         - scheme https code 301                                              if !is_ssl !host_get_o_o !host_conncheck !host_ip
