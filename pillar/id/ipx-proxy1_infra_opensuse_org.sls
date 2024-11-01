@@ -1,3 +1,4 @@
+cluster: ipx-proxy
 grains:
   site: nue-ipx
   hostusage:
@@ -10,7 +11,8 @@ grains:
   responsible: []
   partners: []
   weburls: []
-roles: []
+roles:
+  - proxy
 firewalld:
   enabled: true
   zones:
