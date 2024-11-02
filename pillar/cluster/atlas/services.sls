@@ -56,6 +56,7 @@ haproxy:
         - host_deadservice  hdr_reg(host) -i (idea|ideas).opensuse.org
         - host_deadservice  hdr(host)   -i hellocf.opensuse.org
         - host_deadservice  hdr(host)   -i moodle.opensuse.org
+        - host_deadservice  hdr(host)   -i svn.opensuse.org
         - host_deadservice  hdr(host)   -i users.opensuse.org
         - host_forums       hdr(host)   -i forums.opensuse.org
         - host_gcc          hdr(host)   -i gcc.opensuse.org
@@ -87,7 +88,6 @@ haproxy:
         {%- for host_static in ['fontinfo', 'html5test', 'lizards', 'mirrors', 'oom', 'people', 'shop', 'studioexpress'] %}
         - host_staticpages  hdr(host)   -i {{ host_static }}.opensuse.org
         {%- endfor %}
-        - host_svn            hdr(host)   -i svn.opensuse.org
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
 
@@ -183,7 +183,6 @@ haproxy:
         - staticpages     if host_community path_ebooks
         - staticpages     if host_community path_meetings
         - staticpages     if host_www || host_staticpages || host_static_o_o
-        - svn             if host_svn
 
         # temporary
         - maintenance     if host_mirrorcache_us
