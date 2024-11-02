@@ -130,6 +130,7 @@ remove_decommissioned_packages:
         - nsca
         - nsca-client
         - nsca-ng-server
+        - numad
 
 {%- if grains['osfullname'] == 'Leap' %}
 {#- remove stock "openSUSE-Leap-15.x-x" repositories duplicating the pillar.osfullname managed repo-oss #}
