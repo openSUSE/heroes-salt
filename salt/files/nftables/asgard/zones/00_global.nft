@@ -16,6 +16,8 @@
 
   # ping to witch1/download
   ip6 saddr @lan_ipv6 ip6 daddr { $witch1, $host6_download } ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  # ping to hel
+  ip6 saddr @lan_ipv6 ip6 daddr @host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
   # DNS/HTTPS/NTP/LDAPS/SMTP (to hel)
   ip6 daddr @host6_hel tcp dport { domain, https, ntp, ldaps, smtp } accept
