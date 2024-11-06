@@ -87,7 +87,27 @@ prg2:
     gw6: 2a07:de40:b27e:1215::3
     id: 1215
 
-slc1: {}
+slc1:
+  openSUSE-bare:
+    short: os-bare
+    net6: 2a07:de40:617e:1800::/64
+    gw6: 2a07:de40:617e:1800::3
+    id: 1800
+  openSUSE-devcon:
+    short: os-devcon
+    net6: 2a07:de40:617e:1801::/64
+    gw6: 2a07:de40:617e:1801::3
+    id: 1801
+  openSUSE-sif:
+    short: os-sif
+    net6: 2a07:de40:617e:1802::/64
+    gw6: 2a07:de40:617e:1802::3
+    id: 1802
+  openSUSE-salt:
+    short: os-salt
+    net6: 2a07:de40:617e:1900::/64
+    gw6: 2a07:de40:617e:1900::3
+    id: 1900
 
 # below are mapping networks and not VLANs
 pseudo:
