@@ -1,0 +1,17 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-sif {
+   jump global_internal
+   ip6 nexthdr icmpv6 accept
+
+   # sif within SLC1
+   #ip6 saddr @host6_sif ip6 daddr @lan_ipv6 tcp dport 22 log prefix "[avalon] Sif SSH Allowed: " accept
+
+   log prefix "[avalon] Sif Denied: " reject with icmpx type admin-prohibited
+ }
+
+ chain output_network_os-sif {
+ }
+

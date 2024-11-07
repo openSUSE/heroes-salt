@@ -1,0 +1,24 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain output {
+   type filter hook output priority 100
+   policy drop
+   jump global
+
+   ip6 nexthdr icmpv6 accept
+   ip protocol icmp accept
+
+   oif vmap {
+     os-avalon    : jump network_os-avalon,
+     os-avalon-ct : jump network_os-avalon,
+     os-p2p-pub   : jump output_network_os-p2p-pub,
+     os-s-warp    : jump output_network_os-s-warp,
+     os-salt      : jump output_network_os-salt,
+   }
+
+   log prefix "[avalon] Outbound Denied: " flags all
+   counter reject
+ }
+

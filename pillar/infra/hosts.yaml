@@ -65,6 +65,36 @@ atlas2:
   primary_interface: os-public
   ram: 4096MB
   vcpu: 2
+avalon1:
+  cluster: kepler
+  disks:
+    root: 15G
+  interfaces:
+    eth0:
+      mac: 92:09:35:7c:9a:01
+      mode: passthrough
+      source: bond-fib
+    os-avalon:
+      mac: 92:09:35:7c:9b:01
+      source: x-os-avalon
+  node: kepler20.infra.opensuse.org
+  ram: 4096MB
+  vcpu: 4
+avalon2:
+  cluster: kepler
+  disks:
+    root: 15G
+  interfaces:
+    eth0:
+      mac: 92:09:35:7c:9a:02
+      mode: passthrough
+      source: bond-fib
+    os-avalon:
+      mac: 92:09:35:7c:9b:02
+      source: x-os-avalon
+  node: kepler21.infra.opensuse.org
+  ram: 4096MB
+  vcpu: 4
 backup:
   cluster: falkor
   disks:

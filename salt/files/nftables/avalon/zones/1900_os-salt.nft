@@ -1,0 +1,18 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-salt {
+   jump global_internal
+
+   ip6 saddr @lan_ipv6 ip6 daddr @net6_os-salt ip6 nexthdr icmpv6 accept
+   ip6 saddr @net6_os-salt ip6 daddr @lan_ipv6 ip6 nexthdr icmpv6 accept
+ }
+
+ chain output_network_os-salt {
+   jump global_internal
+
+   # Salt access for avalon itself
+   #ip6 saddr @self6_salt ip6 daddr @host6_ tcp dport 4505-4506 accept
+ }
+

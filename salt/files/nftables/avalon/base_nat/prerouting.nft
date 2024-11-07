@@ -1,0 +1,8 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain prerouting {
+   type nat hook prerouting priority -100
+ }
+

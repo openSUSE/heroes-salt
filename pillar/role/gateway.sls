@@ -11,6 +11,10 @@ bird:
         - 172.16.130.0/24
         - 172.16.131.0/24
         - 172.16.164.0/24
+      openSUSE_SLC1_Networks:
+        - 2a07:de40:617e:1900::/64
+      openSUSE_SLC1_Networks_Legacy:
+        - 172.16.127.0/25
     logs:
       syslog: all
     watchdogs:

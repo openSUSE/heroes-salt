@@ -1,0 +1,47 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+# SUSE
+define net6_os-p2p-pub = 2a07:de40:617f:201::/64
+define net4_os-p2p-pub = 195.135.220.40/29
+
+# VLAN 1700 openSUSE-avalon-cluster
+define net6_os-avalon = fd03:7bbf:d626:1700::/64
+define net4_os-avalon = 172.16.112.0/30
+
+# VLAN 1701 openSUSE-avalon-cluster-conntrack
+define net6_os-avalon-ct = fd03:7bbf:d626:1701::/64
+
+# VLAN 1800 openSUSE-bare
+define net6_os-bare = 2a07:de40:617e:1800::/64
+
+# VLAN 1801 openSUSE-devcon
+define net6_os-devcon = 2a07:de40:617e:1801::/64
+
+# VLAN 1801 openSUSE-sif
+define net6_os-sif = 2a07:de40:617e:1802::/64
+
+# VLAN 1803 openSUSE-SUSE-warp
+define net6_os-s-warp = 2a07:de40:617e:1803::/64
+
+# VLAN 1900 openSUSE-salt
+define net6_os-salt = 2a07:de40:617e:1900::/64
+
+# WAN
+define net4_internet = 195.135.220.48/28
+define net6_internet = 2a07:de40:617e::/48
+
+# WAN (allocated)
+define net4_internet1 = 195.135.220.49
+
+# NAT64
+define net6_nat64 = 2a07:de40:617e:64::/96
+define net4_nat64 = 172.16.127.0/25
+
+# Hosts
+define srx4_p2p = 195.135.220.46/32
+define srx6_p2p = 2a07:de40:617f:201:ffff:ffff:ffff:ffff/128
+define self6_p2p = { 2a07:de40:617f:201::11/128, 2a07:de40:617f:201::12/128, 2a07:de40:617f:201::1/128 }
+define self4_p2p = { 195.135.220.44/32, 195.135.220.45/32, 195.135.220.41/32 }
+

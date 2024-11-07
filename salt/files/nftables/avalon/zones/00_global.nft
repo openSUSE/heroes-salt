@@ -1,0 +1,26 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain global {
+   ct state invalid drop
+   ct state established, related accept
+   iif lo accept
+   oif lo accept
+
+  ip6 saddr fe80::/10 ip6 daddr fe80::/10 ip6 nexthdr icmpv6 icmpv6 type { mld2-listener-report, nd-neighbor-advert, nd-neighbor-solicit } accept
+ }
+
+ chain global_internal {
+   icmpv6 type { mld2-listener-report, nd-neighbor-solicit, nd-neighbor-advert, nd-router-solicit, nd-router-advert } accept
+
+   # reject UDP for traceroute but exempt ports used otherwise
+   udp dport != { 53, 123, 514 } ip protocol udp log prefix "[UDP Rejected] " reject
+   udp dport != { 53, 1053, 123, 514, 3780, 6277, 52461, 60000-61000 } ip6 nexthdr udp log prefix "[UDP Rejected] " reject
+ }
+
+ chain global_internal_legacy {
+   # reference traceroute comment in global_internal
+   udp dport != { 53, 123, 514 } ip protocol udp log prefix "[UDP Rejected] " reject
+ }
+

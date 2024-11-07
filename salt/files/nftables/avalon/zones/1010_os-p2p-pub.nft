@@ -1,0 +1,24 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-p2p-pub {
+   #ip saddr @net4_blacklist drop
+
+   ip6 daddr @self6_p2p ip6 nexthdr icmpv6 limit rate 3/second accept
+   ip daddr @self4_p2p ip protocol icmp limit rate 3/second accept
+
+   jump global
+
+   # traceroute
+   ip protocol udp reject
+   ip6 nexthdr udp reject
+ }
+
+ chain output_network_os-p2p-pub {
+   jump global
+
+   # TEMP for installation
+   tcp dport { http, https } accept
+ }
+
