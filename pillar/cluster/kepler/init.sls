@@ -1,1 +1,2 @@
-# FUTURE
+include:
+  - .network
