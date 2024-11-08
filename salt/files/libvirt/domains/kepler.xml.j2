@@ -1,0 +1,111 @@
+{{ pillar['managed_by_salt_xml'] }}
+<domain type='kvm'>
+  <name>{{ vm_name }}</name>
+  <uuid>{{ vm_uuid }}</uuid>
+  {%- set memory_unit = vm_memory[-2:] %}
+  {%- set memory_min = vm_memory[:-2] | int %}
+  {%- set memory_max = ( memory_min * 1.5 ) | int %}
+  <memory unit='{{ memory_unit }}'>{{ memory_max }}</memory>
+  <currentMemory unit='{{ memory_unit }}'>{{ memory_min }}</currentMemory>
+  {%- set vcpu_min = vm_cores | int %}
+  {%- set vcpu_max = ( vcpu_min * 1.5 + 0.5 ) | int %}
+  <vcpu current='{{ vcpu_min }}'>{{ vcpu_max }}</vcpu>
+  <cpu mode='custom' match='exact'>
+    <model fallback='forbid'>Haswell-noTSX-IBRS</model>
+    <vendor>Intel</vendor>
+    <feature policy='require' name='abm'/>
+    <feature policy='require' name='acpi'/>
+    <feature policy='require' name='arat'/>
+    <feature policy='require' name='dca'/>
+    <feature policy='require' name='ds'/>
+    <feature policy='require' name='ds_cpl'/>
+    <feature policy='require' name='dtes64'/>
+    <feature policy='require' name='est'/>
+    <feature policy='require' name='f16c'/>
+    <feature policy='require' name='flush-l1d'/>
+    <feature policy='require' name='ht'/>
+    <feature policy='require' name='invtsc'/>
+    <feature policy='require' name='md-clear'/>
+    <feature policy='require' name='monitor'/>
+    <feature policy='require' name='pbe'/>
+    <feature policy='require' name='pdcm'/>
+    <feature policy='require' name='pdpe1gb'/>
+    <feature policy='require' name='rdrand'/>
+    <feature policy='require' name='smx'/>
+    <feature policy='require' name='ss'/>
+    <feature policy='require' name='ssbd'/>
+    <feature policy='require' name='stibp'/>
+    <feature policy='require' name='tm'/>
+    <feature policy='require' name='tm2'/>
+    <feature policy='require' name='tsc_adjust'/>
+    <feature policy='require' name='vme'/>
+    <feature policy='require' name='vmx'/>
+    <feature policy='require' name='xsaveopt'/>
+    <feature policy='require' name='xtpr'/>
+  </cpu>
+  <os>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    <loader secure='yes' readonly='yes' type='pflash'>/usr/share/qemu/ovmf-x86_64-smm-suse-code.bin</loader>
+    <nvram template='/usr/share/qemu/ovmf-x86_64-smm-suse-vars.bin'>/data0/kvm/nvram/{{ vm_name }}.fd</nvram>
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <smm/>
+  </features>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>coredump-destroy</on_crash>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    {%- for disk in vm_disks %}
+    {%- set letter = letters[loop.index] -%}
+    <disk type='file'>
+      <driver name='qemu' type='qcow2' cache='none'/>
+      <source file='/data0/kvm/disks/{{ vm_name }}_{{ disk }}.qcow2'/>
+      <backingStore/>
+      <target dev='vd{{ letter }}' bus='virtio'/>
+      <alias name='virtio-{{ disk }}'/>
+    </disk>
+    {%- endfor %}
+    {%- set vm_name_short = vm_name.split('.')[0] %}
+    {%- set vm_name_last_character = vm_name_short[-1] %}
+    {%- if vm_name_last_character.isdigit() %}
+    {%- set vm_cluster_index = vm_name_last_character %}
+    {%- else %}
+    {%- set vm_cluster_index = None %}
+    {%- endif %}
+    {%- set vm_interface_name = vm_name_short[:8] %}
+    {%- if not vm_interface_name.endswith(vm_name_last_character) and vm_cluster_index is not none %} {#- if name isn't short enough to already implicitly use its trailing number #}
+    {%- if '-' in vm_name_short %} {#- avoid confusion between, for example, "gitlab" and a truncated "gitlab-runner" #}
+    {%- set vm_name_short_split = vm_name_short.split('-') %}
+    {%- set vm_interface_name = vm_name_short_split[0][:6] ~ '-' ~ vm_name_short_split[1][:1] ~ vm_cluster_index %}
+    {%- else %}
+    {%- set vm_interface_name = vm_name_short[:8] ~ vm_cluster_index %}
+    {%- endif %}
+    {%- endif %}
+    {%- for interface, ifconfig in vm_interfaces.items() %}
+    {%- set iftype = ifconfig['type'] %}
+    <interface type='{{ iftype }}'{{ ' trustGuestRxFilters=\'yes\'' if iftype == 'direct' else '' }}>
+      <mac address='{{ ifconfig['mac'] }}'/>
+      <source {{ 'bridge' if iftype == 'bridge' else 'dev' }}='{{ ifconfig['source'] }}'{{ ' mode=\'' ~ ifconfig['mode'] ~ '\'' if 'mode' in ifconfig else '' }}/>
+      <target dev='{{ vm_interface_name }}_{{ ifconfig['source'][:4] if iftype == 'bridge' else loop.index }}'/>
+      <model type='virtio'/>
+      <alias name='{{ vm_name_short ~ '_' ~ interface }}'/>
+    </interface>
+    {%- endfor %}
+    <serial type='pty'/>
+    <console type='pty'/>
+    <input type='keyboard' bus='ps2'/>
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+    </rng>
+    <channel type='unix'>
+       <source mode='bind' path='/data0/kvm/agents/{{ vm_name }}'/>
+       <target type='virtio' name='org.qemu.guest_agent.0'/>
+    </channel>
+  </devices>
+  <seclabel type='dynamic' model='apparmor'/>
+</domain>
