@@ -11,7 +11,6 @@ grains:
   responsible: []
   partners:
     - prg-ns1.infra.opensuse.org
-    - provo-ns.infra.opensuse.org
     - qsc-ns3.infra.opensuse.org
   weburls: []
 roles:

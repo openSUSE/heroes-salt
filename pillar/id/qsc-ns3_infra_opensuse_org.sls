@@ -14,7 +14,6 @@ grains:
   partners:
     - prg-ns1.infra.opensuse.org
     - prg-ns2.infra.opensuse.org
-    - provo-ns.infra.opensuse.org
   weburls: []
 roles:
   - nameserver.legacy_secondary
