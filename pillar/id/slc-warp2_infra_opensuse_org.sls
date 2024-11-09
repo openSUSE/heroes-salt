@@ -18,5 +18,5 @@ network:
       gateway: 2a07:de40:61bf:2:ffff:ffff:ffff:ffff
 sshd_config:
   ListenAddress:
-    - 2a07:de40:617e:1803::2  # os-s-warp
+    - 2a07:de40:617e:1803::b  # os-s-warp
     - 2a07:de40:619f:2::2     # s-j-os-out

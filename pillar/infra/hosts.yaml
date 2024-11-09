@@ -902,7 +902,7 @@ slc-warp1:
     root: 15G
   interfaces:
     os-s-warp:
-      ip6: 2a07:de40:617e:1803::1/64
+      ip6: 2a07:de40:617e:1803::a/64
       mac: 46:2e:0a:af:f6:41
       source: x-os-s-warp
     s-j-os-out:
@@ -919,7 +919,7 @@ slc-warp2:
     root: 15G
   interfaces:
     os-s-warp:
-      ip6: 2a07:de40:617e:1803::2/64
+      ip6: 2a07:de40:617e:1803::b/64
       mac: 46:2e:0a:af:f6:42
       source: x-os-s-warp
     s-j-os-out:
