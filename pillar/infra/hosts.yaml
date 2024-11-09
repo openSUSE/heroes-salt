@@ -896,6 +896,40 @@ slc-devcon2:
   primary_interface: os-devcon
   ram: 1024MB
   vcpu: 1
+slc-warp1:
+  cluster: chaplin
+  disks:
+    root: 15G
+  interfaces:
+    os-s-warp:
+      ip6: 2a07:de40:617e:1803::1/64
+      mac: 46:2e:0a:af:f6:41
+      source: x-os-s-warp
+    s-j-os-out:
+      ip6: 2a07:de40:619f:2::1/64
+      mac: 46:2e:0a:af:f6:51
+      source: x-s-j-os-out
+  node: chaplin20.infra.opensuse.org
+  primary_interface: os-s-warp
+  ram: 1024MB
+  vcpu: 1
+slc-warp2:
+  cluster: chaplin
+  disks:
+    root: 15G
+  interfaces:
+    os-s-warp:
+      ip6: 2a07:de40:617e:1803::2/64
+      mac: 46:2e:0a:af:f6:42
+      source: x-os-s-warp
+    s-j-os-out:
+      ip6: 2a07:de40:619f:2::2/64
+      mac: 46:2e:0a:af:f6:52
+      source: x-s-j-os-out
+  node: chaplin21.infra.opensuse.org
+  primary_interface: os-s-warp
+  ram: 1024MB
+  vcpu: 1
 status3:
   cluster: falkor
   disks:

@@ -1,5 +1,5 @@
 grains:
-  site: prg2
+  site: slc1
   hostusage:
     - SUSE -> openSUSE jump host
   reboot_safe: yes
@@ -14,9 +14,9 @@ grains:
 roles: []
 network:
   routes:
-    2a07:de40:b280:25::/64:
-      gateway: 2a07:de40:b27f:202:ffff:ffff:ffff:ffff
+    2a07:de40:619f:2::/64:
+      gateway: 2a07:de40:61bf:2:ffff:ffff:ffff:ffff
 sshd_config:
   ListenAddress:
-    - 2a07:de40:b27e:1101::a  # os-s-warp
-    - 2a07:de40:b27f:202::1   # s-j-os-out
+    - 2a07:de40:617e:1803::1  # os-s-warp
+    - 2a07:de40:619f:2::1     # s-j-os-out
