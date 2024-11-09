@@ -32,6 +32,7 @@ network:
     {%- set vlanlist_r = [
           'os-devcon',
           'os-s-warp',
+          'os-salt',
         ]
     -%}
     {{ vlantapnetworks(vlanlist_r, 'bond-ob', 'slc1') }}
