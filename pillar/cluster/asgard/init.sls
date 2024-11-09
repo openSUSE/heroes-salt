@@ -1,8 +1,8 @@
 include:
-  - .bird
   - .monitoring
+  - .nat64
   - .network
-  - .tayga
+  - .ospf
   - .vrrp
 
 profile:
