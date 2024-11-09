@@ -149,6 +149,7 @@ fi
 
 ln -s "$PWD/salt" /srv/salt
 
+salt-call --local saltutil.runner saltutil.sync_modules
 salt-call --local saltutil.runner saltutil.sync_runners
 salt-call --local saltutil.sync_modules
 salt-call --local saltutil.sync_states
