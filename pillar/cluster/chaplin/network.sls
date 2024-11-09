@@ -36,6 +36,9 @@ network:
     -%}
     {{ vlantapnetworks(vlanlist_r, 'bond-ob', 'slc1') }}
 
+    # VLAN interface for external warp VM connectivity
+    {{ vlantap('s-j-os-out', 1011, 'bond-ob') }}
+
 firewalld:
   zones:
     drop:
