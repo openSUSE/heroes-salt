@@ -14,8 +14,8 @@ grains:
 roles: []
 network:
   routes:
-    2a07:de40:619f:2::/64:
-      gateway: 2a07:de40:61bf:2:ffff:ffff:ffff:ffff
+    2a07:de40:6180:25::/64:
+      gateway: 2a07:de40:619f:2:ffff:ffff:ffff:ffff
 sshd_config:
   ListenAddress:
     - 2a07:de40:617e:1803::b  # os-s-warp
