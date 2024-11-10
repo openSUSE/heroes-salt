@@ -116,6 +116,7 @@ slc1:
 
 # below are mapping networks and not VLANs
 pseudo:
-  openSUSE-NAT46-Pool:
-    net6: 2a07:de40:b27e:64::/96
-    net4: 172.16.164.0/24
+  prg2:
+    openSUSE-NAT46-Pool:
+      net6: 2a07:de40:b27e:64::/96
+      net4: 172.16.164.0/24
