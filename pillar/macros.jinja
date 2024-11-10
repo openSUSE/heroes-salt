@@ -82,3 +82,81 @@ prometheus:
       interfacetype: dummy
     {%- endfor %}
 {%- endmacro -%}
+
+{#- gateway_vrrp(
+      name      -> name of VRRP cluster
+      mode      -> master or backup
+      srcips    -> map containing master/backup ip4/ip6 source addresses
+      vlan      -> VLAN name, expected to match an interface name on Avalon
+      vips      -> Virtual IP address(es) to use for HA
+      vrid      -> Unique number identifying the VRRP instance
+      legacy_ip -> Whether this instance is used for IPv4 (default assumes IPv6)
+    )
+#}
+{%- macro gateway_vrrp(name, mode, srcips, vlan, vips, vrid, legacy_ip=false) -%}
+      {%- if vips is string %}
+        {%- set vips = [vips] %}
+      {%- endif %}
+
+      {{ name }}-{{ vlan }}{{ '-legacy' if legacy_ip else '' }}:
+
+        {%- if legacy_ip %}
+        mcast_src_ip: {{ srcips[mode]['ip4'] }}
+        {#- v4 advert_int gets rounded and causes the config test to return a non-zero exit code #}
+        advert_int: 1
+        {%- else %}
+        mcast_src_ip: {{ srcips[mode]['ip6'] }}
+        advert_int: 0.5
+        {%- endif %} {#- close legacy_ip logic #}
+
+        {%- if mode == 'master' %}
+        state: MASTER
+        priority: 100
+        {%- elif mode == 'backup' %}
+        state: BACKUP
+        priority: 50
+        {%- endif %} {#- close master/backup logic #}
+
+        interface: os-{{ name }}
+        virtual_router_id: {{ vrid }}
+        # smtp_alert: true
+
+        virtual_ipaddress:
+          {%- for vip in vips %}
+          - {{ vip }} dev {{ vlan }}
+          {%- endfor %}
+        track_interface:
+          - {{ vlan }}
+          - d-{{ vlan }}
+{%- endmacro -%}
+
+{%- macro gateway_vrrp_networks(name, mode, srcips, site, vrid_from_net=false) -%}
+  {%- import_yaml 'infra/networks.yaml' as networks %}
+  {%- for vlan, config in networks[site].items () %}
+    {%- if not vrid_from_net %}
+      {%- set oi = loop.index %}
+    {%- endif %}
+
+    {%- for v in [4, 6] %}
+      {%- set net = 'net' ~ v %}
+      {%- set gw = 'gw' ~ v %}
+
+      {%- if net in config and gw in config %}
+        {%- if vrid_from_net %}
+          {%- if v == 4 %}
+            {%- set legacy = true %}
+            {%- set vrid = config['gw4'].split('.')[2] %}
+          {%- elif v == 6 %}
+            {%- set legacy = false %}
+            {%- set vrid = config['gw6'].split(':')[3][1:] %}
+          {%- endif %}
+       {%- else %}
+         {%- set vrid = loop.index ~ oi %}
+       {%- endif %}
+
+      {{ gateway_vrrp(name, mode, srcips, config['short'], salt['os_network.gw_with_cidr'](config[gw], config[net]), vrid, v == 4) }}
+
+      {%- endif %} {#- close net/gw check #}
+    {%- endfor %} {#- close IP version loop #}
+  {%- endfor %} {#- close networks loop #}
+{%- endmacro -%}
