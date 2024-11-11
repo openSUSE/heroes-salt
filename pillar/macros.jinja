@@ -25,6 +25,16 @@
       firewall: false
 {%- endmacro -%}
 
+{%- macro vlantapnetworks(vlan_names, device, site) %}
+  {%- import_yaml 'infra/networks.yaml' as networks %}
+  {%- for network, network_config in networks[site].items() %}
+    {%- set short = network_config.get('short') %}
+    {%- if short in vlan_names and 'id' in network_config %}
+    {{ vlantap(short, network_config['id'], device) }}
+    {%- endif %}
+  {%- endfor %}
+{%- endmacro %}
+
 {%- macro redis(instance, tcp=False, databases=1) -%}
 redis:
   {{ instance }}:

@@ -1,4 +1,4 @@
-{%- from 'macros.jinja' import bond, slave, vlantap %}
+{%- from 'macros.jinja' import bond, slave, vlantap, vlantapnetworks %}
 
 network:
   interfaces:
@@ -29,18 +29,20 @@ network:
     {{ vlantap('os-ipmi-ur', 1702, 'bond-mgmt') }}
 
     # VLAN interfaces for generic VM connectivity
-    {%- set vlanmap = {
-          'os-devcon': 1801,
-        }
-    %}
-    {%- for vlan_name, vlan_id in vlanmap.items() %}
-    {{ vlantap(vlan_name, vlan_id, 'bond-ob') }}
-    {%- endfor %}
+    {%- set vlanlist_r = [
+          'os-devcon',
+          'os-s-warp',
+        ]
+    -%}
+    {{ vlantapnetworks(vlanlist_r, 'bond-ob', 'slc1') }}
+
+    # VLAN interface for external warp VM connectivity
+    {{ vlantap('s-j-os-out', 1011, 'bond-ob') }}
 
 firewalld:
   zones:
     drop:
       interfaces:
-        {%- for vlan_name in vlanmap.keys() %}
+        {%- for vlan_name in vlanlist_r %}
         - x-{{ vlan_name }}
         {%- endfor %}
