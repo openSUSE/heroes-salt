@@ -1,0 +1,16 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-s-warp {
+   jump global_internal
+   ip6 saddr @net6_os-s-warp ip6 daddr @lan_ipv6 accept
+   ip6 nexthdr icmpv6 accept
+   #ip6 saddr @host6_warp ip6 daddr @self6_warp tcp dport 22 accept
+
+   log prefix "[Warp Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-s-warp {
+ }
+

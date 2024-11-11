@@ -1,0 +1,31 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain forward {
+   type filter hook forward priority 0
+   policy drop
+   jump global
+
+   iif vmap {
+     os-bare     : jump input_network_os-bare,
+     os-devcon   : jump input_network_os-devcon,
+     os-p2p-pub  : jump input_network_os-p2p-pub,
+     os-s-warp   : jump input_network_os-s-warp,
+     os-salt     : jump input_network_os-salt,
+     os-sif      : jump input_network_os-sif,
+   }
+   oif vmap {
+     os-bare     : jump output_network_os-bare,
+     os-p2p-pub  : jump output_network_os-p2p-pub,
+     os-s-warp   : jump output_network_os-s-warp,
+     os-salt     : jump output_network_os-salt,
+     os-sif      : jump output_network_os-sif,
+   }
+
+   # Tayga (-> zones/05_nat64.nft)
+   iifname nat64 jump input_network_nat64
+
+   iif != os-p2p-pub log prefix "[avalon] Forward Dropped: " flags all
+ }
+

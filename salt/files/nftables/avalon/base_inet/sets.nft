@@ -1,0 +1,201 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+set lan_ipv6 {
+  type ipv6_addr
+  flags interval
+  auto-merge
+  elements = {
+    $net6_nat64,
+    $net6_os-bare,
+    $net6_os-devcon,
+    $net6_os-salt,
+    $net6_os-sif,
+  }
+}
+
+set lan_ipv6_nonat {
+  type ipv6_addr
+  flags interval
+  auto-merge
+  elements = {
+    $net6_os-bare,
+    $net6_os-devcon,
+    $net6_os-salt,
+    $net6_os-sif,
+  }
+}
+
+## Networks
+
+# VLAN 1800 openSUSE-bare
+set net6_os-bare {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-bare,
+  }
+}
+
+# VLAN 1801 openSUSE-devcon
+set net6_os-devcon {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-devcon,
+  }
+}
+
+# VLAN 1801 openSUSE-sif
+set net6_os-sif {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-sif,
+  }
+}
+
+# VLAN 1803 openSUSE-SUSE-warp
+set net6_os-s-warp {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-s-warp,
+  }
+}
+
+# VLAN 1900 openSUSE-salt
+set net6_os-salt {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-salt,
+  }
+}
+
+# WAN networks
+set net6_os-internet {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_internet,
+  }
+}
+set net4_os-internet {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $net4_internet,
+  }
+}
+
+# WAN addresses
+set net4_internet1 {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $net4_internet1,
+  }
+}
+
+## This firewall
+
+set self6_p2p {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617f:201::11/128,  # avalon1
+    2a07:de40:617f:201::12/128,  # avalon2
+    2a07:de40:617f:201::1/128,   # avalon HA VIP
+  }
+}
+set self4_p2p {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.220.44/32,  # avalon1
+    195.135.220.45/32,  # avalon2
+    195.135.220.41/32,  # avalon HA VIP
+  }
+}
+
+set self6_bare {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1800::1/128,
+    2a07:de40:617e:1800::2/128,
+    2a07:de40:617e:1800::3/128,
+  }
+}
+
+set self6_devcon {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1801::1/128,
+    2a07:de40:617e:1801::2/128,
+    2a07:de40:617e:1801::3/128,
+  }
+}
+
+set self6_sif {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1802::1/128,
+    2a07:de40:617e:1802::2/128,
+    2a07:de40:617e:1802::3/128,
+  }
+}
+
+set self6_s-warp {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1803::1/128,
+    2a07:de40:617e:1803::2/128,
+    2a07:de40:617e:1803::3/128,
+  }
+}
+
+set self6_salt {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1900::1/128,
+    2a07:de40:617e:1900::2/128,
+    2a07:de40:617e:1900::3/128,
+  }
+}
+
+## Other, outside, hosts
+
+# SUSE firewall (gatweway from avalon to the outside)
+set host4_suse_gw {
+  type ipv4_addr
+  flags interval
+  elements = {
+    195.135.220.46/32,
+  }
+}
+set host6_suse_gw {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617f:201:ffff:ffff:ffff:ffff/128,
+  }
+}
+
+## Other, inside, hosts
+# TBD
+
+## Blacklists
+#set net4_blacklist {
+#  type ipv4_addr
+#  flags interval
+#  elements = {
+#  }
+#}
+

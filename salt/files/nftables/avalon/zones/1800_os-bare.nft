@@ -1,0 +1,19 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-bare {
+   jump global_internal
+
+   ip6 saddr @net6_os-bare ip6 daddr @self6_bare ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+
+   log prefix "[avalon] Bare Denied: " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-bare {
+   jump global_internal
+
+   # to remove after deployment
+   ip6 saddr @self6_bare ip6 daddr @net6_os-bare tcp dport 22 accept
+ }
+

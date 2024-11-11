@@ -1,0 +1,12 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+# This file manages SNAT (outbound address mapping) for IPv4
+ chain postrouting {
+   type nat hook postrouting priority 100
+
+   # Tayga
+   iifname nat64 oif os-p2p-pub snat ip to $net4_internet1
+ }
+

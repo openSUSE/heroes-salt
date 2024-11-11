@@ -1,0 +1,25 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain network_os-avalon {
+   jump global_internal
+
+   # SSH
+   ip6 saddr $net6_os-avalon ip6 daddr $net6_os-avalon tcp dport ssh accept
+
+   # TEMP for installation
+   ip6 saddr fd03:7bbf:d626:1700::b004/128 ip6 daddr $net6_os-avalon tcp dport ssh accept
+   ip6 daddr fd03:7bbf:d626:1700::b004/128 udp dport domain accept
+
+   # ICMP (echo, neighbor discovery, etc.), OSPF (BIRD), VRRP (Keepalived),
+   ip6 nexthdr { icmpv6, ospfigp, vrrp } accept
+   ip protocol { igmp, vrrp } accept
+
+   # conntrackd
+   iif os-avalon-ct ip6 nexthdr udp udp dport 3780 accept
+   oif os-avalon-ct ip6 nexthdr udp udp dport 3780 accept
+
+   log prefix "[avalon cluster] Denied: " reject with icmpx type admin-prohibited
+ }
+
