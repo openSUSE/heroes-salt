@@ -1,4 +1,4 @@
-{%- set host = grains['host'] %}
+{%- from 'macros.jinja' import gateway_interfaces %}
 
 network:
   interfaces:
@@ -14,25 +14,7 @@ network:
       vlan_id: 3201
       etherdevice: eth0
 
-    {%- import_yaml 'infra/networks.yaml' as site_networks %}
-    {%- set networks = site_networks['prg2'] %}
-
-    {%- for vlan, config in networks.items() %}
-    {{ config['short'][:14] }}:
-      etherdevice: eth0
-      vlan_id: {{ config['id'] }}
-      addresses:
-        {%- if 'gw6' in config and config['gw6'].endswith('::3') %}
-        - {{ salt['os_network.gw_with_cidr'](config['gw6'][:-1] ~ host[-1], config['net6']) }}
-        {%- endif %}
-        {%- if 'gw4' in config %}
-        - {{ salt['os_network.gw_with_cidr'](config['gw4'][:-1] ~ host[-1], config['net4']) }}
-        {%- endif %}
-
-    {{ 'd-' ~ config['short'][:12] }}:
-      bootproto: none
-      interfacetype: dummy
-    {%- endfor %}
+    {{ gateway_interfaces('prg2') }}
 
   routes:
     default6:
