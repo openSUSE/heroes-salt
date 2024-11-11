@@ -1,2 +1,0 @@
-include:
-  - profile.mysql.server
