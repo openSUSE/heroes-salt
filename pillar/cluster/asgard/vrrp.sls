@@ -7,9 +7,19 @@
 {%- set mode = None %}
 {%- endif %}
 
-{%- from 'cluster/asgard/macros.jinja' import vrrp with context %}
-{%- import_yaml 'infra/networks.yaml' as site_networks %}
-{%- set networks = site_networks['prg2'] %}
+{%- from 'macros.jinja' import gateway_vrrp, gateway_vrrp_networks %}
+
+{%- set srcips = {
+          'master': {
+            'ip4': '172.16.128.1',
+            'ip6': 'fd4b:5292:d67e:1000::1',
+           },
+           'backup': {
+             'ip4': '172.16.128.2',
+             'ip6': 'fd4b:5292:d67e:1000::2',
+           },
+        }
+%}
 
 keepalived:
   config:
@@ -17,31 +27,10 @@ keepalived:
       router_id: asgard
       enable_script_security: true
     vrrp_instance:
-      {%- for vlan, config in networks.items () %}
+      {{ gateway_vrrp_networks('asgard', mode, srcips, 'prg2', true) }}
 
-      {%- for v in [4, 6] %}
-      {%- set net = 'net' ~ v %}
-      {%- set gw = 'gw' ~ v %}
-
-      {%- if net in config and gw in config %}
-
-      {%- if v == 4 %}
-      {%- set legacy = true %}
-      {%- set vrid = config['gw4'].split('.')[2] %}
-
-      {%- elif v == 6 %}
-      {%- set legacy = false %}
-      {%- set vrid = config['gw6'].split(':')[3][1:] %}
-      {%- endif %}
-
-      {{ vrrp(config['short'], salt['os_network.gw_with_cidr'](config[gw], config[net]), vrid, legacy) }}
-
-      {%- endif %} {#- close net/gw check #}
-      {%- endfor %} {#- close IP version loop #}
-      {%- endfor %} {#- close networks loop #}
-
-      {{ vrrp('os-p2p-pub',   '2a07:de40:b27f:201::1/64', 253) }}
-      {{ vrrp('os-p2p-pub',   '195.135.223.41/29',        254, true) }}
+      {{ gateway_vrrp('asgard', mode, srcips, 'os-p2p-pub', '2a07:de40:b27f:201::1/64', 253) }}
+      {{ gateway_vrrp('asgard', mode, srcips, 'os-p2p-pub', '195.135.223.41/29',        254, true) }}
 
 network:
   interfaces:
