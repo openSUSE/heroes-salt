@@ -1026,6 +1026,30 @@ tsp:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+volva1:
+  cluster: chaplin
+  disks:
+    root: 15G
+  interfaces:
+    os-salt:
+      ip6: 2a07:de40:617e:1900::a/64
+      mac: 36:85:3e:c5:e5:dc
+      source: x-os-salt
+  node: chaplin20.infra.opensuse.org
+  ram: 8192MB
+  vcpu: 16
+volva2:
+  cluster: chaplin
+  disks:
+    root: 15G
+  interfaces:
+    os-salt:
+      ip6: 2a07:de40:617e:1900::b/64
+      mac: 36:85:3e:c5:e5:de
+      source: x-os-salt
+  node: chaplin21.infra.opensuse.org
+  ram: 8192MB
+  vcpu: 16
 warp:
   cluster: squanchy
   disks:
