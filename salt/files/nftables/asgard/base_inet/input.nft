@@ -35,6 +35,7 @@
   iifname prv1_gate1 jump input_network_prv1
   iifname nueqsc_stonehat jump input_network_nueqsc
 
+  ip6 saddr fe80::/10 log prefix "[asgard ll] Inbound Dropped: " flags all
   iif != os-p2p-pub log prefix "[asgard] Inbound Dropped: " flags all
   counter reject
  }
