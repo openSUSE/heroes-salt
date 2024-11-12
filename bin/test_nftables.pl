@@ -28,6 +28,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use v5.26;  # Leap 15.5
+use warnings;
 
 if (! ($ENV{container} || $ENV{TEST_NFT_REALLY})) {
   die "You probably want to run this inside a test container and not on your real system.\n";
@@ -79,9 +80,9 @@ foreach (@directories) {
 
   foreach (@files) {
     my $file = $_;
-    open(fh, '<', $file);
+    open(FH, '<', $file);
     my $next_line_interesting = 0;
-    while (<fh>) {
+    while (<FH>) {
       chomp;
       if ( $_ =~ /^\s*#/ ) {
         next;
@@ -118,7 +119,7 @@ foreach (@directories) {
         }
       } elsif ( $_ =~ /([io]if)(?: !?=?)? (?!lo)([\w-]+)/ ) {
         $interface = $2;
-        if ( $interface == 'vmap' ) {
+        if ( $interface eq 'vmap' ) {
           $next_line_interesting = 1;
           if ($debug) {
             print "Starting to analyze vmap in $file\n";
@@ -152,7 +153,7 @@ foreach (@directories) {
       }
 
     }
-    close(fh);
+    close(FH);
   }
 
   foreach my $interface (keys %interfaces) {
