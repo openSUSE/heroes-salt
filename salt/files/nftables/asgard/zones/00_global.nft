@@ -7,7 +7,7 @@
   ct state established, related accept
   iif lo accept
   oif lo accept
-  ip6 saddr fe80::/10 ip6 nexthdr icmpv6 icmpv6 type { mld2-listener-report, nd-router-solicit, nd-neighbor-advert } accept
+  ip6 saddr fe80::/10 ip6 nexthdr icmpv6 icmpv6 type { mld2-listener-report, nd-neighbor-advert, nd-neighbor-solicit } accept
 
  }
 
