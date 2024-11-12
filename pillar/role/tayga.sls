@@ -1,7 +1,7 @@
 {%- import_yaml 'infra/hosts.yaml' as hosts %}
 {%- import_yaml 'infra/networks.yaml' as networks %}
 
-{%- set nat64_network = networks['pseudo'][grains['site']]['openSUSE-NAT46-Pool'] %}
+{%- set nat64_network = networks['pseudo'][grains['site']]['openSUSE-NAT64-Pool'] %}
 
 {%- set nat64_net6 = nat64_network['net6'] %}
 {%- set nat64_net4 = nat64_network['net4'] %}
