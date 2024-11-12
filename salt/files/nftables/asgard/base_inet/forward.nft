@@ -50,5 +50,6 @@
   # Tayga (-> zones/05_nat64.nft)
   iifname nat64 jump input_network_nat64
 
+  ip6 saddr fe80::/10 log prefix "[asgard ll] Forward Dropped: " flags all
   iif != os-p2p-pub log prefix "[asgard] Forward Dropped: " flags all
  }
