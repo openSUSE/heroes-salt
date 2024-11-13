@@ -22,15 +22,11 @@ nginx:
           - mime.types
           - conf.d/*.conf
           - vhosts.d/*.conf
+        {%- if site == 'prg2' %}
         set_real_ip_from:
-          {%- if site == 'prv1' %}
-          - 192.168.67.1
-          - 192.168.67.2
-          - 192.168.67.3
-          {%- elif site == 'prg2' %}
           - 2a07:de40:b27e:1204::11
           - 2a07:de40:b27e:1204::12
-          {%- endif %}
+        {%- endif %}
         real_ip_header: X-Forwarded-For
         real_ip_recursive: 'on'
       worker_processes: auto

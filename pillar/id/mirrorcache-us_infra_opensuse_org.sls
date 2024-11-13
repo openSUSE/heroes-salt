@@ -2,7 +2,7 @@ mirrorcache:
   proxy_url: https://mirrorcache-us.opensuse.org
 
 grains:
-  site: prv1
+  site: slc1
   hostusage:
     - mirrorcache-us
   reboot_safe: yes

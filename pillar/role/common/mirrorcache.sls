@@ -12,7 +12,7 @@ zypper:
 
 {% set site = salt['grains.get']('site') %}
 
-{%- if site == 'prv1' %}
+{%- if site == 'slc1' %}
 
 mirrorcache:
   redirect: downloadcontentcdn.opensuse.org

@@ -48,9 +48,6 @@ prometheus:
     ping_exporter:
       config:
         targets:
-          # provo-gate p2p
-          - 172.16.202.4
-          - fd4b:5292:d67e:4::2
           # stonehat p2p
           - 172.16.202.6
           - 'fd4b:5292:d67e:6::'

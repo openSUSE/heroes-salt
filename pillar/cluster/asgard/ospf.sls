@@ -59,10 +59,6 @@ bird:
                 type: broadcast
                 cost: 10
                 hello: 5
-              prv1_gate1:
-                type: ptp
-                cost: 100
-                hello: 5
               nueqsc_stonehat:
                 type: ptp
                 cost: 100

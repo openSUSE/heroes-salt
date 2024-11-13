@@ -9,9 +9,9 @@
 {%- set networks = site_networks.get(site, {}) %}
 
 {#- locations without internal IPv6 routing (https://progress.opensuse.org/issues/151192) #}
-{%- set legacy_sites = ['nue-ipx', 'prv1'] %}
+{%- set legacy_sites = ['nue-ipx'] %}
 {#- gateway machines which have internal IPv6 routing, as opposed to other machines in the legacy sites #}
-{%- set legacy_excludes = {'nue-ipx': ['slimhat', 'stonehat'], 'prv1': ['provo-gate']} %}
+{%- set legacy_excludes = {'nue-ipx': ['slimhat', 'stonehat']} %}
 {%- set ip6_gw = grains['ip6_gw'] %}
 
 {%- set msg = 'common.network, host ' ~ host ~ ': ' %}
@@ -148,21 +148,8 @@ network:
     {%- if do_legacy %}           {#- v PRG2 NAT64      v PRG2 os-public   v ???               v ???               v ??? #}
     {%- set common_destinations = ['172.16.164.0/24', '172.16.130.0/24', '192.168.252.0/24', '192.168.253.0/24', '192.168.254.0/24'] %}
 
-    {#- install default routes on machines in Provo which use external default gateways #}
-    {%- if site == 'prv1' %}      {#- v NUE QSC #}
-    {%- do common_destinations.append('192.168.87.0/24') %}
-    default4:
-      gateway: 91.193.113.94
-    default6:
-      gateway: 2a07:de40:401::1
-    {#- install legacy internal routes through provo-gate on such machines #}
-    {%- for destination_network in common_destinations %}
-    {{ destination_network }}:
-      gateway: 192.168.67.20
-    {%- endfor %}
-
-    {%- elif site == 'nue-ipx' %}       {# v PRV              v os-p2p-nue1/1    v os-p2p-nue1/2 #}
-    {%- do common_destinations.extend(['192.168.67.0/24', '172.16.201.0/31', '172.16.202.0/31']) %}
+    {%- if site == 'nue-ipx' %}       {#   v os-p2p-nue1/1    v os-p2p-nue1/2 #}
+    {%- do common_destinations.extend(['172.16.201.0/31', '172.16.202.0/31']) %}
     {#- install default routes on machines in Nuremberg (QSC) which use external default gateways #}
     default4:
       gateway: 62.146.92.201

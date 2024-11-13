@@ -8,7 +8,7 @@
 {%- set configure_ntp = salt['grains.get']('configure_ntp', True) %}
 {%- set id = grains['id'] %}
 
-{%- if site in ['prg2', 'slc1'] or id in ['slimhat.infra.opensuse.org', 'stonehat.infra.opensuse.org', 'provo-gate.infra.opensuse.org'] %}
+{%- if site in ['prg2', 'slc1'] or id in ['slimhat.infra.opensuse.org', 'stonehat.infra.opensuse.org'] %}
 {%- set modern = True %}
 {%- else %}
 {%- set modern = False %}
@@ -196,16 +196,6 @@ salt:
     snapper_states: true
     features:
         x509_v2: true
-    {%- if site == 'prv1' %}
-    {#- high latency tuning #}
-    auth_timeout: 15
-    ping_interval: 30
-    random_reauth_delay: 30
-    random_startup_delay: 5
-    request_channel_timeout: 60
-    return_retry_timer: 30
-    return_retry_timer_max: 60
-    {%- endif %}
 ssh_config:
   Ciphers:
     - -chacha20‐poly1305@openssh.com
