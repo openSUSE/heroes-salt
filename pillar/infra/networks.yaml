@@ -120,3 +120,7 @@ pseudo:
     openSUSE-NAT64-Pool:
       net6: 2a07:de40:b27e:64::/96
       net4: 172.16.164.0/24
+  slc1:
+    openSUSE-NAT64-Pool:
+      net6: 2a07:de40:617e:64::/96
+      net4: 172.16.127.0/25
