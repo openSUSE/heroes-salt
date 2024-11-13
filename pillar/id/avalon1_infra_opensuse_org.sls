@@ -36,6 +36,10 @@ network:
       addresses:
         - 195.135.220.44/29
         - 2a07:de40:617f:201::11/64
+  routes:
+    default6:
+      options:
+        - src 2a07:de40:617f:201::11
 sshd_config:
   ListenAddress:
     - fd03:7bbf:d626:1700::1
