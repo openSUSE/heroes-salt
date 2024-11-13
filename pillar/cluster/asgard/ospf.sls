@@ -59,6 +59,10 @@ bird:
                 type: broadcast
                 cost: 10
                 hello: 5
+              slc1_avalon:
+                type: ptp
+                cost: 100
+                hello: 5
               nueqsc_stonehat:
                 type: ptp
                 cost: 100

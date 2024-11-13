@@ -23,6 +23,8 @@
      os-sif      : jump output_network_os-sif,
    }
 
+   iifname prg2_asgard jump input_network_prg2
+
    # Tayga (-> zones/05_nat64.nft)
    iifname nat64 jump input_network_nat64
 

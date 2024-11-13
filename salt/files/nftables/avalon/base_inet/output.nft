@@ -18,6 +18,8 @@
      os-salt      : jump output_network_os-salt,
    }
 
+   oifname prg2_asgard jump output_network_prg2
+
    log prefix "[avalon] Outbound Denied: " flags all
    counter reject
  }

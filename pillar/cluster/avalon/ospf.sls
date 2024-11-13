@@ -59,6 +59,10 @@ bird:
                 type: broadcast
                 cost: 10
                 hello: 5
+              prg2_asgard:
+                type: ptp
+                cost: 100
+                hello: 5
               nueqsc_stonehat:
                 type: ptp
                 cost: 100

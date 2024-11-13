@@ -1,0 +1,16 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+chain input_network_slc1 {
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } icmpv6 type { mld2-listener-report, nd-neighbor-advert, nd-neighbor-solicit } accept
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr ospfigp accept
+  ip6 saddr @host6_p2p_avalon ip6 daddr @self6_p2p_slc1_avalon icmpv6 type { echo-reply, echo-request } accept
+
+  ip6 saddr @host6_p2p_avalon jump global_internal
+}
+
+chain output_network_slc1 {
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } icmpv6 type { mld2-listener-report, nd-neighbor-advert, nd-neighbor-solicit } accept
+  ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr ospfigp accept
+}
