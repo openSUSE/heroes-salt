@@ -1,5 +1,5 @@
 grains:
-  site: prv1
+  site: slc1
   hostusage:
     - static.o.o
   reboot_safe: yes
