@@ -35,7 +35,7 @@ This pillar template implements logic to determine the best suitable listening a
 {%- endif %}
 
 {#- third try:
-    query DNS for A records, this works for machines in legacy sites (Nuremberg, Provo) #}
+    query DNS for A records, this works for machines in legacy sites (Nuremberg) #}
 {%- if address is none %}
   {%- set records = salt['dnsutil.A'](grains['id']) %}
   {%- if records %}

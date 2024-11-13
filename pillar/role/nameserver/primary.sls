@@ -7,21 +7,18 @@ include:
 
 {%- load_yaml as data %}
 also_notify:
-  - 2a07:de40:b27e:64::c0a8:4304  # provo-ns
   - 2a07:de40:b27e:64::c0a8:5701  # stonehat
   - 2a07:de40:b27e:64::c0a8:5705  # ipx-proxy1
   - 2a07:de40:b27e:1204::21       # prg-ns1
   - 2a07:de40:b27e:1204::22       # prg-ns2
   - 2a07:de40:b27e:5002:c707:5ca1:19e:ce5e  # ipx-ns1 / qsc-ns3
 only_notify:
-  - 2a07:de40:b27e:64::c0a8:4304/128
   - 2a07:de40:b27e:64::c0a8:5701/128
   - 2a07:de40:b27e:64::c0a8:5705/128
   - 2a07:de40:b27e:1204::21/128
   - 2a07:de40:b27e:1204::22/128
   - 2a07:de40:b27e:5002:c707:5ca1:19e:ce5e/128
 allow_axfr:
-  - 2a07:de40:b27e:64::c0a8:4304/128
   - 2a07:de40:b27e:64::c0a8:5701/128  # stonehat
   - 2a07:de40:b27e:64::c0a8:5705/128
   - 2a07:de40:b27e:1204::21/128

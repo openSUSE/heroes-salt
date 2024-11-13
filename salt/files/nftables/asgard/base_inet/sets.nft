@@ -12,14 +12,14 @@ set lan_ipv6 {
   type ipv6_addr
   flags interval
   auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-odin, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-odin, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat }
 }
 
 set lan_ipv6_nonat {
   type ipv6_addr
   flags interval
   auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat, $host6_provo-gate_1, $host6_provo-gate_2 }
+  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat }
 }
 
 set vpn_ipv6 {
@@ -145,24 +145,6 @@ set net6_os-mirror {
   }
 }
 
-# P2P PRG2 (asgard) <-> PRV1 (gate1)
-set net6_p2p_prv1 {
-  type ipv6_addr
-  flags interval
-  elements = {
-    fd4b:5292:d67e:3::/126,
-    fd4b:5292:d67e:4::/126
-  }
-}
-set net4_p2p_prv1 {
-  type ipv4_addr
-  flags interval
-  elements = {
-    172.16.201.4/30,
-    172.16.202.4/30
-  }
-}
-
 # P2P PRG2 (asgard) <-> NUE_QSC (stonehat)
 set net6_p2p_nueqsc {
   type ipv6_addr
@@ -234,31 +216,6 @@ set self4_p2p {
     195.135.223.41/32, # asgard1
     195.135.223.44/32, # asgard2
     195.135.223.45/32  # asgard HA VIP
-  }
-}
-
-# prv1
-set self6_prv1 {
-  type ipv6_addr
-  flags interval
-  elements = {
-    fd4b:5292:d67e:3::1/128,
-    fd4b:5292:d67e:4::1/128
-  }
-}
-set self4_prv1 {
-  type ipv4_addr
-  flags interval
-  elements = {
-    172.16.201.5/32,
-    172.16.202.5/32
-  }
-}
-set prv1_private {
-  type ipv4_addr
-  flags interval
-  elements = {
-    192.168.67.0/24
   }
 }
 
@@ -461,16 +418,6 @@ set host6_download {
   }
 }
 
-# provo-gate.i.o.o (via P2P network)
-set host6_provo-gate {
-  type ipv6_addr
-  flags interval
-  elements = {
-      $host6_provo-gate_1,
-      $host6_provo-gate_2
-  }
-}
-
 set host4_acme {
   type ipv4_addr
   flags interval
@@ -534,7 +481,6 @@ set host6_haproxy {
     elements = {
       $host6_atlas1,
       $host6_atlas2,
-      $host6_provo-proxy1,
     }
 }
 
@@ -1209,7 +1155,6 @@ set host6_all_dns {
     $host6_stonehat,
     $host6_stonehat_p2p,
     $host6_ipx-proxy1,
-    $host6_provo-ns,
     $host6_prg-ns1,
     $host6_prg-ns2,
     $host6_qsc-ns3,

@@ -2,63 +2,6 @@
 
 wireguard:
   interfaces:
-    prv1_gate1:
-      config:
-        PrivateKey: |
-          -----BEGIN PGP MESSAGE-----
-
-          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
-          =pRDX
-          -----END PGP MESSAGE-----
     nueqsc_stonehat:
       config:
         PrivateKey: |

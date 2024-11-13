@@ -44,7 +44,6 @@
   }
 
   # WireGuard interfaces not using iif to prevent breakage on tunnel restarts
-  iifname prv1_gate1 jump input_network_prv1
   iifname nueqsc_stonehat jump input_network_nueqsc
 
   # Tayga (-> zones/05_nat64.nft)

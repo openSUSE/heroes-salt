@@ -60,7 +60,7 @@ mysql:
         qM/ogEXQ8b1+I6YzlVysMcrv3ay/lXJa56pTcTSj
         =/bzH
         -----END PGP MESSAGE-----
-{%- elif site == 'prv1' %}
+{%- elif site == 'slc1' %}
         -----BEGIN PGP MESSAGE-----
 
         hQQOA7A9CHm0S6RyEA/+Kkvqg0famYiVy3IUOyeDklhyEx0IlRdmcBjxuLB3XRZ1

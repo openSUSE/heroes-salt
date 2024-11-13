@@ -19,10 +19,6 @@ apache_httpd:
         - 2a07:de40:b27e:1204::12
         {%- elif site == 'nue-ipx' %}
         - 192.168.87.5
-        {%- elif site == 'prv1' %}
-        - 192.168.67.1
-        - 192.168.67.2
-        - 192.168.67.3
         {%- endif %}
     tls:
       SSLSessionTickets: false

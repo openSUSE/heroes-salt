@@ -157,7 +157,6 @@ define host6_mickey      = 2a07:de40:b27e:1203:0000:0000:0000:0b43/128
 define host4_mickey      = 172.16.164.156/32
 define host6_odin        = 2a07:de40:b27e:1102:0000:0000:0000:000a/128
 define host4_odin        = 172.16.202.10
-define host6_provo-ns    = 2a07:de40:b27e:0064:0000:0000:c0a8:4304/128
 define host6_prg-ns1     = 2a07:de40:b27e:1204:0000:0000:0000:0021/128
 define host4_prg-ns1     = 172.16.130.21
 define host6_prg-ns2     = 2a07:de40:b27e:1204:0000:0000:0000:0022/128
@@ -189,15 +188,12 @@ define host4_tsp         = 172.16.164.142/32
 define host6_tsp         = 2a07:de40:b27e:1203::b20/128
 define host6_community2  = 2a07:de40:b27e:1203:0000:0000:0000:0129/128
 define host6_man         = 2a07:de40:b27e:1203:0000:0000:0000:0130/128
-define host6_provo-proxy1 = 2a07:de40:b27e:0064:0000:0000:c0a8:4302/128
 define host4_matomo      = 172.16.164.141/32
 define host6_matomo      = 2a07:de40:b27e:1203:0000:0000:0000:0b19/128
 define host6_backup      = 2a07:de40:b27e:1203:0000:0000:0000:0140/128
 define host6_riesling    = 2a07:de40:b27e:1203:0000:0000:0000:00b2/128
 
 # Remote Gateways via P2P networks
-define host6_provo-gate_1  = fd4b:5292:d67e:3::2/128
-define host6_provo-gate_2  = fd4b:5292:d67e:4::2/128
 
 # Kanidm
 define host6_kani1       = 2a07:de40:b27e:1210:0000:0000:0000:000a/128

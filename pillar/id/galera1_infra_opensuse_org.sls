@@ -17,9 +17,6 @@ grains:
   partners:
     - galera2.infra.opensuse.org
     - galera3.infra.opensuse.org
-    - provo-galera1.infra.opensuse.org
-    - provo-galera2.infra.opensuse.org
-    - provo-galera3.infra.opensuse-org
   weburls: []
 roles:
   - mariadb

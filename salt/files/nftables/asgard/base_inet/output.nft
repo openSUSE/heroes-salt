@@ -23,7 +23,6 @@
     os-log     : jump output_network_os-log,
   }
 
-  oifname prv1_gate1 jump output_network_prv1
   oifname nueqsc_stonehat jump output_network_nueqsc
 
   log prefix "[asgard] Outbound Denied: " flags all
