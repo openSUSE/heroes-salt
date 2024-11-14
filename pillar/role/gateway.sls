@@ -1,20 +1,36 @@
 nftables: true
 
+{%- import_yaml 'infra/networks.yaml' as networks %}
+{%- set pseudo_networks = networks.pop('pseudo') %}
+
+{%- set export_networks = {
+          'prg2': {'v4': [], 'v6': []},
+          'slc1': {'v4': [], 'v6': []},
+        }
+%}
+
+{%- for site, site_networks in networks.items() %}
+  {%- do site_networks.update(pseudo_networks.get(site, {})) %}
+  {%- for network, network_config in site_networks.items() %}
+    {%- if network_config.get('export', false) is sameas true %}
+      {%- do export_networks[site]['v6'].append(network_config['net6']) %}
+      {%- if 'net4' in network_config %}
+        {%- do export_networks[site]['v4'].append(network_config['net4']) %}
+      {%- endif %}
+    {%- endif %}
+  {%- endfor %}
+{%- endfor %}
+
 bird:
   server:
     definitions:
-      openSUSE_PRG2_Networks:
-        - 2a07:de40:b27e:1200::/64
-        - 2a07:de40:b27e:1203::/64
-      openSUSE_PRG2_Networks_Legacy:
-        - 172.16.129.0/24
-        - 172.16.130.0/24
-        - 172.16.131.0/24
-        - 172.16.164.0/24
-      openSUSE_SLC1_Networks:
-        - 2a07:de40:617e:1900::/64
-      openSUSE_SLC1_Networks_Legacy:
-        - 172.16.127.0/25
+    {%- for site, networks in export_networks.items() %}
+      {%- set site = site | upper %}
+      openSUSE_{{ site }}_Networks: {{ networks['v6'] }}
+      {%- if networks['v4'] %}
+      openSUSE_{{ site }}_Networks_Legacy: {{ networks['v4'] }}
+      {%- endif %}
+    {%- endfor %}
     logs:
       syslog: all
     watchdogs:
