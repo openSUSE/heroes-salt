@@ -18,6 +18,7 @@ prg2:
     gw4: 172.16.202.3
     id: 1102
   openSUSE-salt:
+    export: true
     short: os-salt
     net6: 2a07:de40:b27e:1200::/64
     gw6: '2a07:de40:b27e:1200::3'
@@ -33,6 +34,7 @@ prg2:
     gw6: '2a07:de40:b27e:1202::3'
     id: 1202
   openSUSE-internal:
+    export: true
     short: os-internal
     net6: 2a07:de40:b27e:1203::/64
     gw6: '2a07:de40:b27e:1203::3'
@@ -109,6 +111,7 @@ slc1:
     gw6: 2a07:de40:617e:1803::3
     id: 1803
   openSUSE-salt:
+    export: true
     short: os-salt
     net6: 2a07:de40:617e:1900::/64
     gw6: 2a07:de40:617e:1900::3
@@ -118,9 +121,11 @@ slc1:
 pseudo:
   prg2:
     openSUSE-NAT64-Pool:
+      export: true
       net6: 2a07:de40:b27e:64::/96
       net4: 172.16.164.0/24
   slc1:
     openSUSE-NAT64-Pool:
+      export: true
       net6: 2a07:de40:617e:64::/96
       net4: 172.16.127.0/25
