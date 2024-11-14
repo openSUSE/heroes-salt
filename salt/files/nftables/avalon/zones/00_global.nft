@@ -16,7 +16,7 @@
 
    # reject UDP for traceroute but exempt ports used otherwise
    udp dport != { 53, 123, 514 } ip protocol udp log prefix "[UDP Rejected] " reject
-   udp dport != { 53, 1053, 123, 514, 3780, 6277, 52461, 60000-61000 } ip6 nexthdr udp log prefix "[UDP Rejected] " reject
+   udp dport != { 53, 1053, 123, 514, 3780, 6277, 60000-61000 } ip6 nexthdr udp log prefix "[UDP Rejected] " reject
  }
 
  chain global_internal_legacy {

@@ -8,6 +8,9 @@
   ip6 daddr @self6_p2p ip6 nexthdr icmpv6 limit rate 3/second accept
   ip daddr @self4_p2p ip protocol icmp limit rate 3/second accept
 
+  # avalon{1,2} -> asgard{1,2} WireGuard
+  ip6 saddr @host6_wan_avalon ip6 daddr @self6_p2p udp dport 52461 log accept
+
   jump global
 
   # ping to public machines / atlas*.i.o.o
