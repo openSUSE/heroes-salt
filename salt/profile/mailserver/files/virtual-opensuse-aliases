@@ -3,7 +3,7 @@
 #
 # this is the list of permanent/systems aliases
 #
-postmaster		admin-auto@opensuse.org
+postmaster              admin-auto@opensuse.org
 postmaster@opensuse.org admin-auto@opensuse.org
 abuse@opensuse.org      admin@opensuse.org
 hostmaster@opensuse.org admin@opensuse.org
@@ -37,3 +37,6 @@ security@opensuse.org   admin-auto@opensuse.org, security@suse.de
 
 # https://progress.opensuse.org/issues/113755
 o3-admins@opensuse.org   o3-admins@suse.de
+
+# https://progress.opensuse.org/issues/169993
+weblate-noreply@opensuse.org sbrabec@suse.com
