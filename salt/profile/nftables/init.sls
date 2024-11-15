@@ -21,6 +21,7 @@ nftables_config_tree:
         - salt://files/nftables/{{ grains['host'] }}
     - dir_mode: '0755'
     - file_mode: '0644'
+    - clean: true
 
 nftables_service:
   service.running:
