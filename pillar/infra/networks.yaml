@@ -91,21 +91,25 @@ prg2:
 
 slc1:
   openSUSE-bare:
+    export: true
     short: os-bare
     net6: 2a07:de40:617e:1800::/64
     gw6: 2a07:de40:617e:1800::3
     id: 1800
   openSUSE-devcon:
+    export: true
     short: os-devcon
     net6: 2a07:de40:617e:1801::/64
     gw6: 2a07:de40:617e:1801::3
     id: 1801
   openSUSE-sif:
+    export: true
     short: os-sif
     net6: 2a07:de40:617e:1802::/64
     gw6: 2a07:de40:617e:1802::3
     id: 1802
   openSUSE-SUSE-warp:
+    export: true
     short: os-s-warp
     net6: 2a07:de40:617e:1803::/64
     gw6: 2a07:de40:617e:1803::3
