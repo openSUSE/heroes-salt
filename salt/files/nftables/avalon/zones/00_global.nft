@@ -14,6 +14,23 @@
  chain global_internal {
    icmpv6 type { mld2-listener-report, nd-neighbor-solicit, nd-neighbor-advert, nd-router-solicit, nd-router-advert } accept
 
+   # ping to hel
+   ip6 daddr @host6_hel icmpv6 type { echo-reply, echo-request } accept
+
+   # core services (to hel)
+   ip6 daddr @host6_hel tcp dport { domain, https, ntp, smtp } accept
+   ip6 daddr @host6_hel udp dport { domain, ntp } accept
+
+   # Salt (to witch)
+   ip6 daddr @host6_witch tcp dport 4505-4506 accept
+
+   # repositories (to download)
+   ip6 daddr @host6_download tcp dport { http, https } accept
+
+   # Syslog (to monitor and logger)
+   ip6 daddr @host6_monitor tcp dport 514 accept
+   ip6 daddr @host6_logger-prg tcp dport 514 accept
+
    # reject UDP for traceroute but exempt ports used otherwise
    udp dport != { 53, 123, 514 } ip protocol udp log prefix "[UDP Rejected] " reject
    udp dport != { 53, 1053, 123, 514, 3780, 6277, 60000-61000 } ip6 nexthdr udp log prefix "[UDP Rejected] " reject
