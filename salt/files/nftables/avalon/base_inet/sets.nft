@@ -235,7 +235,52 @@ set host4_p2p_avalon {
 }
 
 ## Other, inside, hosts
-# TBD
+
+### PRG2
+
+set host6_download {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1205::a/128,
+  }
+}
+
+set host6_hel {
+    type ipv6_addr
+    flags interval
+    elements = {
+      2a07:de40:b27e:1203::10/128,  # hel VIP
+      2a07:de40:b27e:1203::11/128,  # hel1
+      2a07:de40:b27e:1203::12/128,  # hel2
+    }
+}
+
+set host6_logger-prg {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1215::a/128,
+  }
+}
+
+set host6_monitor {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::50/128,
+  }
+}
+
+set host6_witch {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1200::a/128,
+  }
+}
+
+###
 
 ## Blacklists
 #set net4_blacklist {
