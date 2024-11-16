@@ -2,3 +2,6 @@
 prg2:
   - 2a07:de40:b27e:1203::11  # hel1
   - 2a07:de40:b27e:1203::12  # hel2
+slc1:
+  - 2a07:de40:b27e:1203::11  # hel1, temp
+  - 2a07:de40:b27e:1203::12  # hel2, temp
