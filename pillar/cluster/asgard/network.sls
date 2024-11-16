@@ -25,3 +25,6 @@ network:
       gateway: 2a07:de40:b27e:1102::a
     2a07:de40:b27e:5002::/64:
       gateway: 2a07:de40:b27e:1102::a
+    192.168.67.0/24:  # defunct Provo
+      options:
+        - unreachable
