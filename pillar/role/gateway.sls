@@ -49,6 +49,10 @@ bird:
               - openSUSE_direct
       {%- endfor %}
 
+profile:
+  conntrack:
+    hashsize: 524288
+
 zypper:
   packages:
     conntrackd: {}
