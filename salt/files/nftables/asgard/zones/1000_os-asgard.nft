@@ -15,6 +15,11 @@
   # conntrackd
   ip6 nexthdr udp udp dport 3780 accept
 
+  # for reaching a remote non-primary firewall through a local non-primary firewall
+  # for example, if asgard1 and avalon1 are masters, reaching avalon2 from thor requires forwarding via asgard2 over os-asgard
+  oifname slc1_avalon ip6 saddr @host6_thor ip6 daddr @host6_p2p_avalon icmpv6 type { echo-reply, echo-request } accept
+  oifname slc1_avalon ip6 saddr @host6_thor ip6 daddr @host6_p2p_avalon tcp dport ssh accept
+
   # TODO: drop
   log prefix "[asgard misc] " accept
  }

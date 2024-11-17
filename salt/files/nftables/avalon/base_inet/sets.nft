@@ -272,11 +272,40 @@ set host6_monitor {
   }
 }
 
+set host6_thor {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1100::a/128,
+    2a07:de40:b27e:1100::b/128,
+  }
+}
+
 set host6_witch {
   type ipv6_addr
   flags interval
   elements = {
     2a07:de40:b27e:1200::a/128,
+  }
+}
+
+## SLC1
+
+set host6_slc-warp {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1803::a/128,
+    2a07:de40:617e:1803::b/128,
+  }
+}
+
+set host6_sif {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1802::a/128,
+    2a07:de40:617e:1802::b/128,
   }
 }
 

@@ -8,6 +8,7 @@
 
   # thor within PRG2
   ip6 saddr @host6_thor ip6 daddr @lan_ipv6 tcp dport 22 log prefix "[asgard] Thor SSH Allowed: " accept
+  ip6 saddr @host6_thor ip6 daddr @host6_p2p_avalon tcp dport ssh accept
 
   log prefix "[Thor Denied] " reject with icmpx type admin-prohibited
 

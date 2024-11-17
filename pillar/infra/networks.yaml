@@ -1,6 +1,7 @@
 ---
 prg2:
   openSUSE-thor:
+    export: true
     short: os-thor
     net6: 2a07:de40:b27e:1100::/64
     gw6: '2a07:de40:b27e:1100::3'
