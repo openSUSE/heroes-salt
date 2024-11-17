@@ -10,6 +10,8 @@ chain input_network_prg2 {
   # from PRG2/Thor
   ip6 saddr @host6_thor ip6 daddr @self6_p2p_prg2_asgard icmpv6 type { echo-reply, echo-request } accept
   ip6 saddr @host6_thor ip6 daddr @self6_p2p_prg2_asgard tcp dport ssh accept
+  ip6 saddr @host6_thor ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
+  ip6 saddr @host6_thor ip6 daddr @host6_volva tcp dport ssh accept
 }
 
 chain output_network_prg2 {

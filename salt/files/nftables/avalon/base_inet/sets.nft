@@ -309,6 +309,15 @@ set host6_sif {
   }
 }
 
+set host6_volva {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1900::a/128,
+    2a07:de40:617e:1900::b/128,
+  }
+}
+
 ###
 
 ## Blacklists
