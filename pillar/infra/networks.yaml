@@ -47,6 +47,7 @@ prg2:
     gw4: 172.16.130.3
     id: 1204
   openSUSE-mirror:
+    export: true
     short: os-mirror
     net6: 2a07:de40:b27e:1205::/64
     gw6: '2a07:de40:b27e:1205::3'
