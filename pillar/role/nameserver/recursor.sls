@@ -5,6 +5,7 @@ profile:
         config:
           allow_from:
             - 2a07:de40:b27e::/48
+            - 2a07:de40:617e::/48
             - ::1/128
           webserver_allow_from:
             - 2a07:de40:b27e:5001::/64  # VPN
