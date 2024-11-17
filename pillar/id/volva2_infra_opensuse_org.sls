@@ -12,4 +12,4 @@ grains:
     - volva1.infra.opensuse.org
   weburls: []
 roles:
-  - saltmaster
+  - salt.master

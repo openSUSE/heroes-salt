@@ -213,7 +213,7 @@ prometheus:
             salt:
               port: 8216
               roles:
-                - saltmaster
+                - salt.master
               targets: []
 
             smartctl:

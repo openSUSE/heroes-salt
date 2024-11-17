@@ -186,7 +186,7 @@ def get_targets(paths):  # noqa: PLR0912, PLR0915  # function needs more stateme
                   case 'init':
                     append('highstate', 'nodegroups', 'hypervisors')
                   case 'nodegroups':
-                    append('role.saltmaster')
+                    append('role.salt.master')
           case 'role':
             append(normalize_role(pp), do_highstate=True)
           case 'profile':

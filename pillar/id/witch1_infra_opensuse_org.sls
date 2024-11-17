@@ -12,4 +12,4 @@ grains:
     - witch2.infra.opensuse.org
   weburls: []
 roles:
-  - saltmaster
+  - salt.master
