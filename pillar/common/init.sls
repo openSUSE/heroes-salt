@@ -184,8 +184,13 @@ salt:
     #  - grains
     hash_type: sha512
     master:
+    {%- if site == 'slc1' %}
+      - volva1.infra.opensuse.org
+      - volva2.infra.opensuse.org
+    {%- else %}
       - witch1.infra.opensuse.org
       #- witch2.infra.opensuse.org (not ready yet)
+    {%- endif %}
     mine_interval: 720
     mine_return_job: true
     {%- if osfullname == 'openSUSE Leap Micro' %}
