@@ -7,7 +7,7 @@ import sys
 
 import yaml
 from get_roles import read_file_skip_jinja
-from get_valid_custom_grains import get_sites, get_valid_global_grains
+from get_valid_custom_grains import get_valid_custom_grains
 
 
 def error_msg(sls, key, valid_values):
@@ -39,9 +39,6 @@ def test_custom_grain(mygrains, sls, key, valid_values, status):
 
 status = 0
 
-valid_global_grains = get_valid_global_grains()
-all_sites = get_sites()
-
 all_ids = sorted(os.listdir('pillar/id'))
 for sls in all_ids:
     if sls == 'README.md':
@@ -50,10 +47,7 @@ for sls in all_ids:
     content = read_file_skip_jinja(f'pillar/id/{sls}')
     mygrains = yaml.safe_load(content)['grains']
 
-    for key, valid_values in valid_global_grains.items():
+    for key, valid_values in get_valid_custom_grains().items():
         status = test_custom_grain(mygrains, sls, key, valid_values, status)
-
-    if 'site' not in mygrains or mygrains['site'] not in all_sites:
-        status = error_msg(sls, 'site', all_sites)
 
 sys.exit(status)
