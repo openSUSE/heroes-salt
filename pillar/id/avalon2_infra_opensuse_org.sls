@@ -43,6 +43,9 @@ network:
 sshd_config:
   ListenAddress:
     - fd03:7bbf:d626:1700::2
+    - fda1:21af:580f:1::2
+    - 2a07:de40:617e:1802::2
+    - 2a07:de40:617e:1803::2
 profile:
   buddycheck:
     buddy: fd03:7bbf:d626:1700::1

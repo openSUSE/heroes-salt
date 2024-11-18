@@ -7,7 +7,8 @@
    ip6 nexthdr icmpv6 accept
 
    # sif within SLC1
-   #ip6 saddr @host6_sif ip6 daddr @lan_ipv6 tcp dport 22 log prefix "[avalon] Sif SSH Allowed: " accept
+   ip6 saddr @host6_sif ip6 daddr @lan_ipv6 tcp dport ssh log prefix "[avalon] Sif SSH Allowed: " accept
+   ip6 saddr @host6_sif ip6 daddr @self6_sif tcp dport ssh accept
 
    log prefix "[avalon] Sif Denied: " reject with icmpx type admin-prohibited
  }

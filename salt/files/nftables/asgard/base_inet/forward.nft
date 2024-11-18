@@ -8,6 +8,7 @@
   jump global
 
   iif vmap {
+    os-asgard   : jump network_os-asgard,
     os-bare     : jump input_network_os-bare,
     os-internal : jump input_network_os-internal,
     os-log      : jump input_network_os-log,
