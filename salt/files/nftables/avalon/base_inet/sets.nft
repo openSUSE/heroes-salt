@@ -337,3 +337,15 @@ set host6_volva {
 #  }
 #}
 
+
+### Interfaces
+
+set if_s2s {
+    type ifname
+    elements = {
+      nueqsc_stonehat,
+      prg2_asgard,
+    }
+}
+
+### end of Interfaces
