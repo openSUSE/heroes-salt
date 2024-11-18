@@ -1234,3 +1234,17 @@ set net4_blacklist {
         101.47.18.0/24,    # ^
     }
 }
+
+
+### Interfaces
+
+# site to site tunnel interfaces
+set if_s2s {
+    type ifname
+    elements = {
+        nueqsc_stonehat,
+        slc1_avalon,
+    }
+}
+
+### end of Interfaces
