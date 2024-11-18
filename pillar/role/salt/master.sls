@@ -8,7 +8,7 @@
 include:
   - infra.nodegroups
 {% if salt['grains.get']('include_secrets', True) %}
-  - secrets.role.saltmaster
+  - secrets.role.salt.master
 {% endif %}
 
 salt:
