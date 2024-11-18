@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-# Copyright (c) 2019 Karol Babioch <karol@babioch.de>
+# Copyright (c) 2024 SUSE LLC
+# Copyright (c) 2024 Georg Pfuetzenreuter <georg.pfuetzenreuter@suse.com>
+# Copyright (c) 2019 Karol Babioch <kbabioch@suse.de>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -79,7 +81,14 @@ def remove_indent(block):
     return '\n'.join([ line.lstrip() for line in block.splitlines() ])
 
 def add_indent(block, indent):
-    return '\n'.join([ indent + line for line in block.splitlines() ])
+    lines = []
+    for line in block.splitlines():
+        # do not add whitespaces to the empty line after the PGP message header
+        if line:
+            lines.append(indent + line)
+        else:
+            lines.append(line)
+    return '\n'.join(lines)
 
 def get_recipients(file):
     with open(file) as f:
@@ -138,7 +147,7 @@ for pillar in pillars:
     total += 1
 
     # Read data from pillar file
-    file = open(pillar)
+    file = open(pillar, 'r')
     data = file.read()
     file.close()
 
