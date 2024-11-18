@@ -8,6 +8,9 @@ chain input_network_slc1 {
   ip6 saddr @host6_p2p_avalon ip6 daddr @self6_p2p_slc1_avalon icmpv6 type { echo-reply, echo-request } accept
 
   jump global_internal
+
+  # remote Salt Masters -> GitLab
+  oif os-internal ip6 saddr @host6_volva ip6 daddr $host6_mickey tcp dport https accept
 }
 
 chain output_network_slc1 {

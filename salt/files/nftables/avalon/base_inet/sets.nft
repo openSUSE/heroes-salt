@@ -273,6 +273,14 @@ set host6_logger-prg {
   }
 }
 
+set host6_mickey {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::b43/128,
+  }
+}
+
 set host6_monitor {
   type ipv6_addr
   flags interval
