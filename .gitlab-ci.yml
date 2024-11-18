@@ -123,11 +123,11 @@ sync:
   script:
     - "rsync -a --delete --super --chown=477:479 --chmod='u=rwX,g=rX,o=' $PWD/ rsync://saltpush@witch1.infra.opensuse.org:873/salt-push/"
 
-deploy:
-  extends: .deploy
-  image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-deployment:latest
-  needs:
-    - sync
-  script:
-    - bin/set_gitlab_ci_safe_directory.sh
-    - bin/deploy.py --mode test --no-mine-update --state-verbose=False
+#deploy:
+#  extends: .deploy
+#  image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-deployment:latest
+#  needs:
+#    - sync
+#  script:
+#    - bin/set_gitlab_ci_safe_directory.sh
+#    - bin/deploy.py --mode test --no-mine-update --state-verbose=False
