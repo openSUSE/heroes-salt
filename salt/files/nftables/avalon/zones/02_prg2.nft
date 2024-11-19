@@ -20,4 +20,6 @@ chain input_network_prg2 {
 chain output_network_prg2 {
   ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } icmpv6 type { mld2-listener-report, nd-neighbor-advert, nd-neighbor-solicit } accept
   ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr ospfigp accept
+
+  jump global_internal
 }
