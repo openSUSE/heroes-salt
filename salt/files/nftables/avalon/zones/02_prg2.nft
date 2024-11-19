@@ -15,6 +15,10 @@ chain input_network_prg2 {
 
   # gitlab-runner* -> Salt Masters (rsync for Salt repository deployment)
   ip6 saddr @host6_gitlab-runner ip6 daddr @host6_volva tcp dport rsync accept
+
+  # acme -> certificate deployment targets
+  ip6 saddr @host6_acme ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
+  ip6 saddr @host6_acme ip6 daddr @host6_volva tcp dport ssh accept
 }
 
 chain output_network_prg2 {
