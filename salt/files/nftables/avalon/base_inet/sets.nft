@@ -238,6 +238,14 @@ set host4_p2p_avalon {
 
 ### PRG2
 
+set host6_acme {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::100/128,
+  }
+}
+
 set host6_download {
   type ipv6_addr
   flags interval
