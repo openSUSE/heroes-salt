@@ -35,10 +35,3 @@ status:
     - status3
   services:
     - apache2
-volva:
-  hosts:
-    - volva1
-    - volva2
-  services:
-    - salined
-    - salt-api

@@ -82,13 +82,19 @@ volva1.infra.opensuse.org:
     - salt.infra.opensuse.org
     - volva.infra.opensuse.org
   targets:
-    - macro: volva
+    - host: volva1
+      services:
+        - salined
+        - salt-api
 volva2.infra.opensuse.org:
   sans:
     - salt.infra.opensuse.org
     - volva.infra.opensuse.org
   targets:
-    - macro: volva
+    - host: volva2
+      services:
+        - salined
+        - salt-api
 witch1.infra.opensuse.org:
   sans:
     - salt.infra.opensuse.org
