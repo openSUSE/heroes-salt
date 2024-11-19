@@ -11,5 +11,18 @@ grains:
   partners:
     - volva1.infra.opensuse.org
   weburls: []
+infrastructure:
+  salt:
+    scriptconfig:
+      partner: volva1.infra.opensuse.org
+profile:
+  authorized-exec:
+    salt:
+      root:
+        pubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEOFnaLBJbh3wso38lYUOHcdj406o7pj7rK+uprIrEzi
 roles:
   - salt.master
+users:
+  root:
+    ssh_auth_file:
+      - command="authorized-exec /etc/authorized-exec/salt",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEOFnaLBJbh3wso38lYUOHcdj406o7pj7rK+uprIrEzi root@volva1

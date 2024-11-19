@@ -7,6 +7,7 @@
 
 include:
   - infra.nodegroups
+  - role.common.authorized-exec
 {% if salt['grains.get']('include_secrets', True) %}
   - secrets.role.salt.master
 {% endif %}
@@ -98,6 +99,9 @@ salt:
     zmq_backlog: 10000
     pub_hwm: 10000
 
+sshd_config:
+  PermitRootLogin: prohibit-password
+
 infrastructure:
   salt:
     formulas:
@@ -131,8 +135,16 @@ infrastructure:
     git:
       formulas:
         repository: https://gitlab.infra.opensuse.org/infra/salt-formulas-git.git
+    scriptconfig:
+      ssh_key: /root/.ssh/salt-mm
 
 profile:
+  authorized-exec:
+    salt:
+      root:
+        commands:
+          - 'salt-key --out json -f [\w\.]+'
+          - 'salt-key --out=quiet -yqa [\w\.]+'
   salt:
     saline:
       restapi:
