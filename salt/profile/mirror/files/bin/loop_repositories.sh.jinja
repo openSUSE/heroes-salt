@@ -3,7 +3,13 @@
 
 . /home/mirror/bin/loop_common
 
-WHAT=( 'repositories/openSUSE:/infrastructure' 'repositories/openSUSE:/infrastructure:' 'repositories/home:/darix:/apps' 'repositories/home:/crameleon:/misc' )
+WHAT=(
+  'repositories/devel:/languages:/ruby'
+  'repositories/home:/crameleon:/misc'
+  'repositories/home:/darix:/apps'
+  'repositories/openSUSE:/infrastructure'
+  'repositories/openSUSE:/infrastructure:'
+)
 
 RSYNC_OPTIONS="$RSYNC_OPTIONS
         --exclude=openSUSE_Factory_ARM
