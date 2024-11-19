@@ -127,6 +127,7 @@ infrastructure:
             'smartmontools',
             'suse_ha',
             'sysconfig',
+            'tayga',
             'zypper',
           ]
       %}
