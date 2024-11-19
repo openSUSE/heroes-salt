@@ -16,6 +16,6 @@
    jump global_internal
 
    # Salt access for avalon itself
-   #ip6 saddr @self6_salt ip6 daddr @host6_ tcp dport 4505-4506 accept
+   ip6 saddr @self6_salt ip6 daddr @host6_volva tcp dport 4505-4506 accept
  }
 
