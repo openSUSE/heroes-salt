@@ -9,6 +9,7 @@
 {%- endif %}
 
 include:
+  - profile.glibc_gai
   - profile.legacy
   - network.wicked
   - hostsfile.pillar_only
