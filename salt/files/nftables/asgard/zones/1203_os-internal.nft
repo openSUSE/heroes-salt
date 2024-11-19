@@ -81,9 +81,10 @@
   # riesling -> atlas* (HTTPS for RSS feeds embedded in Wiki)
   oif os-public ip6 saddr $host6_riesling ip6 daddr $host6_atlas tcp dport https accept
 
-  # gitlab-runner* -> witch1 (rsync + API access for Salt deployment)
+  # gitlab-runner* -> Salt Masters (rsync + API access for Salt deployment)
   oif os-salt ip6 saddr @host6_gitlab-runner ip6 daddr @host6_witch1 tcp dport rsync accept
   oif os-salt ip6 saddr @host6_gitlab-runner ip6 daddr @host6_witch1 tcp dport 4550 log prefix "[Salt API] " accept
+  oifname @if_s2s ip6 saddr @host6_gitlab-runner ip6 daddr @host6_volva tcp dport rsync accept
 
   # matrix -> * (Matrix federation, all ports to facilitate connectivity to other homeservers using arbitrary ports)
   oifname { nat64, os-p2p-pub } ip6 saddr $host6_matrix ip6 nexthdr tcp ip6 daddr != @lan_ipv6_nonat accept

@@ -246,6 +246,15 @@ set host6_download {
   }
 }
 
+set host6_gitlab-runner {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1203::126/128,
+    2a07:de40:b27e:1203::127/128,
+  }
+}
+
 set host6_hel {
     type ipv6_addr
     flags interval
