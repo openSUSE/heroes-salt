@@ -7,6 +7,10 @@ chain input_network_prg2 {
   ip6 saddr fe80::/10 ip6 daddr { fe80::/10, ff00::/10 } ip6 nexthdr ospfigp accept
   ip6 saddr @host6_p2p_asgard ip6 daddr @self6_p2p_prg2_asgard icmpv6 type { echo-reply, echo-request } accept
 
+  # monitor -> Prometheus node exporters (consider removing once local collection is in place)
+  ip6 saddr @host6_monitor ip6 daddr @lan_ipv6 tcp dport 9100 accept
+  ip6 saddr @host6_monitor ip6 daddr @host6_avalon tcp dport 9100 accept
+
   # from PRG2/Thor
   ip6 saddr @host6_thor ip6 daddr @self6_p2p_prg2_asgard icmpv6 type { echo-reply, echo-request } accept
   ip6 saddr @host6_thor ip6 daddr @self6_p2p_prg2_asgard tcp dport ssh accept

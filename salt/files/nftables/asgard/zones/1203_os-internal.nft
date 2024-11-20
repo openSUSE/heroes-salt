@@ -104,6 +104,8 @@
   # monitor -> * (Prometheus)
   ip6 saddr $host6_monitor ip6 daddr @lan_ipv6 tcp dport 9100 accept # Node Exporter
   ip6 saddr $host6_monitor ip6 daddr @net6_os-s-warp tcp dport 9100 accept
+  ip6 saddr $host6_monitor ip6 daddr @lan_ipv6_slc1 tcp dport 9100 accept
+  ip6 saddr $host6_monitor ip6 daddr @host6_avalon tcp dport 9100 accept
   # monitor -> mx* (Prometheus mtail/postfix metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_mx tcp dport { 3903, 9154 } accept
   # monitor -> witch* (Prometheus saline/salt metrics collection)

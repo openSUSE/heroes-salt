@@ -32,6 +32,19 @@ set vpn_ipv6 {
     }
 }
 
+set lan_ipv6_slc1 {
+    type ipv6_addr
+    flags interval
+    auto-merge
+    elements = {
+      2a07:de40:617e:1800::/64,  # bare
+      2a07:de40:617e:1801::/64,  # devcon
+      2a07:de40:617e:1802::/64,  # sif
+      2a07:de40:617e:1803::/64,  # s-warp
+      2a07:de40:617e:1900::/64,  # salt
+   }
+}
+
 ## Networks
 
 # VLAN 3201 (openSUSE-SUSE-p2p-pub)
@@ -463,6 +476,15 @@ set host4_p2p_avalon {
   elements = {
     172.16.112.0/32, # avalon1
     172.16.112.2/32, # avalon2
+  }
+}
+
+set host6_avalon {
+  type ipv6_addr
+  flags interval
+  elements = {
+    fd03:7bbf:d626:1700::1/128,
+    fd03:7bbf:d626:1700::2/128,
   }
 }
 

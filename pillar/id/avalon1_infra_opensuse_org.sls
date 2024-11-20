@@ -49,3 +49,10 @@ sshd_config:
 profile:
   buddycheck:
     buddy: fd03:7bbf:d626:1700::2
+prometheus:
+  pkg:
+    component:
+      node_exporter:
+        environ:
+          args:
+            web.listen-address: '[fd03:7bbf:d626:1700::1]:9100'
