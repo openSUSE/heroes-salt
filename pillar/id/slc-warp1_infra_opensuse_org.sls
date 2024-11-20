@@ -11,7 +11,8 @@ grains:
     - enginfra@suse
   partners: []
   weburls: []
-roles: []
+roles:
+  - bastion
 network:
   routes:
     2a07:de40:6180:25::/64:
