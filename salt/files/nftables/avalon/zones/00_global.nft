@@ -14,8 +14,9 @@
  chain global_internal {
    icmpv6 type { mld2-listener-report, nd-neighbor-solicit, nd-neighbor-advert, nd-router-solicit, nd-router-advert } accept
 
-   # ping to hel
+   # ping
    ip6 daddr @host6_hel icmpv6 type { echo-reply, echo-request } accept
+   ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
 
    # core services (to hel)
    ip6 daddr @host6_hel tcp dport { domain, https, ntp, smtp } accept
