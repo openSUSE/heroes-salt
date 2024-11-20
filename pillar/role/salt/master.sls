@@ -172,6 +172,8 @@ rsync:
       uid: root
       gid: salt
       auth users: saltpush
+      name converter: /usr/local/bin/nameconvert.py
+      numeric ids: false
       read only: false
       hosts allow:
         {%- if grains.get('site') in ['prg2', 'slc1'] %}
