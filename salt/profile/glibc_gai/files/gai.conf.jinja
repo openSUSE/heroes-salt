@@ -1,0 +1,13 @@
+{{ pillar['managed_by_salt'] }}
+
+# These are the default labels as shipped in /usr/share/doc/packages/glibc/gai.conf with glibc-2.38-150600.14.14.2, except with the ULA override commented out
+# https://www.ietf.org/archive/id/draft-buraglio-6man-rfc6724-update-03.html
+
+label ::1/128       0
+label ::/0          1
+label 2002::/16     2
+label ::/96         3
+label ::ffff:0:0/96 4
+label fec0::/10     5
+# label fc00::/7      6
+label 2001:0::/32   7
