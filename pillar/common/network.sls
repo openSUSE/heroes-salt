@@ -58,14 +58,13 @@
 {%- set shortnet = interfaces[primary_interface].get('source', '').replace('x-', '') %}
 {%- endif %}
 {%- do log(msg ~ 'shortnet set to ' ~ shortnet) %}
-{%- set reduced_interfaces = interfaces.pop(primary_interface) %}
+{%- do interfaces.pop(primary_interface) %}
 
 {#- if no primary interface is available, find and apply addresses defined outside of an "interfaces" block (single interface hosts might use this) #}
 {%- else %}
 {%- do log(msg ~ 'trying to use generic interface addresses') %}
 {%- set ip4 = hostconfig.get('ip4') %}
 {%- set ip6 = hostconfig.get('ip6') %}
-{%- set reduced_interfaces = {} %}
 {%- set shortnet = None %}
 
 {%- endif %} {#- close primary interface check #}
@@ -78,14 +77,14 @@
 {%- set ip4 = None %}
 {%- set ip6 = None %}
 {%- set shortnet = None %}
-{%- set reduced_interfaces = {} %}
+{%- set interfaces = {} %}
 {%- endif %} {#- close host in hosts check #}
 
 {#- configure interfaces if the previous logic found any with usable IP addresses #}
-{%- if site in site_nameservers or ip4 is not none or ip6 is not none or reduced_interfaces or do_legacy %}
+{%- if site in site_nameservers or ip4 is not none or ip6 is not none or interfaces or do_legacy %}
 network:
 
-{%- if ip4 is not none or ip6 is not none or reduced_interfaces %}
+{%- if ip4 is not none or ip6 is not none or interfaces %}
   interfaces:
 
     {#- configure addresses on the primary interface if IP addresses were found for it #}
@@ -102,7 +101,7 @@ network:
     {%- endif %}
 
     {#- configure addresses on any additional interfaces if IP addresses were found for them #}
-    {%- for interface, ifconfig in reduced_interfaces.items() %}
+    {%- for interface, ifconfig in interfaces.items() %}
     {%- if 'ip4' in ifconfig or 'ip6' in ifconfig %}
     {%- do log(msg ~ ' configuring additional interface ' ~ interface) %}
     {{ interface }}:
@@ -117,7 +116,7 @@ network:
     {%- endif %} {#- close ip4/ip6 check #}
     {%- endfor %}
 
-{%- endif %} {#- close inner ip4/ip6/reduced_interfaces check #}
+{%- endif %} {#- close inner ip4/ip6/interfaces check #}
 
 {#- if a main network segment is available or legacy IP configuration is enabled, configure routes #}
 {%- if shortnet or do_legacy %}
@@ -197,4 +196,4 @@ network:
       - timeout:3
 {%- endif %}
 
-{%- endif %} {#- close site/ip4/ip6/reduced_interfaces check #}
+{%- endif %} {#- close site/ip4/ip6/interfaces check #}
