@@ -32,7 +32,7 @@ haproxy:
   backends:
     kanidm:
       balance: source
-      hash-type: consistent
+      hashtype: consistent
       mode: http
       options:
         - httpchk
