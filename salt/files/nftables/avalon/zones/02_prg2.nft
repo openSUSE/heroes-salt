@@ -25,6 +25,8 @@ chain input_network_prg2 {
   # acme -> certificate deployment targets
   ip6 saddr @host6_acme ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
   ip6 saddr @host6_acme ip6 daddr @host6_volva tcp dport ssh accept
+
+  log prefix "[avalon] PRG2 Denied: " reject with icmpv6 type admin-prohibited
 }
 
 chain output_network_prg2 {
