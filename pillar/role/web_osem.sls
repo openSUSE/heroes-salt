@@ -1,8 +1,21 @@
 sudoers:
   users:
     osem:
-      - 'ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart osem-dj'
-      - 'ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart osem'
+      {%- for service in [
+                'osem',
+                'osem-dj',
+              ]
+      %}
+        {%- for command in [
+                  'restart',
+                  'start',
+                  'status',
+                  'stop',
+                ]
+        %}
+      - 'dale=(root) NOPASSWD: /usr/bin/systemctl {{ command }} {{ service }}'
+        {%- endfor %}
+      {%- endfor %}
 
 zypper:
   repositories:
