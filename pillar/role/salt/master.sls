@@ -144,8 +144,8 @@ profile:
     salt:
       root:
         commands:
-          - 'salt-key --out json -f [\w\.]+'
-          - 'salt-key --out=quiet -yqa [\w\.]+'
+          - 'salt-key --out json -f [\w.-]+'
+          - 'salt-key --out=quiet -yqa [\w.-]+'
   salt:
     saline:
       restapi:
