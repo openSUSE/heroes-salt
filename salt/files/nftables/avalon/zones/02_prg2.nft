@@ -11,11 +11,13 @@ chain input_network_prg2 {
   ip6 saddr @host6_monitor ip6 daddr @lan_ipv6 tcp dport 9100 accept
   ip6 saddr @host6_monitor ip6 daddr @host6_avalon tcp dport 9100 accept
 
-  # from PRG2/Thor
+  # thor -> LAN for administrative access
   ip6 saddr @host6_thor ip6 daddr @self6_p2p_prg2_asgard icmpv6 type { echo-reply, echo-request } accept
   ip6 saddr @host6_thor ip6 daddr @self6_p2p_prg2_asgard tcp dport ssh accept
-  ip6 saddr @host6_thor ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
-  ip6 saddr @host6_thor ip6 daddr @host6_volva tcp dport ssh accept
+  ip6 saddr @host6_thor ip6 daddr @host6_avalon icmpv6 type { echo-reply, echo-request } accept
+  ip6 saddr @host6_thor ip6 daddr @host6_avalon tcp dport ssh accept
+  ip6 saddr @host6_thor ip6 daddr @lan_ipv6 icmpv6 type { echo-reply, echo-request } accept
+  ip6 saddr @host6_thor ip6 daddr @lan_ipv6 tcp dport ssh accept
 
   # gitlab-runner* -> Salt Masters (rsync for Salt repository deployment)
   ip6 saddr @host6_gitlab-runner ip6 daddr @host6_volva tcp dport rsync accept
