@@ -41,6 +41,7 @@ network:
     {{ vlantap('s-j-os-out', 1011, 'bond-ob') }}
 
 firewalld:
+  enabled: true
   zones:
     drop:
       interfaces:
