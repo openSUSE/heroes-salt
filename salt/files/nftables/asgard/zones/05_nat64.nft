@@ -37,4 +37,7 @@ chain input_network_nat64 {
   # for PMBS API access (https://pmbs.links2linux.de/)
   oifname os-p2p-pub ip saddr @acl4_internet_pmbs ip daddr @cloud4_pmbs tcp dport https accept
 
+  # rails-assets.org
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_rails-assets tcp dport https accept
+
 }

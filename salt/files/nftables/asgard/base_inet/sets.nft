@@ -743,6 +743,14 @@ set cloud4_akismet {
   }
 }
 
+set cloud4_rails-assets {
+  type ipv4_addr
+  flags interval
+  elements = {
+    159.89.227.134/32,
+  }
+}
+
 set cloud4_sentry_apex {
   type ipv4_addr
   flags interval
@@ -902,6 +910,14 @@ set cloud46_akismet {
     2a07:de40:b27e:64::c000:7bfa/128,
     2a07:de40:b27e:64::c3ea:6ffb/128,
     2a07:de40:b27e:64::c3ea:6ffc/128
+  }
+}
+
+set cloud46_rails-assets {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:64::9f59:e386/128,
   }
 }
 
@@ -1067,6 +1083,14 @@ set acl6_internet_idoo {
         $host6_paste,
         $host6_pagure,
         $host6_calendar
+    }
+}
+
+set acl6_internet_rails-assets {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_dale,
     }
 }
 
