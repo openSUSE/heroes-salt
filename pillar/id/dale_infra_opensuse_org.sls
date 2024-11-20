@@ -15,4 +15,5 @@ grains:
     - https://events.opensuse.org
     - https://hackweek.opensuse.org
 roles:
+  - hackweek
   - web_osem
