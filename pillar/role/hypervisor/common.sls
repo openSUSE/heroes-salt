@@ -11,7 +11,3 @@ os-update:
   ignore_services_from_restart:
     - virtlockd
     - virtlogd
-
-zypper:
-  packages:
-    python3-libvirt-python: {}
