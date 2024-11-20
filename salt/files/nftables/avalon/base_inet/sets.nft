@@ -316,6 +316,15 @@ set host6_witch {
 
 ## SLC1
 
+set host6_avalon {
+  type ipv6_addr
+  flags interval
+  elements = {
+    fd03:7bbf:d626:1700::1/128,
+    fd03:7bbf:d626:1700::2/128,
+  }
+}
+
 set host6_slc-warp {
   type ipv6_addr
   flags interval

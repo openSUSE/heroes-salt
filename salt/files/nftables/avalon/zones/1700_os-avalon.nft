@@ -8,6 +8,9 @@
    # SSH
    ip6 saddr $net6_os-avalon ip6 daddr $net6_os-avalon tcp dport ssh accept
 
+   # Monitoring
+   ip6 saddr @host6_monitor ip6 daddr @host6_avalon tcp dport 9100 accept
+
    # TEMP for installation
    ip6 saddr fd03:7bbf:d626:1700::b004/128 ip6 daddr $net6_os-avalon tcp dport ssh accept
    ip6 daddr fd03:7bbf:d626:1700::b004/128 udp dport domain accept
