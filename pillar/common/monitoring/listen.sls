@@ -8,13 +8,15 @@ This pillar template implements logic to determine the best suitable listening a
 
 {#- second try:
     iterate over FQDN derived addresses and find one in the PRG2 supernet where we can assume machines have only a single relevant IPv6 equipped interface #}
-{%- if address is none and grains.get('site') in ['prg2', 'nue-ipx'] %}
+{%- if address is none and grains.get('site') in ['nue-ipx', 'prg2', 'slc1'] %}
   {%- set listen_ns = namespace(address=None) %}
 
-  {#- try 2.1: find an address in os-internal, the network of our monitoring server, for direct/unrouted access #}
+  {#- try 2.1:
+      find an address in PRG2 os-internal, the network of our monitoring server, for direct/unrouted access,
+      or an address in SLC1 os-bare, for routed access on bare metal machines (which do not have addresses in hosts.yaml) #}
   {%- set ip6_addresses = grains['ipv6'] %}
   {%- for ip6_address in ip6_addresses %}
-    {%- if salt['network.ip_in_subnet'](ip6_address, '2a07:de40:b27e:1203::/64') %}
+    {%- if salt['network.ip_in_subnet'](ip6_address, '2a07:de40:b27e:1203::/64') or salt['network.ip_in_subnet'](ip6_address, '2a07:de40:617e:1800::/64') %}
       {%- set listen_ns.address = ip6_address %}
       {%- break %}
     {%- endif %}
