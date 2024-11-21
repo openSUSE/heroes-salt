@@ -20,8 +20,5 @@
 
    # asgard{1,2} -> avalon{1,2} WireGuard
    ip6 saddr @self6_p2p ip6 daddr @host6_wan_asgard udp dport 52461 accept
-
-   # TEMP for installation
-   tcp dport { http, https } accept
  }
 
