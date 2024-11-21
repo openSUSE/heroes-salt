@@ -17,14 +17,6 @@ network:
       vlan_id: 1800
       firewall: false
 
-    # TEMP for installation
-    bootstrap:
-      bootproto: dhcp
-      etherdevice: bond-ob
-      startmode: auto
-      vlan_id: 1950
-      zone: public
-
     # VLAN interface for devcon VM connectivity
     {{ vlantap('os-ipmi-ur', 1702, 'bond-mgmt') }}
 
