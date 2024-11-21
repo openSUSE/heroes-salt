@@ -7,6 +7,7 @@
 
    # SSH
    ip6 saddr $net6_os-avalon ip6 daddr $net6_os-avalon tcp dport ssh accept
+   ip6 saddr @host6_slc-warp ip6 daddr @host6_avalon tcp dport ssh accept
    ip6 saddr @host6_thor ip6 daddr @host6_avalon tcp dport ssh accept
 
    # Monitoring
