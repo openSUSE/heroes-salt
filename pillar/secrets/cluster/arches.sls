@@ -1,0 +1,66 @@
+#!gpg|yaml
+
+suse_ha:
+  # $ base64 -w0 authkey | bin/encrypt_pillar.sh -i >> pillar/secrets/cluster/arches.sls
+  cluster_secret: !!binary |
+    -----BEGIN PGP MESSAGE-----
+
+    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
+    EI84HDnq289PZn0uM4sr
+    =mExo
+    -----END PGP MESSAGE-----
