@@ -70,6 +70,14 @@ prometheus:
               {%- endfor %}
 {%- endmacro -%}
 
+{%- macro default_gateway(site, network) -%}
+  {%- import_yaml 'infra/networks.yaml' as site_networks %}
+  {%- set network = site_networks[site][network] %}
+  routes:
+    default6:
+      gateway: {{ network['gw6'] }}
+{%- endmacro %}
+
 {%- macro gateway_interfaces(site) -%}
   {%- import_yaml 'infra/networks.yaml' as site_networks %}
   {%- set networks = site_networks[site] %}
