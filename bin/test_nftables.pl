@@ -40,7 +40,6 @@ if ( $> != 0 ) {
 use Archive::Tar;
 use File::Basename;
 use File::Find::Rule;
-use File::Copy 'cp';
 use File::Copy::Recursive 'dircopy';
 use File::Path qw(make_path rmtree);
 use Inline 'Python';
@@ -78,25 +77,18 @@ sub render_tree {
     mkdir($outdir)
       or die "Cannot create render directory at $outdir: $!";
   }
-  my @infiles = File::Find::Rule->file()->name( qr/.*\.nft(?:\.j2)?/ )->in( $intree );
+  my @infiles = File::Find::Rule->file()->name( '*.nft' )->in( $intree );
   if (!@infiles) {
-    print "Directory $intree does not contain any .nft or .nft.j2 files!\n";
+    print "Directory $intree does not contain any .nft files!\n";
     return;
   }
   for (@infiles) {
     my $infile = $_;
-    my ($outfile, $outpath, $suffix) = fileparse($infile, '.j2');
-    $outpath =~ s/$indir/$renderdir/;
-    $outfile = $outpath . $outfile;
-    if ($suffix eq '.j2') {
-      open(FH, '>', $outfile)
-        or die "Cannot write file $outfile: $!";
-      print FH render_file($infile);
-      close(FH);
-    } else {
-      cp($infile, $outfile)
-        or die "Cannot copy file $outfile: $!";
-    }
+    my $outfile = $infile =~ s/$indir/$renderdir/r;
+    open(FH, '>', $outfile)
+      or die "Cannot write file $outfile: $!";
+    print FH render_file($infile);
+    close(FH);
  }
 }
 
