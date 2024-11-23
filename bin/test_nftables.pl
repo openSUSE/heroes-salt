@@ -248,4 +248,4 @@ def render_file(path):
   if path is None:
     return
   with open(path) as file:
-    return Template(file.read()).render()
+    return Template(file.read(), keep_trailing_newline=True).render()
