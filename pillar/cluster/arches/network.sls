@@ -35,6 +35,7 @@ network:
           'os-internal',
           'os-mircache',
           'os-mirror',
+          'os-monitor',
           'os-public',
           'os-sif',
         ]
