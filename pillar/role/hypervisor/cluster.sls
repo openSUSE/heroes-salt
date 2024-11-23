@@ -20,8 +20,11 @@ hostsfile:
   domain: infra.opensuse.org
   minions: falkor*.infra.opensuse.org
 
+{%- set kvmdir = '/kvm' %}
 infrastructure:
   image_type: raw
+  kvm_topdir: {{ kvmdir }}
+  libvirt_domaindir: {{ kvmdir }}/domains
 
 libvirt:
   libvirtd:
