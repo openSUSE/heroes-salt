@@ -41,19 +41,56 @@ use Archive::Tar;
 use File::Basename;
 use File::Find::Rule;
 use File::Copy::Recursive 'dircopy';
-use File::Path 'rmtree';
+use File::Path qw(make_path rmtree);
+use Inline 'Python';
 
 my $debug = $ENV{TEST_NFT_DEBUG};
 my $dumpif = $ENV{TEST_NFT_DUMP_INTERFACES};
 my $dumpnft = $ENV{TEST_NFT_DUMP_NFT};
 my $indir = $ENV{TEST_NFT_INDIR};
+my $renderdir = $ENV{TEST_NFT_RENDERDIR};
+
 if (! $indir) {
   $indir = 'salt/files/nftables'
 }
+
+if (! $renderdir) {
+  $renderdir = 'salt/files_rendered/nftables'
+}
+
+if (-d $renderdir) {
+  rmtree($renderdir)
+}
+make_path($renderdir)
+  or die "Cannot create render directory at $renderdir: $!";
+
 my $workdir = '/etc/nftables.d';
 
 my @directories = File::Find::Rule->mindepth(1)->maxdepth(1)->directory->in( $indir );
 my $exit = 0;
+
+sub render_tree {
+  my $intree = $_[0];
+  my @indirs = File::Find::Rule->directory->in( $intree );
+  for (@indirs) {
+    my $outdir = $_ =~ s/$indir/$renderdir/r;
+    mkdir($outdir)
+      or die "Cannot create render directory at $outdir: $!";
+  }
+  my @infiles = File::Find::Rule->file()->name( '*.nft' )->in( $intree );
+  if (!@infiles) {
+    print "Directory $intree does not contain any .nft files!\n";
+    return;
+  }
+  for (@infiles) {
+    my $infile = $_;
+    my $outfile = $infile =~ s/$indir/$renderdir/r;
+    open(FH, '>', $outfile)
+      or die "Cannot write file $outfile: $!";
+    print FH render_file($infile);
+    close(FH);
+ }
+}
 
 foreach (@directories) {
   my $tree = $_;
@@ -62,10 +99,11 @@ foreach (@directories) {
   my $treestatus = 0;
   print "Analyzing nftables tree \"$tree\" ...\n";
   rmtree($workdir);
+  render_tree($tree);
+  $tree =~ s/$indir/$renderdir/;
   dircopy($tree, $workdir);
   my @files = File::Find::Rule->file()->name( '*.nft' )->in( $workdir );
   if (!@files) {
-    print "Directory $tree does not contain any .nft files, skipping!\n";
     $exit = 1;
     next;
   }
@@ -201,3 +239,13 @@ foreach (@directories) {
 }
 
 exit $exit;
+
+__END__
+__Python__
+from jinja2 import Template
+
+def render_file(path):
+  if path is None:
+    return
+  with open(path) as file:
+    return Template(file.read(), keep_trailing_newline=True).render()
