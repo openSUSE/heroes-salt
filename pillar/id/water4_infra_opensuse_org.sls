@@ -1,7 +1,7 @@
 grains:
   site: prg2
   hostusage:
-    - wiki search backend
+    - en.o.o search backend
   reboot_safe: yes
 
   aliases: []
