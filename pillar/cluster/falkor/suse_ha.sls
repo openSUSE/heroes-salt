@@ -36,6 +36,68 @@ suse_ha:
           VM_narwal6.infra.opensuse.org: {}
           VM_narwal7.infra.opensuse.org: {}
           VM_narwal8.infra.opensuse.org: {}
+
+    {%- macro resource_set(group) %}
+        - resources:
+
+        {%- if group == 'dns' %}
+            - VM_hel1.infra.opensuse.org
+            - VM_hel2.infra.opensuse.org
+            - VM_prg-ns1.infra.opensuse.org
+            - VM_prg-ns2.infra.opensuse.org
+          sequential: false
+
+        {%- elif group == 'mysql' %}
+            - VM_galera1.infra.opensuse.org
+            - VM_galera2.infra.opensuse.org
+            - VM_galera3.infra.opensuse.org
+          sequential: true  # this only helps if it was shut down in the reverse order, but should not hurt in either case
+
+        {%- elif group == 'postgresql' %}
+            - VM_mirrordb2.infra.opensuse.org
+            - VM_mirrordb1.infra.opensuse.org
+          sequential: true
+
+        {%- endif %}
+    {%- endmacro %}
+
+    {%- for vmpair in [
+          'atlas',
+          'hel',
+        ]
+    %}
+    order_{{ vmpair }}:
+      type: rsc_order
+      resources:
+        - VM_{{ vmpair }}1.infra.opensuse.org
+        - VM_{{ vmpair }}2.infra.opensuse.org
+    {%- endfor %}
+
+    order_dns_mysql:
+      type: rsc_order
+      kind: mandatory
+      sets:
+        {{ resource_set('dns') }}
+        {{ resource_set('mysql') }}
+
+    order_mysql_wiki:
+      type: rsc_order
+      kind: optional
+      sets:
+        {{ resource_set('mysql') }}
+        - resources:
+            - VM_riesling.infra.opensuse.org
+            - VM_riesling3.infra.opensuse.org
+          sequential: false
+
+    order_postgresql_etherpad:
+      type: rsc_order
+      kind: mandatory
+      sets:
+        {{ resource_set('postgresql') }}
+        - resources:
+            - VM_etherpad.infra.opensuse.org
+
   fencing:
     stonith_enable: true
     sbd:
