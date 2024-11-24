@@ -16,7 +16,7 @@ prometheus:
           reload: false
         environ:
           args:
-            log.level: debug
+            log.level: info
             smartctl.interval: 10m
   wanted:
     component:
