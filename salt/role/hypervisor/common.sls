@@ -3,7 +3,7 @@ include:
   - infrastructure.libvirt
   - profile.idmapd
 {%- if
-  salt['pillar.get']('infrastructure:domains:' ~ grains['domain'] ~ ':clusters:' ~ grains.get('virt_cluster', '').replace('-bare', '') ~ ':primary')
+  salt['pillar.get']('infrastructure:domains:' ~ grains['domain'] ~ ':clusters:' ~ pillar.get('cluster') ~ ':primary')
   ==
   grains['id']
 %}
