@@ -6,3 +6,6 @@
   jump global_internal
 
  }
+
+ chain output_network_os-ipmi-r {
+ }

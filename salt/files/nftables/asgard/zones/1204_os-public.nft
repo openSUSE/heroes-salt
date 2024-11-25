@@ -10,8 +10,8 @@
   # prg-ns{1,2} -> chip (DNS XFR) + internet (DNS recursion)
   ip6 saddr @host6_prg-ns ip6 daddr $host6_chip udp dport 53 accept
   ip6 saddr @host6_prg-ns ip6 daddr $host6_chip tcp dport 53 accept
-  ip6 saddr @host6_prg-ns ip6 daddr != @lan_ipv6_nonat udp dport 53 accept
-  ip6 saddr @host6_prg-ns ip6 daddr != @lan_ipv6_nonat tcp dport 53 accept
+  ip6 saddr @host6_prg-ns ip6 daddr != @lan_ipv6_prg2_nonat udp dport 53 accept
+  ip6 saddr @host6_prg-ns ip6 daddr != @lan_ipv6_prg2_nonat tcp dport 53 accept
   ip saddr @host4_prg-ns ip daddr != $nat64_v4 udp dport 53 accept
   ip saddr @host4_prg-ns ip daddr != $nat64_v4 tcp dport 53 accept
 
