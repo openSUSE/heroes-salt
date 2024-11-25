@@ -10,7 +10,7 @@ network:
 
     # LACP bonds
     {{ bond('ob', 'ob0', 'ob1', mtu=9216) }}
-    {{ bond('fib', 'fib0', 'fib2', mtu=9216) }}
+    {{ bond('fib', 'fib2', 'fib3', mtu=9216) }}
 
     # VLAN interfaces for host connectivity
     os-a-cluster:
