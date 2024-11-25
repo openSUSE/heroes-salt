@@ -32,7 +32,7 @@ define net6_os-salt = 2a07:de40:617e:1900::/64
 define net6_os-mirror = 2a07:de40:617e:1905::/64
 
 # VLAN 1906 openSUSE-mirrorcache
-define net6_os-mirrorcache = 2a07:de40:617e:1906::/64
+define net6_os-mircache = 2a07:de40:617e:1906::/64
 
 # WAN
 define net4_internet = 195.135.220.48/28

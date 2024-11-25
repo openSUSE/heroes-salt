@@ -10,8 +10,8 @@ set lan_ipv6 {
     $net6_nat64,
     $net6_os-bare,
     $net6_os-devcon,
+    $net6_os-mircache,
     $net6_os-mirror,
-    $net6_os-mirrorcache,
     $net6_os-salt,
     $net6_os-sif,
   }
@@ -24,8 +24,8 @@ set lan_ipv6_nonat {
   elements = {
     $net6_os-bare,
     $net6_os-devcon,
+    $net6_os-mircache,
     $net6_os-mirror,
-    $net6_os-mirrorcache,
     $net6_os-salt,
     $net6_os-sif,
   }
@@ -88,11 +88,11 @@ set net6_os-mirror {
 }
 
 # VLAN 1906 openSUSE-mirrorcache
-set net6_os-mirrorcache {
+set net6_os-mircache {
   type ipv6_addr
   flags interval
   elements = {
-    $net6_os-mirrorcache,
+    $net6_os-mircache,
   }
 }
 
@@ -220,7 +220,7 @@ set self6_mirror {
   }
 }
 
-set self6_mirrorcache {
+set self6_mircache {
   type ipv6_addr
   flags interval
   elements = {
