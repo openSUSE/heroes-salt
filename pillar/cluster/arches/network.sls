@@ -31,8 +31,8 @@ network:
 
     # VLAN interfaces for generic VM connectivity
     {%- set vlanlist_r = [
+          'os-mircache',
           'os-mirror',
-          'os-mirrorcache',
         ]
     -%}
     {{ vlantapnetworks(vlanlist_r, 'bond-fib', 'slc1', 1500) }}
