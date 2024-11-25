@@ -122,6 +122,18 @@ slc1:
     net6: 2a07:de40:617e:1900::/64
     gw6: 2a07:de40:617e:1900::3
     id: 1900
+  openSUSE-mirror:
+    export: true
+    short: os-mirror
+    net6: 2a07:de40:617e:1905::/64
+    gw6: 2a07:de40:617e:1905::3
+    id: 1905
+  openSUSE-mirrorcache:
+    export: true
+    short: os-mirror
+    net6: 2a07:de40:617e:1906::/64
+    gw6: 2a07:de40:617e:1906::3
+    id: 1906
 
 # below are mapping networks and not VLANs
 pseudo:

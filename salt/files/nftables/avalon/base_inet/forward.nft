@@ -8,20 +8,24 @@
    jump global
 
    iif vmap {
-     os-avalon   : jump network_os-avalon,
-     os-bare     : jump input_network_os-bare,
-     os-devcon   : jump input_network_os-devcon,
-     os-p2p-pub  : jump input_network_os-p2p-pub,
-     os-s-warp   : jump input_network_os-s-warp,
-     os-salt     : jump input_network_os-salt,
-     os-sif      : jump input_network_os-sif,
+     os-avalon        : jump network_os-avalon,
+     os-bare          : jump input_network_os-bare,
+     os-devcon        : jump input_network_os-devcon,
+     os-mirror        : jump input_network_os-mirror,
+     os-mirrorcache   : jump input_network_os-mirrorcache,
+     os-p2p-pub       : jump input_network_os-p2p-pub,
+     os-s-warp        : jump input_network_os-s-warp,
+     os-salt          : jump input_network_os-salt,
+     os-sif           : jump input_network_os-sif,
    }
    oif vmap {
-     os-bare     : jump output_network_os-bare,
-     os-p2p-pub  : jump output_network_os-p2p-pub,
-     os-s-warp   : jump output_network_os-s-warp,
-     os-salt     : jump output_network_os-salt,
-     os-sif      : jump output_network_os-sif,
+     os-bare          : jump output_network_os-bare,
+     os-mirror        : jump output_network_os-mirror,
+     os-mirrorcache   : jump output_network_os-mirrorcache,
+     os-p2p-pub       : jump output_network_os-p2p-pub,
+     os-s-warp        : jump output_network_os-s-warp,
+     os-salt          : jump output_network_os-salt,
+     os-sif           : jump output_network_os-sif,
    }
 
    iifname prg2_asgard jump input_network_prg2

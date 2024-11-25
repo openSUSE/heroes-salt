@@ -10,6 +10,8 @@ set lan_ipv6 {
     $net6_nat64,
     $net6_os-bare,
     $net6_os-devcon,
+    $net6_os-mirror,
+    $net6_os-mirrorcache,
     $net6_os-salt,
     $net6_os-sif,
   }
@@ -22,6 +24,8 @@ set lan_ipv6_nonat {
   elements = {
     $net6_os-bare,
     $net6_os-devcon,
+    $net6_os-mirror,
+    $net6_os-mirrorcache,
     $net6_os-salt,
     $net6_os-sif,
   }
@@ -71,6 +75,24 @@ set net6_os-salt {
   flags interval
   elements = {
     $net6_os-salt,
+  }
+}
+
+# VLAN 1905 openSUSE-mirror
+set net6_os-mirror {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-mirror,
+  }
+}
+
+# VLAN 1906 openSUSE-mirrorcache
+set net6_os-mirrorcache {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-mirrorcache,
   }
 }
 
@@ -185,6 +207,26 @@ set self6_salt {
     2a07:de40:617e:1900::1/128,
     2a07:de40:617e:1900::2/128,
     2a07:de40:617e:1900::3/128,
+  }
+}
+
+set self6_mirror {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1905::1/128,
+    2a07:de40:617e:1905::2/128,
+    2a07:de40:617e:1905::3/128,
+  }
+}
+
+set self6_mirrorcache {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1906::1/128,
+    2a07:de40:617e:1906::2/128,
+    2a07:de40:617e:1906::3/128,
   }
 }
 
@@ -349,6 +391,23 @@ set host6_volva {
   elements = {
     2a07:de40:617e:1900::a/128,
     2a07:de40:617e:1900::b/128,
+  }
+}
+
+set host6_slc-mirror {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1905::a/128,
+  }
+}
+
+set host6_mirrorcache-us {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1906::a/128,  # mirrorcache-us
+    2a07:de40:617e:1906::b/128,  # mirrorcache-us-db
   }
 }
 
