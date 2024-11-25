@@ -42,6 +42,8 @@ set lan_ipv6_slc1 {
       2a07:de40:617e:1802::/64,  # sif
       2a07:de40:617e:1803::/64,  # s-warp
       2a07:de40:617e:1900::/64,  # salt
+      2a07:de40:617e:1905::/64,  # mirror
+      2a07:de40:617e:1906::/64,  # mirrorcache
    }
 }
 
