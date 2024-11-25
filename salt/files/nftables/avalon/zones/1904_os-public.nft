@@ -1,0 +1,14 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-public {
+   jump global_internal
+
+   icmpv6 type { echo-reply, echo-request } limit rate 5/second accept
+
+   ip6 saddr @net6_os-public ip6 daddr @self6_public ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+
+   log prefix "[avalon] Public Denied: " reject with icmpv6 type admin-prohibited
+ }
+

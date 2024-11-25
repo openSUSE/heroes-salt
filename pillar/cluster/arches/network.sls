@@ -33,6 +33,7 @@ network:
     {%- set vlanlist_r = [
           'os-mircache',
           'os-mirror',
+          'os-public',
         ]
     -%}
     {{ vlantapnetworks(vlanlist_r, 'bond-fib', 'slc1', 1500) }}
