@@ -11,6 +11,9 @@ include:
 grains:
   virt_cluster: falkor-bare
 
+hostsfile:
+  minions: falkor*.infra.opensuse.org
+
 mine_functions:
   clusterip:
     mine_function: network.ip_addrs6

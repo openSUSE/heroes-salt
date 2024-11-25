@@ -7,6 +7,9 @@ include:
   - secrets.cluster.arches
   {%- endif %}
 
+hostsfile:
+  minions: arches*.infra.opensuse.org
+
 mine_functions:
   clusterip:
     mine_function: network.ip_addrs6

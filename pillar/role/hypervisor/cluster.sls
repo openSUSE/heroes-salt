@@ -18,7 +18,6 @@ firewalld:
 hostsfile:
   alias: clusterip
   domain: infra.opensuse.org
-  minions: falkor*.infra.opensuse.org
 
 {%- set kvmdir = '/kvm' %}
 infrastructure:
