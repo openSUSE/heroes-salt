@@ -1,4 +1,4 @@
-{%- macro bond(name, slave0, slave1, bootproto=None) -%}
+{%- macro bond(name, slave0, slave1, bootproto=None, mtu=None) -%}
     bond-{{ name }}:
       usercontrol: false
       bonding_master: true
@@ -9,6 +9,9 @@
       {%- if bootproto %}
       bootproto: {{ bootproto }}
       {%- endif %}
+      {%- if mtu %}
+      mtu: {{ mtu }}
+      {%- endif %}
 {%- endmacro -%}
 
 {%- macro slave(name) -%}
@@ -17,20 +20,23 @@
       firewall: false
 {%- endmacro -%}
 
-{%- macro vlantap(name, vlan_id, device) -%}
+{%- macro vlantap(name, vlan_id, device, mtu=None) -%}
     x-{{ name }}:
       bootproto: none
       vlan_id: {{ vlan_id }}
       etherdevice: {{ device }}
       firewall: false
+      {%- if mtu %}
+      mtu: {{ mtu }}
+      {%- endif %}
 {%- endmacro -%}
 
-{%- macro vlantapnetworks(vlan_names, device, site) %}
+{%- macro vlantapnetworks(vlan_names, device, site, mtu=None) %}
   {%- import_yaml 'infra/networks.yaml' as networks %}
   {%- for network, network_config in networks[site].items() %}
     {%- set short = network_config.get('short') %}
     {%- if short in vlan_names and 'id' in network_config %}
-    {{ vlantap(short, network_config['id'], device) }}
+    {{ vlantap(short, network_config['id'], device, mtu) }}
     {%- endif %}
   {%- endfor %}
 {%- endmacro %}
