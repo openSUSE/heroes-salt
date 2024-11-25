@@ -13,6 +13,15 @@ mine_functions:
     interface: os-a-cluster
     cidr: fda1:21af:580f:1703::/64
 
+nfs:
+  mount:
+    kvm_share:
+      location: '"[fdb5:ae73:9cbd:1706::3]:/kvm"'
+      mountpoint: /kvm
+      opts:
+        - defaults
+        - sec=sys
+
 {{ smart([
       'sda',
       'sdb',
