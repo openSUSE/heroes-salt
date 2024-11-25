@@ -66,6 +66,7 @@ hypervisor_image_install:
   cmd.run:
     - name: |
         pushd {{ image_directory }} >/dev/null &&
+        sed -Ei 's/-Build[1-9]\.[1-9]+//; s/-1\.0//' {{ image_destination_leap }}.sha256 &&
         sha256sum -c {{ image_destination_leap }}.sha256 &&
         popd >/dev/null {%- if imagetype == 'raw' -%} &&
         unxz -fk {{ image_destination_leap }}
