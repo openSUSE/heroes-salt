@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, metrics %}
+{%- from 'common/haproxy/map.jinja' import bind, metrics, rsync_backend_with_checks %}
 
 include:
   - common.haproxy
@@ -26,3 +26,11 @@ haproxy:
 
   listens:
     {{ metrics(bind_v6_standalone) }}
+
+    rsync-mirror:
+      acls:
+        # OBS PRG2; additionally restricted in firewall
+        - network_allowed src 195.135.223.32/29
+      tcprequests:
+        - connection reject if !network_allowed
+      {{ rsync_backend_with_checks('2a07:de40:617e:1905::a', extra='send-proxy', listen_addresses=bind_v4_vip, listen_port=873, listen_params=bindopts) }}
