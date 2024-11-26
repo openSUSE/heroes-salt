@@ -950,6 +950,19 @@ slc-devcon2:
   primary_interface: os-devcon
   ram: 1024MB
   vcpu: 1
+slc-mirror:
+  cluster: arches
+  disks:
+    data0: 3600a098038315045665d585079745251
+    root: 3600a0980383143393724584a74517737
+  interfaces:
+    os-mirror:
+      ip6: 2a07:de40:617e:1905::a/64
+      mac: 00:16:3e:00:16:6a
+      source: x-os-mirror
+  legacy_boot: true
+  ram: 8192MB
+  vcpu: 4
 slc-warp1:
   cluster: chaplin
   disks:
