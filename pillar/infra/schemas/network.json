@@ -1,0 +1,53 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/network.json",
+	"title": "Network",
+	"description": "Network segment / VLAN",
+	"type": "object",
+	"patternProperties": {
+		"^openSUSE-[\\w-]+$": {
+			"type": "object",
+			"properties": {
+				"export": {
+					"description": "Whether to publish the network through OSPF",
+					"type": "boolean"
+				},
+				"short": {
+					"description": "string",
+					"pattern": "^os-[\\w-]{1,9}$"
+				},
+				"net6": {
+					"description": "IPv6 network including CIDR mask",
+					"type": "string",
+					"format": "ipv6_net"
+				},
+				"net4": {
+					"description": "IPv6 network including CIDR mask",
+					"type": "string",
+					"format": "ipv4_net"
+				},
+				"gw6": {
+					"description": "IPv6 address of default gateway",
+					"type": "string",
+					"format": "ipv6"
+				},
+				"gw4": {
+					"description": "IPv4 address of default gateway",
+					"type": "string",
+					"format": "ipv4"
+				},
+				"id": {
+					"description": "VLAN ID",
+					"type": "integer",
+					"minimum": 1000,
+					"maximum": 1999
+				}
+
+			},
+			"additionalProperties": false,
+			"required": [ "short", "net6", "gw6", "id" ]
+		}
+
+	},
+	"additionalProperties": false
+}
