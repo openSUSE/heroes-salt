@@ -10,6 +10,15 @@
 
    jump global
 
+   # from the internet to os-public/Globus
+   #  ping
+   ip6 daddr @host6_globus ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } limit rate 1/second accept
+   ip daddr @host4_globus ip protocol icmp icmp type { echo-request, echo-reply } limit rate 1/second accept
+
+   #  http(s)
+   ip6 daddr @host6_globus tcp dport { http, https } accept
+   ip daddr @host4_globus tcp dport { http, https } accept
+
    # traceroute
    ip protocol udp reject
    ip6 nexthdr udp reject

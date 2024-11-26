@@ -43,7 +43,10 @@ define net4_internet = 195.135.220.48/28
 define net6_internet = 2a07:de40:617e::/48
 
 # WAN (allocated)
+#   public for generic traffic to the internet
 define net4_internet1 = 195.135.220.49
+#   public for traffic from os-public to the internet and from the internet to Globus
+define net4_internet2 = 195.135.220.50
 
 # NAT64
 define net6_nat64 = 2a07:de40:617e:64::/96
@@ -55,3 +58,9 @@ define srx6_p2p = 2a07:de40:617f:201:ffff:ffff:ffff:ffff/128
 define self6_p2p = { 2a07:de40:617f:201::11/128, 2a07:de40:617f:201::12/128, 2a07:de40:617f:201::1/128 }
 define self4_p2p = { 195.135.220.44/32, 195.135.220.45/32, 195.135.220.41/32 }
 
+define host6_globus  = 2a07:de40:617e:1904::10/128
+define host6_globus1 = 2a07:de40:617e:1904::11/128
+define host6_globus2 = 2a07:de40:617e:1904::12/128
+define host4_globus  = 172.16.113.10
+define host4_globus1 = 172.16.113.11
+define host4_globus2 = 172.16.113.12

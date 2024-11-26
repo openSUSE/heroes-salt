@@ -6,6 +6,9 @@
  chain postrouting {
    type nat hook postrouting priority 100
 
+   # outbound from os-public to the internet
+   iif os-public oif os-p2p-pub snat ip to $net4_internet2
+
    # Tayga
    iifname nat64 oif os-p2p-pub snat ip to $net4_internet1
  }
