@@ -4,7 +4,7 @@ network:
   interfaces:
 
     # Physical interfaces
-    {%- for interface in ['fib0', 'fib2', 'ob0', 'ob1'] %}
+    {%- for interface in ['fib2', 'fib3', 'ob0', 'ob1'] %}
     {{ slave(interface) }}
     {%- endfor %}
 
