@@ -14,6 +14,7 @@
      os-mircache      : jump input_network_os-mircache,
      os-mirror        : jump input_network_os-mirror,
      os-p2p-pub       : jump input_network_os-p2p-pub,
+     os-public        : jump input_network_os-public,
      os-s-warp        : jump input_network_os-s-warp,
      os-salt          : jump input_network_os-salt,
      os-sif           : jump input_network_os-sif,

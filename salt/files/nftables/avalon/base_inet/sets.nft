@@ -78,6 +78,22 @@ set net6_os-salt {
   }
 }
 
+# VLAN 1904 openSUSE-public
+set net6_os-public {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-public,
+  }
+}
+set net4_os-public {
+  type ipv4_addr
+  flags interval
+  elements = {
+    $net4_os-public,
+  }
+}
+
 # VLAN 1905 openSUSE-mirror
 set net6_os-mirror {
   type ipv6_addr
@@ -209,6 +225,26 @@ set self6_salt {
     2a07:de40:617e:1900::3/128,
   }
 }
+
+set self6_public {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1904::1/128,
+    2a07:de40:617e:1904::2/128,
+    2a07:de40:617e:1904::3/128,
+  }
+}
+set self4_public {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.113.1/32,
+    172.16.113.2/32,
+    172.16.113.3/32,
+  }
+}
+
 
 set self6_mirror {
   type ipv6_addr
@@ -364,6 +400,23 @@ set host6_avalon {
   elements = {
     fd03:7bbf:d626:1700::1/128,
     fd03:7bbf:d626:1700::2/128,
+  }
+}
+
+set host6_globus {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1904::11/128,
+    2a07:de40:617e:1904::12/128,
+  }
+}
+set host4_globus {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.113.11/32,
+    172.16.113.12/32,
   }
 }
 

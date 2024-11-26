@@ -6,8 +6,11 @@ include:
   - .backends
   - .services
 
-{%- set bind_v6 = ['2a07:de40:401::65', '2a07:de40:401::66', '2a07:de40:401::67'] %}
-{%- set bind_v4 = ['91.193.113.65', '91.193.113.66', '91.193.113.67'] %}
+{%- set bind_v6_vip = ['2a07:de40:617e:1904::10'] %}
+{%- set bind_v6_standalone = ['2a07:de40:617e:1904::11', '2a07:de40:617e:1904::12'] %}
+{%- set bind_v6 = bind_v6_vip + bind_v6_standalone %}
+{%- set bind_v4_vip = ['172.16.113.10'] %}
+{%- set bind_v4 = bind_v4_vip + ['172.16.113.11', '172.16.113.12'] %}
 
 haproxy:
   frontends:
@@ -21,4 +24,4 @@ haproxy:
         {{ bind(bind_v4, 443, tls_bindopts) }}
 
   listens:
-    {{ metrics(['192.168.67.2'], False) }}
+    {{ metrics(bind_v6_standalone) }}
