@@ -5,6 +5,7 @@ include:
   - cluster.common.public_proxy
   - .backends
   - .services
+  - .vrrp
 
 {%- set bind_v6_vip = ['2a07:de40:617e:1904::10'] %}
 {%- set bind_v6_standalone = ['2a07:de40:617e:1904::11', '2a07:de40:617e:1904::12'] %}
