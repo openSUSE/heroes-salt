@@ -12,6 +12,7 @@ set lan_ipv6 {
     $net6_os-devcon,
     $net6_os-mircache,
     $net6_os-mirror,
+    $net6_os-public,
     $net6_os-salt,
     $net6_os-sif,
   }
@@ -26,6 +27,7 @@ set lan_ipv6_nonat {
     $net6_os-devcon,
     $net6_os-mircache,
     $net6_os-mirror,
+    $net6_os-public,
     $net6_os-salt,
     $net6_os-sif,
   }
