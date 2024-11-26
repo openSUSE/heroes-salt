@@ -4,5 +4,10 @@
 
  chain prerouting {
    type nat hook prerouting priority -100
+
+   # inbound from the internet to os-public/Globus
+   ip daddr $net4_internet2 ip protocol icmp dnat to $host4_globus
+   ip daddr $net4_internet2 tcp dport { http, https } dnat to $host4_globus
+
  }
 

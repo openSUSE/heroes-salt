@@ -407,16 +407,18 @@ set host6_globus {
   type ipv6_addr
   flags interval
   elements = {
-    2a07:de40:617e:1904::11/128,
-    2a07:de40:617e:1904::12/128,
+    $host6_globus,
+    $host6_globus1,
+    $host6_globus2,
   }
 }
 set host4_globus {
   type ipv4_addr
   flags interval
   elements = {
-    172.16.113.11/32,
-    172.16.113.12/32,
+    $host4_globus,
+    $host4_globus1,
+    $host4_globus2,
   }
 }
 
