@@ -1,6 +1,18 @@
 suse_ha:
   cluster:
     name: arches
+  constraints:
+    {%- for vmpair in [
+          'globus',
+        ]
+    %}
+    colo_{{ vmpair }}:
+      type: rsc_colocation
+      score: -100
+      resources:
+        - VM_{{ vmpair }}1.infra.opensuse.org
+        - VM_{{ vmpair }}2.infra.opensuse.org
+    {%- endfor %}
   fencing:
     stonith_enable: true
     sbd:
