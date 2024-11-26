@@ -5,6 +5,12 @@ atlas:
     - atlas2
   services:
     - haproxy
+globus:
+  hosts:
+    - globus1
+    - globus2
+  services:
+    - haproxy
 hel:
   hosts:
     - hel1

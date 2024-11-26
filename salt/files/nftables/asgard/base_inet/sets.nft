@@ -491,6 +491,15 @@ set host6_avalon {
   }
 }
 
+set host6_globus {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1904::11/128,
+    2a07:de40:617e:1904::12/128,
+  }
+}
+
 set host6_volva {
   type ipv6_addr
   flags interval

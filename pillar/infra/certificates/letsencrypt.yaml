@@ -85,6 +85,12 @@ forums.opensuse.org:
 gcc.opensuse.org:
   targets:
     - macro: atlas
+globus.opensuse.org:
+  sans:
+    - globus1.opensuse.org
+    - globus2.opensuse.org
+  targets:
+    - macro: globus
 hackweek.opensuse.org:
   targets:
     - macro: atlas
@@ -170,10 +176,13 @@ provo-mirror.opensuse.org:
   sans:
     - provo-downloadcontent.opensuse.org
   targets:
-    - macro: atlas
+    - macro: globus
 proxy-prg2.opensuse.org:
   targets:
     - macro: atlas
+proxy-slc1.opensuse.org:
+  targets:
+    - macro: globus
 redirector.opensuse.org:
   sans:
     - redirector-prg2.opensuse.org
@@ -211,6 +220,11 @@ rpmlint.opensuse.org:
 s3.opensuse-project.net:
   targets:
     - macro: atlas
+slc-mirror.opensuse.org:
+  sans:
+    - slc-downloadcontent.opensuse.org
+  targets:
+    - macro: globus
 static.opensuse.org:
   sans:
     - fontinfo.opensuse.org
