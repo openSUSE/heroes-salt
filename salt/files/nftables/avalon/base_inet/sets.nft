@@ -445,6 +445,16 @@ set host4_globus {
   }
 }
 
+set host6_tyr {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $host6_tyr,
+    $host6_tyr1,
+    $host6_tyr2,
+  }
+}
+
 set host6_slc-warp {
   type ipv6_addr
   flags interval

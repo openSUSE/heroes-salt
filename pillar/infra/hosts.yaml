@@ -1091,6 +1091,28 @@ tsp:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+tyr1:
+  cluster: arches
+  disks:
+    root: 3600a0980383143393724584a74517748
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:617e:1903::11/64
+      mac: 00:16:3e:14:06:f1
+      source: x-os-internal
+  ram: 1024MB
+  vcpu: 1
+tyr2:
+  cluster: arches
+  disks:
+    root: 3600a0980383143393724584a74517749
+  interfaces:
+    os-internal:
+      ip6: 2a07:de40:617e:1903::12/64
+      mac: 00:16:3e:14:06:f2
+      source: x-os-internal
+  ram: 1024MB
+  vcpu: 1
 volva1:
   cluster: chaplin
   disks:
