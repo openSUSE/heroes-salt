@@ -478,6 +478,15 @@ set cloud4_obs_source { # pontifex etc.
   }
 }
 
+set cloud6_stage {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a01:4f8:2b01:101::2/128,              # stage3.o.o
+    2a07:de40:b250:131:10:151:131:32/128,  # stage.o.o
+  }
+}
+
 ###
 
 ## Blacklists

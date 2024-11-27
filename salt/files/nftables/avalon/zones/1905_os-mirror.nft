@@ -7,6 +7,9 @@
 
    ip6 saddr @net6_os-mirror ip6 daddr @self6_mirror ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
+   ip6 saddr @host6_slc-mirror ip6 daddr @cloud6_stage icmpv6 type { echo-request, echo-reply } accept
+   ip6 saddr @host6_slc-mirror ip6 daddr @cloud6_stage tcp dport rsync accept
+
    log prefix "[avalon] Mirror Denied: " reject with icmpv6 type admin-prohibited
  }
 
