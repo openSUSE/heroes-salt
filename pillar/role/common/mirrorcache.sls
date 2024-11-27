@@ -23,7 +23,9 @@ mirrorcache:
 mysql:
   user:
     mirrorcache:
-      host: 2a07:de40:617e:1906::a
+      hosts:
+        - 2a07:de40:617e:1906::a  # mirrorcache-us.i.o.o, no PTR yet
+        - mirrorcache-us-db.infra.opensuse.org
       # password is set in pillar/secrets/mirrorcache
 
 {%- endif %}
