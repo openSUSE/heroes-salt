@@ -19,8 +19,8 @@
 --  with this program; if not, write to the Free Software Foundation, Inc.,
 --  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-prefix = "2a07:de40:b27e:64::"
-prefix_reverse = "0.0.0.0.0.0.0.0.4.6.0.0.e.7.2.b.0.4.e.d.7.0.a.2.ip6.arpa."
+prefix = "{{ nat64_prefix.split('/')[0] }}"
+prefix_reverse = "{{ salt['os_network.reverse_pointer'](nat64_prefix) }}"
 
 internal_zones = newDS()
 internal_zones:add({"infra.opensuse.org"})
