@@ -8,6 +8,8 @@
    # inbound from the internet to os-public/Globus
    ip daddr $net4_internet2 ip protocol icmp dnat to $host4_globus
    ip daddr $net4_internet2 tcp dport { http, https } dnat to $host4_globus
+   #  mirror push from pontifex (via obs gateway)
+   ip saddr @cloud4_obs_source ip daddr $net4_internet2 tcp dport rsync dnat to $host4_globus
 
  }
 
