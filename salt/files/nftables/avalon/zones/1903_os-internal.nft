@@ -1,0 +1,12 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-internal {
+   jump global_internal
+
+   ip6 saddr @net6_os-internal ip6 daddr @self6_internal ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+
+   log prefix "[avalon] Internal Denied: " reject with icmpv6 type admin-prohibited
+ }
+
