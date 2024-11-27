@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, metrics, rsync_backend_with_checks %}
+{%- from 'common/haproxy/map.jinja' import bind, metrics %}
 
 include:
   - common.haproxy
@@ -18,19 +18,20 @@ haproxy:
     http:
       bind:
         {%- set bindopts = 'tfo' %}
-        {{ bind(bind_v6, 80, 'v6only ' ~ bindopts) }}
+        {%- set bindopts6 = 'v6only ' ~ bindopts %}
+        {{ bind(bind_v6, 80, bindopts6) }}
         {{ bind(bind_v4, 80, bindopts) }}
         {%- set tls_bindopts = bindopts ~ ' alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
         {{ bind(bind_v6, 443, 'v6only ' ~ tls_bindopts) }}
         {{ bind(bind_v4, 443, tls_bindopts) }}
 
+    rsync:
+      bind:
+        {{ bind(bind_v6_vip, 873, bindopts6) }}
+        {{ bind(bind_v4_vip, 873, bindopts) }}
+      mode: tcp
+      options:
+        - tcplog
+
   listens:
     {{ metrics(bind_v6_standalone) }}
-
-    rsync-mirror:
-      acls:
-        # OBS PRG2; additionally restricted in firewall
-        - network_allowed src 195.135.223.32/29
-      tcprequests:
-        - connection reject if !network_allowed
-      {{ rsync_backend_with_checks('2a07:de40:617e:1905::a', extra='send-proxy', listen_addresses=bind_v4_vip, listen_port=873, listen_params=bindopts) }}

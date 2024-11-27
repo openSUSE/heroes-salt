@@ -34,3 +34,11 @@ haproxy:
         - scheme https code 301  if !is_ssl !host_conncheck !host_mirrorcache_us
         - code 301 prefix https://www.opensuse.org if host_mainpage !path_matrix_client !path_matrix_federation
         - code 301 prefix https://slc-mirror.opensuse.org if host_provo_mirror
+
+    rsync:
+      acls:
+        - net_obs src 195.135.223.32/29
+
+      default_backend: mirror-rsync
+      use_backends:
+        - mirror-rsync-push if net_obs
