@@ -62,8 +62,12 @@
         {%- endfor %}
       {%- endif %}
       mode: tcp
+      {%- if ( listen_addresses and listen_port ) or with_check %}
       options:
+      {%- endif %}
+      {%- if listen_addresses and listen_port %}
         - tcplog
+      {%- endif %}
       {%- if with_check %}
         - tcp-check
       tcpchecks:
