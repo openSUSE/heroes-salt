@@ -11,6 +11,7 @@
 
    # Globus -> backends
    ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport rsync accept
+   ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport 874 accept
 
    log prefix "[avalon] Public Denied: " reject with icmpv6 type admin-prohibited
  }

@@ -19,8 +19,9 @@
    ip6 daddr @host6_globus tcp dport { http, https } accept
    ip daddr @host4_globus tcp dport { http, https } accept
 
-   #  rsync (for slc-mirror push via Globus)
-   ip saddr @cloud4_obs_source ip daddr @host4_globus tcp dport rsync accept
+   #  rsync
+   ip6 daddr @host6_globus tcp dport rsync accept
+   ip daddr @host4_globus tcp dport rsync accept
 
    # traceroute
    ip protocol udp reject

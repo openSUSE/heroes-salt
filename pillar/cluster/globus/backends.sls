@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import options, server, httpcheck %}
+{%- from 'common/haproxy/map.jinja' import options, server, httpcheck, rsync_backend_with_checks %}
 
 haproxy:
   backends:
@@ -15,3 +15,7 @@ haproxy:
       {{ httpcheck('static.opensuse.org', 200, method='options') }}
       {#- TBD #}
       {{ server('narwal4', '::1', 80) }}
+    mirror-rsync:
+      {{ rsync_backend_with_checks('2a07:de40:617e:1905::a', extra='send-proxy') }}
+    mirror-rsync-push:
+      {{ rsync_backend_with_checks('2a07:de40:617e:1905::a', 874, extra='send-proxy') }}
