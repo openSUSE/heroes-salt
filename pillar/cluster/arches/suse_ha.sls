@@ -4,6 +4,7 @@ suse_ha:
   constraints:
     {%- for vmpair in [
           'globus',
+          'tyr',
         ]
     %}
     colo_{{ vmpair }}:

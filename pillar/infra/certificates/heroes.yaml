@@ -77,6 +77,12 @@ netbox1.infra.opensuse.org:
     - host: netbox1
       services:
         - apache2
+tyr.infra.opensuse.org:
+  sans:
+    - tyr1.infra.opensuse.org
+    - tyr2.infra.opensuse.org
+  targets:
+    - macro: tyr
 volva1.infra.opensuse.org:
   sans:
     - salt.infra.opensuse.org

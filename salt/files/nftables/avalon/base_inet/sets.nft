@@ -10,6 +10,7 @@ set lan_ipv6 {
     $net6_nat64,
     $net6_os-bare,
     $net6_os-devcon,
+    $net6_os-internal,
     $net6_os-mircache,
     $net6_os-mirror,
     $net6_os-public,
@@ -25,6 +26,7 @@ set lan_ipv6_nonat {
   elements = {
     $net6_os-bare,
     $net6_os-devcon,
+    $net6_os-internal,
     $net6_os-mircache,
     $net6_os-mirror,
     $net6_os-public,
@@ -77,6 +79,15 @@ set net6_os-salt {
   flags interval
   elements = {
     $net6_os-salt,
+  }
+}
+
+# VLAN 1903 openSUSE-internal
+set net6_os-internal {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-internal,
   }
 }
 
@@ -195,6 +206,16 @@ set self6_devcon {
     2a07:de40:617e:1801::1/128,
     2a07:de40:617e:1801::2/128,
     2a07:de40:617e:1801::3/128,
+  }
+}
+
+set self6_internal {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1903::1/128,
+    2a07:de40:617e:1903::2/128,
+    2a07:de40:617e:1903::3/128,
   }
 }
 
@@ -421,6 +442,16 @@ set host4_globus {
     $host4_globus,
     $host4_globus1,
     $host4_globus2,
+  }
+}
+
+set host6_tyr {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $host6_tyr,
+    $host6_tyr1,
+    $host6_tyr2,
   }
 }
 

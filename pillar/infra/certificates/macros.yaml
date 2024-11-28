@@ -41,3 +41,9 @@ status:
     - status3
   services:
     - apache2
+tyr:
+  hosts:
+    - tyr1
+    - tyr2
+  services:
+    - haproxy

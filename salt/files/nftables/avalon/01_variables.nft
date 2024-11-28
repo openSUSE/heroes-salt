@@ -28,6 +28,9 @@ define net6_os-s-warp = 2a07:de40:617e:1803::/64
 # VLAN 1900 openSUSE-salt
 define net6_os-salt = 2a07:de40:617e:1900::/64
 
+# VLAN 1903 openSUSE-internal
+define net6_os-internal = 2a07:de40:617e:1903::/64
+
 # VLAN 1904 openSUSE-public
 define net6_os-public = 2a07:de40:617e:1904::/64
 define net4_os-public = 172.16.113.0/28
@@ -64,3 +67,7 @@ define host6_globus2 = 2a07:de40:617e:1904::12/128
 define host4_globus  = 172.16.113.10
 define host4_globus1 = 172.16.113.11
 define host4_globus2 = 172.16.113.12
+
+define host6_tyr     = 2a07:de40:617e:1903::10/128
+define host6_tyr1    = 2a07:de40:617e:1903::11/128
+define host6_tyr2    = 2a07:de40:617e:1903::12/128

@@ -122,6 +122,12 @@ slc1:
     net6: 2a07:de40:617e:1900::/64
     gw6: 2a07:de40:617e:1900::3
     id: 1900
+  openSUSE-internal:
+    export: true
+    short: os-internal
+    net6: 2a07:de40:617e:1903::/64
+    gw6: 2a07:de40:617e:1903::3
+    id: 1903
   openSUSE-public:
     export: true
     short: os-public
