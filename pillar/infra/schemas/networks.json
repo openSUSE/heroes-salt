@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "infra/schemas/networks.json",
+	"title": "Site Networks",
+	"description": "Networks segments / VLANs grouped by openSUSE infrastructure location",
+	"type": "object",
+	"patternProperties": {
+		"^([a-z]{3}[0-9]|pseudo)$": {
+			"type": "object"
+		}
+	},
+	"additionalProperties": false
+
+}

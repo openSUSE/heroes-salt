@@ -36,7 +36,7 @@ from referencing import Registry, Resource
 
 # data we do not have schemas for
 excluded_files = [
-  'clusters', 'domains', 'nameservers', 'networks',
+  'clusters', 'domains', 'nameservers',
 ]
 excluded_directories = [
   'alerts',
@@ -46,7 +46,7 @@ infradir = 'pillar/infra/'
 schemadir = f'{infradir}schemas/'
 reference = 'draft202012.json'
 
-need_unique = ['ip4', 'ip6', 'pseudo_ip4', 'mac']
+need_unique = ['ip4', 'ip6', 'pseudo_ip4', 'mac', 'id', 'short']
 
 infra_data = {}
 schemas = {}
@@ -249,6 +249,10 @@ def main():
           except yaml.scanner.ScannerError:
             _fail(f'Invalid YAML file: {file}')
 
+        # FIXME: store pseudo networks in a data structure which does not require special handling in various places
+        if name == 'networks':
+          infra_data[save_name].pop('pseudo')
+
     for file in Path(f'{schemadir}').glob('*.json'):
       name = file.stem
       if name.startswith('draft'):
@@ -262,7 +266,15 @@ def main():
     checks['schema'] = test_schema()
 
     log.debug(f'{orange}Executing duplicates check ...{reset}')
-    checks['duplicates'] = not test_duplicates(infra_data['hosts'])
+    dupdata = [
+        infra_data['hosts'],
+    ]
+    # we allow duplicates of "short" in different sites, hence treat all site network objects as individual datasets
+    for site, site_networks in infra_data['networks'].items():
+        dupdata.append(site_networks)
+    checks['duplicates'] = not any(
+            test_duplicates(dupdataset) for dupdataset in dupdata
+    )
 
     fail = False
     for check, result in checks.items():
