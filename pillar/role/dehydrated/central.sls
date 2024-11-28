@@ -3,6 +3,7 @@
 
 include:
   - .
+  - role.common.dns_ssh
 {%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.dehydrated.central
 {%- endif %}
