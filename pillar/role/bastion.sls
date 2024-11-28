@@ -1,11 +1,8 @@
-network:
-  config:
-    netconfig_dns_resolver_options:
-      - trust-ad
+include:
+  - role.common.dns_ssh
 
 ssh_config:
   CanonicalDomains: infra.opensuse.org
   CanonicalizeHostname: true
   PreferredAuthentications: publickey
   StrictHostKeyChecking: true
-  VerifyHostKeyDNS: true
