@@ -78,6 +78,9 @@ then
       3 )
         echo 'Service {{ service }} is not active.'
         ;;
+      4 )
+        echo 'Service {{ service }} does not exist.'
+        ;;
       255 )
         fail 'ssh' '{{ target }}'
         echo 'Connection to {{ target }} failed.'
