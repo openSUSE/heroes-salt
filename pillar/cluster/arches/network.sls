@@ -31,6 +31,7 @@ network:
 
     # VLAN interfaces for generic VM connectivity
     {%- set vlanlist_r = [
+          'os-internal',
           'os-mircache',
           'os-mirror',
           'os-public',
