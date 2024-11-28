@@ -500,6 +500,15 @@ set host6_globus {
   }
 }
 
+set host6_tyr {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1903::11/128,
+    2a07:de40:617e:1903::12/128,
+  }
+}
+
 set host6_volva {
   type ipv6_addr
   flags interval
