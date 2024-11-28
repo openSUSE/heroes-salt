@@ -26,6 +26,14 @@ def convert_4to6(v4address, v6prefix):
     return str(ipaddress.ip_address(int(ip4address) + int(ip6prefix)))
 
 
+def reverse_pointer(v6network):
+  """
+  Returns the reverse pointer for a given IPv6 network"
+  """
+
+  return ipaddress.IPv6Network(v6network).network_address.reverse_pointer + '.'
+
+
 def sixify(instring, prefix):
   """
   Encodes a string into an IPv6 adress.

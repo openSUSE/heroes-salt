@@ -20,6 +20,8 @@ powerdns_recursor_config:
       - /etc/pdns/pdns.lua:
         - source: salt://profile/dns/powerdns/files/etc/pdns/pdns.lua.jinja
         - template: jinja
+        - context:
+            nat64_prefix: {{ mypillar.get('nat64_prefix') }}
       - /etc/pdns/forward.conf:
         - contents:
           - {{ pillar['managed_by_salt'] | yaml_encode }}

@@ -1,3 +1,5 @@
+{%- import_yaml 'infra/networks.yaml' as networks %}
+
 profile:
   dns:
     powerdns:
@@ -14,3 +16,4 @@ profile:
             - 2a07:de40:b27e:5001::/64  # VPN
             - 2a07:de40:b27e:5002::/64  # VPN
             - 2a07:de40:b27e:1100::/64  # os-thor
+        nat64_prefix: {{ networks['pseudo'][grains['site']]['openSUSE-NAT64-Pool']['net6'] }}
