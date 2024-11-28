@@ -13,3 +13,6 @@
    log prefix "[avalon] Internal Denied: " reject with icmpv6 type admin-prohibited
  }
 
+ chain output_network_os-internal {
+ }
+

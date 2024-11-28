@@ -13,6 +13,7 @@
    oif vmap {
      os-avalon    : jump network_os-avalon,
      os-avalon-ct : jump network_os-avalon,
+     os-internal  : jump output_network_os-internal,
      os-mirror    : jump output_network_os-mirror,
      os-p2p-pub   : jump output_network_os-p2p-pub,
      os-s-warp    : jump output_network_os-s-warp,

@@ -11,6 +11,7 @@
      os-avalon        : jump network_os-avalon,
      os-bare          : jump input_network_os-bare,
      os-devcon        : jump input_network_os-devcon,
+     os-internal      : jump input_network_os-internal,
      os-mircache      : jump input_network_os-mircache,
      os-mirror        : jump input_network_os-mirror,
      os-p2p-pub       : jump input_network_os-p2p-pub,
