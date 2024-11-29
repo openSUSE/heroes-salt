@@ -19,6 +19,7 @@ network:
 
     # VLAN interface for devcon VM connectivity
     {{ vlantap('os-ipmi-ur', 1702, 'bond-mgmt') }}
+    {{ vlantap('os-na-mgmt', 1707, 'bond-ob') }}
 
     # VLAN interfaces for generic VM connectivity
     {%- set vlanlist_r = [
