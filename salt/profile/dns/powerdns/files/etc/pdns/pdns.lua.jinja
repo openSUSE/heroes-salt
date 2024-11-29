@@ -1,3 +1,4 @@
+{%- set site = grains.get('site') -%}
 {{ pillar['managed_by_salt_lua'] }}
 -- Fork of the example script (https://doc.powerdns.com/recursor/dns64.html#scripted-dns64-support)
 -- with added functionality for acting based on the source network and query name
@@ -26,7 +27,24 @@ internal_zones = newDS()
 internal_zones:add({"infra.opensuse.org"})
 
 no_internet46_networks = newNMG()
-no_internet46_networks:addMasks({"2a07:de40:b27e:5001::/64", "2a07:de40:b27e:5002::/64", "2a07:de40:b27e:1204::/64", "2a07:de40:b27e:1209::/64"})
+-- networks which are either VPN, equipped with native IPv4, or remote locations with their own NAT64 prefix (further explanation below)
+no_internet46_networks:addMasks(
+  {
+    {%- if site == 'prg2' %}
+    -- SLC1
+    "2a07:de40:617e::/48",
+    -- PRG2 os-public and os-mail
+    "2a07:de40:b27e:1204::/64",
+    "2a07:de40:b27e:1209::/64",
+    -- PRG2 VPN
+    "2a07:de40:b27e:5001::/64",
+    "2a07:de40:b27e:5002::/64",
+    {%- elif site == 'slc1' %}
+    -- PRG2
+    "2a07:de40:b27e::/48",
+    {%- endif %}
+  }
+)
 
 excludes = newDS()
 excludes:add({"redirector-qsc.infra.opensuse.org"})
@@ -47,7 +65,9 @@ function nodata ( dq )
   if not internal_zones:check(dq.qname) then
     dq.variable = true
 
-    -- VPN clients shall only receive mapped answers for internal_zones queries (prevent mapping v4 internet hosts to addresses unroutable in the client network)
+    -- skip DNS64 for excluded source networks
+    --   * VPN clients shall only receive mapped answers for internal_zones queries (prevent mapping v4 internet hosts to addresses unroutable in the client network)
+    --   * other sites shall not receive mapped answers from this recursor, as the other, site specific, recursor will handle it with the relevant local NAT64 prefix
     if no_internet46_networks:match(dq.remoteaddr) then
       return false
     end
