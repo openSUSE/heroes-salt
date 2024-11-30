@@ -1,4 +1,3 @@
-cluster: prg-ns
 grains:
   site: prg2
   hostusage:
@@ -20,7 +19,6 @@ profile:
   dns:
     powerdns:
       recursor:
-        config:
-          local_address:
-            - '[2a07:de40:b27e:1204::21]:1053'
-          webserver_address: 2a07:de40:b27e:1204::21
+        addr_self: 2a07:de40:b27e:1204::21
+        addr_partner: 2a07:de40:b27e:1204::22
+
