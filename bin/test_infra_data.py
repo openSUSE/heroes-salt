@@ -188,7 +188,7 @@ def test_duplicates(data):
         for key, value in host_config.items():
             if isinstance(value, dict):
                 for low_key, low_value in value.items():
-                    if key == 'disks' and not low_value.endswith(('G', 'GB')):
+                    if key == 'disks' and isinstance(low_value, str) and not low_value.endswith(('G', 'GB')):
                         lun_mappers.append(low_value)
                     if isinstance(low_value, (int, str)):
                         test_key(low_key, low_value)
