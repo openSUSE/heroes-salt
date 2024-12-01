@@ -18,9 +18,11 @@
    ip6 daddr @host6_hel icmpv6 type { echo-reply, echo-request } accept
    ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
 
-   # core services (to hel)
+   # core services (to hel and tyr)
    ip6 daddr @host6_hel tcp dport { domain, https, ntp, smtp } accept
    ip6 daddr @host6_hel udp dport { domain, ntp } accept
+   ip6 daddr @host6_tyr tcp dport { domain, https, ntp, smtp } accept
+   ip6 daddr @host6_tyr udp dport { domain, ntp } accept
 
    # Salt (to volva)
    ip6 daddr @host6_volva tcp dport 4505-4506 accept

@@ -46,8 +46,13 @@ chrony:
   logdir: /var/log/chrony
   {%- if configure_ntp %}
   ntpservers:
+    {%- if site == 'slc1' %}
+    - ntp3.infra.opensuse.org
+    - ntp4.infra.opensuse.org
+    {%- else %}
     - ntp1.infra.opensuse.org
     - ntp2.infra.opensuse.org
+    {%- endif %}
   {%- endif %}
   otherparams:
     {%- if configure_ntp %}
