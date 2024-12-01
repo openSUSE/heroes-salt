@@ -1,4 +1,5 @@
 {%- set mypillar       = salt['pillar.get']('profile:dns:powerdns:recursor', {}) %}
+{%- set config         = mypillar.get('config', {}) %}
 {%- set addr_self      = mypillar.get('addr_self') %}
 {%- set addr_partner   = mypillar.get('addr_partner') %}
 {%- set forward_local  = mypillar.get('forward_local', []) %}
@@ -31,7 +32,7 @@ powerdns_recursor_config:
         - source: salt://profile/dns/powerdns/files/etc/pdns/recursor.conf.jinja
         - template: jinja
         - context:
-            config: {{ mypillar.get('config', {}) }}
+            config: {{ config }}
             forward: {{ forward_local }}
       - /etc/pdns/pdns.lua:
         - source: salt://profile/dns/powerdns/files/etc/pdns/pdns.lua.jinja
