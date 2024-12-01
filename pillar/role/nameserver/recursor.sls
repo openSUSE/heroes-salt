@@ -17,3 +17,8 @@ profile:
             - 2a07:de40:b27e:5002::/64  # VPN
             - 2a07:de40:b27e:1100::/64  # os-thor
         nat64_prefix: {{ networks['pseudo'][grains['site']]['openSUSE-NAT64-Pool']['net6'] }}
+
+      {%- if '-ns' in grains['host'] %}
+        {%- import_yaml 'infra/domains.yaml' as domains %}
+        forward_local: {{ domains }}
+      {%- endif %}

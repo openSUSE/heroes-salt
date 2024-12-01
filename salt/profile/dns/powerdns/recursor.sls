@@ -1,5 +1,21 @@
-{%- set mypillar = salt['pillar.get']('profile:dns:powerdns:recursor', {}) %}
-{%- set forward = mypillar.get('forward', {}) %}
+{%- set mypillar       = salt['pillar.get']('profile:dns:powerdns:recursor', {}) %}
+{%- set addr_self      = mypillar.get('addr_self') %}
+{%- set addr_partner   = mypillar.get('addr_partner') %}
+{%- set forward_local  = mypillar.get('forward_local', []) %}
+
+{#- servers which recurse to the internet and to authoritative servers on localhost and receive forwards from internal recursors #}
+{%- if addr_self and addr_partner %}
+{%- do config.update(
+      {
+        'local_address': [
+          '[::1]:1053',
+          '[' ~ addr_self ~ ']:1053',
+        ],
+        'webserver_address': addr_self,
+      }
+    )
+%}
+{%- endif %}
 
 powerdns_recursor_packages:
   pkg.installed:
@@ -16,7 +32,7 @@ powerdns_recursor_config:
         - template: jinja
         - context:
             config: {{ mypillar.get('config', {}) }}
-            forward: {{ forward }}
+            forward: {{ forward_local }}
       - /etc/pdns/pdns.lua:
         - source: salt://profile/dns/powerdns/files/etc/pdns/pdns.lua.jinja
         - template: jinja
@@ -25,9 +41,11 @@ powerdns_recursor_config:
       - /etc/pdns/forward.conf:
         - contents:
           - {{ pillar['managed_by_salt'] | yaml_encode }}
-          {%- for zone, servers in forward.items() %}
-          - '{{ zone }}={{ ', '.join(servers) }}'
+          {%- if addr_self and addr_partner %}
+          {%- for zone in forward_local %}
+          - '{{ zone }}={{ addr_self }}, {{ addr_partner }}'
           {%- endfor %}
+          {%- endif %}
     - mode: '0640'
     - group: pdns
     - require:
