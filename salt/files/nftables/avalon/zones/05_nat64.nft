@@ -5,4 +5,6 @@
  chain input_network_nat64 {
    #oif { } ip6 saddr $nat64_v6 accept #log prefix "[Tayga v6 Forward] " accept
    #oifname { } ip saddr $nat64_v4 accept #log prefix "[Tayga v4 Forward] " accept
+
+   oif os-p2p-pub ip saddr $net4_nat64 ip daddr != @lan_ipv4 tcp dport { http, https } accept
  }
