@@ -14,5 +14,6 @@
  }
 
  chain output_network_os-internal {
+   ip6 saddr @self6_internal ip6 daddr @host6_tyr udp dport { domain, ntp } accept
  }
 
