@@ -31,7 +31,10 @@ def reverse_pointer(v6network):
   Returns the reverse pointer for a given IPv6 network"
   """
 
-  return ipaddress.IPv6Network(v6network).network_address.reverse_pointer + '.'
+  # network_address.reverse_pointer would not return the correct value for a v6 network
+  # https://github.com/python/cpython/issues/125641#issuecomment-2451653325
+  n = ipaddress.IPv6Network(v6network)
+  return '.'.join(n.network_address.exploded.replace(':','')[:n.prefixlen//4][::-1]) + '.ip6.arpa.'
 
 
 def sixify(instring, prefix):
