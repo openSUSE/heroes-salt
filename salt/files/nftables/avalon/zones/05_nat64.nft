@@ -7,4 +7,5 @@
    #oifname { } ip saddr $nat64_v4 accept #log prefix "[Tayga v4 Forward] " accept
 
    oif os-p2p-pub ip saddr $net4_nat64 ip daddr != @lan_ipv4 tcp dport { http, https } accept
+   oif os-p2p-pub ip saddr $net4_nat64 ip daddr != @lan_ipv4 icmp type { echo-request, echo-reply } accept
  }

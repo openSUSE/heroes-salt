@@ -9,6 +9,10 @@
 
    # mirrorcache-us-db: mirror scanning, mirrorcache-us: https://github.com/openSUSE/MirrorCache/issues/545
    oifname { nat64, os-p2p-pub } ip6 saddr @host6_mirrorcache-us-all ip6 daddr != @lan_ipv6_nonat tcp dport { http, https } accept
+   oifname { nat64, os-p2p-pub } ip6 saddr @host6_mirrorcache-us-all ip6 daddr != @lan_ipv6_nonat icmpv6 type { echo-request, echo-reply } accept
+   # mirror scanning of slc-mirror.o.o
+   oif os-public ip6 saddr @host6_mirrorcache-us-db ip6 daddr @host6_globus tcp dport { http, https } accept
+   oif os-public ip6 saddr @host6_mirrorcache-us-db ip6 daddr @host6_globus icmpv6 type { echo-request, echo-reply } accept
 
    log prefix "[avalon] MirrorCache Denied: " reject with icmpv6 type admin-prohibited
  }
