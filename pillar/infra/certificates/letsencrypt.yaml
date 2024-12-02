@@ -142,7 +142,7 @@ metrics.opensuse.org:
     - macro: atlas
 mirrorcache-us.opensuse.org:
   targets:
-    - macro: atlas
+    - macro: globus
 mirrors.opensuse.org:
   targets:
     - macro: atlas
