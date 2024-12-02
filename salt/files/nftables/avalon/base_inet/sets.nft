@@ -35,6 +35,18 @@ set lan_ipv6_nonat {
   }
 }
 
+set lan_ipv4 {
+  type ipv4_addr
+  flags interval
+  auto-merge
+  elements = {
+    172.16.112.0/30,    # os-avalon
+    172.16.113.0/28,    # os-public
+    172.16.127.0/25,    # NAT64
+    195.135.220.40/29,  # os-p2p-pub
+  }
+}
+
 ## Networks
 
 # VLAN 1800 openSUSE-bare
@@ -490,11 +502,27 @@ set host6_slc-mirror {
   }
 }
 
+set host6_mirrorcache-us-all {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1906::a/128,  # mirrorcache-us
+    2a07:de40:617e:1906::b/128,  # mirrorcache-us-db
+  }
+}
+
 set host6_mirrorcache-us {
   type ipv6_addr
   flags interval
   elements = {
     2a07:de40:617e:1906::a/128,  # mirrorcache-us
+  }
+}
+
+set host6_mirrorcache-us-db {
+  type ipv6_addr
+  flags interval
+  elements = {
     2a07:de40:617e:1906::b/128,  # mirrorcache-us-db
   }
 }

@@ -7,6 +7,9 @@
 
    ip6 saddr @net6_os-mircache ip6 daddr @self6_mircache ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
+   # mirror scanning
+   oifname { nat64, os-p2p-pub } ip6 saddr @host6_mirrorcache-us-db ip6 daddr != @lan_ipv6_nonat tcp dport { http, https } accept
+
    log prefix "[avalon] MirrorCache Denied: " reject with icmpv6 type admin-prohibited
  }
 
