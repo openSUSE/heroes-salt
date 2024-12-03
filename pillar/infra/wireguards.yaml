@@ -63,3 +63,35 @@
     interface: slc1_avalon
     listen: '[2a07:de40:b27f:201::12]:52461'
     public_key: 'Yv/Wv4kqbBzzAqAuNx5cQHwlbofJLq8WGwxILlI8aSw='
+
+- avalon1:
+    addresses:
+      - fda1:21af:580f:1::4/127
+      - 172.16.112.4/31
+    link_local: fe80::216:3eff:fe10:2c2c/64
+    interface: nueqsc_stonehat
+    listen: '[2a07:de40:617f:201::11]:52462'
+    public_key: 'y3pZVSLJQASLHUjgRPxZUnCx5/pmuFJViQopBdWAw00='
+  stonehat:
+    addresses:
+      - fda1:21af:580f:1::5/127
+      - 172.16.112.5/31
+    link_local: fe80::216:3eff:fe10:2c2d/64
+    interface: slc1_avalon1
+    public_key: 'HuNMES62YB7aNYZ5ozhE9x8jd95kq4UFAqxb0D5wlTA='
+
+- avalon2:
+    addresses:
+      - fda1:21af:580f:1::6/127
+      - 172.16.112.6/31
+    link_local: fe80::216:3eff:fe10:2d2c/64
+    interface: nueqsc_stonehat
+    listen: '[2a07:de40:617f:201::12]:52462'
+    public_key: 'SlsLRIezsE0Y/skI7tzvlZiqSk4OgLOySo04fkb90Cg='
+  stonehat:
+    addresses:
+      - fda1:21af:580f:1::7/127
+      - 172.16.112.7/31
+    link_local: fe80::216:3eff:fe10:2d2d/64
+    interface: slc1_avalon2
+    public_key: 'IaGH2k2BS0aKUXn3TZDp2Tl0MZrJnB7RAZk9Z14b7UU='
