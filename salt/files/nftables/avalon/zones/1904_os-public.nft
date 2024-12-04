@@ -14,6 +14,7 @@
    ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport rsync accept
    ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport 874 accept
    ip6 saddr @host6_globus ip6 daddr @host6_mirrorcache-us tcp dport 3000 accept
+   ip6 saddr @host6_globus ip6 daddr @host6_debuginfod tcp dport 8002 accept
 
    log prefix "[avalon] Public Denied: " reject with icmpv6 type admin-prohibited
  }

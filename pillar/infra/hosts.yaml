@@ -162,6 +162,18 @@ dale:
   legacy_boot: true
   ram: 6144MB
   vcpu: 4
+debuginfod:
+  cluster: arches
+  disks:
+    data0: 3600a0980383143393724584a7451774b
+    root: 3600a0980383143393724584a7451774a
+  interfaces:
+    os-dbginfod:
+      ip6: 2a07:de40:617e:1907::a/64
+      mac: 00:16:3e:66:e1:fa
+      source: x-os-dbginfod
+  ram: 32768MB
+  vcpu: 8
 devcon:
   cluster: squanchy
   disks:

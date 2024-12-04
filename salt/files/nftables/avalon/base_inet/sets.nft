@@ -9,6 +9,7 @@ set lan_ipv6 {
   elements = {
     $net6_nat64,
     $net6_os-bare,
+    $net6_os-dbginfod,
     $net6_os-devcon,
     $net6_os-internal,
     $net6_os-mircache,
@@ -25,6 +26,7 @@ set lan_ipv6_nonat {
   auto-merge
   elements = {
     $net6_os-bare,
+    $net6_os-dbginfod,
     $net6_os-devcon,
     $net6_os-internal,
     $net6_os-mircache,
@@ -137,6 +139,15 @@ set net6_os-mircache {
   }
 }
 
+# VLAN 1907 openSUSE-debuginfod
+set net6_os-dbginfod {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $net6_os-dbginfod,
+  }
+}
+
 # WAN networks
 set net6_os-internet {
   type ipv6_addr
@@ -208,6 +219,16 @@ set self6_bare {
     2a07:de40:617e:1800::1/128,
     2a07:de40:617e:1800::2/128,
     2a07:de40:617e:1800::3/128,
+  }
+}
+
+set self6_dbginfod {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1907::1/128,
+    2a07:de40:617e:1907::2/128,
+    2a07:de40:617e:1907::3/128,
   }
 }
 
@@ -480,6 +501,14 @@ set host6_avalon {
   elements = {
     fd03:7bbf:d626:1700::1/128,
     fd03:7bbf:d626:1700::2/128,
+  }
+}
+
+set host6_debuginfod {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1907::a/128,
   }
 }
 
