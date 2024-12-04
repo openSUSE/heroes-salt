@@ -11,6 +11,9 @@ chain input_network_slc1 {
 
   # remote Salt Masters -> GitLab
   oif os-internal ip6 saddr @host6_volva ip6 daddr $host6_mickey tcp dport https accept
+
+  # globus reverse proxy -> jekyll (until we have a local copy of jekyll sites in SLC1)
+  oif os-internal ip6 saddr @host6_globus ip6 daddr $host6_jekyll tcp dport http accept
 }
 
 chain output_network_slc1 {

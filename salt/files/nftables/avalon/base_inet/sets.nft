@@ -452,6 +452,14 @@ set host6_hel {
     }
 }
 
+set host6_jekyll {
+    type ipv6_addr
+    flags interval
+    elements = {
+      2a07:de40:b27e:1203::e1/128,
+    }
+}
+
 set host6_logger-prg {
   type ipv6_addr
   flags interval
