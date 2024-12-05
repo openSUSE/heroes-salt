@@ -16,7 +16,8 @@ prg2:
     net6: 2a07:de40:b27e:1102::/64
     gw6: 2a07:de40:b27e:1102::3
     net4: 172.16.202.0/24
-    gw4: 172.16.202.3
+    gw4:
+      gw_vip: 172.16.202.3
     id: 1102
   openSUSE-salt:
     export: true
@@ -45,7 +46,8 @@ prg2:
     net6: 2a07:de40:b27e:1204::/64
     gw6: '2a07:de40:b27e:1204::3'
     net4: 172.16.130.0/24
-    gw4: 172.16.130.3
+    gw4:
+      gw_vip: 172.16.130.3
     id: 1204
   openSUSE-mirror:
     export: true
@@ -73,7 +75,8 @@ prg2:
     net6: 2a07:de40:b27e:1209::/64
     gw6: 2a07:de40:b27e:1209::3
     net4: 172.16.131.0/24
-    gw4: 172.16.131.3
+    gw4:
+      gw_vip: 172.16.131.3
     id: 1209
   openSUSE-kani:
     short: os-kani
@@ -134,7 +137,8 @@ slc1:
     net6: 2a07:de40:617e:1904::/64
     gw6: 2a07:de40:617e:1904::3
     net4: 172.16.113.0/28
-    gw4: 172.16.113.3
+    gw4:
+      gw_vip: 172.16.113.3
     id: 1904
   openSUSE-mirror:
     export: true

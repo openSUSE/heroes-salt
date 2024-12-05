@@ -137,7 +137,7 @@ network:
   routes:
     {%- if ip4 is not none and 'gw4' in network %}
     default4:
-      gateway: '{{ network['gw4'] }}'
+      gateway: '{{ network['gw4']['gw_vip'] }}'
     {%- endif %}
     {%- if ip6 is not none and 'gw6' in network %}
     default6:
