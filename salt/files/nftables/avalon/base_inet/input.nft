@@ -13,6 +13,7 @@
      os-avalon        : jump network_os-avalon,
      os-avalon-ct     : jump network_os-avalon,
      os-bare          : jump input_network_os-bare,
+     os-dbginfod      : jump input_network_os-dbginfod,
      os-devcon        : jump input_network_os-devcon,
      os-internal      : jump input_network_os-internal,
      os-mircache      : jump input_network_os-mircache,

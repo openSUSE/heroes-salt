@@ -11,7 +11,12 @@ haproxy:
         - path_matrix_client     path_beg    /.well-known/matrix/client
         - path_matrix_federation path_beg    /.well-known/matrix/server
 
+        - path_assets            path_beg    /assets
+        - path_index             path        /index.html
+        - path_slash             path        /
+
         - host_conncheck         hdr(host)   -i conncheck.opensuse.org
+        - host_debuginfod        hdr(host)   -i debuginfod.opensuse.org
         - host_mainpage          hdr(host)   -i opensuse.org
         - host_mirrorcache_us    hdr(host)   -i mirrorcache-us.opensuse.org
         - host_provo_dlc         hdr(host)   -i provo-downloadcontent.opensuse.org
@@ -29,6 +34,10 @@ haproxy:
         - security_txt           if path_security
 
         - conncheck              if host_conncheck
+        - jekyll                 if host_debuginfod path_assets
+        - jekyll                 if host_debuginfod path_index
+        - jekyll                 if host_debuginfod path_slash
+        - debuginfod             if host_debuginfod
         - mirror                 if host_slc_dlc || host_slc_mirror
         - mirrorcache            if host_mirrorcache_us
         - static                 if host_static
