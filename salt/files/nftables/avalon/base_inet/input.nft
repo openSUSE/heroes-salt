@@ -25,6 +25,7 @@
      os-sif           : jump input_network_os-sif,
    }
 
+   iifname nueqsc_stonehat jump input_network_nueqsc
    iifname prg2_asgard jump input_network_prg2
 
    iif != os-p2p-pub log prefix "[avalon] Inbound Dropped: " flags all
