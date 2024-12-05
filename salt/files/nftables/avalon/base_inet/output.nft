@@ -20,6 +20,7 @@
      os-salt      : jump output_network_os-salt,
    }
 
+   oifname nueqsc_stonehat jump output_network_nueqsc
    oifname prg2_asgard jump output_network_prg2
 
    log prefix "[avalon] Outbound Denied: " flags all
