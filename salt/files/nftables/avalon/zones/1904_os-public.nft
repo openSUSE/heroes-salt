@@ -10,6 +10,7 @@
    ip6 saddr @net6_os-public ip6 daddr @self6_public ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
    # Globus -> backends
+   ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport http accept
    ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport rsync accept
    ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport 874 accept
    ip6 saddr @host6_globus ip6 daddr @host6_mirrorcache-us tcp dport 3000 accept
