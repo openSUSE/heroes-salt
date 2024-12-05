@@ -18,10 +18,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import logging
+import sys
 from argparse import ArgumentParser, RawTextHelpFormatter
 from os import environ
 from pathlib import PosixPath
-from sys import exit
 
 from get_roles import get_minions_with_role, get_roles_of_one_minion
 from git import Repo
@@ -58,7 +58,7 @@ def _fail(msg=None, code=1, exception=None):
   if exception and not cli:
     raise exception(msg)
   else:
-    exit(code)
+    sys.exit(code)
 
 
 def initialize_git(repository=None):
