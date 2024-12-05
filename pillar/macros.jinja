@@ -169,7 +169,12 @@ prometheus:
       {%- set gw = 'gw' ~ v %}
 
       {%- if net in config and gw in config %}
-        {%- set gwaddr = config[gw]['gw_vip'] %}
+        {%- if v == 4 %}
+          {%- set gwaddr = config[gw]['gw_vip'] %}
+        {#- gw6 in dataset is always the VIP #}
+        {%- elif v == 6 %}
+          {%- set gwaddr = config[gw] %}
+        {%- endif %}
 
         {%- if vrid_from_net %}
           {%- if v == 4 %}
