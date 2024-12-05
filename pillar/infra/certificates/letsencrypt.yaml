@@ -45,7 +45,6 @@ counter.opensuse.org:
 deadservices.opensuse.org:
   sans:
     - connect.opensuse.org
-    - debuginfod.opensuse.org
     - fate.opensuse.org
     - features.opensuse.org
     - idea.opensuse.org
@@ -55,6 +54,9 @@ deadservices.opensuse.org:
     - users.opensuse.org
   targets:
     - macro: atlas
+debuginfod.opensuse.org:
+  targets:
+    - macro: globus
 download.opensuse.org:
   sans:
     - codecs.opensuse.org
