@@ -22,7 +22,7 @@
 					"format": "ipv6_net"
 				},
 				"net4": {
-					"description": "IPv6 network including CIDR mask",
+					"description": "IPv4 network including CIDR mask",
 					"type": "string",
 					"format": "ipv4_net"
 				},
@@ -32,9 +32,24 @@
 					"format": "ipv6"
 				},
 				"gw4": {
-					"description": "IPv4 address of default gateway",
-					"type": "string",
-					"format": "ipv4"
+					"description": "IPv4 address of default gateway - if only the VIP is passed, 1 and 2 are calculated",
+					"type": "object",
+					"properties": {
+						"gw1": {
+							"type": "string",
+							"format": "ipv4"
+						},
+						"gw2": {
+							"type": "string",
+							"format": "ipv4"
+						},
+						"gw_vip": {
+							"type": "string",
+							"format": "ipv4"
+						}
+					},
+					"additionalProperties": false,
+					"required": ["gw_vip"]
 				},
 				"id": {
 					"description": "VLAN ID",

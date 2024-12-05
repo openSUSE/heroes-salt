@@ -98,9 +98,12 @@ prometheus:
         - {{ salt['os_network.gw_with_cidr'](config['gw6'][:-1] ~ host[-1], config['net6']) }}
         {%- endif %}
         {%- if 'gw4' in config %}
-        - {{ salt['os_network.gw_with_cidr'](config['gw4'][:-1] ~ host[-1], config['net4']) }}
+          {%- if 'gw1' in config['gw4'] and 'gw2' in config['gw4'] %}
+        - {{ salt['os_network.gw_with_cidr'](config['gw4']['gw' ~ host[-1]], config['net4']) }}
+          {%- else %}
+        - {{ salt['os_network.gw_with_cidr'](config['gw4']['gw_vip'][:-1] ~ host[-1], config['net4']) }}
+          {%- endif %}
         {%- endif %}
-
     {{ 'd-' ~ config['short'][:12] }}:
       bootproto: none
       interfacetype: dummy
@@ -166,19 +169,21 @@ prometheus:
       {%- set gw = 'gw' ~ v %}
 
       {%- if net in config and gw in config %}
+        {%- set gwaddr = config[gw]['gw_vip'] %}
+
         {%- if vrid_from_net %}
           {%- if v == 4 %}
             {%- set legacy = true %}
-            {%- set vrid = config['gw4'].split('.')[2] %}
+            {%- set vrid = gwaddr.split('.')[2] %}
           {%- elif v == 6 %}
             {%- set legacy = false %}
-            {%- set vrid = config['gw6'].split(':')[3][1:] %}
+            {%- set vrid = gwaddr.split(':')[3][1:] %}
           {%- endif %}
        {%- else %}
          {%- set vrid = loop.index ~ oi %}
        {%- endif %}
 
-      {{ gateway_vrrp(name, mode, srcips, config['short'], salt['os_network.gw_with_cidr'](config[gw], config[net]), vrid, v == 4) }}
+      {{ gateway_vrrp(name, mode, srcips, config['short'], salt['os_network.gw_with_cidr'](gwaddr, config[net]), vrid, v == 4) }}
 
       {%- endif %} {#- close net/gw check #}
     {%- endfor %} {#- close IP version loop #}
