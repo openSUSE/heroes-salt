@@ -4,7 +4,7 @@
 
 import argparse
 import os
-from sys import exit
+import sys
 
 import yaml
 
@@ -96,11 +96,11 @@ def print_roles():
 
     if args.including and args.minion:
       print('Combining --including and --minion is not supported. But you can send a patch for it. :)')
-      exit(1)
+      sys.exit(1)
 
     if ( args.including or args.minion ) and args.role:
       print('Combining --role with --including or --minion is not possible.')
-      exit(1)
+      sys.exit(1)
 
     if args.including:
         roles = get_roles_including(args.including)

@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import sys
 from pathlib import Path
-from sys import exit
 
 from get_profiles import get_profiles
 from lib.colors import red, reset
@@ -74,4 +74,4 @@ if __name__ == '__main__':
   if result:
     print(f'{red}Fail{reset} - the following profiles are not included in any profiles or roles - please delete or include them:')
     print('\n'.join(test_profiles()))
-    exit(1)
+    sys.exit(1)

@@ -132,8 +132,8 @@ def test_schema():
             ],
     )
     validators = {}
-    for schema in schemas:
-      validators[schema] = Draft202012Validator(schema=schemas[schema], registry=registry, format_checker=format_checker)
+    for schema, schema_data in schemas.items():
+      validators[schema] = Draft202012Validator(schema=schema_data, registry=registry, format_checker=format_checker)
 
     for file, contents in infra_data.items():
       log.info(f'Validating dataset "{file}" ...')
