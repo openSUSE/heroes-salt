@@ -13,3 +13,8 @@ grains:
   weburls: []
 roles:
   - debuginfod
+
+network:
+  interfaces:
+    os-mirror-bc:
+      mtu: 9216

@@ -9,6 +9,9 @@ firewalld:
         tcp:
           - 8002
   zones:
+    backchannel:
+      interfaces:
+        - os-mirror-bc
     internal:
       interfaces:
         - os-dbginfod
