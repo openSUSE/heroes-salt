@@ -46,6 +46,7 @@ set lan_ipv6_slc1 {
       2a07:de40:617e:1904::/64,  # public
       2a07:de40:617e:1905::/64,  # mirror
       2a07:de40:617e:1906::/64,  # mircache
+      2a07:de40:617e:1907::/64,  # os-dbginfod
    }
 }
 
