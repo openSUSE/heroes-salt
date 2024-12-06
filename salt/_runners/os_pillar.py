@@ -54,8 +54,8 @@ def get_host_primary_interface(host):
 
     if 'primary_interface' in config:
         primary_interface = config['primary_interface']
-    elif len(interfaces) == 1 :
-        primary_interface = list(interfaces.keys())[0]
+    elif len(interfaces) > 0:
+        primary_interface = next(iter(interfaces))
     else:
         primary_interface = 'eth0'
 
