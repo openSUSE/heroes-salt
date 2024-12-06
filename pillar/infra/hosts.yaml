@@ -172,6 +172,10 @@ debuginfod:
       ip6: 2a07:de40:617e:1907::a/64
       mac: 00:16:3e:66:e1:fa
       source: x-os-dbginfod
+    os-mirror-bc:
+      ip6: fd4d:665a:d688:1708::100/64
+      mac: 00:16:3e:66:e1:fb
+      source: x-os-mirror-bc
   ram: 32768MB
   vcpu: 8
 devcon:
@@ -1008,6 +1012,10 @@ slc-mirror:
       ip6: 2a07:de40:617e:1905::a/64
       mac: 00:16:3e:00:16:6a
       source: x-os-mirror
+    os-mirror-bc:
+      ip6: fd4d:665a:d688:1708::a/64
+      mac: 00:16:3e:00:16:6b
+      source: x-os-mirror-bc
   legacy_boot: true
   ram: 8192MB
   vcpu: 4

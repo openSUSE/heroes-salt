@@ -40,6 +40,9 @@ network:
     -%}
     {{ vlantapnetworks(vlanlist_r, 'bond-fib', 'slc1', 1500) }}
 
+    # VLAN interfaces for unrouted VM connectivity
+    {{ vlantap('os-mirror-bc', 1708, 'bond-fib', 9216) }}
+
   {{ default_gateway('slc1', 'openSUSE-bare') }}
 
 firewalld:

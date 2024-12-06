@@ -1,1 +1,19 @@
-# empty :-(
+# no service configuration yet :-(
+
+firewalld:
+  enabled: true
+  services:
+    debuginfod:
+      description: elfutils debuginfod
+      ports:
+        tcp:
+          - 8002
+  zones:
+    backchannel:
+      interfaces:
+        - os-mirror-bc
+    internal:
+      interfaces:
+        - os-dbginfod
+      services:
+        - debuginfod
