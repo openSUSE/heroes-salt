@@ -501,6 +501,15 @@ set host6_globus {
   }
 }
 
+set host6_slc-ns {
+  type ipv6_addr
+  flags interval
+  elements = {
+    $host6_slc-ns1,
+    $host6_slc-ns2,
+  }
+}
+
 set host6_tyr {
   type ipv6_addr
   flags interval
@@ -1285,8 +1294,9 @@ set host6_all_dns {
     $host6_prg-ns1,
     $host6_prg-ns2,
     $host6_qsc-ns3,
+    $host6_slc-ns1,
+    $host6_slc-ns2,
     2a01:0138:a004:0000:0000:0000:0000:0204/128, # ns1.o.o external
-    2a07:de40:0401:0000:0000:0000:0000:0068/128, # ns3.o.o external
   }
 }
 

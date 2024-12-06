@@ -216,6 +216,10 @@ define host4_ipx-proxy1  = 192.168.87.5/32
 define host6_qsc-ns3     = 2a07:de40:b27e:5002:c707:5ca1:19e:ce5e/128 # via OpenVPN (TCP)
 define host6_slimhat     = 2a07:de40:b27e:5001:4b26:fce8:5810:cf57/128 # via OpenVPN (UDP)
 
+### Hosts in SLC1 (which cannot do with only 01_sets.nft)
+define host6_slc-ns1     = 2a07:de40:617e:1904::6/128
+define host6_slc-ns2     = 2a07:de40:617e:1904::7/128
+
 ### SUSE Hosts on Atreju
 define host6_daffy       = 2a07:de40:b280:0086:0000:0000:0000:0010/128
 define host6_daffy1      = 2a07:de40:b280:0086:0000:0000:0000:0011/128

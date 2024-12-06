@@ -1011,6 +1011,30 @@ slc-mirror:
   legacy_boot: true
   ram: 8192MB
   vcpu: 4
+slc-ns1:
+  cluster: arches
+  disks:
+    root: 3600a0980383143393724584a7451774c
+  interfaces:
+    os-public:
+      ip4: 172.16.113.6/28
+      ip6: 2a07:de40:617e:1904::6/64
+      mac: 00:16:3e:19:09:a1
+      source: x-os-public
+  ram: 1024MB
+  vcpu: 2
+slc-ns2:
+  cluster: arches
+  disks:
+    root: 3600a0980383143393724584a7451774d
+  interfaces:
+    os-public:
+      ip4: 172.16.113.7/28
+      ip6: 2a07:de40:617e:1904::7/64
+      mac: 00:16:3e:19:09:a2
+      source: x-os-public
+  ram: 1024MB
+  vcpu: 2
 slc-warp1:
   cluster: chaplin
   disks:

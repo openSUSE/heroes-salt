@@ -135,6 +135,7 @@
   ip6 saddr $host6_monitor ip6 daddr $host6_slimhat tcp dport 9633 accept
 
   # chip -> all nameservers (DNS, query/notify)
+  ip6 saddr $host6_chip ip6 daddr @host6_all_dns icmpv6 type { echo-reply, echo-request } accept
   ip6 saddr $host6_chip ip6 daddr @host6_all_dns udp dport domain accept
 
   # * -> Packman Build Service (HTTPS) (further restricted using client whitelisting through @acl4_internet_pmbs in sets.nft)

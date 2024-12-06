@@ -9,6 +9,14 @@
 
    ip6 saddr @net6_os-public ip6 daddr @self6_public ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
 
+   # slc-ns{1,2} -> chip (DNS XFR) + internet (DNS recursion)
+   ip6 saddr @host6_slc-ns ip6 daddr @host6_chip udp dport 53 accept
+   ip6 saddr @host6_slc-ns ip6 daddr @host6_chip tcp dport 53 accept
+   ip6 saddr @host6_slc-ns ip6 daddr != @lan_ipv6_nonat udp dport 53 accept
+   ip6 saddr @host6_slc-ns ip6 daddr != @lan_ipv6_nonat tcp dport 53 accept
+   ip saddr @host4_slc-ns ip daddr != $net4_nat64 udp dport 53 accept
+   ip saddr @host4_slc-ns ip daddr != $net4_nat64 tcp dport 53 accept
+
    # Globus -> backends
    ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport http accept
    ip6 saddr @host6_globus ip6 daddr @host6_slc-mirror tcp dport rsync accept

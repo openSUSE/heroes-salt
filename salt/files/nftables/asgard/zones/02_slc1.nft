@@ -14,6 +14,11 @@ chain input_network_slc1 {
 
   # globus reverse proxy -> jekyll (until we have a local copy of jekyll sites in SLC1)
   oif os-internal ip6 saddr @host6_globus ip6 daddr $host6_jekyll tcp dport http accept
+
+  # nameservers -> chip (DNS query/AXFR)
+  oif os-internal ip6 saddr @host6_slc-ns ip6 daddr $host6_chip icmpv6 type { echo-reply, echo-request } accept
+  oif os-internal ip6 saddr @host6_slc-ns ip6 daddr $host6_chip udp dport domain accept
+  oif os-internal ip6 saddr @host6_slc-ns ip6 daddr $host6_chip tcp dport domain accept
 }
 
 chain output_network_slc1 {
