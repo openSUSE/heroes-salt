@@ -15,7 +15,7 @@ remove_legacy_monitoring_stuff:
         - {{ xinetdd }}nrpe.rpmsave
 
 {%- set fe = salt['file.file_exists'] %}
-{%- if not ( fe(xinetdd ~ 'csync2') or fe(xinetdd ~ 'vsftpd') or fe(xinetdd ~ 'livestatus') ) %}
+{%- if not ( fe(xinetdd ~ 'csync2') or fe(xinetdd ~ 'vsftpd') or fe(xinetdd ~ 'livestatus') or fe(xinetdd ~ 'rsync') or fe(xinetdd ~ 'rsync-push') ) %}
 xinetd:
   pkg.removed: []
   {%- if not test %}
