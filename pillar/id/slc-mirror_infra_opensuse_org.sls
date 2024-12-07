@@ -9,29 +9,8 @@ grains:
   partners: []
   weburls:
     - http://provo-mirror.opensuse.org/
-roles: []
-
-firewalld:
-  enabled: true
-  services:
-    rsync-mirror:
-      description: openSUSE pull/push rsync mirror
-      ports:
-        tcp:
-          - 873
-          - 874
-  zones:
-    backchannel:
-      interfaces:
-        - os-mirror-bc
-      services:
-        - nfs
-    internal:
-      interfaces:
-        - os-mirror
-      services:
-        - http
-        - rsync-mirror
+roles:
+  - mirror.external
 
 network:
   interfaces:
