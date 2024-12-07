@@ -22,6 +22,11 @@ nginx:
           - mime.types
           - conf.d/*.conf
           - vhosts.d/*.conf
+        log_format: >-
+          main
+          '$remote_addr "$http_x_forwarded_for" [$time_iso8601] "$request"
+          $status $body_bytes_sent $http_referer
+          "$http_user_agent"'
         {%- if site == 'prg2' %}
         set_real_ip_from:
           - 2a07:de40:b27e:1204::11
