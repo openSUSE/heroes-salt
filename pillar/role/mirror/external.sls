@@ -22,3 +22,14 @@ firewalld:
       services:
         - http
         - rsync-mirror
+
+nfs:
+  server:
+    exports:
+      /srv/ftp/pub:
+        # SLC1 os-mirror-bc
+        #   can be conditionalized for other locations when needed
+        fd4d:665a:d688:1708::/64:
+          - fsid=0
+          - no_subtree_check
+          - ro
