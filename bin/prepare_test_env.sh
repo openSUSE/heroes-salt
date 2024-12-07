@@ -84,6 +84,7 @@ if [[ -n "$HIGHSTATE" ]]; then
 	    mkdir /etc/salt/minion.d
     fi
     echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
+    echo 'pillar_merge_lists: True' > /etc/salt/minion.d/merge.conf
     tee /etc/salt/minion.d/modules.conf <<-EOF
 	disable_modules:
 	  - artifactory
