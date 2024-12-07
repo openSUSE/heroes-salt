@@ -2,14 +2,11 @@ haproxy:
   frontends:
     http:
       acls:
-        - annoying_clients src -f /etc/haproxy/blacklists/networks -n  # salt/profile/proxy/files/etc/haproxy/blacklists/networks
         - internal_clients src 2a07:de40:b27e::/48  # PRG2
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
-
-        - is_ssl            dst_port    443
 
         - path_dot_scm           path_beg    /.git/
         - path_dot_scm           path_beg    /.svn/

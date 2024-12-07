@@ -47,13 +47,6 @@ haproxy:
         {%- set tls_bindopts = 'tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
         {{ bind(bind_v6, 443, 'v6only ' ~ tls_bindopts) }}
         {{ bind(bind_v4, 443, tls_bindopts) }}
-      httprequests:
-        - track-sc0: src
-        - deny:
-          - deny_status 429 if annoying_clients
-        - set-var(txn.host): hdr(Host)
-      sticktable: type ipv6 size 500k expire 1m store http_req_rate(30s)
-
     http-login:
       bind:
         {{ bind(bind_v6_login[host], 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}

@@ -3,6 +3,9 @@
 haproxy:
   frontends:
     http:
+      acls:
+        - annoying_clients    src         -f /etc/haproxy/blacklists/networks -n  # salt/profile/proxy/files/etc/haproxy/blacklists/networks
+        - is_ssl              dst_port    443
       options:
         - http-server-close
       httprequests:
@@ -17,6 +20,10 @@ haproxy:
           - X-Forwarded-Protocol https if is_ssl
           - X-Forwarded-Proto http unless is_ssl
           - X-Forwarded-Protocol http unless is_ssl
+        - deny:
+          - deny_status 429 if annoying_clients
+        - set-var(txn.host): hdr(Host)
+        - track-sc0: src
       httpresponses:
         - del-header:
           - X-Powered-By
@@ -26,6 +33,7 @@ haproxy:
           - X-Content-Type-Options nosniff if is_ssl
           - Referrer-Policy no-referrer-when-downgrade if is_ssl
           - Strict-Transport-Security max-age=15768000
+      sticktable: type ipv6 size 500k expire 1m store http_req_rate(30s)
   backends:
     conncheck:
       mode: http
