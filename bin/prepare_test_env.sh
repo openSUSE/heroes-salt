@@ -78,14 +78,16 @@ if [[ -n "$HIGHSTATE" ]]; then
     printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' "$DOMAIN" "$SECRETS" > /etc/salt/grains
     [[ -n "${OS[0]}" ]] && printf 'osfullname: %s\nosmajorrelease: %s\nosrelease_info: [%s, %s]\n' "${OS[0]}" "${OS[1]}" "${OS[1]}" "${OS[2]}" >> /etc/salt/grains
     bin/get_roles.py -o yaml >> "$IDFILE"
+    cp "$IDFILE_BASE" "$IDFILE"
+fi
 
-    if [ ! -d /etc/salt/minion.d ]
-    then
-	    mkdir /etc/salt/minion.d
-    fi
-    echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
-    echo 'pillar_merge_lists: True' > /etc/salt/minion.d/merge.conf
-    tee /etc/salt/minion.d/modules.conf <<-EOF
+if [ ! -d /etc/salt/minion.d ]
+then
+        mkdir /etc/salt/minion.d
+fi
+echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
+echo 'pillar_merge_lists: True' > /etc/salt/minion.d/merge.conf
+tee /etc/salt/minion.d/modules.conf <<-EOF
 	disable_modules:
 	  - artifactory
 	  - bigip
@@ -137,16 +139,13 @@ if [[ -n "$HIGHSTATE" ]]; then
 	  - pyenv
 	  - random_org
 	EOF
-    tee /etc/salt/minion.d/roots.conf <<-EOF
+tee /etc/salt/minion.d/roots.conf <<-EOF
 	file_roots:
 	  base:
 	    - /srv/salt
 	    - /usr/share/salt-formulas/states
 	    - /srv/formulas
 	EOF
-
-    cp "$IDFILE_BASE" "$IDFILE"
-fi
 
 ln -s "$PWD/salt" /srv/salt
 
