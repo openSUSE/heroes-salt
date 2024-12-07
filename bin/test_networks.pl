@@ -25,6 +25,10 @@ use File::Find::Rule;
 use YAML::XS 'LoadFile';
 $YAML::XS::ForbidDuplicateKeys = 1;
 
+use FindBin '$RealBin';
+use lib "$RealBin/lib" ;
+use InfraFun 'recgrep';
+
 my %Firewalls = (
   'prg2' => 'asgard',
   'slc1' => 'avalon',
@@ -37,28 +41,6 @@ my @hvnw = File::Find::Rule->file()->name( 'network.sls' )->in( 'pillar/cluster'
 my $status = 0;
 my $FAILPREFIX = "\e[31mFAIL\e[0m:";
 my $WARNPREFIX = "\e[33mWARN\e[0m:";
-
-
-sub recgrep {
-    my ($string, @tree) = @_;
-    my $found = 0;
-    foreach my $file (@tree) {
-      open my $fh, '<', $file
-        or die "Could not open file $file: $!";
-      while (<$fh>) {
-        if (index($_, $string) > -1) {
-          $found = 1;
-          last;
-        }
-      }
-      close $fh;
-      if ($found == 1) {
-        last;
-      }
-    }
-    return $found;
-}
-
 
 foreach my $site (keys %{ $networks }) {
   next if ($site eq 'pseudo');
