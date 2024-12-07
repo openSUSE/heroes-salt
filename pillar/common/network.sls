@@ -34,11 +34,12 @@
 
 {#- assess the primary network interface, which decides the main network segment #}
 {%- if 'primary_interface' in hostconfig %}
-{%- set primary_interface = hostconfig['primary_interface'] %}
-{%- elif interfaces | length == 1 %}
-{%- set primary_interface = interfaces.keys() | first  %}
+  {%- set primary_interface = hostconfig['primary_interface'] %}
 {%- else %}
-{%- set primary_interface = 'eth0' %}
+  {%- set primary_interface = interfaces.keys() | first %}
+  {%- if primary_interface is not defined %}
+    {%- set primary_interface = 'eth0' %}
+  {%- endif %}
 {%- endif %} {#- close primary_interface check #}
 
 {%- do log(msg ~ 'primary interface set to ' ~ primary_interface) %}
