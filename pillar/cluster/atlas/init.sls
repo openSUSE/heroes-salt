@@ -51,7 +51,6 @@ haproxy:
         - track-sc0: src
         - deny:
           - deny_status 429 if annoying_clients
-          - if { fc_http_major 1 } !{ req.body_size 0 } !{ req.hdr(content-length) -m found } !{ req.hdr(transfer-encoding) -m found } !{ method CONNECT }
         - set-var(txn.host): hdr(Host)
       sticktable: type ipv6 size 500k expire 1m store http_req_rate(30s)
 
