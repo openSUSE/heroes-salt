@@ -977,6 +977,10 @@ slc-devcon1:
       ip6: fdb5:ae73:9cbd:1707::de1/64
       mac: 62:a5:d2:cb:2d:43
       source: x-os-na-mgmt
+    os-switch:
+      ip6: fda1:21af:580f:1705::de1/64
+      mac: 62:a5:d2:cb:2d:44
+      source: x-os-sw-mgmt
   node: chaplin20.infra.opensuse.org
   primary_interface: os-devcon
   ram: 1024MB
@@ -998,6 +1002,10 @@ slc-devcon2:
       ip6: fdb5:ae73:9cbd:1707::de2/64
       mac: 62:a5:d2:cb:2e:43
       source: x-os-na-mgmt
+    os-switch:
+      ip6: fda1:21af:580f:1705::de2/64
+      mac: 62:a5:d2:cb:2d:45
+      source: x-os-sw-mgmt
   node: chaplin21.infra.opensuse.org
   primary_interface: os-devcon
   ram: 1024MB
