@@ -151,6 +151,11 @@ slc1:
     short: os-mircache
     net6: 2a07:de40:617e:1906::/64
     gw6: 2a07:de40:617e:1906::3
+    net4: 172.16.113.16/28
+    gw4:
+      gw1: 172.16.113.17
+      gw2: 172.16.113.18
+      gw_vip: 172.16.113.19
     id: 1906
   openSUSE-debuginfod:
     export: true

@@ -615,6 +615,7 @@ mirrorcache-us-db:
     root: 3600a0980383143393724584a74517735
   interfaces:
     os-mircache:
+      ip4: 172.16.113.21/28
       ip6: 2a07:de40:617e:1906::b/64
       mac: 00:16:3e:79:7b:51
       source: x-os-mircache
