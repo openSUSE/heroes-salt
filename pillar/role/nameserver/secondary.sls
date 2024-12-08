@@ -23,6 +23,8 @@ powerdns:
                       'chip.infra',
                       'prg-ns1.infra',
                       'prg-ns2.infra',
+                      'slc-ns1.infra',
+                      'slc-ns2.infra',
                       'ns1',
                     ]
       %}
