@@ -4,6 +4,7 @@ suse_ha:
   constraints:
     {%- for vmpair in [
           'globus',
+          'slc-ns',
           'tyr',
         ]
     %}
