@@ -633,6 +633,14 @@ set host6_mirrorcache-us-db {
     2a07:de40:617e:1906::b/128,  # mirrorcache-us-db
   }
 }
+set host4_mirrorcache-us-db {
+  type ipv4_addr
+  flags interval
+  elements = {
+    172.16.113.21/32,
+  }
+}
+
 
 ## Internet
 
