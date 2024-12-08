@@ -17,3 +17,17 @@ firewalld:
         - os-dbginfod
       services:
         - debuginfod
+
+nfs:
+  mount:
+    mirror:
+      # slc-mirror.i.o.o via os-mirror-bc
+      location: '[fd4d:665a:d688:1708::a]:/'
+      mountpoint: /mirror
+      opts:
+        - _netdev
+        - async
+        - auto
+        - nconnect=16
+        - noexec
+        - nofail
