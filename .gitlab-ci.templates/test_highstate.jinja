@@ -10,6 +10,9 @@
     paths:
       - '*.txt'
       - 'render/*.txt'
+  retry:
+    max: 1
+    when: script_failure
   rules:
     - when: on_success
 
