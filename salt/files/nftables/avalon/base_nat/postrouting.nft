@@ -9,6 +9,9 @@
    # outbound from os-public to the internet
    iif os-public oif os-p2p-pub snat ip to $net4_internet2
 
+   # outbound from os-mircache to the internet
+   iif os-mircache oif os-p2p-pub snat ip to $net4_internet1
+
    # Tayga
    iifname nat64 oif os-p2p-pub snat ip to $net4_internet1
  }
