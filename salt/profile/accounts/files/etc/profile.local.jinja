@@ -1,0 +1,13 @@
+{{ pillar['managed_by_salt'] }}
+
+# a default editor installed via common pillar
+EDITOR=vim
+
+# double default history backlog
+HISTSIZE=1000
+
+# add ISO8601 style timestamps to `history`
+HISTTIMEFORMAT='%FT%T  '
+
+# exit after 2h
+TMOUT=7200
