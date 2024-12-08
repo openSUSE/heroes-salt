@@ -27,10 +27,15 @@ nginx:
           '$remote_addr "$http_x_forwarded_for" [$time_iso8601] "$request"
           $status $body_bytes_sent $http_referer
           "$http_user_agent"'
-        {%- if site == 'prg2' %}
+        {%- if site in ['prg2', 'slc1'] %}
         set_real_ip_from:
+        {%- endif %}
+        {%- if site == 'prg2' %}
           - 2a07:de40:b27e:1204::11
           - 2a07:de40:b27e:1204::12
+        {%- elif site == 'slc1' %}
+          - 2a07:de40:617e:1904::11
+          - 2a07:de40:617e:1904::12
         {%- endif %}
         real_ip_header: X-Forwarded-For
         real_ip_recursive: 'on'
