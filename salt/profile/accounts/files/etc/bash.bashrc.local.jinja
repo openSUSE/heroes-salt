@@ -1,3 +1,5 @@
+{{ pillar['managed_by_salt'] }}
+
 HOSTUSAGE='{{ salt['pillar.get']('grains:hostusage', [])|join(', ') }}'
 # Other prompting for root
 if test "$UID" -eq 0  ; then
