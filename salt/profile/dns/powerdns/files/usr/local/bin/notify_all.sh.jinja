@@ -1,0 +1,30 @@
+#!/bin/bash
+#{{ pillar['managed_by_salt'] }}
+# Copyright (C) 2024 Georg Pfuetzenreuter
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+zone="${1?:Specify a zone}"
+nameservers=(
+	prg-ns1
+	prg-ns2
+	qsc-ns3
+#	provo-ns
+)
+
+
+for server in "${nameservers[@]}"
+do
+	pdns_notify "$server.infra.opensuse.org" "$zone"
+done
