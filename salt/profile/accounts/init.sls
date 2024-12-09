@@ -16,3 +16,11 @@ include:
   file.managed:
     - source: salt://profile/accounts/files/etc/profile.local.jinja
     - template: jinja
+
+/etc/skel:
+  file.recurse:
+    - source: salt://profile/accounts/files/etc/skel
+
+/root/.digrc:
+  file.managed:
+    - source: salt://profile/accounts/files/etc/skel/.digrc
