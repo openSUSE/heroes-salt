@@ -25,6 +25,7 @@ interface: 127.0.0.1
 log_level: warning
 log_level_logfile: debug
 user: salt
+pillar_merge_lists: True
 EOF
 systemctl start salt-master
 

@@ -77,7 +77,7 @@ test_prometheus:
   extends:
     - .test_common
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-prometheus:latest
-  before_script: bin/prepare_test_env.sh -g -s -n
+  before_script: bin/prepare_test_env.sh -s -n
   script: bin/test_prometheus.sh
   artifacts:
     when: always
