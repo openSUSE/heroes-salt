@@ -10,7 +10,7 @@ profile_dehydrated_packages:
       - python3-dns-lexicon
 
 {%- set instances = mypillar.get('instances', {}) %}
-{%- set instance_ns = namespace(targets=[]) %}
+{%- set instance_ns = namespace(targets=[], hookscripts=[], metricsfiles=[]) %}
 
 {#- first instance/certificates/targets iteration to deduplicate targets used with multiple certificates #}
 {%- for instance, instance_config in instances.items() %}
@@ -46,6 +46,7 @@ profile_dehydrated_known_hosts_{{ target }}:
 {%- set config = mypillar.get('config', {}).copy() %}
 {%- do config.update(instance_config.get('config', {})) %}
 {%- set topdir = '/etc/dehydrated-' ~ instance ~ '/' %}
+{%- set hookdir = topdir ~ 'hook.d/' %}
 
 profile_dehydrated_{{ instance }}_top_directories:
   file.directory:
@@ -147,12 +148,17 @@ profile_dehydrated_{{ instance }}_hook:
 {%- for certificate, certificate_config in instance_config.get('certificates', {}).items() %}
 {%- do salt.log.debug('dehydrated: parsing certificate ' ~ certificate) %}
 {%- set targets = certificate_config.get('targets') %}
+
+{%- set hookscript = hookdir ~ certificate ~ '.sh' %}
+{%- do instance_ns.hookscripts.append(hookscript) %}
+
 {%- set metrics_textfile = '/var/spool/prometheus/dehydrated-hook-' ~ certificate.replace('.', '_') ~ '.prom' %}
+{%- do instance_ns.metricsfiles.append(metrics_textfile) %}
 
 {%- if targets %}
 profile_dehydrated_{{ instance }}_hook_{{ certificate }}:
   file.managed:
-    - name: {{ topdir }}hook.d/{{ certificate }}.sh
+    - name: {{ hookscript }}
     - source: salt://profile/dehydrated/files/etc/dehydrated/hook.d/certificate.sh.jinja
     - template: jinja
     - context:
@@ -202,3 +208,25 @@ profile_dehydrated_{{ instance }}_service:
       - file: profile_dehydrated_{{ instance }}_hook
 
 {%- endfor %} {#- close instance loop #}
+
+{#- cleanup of files no longer managed by Salt (for example domains removed from the certificates pillar) below #}
+
+{%- for hookscript in
+      salt['file.find']('/etc/dehydrated-*/hook.d/*.sh', maxdepth=1, type='f')
+%}
+  {%- if hookscript not in instance_ns.hookscripts %}
+profile_dehydrated_delete_{{ hookscript }}:
+  file.absent:
+    - name: {{ hookscript }}
+  {%- endif %}
+{%- endfor %}
+
+{%- for metricsfile in
+      salt['file.find']('/var/spool/prometheus/dehydrated-hook-*.prom', maxdepth=1, type='f')
+%}
+  {%- if metricsfile not in instance_ns.metricsfiles %}
+profile_dehydrated_delete_{{ metricsfile }}:
+  file.absent:
+    - name: {{ metricsfile }}
+  {%- endif %}
+{%- endfor %}
