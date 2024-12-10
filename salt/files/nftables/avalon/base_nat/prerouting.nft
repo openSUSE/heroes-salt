@@ -10,5 +10,12 @@
    ip daddr $net4_internet2 tcp dport { http, https } dnat to $host4_globus
    ip daddr $net4_internet2 tcp dport rsync dnat to $host4_globus
 
+   # inbound from the internet to os-public/slc-ns
+   ip daddr $net4_internet5 ip protocol icmp dnat to $host4_slc-ns1
+   ip daddr $net4_internet6 ip protocol icmp dnat to $host4_slc-ns2
+   ip daddr $net4_internet5 udp dport domain dnat to $host4_slc-ns1
+   ip daddr $net4_internet6 udp dport domain dnat to $host4_slc-ns2
+   ip daddr $net4_internet5 tcp dport domain dnat to $host4_slc-ns1
+   ip daddr $net4_internet6 tcp dport domain dnat to $host4_slc-ns2
  }
 

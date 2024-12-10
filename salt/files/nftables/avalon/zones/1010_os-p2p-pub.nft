@@ -26,6 +26,16 @@
    ip6 daddr @host6_globus tcp dport rsync accept
    ip daddr @host4_globus tcp dport rsync accept
 
+   # from the internet to os-public/slc-ns
+   #   ping
+   ip6 daddr @host6_slc-ns icmpv6 type { echo-reply, echo-request } limit rate 1/second accept
+   ip daddr @host4_slc-ns icmp type { echo-reply, echo-request } limit rate 1/second accept
+   #   DNS
+   ip6 daddr @host6_slc-ns udp dport domain accept
+   ip6 daddr @host6_slc-ns tcp dport domain accept
+   ip daddr @host4_slc-ns udp dport domain accept
+   ip daddr @host4_slc-ns tcp dport domain accept
+
    # traceroute
    ip protocol udp reject
    ip6 nexthdr udp reject

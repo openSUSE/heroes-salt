@@ -53,6 +53,10 @@ define net6_internet = 2a07:de40:617e::/48
 define net4_internet1 = 195.135.220.49
 #   public for traffic from os-public to the internet and from the internet to Globus
 define net4_internet2 = 195.135.220.50
+#   public for traffic from the internet to slc-ns1
+define net4_internet5 = 195.135.220.53
+#   public for traffic from the internet to slc-ns2
+define net4_internet6 = 195.135.220.54
 
 # NAT64
 define net6_nat64 = 2a07:de40:617e:64::/96
@@ -70,6 +74,9 @@ define host6_globus2 = 2a07:de40:617e:1904::12/128
 define host4_globus  = 172.16.113.10
 define host4_globus1 = 172.16.113.11
 define host4_globus2 = 172.16.113.12
+
+define host4_slc-ns1 = 172.16.113.6
+define host4_slc-ns2 = 172.16.113.7
 
 define host6_tyr     = 2a07:de40:617e:1903::10/128
 define host6_tyr1    = 2a07:de40:617e:1903::11/128
