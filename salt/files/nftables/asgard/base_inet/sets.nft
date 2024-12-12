@@ -529,6 +529,14 @@ set host6_volva {
   }
 }
 
+set host6_volva-nw {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1900::c/128,
+  }
+}
+
 ### end of SLC1
 
 set host4_acme {
