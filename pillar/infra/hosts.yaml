@@ -1174,6 +1174,19 @@ tyr2:
       source: x-os-internal
   ram: 1024MB
   vcpu: 1
+volva-nw1:
+  cluster: chaplin
+  disks:
+    data0: 15G
+    root: 15G
+  interfaces:
+    os-salt:
+      ip6: 2a07:de40:617e:1900::c/64
+      mac: 00:16:3e:11:c1:31
+      source: x-os-salt
+  node: chaplin20.infra.opensuse.org
+  ram: 8192MB
+  vcpu: 4
 volva1:
   cluster: chaplin
   disks:

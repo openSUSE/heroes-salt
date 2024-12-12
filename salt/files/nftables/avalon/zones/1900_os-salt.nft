@@ -10,6 +10,7 @@
 
    # volva -> mickey (for GitLab repository access via HTTPS)
    oifname @if_s2s ip6 saddr @host6_volva ip6 daddr @host6_mickey tcp dport https accept
+   oifname @if_s2s ip6 saddr @host6_volva-nw ip6 daddr @host6_mickey tcp dport https accept
  }
 
  chain output_network_os-salt {

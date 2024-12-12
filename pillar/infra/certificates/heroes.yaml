@@ -83,6 +83,14 @@ tyr.infra.opensuse.org:
     - tyr2.infra.opensuse.org
   targets:
     - macro: tyr
+volva-nw1.infra.opensuse.org:
+  sans:
+    - volva-nw.infra.opensuse.org
+  targets:
+    - host: volva-nw1
+      services:
+        - salined
+        - salt-api
 volva1.infra.opensuse.org:
   sans:
     - salt.infra.opensuse.org

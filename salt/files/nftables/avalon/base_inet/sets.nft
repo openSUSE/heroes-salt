@@ -601,6 +601,14 @@ set host6_volva {
   }
 }
 
+set host6_volva-nw {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1900::c/128,
+  }
+}
+
 set host6_slc-mirror {
   type ipv6_addr
   flags interval
