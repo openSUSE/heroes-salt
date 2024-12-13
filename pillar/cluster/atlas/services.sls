@@ -218,8 +218,9 @@ haproxy:
     http-login:
       acls:                              # daffy1              # daffy2
         - src_login         src          2a07:de40:b280:86::11 2a07:de40:b280:86::12
-        - annoying_clients  req.hdr_ip(X-Forwarded-For) -f /etc/haproxy/blacklists/networks -n
-        - odd_clients       req.hdr_cnt(Accept-Language) 0
+        - annoying_networks   req.hdr_ip(X-Forwarded-For)  -f /etc/haproxy/blacklists/networks -n
+        - annoying_useragents hdr_sub(User-Agent)          -f /etc/haproxy/blacklists/useragents
+        - odd_clients         req.hdr_cnt(Accept-Language) 0
 
         - path_indexphp     path_beg     /index.php
 
@@ -246,8 +247,9 @@ haproxy:
 
     http-misc:
       acls:
-        - annoying_clients src -f /etc/haproxy/blacklists/networks -n
-        - is_ssl          dst_port    443
+        - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n
+        - annoying_useragents hdr_sub(User-Agent)  -f /etc/haproxy/blacklists/useragents
+        - is_ssl              dst_port    443
 
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
         - host_pagure     hdr(host)   -i {{ host_pagure }}.opensuse.org
