@@ -1184,6 +1184,10 @@ volva-nw1:
       ip6: 2a07:de40:617e:1900::c/64
       mac: 00:16:3e:11:c1:31
       source: x-os-salt
+    os-switch:
+      ip6: fda1:21af:580f:1705::c/64
+      mac: 00:16:3e:11:c1:41
+      source: x-os-sw-mgmt
   node: chaplin20.infra.opensuse.org
   ram: 8192MB
   vcpu: 4
