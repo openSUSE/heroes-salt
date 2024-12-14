@@ -4,8 +4,8 @@ haproxy:
   frontends:
     http:
       acls:
-        - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n  # salt/profile/proxy/files/etc/haproxy/blacklists/networks
-        - annoying_useragents hdr_sub(User-Agent)  -f /etc/haproxy/blacklists/useragents   # salt/profile/proxy/files/etc/haproxy/blacklists/useragents
+        - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n    # salt/profile/proxy/files/etc/haproxy/blacklists/networks
+        - annoying_useragents hdr_sub(User-Agent)  -f /etc/haproxy/blacklists/useragents -i  # salt/profile/proxy/files/etc/haproxy/blacklists/useragents
         - is_ssl              dst_port    443
       options:
         - http-server-close
