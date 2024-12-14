@@ -52,7 +52,8 @@ haproxy:
         {{ bind(bind_v6_login[host], 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
       httprequests:
         - deny:
-          - deny_status 429 if annoying_clients
+          - deny_status 403 if annoying_useragents
+          - deny_status 429 if annoying_networks
         - return:
           - status 406 if odd_clients host_mediawiki path_indexphp
 
@@ -67,7 +68,8 @@ haproxy:
       httprequests:
         - track-sc0: src
         - deny:
-          - deny_status 429 if annoying_clients
+          - deny_status 403 if annoying_useragents
+          - deny_status 429 if annoying_networks
         - set-var(txn.host): hdr(Host)
       sticktable: type ipv6 size 250k expire 1m store http_req_rate(30s)
 
