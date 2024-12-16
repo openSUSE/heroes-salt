@@ -39,4 +39,19 @@ for special_role in special_roles:
                 print(f'{special_role} role should not be included in pillar/id/{sls} file')
                 status = 1
 
+testsetupdir = 'test/setup/role'
+for testsetupscript in os.listdir(testsetupdir):
+    if testsetupscript == 'common':
+        continue
+
+    testsetupscriptpath = f'{testsetupdir}/{testsetupscript}'
+
+    if testsetupscript not in roles:
+        print(f'{testsetupscriptpath} does not match a role')
+        status = 1
+
+    if not os.access(testsetupscriptpath, os.X_OK):
+        print(f'{testsetupscriptpath} is not executable')
+        status = 1
+
 sys.exit(status)
