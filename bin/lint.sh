@@ -65,7 +65,7 @@ rm -r "$TMP_PY"
 
 echo_INFO 'Linting Shell files ...'
 # TODO: Include all optional suggestions, except for require-double-brackets and require-variable-braces (-o all -e SC2250,SC2292)
-find . -not -path ./t/\* -type f -name '*.sh' \
+find . \( -not -path ./t/\* -type f -name '*.sh' -o -path ./test/setup/\* -type f -executable \) \
   -exec shellcheck --rcfile etc/shellcheckrc -x {} +
 STATUS_SHELL="$?"
 
