@@ -30,4 +30,4 @@ nfs:
         - auto
         - nconnect=16
         - noexec
-        - nofail
+        - x-systemd.mount-timeout=30s
