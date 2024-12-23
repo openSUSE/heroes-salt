@@ -30,6 +30,38 @@ profile:
     smtp_domain: forums.opensuse.org
     # secret_key, maxmind and db password live in secrets/role/discourse.sls
 
+# nginx configuration should be kept in sync with the packaged
+#   /srv/www/vhosts/discourse/config/nginx.sample.conf
+# which in return is in sync with
+#  https://raw.githubusercontent.com/discourse/discourse/refs/heads/main/config/nginx.sample.conf
+# however, we maintain a few customizations
+
+{%- macro commonproxylocationheaders(accel_redirect_downloads=false, inside=true) -%}
+  {%- if accel_redirect_downloads %}
+    {%- set sendfile_type = 'X-Accel-Redirect' %}
+    {%- set accel_mapping = '$public/=/downloads/' %}
+  {%- else %}
+    {%- set sendfile_type = '""' %}
+    {%- set accel_mapping = '""' %}
+  {%- endif %}
+  {%- for header in [
+          'Host $http_host',
+          'X-Real-IP $remote_addr',
+          'X-Request-Start "t=${msec}"',
+          'X-Forwarded-For $proxy_add_x_forwarded_for',
+          'X-Forwarded-Proto $thescheme',
+          'X-Sendfile-Type ' ~ sendfile_type,
+          'X-Accel-Mapping ' ~ accel_mapping,
+    ] %}
+                  {{ '    ' if inside else '' }}- proxy_set_header: {{ header }}
+  {%- endfor %}
+{%- endmacro -%}
+{%- macro commonproxylocation(accel_redirect_downloads=false, inside=true) -%}
+                  {{ commonproxylocationheaders(accel_redirect_downloads, inside) }}
+                  {{ '    ' if inside else '' }}- proxy_pass: http://discourse
+                  {{ '    ' if inside else '' }}- break
+{%- endmacro -%}
+
 nginx:
   server:
     config:
@@ -44,8 +76,11 @@ nginx:
               - server: 'unix:/srv/www/vhosts/discourse/tmp/sockets/puma.sock'
           - types:
               - text/csv: csv
+              - application/wasm: wasm
           - proxy_cache_path: /var/lib/nginx/cache/ inactive=1440m levels=1:2 keys_zone=one:10m max_size=600m
-          - proxy_buffer_size: 8k
+          - proxy_buffer_size: 32k
+          - proxy_buffers: 4 32k
+          - large_client_header_buffers: 4 32k
           - map $http_x_forwarded_proto $thescheme:
               - default: $scheme
               - https: https
@@ -85,21 +120,9 @@ nginx:
                   - root: $public
                   - add_header: ETag ""
                   - location ~ ^/uploads/short-url/:
-                      - proxy_set_header: Host $http_host
-                      - proxy_set_header: X-Real-IP $remote_addr
-                      - proxy_set_header: X-Request-Start "t=${msec}"
-                      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                      - proxy_set_header: X-Forwarded-Proto $thescheme
-                      - proxy_pass: http://discourse
-                      - break
-                  - location ~ ^/secure-media-uploads/:
-                      - proxy_set_header: Host $http_host
-                      - proxy_set_header: X-Real-IP $remote_addr
-                      - proxy_set_header: X-Request-Start "t=${msec}"
-                      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                      - proxy_set_header: X-Forwarded-Proto $thescheme
-                      - proxy_pass: http://discourse
-                      - break
+                      {{ commonproxylocation() }}
+                  - location ~ ^/(secure-media-uploads/|secure-uploads)/:
+                      {{ commonproxylocation() }}
                   - location ~* (fonts|assets|plugins|uploads)/.*\.(eot|ttf|woff|woff2|ico|otf)$:
                       - expires: 1y
                       - add_header: Cache-Control public,immutable
@@ -107,13 +130,7 @@ nginx:
                   - location = /srv/status:
                       - access_log: "off"
                       - log_not_found: "off"
-                      - proxy_set_header: Host $http_host
-                      - proxy_set_header: X-Real-IP $remote_addr
-                      - proxy_set_header: X-Request-Start "t=${msec}"
-                      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                      - proxy_set_header: X-Forwarded-Proto $thescheme
-                      - proxy_pass: http://discourse
-                      - break
+                      {{ commonproxylocation() }}
                   - location ~ ^/javascripts/:
                       - expires: 1d
                       - add_header: Cache-Control public,immutable
@@ -135,13 +152,7 @@ nginx:
                       - add_header: Cache-Control public,immutable
                       - add_header: Access-Control-Allow-Origin *
                   - location ~ ^/uploads/:
-                      - proxy_set_header: Host $http_host
-                      - proxy_set_header: X-Real-IP $remote_addr
-                      - proxy_set_header: X-Request-Start "t=${msec}"
-                      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                      - proxy_set_header: X-Forwarded-Proto $thescheme
-                      - proxy_set_header: X-Sendfile-Type X-Accel-Redirect
-                      - proxy_set_header: X-Accel-Mapping $public/=/downloads/
+                      {{ commonproxylocationheaders(accel_redirect_downloads=true) }}
                       - expires: 1y
                       - add_header: Cache-Control public,immutable
                       - location ~ /stylesheet-cache/:
@@ -160,22 +171,10 @@ nginx:
                       - proxy_pass: http://discourse
                       - break
                   - location ~ ^/admin/backups/:
-                      - proxy_set_header: Host $http_host
-                      - proxy_set_header: X-Real-IP $remote_addr
-                      - proxy_set_header: X-Request-Start "t=${msec}"
-                      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                      - proxy_set_header: X-Forwarded-Proto $thescheme
-                      - proxy_set_header: X-Sendfile-Type X-Accel-Redirect
-                      - proxy_set_header: X-Accel-Mapping $public/=/downloads/
-                      - proxy_pass: http://discourse
-                      - break
+                      {{ commonproxylocation(accel_redirect_downloads=true) }}
                   - location ~ ^/(svg-sprite/|letter_avatar/|letter_avatar_proxy/|user_avatar|highlight-js|stylesheets|theme-javascripts|favicon/proxied|service-worker):  # noqa 204
                       - access_log: "off"
-                      - proxy_set_header: Host $http_host
-                      - proxy_set_header: X-Real-IP $remote_addr
-                      - proxy_set_header: X-Request-Start "t=${msec}"
-                      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                      - proxy_set_header: X-Forwarded-Proto $thescheme
+                      {{ commonproxylocationheaders() }}
                       - proxy_ignore_headers: "Set-Cookie"
                       - proxy_hide_header: "Set-Cookie"
                       - proxy_hide_header: "X-Discourse-Username"
@@ -183,17 +182,12 @@ nginx:
                       - proxy_cache: one
                       - proxy_cache_key: "$scheme,$host,$request_uri"
                       - proxy_cache_valid: 200 301 302 7d
-                      - proxy_cache_valid: any 1m
                       - proxy_cache_bypass: $bypass_cache
                       - proxy_pass: http://discourse
                       - break
                   - location /message-bus/:
                       - access_log: "off"
-                      - proxy_set_header: Host $http_host
-                      - proxy_set_header: X-Real-IP $remote_addr
-                      - proxy_set_header: X-Request-Start "t=${msec}"
-                      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                      - proxy_set_header: X-Forwarded-Proto $thescheme
+                      {{ commonproxylocationheaders() }}
                       - proxy_http_version: 1.1
                       - proxy_buffering: "off"
                       - proxy_pass: http://discourse
@@ -203,13 +197,7 @@ nginx:
                   - internal: ''
                   - alias: $public/
               - location @discourse:
-                  - root: $public
-                  - proxy_set_header: Host $http_host
-                  - proxy_set_header: X-Real-IP $remote_addr
-                  - proxy_set_header: X-Request-Start "t=${msec}"
-                  - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
-                  - proxy_set_header: X-Forwarded-Proto $thescheme
-                  - proxy_pass: http://discourse
+                  {{ commonproxylocation(inside=false) }}
               - location /showthread.php/:
                   - rewrite: '^/showthread.php/([0-9]*) /thread/$1 permanent'
               - location /content.php/:
