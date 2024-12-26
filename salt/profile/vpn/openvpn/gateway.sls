@@ -16,6 +16,13 @@ vpn_gateway_config:
     - require:
         - pkg: vpn_gateway_packages
 
+vpn_gateway_userdrop_logfile:
+  file.managed:
+    - name: /var/log/userdrop.log
+    - user: root
+    - group: manage_vpn_users
+    - mode: '0660'
+
 vpn_gateway_login_directory:
   file.directory:
     - name: /var/log/vpn_logins
