@@ -1,17 +1,22 @@
 {{ pillar['managed_by_salt'] }}
 
-corelearners360.com  reject Rejected as spam.
-catalinag@planable.pro    reject Rejected as spam.
-learningpro360.com   reject Rejected as spam.
-tonergarantiti@gmail.com  reject Rejected as spam.
-skillsnetworkgroup.com   reject Rejected as spam.
-upskillasia.com		reject Rejected as spam.
-learnmex.com		reject Rejected as spam.
-hyperionbmx.com		reject Rejected as spam.
-formacionintegral21.com	reject Rejected as spam.
-learningzoneasia.com	reject Rejected as spam.
-ilearnexperience.com	reject Rejected as spam.
-integracionprofesional21.com reject Rejected as spam.
-innovalearnonline.com   reject Rejected as spam.
-innovalearntraining.com reject Rejected as spam.
-mikassa.pro reject Rejected as spam.
+{%- for email in [
+          'catalinag@planable.pro',
+          'corelearners360.com',
+          'formacionintegral21.com',
+          'hyperionbmx.com',
+          'ilearnexperience.com',
+          'innovalearnonline.com',
+          'innovalearntraining.com',
+          'integracionprofesional21.com',
+          'learningpro360.com',
+          'learningzoneasia.com',
+          'learnmex.com',
+          'mikassa.pro',
+          'skillsnetworkgroup.com',
+          'tonergarantiti@gmail.com',
+          'upskillasia.com',
+        ]
+%}
+{{ email }} reject Rejected as spam.
+{%- endfor %}
