@@ -11,23 +11,80 @@ fi
 
 targetusers="$*"
 logindir='/var/log/vpn_logins'
+logfile='/var/log/userdrop.log'
 
 kanidm reauth -D"$USER"
 sudo true
 
+STATUS=0
+
+printf '\n%s called at %s\n' "$0" "$(date)" >> "$logfile"
+
+set +e
+
+_echo () {
+	echo "$@" | tee /dev/fd/3
+}
+
+exec 3>&1 >>"$logfile" 2>&1
+
 for user in $targetusers
 do
-	kanidm group list-members vpn | grep "^\"$user@infra.opensuse.org\"$" && kanidm group remove-members vpn "$user"
+	printf '=== Processing user %s ===\n' "$user" | tee /dev/fd/3
+	if kanidm group list-members vpn | grep "^\"$user@infra.opensuse.org\"$"
+	then
+		if kanidm group remove-members vpn "$user"
+		then
+			_echo ' => User removed from VPN group'
+		else
+			_echo ' => Failed to remove user from VPN group'
+			STATUS=1
+		fi
+	else
+		_echo ' => User is not in VPN group'
+	fi
 	for cert in $(sudo find /etc/easy-rsa/pki/issued -type f -iname "$user".crt)
 	do
-		sudo sh -c "cd /etc/easy-rsa && easyrsa revoke $(basename "$cert" .crt)"
+		printf '=== Processing certificate %s ===\n' "$cert" | tee /dev/fd/3
+		if mispipe "sudo sh -c \"cd /etc/easy-rsa && easyrsa --silent revoke $(basename "$cert" .crt)\"" 'tee /dev/fd/3'
+		then
+			_echo ' => Certificate revoked'
+		else
+			_echo ' => Failed to revoke certificate'
+			STATUS=1
+		fi
 		loginfile="$logindir/$cert"
 		if [ -f "$loginfile" ]
 		then
-			sudo mv -v "$loginfile" "$logindir/archive/"
+			if sudo mv -v "$loginfile" "$logindir/archive/"
+			then
+				_echo ' => Login log file archived'
+			else
+				_echo ' => Failed to archive login log file'
+				STATUS=1
+			fi
+		else
+			_echo ' => No login log file'
 		fi
 	done
-	kanidm person validity expire-at "$user" now
+	if kanidm person validity expire-at "$user" now
+	then
+		_echo ' => User disabled'
+	else
+		_echo ' => Failed to disable user'
+		STATUS=1
+	fi
+	_echo
 done
 
-sudo sh -c 'cd /etc/easy-rsa && easyrsa gen-crl'
+printf '=== Generating new certificate revocation list ===\n' | tee /dev/fd/3
+if ! sudo sh -c 'cd /etc/easy-rsa && easyrsa --silent gen-crl'
+then
+	_echo ' => Failed to generate CRL'
+	STATUS=1
+fi
+
+>&3 printf '\n=== Done ===\n'
+printf '\n%s completed at %s\n' "$0" "$(date)" >> "$logfile"
+
+exit "$STATUS"
