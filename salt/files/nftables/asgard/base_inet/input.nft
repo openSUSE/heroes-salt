@@ -2,6 +2,9 @@
 ## MANAGED BY SALT in salt/files/nftables/asgard ##
 ###################################################
 
+{%- import_yaml 'pillar/infra/networks.yaml' as networks %}
+{%- set pseudo_networks = networks.pop('pseudo') %}
+
  # input chain, this is for traffic targeted towards the local system (i.e. this firewall itself)
  chain input {
   type filter hook input priority 0
@@ -9,27 +12,15 @@
 
   jump global
 
+
   iif vmap {
-    os-asgard   : jump network_os-asgard,
-    os-s-warp   : jump input_network_os-s-warp,
-    os-internal : jump input_network_os-internal,
-    os-log      : jump input_network_os-log,
-    os-bare     : jump input_network_os-bare,
-    os-p2p-pub  : jump input_network_os-p2p-pub,
-    os-public   : jump input_network_os-public,
-    os-mirror   : jump input_network_os-mirror,
-    os-mirror   : jump input_network_os-mirror,
-    os-salt     : jump input_network_os-salt,
-    os-ipmi-r   : jump input_network_os-ipmi-r,
-    os-thor     : jump input_network_os-thor,
-    os-code     : jump input_network_os-code,
-    os-ghr-c    : jump input_network_os-ghr-c,
-    os-ghr-os   : jump input_network_os-ghr-os,
-    os-odin     : jump input_network_os-odin,
-    os-kani     : jump input_network_os-kani,
-    os-netbox   : jump input_network_os-netbox,
-    os-mail     : jump input_network_os-mail,
+    os-asgard                      : jump network_os-asgard,
+    {%- for network, network_config in networks['prg2'].items() | sort(attribute='1.short') %}
+      {%- set shortnet = network_config['short'] %}
+    {{ shortnet }} {{ ( ': jump input_network_' ~ shortnet ) | indent(30 - shortnet | length, true) }},
+    {%- endfor %}
   }
+
 
   # WireGuard interfaces not using iif to prevent breakage on tunnel restarts
   iifname nueqsc_stonehat jump input_network_nueqsc

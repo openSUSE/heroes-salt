@@ -74,7 +74,7 @@
   ip6 saddr @acl6_internet_openqa ip6 daddr @cloud6_openqa tcp dport https accept
 
   # jekyll -> * (HTTP/HTTPS, for planet.o.o RSS feeds)
-  oifname { nat64, os-p2p-pub } ip6 saddr $host6_jekyll tcp dport { http, https } ip6 daddr != @lan_ipv6_nonat accept
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_jekyll tcp dport { http, https } ip6 daddr != @lan_ipv6_prg2_nonat accept
 
   # jekyll -> atlas (HTTPS for planet.o.o to news.o.o)
   oif os-public ip6 saddr $host6_jekyll ip6 daddr $host6_atlas tcp dport https accept
@@ -99,20 +99,20 @@
   oifname @if_s2s ip6 saddr @host6_gitlab-runner ip6 daddr @host6_volva tcp dport rsync accept
 
   # matrix -> * (Matrix federation, all ports to facilitate connectivity to other homeservers using arbitrary ports)
-  oifname { nat64, os-p2p-pub } ip6 saddr $host6_matrix ip6 nexthdr tcp ip6 daddr != @lan_ipv6_nonat accept
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_matrix ip6 nexthdr tcp ip6 daddr != @lan_ipv6_prg2_nonat accept
   # matrix -> atlas (HTTPS for access to "itself", for example Telegram tries to chat with Matrix over its public matrix.o.o proxy address)
   oif os-public ip6 saddr $host6_matrix ip6 daddr $host6_atlas tcp dport https accept
 
   # discourse -> * (would be good to restrict further, but download of assets during discourse-update as well as generating of arbitrary link previews makes it difficult)
-  oifname { nat64, os-p2p-pub } ip6 saddr $host6_discourse tcp dport { http, https } ip6 daddr != @lan_ipv6_nonat log prefix "[Discourse HTTP 1] " accept
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_discourse tcp dport { http, https } ip6 daddr != @lan_ipv6_prg2_nonat log prefix "[Discourse HTTP 1] " accept
   # osc-collab -> * (https://github.com/openSUSE/osc-plugin-collab/blob/master/server/upstream/upstream-tarballs.txt)
-  oifname { nat64, os-p2p-pub } ip6 saddr $host6_osc-collab tcp dport { http, https, ftp } ip6 daddr != @lan_ipv6_nonat accept
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_osc-collab tcp dport { http, https, ftp } ip6 daddr != @lan_ipv6_prg2_nonat accept
 
   # monitor -> LiberaChat (IRCS for heroes-bot)
   oif os-p2p-pub ip6 saddr $host6_monitor ip6 daddr @cloud6_liberachat tcp dport ircs-u accept
 
   # monitor -> * (Prometheus)
-  ip6 saddr $host6_monitor ip6 daddr @lan_ipv6 tcp dport 9100 accept # Node Exporter
+  ip6 saddr $host6_monitor ip6 daddr @lan_ipv6_prg2 tcp dport 9100 accept # Node Exporter
   ip6 saddr $host6_monitor ip6 daddr @net6_os-s-warp tcp dport 9100 accept
   ip6 saddr $host6_monitor ip6 daddr @lan_ipv6_slc1 tcp dport 9100 accept
   ip6 saddr $host6_monitor ip6 daddr @host6_avalon tcp dport 9100 accept

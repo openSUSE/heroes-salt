@@ -242,10 +242,30 @@ exit $exit;
 
 __END__
 __Python__
-from jinja2 import Template
+from salt.utils import templates
+from yaml import safe_load
+
+# salt.modules.grains seems to not fully work if imported outside of Salt
+def get_grains(path='/etc/salt/grains'):
+  try:
+    with open(path) as file:
+      return safe_load(file)
+  except FileNotFoundError:
+    return {}
+
+grains = get_grains()
 
 def render_file(path):
   if path is None:
     return
   with open(path) as file:
-    return Template(file.read(), keep_trailing_newline=True).render()
+    data = file.read()
+  return templates.render_jinja_tmpl(
+    data, {
+      'grains': grains,
+      'opts': {
+        'cachedir': '/dev/null'
+      },
+      'saltenv': None
+    }, '.'
+  )

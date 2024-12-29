@@ -34,7 +34,7 @@ my %Firewalls = (
   'slc1' => 'avalon',
 );
 
-my $nftbase = 'salt/files/nftables';
+my $nftbase = 'salt/files_rendered/nftables';
 my $networks = LoadFile('pillar/infra/networks.yaml');
 my @hvnw = File::Find::Rule->file()->name( 'network.sls' )->in( 'pillar/cluster' );
 

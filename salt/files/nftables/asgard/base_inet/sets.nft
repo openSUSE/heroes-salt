@@ -7,20 +7,66 @@
 # 2. Addresses of this firewall cluster
 # 3. Addresses of other hosts
 
+{%- import_yaml 'pillar/infra/networks.yaml' as networks %}
+{%- set pseudo_networks = networks.pop('pseudo') %}
 
-set lan_ipv6 {
+{% for site, site_networks in networks.items() %}
+###
+#  BEGIN: {{ site | upper }}
+###
+    {%- for with_nat in [true, false] %}
+set lan_ipv6_{{ site }}{{ '' if with_nat else '_nonat' }} {
   type ipv6_addr
   flags interval
   auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $nat64_v6, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-odin, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat }
+  elements = {
+    {%- for network, network_config in site_networks.items() %}
+    {{ network_config['net6'] }},
+    {%- endfor %}
+    {%- if site == 'prg2' %}
+    $host6_qsc-ns3,
+    $host6_slimhat,
+    {%- endif %}
+    {%- if with_nat %}
+    {{ pseudo_networks[site]['openSUSE-NAT64-Pool']['net6'] }},
+    {%- endif %}
+  }
 }
-
-set lan_ipv6_nonat {
+    {%- endfor %}
+{{ '' }}
+{%- if site == 'prg2' %}
+  {%- for network, network_config in site_networks.items() %}
+# VLAN {{ network_config['id'] }} ({{ network }})
+    {%- for i in [6, 4] %}
+      {%- set net = 'net' ~ i | string %}
+      {%- if net in network_config %}
+set {{ net }}_{{ network_config['short'] }} {
+  type ipv{{ i }}_addr
+  flags interval
+  elements = {
+    {{ network_config[net] }}
+  }
+}
+    {%- endif %}  {#- close IP family check #}
+   {%- endfor %}  {#- close IP family loop #}
+set self6_{{ network_config['short'].replace('os-', '') }} {
   type ipv6_addr
   flags interval
-  auto-merge
-  elements = { $net6_os-bare, $net6_os-ipmi-r, $net6_os-internal, $net6_os-log, $net6_os-public, $net6_os-mirror, $net6_os-salt, $net6_os-thor, $net6_os-odin, $net6_os-code, $net6_os-ghr-c, $net6_os-ghr-os, $net6_os-kani, $net6_os-netbox, $net6_os-mail, $host6_qsc-ns3, $host6_slimhat }
+  elements = {
+    {%- set gw6 = network_config['gw6'] %}
+    {%- if gw6.endswith('::3') %}
+    {{ gw6[:-1] }}1/128,
+    {{ gw6[:-1] }}2/128,
+    {%- endif %}
+    {{ gw6 }}/128,
+  }
 }
+  {%- endfor %}   {#- close site_networks loop #}
+{%- endif %}      {#- close site check #}
+###
+#  END: {{ site | upper }}
+###
+{% endfor %}
 
 set vpn_ipv6 {
     type ipv6_addr
@@ -32,25 +78,7 @@ set vpn_ipv6 {
     }
 }
 
-set lan_ipv6_slc1 {
-    type ipv6_addr
-    flags interval
-    auto-merge
-    elements = {
-      2a07:de40:617e:1800::/64,  # bare
-      2a07:de40:617e:1801::/64,  # devcon
-      2a07:de40:617e:1802::/64,  # sif
-      2a07:de40:617e:1803::/64,  # s-warp
-      2a07:de40:617e:1900::/64,  # salt
-      2a07:de40:617e:1903::/64,  # internal
-      2a07:de40:617e:1904::/64,  # public
-      2a07:de40:617e:1905::/64,  # mirror
-      2a07:de40:617e:1906::/64,  # mircache
-      2a07:de40:617e:1907::/64,  # os-dbginfod
-   }
-}
-
-## Networks
+## Additional networks
 
 # VLAN 3201 (openSUSE-SUSE-p2p-pub)
 set net6_os-p2p-pub {
@@ -74,92 +102,6 @@ set net6_os-asgard {
   flags interval
   elements = {
     fd4b:5292:d67e:1000::/64
-  }
-}
-
-# VLAN 1100 openSUSE-thor
-set net6_os-thor {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1100::/64
-  }
-}
-
-# VLAN 1101 openSUSE-SUSE-warp
-set net6_os-s-warp {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1101::/64
-  }
-}
-
-# VLAN 1200 openSUSE-salt
-set net6_os-s-salt {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1200::/64
-  }
-}
-
-# VLAN 1201 openSUSE-bare
-set net6_os-bare {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1201::/64
-  }
-}
-
-# VLAN 1202 openSUSE-IPMI-r
-set net6_os-ipmi-r {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1202::/64
-  }
-}
-
-# VLAN 1203 openSUSE-internal
-set net6_os-internal {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1203::/64
-  }
-}
-set net4_os-internal {
-  type ipv4_addr
-  flags interval
-  elements = {
-    172.16.129.0/24
-  }
-}
-
-# VLAN 1204 openSUSE-public
-set net6_os-public {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1204::/64
-  }
-}
-set net4_os-public {
-  type ipv4_addr
-  flags interval
-  elements = {
-    172.16.130.0/24
-  }
-}
-
-# VLAN 1205 openSUSE-mirror
-set net6_os-mirror {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1205::/64
   }
 }
 
@@ -253,150 +195,6 @@ set self4_p2p_slc1_avalon {
     172.16.112.1/32, # asgard1
     172.16.112.3/32, # asgard2
   }
-}
-
-
-# os-s-warp
-set self6_warp {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1101::1/128,
-    2a07:de40:b27e:1101::2/128,
-    2a07:de40:b27e:1101::3/128
-  }
-}
-
-# os-salt
-set self6_salt {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1200::1/128,
-    2a07:de40:b27e:1200::2/128,
-    2a07:de40:b27e:1200::3/128
-  }
-}
-
-# os-bare
-set self6_bare {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1201::1/128,
-    2a07:de40:b27e:1201::2/128,
-    2a07:de40:b27e:1201::3/128
-  }
-}
-
-# os-internal
-set self6_internal {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1203::1/128,
-    2a07:de40:b27e:1203::2/128,
-    2a07:de40:b27e:1203::3/128
-  }
-}
-
-# os-public
-set self6_public {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1204::1/128,
-    2a07:de40:b27e:1204::2/128,
-    2a07:de40:b27e:1204::3/128,
-  }
-}
-
-# os-mirror
-set self6_mirror {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1205::1/128,
-    2a07:de40:b27e:1205::2/128,
-    2a07:de40:b27e:1205::3/128
-  }
-}
-
-# os-odin
-set self6_odin {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:1102::1/128,
-        2a07:de40:b27e:1102::2/128,
-        2a07:de40:b27e:1102::3/128,
-    }
-}
-
-# os-ghr-c
-set self6_ghr-c {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:1207::1/128,
-        2a07:de40:b27e:1207::2/128,
-        2a07:de40:b27e:1207::3/128,
-    }
-}
-
-# os-ghr-os
-set self6_ghr-os {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:1208::1/128,
-        2a07:de40:b27e:1208::2/128,
-        2a07:de40:b27e:1208::3/128,
-    }
-}
-
-# os-mail
-set self6_mail {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:1209::1/128,
-        2a07:de40:b27e:1209::2/128,
-        2a07:de40:b27e:1209::3/128,
-    }
-}
-
-# os-kani
-set self6_kani {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:1210::1/128,
-        2a07:de40:b27e:1210::2/128,
-        2a07:de40:b27e:1210::3/128,
-    }
-}
-
-# os-netbox
-set self6_netbox {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:1211::1/128,
-        2a07:de40:b27e:1211::2/128,
-        2a07:de40:b27e:1211::3/128,
-    }
-}
-
-# os-log
-set self6_log {
-    type ipv6_addr
-    flags interval
-    elements = {
-        2a07:de40:b27e:1215::1/128,
-        2a07:de40:b27e:1215::2/128,
-        2a07:de40:b27e:1215::3/128,
-    }
 }
 
 ## Other individual hosts

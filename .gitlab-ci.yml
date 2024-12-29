@@ -61,17 +61,23 @@ test_haproxy:
 #       - salt/profile/proxy/*
 #       - salt/role/proxy*
 
-test_networks:
-  extends:
-    - .test_common
-  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-networks:latest
-  script: bin/test_networks.pl
-
 test_nftables:
   extends:
     - .test_common
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nftables:latest
   script: bin/test_nftables.pl
+  artifacts:
+    when: always
+    paths:
+      - salt/files_rendered/nftables/
+
+test_networks:
+  extends:
+    - .test_common
+  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-networks:latest
+  script: bin/test_networks.pl
+  needs:
+    - job: test_nftables
 
 test_prometheus:
   extends:
