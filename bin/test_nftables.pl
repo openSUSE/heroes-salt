@@ -253,7 +253,19 @@ def get_grains(path='/etc/salt/grains'):
   except FileNotFoundError:
     return {}
 
+# networks pillar access without real minion
+def get_networks(path='pillar/infra/networks.yaml'):
+  networks = {}
+  with open(path) as file:
+    data = safe_load(file)
+
+  networks['pseudos'] = data.pop('pseudo')
+  networks['sites'] = data
+
+  return networks
+
 grains = get_grains()
+networks = get_networks()
 
 def render_file(path):
   if path is None:
@@ -265,6 +277,9 @@ def render_file(path):
       'grains': grains,
       'opts': {
         'cachedir': '/dev/null'
+      },
+      'pillar': {
+        'networks': networks,
       },
       'saltenv': None
     }, '.'
