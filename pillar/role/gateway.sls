@@ -3,6 +3,10 @@ nftables: true
 {%- import_yaml 'infra/networks.yaml' as networks %}
 {%- set pseudo_networks = networks.pop('pseudo') %}
 
+networks:
+  sites: {{ networks }}
+  pseudos: {{ pseudo_networks }}
+
 {%- set export_networks = {
           'prg2': {'v4': [], 'v6': []},
           'slc1': {'v4': [], 'v6': []},

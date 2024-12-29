@@ -7,10 +7,9 @@
 # 2. Addresses of this firewall cluster
 # 3. Addresses of other hosts
 
-{%- import_yaml 'pillar/infra/networks.yaml' as networks %}
-{%- set pseudo_networks = networks.pop('pseudo') %}
+{%- set networks = pillar['networks'] %}
 
-{% for site, site_networks in networks.items() %}
+{% for site, site_networks in networks['sites'].items() %}
 ###
 #  BEGIN: {{ site | upper }}
 ###
@@ -28,7 +27,7 @@ set lan_ipv6_{{ site }}{{ '' if with_nat else '_nonat' }} {
     $host6_slimhat,
     {%- endif %}
     {%- if with_nat %}
-    {{ pseudo_networks[site]['openSUSE-NAT64-Pool']['net6'] }},
+    {{ networks['pseudos'][site]['openSUSE-NAT64-Pool']['net6'] }},
     {%- endif %}
   }
 }

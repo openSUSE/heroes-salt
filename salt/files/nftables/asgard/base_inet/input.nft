@@ -2,8 +2,7 @@
 ## MANAGED BY SALT in salt/files/nftables/asgard ##
 ###################################################
 
-{%- import_yaml 'pillar/infra/networks.yaml' as networks %}
-{%- set pseudo_networks = networks.pop('pseudo') %}
+{%- set site_networks = pillar['networks']['sites'] %}
 
  # input chain, this is for traffic targeted towards the local system (i.e. this firewall itself)
  chain input {
@@ -15,7 +14,7 @@
 
   iif vmap {
     os-asgard                      : jump network_os-asgard,
-    {%- for network, network_config in networks['prg2'].items() | sort(attribute='1.short') %}
+    {%- for network, network_config in site_networks['prg2'].items() | sort(attribute='1.short') %}
       {%- set shortnet = network_config['short'] %}
     {{ shortnet }} {{ ( ': jump input_network_' ~ shortnet ) | indent(30 - shortnet | length, true) }},
     {%- endfor %}
