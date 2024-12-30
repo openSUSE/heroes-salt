@@ -18,6 +18,7 @@
   {{ x }} vmap {
     {%- if x == 'iif' %}
     os-asgard                      : jump network_os-asgard,
+    os-p2p-pub                     : jump input_network_os-p2p-pub,
     {%- endif %}
     {%- for network, network_config in site_networks['prg2'].items() | sort(attribute='1.short') %}
       {%- set shortnet = network_config['short'] %}
