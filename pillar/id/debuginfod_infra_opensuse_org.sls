@@ -17,4 +17,4 @@ roles:
 network:
   interfaces:
     os-mirror-bc:
-      mtu: 9216
+      mtu: 9000
