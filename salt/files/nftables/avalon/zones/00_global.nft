@@ -29,6 +29,7 @@
 
    # repositories (to download)
    ip6 daddr @host6_download tcp dport { http, https } accept
+   ip6 daddr @host6_slc-mirror tcp dport { http, https } accept
 
    # Syslog (to monitor and logger)
    ip6 daddr @host6_monitor udp dport syslog accept

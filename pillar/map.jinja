@@ -7,6 +7,9 @@
 {#- location specific overrides #}
 {%- if site == 'prg2' or grains['id'] == 'slimhat.infra.opensuse.org' %}
   {%- set mirror_int = 'download-prg.infra.opensuse.org' %}
+{%- elif site == 'slc1' %}
+  {%- set mirror_int = 'download-slc.infra.opensuse.org' %}
+  {%- set mirror_ext = mirror_int %}
 {%- elif site == 'nue-ipx' %}
   {%- set mirror_int = 'download-nue.infra.opensuse.org' %}
   {%- set mirror_ext = 'rsync.opensuse.org' %}
