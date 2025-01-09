@@ -10,5 +10,5 @@
 
  chain output_network_os-log {
   # Syslog
-  ip6 saddr @self6_log ip6 daddr $host6_logger-prg tcp dport 514 accept
+  ip6 saddr @self6_log ip6 daddr $host6_logger-prg tcp dport syslog-conn accept
  }

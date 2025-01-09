@@ -1,5 +1,6 @@
-{% set osmajorrelease = salt['grains.get']('osmajorrelease') %}
 {% set roles = salt['pillar.get']('roles', []) %}
+
+{%- if not 'logger' in roles %}
 
 include:
   - rsyslog
@@ -20,3 +21,5 @@ systemd-logger:
   pkg.removed:
     - require_in:
         - pkg: rsyslog
+
+{%- endif %}

@@ -36,6 +36,9 @@ include:
   {%- endif %}
 
 apparmor:
+  local:
+    sbin.syslog-ng:
+      - /var/spool/syslog-ng/{,*} rwk
   profiles:
     usr.sbin.chronyd:
       source: salt://profile/apparmor/files/chronyd.apparmor.jinja

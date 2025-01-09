@@ -1,0 +1,21 @@
+{{ pillar['managed_by_salt'] }}
+
+/var/log/remote/*/* {
+    compress
+    compresscmd zstd
+    compressoptions -8
+    create 0640 root heroes
+    createolddir 0750 root heroes
+    dateext
+    dateyesterday
+    maxage 365
+    missingok
+    notifempty
+    olddir old
+    postrotate
+      syslog-ng-ctl reopen
+    endscript
+    rotate -1
+    sharedscripts
+    size 64M
+}
