@@ -12,7 +12,7 @@ Authoritative source of this repository is https://gitlab.infra.opensuse.org/inf
 
 Read-only mirrors are available at:
   * https://github.com/openSUSE/heroes-salt
-  * https://code.opensuse.org/heroes/salt (currently not receiving updates)
+  * https://code.opensuse.org/heroes/salt
   * https://progress.opensuse.org/projects/opensuse-admin/repository
 
 Documentation can be found in the [openSUSE admin wiki](https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki).
