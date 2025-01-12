@@ -24,13 +24,18 @@ bootloader:
 
       {%- if virtual == 'physical' %}
         {%- set cmdline = 'console=ttyS0,15200 console=tty0 loglevel=4 mitigations=auto preempt=full' %}
-        {#- to-do: facilitate crashkernel settings for kdump #}
-
 
       {%- if grains.get('fc_host') %}
         {#- raise maximum LUNs on machines with fiber channel storage #}
         {%- set cmdline = cmdline ~ ' lpfc.lpfc_max_luns=4095' %}
-      {%- endif %}
+        {#- configure memory for kdump on cluster hypervisors, calculated with 1TB system memory, an estimate of 1000 active LUNs and no 32-bit-only devices #}
+        {%- set cmdline = cmdline ~ ' crashkernel=860M,high crashkernel=72M,low' %}
+
+      {%- else %}
+        {#- configure memory for kdump on standalone hypervisors, calculated with 64GB system memory, no expectation of LUNs and no 32-bit-only devices #}
+        {%- set cmdline = cmdline ~ ' crashkernel=310M,high crashkernel=72M,low' %}
+
+      {%- endif %} {#- close fc_host check #}
 
       {%- elif virtual == 'kvm' %}
         {%- set cmdline = 'console=tty0 console=ttyS0,115200 loglevel=3' %}
