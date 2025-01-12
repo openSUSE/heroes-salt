@@ -68,6 +68,7 @@ suse_ha:
     %}
     order_{{ vmpair }}:
       type: rsc_order
+      kind: mandatory
       resources:
         - VM_{{ vmpair }}1.infra.opensuse.org
         - VM_{{ vmpair }}2.infra.opensuse.org
