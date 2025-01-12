@@ -45,7 +45,6 @@ nginx:
               - listen: '[::]:80 ipv6only=on default_server'
               - server_name: gitlab.infra.opensuse.org
               - server_tokens: 'off'
-              - include: acme-challenge
               - location /:
                   - return 301: https://$http_host$request_uri
               - access_log: /var/log/nginx/gitlab_access.log gitlab_ssl_access
