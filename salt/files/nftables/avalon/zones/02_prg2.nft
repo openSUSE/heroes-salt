@@ -29,6 +29,8 @@ chain input_network_prg2 {
   ip6 saddr @host6_acme ip6 daddr @host6_tyr tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
   ip6 saddr @host6_acme ip6 daddr @host6_volva tcp dport ssh accept
+  ip6 saddr @host6_acme ip6 daddr @host6_volva-nw icmpv6 type { echo-reply, echo-request } accept
+  ip6 saddr @host6_acme ip6 daddr @host6_volva-nw tcp dport ssh accept
 
   # chip -> nameservers (DNS query and NOTIFY)
   oif os-public ip6 saddr @host6_chip ip6 daddr @host6_slc-ns icmpv6 type { echo-reply, echo-request } accept
