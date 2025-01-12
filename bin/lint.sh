@@ -78,7 +78,7 @@ STATUS_SLS="$?"
 
 echo_INFO 'Linting YAML files ...'
 find pillar/ salt/files/ -type f \( -name '*.yaml' -o -name '*.yml' \) \
-  -exec yamllint {} +
+  -exec yamllint -s {} +
 STATUS_YAML="$?"
 
 
