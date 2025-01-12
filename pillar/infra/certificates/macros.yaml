@@ -37,7 +37,6 @@ stage:
 status:
   hosts:
     - status1
-    - status2
     - status3
   services:
     - apache2
