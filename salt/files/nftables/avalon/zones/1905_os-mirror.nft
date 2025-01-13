@@ -14,5 +14,7 @@
  }
 
  chain output_network_os-mirror {
+   # repository access for avalons themselves
+   ip6 saddr @self6_mirror ip6 daddr @host6_slc-mirror tcp dport http accept
  }
 
