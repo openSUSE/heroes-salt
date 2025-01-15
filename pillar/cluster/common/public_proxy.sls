@@ -23,7 +23,6 @@ haproxy:
           - X-Forwarded-Protocol http unless is_ssl
         - deny:
           - deny_status 403 if annoying_useragents
-          - deny_status 429 if annoying_networks
         - set-var(txn.host): hdr(Host)
         - track-sc0: src
       httpresponses:
