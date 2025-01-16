@@ -10,6 +10,7 @@
   ip6 saddr { $net6_os-s-warp, $net6_os-thor } ip6 daddr $host6_download tcp dport ssh accept
 
   ip6 saddr $host6_download tcp dport { http, https, rsync } ip6 daddr != @lan_ipv6_prg2_nonat accept
+  ip6 saddr $host6_download ip6 daddr $host6_stage3 icmpv6 type { echo-reply, echo-request } accept
 
   # not sure why 135 (nd-neighbor-solicit) in global_internal doesn't work
   ip6 saddr fe80::/10 ip6 daddr $net6_os-mirror ip6 nexthdr icmpv6 accept
