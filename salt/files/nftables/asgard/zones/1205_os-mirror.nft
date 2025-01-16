@@ -15,6 +15,7 @@
   # not sure why 135 (nd-neighbor-solicit) in global_internal doesn't work
   ip6 saddr fe80::/10 ip6 daddr $net6_os-mirror ip6 nexthdr icmpv6 accept
 
+  log prefix "[Mirror Denied] " reject with icmpv6 type admin-prohibited
  }
 
  chain output_network_os-mirror {
