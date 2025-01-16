@@ -39,6 +39,7 @@ apparmor:
   local:
     sbin.syslog-ng:
       - /var/spool/syslog-ng/{,*} rwk
+      - /var/log/zypp/history r
   profiles:
     usr.sbin.chronyd:
       source: salt://profile/apparmor/files/chronyd.apparmor.jinja
