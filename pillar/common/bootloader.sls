@@ -23,25 +23,30 @@ bootloader:
     config:
 
       {%- if virtual == 'physical' %}
-      {%- set cmdline = 'console=ttyS0,15200 console=tty0 loglevel=4 mitigations=auto preempt=full' %}
-      {#- to-do: facilitate crashkernel settings for kdump #}
-
+        {%- set cmdline = 'console=ttyS0,15200 console=tty0 loglevel=4 mitigations=auto preempt=full' %}
 
       {%- if grains.get('fc_host') %}
-      {#- raise maximum LUNs on machines with fiber channel storage #}
-      {%- set cmdline = cmdline ~ ' lpfc.lpfc_max_luns=4095' %}
-      {%- endif %}
+        {#- raise maximum LUNs on machines with fiber channel storage #}
+        {%- set cmdline = cmdline ~ ' lpfc.lpfc_max_luns=4095' %}
+        {#- configure memory for kdump on cluster hypervisors, calculated with 1TB system memory, an estimate of 1000 active LUNs and no 32-bit-only devices #}
+        {%- set cmdline = cmdline ~ ' crashkernel=860M,high crashkernel=72M,low' %}
+
+      {%- else %}
+        {#- configure memory for kdump on standalone hypervisors, calculated with 64GB system memory, no expectation of LUNs and no 32-bit-only devices #}
+        {%- set cmdline = cmdline ~ ' crashkernel=310M,high crashkernel=72M,low' %}
+
+      {%- endif %} {#- close fc_host check #}
 
       {%- elif virtual == 'kvm' %}
-      {%- set cmdline = 'console=tty0 console=ttyS0,115200 loglevel=3' %}
+        {%- set cmdline = 'console=tty0 console=ttyS0,115200 loglevel=3' %}
 
       {%- endif %} {#- close virtual logic #}
 
       {%- if osfullname in ['Leap', 'openSUSE Tumbleweed'] %}
-      {%- set cmdline = cmdline ~ ' security=apparmor' %}
+        {%- set cmdline = cmdline ~ ' security=apparmor' %}
 
       {%- elif osfullname == 'openSUSE Leap Micro' %}
-      {%- set cmdline = cmdline ~ ' rd.timeout=60 security=selinux selinux=1' %}
+        {%- set cmdline = cmdline ~ ' rd.timeout=60 security=selinux selinux=1' %}
 
       {%- endif %} {#- close osfullname logic #}
 
