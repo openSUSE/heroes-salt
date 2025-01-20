@@ -15,6 +15,7 @@ haproxy:
         - path_favicon           path        /favicon.ico
         - path_grafana_login     path        /grafana/login
         - path_grafana           path_beg    /grafana/
+        - path_hyperkitty_export path_reg    ^/archives/list/commit@lists.opensuse.org/export/commit@lists.opensuse.org-.+\.mbox\.gz$
         - path_matomo            path        /matomo/index.php
         - path_matrix_block      path_beg    /_matrix/federation/v2/invite
         - path_matrix_client     path_beg    /.well-known/matrix/client
@@ -134,6 +135,7 @@ haproxy:
         - security_txt        if path_security
 
         # path-specific rules
+        - error_403       if host_mailman3 path_hyperkitty_export
         - error_403       if host_matrix path_matrix_block
         - error_403       if sni_matrix path_matrix_block
         - internal        if host_forums path_metrics !internal_clients
