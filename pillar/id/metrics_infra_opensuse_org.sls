@@ -12,3 +12,5 @@ grains:
   partners: []
   weburls:
     - https://metrics.opensuse.org
+roles:
+  - web_metrics
