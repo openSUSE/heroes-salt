@@ -30,6 +30,7 @@ haproxy:
         - host_paste             hdr(host)   -i paste-test.opensuse.org
         - path_piwik             path        /piwik/index.php
         - path_relnotes          path_beg    /release-notes/
+        - path_robots            path        /robots.txt
         - path_security          path_end    /.well-known/security.txt
         - path_searchpage        path_beg    -i /searchPage
         - path_slash             path         /
@@ -143,6 +144,7 @@ haproxy:
         - internal        if host_beans path_matomo param_matomo_module_loginoidc param_matomo_action_signin !internal_clients
         - internal        if host_beans path_piwik param_matomo_module_loginoidc param_matomo_action_signin !internal_clients
         - jekyll          if host_monitor path_slash
+        - lists_robots_txt if host_mailman3 path_robots
         - monitor_grafana if host_monitor path_grafana
         - pinot           if host_doc path_relnotes
         - www_openid_ldap if host_www path_openid

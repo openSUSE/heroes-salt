@@ -156,3 +156,18 @@ haproxy:
       {{ options() }}
       {{ server('ldap-proxy', 'id.opensuse.org', 443, extra_extra='ssl verify required ca-file /etc/ssl/ca-bundle.pem') }}
       mode: http
+    {%- for subdomain in [
+          'lists',
+        ]
+    %}
+    {{ subdomain }}_robots_txt:
+      mode: http
+      httprequests:
+        - set-log-level silent
+        - >-
+          return status 200
+          content-type text/plain
+          file /etc/haproxy/robots/{{ subdomain }}_o_o
+          hdr Server 'openSUSE'
+    {%- endfor %}
+

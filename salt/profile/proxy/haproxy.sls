@@ -21,6 +21,14 @@ haproxy_trees:
             - source: salt://{{ slspath }}/files/etc/haproxy/blacklists
         - /etc/haproxy/errorfiles:
             - source: salt://{{ slspath }}/files/etc/haproxy/errorfiles
+        {%- if grains['host'].rstrip('12') in [
+              'atlas',
+              'globus',
+            ] or 'runner' in grains['host']
+        %}
+        - /etc/haproxy/robots:
+            - source: salt://{{ slspath }}/files/etc/haproxy/robots
+        {%- endif %}
     - clean: true
     - template: jinja
     - require:
