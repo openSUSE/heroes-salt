@@ -90,8 +90,6 @@ pagure_postfix_acl:
 {%- endfor %}
 
 pagure_robots:
-  file.managed:
+  file.absent:
+    # is served by HAProxy on Atlas
     - name: /srv/www/htdocs/robots.txt
-    - contents:
-        - 'User-agent: *'
-        - 'Disallow: /'

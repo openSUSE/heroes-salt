@@ -157,6 +157,7 @@ haproxy:
       {{ server('ldap-proxy', 'id.opensuse.org', 443, extra_extra='ssl verify required ca-file /etc/ssl/ca-bundle.pem') }}
       mode: http
     {%- for subdomain in [
+          'code',
           'lists',
         ]
     %}
