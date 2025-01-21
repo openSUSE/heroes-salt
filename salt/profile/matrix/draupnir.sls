@@ -4,7 +4,7 @@ draupnir_package:
 
 draupnir_config:
   file.managed:
-    - name: /etc/draupnir/default.yaml
+    - name: /etc/draupnir/production.yaml
     - source: salt://profile/matrix/files/draupnir.yaml
     - template: jinja
     - require:
