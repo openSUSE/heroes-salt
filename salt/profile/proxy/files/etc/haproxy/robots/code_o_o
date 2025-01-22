@@ -1,0 +1,6 @@
+user-agent: *
+disallow: /api
+disallow: /login
+disallow: /*/raw
+disallow: /*/blob
+crawl-delay: 10
