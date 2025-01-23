@@ -75,5 +75,7 @@ Refresh: 600
       <p class="alert alert-warning">Please visit our <a href="https://status.opensuse.org/">status page</a> to check if the problem is already known or related to a scheduled maintenance.</p>
 
       <p><img src="https://en.opensuse.org/images/4/43/Failgeeko.png" alt="Go grab some coffee meanwhile"/></p>
+    </div>
+  </main>
 </body>
 </html>
