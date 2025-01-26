@@ -4,7 +4,7 @@ haproxy:
   backends:
     debuginfod:
       {{ options('httpchk') }}
-      {{ httpcheck('debuginfod.opensuse.org', 200, method='options') }}
+      {{ httpcheck('debuginfod.opensuse.org', 200, method='get') }}
       {{ server('debuginfod', '2a07:de40:617e:1907::a', 8002, extra_extra='inter 10s') }}
     # TODO: jekyll -> static -> SLC1 instead of proxying to PRG2
     jekyll:
