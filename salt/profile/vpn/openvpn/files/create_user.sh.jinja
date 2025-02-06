@@ -26,7 +26,7 @@ set -x
 
 kanidm reauth -D"$USER"
 
-kanidm person list -ojson | jq -r '.[]["name"][]' | grep "^$username$"
+test -z "$(kanidm person list -ojson | jq -r '.[]["name"][]' | grep "^$username$")"
 
 kanidm person create "$username" "$fullname"
 kanidm person posix set --shell /bin/sh "$username"
