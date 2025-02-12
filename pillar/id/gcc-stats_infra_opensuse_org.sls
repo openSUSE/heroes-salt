@@ -12,4 +12,5 @@ grains:
   partners: []
   weburls:
     - https://gcc.opensuse.org/
-roles: []
+roles:
+  - gcc-stats
