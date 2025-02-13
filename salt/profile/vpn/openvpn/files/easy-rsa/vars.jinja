@@ -1,0 +1,11 @@
+{{ pillar['managed_by_salt'] }}
+
+if [ -z "$EASYRSA_CALLER" ]; then
+        echo "You appear to be sourcing an Easy-RSA *vars* file. This is" >&2
+        echo "no longer necessary and is disallowed. Just call easyrsa." >&2
+        return 1
+fi
+
+set_var EASYRSA_ALGO ec
+set_var EASYRSA_CURVE secp521r1
+set_var EASYRSA_DIGEST sha512
