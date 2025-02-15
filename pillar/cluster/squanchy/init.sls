@@ -1,8 +1,5 @@
 {%- from 'macros.jinja' import bond, slave, smart, vlantap %}
 
-grains:
-  virt_cluster: squanchy-bare
-
 network:
   interfaces:
 

@@ -31,9 +31,6 @@ systemctl start salt-master
 
 ## Salt Minion setup
 
-# gateway, hypervisor.cluster and hypervisor.standalone roles: infrastructure-formula needs virt_cluster
-echo 'virt_cluster: falkor-bare' >> /etc/salt/grains
-
 # roles with "nftables: true" (correctly) fail if neither a host nor a cluster nftables tree is provided
 mkdir salt/files/nftables/"$HOSTNAME"
 

@@ -8,9 +8,6 @@ include:
   - secrets.cluster.falkor
   {%- endif %}
 
-grains:
-  virt_cluster: falkor-bare
-
 hostsfile:
   minions: falkor*.infra.opensuse.org
 
