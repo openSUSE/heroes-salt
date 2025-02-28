@@ -11,7 +11,9 @@ rsync:
     rpm2docserv:
       auth users: docserv
       comment: Manual pages server data
-      exclude: google897e15adbab60af5.html
+      exclude:
+        - google897e15adbab60af5.html
+        - Leap-
       path: /srv/docserv
       read only: false
       uid: docserv
