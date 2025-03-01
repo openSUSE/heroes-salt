@@ -199,6 +199,23 @@ nginx:
               - access_log: /var/log/nginx/matrix.access.log.gz combined flush=2m gzip=8
               - error_log: /var/log/nginx/matrix.error.log
         enabled: True
+      matrix.infra.opensuse.org.conf:
+        config:
+          - server:
+              - listen: '{{ grains['fqdn_ip6'][0] | ipwrap }}:443 http2 ssl'
+              {%- set tlsdir = '/etc/ssl/services/matrix.infra.opensuse.org/' %}
+              - ssl_certificate: {{ tlsdir }}fullchain.pem
+              - ssl_certificate_key: {{ tlsdir }}privkey.pem
+              - proxy_http_version: 1.1
+              - proxy_set_header: Host $host
+              - proxy_set_header: X-Forwarded-For $remote_addr
+              - proxy_set_header: X-Forwarded-Proto https
+              - client_max_body_size: 2M
+              - include: /etc/matrix-synapse/workers/nginx.conf
+              - location /:
+                  - proxy_pass: http://localhost:8008
+        enabled: True
+
       webhook.opensuse.org.conf:
         config:
           - server:
