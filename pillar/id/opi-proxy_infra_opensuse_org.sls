@@ -13,4 +13,5 @@ grains:
   partners: []
   weburls:
     - https://opi-proxy.opensuse.org
-roles: []
+roles:
+  - opi-proxy
