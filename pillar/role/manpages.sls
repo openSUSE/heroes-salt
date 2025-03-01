@@ -13,7 +13,7 @@ rsync:
       comment: Manual pages server data
       exclude:
         - google897e15adbab60af5.html
-        - Leap-
+        - Leap-*
       path: /srv/docserv
       read only: false
       uid: docserv
