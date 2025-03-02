@@ -4,8 +4,7 @@
 
 set -Cu
 
-# systemctl refuses to work in a container, but is needed by service.running. Replace it with /usr/bin/true to avoid useless error messages and breakage.
-( cd /usr/bin/ || exit 1 ; ln -sf true systemctl )
+source bin/lib/systemctl.sh
 
 loglevel='info'
 logbase_salt='log_salt'

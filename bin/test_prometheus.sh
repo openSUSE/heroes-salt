@@ -18,8 +18,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 set -Cefu
 
-# have service.* states work in containers without an init system
-( cd /usr/bin/ || exit 1 ; ln -fs true systemctl )
+. bin/lib/systemctl.sh
 
 loglevel='info'
 logbase_prometheus='log_prometheus'
