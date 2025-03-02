@@ -18,6 +18,8 @@ create_fake_certs() {
     # - the key is encrypted and the CI worker can't decrypt it
     # - the nginx validation command tries to match the pair
 
+    local role="${role/.//}"
+
     PRIVATE_KEYS=( $(grep ssl_certificate_key "pillar/role/$role.sls" | cut -d':' -f2) )
     for key in "${PRIVATE_KEYS[@]}"; do
         if [[ ! ${key##*.} =~ key|pem ]]; then
