@@ -75,14 +75,32 @@ def get_roles_including(query):
     Return roles including the specified string in their state SLS file.
     """
     roles = []
+
+    def find_in_sls(query, file, alt_file=None):
+      sls = read_file_skip_jinja(file)
+      for line in sls.splitlines():
+        if query in line:
+          return True
+        if alt_file is not None and line[0:5] == '  - .':
+          if not os.path.isfile(alt_file):
+            if len(line) == 5:
+              # constructs for example "salt/role/mirror/internal/init.sls"
+              alt_file = alt_file.replace(alt_file.split('/')[-2:][0], '').replace('//', '/')
+          if os.path.isfile(alt_file):
+            if find_in_sls(query, alt_file):
+              return True
+
+      return False
+
     for role in get_roles():
-        role2 = role.replace('.', '/')
-        file = f'salt/role/{role2}.sls'
-        if not os.path.isfile(file):
-          file = f'salt/role/{role2}/init.sls'
-        role_sls = read_file_skip_jinja(file)
-        if query in role_sls:
-            roles.append(role)
+      role2 = role.replace('.', '/')
+      file = f'salt/role/{role2}.sls'
+      alt_file = f'salt/role/{role2}/init.sls'
+      if not os.path.isfile(file):
+        file = alt_file
+      if find_in_sls(query, file, alt_file):
+        roles.append(role)
+
     return roles
 
 
