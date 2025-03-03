@@ -80,7 +80,10 @@ mkdir /run/nginx
 # no fancyindex is installed in the test environment, adding it would require switching nginx to devel
 if [ "$role" = 'mirror.internal' ]
 then
-  sed -i '/^  server:/d;/^    config:/d;/load_module:/d;/fancyindex/d' pillar/role/mirror/internal.sls
+  sed -i \
+    -e '/^  server:/d;/^    config:/d;/load_module:/d;/fancyindex/d' \
+    -e '/http2:/d' \
+    pillar/role/mirror/internal.sls
 fi
 
 if grep -q profile "$sls_role"
