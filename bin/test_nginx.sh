@@ -76,7 +76,10 @@ printf 'roles:\n- %s' "$role" >> "$IDFILE"
 
 # Reset the grains-retrieved IPs to 127.0.0.1, as `nginx -t` actually tries
 # to bind to any configured listen IP
-sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" "pillar/role/$role.sls"
+if [ -f "pillar/role/$role.sls" ]
+then
+  sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" "pillar/role/$role.sls"
+fi
 
 # RuntimeDirectory
 mkdir /run/nginx
