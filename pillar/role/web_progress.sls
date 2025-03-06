@@ -18,7 +18,6 @@ redmine:
   plugins:
     - theme-opensuse
     - diary
-    - favourite_projects
     - force-issues-private
     - login-mention-account-type
     - openid_connect
