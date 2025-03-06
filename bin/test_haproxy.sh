@@ -124,7 +124,7 @@ check_haproxy_lists() {
 							echo 'Expected a CIDR mask'
 							linestatus=1
 						fi
-						if ! python3 -c "from ipaddress import ip_network ; import sys ; sys.tracebacklimit = 0 ; ip_network(\"$line\")"
+						if ! python3 -c "from ipaddress import ip_network ; import sys ; sys.tracebacklimit = 0 ; ip_network(\"$line\", strict=False)"
 						then
 							linestatus=1
 						fi
