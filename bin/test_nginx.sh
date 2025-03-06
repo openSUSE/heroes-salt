@@ -7,9 +7,7 @@ rpm -qa --qf '%{name}\n' | sort > /tmp/packages-before
 
 [[ $(whoami) == 'root' ]] || { echo 'Please run this script as root'; exit 1; }
 
-# using a container without systemd, but systemd is needed by service.running. replace it with /usr/bin/true to avoid useless error messages.
-( cd /usr/bin/ || exit 1 ; ln -sf true systemctl )
-
+source bin/lib/systemctl.sh
 source bin/get_colors.sh
 
 role="$1"
