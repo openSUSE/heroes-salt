@@ -19,7 +19,6 @@ redmine:
     - theme-opensuse
     - diary
     - force-issues-private
-    - login-mention-account-type
     - openid_connect
     - plugin-views-revisions
     - reopen-issues-by-mail
