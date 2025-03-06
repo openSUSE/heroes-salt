@@ -165,12 +165,13 @@ check_haproxy_lists() {
 				status=1
 			fi
 
-			if [ "$status" = 1 ]
-			then
-				echo 'File is not valid, please correct the issues mentioned above and amend your commit'
-			fi
 		done
 	done <<< "$(find /etc/haproxy/blacklists -type f)"
+
+	if [ "$status" = 1 ]
+	then
+		echo 'File is not valid, please correct the issues mentioned above and amend your commit'
+	fi
 
 	popd >/dev/null || exit 1
 
