@@ -4,7 +4,7 @@ include:
 mail_reminder_pkgs:
   pkg.installed:
     - pkgs:
-      - python-base
+      - python311-base
 
 mail_reminder:
     user.present:
