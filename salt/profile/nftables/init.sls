@@ -26,7 +26,7 @@ nftables_config_tree:
 
 nftables_service:
   service.running:
-    - name: nftables
+    - name: nftables-full
     - enable: true
     - reload: true
     - require:
