@@ -68,6 +68,8 @@ out="$role.txt"
 echo "START OF $role" > "$out"
 echo_INFO "Testing role: $role"
 
+rm /etc/zypp/repos.d/*
+
 printf 'roles:\n- %s' "$role" >> "$IDFILE"
 
 # Reset the grains-retrieved IPs to 127.0.0.1, as `nginx -t` actually tries

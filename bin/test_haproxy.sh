@@ -219,6 +219,8 @@ then
 	exit 1
 fi
 
+rm /etc/zypp/repos.d/*
+
 IDFILE="pillar/id/$(hostname).sls"
 printf 'roles:\n- proxy\ninclude:\n'>> "$IDFILE"
 test/setup/role/proxy
