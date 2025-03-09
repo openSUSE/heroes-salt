@@ -54,6 +54,11 @@ kani2.infra.opensuse.org:
     - host: kani2
       services:
         - kanidmd
+matrix.infra.opensuse.org:
+  targets:
+    - host: matrix
+      services:
+        - nginx
 monitor.infra.opensuse.org:
   sans:
     - alertmanager.infra.opensuse.org
