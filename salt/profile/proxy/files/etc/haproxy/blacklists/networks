@@ -6,7 +6,9 @@
 ##   - are unlikely to be used for human/legitimate purposes
 
 # Alibaba
-47.76.0.0/16
+47.74.0.0/15
+47.76.0.0/14
+47.80.0.0/13
 59.82.78.0/24
 8.218.0.0/12
 
