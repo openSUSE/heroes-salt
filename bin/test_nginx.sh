@@ -14,30 +14,34 @@ role="$1"
 IDFILE="pillar/id/$HOSTNAME.sls"
 
 create_fake_certs() {
-    # We are replacing both the cert/key pair because:
-    # - the key is encrypted and the CI worker can't decrypt it
-    # - the nginx validation command tries to match the pair
+    # install dummy certificates and keys as valid files are needed for the nginx config test
 
-    PRIVATE_KEYS=( $(grep ssl_certificate_key "pillar/role/$role.sls" | cut -d':' -f2) )
-    for key in "${PRIVATE_KEYS[@]}"; do
-        if [[ ! ${key##*.} =~ key|pem ]]; then
-            echo "pillar/role/$role.sls \"ssl_certificate_key: $key\" should have extension .key or .pem"
-            STATUS=1
-        else
-            mkdir "$(dirname "$key")"
-            cp test/fixtures/domain.key "$key"
-        fi
-    done
+    local role="${role/.//}"
+    mapfile -t pemfiles < <(salt-call --local --out=json pillar.get nginx:servers | sed '1{/^jid:/d}' | jq -r '.[][][]["config"][]["server"] | select( . != null ) [] | .ssl_certificate, .ssl_certificate_key | select( . != null )')
 
-    PUBLIC_CERTS=( $(grep "ssl_certificate:" "pillar/role/$role.sls" | cut -d':' -f2) )
-    for cert in "${PUBLIC_CERTS[@]}"; do
-        if [[ ! ${cert##*.} =~ crt|pem ]]; then
-            echo "pillar/role/$role.sls \"ssl_certificate: $cert\" should have extension .crt or .pem"
+    for file in "${pemfiles[@]}"
+    do
+      if [[ ${file##*.} =~ pem ]]
+      then
+          name="${file##*/}"
+          mkdir "$(dirname "$file")"
+
+          if [[ "$name" =~ cert|fullchain ]]
+          then
+            cp test/fixtures/domain.crt "$file"
+          elif [[ "$name" =~ key ]]
+          then
+            cp test/fixtures/domain.key "$file"
+          else
+            echo "pillar/role/$role.sls => $file does not match one of 'cert', 'fullchain', 'key'!"
             STATUS=1
-        else
-            mkdir "$(dirname "$cert")"
-            cp test/fixtures/domain.crt "$cert"
-        fi
+            continue
+          fi
+      else
+          echo "pillar/role/$role.sls => $file should have extension '.pem'!"
+          STATUS=1
+          continue
+      fi
     done
 }
 
@@ -72,7 +76,10 @@ printf 'roles:\n- %s' "$role" >> "$IDFILE"
 
 # Reset the grains-retrieved IPs to 127.0.0.1, as `nginx -t` actually tries
 # to bind to any configured listen IP
-sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" "pillar/role/$role.sls"
+if [ -f "pillar/role/$role.sls" ]
+then
+  sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" "pillar/role/$role.sls"
+fi
 
 # RuntimeDirectory
 mkdir /run/nginx
