@@ -46,7 +46,7 @@ show_highstate() {
     echo
 }
 
-ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py) )
+ALL_LOCATIONS=( $(bin/get_valid_custom_grains.py -s) )
 for site in "${ALL_LOCATIONS[@]}"; do
     show_highstate "$site" 'infra.opensuse.org' 'kvm'
 done

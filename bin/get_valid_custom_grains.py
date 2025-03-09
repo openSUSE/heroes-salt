@@ -13,9 +13,15 @@ def get_valid_custom_grains():
 
     return VALID_CUSTOM_GRAINS
 
+def get_valid_sites():
+    return get_valid_custom_grains()['site']
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads the pillar/valid_custom_grains.py and returns a list of valid custom grains in the form of "site".')
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='Loads and prints pillar/valid_custom_grains.yaml.')
+    parser.add_argument('-s', '--sites', action='store_true', help='Only print valid sites.')
     args = parser.parse_args()
 
-    print(get_valid_custom_grains())
+    if args.sites:
+      print('\n'.join(get_valid_sites()))
+    else:
+      print(get_valid_custom_grains())
