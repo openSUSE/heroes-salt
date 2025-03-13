@@ -1,4 +1,5 @@
 line-length = 100
+target-version = "py311"
 
 include = [
   "*.py",
@@ -37,6 +38,7 @@ ignore = [
   "PLR2004", # "magic" values which could be descriptive constants
   "PLW2901", # redefined variables in for loops
   "UP015",   # https://github.com/asottile/pyupgrade/issues/249#issuecomment-1879844387
+  "UP038",   # https://github.com/astral-sh/ruff/issues/7871
   "S603",    # https://github.com/astral-sh/ruff/issues/4045
 ]
 preview = true
