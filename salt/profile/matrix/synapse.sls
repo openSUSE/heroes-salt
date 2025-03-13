@@ -1,7 +1,11 @@
+{%- set python = grains['system_python'] %}
+
 synapse_dependencies:
   pkg.installed:
     - pkgs:
       - matrix-synapse
+      - {{ python }}-hiredis
+      - {{ python }}-txredisapi
 
 synapse:
   group.present:
