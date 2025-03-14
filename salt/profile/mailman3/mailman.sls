@@ -16,4 +16,3 @@ mailman_pkgs:
       - {{ python }}-mailmanclient
       - {{ python }}-psycopg2
       - {{ python }}-pysolr
-      - {{ python }}-xapian
