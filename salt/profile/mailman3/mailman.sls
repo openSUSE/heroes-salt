@@ -1,4 +1,4 @@
-{%- set python = grains['system_python'] %}
+{%- set python = 'python312' %}
 
 mailman_pkgs:
   pkg.installed:
@@ -10,9 +10,9 @@ mailman_pkgs:
       - mailman3
       - nginx-rewrite-lists-openSUSE
       - postorius
-      - python3-mailman-hyperkitty
-      - python3-mailman-web
       - uwsgi
+      - {{ python }}-mailman-hyperkitty
+      - {{ python }}-mailman-web
       - {{ python }}-mailmanclient
       - {{ python }}-psycopg2
       - {{ python }}-pysolr
