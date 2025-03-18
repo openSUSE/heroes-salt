@@ -107,7 +107,7 @@ def get_targets(paths):  # noqa: PLR0912, PLR0915  # function needs more stateme
     """
     Generates a dictionary with all minions a given role is assigned to
     """
-    return {minion: role for minion in get_minions_with_role(role.replace('role.', ''))}
+    return dict.fromkeys(get_minions_with_role(role.replace('role.', '')), role)
 
   def find_roles_including_profile(profile):
     """
