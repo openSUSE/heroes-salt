@@ -35,6 +35,9 @@ haproxy:
         - path_searchpage        path_beg    -i /searchPage
         - path_slash             path         /
 
+        - suffix_asp             path_end    .asp
+        - suffix_asp             path_end    .aspx
+
         - host_beans        hdr(host)   -i beans.opensuse.org
         - host_calendar     hdr(host)   -i calendar.opensuse.org
         {%- for host_chat in ['chat', 'dimension', 'webhook'] %}
