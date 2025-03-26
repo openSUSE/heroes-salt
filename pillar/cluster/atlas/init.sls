@@ -53,6 +53,8 @@ haproxy:
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
           - deny_status 429 if { sc_http_req_rate(0) gt 130 } host_redmine
           - deny_status 429 if { sc_http_req_rate(0) gt 300 }
+        - return:
+          - status 404 if suffix_asp
 
     http-login:
       bind:
