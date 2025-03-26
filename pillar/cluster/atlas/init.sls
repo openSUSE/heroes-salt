@@ -52,6 +52,7 @@ haproxy:
           - deny_status 429 if annoying_networks !host_conncheck
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
           - deny_status 429 if { sc_http_req_rate(0) gt 130 } host_redmine
+          - deny_status 429 if { sc_http_req_rate(0) gt 300 }
 
     http-login:
       bind:
