@@ -3,6 +3,12 @@ haproxy:
     http:
       acls:
         - internal_clients src 2a07:de40:b27e::/48  # PRG2
+        {%- for host in [
+              'matrix',
+            ]
+        %}
+        - src_limit_exclude src {{ salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[host, True]) }}/128
+        {%- endfor %}
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
