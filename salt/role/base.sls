@@ -37,7 +37,7 @@ include:
   - profile.pam
   - profile.kanidm.client
   - profile.accounts
-  - profile.log
+  - profile.log.syslog-ng.client
   - profile.monitoring
   - profile.regional
   - infrastructure.salt.minion
