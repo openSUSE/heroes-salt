@@ -87,7 +87,7 @@ then
 fi
 echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
 echo 'pillar_merge_lists: True' > /etc/salt/minion.d/merge.conf
-tee /etc/salt/minion.d/modules.conf <<-EOF
+tee /etc/salt/minion.d/modules.conf >/dev/null <<-EOF
 	disable_modules:
 	  - artifactory
 	  - bigip
@@ -139,7 +139,7 @@ tee /etc/salt/minion.d/modules.conf <<-EOF
 	  - pyenv
 	  - random_org
 	EOF
-tee /etc/salt/minion.d/roots.conf <<-EOF
+tee /etc/salt/minion.d/roots.conf >/dev/null <<-EOF
 	file_roots:
 	  base:
 	    - /srv/salt
