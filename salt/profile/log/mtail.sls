@@ -1,6 +1,6 @@
 include:
   - mtail
-  - rsyslog
+  - .syslog-ng
 
 /var/log/syslog:
   file.mknod:
@@ -8,7 +8,7 @@ include:
     - mode: '0640'
     - watch_in:
         - service: mtail
-        - service: rsyslog
+        - service: syslog-ng_service
   acl.present:
     - acl_type: user
     - acl_name: mtail

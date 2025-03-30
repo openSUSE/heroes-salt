@@ -9,3 +9,7 @@ sudo:
       - '{{ grains['host'] }} = (root) NOPASSWD:SETENV: /usr/sbin/tcpdump -s0 -Unw - -i os-log port 601'
 
 # syslog-ng configuration happens in static files under salt/profile/log/syslog-ng/files/
+
+zypper:
+  packages:
+    lnav: {}
