@@ -3,6 +3,12 @@ include:
   # secrets include conditionalized inside the secrets files
   - secrets.id.{{ grains['id'].replace('.', '_') }}
 
+apparmor:
+  local:
+    # for test_syslog-ng
+    sbin.syslog-ng:
+      - /etc/syslog-ng/conf.d/server.d/{,*} r
+
 profile:
   docker:
     daemon:
