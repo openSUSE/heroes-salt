@@ -113,7 +113,7 @@
 /parmail[0-9]+\.bnpparibas\.fr$/					dunno
 # AWL
 /^websrv[0-9]*\.q-x\.ch$/						dunno
-# these guys are stupid. Their mailserver IP has four PTR records ... and it
+# their mailserver IP has four PTR records and it
 # doesn't do retries ...
 /^[^.]+\.digilan\.ch$/							dunno
 
@@ -2128,7 +2128,7 @@
 /wlan\.bestsave\.hu$/		greylist
 
 # 2006/11/29
-# not the right kind of entry, but these guys are persistent.
+# not the right kind of entry, but these people are persistent.
 /\.toppan\.com\.cn$/		greylist
 /([^.]+\.){2}pacific\.net\.hk$/	greylist
 /([^.]+\.){2}n-sk\.ru$/		greylist
