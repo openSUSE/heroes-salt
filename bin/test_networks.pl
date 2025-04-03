@@ -78,8 +78,7 @@ foreach my $site (keys %{ $networks }) {
 
     if (recgrep($shortnet, @hvnw) == 0) {
       say "$WARNPREFIX Expected at least one hypervisor connection for $shortnet, but none found in cluster network pillars.";
-      # TODO: clean up / finish networks with loose ends
-      #$status = 1;
+      $status = 1;
     }
   }
 }

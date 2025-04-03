@@ -30,11 +30,6 @@ prg2:
     net6: 2a07:de40:b27e:1201::/64
     gw6: '2a07:de40:b27e:1201::3'
     id: 1201
-  openSUSE-ipmi-r:
-    short: os-ipmi-r
-    net6: 2a07:de40:b27e:1202::/64
-    gw6: '2a07:de40:b27e:1202::3'
-    id: 1202
   openSUSE-internal:
     export: true
     short: os-internal

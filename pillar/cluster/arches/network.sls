@@ -36,6 +36,7 @@ network:
           'os-mircache',
           'os-mirror',
           'os-public',
+          'os-sif',
         ]
     -%}
     {{ vlantapnetworks(vlanlist_r, 'bond-fib', 'slc1', 1500) }}

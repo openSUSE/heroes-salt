@@ -24,9 +24,6 @@ define net6_os-salt     = 2a07:de40:b27e:1200::/64
 # VLAN 1201 openSUSE-bare
 define net6_os-bare     = 2a07:de40:b27e:1201::/64
 
-# VLAN 1202 openSUSE-IPMI-r
-define net6_os-ipmi-r   = 2a07:de40:b27e:1202::/64
-
 # VLAN 1203 openSUSE-internal
 define net4_os-internal = 172.16.129.0/24
 define net6_os-internal = 2a07:de40:b27e:1203::/64
