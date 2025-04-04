@@ -4,6 +4,7 @@ remove_decommissioned_packages:
         - cpupower
         - ethtool
         - golang-github-justwatchcom-elasticsearch_exporter
+        - haveged
         - libcpupower1
         - libpci3
         - libpolkit-agent-1-0
