@@ -54,13 +54,6 @@ touch_includes() {
             touch /etc/nginx/mboxs.rewritemap
             touch /etc/nginx/miscs.rewritemap
             ;;
-        pagure)
-            touch /etc/nginx/acme-challenge
-            mkdir -p /etc/ssl/services/letsencrypt
-            cat test/fixtures/domain.{crt,key} > /etc/ssl/services/letsencrypt/code.opensuse.org.with.chain_rsa.pem
-            cat test/fixtures/domain.{crt,key} > /etc/ssl/services/letsencrypt/code.opensuse.org.with.chain_ecdsa.pem
-            sed '/ ssl_dhparam / d' -i /etc/nginx/ssl-config
-            ;;
     esac;
 }
 
