@@ -19,7 +19,7 @@ mine_functions:
 nfs:
   mount:
     kvm_share:
-      location: '"[fdb5:ae73:9cbd:1706::3]:/kvm"'
+      location: '[fdb5:ae73:9cbd:1706::3]:/kvm'
       mountpoint: /kvm
       opts:
         - defaults
