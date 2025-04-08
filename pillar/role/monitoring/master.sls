@@ -195,6 +195,13 @@ prometheus:
               simple: true
               targets: []
 
+            php-fpm:
+              port: 9253
+              roles:
+                - limesurvey
+              simple: true
+              targets: []
+
             ping:
               port: 9427
               roles:
