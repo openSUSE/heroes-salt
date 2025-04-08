@@ -2,6 +2,9 @@ include:
   - role.common.wiki
 
 apparmor:
+  local:
+    php-fpm:
+      - /run/php-fpm/wiki_*.sock rwlk
   profiles:
     httpd2-prefork:
       source: salt://profile/wiki/files/httpd2-prefork.apparmor
