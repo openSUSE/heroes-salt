@@ -1,6 +1,9 @@
 ###################################################
 ## MANAGED BY SALT in salt/files/nftables/asgard ##
 ###################################################
+{#-
+vim:filetype=nftables.jinja
+#}
 
 # This file has three sections:
 # 1. Networks (VLANs)
