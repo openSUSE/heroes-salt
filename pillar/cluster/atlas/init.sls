@@ -60,11 +60,16 @@ haproxy:
       bind:
         {{ bind(bind_v6_login[host], 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
       httprequests:
+        - track-sc0: req.hdr_ip(X-Forwarded-For,-1)
         - deny:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
+          - deny_status 429 if { sc_http_req_rate(0) gt 80 } path_indexphp
+          - deny_status 429 if { sc_http_req_rate(0) gt 120 } host_mediawiki
+          - deny_status 429 if { sc_http_req_rate(0) gt 300 }
         - return:
           - status 406 if odd_clients host_mediawiki path_indexphp
+      sticktable: type ipv6 size 50k expire 1m store http_req_rate(30s)
 
     http-misc:
       bind:
