@@ -8,3 +8,7 @@ prometheus:
         name: prometheus-php-fpm_exporter
         service:
           name: prometheus-php-fpm_exporter
+          reload: false
+        environ:
+          args:
+            phpfpm.fix-process-count: true
