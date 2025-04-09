@@ -56,6 +56,7 @@ prometheus:
             'apache': 9117,
             'hacluster': 9664,
             'pgbouncer': 9127,
+            'php-fpm': 9253,
             'ping': 9427,
             'postgres': 9187,
             'smartctl': 9633,
