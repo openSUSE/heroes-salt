@@ -1,6 +1,5 @@
-include:
-  - .common.mtail
 {%- if salt['grains.get']('include_secrets', True) %}
+include:
   - secrets.role.mailserver
 {%- endif %}
 

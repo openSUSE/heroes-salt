@@ -78,12 +78,6 @@ openssh:
   sshd_config_mode: '0600'
   banner_string: Welcome to {{ id }}!
 profile:
-  log:
-    {%- if modern %}
-    rsyslog_host: 2a07:de40:b27e:1203::50
-    {%- else %}
-    rsyslog_host: 172.16.164.40
-    {%- endif %}
   postfix:
     aliases:
       root: admin-auto@opensuse.org
@@ -97,15 +91,6 @@ profile:
       {%- else %}
       inet_protocols: ipv4
       {%- endif %}
-rsyslog:
-  custom:
-    - salt://profile/log/files/etc/rsyslog.d/remote.conf.jinja
-    - salt://profile/log/files/etc/rsyslog.d/00_stop.conf.jinja
-  custom_config_template: salt://profile/log/files/etc/rsyslog.conf
-  exclusive: false
-  imjournal: true
-  protocol: tcp
-  target: syslog.infra.opensuse.org
 salt:
   {%- if modern %}
   {#- to-do: deploy IPv6 globally #}

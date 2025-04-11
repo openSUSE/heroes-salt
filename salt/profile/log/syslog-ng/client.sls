@@ -1,5 +1,5 @@
 include:
-  - .
+  - profile.log.syslog-ng
 
 {%- set directory_base = '/etc/syslog-ng/conf.d/' %}
 
