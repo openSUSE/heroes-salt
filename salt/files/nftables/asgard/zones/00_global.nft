@@ -30,8 +30,6 @@
   ip6 daddr $host6_download tcp dport { http, https } accept
 
   # Syslog
-  ip6 daddr $host6_monitor udp dport syslog accept
-  ip6 daddr $host6_monitor tcp dport 514 accept # why tcp in addition to udp??
   ip6 daddr @host6_logger tcp dport syslog-conn accept
 
   # downloadcontent.o.o ACL
