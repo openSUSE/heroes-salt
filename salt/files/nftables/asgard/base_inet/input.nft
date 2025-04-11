@@ -1,6 +1,9 @@
 ###################################################
 ## MANAGED BY SALT in salt/files/nftables/asgard ##
 ###################################################
+{#-
+vim:filetype=nftables.jinja
+-#}
 
 {%- set site_networks = pillar['networks']['sites'] %}
 
