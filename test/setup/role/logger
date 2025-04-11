@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+# for gid resolution in salt/profile/log/syslog-ng/files/etc/syslog-ng/conf.d/server.d/01_destination.conf
+groupadd heroes
