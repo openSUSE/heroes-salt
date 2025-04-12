@@ -75,7 +75,7 @@ haproxy:
           - status 404 if suffix_asp
           - status 404 if suffix_php !host_mediawiki
           - status 406 if odd_clients host_mediawiki path_indexphp
-      sticktable: type ipv6 size 50k expire 1m store http_req_rate(30s)
+      sticktable: type ipv6 size 50k expire 1m store conn_rate(10s),http_req_rate(30s)
 
     http-misc:
       bind:
@@ -91,7 +91,7 @@ haproxy:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
         - set-var(txn.host): hdr(Host)
-      sticktable: type ipv6 size 250k expire 1m store http_req_rate(30s)
+      sticktable: type ipv6 size 250k expire 1m store conn_rate(10s),http_req_rate(30s)
 
   listens:
     {{ metrics(bind_v6_standalone) }}
