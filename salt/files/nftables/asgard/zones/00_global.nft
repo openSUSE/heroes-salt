@@ -58,7 +58,6 @@
   ip daddr $witch1_mapped tcp dport 4505-4506 accept
 
   # Syslog
-  ip daddr $host4_monitor tcp dport 514 accept
   ip daddr @host4_logger tcp dport syslog-conn accept
 
   # traceroute
