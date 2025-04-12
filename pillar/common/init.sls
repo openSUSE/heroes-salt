@@ -78,6 +78,11 @@ openssh:
   sshd_config_mode: '0600'
   banner_string: Welcome to {{ id }}!
 profile:
+  {%- if not modern %}
+  log:
+    syslog-ng:
+      legacy-ip: true
+  {%- endif %}
   postfix:
     aliases:
       root: admin-auto@opensuse.org
