@@ -27,6 +27,9 @@ haproxy:
       httprequests:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck !host_slc_mirror
+        - return:
+          - status 404 if suffix_asp
+          - status 404 if suffix_php
 
     rsync:
       bind:

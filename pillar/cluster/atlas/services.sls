@@ -32,8 +32,6 @@ haproxy:
         - path_openid            path_beg    -i /common/app/
         - path_openid            path_beg    -i /openid-ldap
         - path_openid            path_beg    -i /idp
-        - host_paste             hdr(host)   -i paste.opensuse.org
-        - host_paste             hdr(host)   -i paste-test.opensuse.org
         - path_piwik             path        /piwik/index.php
         - path_relnotes          path_beg    /release-notes/
         - path_robots            path        /robots.txt
@@ -43,6 +41,7 @@ haproxy:
 
         - suffix_asp             path_end    .asp
         - suffix_asp             path_end    .aspx
+        - suffix_php             path_end    .php
 
         - host_beans        hdr(host)   -i beans.opensuse.org
         - host_calendar     hdr(host)   -i calendar.opensuse.org
@@ -89,6 +88,8 @@ haproxy:
         - host_opi_proxy    hdr(host)   -i opi-proxy.opensuse.org
         - host_osc_collab   hdr(host)   -i osc-collab.opensuse.org
         - host_osc_collab   hdr(host)   -i osc-collab-test.opensuse.org
+        - host_paste        hdr(host)   -i paste.opensuse.org
+        - host_paste        hdr(host)   -i paste-test.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
         - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_rpmlint      hdr(host)   -i rpmlint.opensuse.org
@@ -236,6 +237,10 @@ haproxy:
         - odd_clients         req.hdr_cnt(Accept-Language) 0
 
         - path_indexphp     path_beg     /index.php
+
+        - suffix_asp        path_end    .asp
+        - suffix_asp        path_end    .aspx
+        - suffix_php        path_end    .php
 
         - host_dale         hdr(host)    events.opensuse.org
         - host_dale         hdr(host)    events-test.opensuse.org

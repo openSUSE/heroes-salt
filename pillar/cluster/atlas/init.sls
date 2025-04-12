@@ -55,6 +55,7 @@ haproxy:
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude
         - return:
           - status 404 if suffix_asp
+          - status 404 if suffix_php !host_limesurvey !host_pmya
 
     http-login:
       bind:
@@ -68,6 +69,8 @@ haproxy:
           - deny_status 429 if { sc_http_req_rate(0) gt 120 } host_mediawiki
           - deny_status 429 if { sc_http_req_rate(0) gt 300 }
         - return:
+          - status 404 if suffix_asp
+          - status 404 if suffix_php !host_mediawiki
           - status 406 if odd_clients host_mediawiki path_indexphp
       sticktable: type ipv6 size 50k expire 1m store http_req_rate(30s)
 
