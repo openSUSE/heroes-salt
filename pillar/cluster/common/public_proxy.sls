@@ -34,7 +34,7 @@ haproxy:
           - X-Content-Type-Options nosniff if is_ssl
           - Referrer-Policy no-referrer-when-downgrade if is_ssl
           - Strict-Transport-Security max-age=15768000
-      sticktable: type ipv6 size 500k expire 1m store http_req_rate(30s)
+      sticktable: type ipv6 size 500k expire 1m store conn_rate(10s),http_req_rate(30s)
   backends:
     conncheck:
       mode: http

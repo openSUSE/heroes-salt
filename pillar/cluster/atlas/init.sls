@@ -47,10 +47,17 @@ haproxy:
         {%- set tls_bindopts = 'tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
         {{ bind(bind_v6, 443, 'v6only ' ~ tls_bindopts) }}
         {{ bind(bind_v4, 443, tls_bindopts) }}
+      tcprequests:
+        - inspect-delay 5s
+        - content:
+          - accept unless host_redmine cookie_ipsilon_username_missing speedy_5
+          - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
+          - accept if WAIT_END
       httprequests:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
+          - deny_status 429 if speedy_5 host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 10 } host_redmine cookie_ipsilon_username_missing path_redmine_git
           - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 25 } host_redmine path_redmine_git
@@ -75,7 +82,7 @@ haproxy:
           - status 404 if suffix_asp
           - status 404 if suffix_php !host_mediawiki
           - status 406 if odd_clients host_mediawiki path_indexphp
-      sticktable: type ipv6 size 50k expire 1m store http_req_rate(30s)
+      sticktable: type ipv6 size 50k expire 1m store conn_rate(10s),http_req_rate(30s)
 
     http-misc:
       bind:
@@ -91,7 +98,7 @@ haproxy:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
         - set-var(txn.host): hdr(Host)
-      sticktable: type ipv6 size 250k expire 1m store http_req_rate(30s)
+      sticktable: type ipv6 size 250k expire 1m store conn_rate(10s),http_req_rate(30s)
 
   listens:
     {{ metrics(bind_v6_standalone) }}
