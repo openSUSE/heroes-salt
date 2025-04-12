@@ -47,10 +47,17 @@ haproxy:
         {%- set tls_bindopts = 'tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/' %}
         {{ bind(bind_v6, 443, 'v6only ' ~ tls_bindopts) }}
         {{ bind(bind_v4, 443, tls_bindopts) }}
+      tcprequests:
+        - inspect-delay 5s
+        - content:
+          - accept unless host_redmine cookie_ipsilon_username_missing speedy_5
+          - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
+          - accept if WAIT_END
       httprequests:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
+          - deny_status 429 if speedy_5 host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 10 } host_redmine cookie_ipsilon_username_missing path_redmine_git
           - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 25 } host_redmine path_redmine_git

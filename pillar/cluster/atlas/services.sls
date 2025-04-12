@@ -2,6 +2,8 @@ haproxy:
   frontends:
     http:
       acls:
+        - speedy_5 sc0_conn_rate(http) gt 5
+
         - internal_clients src 2a07:de40:b27e::/48  # PRG2
         {%- for host in [
               'matrix',
