@@ -17,6 +17,7 @@ haproxy:
 
         - suffix_asp             path_end    .asp
         - suffix_asp             path_end    .aspx
+        - suffix_php             path_end    .php
 
         - host_conncheck         hdr(host)   -i conncheck.opensuse.org
         - host_debuginfod        hdr(host)   -i debuginfod.opensuse.org

@@ -41,6 +41,7 @@ haproxy:
 
         - suffix_asp             path_end    .asp
         - suffix_asp             path_end    .aspx
+        - suffix_php             path_end    .php
 
         - host_beans        hdr(host)   -i beans.opensuse.org
         - host_calendar     hdr(host)   -i calendar.opensuse.org
@@ -239,6 +240,7 @@ haproxy:
 
         - suffix_asp        path_end    .asp
         - suffix_asp        path_end    .aspx
+        - suffix_php        path_end    .php
 
         - host_dale         hdr(host)    events.opensuse.org
         - host_dale         hdr(host)    events-test.opensuse.org
