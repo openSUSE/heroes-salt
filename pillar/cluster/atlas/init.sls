@@ -51,7 +51,10 @@ haproxy:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
-          - deny_status 429 if { sc_http_req_rate(0) gt 130 } host_redmine
+          - deny_status 429 if { sc_http_req_rate(0) gt 10 } host_redmine cookie_ipsilon_username_missing path_redmine_git
+          - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing
+          - deny_status 429 if { sc_http_req_rate(0) gt 25 } host_redmine path_redmine_git
+          - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude
         - return:
           - status 404 if suffix_asp

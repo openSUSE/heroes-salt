@@ -14,6 +14,8 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
 
+        - cookie_ipsilon_username_missing req.cook_cnt(ipsilon_default_username) eq 0
+
         - path_dot_scm           path_beg    /.git/
         - path_dot_scm           path_beg    /.svn/
         - path_dot_scm           path_beg    /.bzr/
@@ -35,6 +37,7 @@ haproxy:
         - host_paste             hdr(host)   -i paste.opensuse.org
         - host_paste             hdr(host)   -i paste-test.opensuse.org
         - path_piwik             path        /piwik/index.php
+        - path_redmine_git       path_reg    ^/projects/.*/repository/.*/
         - path_relnotes          path_beg    /release-notes/
         - path_robots            path        /robots.txt
         - path_security          path_end    /.well-known/security.txt
