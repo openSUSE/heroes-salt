@@ -237,6 +237,9 @@ haproxy:
 
         - path_indexphp     path_beg     /index.php
 
+        - suffix_asp        path_end    .asp
+        - suffix_asp        path_end    .aspx
+
         - host_dale         hdr(host)    events.opensuse.org
         - host_dale         hdr(host)    events-test.opensuse.org
         - host_elections    hdr(host)    elections.opensuse.org

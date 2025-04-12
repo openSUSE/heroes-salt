@@ -15,6 +15,9 @@ haproxy:
         - path_index             path        /index.html
         - path_slash             path        /
 
+        - suffix_asp             path_end    .asp
+        - suffix_asp             path_end    .aspx
+
         - host_conncheck         hdr(host)   -i conncheck.opensuse.org
         - host_debuginfod        hdr(host)   -i debuginfod.opensuse.org
         - host_mainpage          hdr(host)   -i opensuse.org
