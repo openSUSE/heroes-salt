@@ -7,11 +7,13 @@ chain input_network_nat64 {
   oifname nueqsc_stonehat ip saddr $nat64_v4 accept #log prefix "[Tayga v4 Forward] " accept
   oifname os-public ip6 saddr { 2a07:de40:b27e:0064:0000:0000:c0a8:2f66/128, 2a07:de40:b27e:0064:0000:0000:c0a8:2f65/128 } ip6 daddr @host6_atlas tcp dport { http, https } accept
 
-  # GitHub web map (github.com), can be removed when GitHub starts being offered via IPv6 (so basically, never) - to-do: replace GH IP address with dynamically resolved set (nft-dns?)
-  oifname os-p2p-pub ip saddr @acl4_internet_github_web ip daddr @cloud4_github_web tcp dport { http, https } accept #log prefix "[GitHub v4 OUT] " accept
-  oifname os-p2p-pub ip saddr @acl4_internet_github_web_ssh ip daddr @cloud4_github_web tcp dport ssh accept #log prefix "[GitHub v4 OUT] " accept
-  # Github API map (api.github.com)
-  oifname os-p2p-pub ip saddr @acl4_internet_github_api ip daddr @cloud4_github_api tcp dport https accept
+  # GitHub Web (github.com) ACL
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_web ip protocol icmp icmp type { echo-request, echo-reply } accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_web tcp dport { https, ssh } accept
+
+  # GitHub API (api.github.com) ACL
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_api ip protocol icmp icmp type { echo-request, echo-reply } accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_api tcp dport https accept
 
   # Akismet map
   oifname os-p2p-pub ip saddr @acl4_internet_akismet ip daddr @cloud4_akismet tcp dport https accept

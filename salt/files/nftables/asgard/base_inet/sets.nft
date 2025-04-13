@@ -935,52 +935,41 @@ set acl6_internet_rails-assets {
     }
 }
 
-# Pseudo-v4 hosts allowed to reach GitHub
-# should be changed to IPv6 to facilitate operation after static v4-maps are dropped
-set acl4_internet_github_web {
-  type ipv4_addr
+set acl6_internet_github_web {
+  type ipv6_addr
   flags interval
   elements = {
-   172.16.164.111/32, #jekyll
-   $host4_narwal5,
-   172.16.164.132/32, #paste
-   $host4_dale,
-   $host4_gitlab-runner1,
-   $host4_gitlab-runner2,
-   $host4_pinot,
-   $host4_mailman3, # access to openSUSE/lists-o-o.git
-   $host4_pagure, # repository mirroring (?)
-   $host4_opi-proxy, # software updates
-   $host4_calendar, # source download and build
-   172.16.164.201/32, # kubic, Jekyll blog updates (https://progress.opensuse.org/issues/152841), todo: use static address
-   $host4_tsp,
+    $host6_calendar,        # software updates
+    $host6_dale,
+    $host6_gitlab-runner1,
+    $host6_gitlab-runner2,
+    $host6_jekyll,          # Jekyll page updates
+    $host6_kubic,           # Jekyll blog page update
+    $host6_mailman3,        # access to openSUSE/lists-o-o.git
+    $host6_narwal5,
+    $host6_opi-proxy,       # software updates
+    $host6_pagure,          # repository mirroring
+    $host6_paste,           # software updates
+    $host6_pinot,
+    $host6_tsp,
   }
 }
 
-# not implemented
-#set acl6_internet_github_web {
-#  type ipv6_addr
-#  flags interval
-#  elements = {
-#      $host6_calendar
-#  }
-#}
-
-set acl4_internet_github_web_ssh {
-  type ipv4_addr
+set acl6_internet_github_web_ssh {
+  type ipv6_addr
   flags interval
   elements = {
-   $host4_opi-proxy, # software updates (?)
-   $host4_narwal5, # git push for mirrors-static
-   $host4_mickey, # push mirrors
+   $host6_opi-proxy,  # software updates
+   $host6_narwal5,    # git push for mirrors-static
+   $host6_mickey,     # push mirrors
   }
 }
 
-set acl4_internet_github_api {
-  type ipv4_addr
+set acl6_internet_github_api {
+  type ipv6_addr
   flags interval
   elements = {
-    $host4_obsreview
+    $host6_obsreview,
   }
 }
 

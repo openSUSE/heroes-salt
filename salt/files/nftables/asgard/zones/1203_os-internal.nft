@@ -47,10 +47,6 @@
   # gitlab-runner* -> registry.o.o (HTTPS)
   ip6 saddr @host6_gitlab-runner ip6 daddr @cloud6_obs-login tcp dport https accept
 
-  # * -> GitHub (HTTP/HTTPS/SSH) (further restricted using client whitelisting through @acl4_internet_github in forward.conf)
-  oifname nat64 ip6 daddr @cloud46_github_web icmpv6 type { echo-request, echo-reply } accept
-  oifname nat64 ip6 daddr @cloud46_github_web tcp dport { http, https, ssh } accept #log prefix "[GitHub v6 IN] " accept
-
   # * -> Akismet/Sentry (HTTPS) (further restricted using client whitelisting through @acl4_internet_{akismet,sentry} in forward.conf)
   ip6 daddr @cloud46_akismet icmpv6 type { echo-request, echo-reply } accept
   oifname nat64 ip6 daddr @cloud46_akismet tcp dport https accept
@@ -171,6 +167,8 @@
 
   # mickey -> atlas (SSH for GitLab -> Pagure Git repository mirror)
   oif os-public ip6 saddr $host6_mickey ip6 daddr $host6_atlas_misc tcp dport ssh accept
+
+  jump acl_internet_github
 
   log prefix "[Internal Denied] " reject with icmpv6 type admin-prohibited
 
