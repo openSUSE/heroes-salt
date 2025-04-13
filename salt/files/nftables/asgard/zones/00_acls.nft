@@ -1,0 +1,16 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+chain acl_internet_github {
+  # GitHub Web (github.com) ACL
+  oifname nat64 ip6 saddr @acl6_internet_github_web ip6 daddr @cloud46_github_web icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_github_web ip6 daddr @cloud46_github_web tcp dport https accept
+  oifname nat64 ip6 saddr @acl6_internet_github_web_ssh ip6 daddr @cloud46_github_web tcp dport ssh accept
+
+  # GitHub API (api.github.com) ACL
+  oifname nat64 ip6 saddr @acl6_internet_github_api ip6 daddr @cloud46_github_api icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_github_api ip6 daddr @cloud46_github_api tcp dport https accept
+
+}
+
