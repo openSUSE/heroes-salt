@@ -738,6 +738,14 @@ set cloud6_publicsuffix {
     }
 }
 
+set cloud6_get_k3s {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2606:4700:3033::6815:387a/128,
+        2606:4700:3036::ac43:96d7/128,
+    }
+}
 
 set cloud46_akismet {
   type ipv6_addr
@@ -939,6 +947,7 @@ set acl6_internet_github_web {
   type ipv6_addr
   flags interval
   elements = {
+    $host6_apollo01,
     $host6_calendar,        # software updates
     $host6_dale,
     $host6_gitlab-runner1,
@@ -969,6 +978,7 @@ set acl6_internet_github_api {
   type ipv6_addr
   flags interval
   elements = {
+    $host6_apollo01,
     $host6_obsreview,
   }
 }
