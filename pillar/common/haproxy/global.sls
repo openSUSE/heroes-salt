@@ -3,7 +3,7 @@ haproxy:
   overwrite: true
   global:
     log:
-      - 'monitor.infra.opensuse.org:514 local0 warning'
+      - 'tcp@logger.infra.opensuse.org:601 local0 warning'
     maxconn: 262144
     chroot:
       enable: true
