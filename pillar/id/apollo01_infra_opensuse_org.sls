@@ -16,4 +16,4 @@ roles:
 network:
   interfaces:
     os-ghr-c:
-      address: 2a07:de40:b27e:1207::a/128
+      address: 2a07:de40:b27e:1207::a/64
