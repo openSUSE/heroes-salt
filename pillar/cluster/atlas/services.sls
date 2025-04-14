@@ -2,7 +2,8 @@ haproxy:
   frontends:
     http:
       acls:
-        - speedy_5 sc0_conn_rate(http) gt 5
+        - speedy_35 sc0_conn_rate(http) gt 35
+        - speedy_45 sc0_conn_rate(http) gt 45
 
         - internal_clients src 2a07:de40:b27e::/48  # PRG2
         {%- for host in [
@@ -17,6 +18,12 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
 
         - cookie_ipsilon_username_missing req.cook_cnt(ipsilon_default_username) eq 0
+
+        {%- for country in [
+              'CN', 'HK',
+        ] %}
+        - difficult_country var(sess.country) -m str {{ country }}
+        {%- endfor %}
 
         - path_dot_scm           path_beg    /.git/
         - path_dot_scm           path_beg    /.svn/

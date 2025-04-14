@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/map.jinja' import bind, extra, server, rsync_backend_with_checks, metrics %}
+{%- from 'common/haproxy/map.jinja' import bind, errorfiles, extra, server, rsync_backend_with_checks, metrics %}
 {%- set host = grains['host'] %}
 
 {%- if host.startswith('runner-') %} {#- handle host based dictionaries in CI tests #}
@@ -50,19 +50,20 @@ haproxy:
       tcprequests:
         - inspect-delay 5s
         - content:
-          - accept unless host_redmine cookie_ipsilon_username_missing speedy_5
+          - accept unless host_redmine cookie_ipsilon_username_missing speedy_35
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
           - accept if WAIT_END
       httprequests:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck
+          - deny_status 403 errorfile {{ errorfiles }}403.html.http if host_redmine cookie_ipsilon_username_missing path_redmine_git difficult_country
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
-          - deny_status 429 if speedy_5 host_redmine cookie_ipsilon_username_missing
-          - deny_status 429 if { sc_http_req_rate(0) gt 10 } host_redmine cookie_ipsilon_username_missing path_redmine_git
-          - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing
-          - deny_status 429 if { sc_http_req_rate(0) gt 25 } host_redmine path_redmine_git
+          - deny_status 429 if speedy_45 host_redmine cookie_ipsilon_username_missing
+          - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing path_redmine_git
+          - deny_status 429 if { sc_http_req_rate(0) gt 40 } host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude
+          - deny_status 429 if speedy_300 !src_limit_exclude
         - return:
           - status 404 if suffix_asp
           - status 404 if suffix_php !host_limesurvey !host_pmya

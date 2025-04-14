@@ -27,6 +27,8 @@ haproxy:
       httprequests:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck !host_slc_mirror
+          - deny_status 429 if { sc_http_req_rate(0) gt 300 } !host_slc_mirror
+          - deny_status 429 if speedy_300 !host_slc_mirror
         - return:
           - status 404 if suffix_asp
           - status 404 if suffix_php

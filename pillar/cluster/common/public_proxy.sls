@@ -1,14 +1,21 @@
 {%- from 'common/haproxy/map.jinja' import errorfiles %}
 
 haproxy:
+  global:
+    extra:
+      - lua-load-per-thread /etc/haproxy/geoip.lua
   frontends:
     http:
       acls:
+        - speedy_300 sc0_conn_rate(http) gt 300
+
         - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n    # salt/profile/proxy/files/etc/haproxy/blacklists/networks
         - annoying_useragents hdr_sub(User-Agent)  -i -f /etc/haproxy/blacklists/useragents  # salt/profile/proxy/files/etc/haproxy/blacklists/useragents
         - is_ssl              dst_port    443
       options:
         - http-server-close
+      tcprequests:
+        - content set-var(sess.country) src,lua.geoip2-lookup-city("country")
       httprequests:
         - del-header:
           - X-Forwarded-For
@@ -63,3 +70,12 @@ haproxy:
           hdr Server 'openSUSE is good for you'
           hdr Access-Control-Allow-Origin '*'
           hdr Cache no-cache
+
+profile:
+  proxy:
+    haproxy:
+      geoip: true
+
+zypper:
+  packages:
+    lua53-haproxy-geoip2: {}

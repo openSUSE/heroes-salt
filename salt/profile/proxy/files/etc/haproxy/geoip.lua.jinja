@@ -1,0 +1,10 @@
+{{ pillar['managed_by_salt_lua'] }}
+
+local geoip2 = require('haproxy_geoip2_module')
+
+geoip2.register({
+    db = {
+        city = 'geoip/city.mmdb',
+    },
+    reload_interval = 0,
+})
