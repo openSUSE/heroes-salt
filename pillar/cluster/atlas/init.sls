@@ -63,6 +63,7 @@ haproxy:
           - deny_status 429 if { sc_http_req_rate(0) gt 40 } host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude
+          - deny_status 429 if speedy_300 !src_limit_exclude
         - return:
           - status 404 if suffix_asp
           - status 404 if suffix_php !host_limesurvey !host_pmya

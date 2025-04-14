@@ -7,6 +7,8 @@ haproxy:
   frontends:
     http:
       acls:
+        - speedy_300 sc0_conn_rate(http) gt 300
+
         - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n    # salt/profile/proxy/files/etc/haproxy/blacklists/networks
         - annoying_useragents hdr_sub(User-Agent)  -i -f /etc/haproxy/blacklists/useragents  # salt/profile/proxy/files/etc/haproxy/blacklists/useragents
         - is_ssl              dst_port    443
