@@ -1,6 +1,9 @@
 {%- from 'common/haproxy/map.jinja' import errorfiles %}
 
 haproxy:
+  global:
+    extra:
+      - lua-load-per-thread /etc/haproxy/geoip.lua
   frontends:
     http:
       acls:
@@ -9,6 +12,8 @@ haproxy:
         - is_ssl              dst_port    443
       options:
         - http-server-close
+      tcprequests:
+        - content set-var(sess.country) src,lua.geoip2-lookup-city("country")
       httprequests:
         - del-header:
           - X-Forwarded-For
