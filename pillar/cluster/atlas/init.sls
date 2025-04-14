@@ -50,14 +50,14 @@ haproxy:
       tcprequests:
         - inspect-delay 5s
         - content:
-          - accept unless host_redmine cookie_ipsilon_username_missing speedy_5
+          - accept unless host_redmine cookie_ipsilon_username_missing speedy_35
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
           - accept if WAIT_END
       httprequests:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
-          - deny_status 429 if speedy_5 host_redmine cookie_ipsilon_username_missing
+          - deny_status 429 if speedy_45 host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 10 } host_redmine cookie_ipsilon_username_missing path_redmine_git
           - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 25 } host_redmine path_redmine_git
