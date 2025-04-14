@@ -53,3 +53,32 @@ haproxy_sysconfig_variables:
 {%- else %}
 {%- do salt.log.debug('Skipping management of HAProxy secrets!') %}
 {%- endif %}
+
+{%- if salt['pillar.get']('profile:proxy:haproxy:geoip', false) is sameas true %}
+haproxy_geoip_directory:
+  file.directory:
+    - name: /var/lib/haproxy/geoip
+    - require:
+      - haproxy.install
+
+haproxy_geoip_config:
+  file.managed:
+    - name: /etc/haproxy/geoip.lua
+    - source: salt://{{ slspath }}/files/etc/haproxy/geoip.lua.jinja
+    - template: jinja
+    - require:
+      - haproxy.install
+      - file: haproxy_geoip_directory
+    - watch:
+      - service: haproxy.service
+
+{%- else %}
+
+haproxy_geoip:
+  file.absent:
+    - names:
+        - /var/lib/haproxy/geoip
+        - /etc/haproxy/geoip.lua
+    - watch:
+      - service: haproxy.service
+{%- endif %}

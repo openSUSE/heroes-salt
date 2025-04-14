@@ -63,3 +63,12 @@ haproxy:
           hdr Server 'openSUSE is good for you'
           hdr Access-Control-Allow-Origin '*'
           hdr Cache no-cache
+
+profile:
+  proxy:
+    haproxy:
+      geoip: true
+
+zypper:
+  packages:
+    lua53-haproxy-geoip2: {}
