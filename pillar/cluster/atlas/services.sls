@@ -19,6 +19,12 @@ haproxy:
 
         - cookie_ipsilon_username_missing req.cook_cnt(ipsilon_default_username) eq 0
 
+        {%- for country in [
+              'CN', 'HK',
+        ] %}
+        - difficult_country var(sess.country) -m str {{ country }}
+        {%- endfor %}
+
         - path_dot_scm           path_beg    /.git/
         - path_dot_scm           path_beg    /.svn/
         - path_dot_scm           path_beg    /.bzr/
