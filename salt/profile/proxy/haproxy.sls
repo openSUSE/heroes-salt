@@ -48,7 +48,7 @@ haproxy_sysconfig_variables:
         STATS_PASSPHRASE: {{ secrets['stats_passphrase'] }}
     - require:
       - file: haproxy_sysconfig
-    - watch:
+    - watch_in:
       - service: haproxy.service
 {%- else %}
 {%- do salt.log.debug('Skipping management of HAProxy secrets!') %}
@@ -69,7 +69,7 @@ haproxy_geoip_config:
     - require:
       - haproxy.install
       - file: haproxy_geoip_directory
-    - watch:
+    - watch_in:
       - service: haproxy.service
 
 {%- else %}
