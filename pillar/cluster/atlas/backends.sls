@@ -150,8 +150,9 @@ haproxy:
         {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
     tsp:
-      {{ options() }}
-      {{ server('tsp', '2a07:de40:b27e:1203::b20') }}
+      {{ options('httpchk') }}
+      {{ httpcheck('tsp.opensuse.org', 200) }}
+      {{ server('tsp', '2a07:de40:b27e:1203::b20', extra_check='inter 15s') }}
     www_openid_ldap:
       {{ options() }}
       {{ server('ldap-proxy', 'id.opensuse.org', 443, extra_extra='ssl verify required ca-file /etc/ssl/ca-bundle.pem') }}
