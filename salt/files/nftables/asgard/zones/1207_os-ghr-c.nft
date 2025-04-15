@@ -9,6 +9,10 @@
   oif os-p2p-pub ip6 saddr $host6_apollo01 ip6 daddr @cloud6_get_k3s icmpv6 type { echo-request, echo-reply } accept
   oif os-p2p-pub ip6 saddr $host6_apollo01 ip6 daddr @cloud6_get_k3s tcp dport https accept
 
+  # docker.io/hub.docker.com
+  oif os-p2p-pub ip6 saddr $host6_apollo01 ip6 daddr @cloud6_dockerhub icmpv6 type { echo-request, echo-reply } accept
+  oif os-p2p-pub ip6 saddr $host6_apollo01 ip6 daddr @cloud6_dockerhub tcp dport https accept
+
   jump acl_internet_github
 
   log prefix "[GHR-C Denied] " reject with icmpv6 type admin-prohibited

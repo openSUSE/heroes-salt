@@ -15,6 +15,10 @@ chain input_network_nat64 {
   oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_api ip protocol icmp icmp type { echo-request, echo-reply } accept
   oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_api tcp dport https accept
 
+  # GitHub Packages ACL
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_packages ip protocol icmp icmp type { echo-request, echo-reply } accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_packages tcp dport https accept
+
   # Akismet map
   oifname os-p2p-pub ip saddr @acl4_internet_akismet ip daddr @cloud4_akismet tcp dport https accept
 
