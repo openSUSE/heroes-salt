@@ -747,6 +747,16 @@ set cloud6_get_k3s {
     }
 }
 
+set cloud6_dockerhub {
+    type ipv6_addr
+    flags interval
+    elements = {
+        2600:1f18:2148:bc00:8b22:52b7:9e74:90a0/128,
+        2600:1f18:2148:bc01:89b:94df:3759:2fb0/128,
+        2600:1f18:2148:bc02:b51c:e574:ab4d:d828/128,
+    }
+}
+
 set cloud46_akismet {
   type ipv6_addr
   flags interval
@@ -907,6 +917,7 @@ set acl6_internet_obs-login {
     type ipv6_addr
     flags interval
     elements = {
+      $host6_apollo01,   # access to registry.o.o
       $host6_opi-proxy,  # access to api.o.o
       $host6_obsreview,  # access to registry.o.o
       $host6_osc-collab, # access to api.o.o
