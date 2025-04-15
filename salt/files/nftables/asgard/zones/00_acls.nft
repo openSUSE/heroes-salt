@@ -12,5 +12,8 @@ chain acl_internet_github {
   oifname nat64 ip6 saddr @acl6_internet_github_api ip6 daddr @cloud46_github_api icmpv6 type { echo-request, echo-reply } accept
   oifname nat64 ip6 saddr @acl6_internet_github_api ip6 daddr @cloud46_github_api tcp dport https accept
 
+  # GitHub Packages ACL
+  oifname nat64 ip6 saddr @acl6_internet_github_packages ip6 daddr @cloud46_github_packages icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_github_packages ip6 daddr @cloud46_github_packages tcp dport https accept
 }
 
