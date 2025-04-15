@@ -1,11 +1,11 @@
-cluster: apollo.cobbler
+cluster: apollo.openSUSE
 grains:
   site: prg2
   hostusage:
-    - Cobbler GitHub Runner
+    - openSUSE GitHub Runner
     - K3S
   reboot_safe: yes
-  description: GitHub Runner for Cobbler
+  description: GitHub Runner for openSUSE
   documentation: []
   responsible:
     - SchoolGuy
@@ -15,5 +15,5 @@ roles:
 
 network:
   interfaces:
-    os-ghr-c:
-      address: 2a07:de40:b27e:1207::a/64
+    os-ghr-os:
+      address: 2a07:de40:b27e:1208::a4/64
