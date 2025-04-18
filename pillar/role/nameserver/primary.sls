@@ -51,7 +51,24 @@ powerdns:
     secondary-do-renotify: 'yes'
     api: 'yes'
 
+profile:
+  dns:
+    powerdns:
+      apiproxy:
+        environments:
+          - name: dehydrated
+            zones:
+              - name: (?:infra\.)?opensuse(?:-project)?\.\w+
+                regex: true
+                services:
+                  acme: true
+          - name: opentofu
+            zones:
+              - name: opensuse-project.com
+
 zypper:
+  packages:
+    powerdns-api-proxy: {}
   repositories:
     openSUSE:infrastructure:dns:
       baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/dns/openSUSE_Tumbleweed/
