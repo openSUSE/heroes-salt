@@ -1,0 +1,15 @@
+{%- set mypillar = salt['pillar.get']('profile:dns:powerdns:apiproxy', {}) -%}
+{%- set environments = mypillar.get('environments', []) -%}
+{%- set secrets = mypillar.get('secrets', {}) -%}
+{{ pillar['managed_by_salt'] }}
+# TODO: once all services consuming the PowerDNS API are adjusted to use the proxy, this shall point to a local UNIX socket
+pdns_api_url: http://{{ grains['fqdn'] }}:8080
+pdns_api_token: {{ salt['pillar.get']('powerdns:config:webserver-password') }}
+
+environments:
+{% for env in environments -%}
+  {%- if env['name'] in secrets -%}
+    {%- do environments[loop.index0].update({'token_sha512': secrets[env['name']]}) -%}
+  {%- endif -%}
+{%- endfor -%}
+{{ environments | yaml(False) }}
