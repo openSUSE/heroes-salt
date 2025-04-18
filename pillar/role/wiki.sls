@@ -1,5 +1,6 @@
 include:
   - role.common.apache
+  - role.common.php-fpm
   - role.common.wiki
 
 {%- set default_wiki_version = '1_37' %}
@@ -177,6 +178,9 @@ apparmor:
     httpd2-event:
       source: salt://profile/wiki/files/httpd/apparmor.jinja
       template: jinja
+    php-fpm.d/wiki:
+      source: salt://profile/wiki/files/php-fpm/apparmor.jinja
+      template: jinja
     magick:
       source: salt://profile/wiki/files/magick.apparmor
       template: jinja
@@ -185,12 +189,10 @@ apparmor:
     pygmentize:
       source: salt://profile/wiki/files/pygmentize.apparmor
 
-# list of wikis running MediaWiki 1.27 (this will allow us to migrate to a new version one by one later)
 mediawiki:
   default_version: {{ default_wiki_version }}
   elasticsearch_server: water4.infra.opensuse.org
   mysql_server: mysql.infra.opensuse.org:3307
-  max_upload_size: 10M # poo#111096
   wikis: {{ wikis }}
     # available options:
       # bento_lang: en
@@ -207,6 +209,59 @@ mediawiki:
 # pt-br -> bento_lang pt_BR
 # zh_tw -> bento_lang zh_TW
 # full bento_lang list: https://github.com/openSUSE/opensuse-themes/tree/master/bento/js/l10n
+
+php-fpm:
+  version: 7
+  pools:
+    {%- for wiki, wiki_config in wikis | dictsort %}
+      {%- set version = wiki_config.get('version', default_wiki_version) %}
+    wiki_{{ wiki }}:
+      options:
+        apparmor_hat: wiki_{{ wiki }}
+        user: wwwrun
+        group: www
+        listen: /run/php-fpm/wiki_{{ wiki }}.sock
+        pm: dynamic
+      listen:
+        owner: wwwrun
+        group: www
+        mode: '0600'
+      env:
+        MW_INSTALL_PATH: /srv/www/{{ wiki }}.opensuse.org/public/
+        TMP: /srv/www/{{ wiki }}.opensuse.org/tmp/
+      php_admin_flag:
+        display_errors: false
+        log_errors: true
+      php_admin_value:
+        memory_limit: 16M
+        open_basedir: /srv/www/{{ wiki }}.opensuse.org/:/usr/share/mediawiki_{{ version }}:/dev/urandom:/bin/bash
+        sendmail_path: /usr/sbin/sendmail -t -i -f noreply+{{ wiki }}-wiki@opensuse.org
+        session.save_path: /srv/www/{{ wiki }}.opensuse.org/tmp/
+        upload_max_filesize: 10M
+        upload_tmp_dir: /srv/www/{{ wiki }}.opensuse.org/tmp/
+      {#
+        - below calculations are for 24 PHP vhosts (wikis)
+      -#}
+      pm:
+        {#-
+          - machine has 11286M total memory
+          - keep ~1G for other system processes
+          - worker memory_limit is set to 16M above
+          - ( 11286-1024 ) / 24 / 16 = ~ 27
+          - overprovision (assuming not all wikis are always under full load) by rounding up to 35
+        #}
+        max_children: 35
+        {#-
+          - machine has 4 vCPU cores
+          - 4 * 2
+        #}
+        start_servers: 8
+        min_spare_servers: 8
+        {#-
+          - * 2
+        #}
+        max_spare_servers: 16
+    {%- endfor %}
 
 zypper:
   packages:
