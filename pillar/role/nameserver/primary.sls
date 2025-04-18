@@ -50,3 +50,10 @@ powerdns:
     gmysql-dnssec: yes
     secondary-do-renotify: 'yes'
     api: 'yes'
+
+zypper:
+  repositories:
+    openSUSE:infrastructure:dns:
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/dns/openSUSE_Tumbleweed/
+      priority: 98
+      refresh: True
