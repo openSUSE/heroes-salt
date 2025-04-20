@@ -74,14 +74,16 @@ haproxy:
       tcprequests:
         - inspect-delay 5s
         - content:
-          - accept unless !cookie_os_session path_indexphp param_mw_days param_mw_hide param_mw_limit
+          - accept unless !cookie_os_session path_indexphp param_mw_days_from param_mw_hide !param_mw_limit
+          - accept unless !cookie_os_session path_indexphp param_mw_days_from param_mw_hide param_mw_high_limit
           - accept if WAIT_END
       httprequests:
         - track-sc0: req.hdr_ip(X-Forwarded-For,-1)
         - deny:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
-          - deny_status 403 errorfile {{ errorfiles }}403.html.http if !cookie_os_session path_indexphp param_mw_days param_mw_hide param_mw_limit
+          - deny_status 403 errorfile {{ errorfiles }}403.html.http if !cookie_os_session path_indexphp param_mw_days_from param_mw_hide !param_mw_limit
+          - deny_status 403 errorfile {{ errorfiles }}403.html.http if !cookie_os_session path_indexphp param_mw_days_from param_mw_hide param_mw_high_limit
           - deny_status 429 if { sc_http_req_rate(0) gt 80 } path_indexphp
           - deny_status 429 if { sc_http_req_rate(0) gt 120 } host_mediawiki
           - deny_status 429 if { sc_http_req_rate(0) gt 300 }
