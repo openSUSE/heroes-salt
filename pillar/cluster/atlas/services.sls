@@ -275,9 +275,14 @@ haproxy:
         - param_mw_hide          urlp(hidecategorization)     -m found
         - param_mw_hide          urlp(hideminor)              -m found
         - param_mw_hide          urlp(hidemyself)             -m found
+        - param_mw_limit         urlp(limit)                  -m found
 
-        - param_mw_days          urlp(days)                   -m int gt 0
-        - param_mw_limit         urlp(limit)                  -m int gt 99
+        - param_mw_high_limit    urlp(limit)                  -m int eq 0
+        - param_mw_high_limit    urlp(limit)                  -m int gt 99
+        - param_mw_high_limit    urlp(limit)                  -m len 0
+
+        - param_mw_days_from     urlp(days)                   -m int gt 0
+        - param_mw_days_from     urlp(from)                   -m int gt 0
 
       use_backends:
         - dale              if src_login host_dale
