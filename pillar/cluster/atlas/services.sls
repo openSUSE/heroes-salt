@@ -268,6 +268,17 @@ haproxy:
         - host_mediawiki    hdr(host)    {{ wiki }}.opensuse.org
         {%- endfor %}
 
+        - cookie_os_session      req.cook(openSUSE_Session2)  -m found
+
+        - param_mw_hide          urlp(hideanons)              -m found
+        - param_mw_hide          urlp(hidebots)               -m found
+        - param_mw_hide          urlp(hidecategorization)     -m found
+        - param_mw_hide          urlp(hideminor)              -m found
+        - param_mw_hide          urlp(hidemyself)             -m found
+
+        - param_mw_days          urlp(days)                   -m int gt 0
+        - param_mw_limit         urlp(limit)                  -m int gt 99
+
       use_backends:
         - dale              if src_login host_dale
         - elections         if src_login host_elections
