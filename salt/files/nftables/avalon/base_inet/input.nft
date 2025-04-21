@@ -1,6 +1,9 @@
 ###################################################
 ## MANAGED BY SALT in salt/files/nftables/avalon ##
 ###################################################
+{#-
+vim:filetype=nftables.jinja
+#}
 
  # input chain for traffic towards the local system (i.e. this firewall itself)
  chain input {
@@ -9,21 +12,15 @@
 
    jump global
 
-   iif vmap {
-     os-avalon        : jump network_os-avalon,
-     os-avalon-ct     : jump network_os-avalon,
-     os-bare          : jump input_network_os-bare,
-     os-dbginfod      : jump input_network_os-dbginfod,
-     os-devcon        : jump input_network_os-devcon,
-     os-internal      : jump input_network_os-internal,
-     os-mircache      : jump input_network_os-mircache,
-     os-mirror        : jump input_network_os-mirror,
-     os-p2p-pub       : jump input_network_os-p2p-pub,
-     os-public        : jump input_network_os-public,
-     os-s-warp        : jump input_network_os-s-warp,
-     os-salt          : jump input_network_os-salt,
-     os-sif           : jump input_network_os-sif,
-   }
+  iif vmap {
+    os-avalon                      : jump network_os-avalon,
+    os-avalon-ct                   : jump network_os-avalon,
+    os-p2p-pub                     : jump input_network_os-p2p-pub,
+    {%- for network, network_config in pillar['networks']['sites']['slc1'].items() | sort(attribute='1.short') %}
+      {%- set shortnet = network_config['short'] %}
+    {{ shortnet }} {{ ( ': jump input_network_' ~ shortnet ) | indent(30 - shortnet | length, true) }},
+    {%- endfor %}
+  }
 
    iifname nueqsc_stonehat jump input_network_nueqsc
    iifname prg2_asgard jump input_network_prg2

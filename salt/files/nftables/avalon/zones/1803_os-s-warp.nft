@@ -4,7 +4,7 @@
 
  chain input_network_os-s-warp {
    jump global_internal
-   ip6 saddr @net6_os-s-warp ip6 daddr @lan_ipv6 accept
+   ip6 saddr @net6_os-s-warp ip6 daddr @lan_ipv6_slc1 accept
    ip6 nexthdr icmpv6 accept
    ip6 saddr @host6_slc-warp ip6 daddr @host6_avalon tcp dport ssh accept
    ip6 saddr @host6_slc-warp ip6 daddr @self6_s-warp tcp dport ssh accept

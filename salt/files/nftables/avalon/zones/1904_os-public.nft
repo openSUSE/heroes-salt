@@ -12,8 +12,8 @@
    # slc-ns{1,2} -> chip (DNS XFR) + internet (DNS recursion)
    ip6 saddr @host6_slc-ns ip6 daddr @host6_chip udp dport 53 accept
    ip6 saddr @host6_slc-ns ip6 daddr @host6_chip tcp dport 53 accept
-   ip6 saddr @host6_slc-ns ip6 daddr != @lan_ipv6_nonat udp dport 53 accept
-   ip6 saddr @host6_slc-ns ip6 daddr != @lan_ipv6_nonat tcp dport 53 accept
+   ip6 saddr @host6_slc-ns ip6 daddr != @lan_ipv6_slc1_nonat udp dport 53 accept
+   ip6 saddr @host6_slc-ns ip6 daddr != @lan_ipv6_slc1_nonat tcp dport 53 accept
    ip saddr @host4_slc-ns ip daddr != $net4_nat64 udp dport 53 accept
    ip saddr @host4_slc-ns ip daddr != $net4_nat64 tcp dport 53 accept
 
@@ -27,5 +27,8 @@
    ip6 saddr @host6_globus ip6 daddr @host6_jekyll tcp dport http accept
 
    log prefix "[avalon] Public Denied: " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-public {
  }
 
