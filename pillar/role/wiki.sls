@@ -191,7 +191,7 @@ apparmor:
       source: salt://profile/wiki/files/pygmentize.apparmor
 
 mediawiki:
-  default_version: {{ default_wiki_version }}
+  default_version: '{{ default_wiki_version }}'
   elasticsearch_server: water4.infra.opensuse.org
   mysql_server: mysql.infra.opensuse.org:3307
   wikis: {{ wikis }}
