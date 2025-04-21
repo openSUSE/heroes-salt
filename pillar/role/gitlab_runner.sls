@@ -16,7 +16,7 @@ profile:
       fixed-cidr-v6: 2a07:de40:b27e:400{{ grains['host'][-1] }}::/64
   gitlab_runner:
     config:
-      concurrent: 30
+      concurrent: 20
       check_interval: 5
       user: gitlab-runner
       shutdown_timeout: 0
