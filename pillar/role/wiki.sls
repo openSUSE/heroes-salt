@@ -99,6 +99,7 @@ zh-tw:
 apache_httpd:
   modules:
     - apparmor
+    - proxy
     - proxy_fcgi
   sysconfig:
     apache_serveradmin: admin@opensuse.org
