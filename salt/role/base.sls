@@ -30,7 +30,7 @@ include:
   - bootloader
   - firewalld
   - profile.nftables
-  - os_update
+  - os-update
   - rebootmgr
   - profile.etckeeper
 
