@@ -130,6 +130,8 @@ apache_httpd:
       RewriteEngine: true
       Directory:
         {{ root }}:
+          Options:
+            - FollowSymLinks
           Require: all granted
           RewriteCond:
             - '%{REQUEST_FILENAME}': '!-f'
