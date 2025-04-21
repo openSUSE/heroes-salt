@@ -111,7 +111,7 @@ apache_httpd:
       DirectoryIndex: index.php
     log:
       LogFormat: >-
-        %a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"
+        "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
         combinedproxy
     trace:
       TraceEnable: off
