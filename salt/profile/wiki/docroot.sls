@@ -71,3 +71,10 @@
 /srv/www/migrate-wiki-counter.sql:
   file.managed:
     - source: salt://profile/wiki/files/migrate-wiki-counter.sql
+
+/srv/www/files.opensuse.org/public:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: '0755'
+    - makedirs: True

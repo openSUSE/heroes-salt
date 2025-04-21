@@ -1,9 +1,9 @@
-# managed by salt - do not edit!
-
+{{ pillar['managed_by_salt'] }}
 # ------------------------------------------------------------------
 #
 #    Copyright (C) 2002-2005 Novell/SUSE
-#    Copyright (C) 2017-2021 Christian Boltz
+#    Copyright (C) 2017-2025 Christian Boltz
+#    Copyright (C) 2025-2025 Georg Pfuetzenreuter
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -12,10 +12,7 @@
 # ------------------------------------------------------------------
 
 #include <tunables/global>
-
-@{wiki_upload_extensions}=doc docx gif jpg jpeg odp ods odt pdf png ppt pptx svg sxc sxw xls xlsx
-
-profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_disconnected) {
+profile httpd2-event /usr/sbin/httpd{,2}-event flags=(complain,attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/bash>
   #include <abstractions/consoles>
@@ -35,7 +32,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   capability sys_ptrace,
   capability sys_tty_config,
 
-  signal send set=(usr1 term) peer=httpd2-prefork//*,
+  signal send set=(usr1 term) peer=httpd2-event//*,
 
   / rw,
   /bin/bash rix,
@@ -63,19 +60,19 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   /usr/apache2/error/* r,
   /usr/lib/apache2-leader/{lib,mod_}*.so* mr,
   /usr/lib/apache2-metuxmpm/{lib,mod_}*.so* mr,
-  /usr/lib/apache2-prefork/{lib,mod_}*.so* mr,
+  /usr/lib/apache2-event/{lib,mod_}*.so* mr,
   /usr/lib/apache2-worker/{lib,mod_}*.so* mr,
   /usr/lib/apache2/modules/{lib,mod_}*.so* mr,
   /usr/lib/apache2/{lib,mod_}*.so mr,
   /usr/lib/mysql/libmysql*.so* mr,
   /usr/lib64/apache2-leader/{lib,mod_}*.so* mr,
   /usr/lib64/apache2-metuxmpm/{lib,mod_}*.so* mr,
-  /usr/lib64/apache2-prefork/{lib,mod_}*.so* mr,
+  /usr/lib64/apache2-event/{lib,mod_}*.so* mr,
   /usr/lib64/apache2-worker/{lib,mod_}*.so* mr,
   /usr/lib64/apache2/modules/{lib,mod_}*.so* mr,
   /usr/lib64/apache2/{lib,mod_}*.so* mr,
   /usr/lib64/mysql/libmysql*.so* mr,
-  /usr/sbin/httpd{,2}-prefork mr,
+  /usr/sbin/httpd{,2}-event mr,
   /usr/sbin/suexec2 mrix,
   /usr/share/apache2/error/** r,
   /usr/share/apache2/icons/** r,
@@ -100,7 +97,7 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
   ^HANDLING_UNTRUSTED_INPUT flags=(complain,attach_disconnected) {
     #include <abstractions/nameservice>
 
-    signal receive set=(usr1 term) peer=httpd2-prefork,
+    signal receive set=(usr1 term) peer=httpd2-event,
 
     /**/.htaccess r,
     /dev/urandom r,
@@ -108,45 +105,40 @@ profile httpd2-prefork /usr/sbin/httpd{,2}-prefork flags=(complain,attach_discon
     /var/lib/apache2/ssl_mutex wk,
     /var/log/apache2/access_log w,
     /var/log/apache2/error_log w,
-    /var/log/apache2/error_log-20[12][0-9][01][0-9][0-3][0-9] w,
-    /var/log/apache2/ssl_request_log w,
-
-    # strange, but happens in practise
-    /var/log/apache2/cn-access_log w,
-    /var/log/apache2/files-access_log w,
-
   }
 
-  ^localhost flags=(complain,attach_disconnected) {
-    /proc/*/attr/current rw,
-    /proc/loadavg r,
-    /var/log/apache2/access_log w,
+  ^localhost flags=(attach_disconnected) {
+    #include <abstractions/apache2-common>
+
+    signal receive set=(usr1 term) peer=httpd2-event,
+
+    /srv/www/htdocs/{,**} r,
+
+    /var/log/apache2/localhost-access_log w,
+    /var/log/apache2/localhost-error_log w,
   }
+
+  {%- for wiki in salt['pillar.get']('mediawiki:wikis', {}) | sort %}
+  ^vhost_{{ wiki }} flags=(attach_disconnected) {
+    #include <abstractions/apache2-common>
+
+    signal receive set=(usr1 term) peer=httpd2-event,
+
+    /srv/www/{{ wiki }}.opensuse.org/public/{,**} r,
+
+    /var/log/apache2/{{ wiki }}-access_log w,
+    /var/log/apache2/{{ wiki }}-error_log w,
+  }
+  {%- endfor %}
 
   ^vhost_files flags=(attach_disconnected) {
     #include <abstractions/apache2-common>
 
-    signal receive set=(usr1 term) peer=httpd2-prefork,
+    signal receive set=(usr1 term) peer=httpd2-event,
+
+    /srv/www/files.opensuse.org/public/{,**} r,
 
     /var/log/apache2/files-access_log w,
-    /var/log/apache2/files-access_log-20[12][0-9][01][0-9][0-3][0-9] w,
-    /var/log/apache2/error_log w,
-
-    /srv/www/files.opensuse.org/public/ r,
-    /srv/www/files.opensuse.org/public/** r,
+    /var/log/apache2/files-error_log w,
   }
-
-  #  {% for wiki in pillar['mediawiki']['wikis']|sort %}
-  ^vhost_{{wiki}}wiki flags=(complain,attach_disconnected) {
-    #include <abstractions/apache2-common>
-    #include <abstractions/base>
-
-    signal receive set=(usr1 term) peer=httpd2-prefork,
-
-  }
-  #  {% endfor %}
-
 }
-
-# vim: ft=apparmor expandtab
-

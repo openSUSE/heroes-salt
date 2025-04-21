@@ -120,6 +120,7 @@ infrastructure:
             'multipath',
             'network',
             'os_update',
+            'php_fpm',
             'rebootmgr',
             'redis',
             'redmine',
