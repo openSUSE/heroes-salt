@@ -125,6 +125,7 @@ profile httpd2-event /usr/sbin/httpd{,2}-event flags=(complain,attach_disconnect
     signal receive set=(usr1 term) peer=httpd2-event,
 
     /srv/www/{{ wiki }}.opensuse.org/public/{,**} r,
+    /usr/share/mediawiki_1_*/** r,
 
     /var/log/apache2/{{ wiki }}-access_log w,
     /var/log/apache2/{{ wiki }}-error_log w,
