@@ -120,6 +120,7 @@ apache_httpd:
       {%- set pool = 'wiki_' ~ wiki %}
       {%- set root = '/srv/www/' ~ domain ~ '/public' %}
     {{ domain }}:
+      AADefaultHatName: vhost_{{ wiki }}
       ServerName: {{ domain }}
       DocumentRoot: {{ root }}
       FilesMatch:

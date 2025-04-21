@@ -118,6 +118,19 @@ profile httpd2-event /usr/sbin/httpd{,2}-event flags=(complain,attach_disconnect
     /var/log/apache2/localhost-error_log w,
   }
 
+  {%- for wiki in salt['pillar.get']('mediawiki:wikis', {}) | sort %}
+  ^vhost_{{ wiki }} flags=(attach_disconnected) {
+    #include <abstractions/apache2-common>
+
+    signal receive set=(usr1 term) peer=httpd2-event,
+
+    /srv/www/{{ wiki }}.opensuse.org/public/{,**} r,
+
+    /var/log/apache2/{{ wiki }}-access_log w,
+    /var/log/apache2/{{ wiki }}-error_log w,
+  }
+  {%- endfor %}
+
   ^vhost_files flags=(attach_disconnected) {
     #include <abstractions/apache2-common>
 
