@@ -199,6 +199,7 @@ prometheus:
               port: 9253
               roles:
                 - limesurvey
+                - wiki
               simple: true
               targets: []
 

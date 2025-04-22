@@ -217,14 +217,18 @@ mediawiki:
 php-fpm:
   version: 7
   pools:
+    {%- set stats_uris = [] %}
     {%- for wiki, wiki_config in wikis | dictsort %}
       {%- set version = wiki_config.get('version', default_wiki_version) %}
+      {%- set socket_path = '/run/php-fpm/wiki_' ~ wiki ~ '.sock' %}
+      {%- set status_path = '/status' %}
+      {%- do stats_uris.append('unix://' ~ socket_path ~ ';' ~ status_path) %}
     wiki_{{ wiki }}:
       options:
         apparmor_hat: wiki_{{ wiki }}
         user: wwwrun
         group: www
-        listen: /run/php-fpm/wiki_{{ wiki }}.sock
+        listen: {{ socket_path }}
         pm: dynamic
       listen:
         owner: wwwrun
@@ -265,7 +269,17 @@ php-fpm:
           - * 2
         #}
         max_spare_servers: 16
+
+        status_path: {{ status_path }}
     {%- endfor %}
+
+prometheus:
+  pkg:
+    component:
+      php-fpm_exporter:
+        environ:
+          args:
+            phpfpm.scrape-uri: {{ ','.join(stats_uris) }}
 
 zypper:
   packages:
