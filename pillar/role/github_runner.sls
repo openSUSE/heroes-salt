@@ -1,1 +1,4 @@
+firewalld:
+  enabled: true
+
 # empty :-(

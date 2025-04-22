@@ -1,3 +1,9 @@
+firewalld:
+  zones:
+    internal:
+      interfaces:
+        - os-ghr-c
+
 network:
   interfaces:
     os-ghr-c:
