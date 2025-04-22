@@ -233,7 +233,7 @@ php-fpm:
       listen:
         owner: wwwrun
         group: www
-        mode: '0600'
+        mode: '0660'
       env:
         MW_INSTALL_PATH: /srv/www/{{ wiki }}.opensuse.org/public/
         TMP: /srv/www/{{ wiki }}.opensuse.org/tmp/
