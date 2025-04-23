@@ -144,4 +144,10 @@ profile httpd2-event /usr/sbin/httpd{,2}-event flags=(complain,attach_disconnect
     /var/log/apache2/files-access_log w,
     /var/log/apache2/files-error_log w,
   }
+
+  ^status {
+    /proc/*/attr/apparmor/current rw,
+    /usr/share/zoneinfo/UTC r,
+  }
+
 }
