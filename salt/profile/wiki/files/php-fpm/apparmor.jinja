@@ -26,7 +26,7 @@ profile wiki_{{ wiki }} flags=(attach_disconnected) {
     /srv/www/{{ wiki }}.opensuse.org/public/ r,
     /srv/www/{{ wiki }}.opensuse.org/public/** r,
     /srv/www/{{ wiki }}.opensuse.org/public/images/**/ rw,
-    /srv/www/{{ wiki }}.opensuse.org/public/images/*/*/.*.tmpfsfile rwk,
+    /srv/www/{{ wiki }}.opensuse.org/public/images/{thumb/,}*/*/.*.tmpfsfile rwk,
     /srv/www/{{ wiki }}.opensuse.org/public/images/temp/*/*/* rwk,
     /srv/www/{{ wiki }}.opensuse.org/public/images/temp/chunkedupload_* rw,
     /srv/www/{{ wiki }}.opensuse.org/public/images/temp/shellbox-*/file rw,
