@@ -5,13 +5,11 @@
  chain input_network_os-ghr-c {
   jump global_internal
 
-  # get.k3s.io
-  oif os-p2p-pub ip6 saddr @host6_apollo_c ip6 daddr @cloud6_get_k3s icmpv6 type { echo-request, echo-reply } accept
-  oif os-p2p-pub ip6 saddr @host6_apollo_c ip6 daddr @cloud6_get_k3s tcp dport https accept
-
-  # docker.io/hub.docker.com
-  oif os-p2p-pub ip6 saddr @host6_apollo_c ip6 daddr @cloud6_dockerhub icmpv6 type { echo-request, echo-reply } accept
-  oif os-p2p-pub ip6 saddr @host6_apollo_c ip6 daddr @cloud6_dockerhub tcp dport https accept
+  # no realistic limitations possible due to setup of Docker registry and GitHub
+  oif os-p2p-pub ip6 saddr @host6_apollo_c ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
+  oif os-p2p-pub ip6 saddr @host6_apollo_c ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
+  oifname nat64 ip6 saddr @host6_apollo_c ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
+  oifname nat64 ip6 saddr @host6_apollo_c ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
 
   jump acl_internet_github
 
