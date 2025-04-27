@@ -63,7 +63,3 @@ zypper:
       baseurl: https://$mirror_ext/repositories/devel:/languages:/ruby/$releasever/
       priority: 99
       refresh: True
-    devel:languages:ruby:extensions:
-      baseurl: https://$mirror_ext/repositories/devel:/languages:/ruby:/extensions/$releasever/
-      priority: 99
-      refresh: True
