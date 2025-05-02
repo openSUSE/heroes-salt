@@ -50,6 +50,9 @@ haproxy:
       tcprequests:
         - inspect-delay 5s
         - content:
+          # emergency brake due to excessive requests from pagure01 https://progress.opensuse.org/issues/181646
+          - reject if host_www path_openid { src 2a07:de40:b27e:1206::a/128 }
+
           - accept unless host_redmine cookie_ipsilon_username_missing speedy_35
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
           - accept if WAIT_END
