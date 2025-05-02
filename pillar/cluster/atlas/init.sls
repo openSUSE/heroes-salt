@@ -66,7 +66,7 @@ haproxy:
           - deny_status 429 if speedy_300 !src_limit_exclude
         - return:
           - status 404 if suffix_asp
-          - status 404 if suffix_php !host_limesurvey !host_pmya
+          - status 404 if suffix_php !host_beans !host_limesurvey !host_pmya
 
     http-login:
       bind:
