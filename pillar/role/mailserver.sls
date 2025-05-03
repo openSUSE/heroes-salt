@@ -148,7 +148,6 @@ profile:
 
 zypper:
   packages:
-    jq: {}
     postsrsd: {}
     postgrey: {}
     clamav: {}
