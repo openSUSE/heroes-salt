@@ -264,6 +264,7 @@ zypper:
     curl: {}
     git-core: {}
     htop: {}
+    jq: {}
     less: {}
     lsof: {}
     moreutils: {}
