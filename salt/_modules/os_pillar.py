@@ -25,6 +25,7 @@ repository = '/srv/salt-git'
 file_root = f'{repository}/salt'
 pillar_root = f'{repository}/pillar'
 
+data = {}
 
 def _load(dataset):
     with open(f'{pillar_root}/infra/{dataset}.yaml') as fh:
@@ -32,11 +33,15 @@ def _load(dataset):
 
 
 def _load_hosts():
-    return _load('hosts')
+    if 'hosts' not in data:
+        data['hosts'] = _load('hosts')
+    return data['hosts']
 
 
 def _load_networks():
-    return _load('networks')
+    if 'networks' not in data:
+        data['networks'] = _load('networks')
+    return data['networks']
 
 
 def get_host(host):
