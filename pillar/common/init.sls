@@ -4,7 +4,7 @@
 {% set osrelease = salt['grains.get']('osrelease') %}
 {%- set virtual = salt['grains.get']('virtual') -%}
 {%- set site = salt['grains.get']('site') -%}
-{%- set address = salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[grains['host'], True]) -%}
+{%- set address = salt['os_pillar.get_host_ip6'](grains['host'], True) -%}
 {%- set configure_ntp = salt['grains.get']('configure_ntp', True) %}
 {%- set id = grains['id'] %}
 

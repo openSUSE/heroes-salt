@@ -3,8 +3,8 @@
 {%- set id_host = id.split('.')[0] -%}
 
 {#- try hosts.yaml lookup -#}
-{%- set address6 = salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[id_host, True]) -%}
-{%- set address4 = salt['saltutil.runner']('os_pillar.get_host_ip4', arg=[id_host, True]) -%}
+{%- set address6 = salt['os_pillar.get_host_ip6'](id_host, True) -%}
+{%- set address4 = salt['os_pillar.get_host_ip4'](id_host, True) -%}
 
 {#- if not successful, try grains lookup -#}
 {#- IPv4, based on private addresses -#}

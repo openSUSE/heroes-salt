@@ -1,9 +1,9 @@
 """
-Extension module for fetching host configuraton data from hosts.yaml
+Execution module for fetching host configuraton data from hosts.yaml
 
 Author: Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
 
-Copyright (C) 2023 openSUSE contributors
+Copyright (C) 2023-2025 openSUSE contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -79,14 +79,14 @@ def get_host_ips(host):
 def get_host_ip4(host, strip_cidr=False):
     address = get_host_ips(host).get('ip4')
     if strip_cidr and address is not None:
-        address = __salt__['salt.cmd']('os_network.strip_cidr', address)  # noqa F821
+        address = __salt__['os_network.strip_cidr'](address)  # noqa F821
     return address
 
 
 def get_host_ip6(host, strip_cidr=False):
     address = get_host_ips(host).get('ip6')
     if strip_cidr and address is not None:
-        address = __salt__['salt.cmd']('os_network.strip_cidr', address)  # noqa F821
+        address = __salt__['os_network.strip_cidr'](address)  # noqa F821
     return address
 
 
@@ -108,5 +108,5 @@ def get_host_ip4to6(host, prefix=None, network=None):
                 network = 'openSUSE-NAT46-Pool'
             prefix = get_network('pseudo', network).get('net6')
         if prefix is not None:
-            return __salt__['salt.cmd']('os_network.convert_4to6', __salt__['salt.cmd']('os_network.strip_cidr', host_config), prefix)  # noqa F821
+            return __salt__['os_network.convert_4to6'](__salt__['os_network.strip_cidr'](host_config), prefix)  # noqa F821
     return None

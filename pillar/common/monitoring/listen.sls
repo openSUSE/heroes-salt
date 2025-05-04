@@ -4,7 +4,7 @@ This pillar template implements logic to determine the best suitable listening a
 
 {#- first try:
     query hosts.yaml #}
-{%- set address = salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[grains['host'], True]) -%}
+{%- set address = salt['os_pillar.get_host_ip6'](grains['host'], True) -%}
 
 {#- second try:
     iterate over FQDN derived addresses and find one in the PRG2 supernet where we can assume machines have only a single relevant IPv6 equipped interface #}

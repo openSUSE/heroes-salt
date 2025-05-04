@@ -150,7 +150,6 @@ tee /etc/salt/minion.d/roots.conf >/dev/null <<-EOF
 ln -s "$PWD/salt" /srv/salt
 
 salt-call --local saltutil.runner saltutil.sync_modules
-salt-call --local saltutil.runner saltutil.sync_runners
 salt-call --local saltutil.sync_grains
 salt-call --local saltutil.sync_modules
 salt-call --local saltutil.sync_states
