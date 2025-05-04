@@ -7,11 +7,13 @@
 {%- set osfullname = salt['grains.get']('osfullname') -%}
 
 {{ saltenv }}:
+  {%- if id[-7:] != '_master' %}
   '*':
     - common
   'osfullname:{{ osfullname }}':
     - match: grain
     - osfullname.{{ osfullname.replace(' ', '_') }}
+  {%- endif %}
   '{{ id }}':
     - id.{{ id_subst }}
   {%- if cluster %}
