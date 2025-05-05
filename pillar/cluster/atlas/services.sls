@@ -10,7 +10,7 @@ haproxy:
               'matrix',
             ]
         %}
-        - src_limit_exclude src {{ salt['saltutil.runner']('os_pillar.get_host_ip6', arg=[host, True]) }}/128
+        - src_limit_exclude src {{ salt['os_pillar.get_host_ip6'](host, True) }}/128
         {%- endfor %}
         - no_x-frame-option var(txn.host) -m str chat.opensuse.org
         - no_x-frame-option var(txn.host) -m str dimension.opensuse.org
