@@ -134,6 +134,12 @@ haproxy:
       {{ options('httpchk') }}
       {{ httpcheck('progress.opensuse.org', 200) }}
       {{ server('progressoo', '2a07:de40:b27e:1203::b17', 3001, extra_extra='maxconn 16') }}
+      # TODO: add "httpresponses" backend support to formula template
+      extra:
+        - >-
+            http-response set-header
+            Cache-Control max-age=604800,\ immutable
+            if { capture.req.uri -m reg ^/assets/.*-[0-9a-f]{8}\.(css|eot|gif|ico|js|json|otf|png|svg|ttf|txt|woff2?)$ }
     riesling:
       {{ options() }}
       {{ server('riesling', '2a07:de40:b27e:1203::b2') }}
