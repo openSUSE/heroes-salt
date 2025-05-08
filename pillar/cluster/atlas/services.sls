@@ -44,6 +44,12 @@ haproxy:
         - path_openid            path_beg    -i /openid-ldap
         - path_openid            path_beg    -i /idp
         - path_piwik             path        /piwik/index.php
+        - path_redmine_gantt     path        /issues/gantt
+        - path_redmine_gantt     path_reg    ^/projects/.*/issues/gantt$
+        - path_redmine_gantt_pdf path        /issues/gantt.pdf
+        - path_redmine_gantt_pdf path_reg    ^/projects/.*/issues/gantt\.pdf$
+        - path_redmine_gantt_png path        /issues/gantt.png
+        - path_redmine_gantt_png path_reg    ^/projects/.*/issues/gantt\.png$
         - path_redmine_git       path_reg    ^/projects/.*/repository/.*/
         - path_relnotes          path_beg    /release-notes/
         - path_robots            path        /robots.txt

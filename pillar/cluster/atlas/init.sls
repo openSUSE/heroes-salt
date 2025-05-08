@@ -55,14 +55,22 @@ haproxy:
 
           - accept unless host_redmine cookie_ipsilon_username_missing speedy_35
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
+          - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt
+          - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf
+          - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt_png
           - accept if WAIT_END
       httprequests:
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck
+          # https://progress.opensuse.org/issues/181934
+          - deny_status 403 errorfile /etc/haproxy/errorfiles/403.html.http if host_redmine path_redmine_gantt
+          - deny_status 403 errorfile /etc/haproxy/errorfiles/403.html.http if host_redmine path_redmine_gantt_png
           - deny_status 403 errorfile {{ errorfiles }}403.html.http if host_redmine cookie_ipsilon_username_missing path_redmine_git difficult_country
+          - deny_status 403 errorfile {{ errorfiles }}403.html.http if host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf difficult_country
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
           - deny_status 429 if speedy_45 host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing path_redmine_git
+          - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf
           - deny_status 429 if { sc_http_req_rate(0) gt 40 } host_redmine cookie_ipsilon_username_missing
           - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude
