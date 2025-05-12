@@ -6,6 +6,8 @@ haproxy:
         - speedy_45 sc0_conn_rate(http) gt 45
 
         - internal_clients src 2a07:de40:b27e::/48  # PRG2
+        - src_suse_office src 2a01:4a0:11::2/128  # NUE2
+        - src_suse_office src 81.95.8.245/32      # NUE2
         {%- for host in [
               'matrix',
             ]

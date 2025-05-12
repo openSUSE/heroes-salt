@@ -53,6 +53,8 @@ haproxy:
           # emergency brake due to excessive requests from pagure01 https://progress.opensuse.org/issues/181646
           - reject if host_www path_openid { src 2a07:de40:b27e:1206::a/128 }
 
+          - accept if src_suse_office
+
           - accept unless host_redmine cookie_ipsilon_username_missing speedy_35
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt
@@ -68,11 +70,12 @@ haproxy:
           - deny_status 403 errorfile {{ errorfiles }}403.html.http if host_redmine cookie_ipsilon_username_missing path_redmine_git difficult_country
           - deny_status 403 errorfile {{ errorfiles }}403.html.http if host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf difficult_country
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
-          - deny_status 429 if speedy_45 host_redmine cookie_ipsilon_username_missing
+          - deny_status 429 if speedy_45 host_redmine cookie_ipsilon_username_missing !src_suse_office
           - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing path_redmine_git
           - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf
-          - deny_status 429 if { sc_http_req_rate(0) gt 40 } host_redmine cookie_ipsilon_username_missing
-          - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine
+          - deny_status 429 if { sc_http_req_rate(0) gt 40 } host_redmine cookie_ipsilon_username_missing !src_suse_office
+          - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine !src_suse_office
+          - deny_status 429 if { sc_http_req_rate(0) gt 150 } host_redmine
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude
           - deny_status 429 if speedy_300 !src_limit_exclude
         - return:
