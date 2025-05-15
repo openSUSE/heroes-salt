@@ -45,6 +45,15 @@ pgbouncer_config:
     - require:
       - pkg: pgbouncer_packages
 
+pgbouncer_systemd_override:
+  file.managed:
+    - name: /etc/systemd/system/pgbouncer.service.d/salt.conf
+    - makedirs: True
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - '[Service]'
+        - LimitNOFILE=5000
+
 pgbouncer_service:
   service.running:
     - name: pgbouncer
@@ -54,3 +63,4 @@ pgbouncer_service:
       - pkg: pgbouncer_packages
     - watch:
       - file: pgbouncer_config
+      - file: pgbouncer_systemd_override
