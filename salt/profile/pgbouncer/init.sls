@@ -1,3 +1,6 @@
+include:
+  - profile.systemd.daemon-reload
+
 pgbouncer_packages:
   pkg.installed:
     - name: pgbouncer
@@ -63,4 +66,12 @@ pgbouncer_service:
       - pkg: pgbouncer_packages
     - watch:
       - file: pgbouncer_config
-      - file: pgbouncer_systemd_override
+
+pgbouncer_service_restart:
+  module.wait:
+    - name: service.restart
+    - m_name: pgbouncer
+    - require:
+        - module: systemd_reload_daemon
+    - watch:
+        - file: pgbouncer_systemd_override
