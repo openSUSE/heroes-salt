@@ -62,7 +62,6 @@ profile:
           ca: https://acme.infra.opensuse.org/acme/acme/directory
           {%- else %}
           ca: {{ instance }}
-          ocsp_fetch: yes
           {%- endif %}
           {%- if instance == 'letsencrypt-test' %}
           renew_days: 45
