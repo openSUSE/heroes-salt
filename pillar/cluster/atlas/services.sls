@@ -35,6 +35,7 @@ haproxy:
         - path_grafana_login     path        /grafana/login
         - path_grafana           path_beg    /grafana/
         - path_hyperkitty_export path_reg    ^/archives/list/commit@lists.opensuse.org/export/commit@lists.opensuse.org-.+\.mbox\.gz$
+        - path_lnt_graph         path_end    /graph
         - path_matomo            path        /matomo/index.php
         - path_matrix_block      path_beg    /_matrix/federation/v2/invite
         - path_matrix_client     path_beg    /.well-known/matrix/client
