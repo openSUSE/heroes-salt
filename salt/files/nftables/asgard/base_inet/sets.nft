@@ -680,6 +680,14 @@ set host6_daffy {
     }
 }
 
+set host6_kasydev {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_kasydev01,
+    }
+}
+
 set cloud6_telegram {
   type ipv6_addr
   flags interval
