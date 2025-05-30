@@ -39,6 +39,8 @@ network:
           'os-kani': 1210,
           'os-netbox': 1211,
           'os-log': 1215,
+          'os-kani-dev': 1216,
+          'os-kani-ext': 1217,
         }
     %}
     {%- for vlan_name, vlan_id in vlanmap.items() %}
