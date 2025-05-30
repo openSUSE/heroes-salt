@@ -89,6 +89,16 @@ prg2:
     net6: 2a07:de40:b27e:1215::/64
     gw6: 2a07:de40:b27e:1215::3
     id: 1215
+  openSUSE-kani-dev:
+    short: os-kani-dev
+    net6: 2a07:de40:b27e:1216::/64
+    gw6: 2a07:de40:b27e:1216::3
+    id: 1216
+  openSUSE-kani-ext:
+    short: os-kani-ext
+    net6: 2a07:de40:b27e:1217::/64
+    gw6: 2a07:de40:b27e:1217::3
+    id: 1217
 
 slc1:
   openSUSE-bare:
