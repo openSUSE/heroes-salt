@@ -225,6 +225,7 @@ define host6_slc-ns2     = 2a07:de40:617e:1904::7/128
 define host6_daffy       = 2a07:de40:b280:0086:0000:0000:0000:0010/128
 define host6_daffy1      = 2a07:de40:b280:0086:0000:0000:0000:0011/128
 define host6_daffy2      = 2a07:de40:b280:0086:0000:0000:0000:0012/128
+define host6_kasydev01   = 2a07:de40:b281:006a:0010:0150:0136:0003/128
 define host6_ldap-proxy_int = 2a07:de40:b280:0087:0000:0000:0000:0001/128 # address configured on the ldap-proxy main interface
 define host6_ldap-proxy_ext = 2a07:de40:b250:0087:0000:0000:0000:0001/128 # SUSE side NAT6
 

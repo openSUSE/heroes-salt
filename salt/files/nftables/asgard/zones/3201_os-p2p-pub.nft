@@ -63,6 +63,11 @@
   ip6 saddr @host6_daffy ip6 daddr @host6_atlas_login ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_daffy ip6 daddr @host6_atlas_login tcp dport https accept
 
+  # kasydev* -> hel* (ICMP/ping, DNS, HTTPS) for Kanidm
+  ip6 saddr @host6_kasydev ip6 daddr @host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @host6_kasydev ip6 daddr @host6_hel udp dport domain accept
+  ip6 saddr @host6_kasydev ip6 daddr @host6_hel tcp dport { domain, https } accept
+
   # traceroute
   ip protocol udp reject
   ip6 nexthdr udp reject
