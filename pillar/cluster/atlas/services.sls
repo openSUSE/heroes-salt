@@ -19,6 +19,11 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
 
+        - berghain_active  var(req.berghain.level) -m found
+        - berghain_down    var(txn.berghain.error) -m int gt 0
+        - berghain_path    path                    /cdn-cgi/challenge-platform/challenge
+        - berghain_valid   var(txn.berghain.valid) -m bool
+
         - cookie_ipsilon_username_missing req.cook_cnt(ipsilon_default_username) eq 0
 
         {%- for country in [
@@ -34,6 +39,7 @@ haproxy:
         - path_favicon           path        /favicon.ico
         - path_grafana_login     path        /grafana/login
         - path_grafana           path_beg    /grafana/
+        - path_hyperkitty_api    path_beg    /archives/api/
         - path_hyperkitty_export path_reg    ^/archives/list/commit@lists.opensuse.org/export/commit@lists.opensuse.org-.+\.mbox\.gz$
         - path_lnt_graph         path_end    /graph
         - path_matomo            path        /matomo/index.php
@@ -63,7 +69,9 @@ haproxy:
         - suffix_asp             path_end    .asp
         - suffix_asp             path_end    .aspx
         - suffix_env             path_end    .env
+        - suffix_json            path_end    .json
         - suffix_php             path_end    .php
+        - suffix_xml             path_end    .xml
 
         - host_beans        hdr(host)   -i beans.opensuse.org
         - host_calendar     hdr(host)   -i calendar.opensuse.org
@@ -161,6 +169,22 @@ haproxy:
 
       default_backend: redirect_www_o_o
       use_backends:
+        {#- host_ ACLs to enable POW challenge protection for, excluding paths commonly needed by legitimate scripts #}
+        {%- for host, excludes in {
+              'mailman3': '!path_hyperkitty_api',
+              'redmine': '!suffix_json !suffix_xml',
+            }.items()
+        %}
+        - >-
+            berghain_http_challenge_front if
+            host_{{ host }} method_get !good_crawler
+            !path_favicon !path_robots !path_security
+            berghain_active !berghain_down !berghain_path !berghain_valid
+            {{ excludes }}
+        {%- endfor %}
+
+        - berghain_http_challenge_back if berghain_path
+
         # special paths with common handling for all hosts
         - error_403           if path_dot_scm
         - matrix-client       if path_matrix_client

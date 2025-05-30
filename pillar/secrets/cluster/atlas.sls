@@ -2,6 +2,66 @@
 
 profile:
   proxy:
+    berghain:
+      secret: |
+        -----BEGIN PGP MESSAGE-----
+
+        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
+        =/sw7
+        -----END PGP MESSAGE-----
     haproxy:
       secrets:
         stats_user: |

@@ -36,6 +36,32 @@ haproxy_trees:
     - watch_in:
       - service: haproxy.service
 
+{%- set goodbots = salt['pillar.get']('profile:proxy:haproxy:goodbots', []) %}
+{%- if goodbots %}
+haproxy_allowlists:
+  file.directory:
+    - name: /etc/haproxy/allowlists
+
+haproxy_allowlists_networks:
+  file.directory:
+    - name: /etc/haproxy/allowlists/networks
+    - require:
+        - file: haproxy_allowlists
+
+{%- for bot in goodbots %}
+haproxy_goodbot_{{ bot['name'] }}:
+  file.managed:
+    - name: /etc/haproxy/allowlists/networks/{{ bot['name'] }}
+    - contents: {{ bot['remote_addresses'] }}
+    - require:
+        - file: haproxy_allowlists_networks
+{%- endfor %}
+{%- else %}
+haproxy_allowlists:
+  file.absent:
+    - name: /etc/haproxy/allowlists
+{%- endif %}
+
 {%- set secrets = salt['pillar.get']('profile:proxy:haproxy:secrets', {}) %}
 {%- if 'stats_user' in secrets and 'stats_passphrase' in secrets and salt['grains.get']('include_secrets', True) %}
 haproxy_sysconfig_variables:

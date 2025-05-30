@@ -2,6 +2,38 @@
 
 haproxy:
   backends:
+    berghain_http_challenge_front:
+      mode: http
+      httprequests:
+        - >-
+            return status 403
+            content-type text/html
+            file /srv/www/berghain/index.html
+            hdr Cache no-cache
+            hdr Server 'openSUSE is good for you'
+            hdr X-Via {{ grains.host }}
+    berghain_http_challenge_back:
+      mode: http
+      acls:
+        - is_challenge_path path /cdn-cgi/challenge-platform/challenge
+        - has_token var(txn.berghain.token) -m found
+      httprequests:
+        - send-spoe-group berghain challenge if is_challenge_path
+        - return status 501 if { var(txn.berghain.error) -m found }
+        - return status 200 content-type application/json lf-string "%[var(txn.berghain.response)]" if is_challenge_path
+        - return status 404
+      # TODO: add "filter" and "http-after-response" support to formula template
+      extra:
+        - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
+        - filter compression
+        - http-after-response add-header set-cookie "berghain=%[var(txn.berghain.token)]; domain=%[var(txn.berghain.domain)]; path=/;" if has_token
+    berghain_spop:
+      mode: tcp
+      options: spop-check
+      servers:
+        localhost:
+          host: unix@/run/berghain/spop.sock
+          check: check
     calendar:
       {{ options('httpchk') }}
       {{ httpcheck('calendar.opensuse.org', 200, '/up') }}

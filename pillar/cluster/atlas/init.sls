@@ -82,6 +82,11 @@ haproxy:
           - status 404 if suffix_asp
           - status 404 if suffix_env
           - status 404 if suffix_php !host_beans !host_limesurvey !host_pmya
+        - set-var(req.berghain.level): int(1)  # TODO: multiple levels
+        - send-spoe-group: berghain validate if !berghain_path berghain_active
+      extra:
+        - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
+        - filter compression
 
     http-login:
       bind:
@@ -191,3 +196,8 @@ haproxy:
           extra: send-proxy-v2
           host: 2a07:de40:b27e:1206::a
           port: 2222
+
+profile:
+  proxy:
+    berghain:
+      enable: true
