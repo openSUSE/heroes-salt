@@ -480,8 +480,8 @@ lnt:
       pseudo_ip4: 172.16.164.155
       source: x-os-internal
   legacy_boot: true
-  ram: 4096MB
-  vcpu: 2
+  ram: 8192MB
+  vcpu: 4
 logger-prg:
   cluster: falkor
   disks:
