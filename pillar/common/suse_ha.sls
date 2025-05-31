@@ -11,7 +11,7 @@ suse_ha:
   management:
     allow-migrate: True
     batch-limit: 20
-    migration-limit: 15
+    migration-limit: 5
     no-quorum-policy: stop
 firewalld:
   services:
