@@ -50,9 +50,6 @@ haproxy:
       tcprequests:
         - inspect-delay 5s
         - content:
-          # emergency brake due to excessive requests from pagure01 https://progress.opensuse.org/issues/181646
-          - reject if host_www path_openid { src 2a07:de40:b27e:1206::a/128 }
-
           - accept if src_suse_office
 
           - accept unless host_lnt speedy_35
