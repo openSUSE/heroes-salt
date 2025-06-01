@@ -39,6 +39,8 @@
    # traceroute
    ip protocol udp reject
    ip6 nexthdr udp reject
+
+   drop
  }
 
  chain output_network_os-p2p-pub {
