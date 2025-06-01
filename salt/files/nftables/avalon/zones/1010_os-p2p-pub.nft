@@ -11,8 +11,6 @@
    # stonehat -> avalon{1,2} WireGuard
    ip6 saddr @host6_wan_stonehat ip6 daddr @self6_p2p udp dport 52462 accept
 
-   jump global
-
    # from the internet to os-public/Globus
    #  ping
    ip6 daddr @host6_globus ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } limit rate 1/second accept

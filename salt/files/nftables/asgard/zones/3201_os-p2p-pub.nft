@@ -11,8 +11,6 @@
   # avalon{1,2} -> asgard{1,2} WireGuard
   ip6 saddr @host6_wan_avalon ip6 daddr @self6_p2p udp dport 52461 log accept
 
-  jump global
-
   # ping to public machines / atlas*.i.o.o
   ip6 daddr $net6_os-public ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } limit rate 2/second accept
   ip daddr @host4_atlas ip protocol icmp icmp type { echo-request, echo-reply } limit rate 3/second accept
