@@ -34,6 +34,8 @@ haproxy:
         localhost:
           host: unix@/run/berghain/spop.sock
           check: check
+      extra:
+        - fullconn 10000
     calendar:
       {{ options('httpchk') }}
       {{ httpcheck('calendar.opensuse.org', 200, '/up') }}
