@@ -1,7 +1,7 @@
 grains:
   site: prg2
   hostusage:
-    - Kanidm
+    - Kanidm (internal)
   reboot_safe: yes
   aliases: []
   description: Internal identity provider and authentication service
@@ -14,4 +14,4 @@ grains:
     - kani1.infra.opensuse.org
   weburls: []
 roles:
-  - kanidm-server
+  - kanidm-server.internal
