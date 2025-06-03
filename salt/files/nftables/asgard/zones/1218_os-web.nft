@@ -1,0 +1,14 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+ chain input_network_os-web {
+  jump global_internal
+
+  ip6 saddr $net6_os-web ip6 daddr @self6_web ip6 nexthdr icmpv6 accept
+
+  log prefix "[Web Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-web {
+ }
