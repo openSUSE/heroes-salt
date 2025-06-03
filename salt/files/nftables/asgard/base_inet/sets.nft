@@ -444,6 +444,15 @@ set host6_kani {
     }
 }
 
+set host6_kani-ext-dev {
+    type ipv6_addr
+    flags interval
+    elements = {
+        $host6_kani-ext-dev1,
+        $host6_kani-ext-dev2
+    }
+}
+
 # NetBox
 set host6_netbox {
     type ipv6_addr
