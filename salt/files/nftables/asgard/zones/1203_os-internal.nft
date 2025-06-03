@@ -19,6 +19,7 @@
   ip6 saddr @host6_acme ip6 daddr @host6_witch1 icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr @host6_netbox icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr @host6_kani icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr @host6_acme ip6 daddr @host6_kani-ext-dev icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr @host6_download icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr @host6_globus icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr @host6_tyr icmpv6 type { echo-request, echo-reply } accept
@@ -32,6 +33,7 @@
   ip6 saddr @host6_acme ip6 daddr @host6_witch1 tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_netbox tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_kani tcp dport ssh accept
+  ip6 saddr @host6_acme ip6 daddr @host6_kani-ext-dev tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_download tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_globus tcp dport ssh accept
   ip6 saddr @host6_acme ip6 daddr @host6_tyr tcp dport ssh accept
@@ -152,6 +154,8 @@
   oif os-mail ip6 saddr @host6_hel ip6 daddr @host6_mx tcp dport 26 accept # 26 is a secondary SMTP listener not passing through the spam filter
   # Hel -> kani{1,2} HTTPS/LDAPS (for idm.i.o.o/ldap.i.o.o aka proxy for Heroes Authentication)
   oif os-kani ip6 saddr @host6_hel ip6 daddr @host6_kani tcp dport { https, ldaps } accept
+  # Hel -> kani-ext-dev{1,2} HTTPS (for idm-ext-dev.i.o.o)
+  oif os-kani-dev ip6 saddr @host6_hel ip6 daddr @host6_kani-ext-dev tcp dport https accept
   # Hel -> netbox HTTPS (for netbox.i.o.o proxy)
   oif os-netbox ip6 saddr @host6_hel ip6 daddr @host6_netbox tcp dport https accept
 

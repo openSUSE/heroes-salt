@@ -205,6 +205,8 @@ define host6_riesling    = 2a07:de40:b27e:1203:0000:0000:0000:00b2/128
 # Kanidm
 define host6_kani1       = 2a07:de40:b27e:1210:0000:0000:0000:000a/128
 define host6_kani2       = 2a07:de40:b27e:1210:0000:0000:0000:000b/128
+define host6_kani-ext-dev1 = 2a07:de40:b27e:1216:0000:0000:0000:000a/128
+define host6_kani-ext-dev2 = 2a07:de40:b27e:1216:0000:0000:0000:000b/128
 
 # NetBox
 define host6_netbox1     = 2a07:de40:b27e:1211:0000:0000:0000:000a/128
