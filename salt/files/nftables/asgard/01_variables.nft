@@ -62,6 +62,9 @@ define net6_os-kani-dev = 2a07:de40:b27e:1216::/64
 # VLAN 1217 openSUSE-kani-ext
 define net6_os-kani-ext = 2a07:de40:b27e:1217::/64
 
+# VLAN 1218 openSUSE-web
+define net6_os-web = 2a07:de40:b27e:1218::/64
+
 define net6_vpn-udp     = 2a07:de40:b27e:5001::/64
 define net6_vpn-tcp     = 2a07:de40:b27e:5002::/64
 

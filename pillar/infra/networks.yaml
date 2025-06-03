@@ -99,6 +99,12 @@ prg2:
     net6: 2a07:de40:b27e:1217::/64
     gw6: 2a07:de40:b27e:1217::3
     id: 1217
+  openSUSE-web:
+    short: os-web
+    net6: 2a07:de40:b27e:1218::/64
+    gw6: 2a07:de40:b27e:1218::3
+    id: 1218
+
 
 slc1:
   openSUSE-bare:
