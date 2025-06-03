@@ -39,11 +39,24 @@ hel.infra.opensuse.org:
     - macro: hel
       services:
         - pgbouncer
+idm-ext-dev.infra.opensuse.org:
+  targets:
+    - macro: hel
 idm.infra.opensuse.org:
   sans:
     - ldap.infra.opensuse.org
   targets:
     - macro: hel
+kani-ext-dev1.infra.opensuse.org:
+  targets:
+    - host: kani-ext-dev1
+      services:
+        - kanidmd
+kani-ext-dev2.infra.opensuse.org:
+  targets:
+    - host: kani-ext-dev2
+      services:
+        - kanidmd
 kani1.infra.opensuse.org:
   targets:
     - host: kani1

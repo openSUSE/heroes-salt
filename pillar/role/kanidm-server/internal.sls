@@ -1,5 +1,5 @@
 include:
-  - ssh_keys.users.firstyear
+  - role.common.kanidm-server
 
 kanidm:
   config:

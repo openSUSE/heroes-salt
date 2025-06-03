@@ -24,26 +24,31 @@ haproxy:
         {{ bind(bind_v6, 443, 'v6only tfo alpn h2,http/1.1 npn h2,http/1.1 ssl crt /etc/ssl/services/') }}
       acls:
         - host_idm         hdr(host)    idm.infra.opensuse.org
+        - host_idm_ext_dev hdr(host)    idm-ext-dev.infra.opensuse.org
         - host_netbox      hdr(host)    netbox.infra.opensuse.org
       use_backends:
         - kanidm           if host_idm
+        - kanidm-ext-dev   if host_idm_ext_dev
         - netbox           if host_netbox
 
   backends:
-    kanidm:
+    {%- for suffix in ['', '-ext-dev'] %}
+    kanidm{{ suffix }}:
       balance: source
       hashtype: consistent
       mode: http
       options:
         - httpchk
-      {{ httpcheck('idm.infra.opensuse.org', 200, '/status', tls=True) }}
+      {{ httpcheck('idm' ~ suffix ~ '.infra.opensuse.org', 200, '/status', tls=True) }}
       servers:
+        {%- set s = 'kani' ~ suffix %}
         {%- for i in [1, 2] %}
-        {{ server('kani' ~ i, 'kani' ~ i ~ '.infra.opensuse.org', 443,
+        {{ server(s ~ i, s ~ i ~ '.infra.opensuse.org', 443,
                     extra_extra='ssl verify required ca-file ' ~ heroes_ca,
                     header=False
                   ) }}
         {%- endfor %}
+    {%- endfor %}
 
     netbox:
       mode: http
