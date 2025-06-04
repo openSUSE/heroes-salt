@@ -12,6 +12,7 @@ apparmor:
       - /usr/share/pki/trust/anchors/** r
       - capability dac_read_search
       - capability dac_override
+      - /srv/www/berghain/index.html r
       - /var/lib/haproxy/geoip/*.mmdb r
       - /var/lib/haproxy/stats-{ro,rw}{,.*.{bak,tmp}} rwl  # noqa 206
 

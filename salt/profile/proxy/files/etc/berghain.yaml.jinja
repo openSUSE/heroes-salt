@@ -1,0 +1,8 @@
+{#- vim:filetype=yaml.jinja
+-#}{%- set mypillar = salt['pillar.get']('profile:proxy:berghain', {}) %}
+{{ pillar['managed_by_salt'] }}
+
+listen: unix:///run/berghain/spop.sock
+secret: {{ mypillar.get('secret') }}
+
+{{ {'frontend': mypillar.get('frontend', {})} | yaml(False) }}

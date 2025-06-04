@@ -53,8 +53,6 @@ haproxy:
           - accept if src_suse_office
 
           - accept unless host_lnt speedy_35
-          - accept unless host_redmine cookie_ipsilon_username_missing speedy_35
-          - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_git
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt_png
@@ -70,18 +68,21 @@ haproxy:
           - deny_status 429 if { sc_http_req_rate(0) gt 60 } host_lnt path_lnt_graph
           - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_lnt
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_mailman3
-          - deny_status 429 if speedy_45 host_redmine cookie_ipsilon_username_missing !src_suse_office
-          - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing path_redmine_git
-          - deny_status 429 if { sc_http_req_rate(0) gt 20 } host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf
-          - deny_status 429 if { sc_http_req_rate(0) gt 40 } host_redmine cookie_ipsilon_username_missing !src_suse_office
-          - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine !src_suse_office
-          - deny_status 429 if { sc_http_req_rate(0) gt 150 } host_redmine
+          - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine cookie_ipsilon_username_missing path_redmine_git !berghain_valid
+          - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf !berghain_valid
+          - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_redmine !src_suse_office
+          - deny_status 429 if { sc_http_req_rate(0) gt 160 } host_redmine
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude
           - deny_status 429 if speedy_300 !src_limit_exclude
         - return:
           - status 404 if suffix_asp
           - status 404 if suffix_env
           - status 404 if suffix_php !host_beans !host_limesurvey !host_pmya
+        - set-var(req.berghain.level): int(1)  # TODO: multiple levels
+        - send-spoe-group: berghain validate if !berghain_path berghain_active
+      extra:
+        - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
+        - filter compression
 
     http-login:
       bind:
@@ -191,3 +192,8 @@ haproxy:
           extra: send-proxy-v2
           host: 2a07:de40:b27e:1206::a
           port: 2222
+
+profile:
+  proxy:
+    berghain:
+      enable: true
