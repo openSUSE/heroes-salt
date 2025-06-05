@@ -26,7 +26,7 @@ haproxy:
       extra:
         - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
         - filter compression
-        - http-after-response add-header set-cookie "berghain=%[var(txn.berghain.token)]; domain=%[var(txn.berghain.domain)]; path=/;" if has_token
+        - http-after-response add-header set-cookie "berghain=%[var(txn.berghain.token)]; %[var(txn.berghain.domain)] path=/;" if has_token
     berghain_spop:
       mode: tcp
       options: spop-check
