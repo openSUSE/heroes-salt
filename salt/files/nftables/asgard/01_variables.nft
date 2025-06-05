@@ -202,6 +202,7 @@ define host4_matomo      = 172.16.164.141/32
 define host6_matomo      = 2a07:de40:b27e:1203:0000:0000:0000:0b19/128
 define host6_backup      = 2a07:de40:b27e:1203:0000:0000:0000:0140/128
 define host6_riesling    = 2a07:de40:b27e:1203:0000:0000:0000:00b2/128
+define host6_quiz        = 2a07:de40:b27e:1218:0000:0000:0000:0a10/128
 
 # Remote Gateways via P2P networks
 

@@ -46,4 +46,7 @@ chain input_network_nat64 {
   # rails-assets.org
   oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_rails-assets tcp dport https accept
 
+  # registry.suse.com ACL
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_registry_suse ip protocol icmp icmp type { echo-request, echo-reply } accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_registry_suse tcp dport https accept
 }

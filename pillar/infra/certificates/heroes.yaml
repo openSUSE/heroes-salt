@@ -95,6 +95,11 @@ netbox1.infra.opensuse.org:
     - host: netbox1
       services:
         - apache2
+quiz.infra.opensuse.org:
+  targets:
+    - host: quiz
+      services:
+        - nginx
 tyr.infra.opensuse.org:
   sans:
     - tyr1.infra.opensuse.org

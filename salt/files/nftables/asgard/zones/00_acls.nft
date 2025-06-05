@@ -17,3 +17,8 @@ chain acl_internet_github {
   oifname nat64 ip6 saddr @acl6_internet_github_packages ip6 daddr @cloud46_github_packages tcp dport https accept
 }
 
+chain acl_internet_registry_suse {
+  # registry.suse.com ACL
+  oifname nat64 ip6 saddr @acl6_internet_registry_suse ip6 daddr @cloud46_registry_suse icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_registry_suse ip6 daddr @cloud46_registry_suse tcp dport https accept
+}
