@@ -80,6 +80,7 @@ haproxy:
           - status 404 if suffix_php !host_beans !host_limesurvey !host_pmya
         - set-var(req.berghain.level): int(1)  # TODO: multiple levels
         - send-spoe-group: berghain validate if !berghain_path berghain_active
+        - wait-for-body: time 5s if berghain_path METH_POST
       extra:
         - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
         - filter compression
