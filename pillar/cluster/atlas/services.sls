@@ -41,7 +41,7 @@ haproxy:
         - path_grafana           path_beg    /grafana/
         - path_hyperkitty_api    path_beg    /archives/api/
         - path_hyperkitty_export path_reg    ^/archives/list/commit@lists.opensuse.org/export/commit@lists.opensuse.org-.+\.mbox\.gz$
-        - path_hyperkitty_feed   path_end    /feed
+        - path_hyperkitty_feed   path_end    /feed /feed/
         - path_lnt_graph         path_end    /graph
         - path_matomo            path        /matomo/index.php
         - path_matrix_block      path_beg    /_matrix/federation/v2/invite
