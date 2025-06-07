@@ -122,6 +122,8 @@ haproxy:
         - host_paste        hdr(host)   -i paste.opensuse.org
         - host_paste        hdr(host)   -i paste-test.opensuse.org
         - host_pmya         hdr(host)   -i pmya.opensuse.org
+        - host_quiz         hdr(host)   -i quiz.opensuse.org
+        - host_quiz         hdr_end(host) -i .quiz.opensuse.org
         - host_redmine      hdr(host)   -i progress.opensuse.org
         - host_rpmlint      hdr(host)   -i rpmlint.opensuse.org
         - host_static_o_o   hdr(host)   -i static.opensuse.org
@@ -236,6 +238,7 @@ haproxy:
         - pinot           if host_contribute
         - pinot           if host_counter
         - pinot           if host_pmya
+        - quiz            if host_quiz
         - redmine         if host_redmine
         - rpmlint         if host_rpmlint
         - staticpages     if host_community path_ebooks

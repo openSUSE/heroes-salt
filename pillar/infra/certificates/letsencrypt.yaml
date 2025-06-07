@@ -185,6 +185,11 @@ proxy-prg2.opensuse.org:
 proxy-slc1.opensuse.org:
   targets:
     - macro: globus
+quiz.opensuse.org:
+  sans:
+    - '*.quiz.opensuse.org'
+  targets:
+    - macro: atlas
 redirector.opensuse.org:
   sans:
     - redirector-prg2.opensuse.org
