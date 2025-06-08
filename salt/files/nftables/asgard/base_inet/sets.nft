@@ -1050,6 +1050,8 @@ set acl6_internet_obs-login {
     type ipv6_addr
     flags interval
     elements = {
+      $host6_gitlab-runner1,  # access to registry.o.o
+      $host6_gitlab-runner2,
       $host6_opi-proxy,  # access to api.o.o
       $host6_obsreview,  # access to registry.o.o
       $host6_osc-collab, # access to api.o.o
