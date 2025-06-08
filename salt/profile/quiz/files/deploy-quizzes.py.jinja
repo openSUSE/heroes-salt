@@ -1,0 +1,186 @@
+#!/usr/bin/python3.11
+"""
+vim:filetype=python.jinja
+{{ pillar['managed_by_salt'] }}
+Script to manage openSUSE quiz instances
+
+Copyright (C) 2025 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+import subprocess
+import sys
+from os import getenv
+from pathlib import Path
+from time import sleep
+
+import json5 as json
+from podman import PodmanClient
+
+REPOSITORY_DIR = '/data/quiz/quiz-git'
+SOCKETS_DIR = '/run/quiz'
+STATS_DIR = '/data/quiz/stats'
+
+CONFIG = f'{REPOSITORY_DIR}/instances.json'
+CONTAINER_LABEL = 'org.opensuse.quiz.instance'
+
+falses = ('false', '0', 'n')
+trues = ('true', '1', 'y')
+
+UPDATE = getenv('QUIZ_GIT_PULL') not in falses
+BUILD = getenv('QUIZ_FORCE_BUILD') in trues
+RESET = getenv('QUIZ_FULL_RESET') in trues
+
+def update_repository():
+    if not UPDATE:
+        print('=== Skipping repository update due to QUIZ_GIT_PULL ===')
+        return False
+
+    print('=== Updating repository ===')
+    try:
+        out = subprocess.check_output(['/usr/bin/git', '-C', REPOSITORY_DIR, 'pull'], stderr=subprocess.STDOUT).decode().rstrip()
+    except subprocess.CalledProcessError as err:
+        print('=== Repository update failed ===')
+        print(err.output.decode())
+        sys.exit(err.returncode)
+
+    print(out)
+
+    return out != 'Already up to date.'
+
+def update_image(client):
+    print('=== Rebuilding image ===')
+    client.images.build(
+            dockerfile='Dockerfile-Production',
+            path=REPOSITORY_DIR,
+            tag='quiz',
+    )
+
+    print('=== Removing old images ===')
+    client.images.prune()
+
+def get_config():
+    with open(f'{REPOSITORY_DIR}/instances.json') as fh:
+        return json.load(fh)
+
+def get_configured_instances(config):
+    return sorted(config.get('instances', {}).keys())
+
+# really podman-py should be patched to not return some generic JSON decoding error instead
+def stop_if_needed(container):
+    if container.attrs['State'] not in ['exited', 'stopped']:
+        container.stop()
+
+def rework_instances(client, config, reset, delete):
+    want = get_configured_instances(config)
+    found = []
+
+    print('=== Searching for instances to remove ===')
+    for container in client.containers.list(all=True):
+        if not ( container.name[0:5] == 'quiz-' and CONTAINER_LABEL in container.labels ):
+            continue
+
+        instance = container.labels[CONTAINER_LABEL]
+
+        if instance not in want or reset:
+            print(f'== Destroying instance "{instance}" ==')
+            stop_if_needed(container)
+            container.remove()
+
+            # in case the previous one crashed without cleanup
+            Path(f'{SOCKETS_DIR}/{instance}.sock').unlink(missing_ok=True)
+
+        else:
+            found.append(instance)
+
+        if instance not in want or delete:
+            db = f'{STATS_DIR}/{instance}.json'
+            print(f'=> Removing {db}')
+            try:
+                Path(db).unlink()
+            except FileNotFoundError:
+                print('File does not exist.')
+
+    print('=== Searching for instances to deploy ===')
+    for instance in want:
+        if instance in found:
+            continue
+
+        print(f'== Creating instance "{instance}" ==')
+        name = f'quiz-{instance}'
+        socket = f'{SOCKETS_DIR}/{instance}.sock'
+
+        client.containers.run(
+                detach=True,
+                environment={
+                    'PORT': socket,
+                    'STATS_FILE_PATH': f'/var/opt/quiz/{instance}.json',
+                },
+                image='localhost/quiz',
+                labels={
+                    'org.opensuse.quiz.instance': instance,
+                },
+                mounts=[
+                    {
+                        'type': 'bind',
+                        'source': SOCKETS_DIR,
+                        'target': SOCKETS_DIR,
+                    },
+                    {
+                        'type': 'bind',
+                        'source': STATS_DIR,
+                        'target': '/var/opt/quiz',
+                    },
+                ],
+                name=name,
+                userns_mode={
+                    'nsmode': 'keep-id',
+                    'value': 'uid=1000,gid=1000',
+                },
+        )
+
+        try_count = 0
+        try_sec = 2
+        try_max = 5
+        # app/container does not support native health check
+        while not Path(socket).exists():
+            try_count += 1
+            if try_count > try_max:
+                print(f'Server for instance {instance} still not running after {try_count*try_sec} seconds')
+                sys.exit(1)
+            sleep(try_sec)
+
+        Path(socket).chmod(0o660)
+
+def main():
+    client = PodmanClient()
+
+    if not client.ping():
+        print('Cannot reach Podman')
+        sys.exit(1)
+
+    new = update_repository()
+
+    if new or BUILD:
+        update_image(client)
+
+    config = get_config()
+
+    rework_instances(client, config, new or BUILD or RESET, RESET)
+
+    print('=== Done ===')
+
+if __name__ == '__main__':
+    main()
