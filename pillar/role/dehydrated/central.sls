@@ -23,7 +23,7 @@ profile:
             {%- if 'sans' in certificate_config %}
             sans:
               {%- for san in certificate_config['sans'] %}
-              - {{ san }}
+              - '{{ san }}'
               {%- endfor %}
             {%- endif %}
 
