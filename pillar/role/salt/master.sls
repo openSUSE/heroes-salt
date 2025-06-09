@@ -126,6 +126,7 @@ infrastructure:
             'redmine',
             'rsync',
             'smartmontools',
+            'status_mail',
             'suse_ha',
             'sysconfig',
             'tayga',
