@@ -65,8 +65,9 @@ profile_quiz_unit_files:
                 - Group=quiz
                 - ExecStart=/home/quiz/bin/deploy-quizzes.py
                 - SyslogIdentifier=%N
+                - PrivateTmp=yes
                 - ProtectSystem=strict
-                - ReadWritePaths=/data/quiz/quiz-git/.git
+                - ReadWritePaths=/data/quiz/quiz-git
                 - ReadWritePaths=/data/quiz/stats
                 - ReadWritePaths=/run/quiz
         - /etc/systemd/system/quiz-update.timer:
