@@ -117,7 +117,7 @@ vim:filetype=nftables.jinja
   # BuddyCheck
   ip6 saddr @self6_internal ip6 daddr @self6_internal tcp dport 9100 accept
   # monitor -> all nginx nodes (Prometheus nginx metrics collection)
-  ip6 saddr $host6_monitor ip6 daddr { $host6_pagure, $host6_ipx-narwal1, $host6_narwal4, $host6_download } tcp dport 9113 accept
+  ip6 saddr $host6_monitor ip6 daddr { $host6_pagure, $host6_ipx-narwal1, $host6_narwal4, $host6_download, $host6_quiz } tcp dport 9113 accept
   # monitor -> falkor* (Prometheus HA cluster metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_falkor tcp dport 9664 accept
   # monitor -> all bare metal (Prometheus smartctl metrics collection)
