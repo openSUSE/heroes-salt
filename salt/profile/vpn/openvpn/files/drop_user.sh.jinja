@@ -46,14 +46,15 @@ do
 	for cert in $(sudo find /etc/easy-rsa/pki/issued -type f -iname "$user".crt)
 	do
 		printf '=== Processing certificate %s ===\n' "$cert" | tee /dev/fd/3
-		if mispipe "sudo sh -c \"cd /etc/easy-rsa && easyrsa --silent revoke $(basename "$cert" .crt)\"" 'tee /dev/fd/3'
+		crtbase="$(basename "$cert" .crt)"
+		if mispipe "sudo sh -c \"cd /etc/easy-rsa && easyrsa --silent revoke $crtbase\"" 'tee /dev/fd/3'
 		then
 			_echo ' => Certificate revoked'
 		else
 			_echo ' => Failed to revoke certificate'
 			STATUS=1
 		fi
-		loginfile="$logindir/$cert"
+		loginfile="$logindir/$crtbase"
 		if [ -f "$loginfile" ]
 		then
 			if sudo mv -v "$loginfile" "$logindir/archive/"
