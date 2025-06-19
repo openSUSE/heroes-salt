@@ -4,14 +4,23 @@ haproxy:
   backends:
     berghain_http_challenge_front:
       mode: http
+      acls:
+        - legacy_browser hdr_reg(User-Agent) 'Mozilla/5\.0 \(X11; Linux x86_64; rv:[\d\.]+\) Gecko/\d+ Firefox/\d{3,4}.\d SeaMonkey/2.5\d.\d\d'
       httprequests:
+        {%- for acl, page in {
+              'legacy_browser': 'native-crypto',
+              '': 'default',
+            }.items()
+        %}
         - >-
             return status 403
             content-type text/html
-            file /srv/www/berghain/index.html
+            file /srv/www/berghain/{{ page }}/index.html
             hdr Cache no-cache
             hdr Server 'openSUSE is good for you'
             hdr X-Via {{ grains.host }}
+            {% if acl %}if {{ acl }}{% endif %}
+        {%- endfor %}
     berghain_http_challenge_back:
       mode: http
       acls:
