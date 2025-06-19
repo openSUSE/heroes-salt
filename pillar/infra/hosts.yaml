@@ -516,7 +516,7 @@ logger-prg:
       pseudo_ip4: 172.16.164.41
       source: x-os-log
   ram: 1536MB
-  vcpu: 1
+  vcpu: 2
 mailman3:
   cluster: falkor
   disks:
