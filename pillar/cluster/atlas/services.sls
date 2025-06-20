@@ -280,8 +280,9 @@ haproxy:
 
     # services routed from login proxies
     http-login:
-      acls:                              # daffy1              # daffy2
-        - src_login         src          2a07:de40:b280:86::11 2a07:de40:b280:86::12
+      acls:                                # daffy1              # daffy2
+        - src_login_pre       src          2a07:de40:b280:86::11 2a07:de40:b280:86::12
+        - src_login           var(req.is_src_login) -m bool
         - annoying_networks   req.hdr_ip(X-Forwarded-For)  -f /etc/haproxy/blacklists/networks -n
         - annoying_useragents hdr_sub(User-Agent)          -i -f /etc/haproxy/blacklists/useragents
         - odd_clients         req.hdr_cnt(Accept-Language) 0
