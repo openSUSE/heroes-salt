@@ -95,7 +95,8 @@ haproxy:
           - accept unless !cookie_os_session path_indexphp param_mw_days_from param_mw_hide param_mw_high_limit
           - accept if WAIT_END
       httprequests:
-        - track-sc0: req.hdr_ip(X-Forwarded-For,-1)
+        - set-src: req.hdr_ip(X-Forwarded-For,-1)
+        - track-sc0: src
         - deny:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
