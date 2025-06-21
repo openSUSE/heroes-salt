@@ -1,8 +1,8 @@
-{%- from 'common/haproxy/map.jinja' import bind, errorfiles, extra, server, rsync_backend_with_checks, metrics %}
+{%- from 'common/haproxy/map.jinja' import bind, errorfiles, extra, server, rsync_backend_with_checks, metrics, peers %}
 {%- set host = grains['host'] %}
 
 {%- if host.startswith('runner-') %} {#- handle host based dictionaries in CI tests #}
-{%- set host = 'atlas1' %}
+  {%- set host = 'atlas1' %}
 {%- endif %}
 
 include:
@@ -16,7 +16,8 @@ include:
   {%- endif %}
 
 {%- set bind_v6_vip = ['2a07:de40:b27e:1204::10'] %}
-{%- set bind_v6_standalone = ['2a07:de40:b27e:1204::11', '2a07:de40:b27e:1204::12'] %}
+{%- set bind_v6_map = {'atlas1': '2a07:de40:b27e:1204::11', 'atlas2': '2a07:de40:b27e:1204::12'} %}
+{%- set bind_v6_standalone = bind_v6_map.values() | list %}
 {%- set bind_v6 = bind_v6_vip + bind_v6_standalone %}
 {%- set bind_v4_vip = ['172.16.130.10'] %}
 {%- set bind_v4 = bind_v4_vip + ['172.16.130.11', '172.16.130.12'] %}
@@ -82,6 +83,7 @@ haproxy:
         - set-var(req.berghain.level): int(1)  # TODO: multiple levels
         - send-spoe-group: berghain validate if !berghain_path berghain_active
         - wait-for-body: time 5s if berghain_path METH_POST
+      sticktable: type ipv6 size 500k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
       extra:
         - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
         - filter compression
@@ -111,7 +113,7 @@ haproxy:
           - status 404 if suffix_asp
           - status 404 if suffix_php !host_mediawiki
           - status 406 if odd_clients host_mediawiki path_indexphp
-      sticktable: type ipv6 size 50k expire 1m store conn_rate(10s),http_req_rate(30s)
+      sticktable: type ipv6 size 50k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
 
     http-misc:
       bind:
@@ -127,7 +129,7 @@ haproxy:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
         - set-var(txn.host): hdr(Host)
-      sticktable: type ipv6 size 250k expire 1m store conn_rate(10s),http_req_rate(30s)
+      sticktable: type ipv6 size 250k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
 
   listens:
     {{ metrics(bind_v6_standalone) }}
@@ -196,6 +198,8 @@ haproxy:
           extra: send-proxy-v2
           host: 2a07:de40:b27e:1206::a
           port: 2222
+
+  {{ peers('atlas', host, bind_v6_map) }}
 
 profile:
   proxy:

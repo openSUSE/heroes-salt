@@ -2,6 +2,7 @@ haproxy:
   enabled: true
   overwrite: true
   global:
+    localpeer: {{ grains['host'] }}
     log:
       - 'tcp@logger.infra.opensuse.org:601 local0 warning'
     maxconn: 262144

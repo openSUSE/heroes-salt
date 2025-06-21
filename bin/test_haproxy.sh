@@ -20,6 +20,7 @@ salt () {
 }
 
 gen_ssl () {
+	local cluster="$1"
 	local ssldir='/etc/ssl/services'
 
 	if [ ! -d "$ssldir" ]
@@ -41,12 +42,25 @@ gen_ssl () {
 				cat test/fixtures/domain.{crt,key} > "$out"
 			fi
 		fi
-	done <<< "$(grep -hoPr '/etc/(ssl/services/(.*.pem|)|haproxy/.*.crt)' "pillar/cluster/$1/")"
+	done <<< "$(grep -hoPr '/etc/(ssl/services/(.*.pem|)|haproxy/.*.crt)' "pillar/cluster/$cluster/")"
+
+	if grep -Fqr peers "pillar/cluster/$cluster"
+	then
+		clustercert="$ssldir/$cluster.infra.opensuse.org.pem"
+		cat test/fixtures/domain.{crt,key} > "$clustercert"
+		pushd "$ssldir" >/dev/null || exit 1
+		for i in $(seq 1 "$(find "$OLDPWD/pillar/id" -type f -name "$cluster*" | wc -l)")
+		do
+			ln -s "$clustercert" "${cluster}${i}.infra.opensuse.org.pem"
+		done
+		popd >/dev/null || exit 1
+	fi
 }
 
 check_haproxy () {
-	local logfile="$1"
-	haproxy -c -f "$configfile" 2>&1 | tee -a "$logfile"
+	local cluster="$1"
+	local logfile="$2"
+	haproxy -c -f "$configfile" -L "$cluster"1 2>&1 | tee -a "$logfile"
 	status="${PIPESTATUS[0]}"
 
 	if [ "$status" = 1 ]
@@ -197,7 +211,7 @@ run () {
 		exit 1
 	fi
 
-	check_haproxy "$logfile_haproxy"
+	check_haproxy "$cluster" "$logfile_haproxy"
 	status_haproxy="$?"
 
 	check_haproxy_lists "$logfile_haproxy"
@@ -223,6 +237,9 @@ rm /etc/zypp/repos.d/*
 IDFILE="pillar/id/$(hostname).sls"
 printf 'roles:\n- proxy\ninclude:\n'>> "$IDFILE"
 test/setup/role/proxy
+
+# for the config test we pass a peer name using -L
+sed -i '/localpeer: /d' pillar/common/haproxy/global.sls
 
 counter_ok=0
 counter_nok=0
