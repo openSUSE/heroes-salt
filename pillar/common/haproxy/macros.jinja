@@ -112,3 +112,23 @@
         {#- we don't serve anything other than /metrics here #}
         - return status 204
 {%- endmacro %}
+
+{%- macro peers(cluster, localpeer, peermap, clustercertificate=False, port=5000) %}
+  peers:
+    {{ cluster }}:
+      bind:
+        address: {{ peermap[localpeer] }}
+        port: {{ port }}
+        extra: ssl crt /etc/ssl/services/{{ cluster if clustercertificate else localpeer }}.infra.opensuse.org.pem
+      default-server: ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem
+      servers:
+        {%- for peer, address in peermap.items() %}
+        {{ peer }}:
+          {%- if localpeer == peer %}
+          {}
+          {%- else %}
+          address: {{ peermap[peer] }}
+          port: 5000
+          {%- endif %}
+        {%- endfor %}
+{%- endmacro %}

@@ -1,4 +1,9 @@
-{%- from 'common/haproxy/map.jinja' import bind, metrics %}
+{%- from 'common/haproxy/map.jinja' import bind, metrics, peers %}
+{%- set host = grains['host'] %}
+
+{%- if host.startswith('runner-') %} {#- handle host based dictionaries in CI tests #}
+  {%- set host = 'globus1' %}
+{%- endif %}
 
 include:
   - common.haproxy
@@ -8,7 +13,8 @@ include:
   - .vrrp
 
 {%- set bind_v6_vip = ['2a07:de40:617e:1904::10'] %}
-{%- set bind_v6_standalone = ['2a07:de40:617e:1904::11', '2a07:de40:617e:1904::12'] %}
+{%- set bind_v6_map = {'globus1': '2a07:de40:617e:1904::11', 'globus2': '2a07:de40:617e:1904::12'} %}
+{%- set bind_v6_standalone = bind_v6_map.values() | list %}
 {%- set bind_v6 = bind_v6_vip + bind_v6_standalone %}
 {%- set bind_v4_vip = ['172.16.113.10'] %}
 {%- set bind_v4 = bind_v4_vip + ['172.16.113.11', '172.16.113.12'] %}
@@ -32,6 +38,7 @@ haproxy:
         - return:
           - status 404 if suffix_asp
           - status 404 if suffix_php
+      sticktable: type ipv6 size 500k expire 1m store conn_rate(10s),http_req_rate(30s) peers globus
 
     rsync:
       bind:
@@ -43,3 +50,5 @@ haproxy:
 
   listens:
     {{ metrics(bind_v6_standalone) }}
+
+  {{ peers('globus', host, bind_v6_map) }}

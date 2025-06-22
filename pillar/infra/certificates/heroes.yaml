@@ -1,4 +1,14 @@
 ---
+atlas1.infra.opensuse.org:
+  targets:
+    - host: atlas1
+      services:
+        - haproxy
+atlas2.infra.opensuse.org:
+  targets:
+    - host: atlas2
+      services:
+        - haproxy
 download.infra.opensuse.org:
   sans:
     - download-prg.infra.opensuse.org
@@ -28,6 +38,16 @@ git.infra.opensuse.org:
     - host: mickey
       services:
         - nginx
+globus1.infra.opensuse.org:
+  targets:
+    - host: globus1
+      services:
+        - haproxy
+globus2.infra.opensuse.org:
+  targets:
+    - host: globus2
+      services:
+        - haproxy
 hel.infra.opensuse.org:
   sans:
     - dbproxy.infra.opensuse.org
