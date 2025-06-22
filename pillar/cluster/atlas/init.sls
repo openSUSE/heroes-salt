@@ -96,6 +96,7 @@ haproxy:
           - accept unless !cookie_os_session path_indexphp param_mw_days_from param_mw_hide param_mw_high_limit
           - accept if WAIT_END
       httprequests:
+        - set-var(req.is_src_login): bool(true) if src_login_pre
         - set-src: req.hdr_ip(X-Forwarded-For,-1)
         - track-sc0: src
         - deny:
