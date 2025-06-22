@@ -57,6 +57,16 @@ def run():
     commands = [
       '/usr/bin/systemctl try-reload-or-restart ' + service for service in _services
     ]
+    commands_auth = [
+      fr'systemctl is-active --quiet {service} \|\| exit "$\?" ; sudo systemctl try-reload-or-restart {service}'  # noqa W605
+      for service in _services
+    ]
+
+    # we use internal-sftp by default, but for restriction as a forced command set the external binary instead
+    if __grains__['osfullname'] == 'Leap':
+      sftp = '/usr/lib/ssh/sftp-server'
+    elif __grains__['osfullname'] == 'openSUSE Tumbleweed':
+      sftp = '/usr/libexec/ssh/sftp-server'
 
     result.update({
       'users': {
@@ -64,13 +74,35 @@ def run():
               'fullname': 'Certificate Deployment User',
               'shell': '/bin/sh',
               'ssh_auth_file': [
-                'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXfogRapqcAJJOe1S+EYSrFLeNN+1MxDHnfav443GaM dehydrated@acme',
+                'command="authorized-exec /etc/authorized-exec/certificate_deployment",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXfogRapqcAJJOe1S+EYSrFLeNN+1MxDHnfav443GaM dehydrated@acme',
               ],
           },
       },
       'profile': {
+        'authorized-exec': {
+          'certificate_deployment': {
+            'cert': {
+              'commands': [
+                sftp,
+                r'systemctl is-active --quiet mariadb \|\| exit "$\?" ; mariadb-admin -S /run/mysql/mysql.sock --connect-timeout=10 --wait=2 flush-ssl',  # noqa W605
+              ],
+            },
+          },
+        },
         'certificate_target': {
           'certificates': _certificates,
+        },
+      },
+      'sshd_config': {
+        'matches': {
+          'certificate deployment': {
+            'type': {
+              'User': 'cert',
+            },
+            'options': {
+               'Subsystem': sftp,
+            },
+          },
         },
       },
       'zypper': {
@@ -82,6 +114,15 @@ def run():
 
     if commands:
       result.update({
+        'profile': {
+          'authorized-exec': {
+            'certificate_deployment': {
+              'cert': {
+                'commands': commands_auth,
+              },
+            },
+          },
+        },
         'sudoers': {
           'users': {
             'cert': [
