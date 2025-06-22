@@ -21,7 +21,7 @@ authorized-exec_configs:
         {%- for config, content in mypillar.items() %}
         - {{ directory }}/{{ config }}:
             - context:
-                config: {{ content }}
+                config: {{ config }}
         {%- endfor %}
     - source: salt://profile/authorized-exec/files/authorized-exec.jinja
     - check_cmd: perl -c
