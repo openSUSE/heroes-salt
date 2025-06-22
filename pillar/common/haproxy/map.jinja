@@ -1,5 +1,10 @@
-{%- from 'common/haproxy/macros.jinja' import bind, extra, options, server, rsync_backend_with_checks, httpcheck, metrics, peers -%}
+{%- from 'common/haproxy/macros.jinja' import
+      berghain_acls, berghain_httprequests_spoe, berghain_httprequests_vars,
+      bind, extra, filters, options, server, rsync_backend_with_checks, httpcheck, metrics, peers
+-%}
+{%- set berghain_acls = berghain_acls -%}{%- set berghain_httprequests_spoe = berghain_httprequests_spoe -%}{%- set berghain_httprequests_vars = berghain_httprequests_vars -%}
 {%- set bind = bind -%}{%- set extra = extra -%}{%- set options = options -%}{%- set server = server -%}
+{%- set filters = filters %}
 {%- set rsync_backend_with_checks = rsync_backend_with_checks %}
 {%- set httpcheck = httpcheck %}
 {%- set metrics = metrics %}

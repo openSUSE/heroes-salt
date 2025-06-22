@@ -13,6 +13,49 @@
         {%- endfor %}
         {%- endfor %}
 {%- endmacro -%}
+
+{%- macro berghain_acls(goodbots=None) %}
+    {%- if not goodbots %}
+      {%- import_yaml 'common/haproxy/goodbots.yaml' as goodbots %}
+    {%- endif %}
+        {%- for bot in goodbots %}
+        - bot_{{ bot['name'] }}_network   {{ ' ' * ( 16 - bot['name'] | length ) }} src -f /etc/haproxy/allowlists/networks/{{ bot['name'] }} -n  # generated from pillar/common/haproxy/goodbots.yaml
+          {%- if 'user_agent_regex' in bot %}
+        - bot_{{ bot['name'] }}_useragent {{ ' ' * ( 16 - bot['name'] | length ) }} hdr_reg(User-Agent) '{{ bot['user_agent_regex'] }}'
+          {%- endif %}
+        {%- endfor %}
+
+        - good_crawler        var(req.is_good_crawler) -m bool
+
+        - berghain_active  var(req.berghain.level) -m found
+        - berghain_down    var(txn.berghain.error) -m int gt 0
+        - berghain_path    path                    /cdn-cgi/challenge-platform/challenge
+        - berghain_valid   var(txn.berghain.valid) -m bool
+{%- endmacro %}
+
+{%- macro berghain_httprequests_spoe() %}
+        - send-spoe-group: berghain validate if !berghain_path berghain_active
+        - wait-for-body: time 5s if berghain_path METH_POST
+{%- endmacro %}
+
+{%- macro berghain_httprequests_vars(goodbots=None) %}
+    {%- if not goodbots %}
+      {%- import_yaml 'common/haproxy/goodbots.yaml' as goodbots %}
+    {%- endif %}
+        {%- for bot in goodbots %}
+        - set-var(req.is_good_crawler): bool(true) if bot_{{ bot['name'] }}_network {% if 'user_agent_regex' in bot %} bot_{{ bot['name'] }}_useragent {% endif %}
+        {%- endfor %}
+        - set-var(req.berghain.level): int(1)  # TODO: multiple levels
+{%- endmacro %}
+
+{%- macro filters(header=True) %}
+  {%- if header %}
+      extra:
+  {%- endif %}
+        - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
+        - filter compression
+{%- endmacro %}
+
 {%- macro options(append=None) -%}
       options:
         {%- for option in backendopts %}
