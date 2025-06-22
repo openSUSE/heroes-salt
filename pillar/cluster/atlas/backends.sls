@@ -5,7 +5,7 @@ haproxy:
     berghain_http_challenge_front:
       mode: http
       acls:
-        - legacy_browser hdr_reg(User-Agent) 'Mozilla/5\.0 \(X11; Linux x86_64; rv:[\d\.]+\) Gecko/\d+ Firefox/\d{3,4}.\d SeaMonkey/2.5\d.\d\d'
+        - legacy_browser hdr_reg(User-Agent) '^Mozilla/5\.0 \(X11; Linux x86_64; rv:[\d\.]+\) Gecko/\d+ (Firefox/\d{3,4}.\d )?SeaMonkey/2.\d\d.\d\d$'
       httprequests:
         {%- for acl, page in {
               'legacy_browser': 'native-crypto',
