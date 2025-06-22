@@ -39,11 +39,6 @@ def run():
       match = False
       target_services = target.get('services', [])
 
-      if host == target.get('host'):
-        match = True
-        _certificates.update({certificate: target_services})
-        _extend_services(target_services)
-
       if 'macro' in target and target['macro'] in macros:
         macro_config = macros[target['macro']]
 
@@ -51,7 +46,7 @@ def run():
           match = True
           target_services = target_services + macro_config['services']
 
-      if match:
+      if match or host == target.get('host'):
         if certificate in _certificates:
           _certificates[certificate].extend(target_services)
         else:
