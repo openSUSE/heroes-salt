@@ -80,16 +80,14 @@ haproxy:
 profile:
   proxy:
     berghain:
-      frontend:
-        # frontend names match HAProxy frontend names
-        http:
-          # list order matters, each entry is one "level" to target in HAProxy ACLs, starting from 1
-          levels:
-            - countdown: 1
-              duration: 24h
-              type: pow
-          trusted_domains:
-            - opensuse.org
+      default:
+        # list order matters, each entry is one "level" to target in HAProxy ACLs, starting from 1
+        levels:
+          - countdown: 1
+            duration: 24h
+            type: pow
+        trusted_domains:
+          - opensuse.org
     haproxy:
       geoip: true
       goodbots: {{ goodbots }}
