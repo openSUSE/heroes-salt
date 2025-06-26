@@ -2,6 +2,7 @@
 """
 vim:filetype=python.jinja
 {{ pillar['managed_by_salt'] }}
+
 Script to manage openSUSE quiz instances
 
 Copyright (C) 2025 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
@@ -22,12 +23,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import subprocess
 import sys
+from json import JSONDecodeError, loads
 from os import getenv
 from pathlib import Path
 from time import sleep
 
 import json5 as json
 from podman import PodmanClient
+from podman.errors.exceptions import BuildError
 
 REPOSITORY_DIR = '/data/quiz/quiz-git'
 SOCKETS_DIR = '/run/quiz'
@@ -62,11 +65,23 @@ def update_repository():
 
 def update_image(client):
     print('=== Rebuilding image ===')
-    client.images.build(
-            dockerfile='Dockerfile-Production',
-            path=REPOSITORY_DIR,
-            tag='quiz',
-    )
+    try:
+        client.images.build(
+                dockerfile='Dockerfile-Production',
+                path=REPOSITORY_DIR,
+                tag='quiz',
+        )
+    except BuildError as e:
+        print('=== Build failed ===')
+        print(e.msg)
+        for line in e.build_log:
+            t = line.decode()
+            try:
+                j = loads(t)
+                print(j.get('stream', j))
+            except JSONDecodeError:
+                print(t)
+        raise
 
     print('=== Removing old images ===')
     client.images.prune()
