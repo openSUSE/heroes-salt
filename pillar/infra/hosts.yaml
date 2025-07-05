@@ -713,7 +713,7 @@ mx1:
       mac: 52:54:00:02:76:42
       source: x-os-mail
   legacy_boot: true
-  ram: 4096MB
+  ram: 6144MB
   vcpu: 4
 mx2:
   cluster: falkor
@@ -727,7 +727,7 @@ mx2:
       mac: 52:54:00:2e:5f:19
       source: x-os-mail
   legacy_boot: true
-  ram: 4096MB
+  ram: 6144MB
   vcpu: 4
 mybackup:
   cluster: falkor
