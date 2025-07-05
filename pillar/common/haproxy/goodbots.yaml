@@ -640,3 +640,11 @@
   remote_addresses: [
     "91.242.162.0/24",
   ]
+
+### CUSTOM
+
+- name: dfn-cert
+  user_agent_regex: ^adv-(tools|fetcher \(dfn-cert\))$
+  remote_addresses:
+    - 2001:0638:0714::/48
+    - 193.174.12.0/23

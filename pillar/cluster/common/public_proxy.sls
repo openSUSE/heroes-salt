@@ -19,7 +19,7 @@ haproxy:
         {%- for bot in goodbots %}
         - bot_{{ bot['name'] }}_network   {{ ' ' * ( 16 - bot['name'] | length ) }} src -f /etc/haproxy/allowlists/networks/{{ bot['name'] }} -n  # generated from pillar/common/haproxy/goodbots.yaml
           {%- if 'user_agent_regex' in bot %}
-        - bot_{{ bot['name'] }}_useragent {{ ' ' * ( 16 - bot['name'] | length ) }} hdr_reg(User-Agent) {{ bot['user_agent_regex'] }}
+        - bot_{{ bot['name'] }}_useragent {{ ' ' * ( 16 - bot['name'] | length ) }} hdr_reg(User-Agent) '{{ bot['user_agent_regex'] }}'
           {%- endif %}
         {%- endfor %}
 
