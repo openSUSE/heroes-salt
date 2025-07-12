@@ -95,6 +95,8 @@ vim:filetype=nftables.jinja
   oifname { nat64, os-p2p-pub } ip6 saddr $host6_discourse tcp dport { http, https } ip6 daddr != @lan_ipv6_prg2_nonat log prefix "[Discourse HTTP 1] " accept
   # osc-collab -> * (https://github.com/openSUSE/osc-plugin-collab/blob/master/server/upstream/upstream-tarballs.txt)
   oifname { nat64, os-p2p-pub } ip6 saddr $host6_osc-collab tcp dport { http, https, ftp } ip6 daddr != @lan_ipv6_prg2_nonat accept
+  # dale -> * for oEmbed with arbitrary internet resources
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_dale tcp dport { http, https } ip6 daddr != @lan_ipv6_prg2_nonat accept
 
   # monitor -> LiberaChat (IRCS for heroes-bot)
   oif os-p2p-pub ip6 saddr $host6_monitor ip6 daddr @cloud6_liberachat tcp dport ircs-u accept
