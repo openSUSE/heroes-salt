@@ -11,5 +11,5 @@ profile_services_config:
     - name: {{ file }}
     - ignore_if_missing: {{ opts['test'] }}
     - key_values:
-        DISABLE_RESTART_ON_UPDATE: '"{{ 'yes' if 'gateway' in roles or 'hypervisor.cluster' in roles or 'mariadb' in roles else 'no' }}"'
+        DISABLE_RESTART_ON_UPDATE: '"{{ 'yes' if 'gateway' in roles or 'hypervisor.cluster' in roles or 'mariadb' in roles or 'postgresql' in roles else 'no' }}"'
         DISABLE_STOP_ON_REMOVAL: '"no"'
