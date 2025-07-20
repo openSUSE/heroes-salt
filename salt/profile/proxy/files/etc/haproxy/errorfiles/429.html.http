@@ -10,7 +10,7 @@ X-Via: {{ grains.host }}
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>openSUSE Service Down</title>
+  <title>openSUSE Rate Limit</title>
   <link type="text/css" rel="stylesheet" href="https://static.opensuse.org/chameleon-3.0/dist/css/chameleon.css" />
   <link href="/favicon.ico" rel="shortcut icon" />
   <meta name="description" content="This openSUSE service is currently down">
