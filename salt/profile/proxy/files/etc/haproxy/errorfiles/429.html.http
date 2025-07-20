@@ -13,20 +13,14 @@ X-Via: {{ grains.host }}
   <title>openSUSE Rate Limit</title>
   <link type="text/css" rel="stylesheet" href="https://static.opensuse.org/chameleon-3.0/dist/css/chameleon.css" />
   <link href="/favicon.ico" rel="shortcut icon" />
-  <meta name="description" content="This openSUSE service is currently down">
   <link rel="shortcut icon" type="image/x-icon" href="https://static.opensuse.org/favicon.ico">
   <meta name="theme-color" content="#73ba25">
-  <meta property="og:site_name" content="openSUSE service downtime">
-  <meta property="og:title" content="openSUSE service downtime">
-  <meta property="og:description" content="This openSUSE service is currently down">
-  <meta property="og:url" content="https://www.opensuse.org">
-  <meta property="og:image" content="https://static.opensuse.org/favicon-192.png">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="openSUSE service down">
-  <meta name="twitter:url" content="https://www.opensuse.org">
-  <meta name="keywords" content="openSUSE service down" />
-  <meta name="author" content="openSUSE project" />
-  <meta name="robots" content="index,follow" />
+  <meta property="og:site_name" content="openSUSE"/>
+  <meta property="og:title" content="Rate Limit"/>
+  <meta property="og:description" content="Access to this openSUSE service was denied due to abuse prevention measures."/>
+  <meta property="og:url" content="https://www.opensuse.org"/>
+  <meta property="og:image" content="https://static.opensuse.org/favicon-192.png"/>
+  <meta name="robots" content="none" />
   <script src="https://static.opensuse.org/chameleon-3.0/dist/js/jquery.slim.js"></script>
   <script src="https://static.opensuse.org/chameleon-3.0/dist/js/bootstrap.bundle.js"></script>
   <script src="https://static.opensuse.org/chameleon-3.0/dist/js/chameleon.js"></script>
