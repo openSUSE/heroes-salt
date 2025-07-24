@@ -104,6 +104,11 @@ prg2:
     net6: 2a07:de40:b27e:1218::/64
     gw6: 2a07:de40:b27e:1218::3
     id: 1218
+  openSUSE-code-dev:
+    short: os-code-dev
+    net6: 2a07:de40:b27e:1219::/64
+    gw6: 2a07:de40:b27e:1219::3
+    id: 1219
 
 
 slc1:

@@ -42,6 +42,7 @@ network:
           'os-kani-dev': 1216,
           'os-kani-ext': 1217,
           'os-web': 1218,
+          'os-code-dev': 1219,
         }
     %}
     {%- for vlan_name, vlan_id in vlanmap.items() %}
