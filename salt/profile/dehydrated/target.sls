@@ -91,6 +91,10 @@ profile_certificate_target_dummy_{{ file }}_permissions_{{ certificate }}:
 {{ crtkey_acl(certificate, 'mysql', individual_files) }}
 {%- endif %}
 
+{%- if 'forgejo' in services %}
+{{ crtkey_acl(certificate, 'forgejo', individual_files) }}
+{%- endif %}
+
 {%- endfor %} {#- close certificate loop #}
 
 {%- for x in ['d', 'f'] %}
