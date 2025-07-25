@@ -80,6 +80,7 @@ haproxy:
         - host_chat         hdr(host)   -i {{ host_chat }}.opensuse.org
         {%- endfor %}
         - host_ci           hdr(host)   -i ci.opensuse.org
+        - host_code_dev     hdr(host)   -i code-dev.opensuse.org
         - host_community    hdr(host)   -i community.opensuse.org
         - host_community2   hdr(host)   -i factory-dashboard.opensuse.org
         - host_conncheck    hdr(host)   -i conncheck.opensuse.org
@@ -210,6 +211,7 @@ haproxy:
 
         # rules only depending on host_*
         - calendar        if host_calendar
+        - code-dev        if host_code_dev
         - conncheck       if host_conncheck
         - community       if host_doc
         - community2      if host_community2
