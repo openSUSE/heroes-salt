@@ -1,3 +1,9 @@
+apparmor:
+  local:
+    forgejo:
+      - /etc/ssl/services/code-dev.infra.opensuse.org/fullchain.pem r
+      - /etc/ssl/services/code-dev.infra.opensuse.org/privkey.pem r
+
 zypper:
   repositories:
     openSUSE:infrastructure:forgejo:

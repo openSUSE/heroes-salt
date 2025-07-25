@@ -75,6 +75,8 @@
   ip6 saddr @host6_atlas ip6 daddr @net6_os-web tcp dport https accept
   # atlas -> ldap-proxy (HTTPS for proxying www.o.o/openid)
   ip6 saddr @host6_atlas ip6 daddr $host6_ldap-proxy_ext tcp dport https accept
+  # atlas -> code-dev (code-dev.o.o)
+  ip6 saddr @host6_atlas ip6 daddr $host6_code-dev tcp dport 3000 accept
 
  }
 
