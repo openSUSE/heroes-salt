@@ -32,6 +32,7 @@ vim:filetype=nftables.jinja
     '@host6_volva',
     '@host6_volva-nw',
     '@net6_os-web',
+    '$host6_code-dev',
   ] %}
   ip6 saddr @host6_acme ip6 daddr {{ dest }} icmpv6 type { echo-request, echo-reply } accept
   ip6 saddr @host6_acme ip6 daddr {{ dest }} tcp dport ssh accept
