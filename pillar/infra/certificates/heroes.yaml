@@ -9,6 +9,11 @@ atlas2.infra.opensuse.org:
     - host: atlas2
       services:
         - haproxy
+code-dev.infra.opensuse.org:
+  targets:
+    - host: code-dev
+      services:
+        - forgejo
 download.infra.opensuse.org:
   sans:
     - download-prg.infra.opensuse.org

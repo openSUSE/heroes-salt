@@ -29,6 +29,7 @@ ci.opensuse.org:
     - macro: atlas
 code.opensuse.org:
   sans:
+    - code-dev.opensuse.org
     - pages.opensuse.org
     - ev.opensuse.org
     - releases.opensuse.org
