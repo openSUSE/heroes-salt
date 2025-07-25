@@ -52,7 +52,7 @@ haproxy:
     code-dev:
       {{ options('httpchk') }}
       {{ httpcheck('code-dev.opensuse.org', 200, '/api/healthz', tls=True) }}
-      {{ server('code-dev', '2a07:de40:b27e:1219::a', 443, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem') }}
+      {{ server('code-dev', '2a07:de40:b27e:1219::a', 3000, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem') }}
     community: {#- community points to httpd on community2 #}
       {{ options ('httpchk') }}
       {{ httpcheck('community.opensuse.org', 200, method='options') }}
