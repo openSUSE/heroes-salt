@@ -1,3 +1,5 @@
+{%- from 'common/haproxy/macros.jinja' import berghain_acls %}
+
 haproxy:
   frontends:
     http:
@@ -284,6 +286,8 @@ haproxy:
         - annoying_useragents hdr_sub(User-Agent)          -i -f /etc/haproxy/blacklists/useragents
         - odd_clients         req.hdr_cnt(Accept-Language) 0
 
+        {{ berghain_acls() }}
+
         - path_indexphp     path_beg     /index.php
 
         - suffix_asp        path_end    .asp
@@ -332,6 +336,8 @@ haproxy:
         - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n
         - annoying_useragents hdr_sub(User-Agent)  -i -f /etc/haproxy/blacklists/useragents
         - is_ssl              dst_port    443
+
+        {{ berghain_acls() }}
 
         - path_robots         path        /robots.txt
 
