@@ -83,7 +83,7 @@ def run():
           'certificate_deployment': {
             'cert': {
               'commands': [
-                sftp,
+                f'{sftp} ',
                 r'systemctl is-active --quiet mariadb \|\| exit "$\?" ; mariadb-admin -S /run/mysql/mysql.sock --connect-timeout=10 --wait=2 flush-ssl',  # noqa W605
               ],
             },
