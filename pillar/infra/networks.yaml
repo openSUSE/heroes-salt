@@ -2,6 +2,7 @@
 prg2:
   openSUSE-thor:
     export: true
+    vpn_push: true
     short: os-thor
     net6: 2a07:de40:b27e:1100::/64
     gw6: '2a07:de40:b27e:1100::3'
@@ -32,11 +33,13 @@ prg2:
     id: 1201
   openSUSE-internal:
     export: true
+    vpn_push: true
     short: os-internal
     net6: 2a07:de40:b27e:1203::/64
     gw6: '2a07:de40:b27e:1203::3'
     id: 1203
   openSUSE-public:
+    vpn_push: true
     short: os-public
     net6: 2a07:de40:b27e:1204::/64
     gw6: '2a07:de40:b27e:1204::3'
@@ -46,6 +49,7 @@ prg2:
     id: 1204
   openSUSE-mirror:
     export: true
+    vpn_push: true
     short: os-mirror
     net6: 2a07:de40:b27e:1205::/64
     gw6: '2a07:de40:b27e:1205::3'
@@ -79,18 +83,21 @@ prg2:
     gw6: 2a07:de40:b27e:1210::3
     id: 1210
   openSUSE-netbox:
+    vpn_push: true
     short: os-netbox
     net6: 2a07:de40:b27e:1211::/64
     gw6: 2a07:de40:b27e:1211::3
     id: 1211
   openSUSE-log:
     export: true
+    vpn_push: true
     short: os-log
     net6: 2a07:de40:b27e:1215::/64
     gw6: 2a07:de40:b27e:1215::3
     id: 1215
   openSUSE-kani-dev:
     short: os-kani-dev
+    vpn_push: true
     net6: 2a07:de40:b27e:1216::/64
     gw6: 2a07:de40:b27e:1216::3
     id: 1216
@@ -100,6 +107,7 @@ prg2:
     gw6: 2a07:de40:b27e:1217::3
     id: 1217
   openSUSE-web:
+    vpn_push: true
     short: os-web
     net6: 2a07:de40:b27e:1218::/64
     gw6: 2a07:de40:b27e:1218::3
@@ -186,6 +194,7 @@ pseudo:
   prg2:
     openSUSE-NAT64-Pool:
       export: true
+      vpn_push: true
       net6: 2a07:de40:b27e:64::/96
       net4: 172.16.164.0/24
   slc1:
