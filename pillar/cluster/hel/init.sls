@@ -91,7 +91,9 @@ haproxy:
           host: {{ host }}.infra.opensuse.org
           port: 3306
           check: check
-          extra: port 8000 inter 3000 rise 3 fall 3 {{ append }}
+          extra: >-
+            port 8000 inter 3000 rise 3 fall 3 {{ append }}
+            send-proxy-v2
         {%- endfor %}
     {%- endfor %}
 
