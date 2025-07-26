@@ -113,23 +113,13 @@ def run():
     })
 
     if commands:
-      result.update({
-        'profile': {
-          'authorized-exec': {
-            'certificate_deployment': {
-              'cert': {
-                'commands': commands_auth,
-              },
-            },
-          },
+      result['sudoers'] = {
+        'users': {
+          'cert': [
+            f'{host}=(root) NOPASSWD: {", ".join(commands)}',
+          ],
         },
-        'sudoers': {
-          'users': {
-            'cert': [
-              f'{host}=(root) NOPASSWD: {", ".join(commands)}',
-            ],
-          },
-        },
-      })
+      }
+      result['profile']['authorized-exec']['certificate_deployment']['cert']['commands'].extend(commands_auth)
 
   return result
