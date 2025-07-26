@@ -1,4 +1,4 @@
-{%- from 'common/haproxy/macros.jinja' import berghain_acls %}
+{%- from 'common/haproxy/macros.jinja' import berghain_acls, berghain_use_backend %}
 
 haproxy:
   frontends:
@@ -171,20 +171,10 @@ haproxy:
       default_backend: redirect_www_o_o
       use_backends:
         {#- host_ ACLs to enable POW challenge protection for, excluding paths commonly needed by legitimate scripts #}
-        {%- for host, excludes in {
+        {{ berghain_use_backend({
               'mailman3': '!path_hyperkitty_api !path_hyperkitty_feed',
               'redmine': '!suffix_json !suffix_xml',
-            }.items()
-        %}
-        - >-
-            berghain_http_challenge_front if
-            host_{{ host }} method_get !good_crawler
-            !path_favicon !path_robots !path_security
-            berghain_active !berghain_down !berghain_path !berghain_valid
-            {{ excludes }}
-        {%- endfor %}
-
-        - berghain_http_challenge_back if berghain_path
+        }) }}
 
         # special paths with common handling for all hosts
         - error_403           if path_dot_scm
