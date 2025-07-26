@@ -1,17 +1,12 @@
+{%- set mypillar = salt['pillar.get']('profile:vpn:openvpn:config:push', {}) -%}
 {{ pillar['managed_by_salt'] }}
 
-push "dhcp-option DNS 2a07:de40:b27e:1203::11"
-push "dhcp-option DNS 2a07:de40:b27e:1203::12"
+{%- for address in mypillar.get('dns', []) %}
+push "dhcp-option DNS {{ address }}"
+{%- endfor %}
+
 push "dhcp-option DOMAIN infra.opensuse.org"
 
-push "route-ipv6 2a07:de40:b27e:1100::/64"  # os-thor
-push "route-ipv6 2a07:de40:b27e:1203::/64"  # os-internal
-push "route-ipv6 2a07:de40:b27e:1204::/64"  # os-public
-push "route-ipv6 2a07:de40:b27e:1205::/64"  # os-mirror
-push "route-ipv6 2a07:de40:b27e:1211::/64"  # os-netbox
-push "route-ipv6 2a07:de40:b27e:1215::/64"  # os-log
-push "route-ipv6 2a07:de40:b27e:1216::/64"  # os-kani-dev
-push "route-ipv6 2a07:de40:b27e:1218::/64"  # os-web
-# os-public is firewalled to only facilitate the same IP connectivity as over the internet, but we push it to allow for access to restricted services
-# os-salt, os-code, and others are firewall blocked and not pushed on purpose
-push "route-ipv6 2a07:de40:b27e:64::/96"    # NAT64
+{%- for network in mypillar.get('routes', []) %}
+push "route-ipv6 {{ network }}"
+{%- endfor %}

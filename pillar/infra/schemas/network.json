@@ -12,6 +12,10 @@
 					"description": "Whether to publish the network through OSPF",
 					"type": "boolean"
 				},
+				"vpn_push": {
+					"description": "Whether to push a route to this network to clients in the admin VPN.",
+					"type": "boolean"
+				},
 				"short": {
 					"description": "string",
 					"pattern": "^os-[\\w-]{1,9}$"
