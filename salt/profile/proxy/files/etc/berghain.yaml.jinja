@@ -5,4 +5,5 @@
 listen: unix:///run/berghain/spop.sock
 secret: {{ mypillar.get('secret') }}
 
+{{ {'default': mypillar.get('default', {})} | yaml(False) }}
 {{ {'frontend': mypillar.get('frontend', {})} | yaml(False) }}

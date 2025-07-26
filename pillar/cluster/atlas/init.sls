@@ -1,4 +1,7 @@
-{%- from 'common/haproxy/map.jinja' import bind, errorfiles, extra, server, rsync_backend_with_checks, metrics, peers %}
+{%- from 'common/haproxy/map.jinja' import
+      berghain_httprequests_spoe, berghain_httprequests_vars,
+      bind, errorfiles, extra, filters, server, rsync_backend_with_checks, metrics, peers
+-%}
 {%- set host = grains['host'] %}
 
 {%- if host.startswith('runner-') %} {#- handle host based dictionaries in CI tests #}
@@ -80,13 +83,9 @@ haproxy:
           - status 404 if suffix_asp
           - status 404 if suffix_env
           - status 404 if suffix_php !host_beans !host_limesurvey !host_pmya
-        - set-var(req.berghain.level): int(1)  # TODO: multiple levels
-        - send-spoe-group: berghain validate if !berghain_path berghain_active
-        - wait-for-body: time 5s if berghain_path METH_POST
+        {{ berghain_httprequests_spoe() }}
       sticktable: type ipv6 size 500k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
-      extra:
-        - filter spoe engine berghain config /etc/haproxy/berghain-spoe.cfg  # SPOE configuration is managed by the berghain-spoe-haproxy package
-        - filter compression
+      {{ filters() }}
 
     http-login:
       bind:

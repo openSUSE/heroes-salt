@@ -19,11 +19,6 @@ haproxy:
         - no_x-frame-option var(txn.host) -m str etherpad.opensuse.org
         - no_x-frame-option var(txn.host) -m str metrics.opensuse.org
 
-        - berghain_active  var(req.berghain.level) -m found
-        - berghain_down    var(txn.berghain.error) -m int gt 0
-        - berghain_path    path                    /cdn-cgi/challenge-platform/challenge
-        - berghain_valid   var(txn.berghain.valid) -m bool
-
         - cookie_ipsilon_username_missing req.cook_cnt(ipsilon_default_username) eq 0
 
         {%- for country in [
