@@ -274,11 +274,15 @@ haproxy:
         - src_login           var(req.is_src_login) -m bool
         - annoying_networks   req.hdr_ip(X-Forwarded-For)  -f /etc/haproxy/blacklists/networks -n
         - annoying_useragents hdr_sub(User-Agent)          -i -f /etc/haproxy/blacklists/useragents
+        - method_get          method                       GET
         - odd_clients         req.hdr_cnt(Accept-Language) 0
 
         {{ berghain_acls() }}
 
+        - path_favicon      path         /favicon.ico
         - path_indexphp     path_beg     /index.php
+        - path_robots       path         /robots.txt
+        - path_security     path_end     /.well-known/security.txt
 
         - suffix_asp        path_end    .asp
         - suffix_asp        path_end    .aspx
@@ -319,6 +323,8 @@ haproxy:
               'tsp': '',
         }) }}
 
+        - security_txt      if path_security
+
         - dale              if src_login host_dale
         - elections         if src_login host_elections
         - hackweek          if src_login host_hackweek
@@ -330,15 +336,19 @@ haproxy:
         - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n
         - annoying_useragents hdr_sub(User-Agent)  -i -f /etc/haproxy/blacklists/useragents
         - is_ssl              dst_port    443
+        - method_get          method      GET
 
         {{ berghain_acls() }}
 
+        - path_favicon        path        /favicon.ico
         - path_robots         path        /robots.txt
+        - path_security       path_end    /.well-known/security.txt
 
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
         - host_pagure     hdr(host)   -i {{ host_pagure }}.opensuse.org
         {%- endfor %}
       use_backends:
+        - security_txt                if path_security
         - code_robots_txt             if host_pagure path_robots
         - pagure                      if host_pagure
       redirects:
