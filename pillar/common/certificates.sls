@@ -58,7 +58,7 @@ def run():
       '/usr/bin/systemctl try-reload-or-restart ' + service for service in _services
     ]
     commands_auth = [
-      fr'systemctl is-active --quiet {service} \|\| exit "$\?" ; sudo systemctl try-reload-or-restart {service}'  # noqa W605
+      fr'systemctl is-active --quiet {service} \|\| exit "\$\?" ; sudo systemctl try-reload-or-restart {service}'  # noqa W605
       for service in _services
     ]
 
@@ -84,7 +84,7 @@ def run():
             'cert': {
               'commands': [
                 f'{sftp} ',
-                r'systemctl is-active --quiet mariadb \|\| exit "$\?" ; mariadb-admin -S /run/mysql/mysql.sock --connect-timeout=10 --wait=2 flush-ssl',  # noqa W605
+                r'systemctl is-active --quiet mariadb \|\| exit "\$\?" ; mariadb-admin -S /run/mysql/mysql.sock --connect-timeout=10 --wait=2 flush-ssl',  # noqa W605
               ],
             },
           },
