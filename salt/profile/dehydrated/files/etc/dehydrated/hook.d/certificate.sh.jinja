@@ -31,6 +31,12 @@ fail() {
   STATUS=1
 }
 
+if [ "$USER" != 'dehydrated' ]
+then
+  echo 'Script is only designed for operation under the dehydrated user.'
+  exit 1
+fi
+
 if ! { [ -r "$CRT_PEM" ] && [ -r "$KEY_PEM" ] ; }
 then
   fail 'files'
