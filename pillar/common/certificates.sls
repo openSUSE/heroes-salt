@@ -100,7 +100,7 @@ def run():
               'User': 'cert',
             },
             'options': {
-               'Subsystem': sftp,
+               'Subsystem': f'sftp {sftp}',
             },
           },
         },
