@@ -5,6 +5,13 @@ atlas:
     - atlas2
   services:
     - haproxy
+galera:
+  hosts:
+    - galera1
+    - galera2
+    - galera3
+  services:
+    - mariadb
 globus:
   hosts:
     - globus1
