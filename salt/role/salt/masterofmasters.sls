@@ -1,0 +1,2 @@
+include:
+  - infrastructure.salt.master

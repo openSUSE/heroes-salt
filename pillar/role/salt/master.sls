@@ -47,15 +47,6 @@ salt:
           - '@jobs'
           - '@runner'
           - '@wheel'
-    fileserver_backend:
-      - git
-      - roots
-    file_roots:
-      # consider changing back to __env__ after a solution for https://github.com/saltstack/salt/issues/62967
-      production:
-        - /srv/salt
-        - /usr/share/salt-formulas/states
-        - /srv/formulas
     gather_job_timeout: 10
     ipc_write_buffer: dynamic
     timeout: 15
@@ -75,11 +66,6 @@ salt:
     pillar_cache_backend: memory
     pillar_cache_ttl: 1800
     pillar_gitfs_ssl_verify: True
-    pillar_merge_lists: True
-    pillar_roots:
-      __env__:
-        - /srv/pillar
-    pillar_source_merging_strategy: smart
     redis.db: 1
     redis.unix_socket_path: /run/redis/salt.sock
     rest_cherrypy:
@@ -93,7 +79,6 @@ salt:
     state_compress_ids: True
     state_output: changes
     state_verbose: False
-    top_file_merging_strategy: same
     user: salt
     worker_threads: {{ grains['num_cpus'] }}
     zmq_backlog: 10000
@@ -101,45 +86,6 @@ salt:
 
 sshd_config:
   PermitRootLogin: prohibit-password
-
-infrastructure:
-  salt:
-    formulas:
-      {%- for formula in [
-            'apache_httpd',
-            'backupscript',
-            'bootloader',
-            'grains',
-            'infrastructure',
-            'juniper_junos',
-            'libvirt',
-            'lldpd',
-            'lock',
-            'lunmap',
-            'mtail',
-            'multipath',
-            'network',
-            'os_update',
-            'php_fpm',
-            'rebootmgr',
-            'redis',
-            'redmine',
-            'rsync',
-            'smartmontools',
-            'status_mail',
-            'suse_ha',
-            'sysconfig',
-            'tayga',
-            'zypper',
-          ]
-      %}
-      - {{ formula }}-formula
-      {%- endfor %}
-    git:
-      formulas:
-        repository: https://gitlab.infra.opensuse.org/infra/salt-formulas-git.git
-    scriptconfig:
-      ssh_key: /root/.ssh/salt-mm
 
 profile:
   authorized-exec:
@@ -164,27 +110,6 @@ redis:
     port: 0
     tcp-backlog: 511
     timeout: 0
-
-rsync:
-  modules:
-    salt-push:
-      path: /srv/salt-git/
-      comment: /srv/salt-git/
-      list: 'false'
-      uid: root
-      gid: salt
-      auth users: saltpush
-      name converter: /usr/local/bin/nameconvert.py
-      numeric ids: false
-      read only: false
-      hosts allow:
-        {%- if grains.get('site') in ['prg2', 'slc1'] %}
-        - 2a07:de40:b27e:1203::126 # gitlab-runner1
-        - 2a07:de40:b27e:1203::127 # gitlab-runner2
-        {%- else %}
-        - 172.16.164.126
-        - 172.16.164.127
-        {%- endif %}
 
 groups:
   redis:
