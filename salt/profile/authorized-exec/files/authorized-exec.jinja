@@ -1,6 +1,6 @@
 {{ pillar['managed_by_salt'] }}
 (
-	{%- for user, uconfig in config.items() %}
+	{%- for user, uconfig in salt['pillar.get']('profile:authorized-exec:' ~ config, {}).items() %}
 		{%- if 'pubkey' in uconfig %}
 			{%- set user = user ~ ':' ~ uconfig['pubkey'] %}
 		{%- endif %}
