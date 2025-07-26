@@ -1,6 +1,9 @@
 {{ pillar['managed_by_salt'] }}
 
 HOSTUSAGE='{{ salt['pillar.get']('grains:hostusage', [])|join(', ') }}'
+
+_u="\u@\h ($HOSTUSAGE)"
+
 # Other prompting for root
 if test "$UID" -eq 0  ; then
     if test -n "$TERM" -a -t ; then
@@ -12,13 +15,11 @@ if test "$UID" -eq 0  ; then
         _u="\[$_bred\]\h ($HOSTUSAGE)"
         _p=" #\[$_sgr0\]"
     else
-        _u="\h ($HOSTUSAGE)"
         _p=" #"
     fi
     unset _bred _sgr0
 else
-    _u="\u@\h"
-    _p=">"
+    _p=" >"
 fi
 if test -z "$EMACS" -a -z "$MC_SID" -a -z "$restricted" -a \
         -z "$STY" -a -n "$DISPLAY" -a ! -r $HOME/.bash.expert
