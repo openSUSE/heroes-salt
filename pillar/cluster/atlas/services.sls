@@ -315,6 +315,10 @@ haproxy:
         - param_mw_days_from     urlp(from)                   -m int gt 0
 
       use_backends:
+        {{ berghain_use_backend({
+              'tsp': '',
+        }) }}
+
         - dale              if src_login host_dale
         - elections         if src_login host_elections
         - hackweek          if src_login host_hackweek
