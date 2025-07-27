@@ -345,14 +345,14 @@ haproxy:
         - path_security       path_end    /.well-known/security.txt
 
         - path_git_refs                   path_reg        ^/[a-zA-Z0-9-_+]+/[a-zA-Z0-9-_+]+(\.git)?/info/refs$
-        - param_git_service_upload_pack   urlp(service)   git-upload-pack
+        - param_git_service_pack          urlp(service)   git-receive-pack || git-upload-pack
 
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
         - host_pagure     hdr(host)   -i {{ host_pagure }}.opensuse.org
         {%- endfor %}
       use_backends:
         {{ berghain_use_backend({
-              'pagure': '!{ var(req.is_git_refs_service_upload_pack) -m bool }',
+              'pagure': '!{ var(req.is_git_refs_service_pack) -m bool }',
         }) }}
 
         - security_txt                if path_security

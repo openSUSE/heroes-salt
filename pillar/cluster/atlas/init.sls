@@ -133,7 +133,7 @@ haproxy:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
         - set-var(txn.host): hdr(Host)
-        - set-var(req.is_git_refs_service_upload_pack): bool(true) if path_git_refs param_git_service_upload_pack
+        - set-var(req.is_git_refs_service_pack): bool(true) if path_git_refs param_git_service_pack
       sticktable: type ipv6 size 250k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
       {{ filters() }}
 
