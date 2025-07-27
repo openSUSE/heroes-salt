@@ -10,7 +10,7 @@ for master in \
 	witch1 volva1 volva2
 do
 	printf 'Transferring to %s ... ' "$master"
-	if rsync -a --delete --super --chown=salt:salt --chmod='u=rwX,g=rX,o=' --contimeout=20 --timeout=90 . saltpush@"$master".infra.opensuse.org::salt-push
+	if rsync -a --delete --super --chown=cloneboy:salt --chmod='u=rwX,g=rX,o=' --contimeout=20 --timeout=90 . saltpush@"$master".infra.opensuse.org::salt-push
 	then
 		printf '\e[32m%s\e[0m\n' 'OK'
 	else
