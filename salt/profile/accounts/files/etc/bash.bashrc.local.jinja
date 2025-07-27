@@ -12,8 +12,8 @@ if test "$UID" -eq 0  ; then
     fi
     # Colored root prompt (see bugzilla #144620)
     if test -n "$_bred" -a -n "$_sgr0" ; then
-        _u="$_bred$_u"
-        _p="$_p$_sgr0"
+        _u="\[$_bred\]$_u"
+        _p="$_p\[$_sgr\]0"
     fi
     unset _bred _sgr0
 else
