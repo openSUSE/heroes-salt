@@ -344,10 +344,17 @@ haproxy:
         - path_robots         path        /robots.txt
         - path_security       path_end    /.well-known/security.txt
 
+        - path_git_refs                   path_reg        ^/[a-zA-Z0-9-_+]+/[a-zA-Z0-9-_+]+(\.git)?/info/refs$
+        - param_git_service_upload_pack   urlp(service)   git-upload-pack
+
         {%- for host_pagure in ['code', 'pages', 'ev', 'releases'] %}
         - host_pagure     hdr(host)   -i {{ host_pagure }}.opensuse.org
         {%- endfor %}
       use_backends:
+        {{ berghain_use_backend({
+              'pagure': '!{ var(req.is_git_refs_service_upload_pack) -m bool }',
+        }) }}
+
         - security_txt                if path_security
         - code_robots_txt             if host_pagure path_robots
         - pagure                      if host_pagure
