@@ -15,6 +15,7 @@ grains:
   weburls: []
   partners:
     - asgard1.infra.opensuse.org
+  skip_legacy_hosts: true
 roles:
   - gateway
   - ha

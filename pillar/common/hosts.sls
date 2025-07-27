@@ -8,7 +8,7 @@
 
 {#- if not successful, try grains lookup -#}
 {#- IPv4, based on private addresses -#}
-{%- if not address4 and not address6 and not 'Router' in grains.get('hostusage', []) and grains['host'][:-2] != 'falkor' -%}
+{%- if not address4 and not address6 and not grains.get('skip_legacy_hosts', false) and grains['host'][:-2] != 'falkor' -%}
   {%- set ipv4_ns = namespace(address=None) -%}
   {%- for address in grains['ipv4'] -%}
     {%- if salt['network.is_private'](address) and not salt['network.is_loopback'](address) -%}
