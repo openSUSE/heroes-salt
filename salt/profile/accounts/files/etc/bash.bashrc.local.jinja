@@ -1,21 +1,19 @@
 {{ pillar['managed_by_salt'] }}
 
-HOSTUSAGE='{{ salt['pillar.get']('grains:hostusage', [])|join(', ') }}'
-
-_u="\u@\h ($HOSTUSAGE)"
+_u="\u@\h ({{ salt['pillar.get']('grains:hostusage', [])|join(', ') }})"
 
 # Other prompting for root
 if test "$UID" -eq 0  ; then
+    _p=" #"
+
     if test -n "$TERM" -a -t ; then
-        _bred="$(path tput bold 2> /dev/null; path tput setaf 1 2> /dev/null)"
-        _sgr0="$(path tput sgr0 2> /dev/null)"
+        _bred="$(_path tput bold; _path tput setaf 1)"
+        _sgr0="$(_path tput sgr0)"
     fi
     # Colored root prompt (see bugzilla #144620)
     if test -n "$_bred" -a -n "$_sgr0" ; then
-        _u="\[$_bred\]\h ($HOSTUSAGE)"
-        _p=" #\[$_sgr0\]"
-    else
-        _p=" #"
+        _u="$_bred$_u"
+        _p="$_p$_sgr0"
     fi
     unset _bred _sgr0
 else
