@@ -191,9 +191,26 @@ groups:
         expr: >-
           avg by (proxy)
           (
-          haproxy_backend_total_time_average_seconds / 1024
+          haproxy_backend_total_time_average_seconds{proxy!="berghain_spop"} / 1024
           )
           > 1
+        for: 1m
+        labels:
+          severity: warning
+
+      - alert: HAProxySPOEBackendSlowingDown
+        annotations:
+          description: |
+            Average request time is increasing for backend {{ $labels.proxy }} on {{ $labels.instance }}.
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+          summary: HAProxy SPOE backend slowing down ({{ $labels.instance }}/{{ $labels.proxy }})
+        expr: >-
+          avg by (proxy)
+          (
+          haproxy_backend_total_time_average_seconds{proxy="berghain_spop"} / 1024
+          )
+          > 4
         for: 1m
         labels:
           severity: warning
