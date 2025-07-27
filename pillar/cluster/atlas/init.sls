@@ -99,6 +99,8 @@ haproxy:
       httprequests:
         - set-var(req.is_src_login): bool(true) if src_login_pre
         - set-src: req.hdr_ip(X-Forwarded-For,-1)
+        {{ berghain_httprequests_vars() }}
+        {{ berghain_httprequests_spoe() }}
         - track-sc0: src
         - deny:
           - deny_status 403 if annoying_useragents
@@ -113,6 +115,7 @@ haproxy:
           - status 404 if suffix_php !host_mediawiki
           - status 406 if odd_clients host_mediawiki path_indexphp
       sticktable: type ipv6 size 50k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
+      {{ filters() }}
 
     http-misc:
       bind:
@@ -123,12 +126,15 @@ haproxy:
       options:
         - http-server-close
       httprequests:
+        {{ berghain_httprequests_vars() }}
+        {{ berghain_httprequests_spoe() }}
         - track-sc0: src
         - deny:
           - deny_status 403 if annoying_useragents
           - deny_status 429 if annoying_networks
         - set-var(txn.host): hdr(Host)
       sticktable: type ipv6 size 250k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
+      {{ filters() }}
 
   listens:
     {{ metrics(bind_v6_standalone) }}

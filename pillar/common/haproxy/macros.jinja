@@ -33,6 +33,19 @@
         - berghain_valid   var(txn.berghain.valid) -m bool
 {%- endmacro %}
 
+{%- macro berghain_use_backend(config) %}
+    {%- for host, excludes in config.items() %}
+        - >-
+            berghain_http_challenge_front if
+            host_{{ host }} method_get !good_crawler
+            !path_favicon !path_robots !path_security
+            berghain_active !berghain_down !berghain_path !berghain_valid
+            {{ excludes }}
+    {%- endfor %}
+
+        - berghain_http_challenge_back if berghain_path
+{%- endmacro %}
+
 {%- macro berghain_httprequests_spoe() %}
         - send-spoe-group: berghain validate if !berghain_path berghain_active
         - wait-for-body: time 5s if berghain_path METH_POST
