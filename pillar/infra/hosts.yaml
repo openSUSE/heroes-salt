@@ -1006,6 +1006,18 @@ rpmlint:
   legacy_boot: true
   ram: 8192MB
   vcpu: 2
+seidr1:
+  cluster: squanchy
+  disks:
+    root: 15G
+  interfaces:
+    os-salt:
+      ip6: 2a07:de40:b27e:1200::e/64
+      mac: 00:16:3e:38:35:29
+      source: x-os-salt
+  primary_interface: os-salt
+  ram: 4096MB
+  vcpu: 4
 slc-devcon1:
   cluster: chaplin
   disks:

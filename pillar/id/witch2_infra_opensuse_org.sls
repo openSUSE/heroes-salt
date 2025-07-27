@@ -13,3 +13,4 @@ grains:
   weburls: []
 roles:
   - salt.master
+  - salt.syndic
