@@ -11,6 +11,12 @@
    # volva -> mickey (for GitLab repository access via HTTPS)
    oifname @if_s2s ip6 saddr @host6_volva ip6 daddr @host6_mickey tcp dport https accept
    oifname @if_s2s ip6 saddr @host6_volva-nw ip6 daddr @host6_mickey tcp dport https accept
+
+   # volva -> seidr (for Salt Syndic -> Master connectivity)
+   oifname @if_s2s ip6 saddr @host6_volva ip6 saddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
+   oifname @if_s2s ip6 saddr @host6_volva ip6 saddr @host6_seidr tcp dport 4505-4506 accept
+   oifname @if_s2s ip6 saddr @host6_volva-nw ip6 saddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
+   oifname @if_s2s ip6 saddr @host6_volva-nw ip6 saddr @host6_seidr tcp dport 4505-4506 accept
  }
 
  chain output_network_os-salt {

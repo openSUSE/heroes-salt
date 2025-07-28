@@ -501,6 +501,14 @@ set host6_thor {
   }
 }
 
+set host6_seidr {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1200::e/128
+  }
+}
+
 set host6_witch {
   type ipv6_addr
   flags interval
