@@ -58,7 +58,7 @@ profile:
         environments:
           - name: dehydrated
             zones:
-              - name: (?:infra\.)?opensuse(?:-project)?\.\w+
+              - name: ^(?:infra\.)?opensuse(?:-project)?\.\w+$
                 regex: true
                 services:
                   acme: true
