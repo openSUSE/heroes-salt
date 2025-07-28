@@ -22,7 +22,6 @@ vim:filetype=nftables.jinja
     '$host6_stage3',
     '@host6_atlas',
     '@host6_mx',
-    '@host6_witch1',
     '@host6_netbox',
     '@host6_kani',
     '@host6_kani-ext-dev',
@@ -31,6 +30,7 @@ vim:filetype=nftables.jinja
     '@host6_tyr',
     '@host6_volva',
     '@host6_volva-nw',
+    '@net6_os-salt',
     '@net6_os-web',
     '$host6_code-dev',
   ] %}
@@ -109,8 +109,8 @@ vim:filetype=nftables.jinja
   ip6 saddr $host6_monitor ip6 daddr @host6_avalon tcp dport 9100 accept
   # monitor -> mx* (Prometheus mtail/postfix metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_mx tcp dport { 3903, 9154 } accept
-  # monitor -> witch* (Prometheus saline/salt metrics collection)
-  ip6 saddr $host6_monitor ip6 daddr @host6_witch1 tcp dport 8216 accept
+  # monitor -> Salt masters (Prometheus saline/salt metrics collection)
+  ip6 saddr $host6_monitor ip6 daddr @net6_os-salt tcp dport 8216 accept
   # monitor -> all HAProxy nodes (Prometheus HAProxy metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_haproxy tcp dport 8404 accept
   # monitor -> all Apache httpd nodes (Prometheus Apache metrics collection)
