@@ -4,7 +4,7 @@
 {{ pillar['managed_by_salt'] }}
 # TODO: once all services consuming the PowerDNS API are adjusted to use the proxy, this shall point to a local UNIX socket
 pdns_api_url: http://{{ grains['fqdn'] }}:8080
-pdns_api_token: {{ salt['pillar.get']('powerdns:config:webserver-password') }}
+pdns_api_token: {{ salt['pillar.get']('powerdns:config:api-key') }}
 
 environments:
 {% for env in environments -%}
