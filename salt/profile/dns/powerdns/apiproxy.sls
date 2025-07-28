@@ -16,6 +16,8 @@ powerdns_apiproxy_service:
   service.running:
     - name: powerdns-api-proxy
     - enable: true
+    - reload: false
     - require:
         - pkg: zypper_packages
+    - watch:
         - file: powerdns_apiproxy_config
