@@ -236,6 +236,15 @@ set host6_thor {
   }
 }
 
+# seidr*.i.o.o (Salt Masters of Masters)
+set host6_seidr {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:b27e:1200::e/128
+  }
+}
+
 # witch1.i.o.o (Salt Master)
 set host6_witch1 {
   type ipv6_addr
