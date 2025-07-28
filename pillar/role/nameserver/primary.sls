@@ -64,7 +64,15 @@ profile:
                   acme: true
           - name: opentofu
             zones:
-              - name: opensuse-project.com
+              {%- for tld in [
+                    'com',
+                    'de',
+                    'net',
+                    'org',
+                  ]
+              %}
+              - name: opensuse-project.{{ tld }}
+              {%- endfor %}
 
 zypper:
   packages:
