@@ -44,7 +44,7 @@ haproxy:
         - debuginfod             if host_debuginfod
         - mirror                 if host_slc_dlc || host_slc_mirror
         - mirrorcache            if host_mirrorcache_us
-        - static                 if host_static
+        #- static                 if host_static
       redirects:
         - scheme https code 301  if !is_ssl !host_conncheck !host_mirrorcache_us
         - code 301 prefix https://www.opensuse.org if host_mainpage !path_matrix_client !path_matrix_federation
