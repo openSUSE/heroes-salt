@@ -62,7 +62,8 @@ profile:
                 regex: true
                 services:
                   acme: true
-          - name: opentofu
+          {%- for service in ['opentofu', 'dnscontrol'] %}
+          - name: {{ service }}
             zones:
               {%- for tld in [
                     'com',
@@ -73,6 +74,7 @@ profile:
               %}
               - name: opensuse-project.{{ tld }}
               {%- endfor %}
+          {%- endfor %}
 
 zypper:
   packages:
