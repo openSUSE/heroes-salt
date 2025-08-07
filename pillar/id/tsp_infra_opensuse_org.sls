@@ -2,7 +2,7 @@ grains:
   site: prg2
   hostusage:
     - Travel Support Program webapp
-  reboot_safe: unknown
+  reboot_safe: yes
 
   aliases: []
   description: Travel Support Program (tsp) webapp server

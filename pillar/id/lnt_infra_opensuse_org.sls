@@ -2,7 +2,7 @@ grains:
   site: prg2
   hostusage:
     - lnt.o.o
-  reboot_safe: unknown
+  reboot_safe: yes
 
   aliases: []
   description: lnt.o.o server
