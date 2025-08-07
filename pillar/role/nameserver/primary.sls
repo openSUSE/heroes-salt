@@ -62,7 +62,9 @@ profile:
                 regex: true
                 services:
                   acme: true
-          - name: dnscontrol
+          - name: dnscontrol-ro
+            global_read_only: true
+          - name: dnscontrol-rw
             zones:
               {%- import_yaml 'infra/domains.yaml' as domains %}
               {%- for domain in domains %}
