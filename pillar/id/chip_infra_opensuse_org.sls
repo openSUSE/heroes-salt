@@ -13,8 +13,8 @@ grains:
   weburls: []
 motd:
   - '====='
-  - 'Dear fellow administrator, DNS zones are partially managed by OpenTofu now.'
-  - 'Before using pdnsutil, please check https://gitlab.infra.opensuse.org/infra/tofu.'
+  - 'Dear fellow administrator, DNS zones are partially managed through Git now.'
+  - 'Before using pdnsutil, please check https://gitlab.infra.opensuse.org/infra/dns.'
   - 'If the zone you intended to modify is listed in the repository, stop here and submit a patch there.'
   - '======'
 roles:
