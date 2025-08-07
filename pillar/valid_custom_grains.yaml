@@ -6,7 +6,6 @@ reboot_safe:
   - yes
   - no
   # yamllint enable rule:truthy
-  - unknown
 responsible: []
 site:
   - nue-ipx

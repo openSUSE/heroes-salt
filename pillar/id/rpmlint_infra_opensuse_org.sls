@@ -2,7 +2,7 @@ grains:
   site: prg2
   hostusage:
     - rpmlint.o.o
-  reboot_safe: unknown
+  reboot_safe: yes
 
   aliases: []
   description: Build check statistics
