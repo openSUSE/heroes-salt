@@ -64,6 +64,7 @@ profile:
                   acme: true
           - name: dnscontrol-ro
             global_read_only: true
+            zones: []
           - name: dnscontrol-rw
             zones:
               {%- import_yaml 'infra/domains.yaml' as domains %}
