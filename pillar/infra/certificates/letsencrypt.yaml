@@ -166,6 +166,54 @@ opi-proxy.opensuse.org:
 osc-collab.opensuse.org:
   targets:
     - macro: atlas
+parking.opensuse.org:
+  sans:
+    - '*.opensuse-project.com'
+    - '*.opensuse-project.de'
+    - '*.opensuse-project.net'
+    - '*.opensuse-project.org'
+    - '*.opensuse.asia'
+    - '*.opensuse.co'
+    - '*.opensuse.co.in'
+    - '*.opensuse.com'
+    - '*.opensuse.com.br'
+    - '*.opensuse.com.es'
+    - '*.opensuse.com.mx'
+    - '*.opensuse.de'
+    - '*.opensuse.eu'
+    - '*.opensuse.fr'
+    - '*.opensuse.gen.tr'
+    - '*.opensuse.jp'
+    - '*.opensuse.kr'
+    - '*.opensuse.me'
+    - '*.opensuse.mx'
+    - '*.opensuse.net'
+    - '*.opensuse.org.cn'
+    - '*.opensuse.pk'
+    - opensuse-project.com
+    - opensuse-project.de
+    - opensuse-project.net
+    - opensuse-project.org
+    - opensuse.asia
+    - opensuse.co
+    - opensuse.co.in
+    - opensuse.com
+    - opensuse.com.br
+    - opensuse.com.es
+    - opensuse.com.mx
+    - opensuse.de
+    - opensuse.eu
+    - opensuse.fr
+    - opensuse.gen.tr
+    - opensuse.jp
+    - opensuse.kr
+    - opensuse.me
+    - opensuse.mx
+    - opensuse.net
+    - opensuse.org.cn
+    - opensuse.pk
+  targets:
+    - macro: atlas
 paste.opensuse.org:
   targets:
     - macro: atlas
