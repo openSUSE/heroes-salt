@@ -29,6 +29,7 @@ haproxy:
         - difficult_country var(sess.country) -m str {{ country }}
         {%- endfor %}
 
+        - path_doc_libzypp_head  path_beg    /projects/libzypp/HEAD/
         - path_dot_scm           path_beg    /.git/
         - path_dot_scm           path_beg    /.svn/
         - path_dot_scm           path_beg    /.bzr/
