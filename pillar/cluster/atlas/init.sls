@@ -79,6 +79,8 @@ haproxy:
           - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude !host_static_o_o
           - deny_status 429 if { sc_http_req_rate(0) gt 600 } !src_limit_exclude
           - deny_status 429 if speedy_300 !src_limit_exclude
+        - redirect:
+          - code 308 drop-query location https://opensuse.github.io/libzypp%[capture.req.uri,regsub('/projects/libzypp/HEAD','')] if host_doc path_doc_libzypp_head
         - return:
           - status 404 if suffix_asp
           - status 404 if suffix_env
