@@ -6,7 +6,7 @@ discourse_pkgs:
       - discourse
       - discourse-plugin-prometheus
       - discourse-plugin-stopforumspam
-      - ruby3.3-rubygem-discourse_mail_receiver
+      - ruby3.4-rubygem-discourse_mail_receiver
       - nginx-module-brotli
 
 discourse_config:
