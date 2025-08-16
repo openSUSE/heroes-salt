@@ -177,7 +177,7 @@ haproxy:
       {{ server('pinot', '2a07:de40:b27e:1203::b15') }}
     quiz:
       {{ options('httpchk') }}
-      {{ httpcheck('quiz.infra.opensuse.org', 200, '/check', tls=True) }}
+      {{ httpcheck('quiz.opensuse.org', 200, '/styles.css', tls=True) }}
       {{ server('quiz', '2a07:de40:b27e:1218::a10', 443, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem') }}
       httprequests:
         - set-header X-Forwarded-Host %[req.hdr(Host)]
