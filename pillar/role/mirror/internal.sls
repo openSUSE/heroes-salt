@@ -2,10 +2,6 @@ include:
   - .
 
 nginx:
-  server:
-    config:
-      load_module:
-        - lib64/nginx/modules/ngx_http_fancyindex_module.so
   servers:
     managed:
       download.conf:
@@ -15,8 +11,7 @@ nginx:
               - include:
                   - snippets/download
           - server:
-              - listen: '[::]:443 ssl'
-              - http2: 'on'
+              - listen: '[::]:443 http2 ssl'
               {%- set tlsdir = '/etc/ssl/services/download.infra.opensuse.org/' %}
               - ssl_certificate: {{ tlsdir }}/fullchain.pem
               - ssl_certificate_key: {{ tlsdir }}/privkey.pem
@@ -32,16 +27,3 @@ nginx:
       - location /:
           - root: /data/srv/www/
       - rewrite: ^/repositories/([^/]+):([^/]+)/(.*)$  /repositories/$1:/$2/$3 permanent
-      - fancyindex: 'on'
-      - fancyindex_name_length: 100
-      - fancyindex_exact_size: 'off'
-
-
-zypper:
-  packages:
-    nginx-module-fancyindex: {}
-  repositories:
-    openSUSE:infrastructure:nginx-next:
-      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/nginx-next/$releasever/
-      priority: 98
-      refresh: true
