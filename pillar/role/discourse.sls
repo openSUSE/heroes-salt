@@ -55,12 +55,12 @@ profile:
     ] %}
                   {{ '    ' if inside else '' }}- proxy_set_header: {{ header }}
   {%- endfor %}
-{%- endmacro -%}
+{%- endmacro %}
 {%- macro commonproxylocation(accel_redirect_downloads=false, inside=true) -%}
                   {{ commonproxylocationheaders(accel_redirect_downloads, inside) }}
                   {{ '    ' if inside else '' }}- proxy_pass: http://discourse
                   {{ '    ' if inside else '' }}- break
-{%- endmacro -%}
+{%- endmacro %}
 
 nginx:
   server:
