@@ -1,12 +1,1 @@
-firewalld:
-  zones:
-    internal:
-      interfaces:
-        - os-ghr-os
-
-network:
-  interfaces:
-    os-ghr-os:
-      etherdevice: bond-ob
-      vlan_id: 1208
-      firewall: false
+# currently not in use: os-ghr-os
