@@ -37,9 +37,6 @@ profile:
         repo: https://github.com/openSUSE/studioexpress-landing.git
       lizards.opensuse.org:
         repo: https://github.com/openSUSE/lizards.git
-      www.opensuse.org:
-        repo: https://github.com/openSUSE/landing-page.git
-        # www.o.o/openid/ is not handled by narwal*, haproxy forwards /openid/ to a different server
       community.opensuse.org/ebooks:
         repo: https://github.com/openSUSE/ebooks-archives.git
         branch: main

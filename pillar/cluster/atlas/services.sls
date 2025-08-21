@@ -208,7 +208,7 @@ haproxy:
         - forums          if host_forums
         - gccstats        if host_gcc
         - ip              if host_ip
-        - jekyll          if host_jekyll || host_www_test || host_get_o_o
+        - jekyll          if host_jekyll || host_www || host_www_test || host_get_o_o
         - kubic           if host_kubic
         - kubic           if host_microos
         - limesurvey      if host_limesurvey
@@ -233,7 +233,7 @@ haproxy:
         - rpmlint         if host_rpmlint
         - staticpages     if host_community path_ebooks
         - staticpages     if host_community path_meetings
-        - staticpages     if host_www || host_staticpages || host_static_o_o
+        - staticpages     if host_staticpages || host_static_o_o
 
         # temporary
         - maintenance     if host_mirrorcache_us
