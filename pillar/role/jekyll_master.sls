@@ -35,6 +35,9 @@ profile:
       universe.opensuse.org:
         repo: https://github.com/openSUSE/universe-o-o.git
         branch: main
+      www.opensuse.org:
+        repo: https://github.com/openSUSE/landing-page.git
+        # www.o.o/openid/ is not handled by Jekyll, HAProxy forwards /openid/ to a different server
     server_list:
       - jekyll.infra.opensuse.org
 
