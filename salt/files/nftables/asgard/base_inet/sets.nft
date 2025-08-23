@@ -1110,10 +1110,7 @@ set acl6_internet_github_web {
   type ipv6_addr
   flags interval
   elements = {
-    $host6_apollo01,
-    $host6_apollo02,
-    $host6_apollo03,
-    $host6_apollo04,
+    $host6_apollo,
     $host6_calendar,        # software updates
     $host6_dale,
     $host6_gitlab-runner1,
@@ -1145,10 +1142,7 @@ set acl6_internet_github_api {
   type ipv6_addr
   flags interval
   elements = {
-    $host6_apollo01,
-    $host6_apollo02,
-    $host6_apollo03,
-    $host6_apollo04,
+    $host6_apollo,
     $host6_obsreview,
   }
 }
@@ -1157,10 +1151,7 @@ set acl6_internet_github_packages {
   type ipv6_addr
   flags interval
   elements = {
-    $host6_apollo01,
-    $host6_apollo02,
-    $host6_apollo03,
-    $host6_apollo04,
+    $host6_apollo,
   }
 }
 
@@ -1246,17 +1237,7 @@ set host6_apollo_c {
     type ipv6_addr
     flags interval
     elements = {
-        $host6_apollo01,
-    }
-}
-
-set host6_apollo_os {
-    type ipv6_addr
-    flags interval
-    elements = {
-        $host6_apollo02,
-        $host6_apollo03,
-        $host6_apollo04,
+        $host6_apollo,
     }
 }
 

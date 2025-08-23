@@ -1,3 +1,9 @@
+{%- from 'macros.jinja' import smart %}
+
 include:
-  - cluster.apollo.common
   - .network
+
+{{ smart([
+      'sda',
+      'sdb',
+]) }}
