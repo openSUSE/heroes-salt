@@ -1,6 +1,9 @@
 ###################################################
 ## MANAGED BY SALT in salt/files/nftables/asgard ##
 ###################################################
+{#-
+vim:filetype=nftables.jinja
+#}
 
 # SUSE
 define net6_os-p2p-pub = 2a07:de40:b27f:201::/64
@@ -9,61 +12,18 @@ define net4_os-p2p-pub = 195.135.223.40/29
 # VLAN 1000 openSUSE-asgard-cluster
 define net6_os-asgard = fd4b:5292:d67e:1000::/64
 
-# VLAN 1100 openSUSE-thor
-define net6_os-thor   = 2a07:de40:b27e:1100::/64
+{%- set networks = pillar['networks'] %}
+{%- for network, network_config in networks['sites']['prg2'].items() %}
 
-# VLAN 1101 openSUSE-SUSE-warp
-define net6_os-s-warp = 2a07:de40:b27e:1101::/64
+# VLAN {{ network_config['id'] }} {{ network }}
+  {%- for i in [6, 4] %}
+    {%- set net = 'net' ~ i | string %}
+    {%- if net in network_config %}
+define {{ net }}_{{ network_config['short'] }}{{ ( '= ' ~ network_config[net] ) | indent(15 - network_config['short'] | length, true) }}
+    {%- endif %}
+  {%- endfor %}
 
-# VLAN 1102 openSUSE-odin
-define net6_os-odin   = 2a07:de40:b27e:1102::/64
-
-# VLAN 1200 openSUSE-salt
-define net6_os-salt     = 2a07:de40:b27e:1200::/64
-
-# VLAN 1201 openSUSE-bare
-define net6_os-bare     = 2a07:de40:b27e:1201::/64
-
-# VLAN 1203 openSUSE-internal
-define net4_os-internal = 172.16.129.0/24
-define net6_os-internal = 2a07:de40:b27e:1203::/64
-
-# VLAN 1204 openSUSE-public
-define net4_os-public   = 172.16.130.0/24
-define net6_os-public   = 2a07:de40:b27e:1204::/64
-
-# VLAN 1205 openSUSE-mirror
-define net6_os-mirror   = 2a07:de40:b27e:1205::/64
-
-# VLAN 1206 openSUSE-code
-define net6_os-code     = 2a07:de40:b27e:1206::/64
-
-# VLAN 1207 openSUSE-GHR-Cobbler
-define net6_os-ghr-c    = 2a07:de40:b27e:1207::/64
-
-# VLAN 1208 openSUSE-GHR-openSUSE
-define net6_os-ghr-os   = 2a07:de40:b27e:1208::/64
-
-# VLAN 1209 openSUSE-mail
-define net6_os-mail     = 2a07:de40:b27e:1209::/64
-
-# VLAN 1210 openSUSE-kani
-define net6_os-kani     = 2a07:de40:b27e:1210::/64
-
-# VLAN 1211 openSUSE-netbox
-define net6_os-netbox   = 2a07:de40:b27e:1211::/64
-
-# VLAN 1215 openSUSE-log
-define net6_os-log      = 2a07:de40:b27e:1215::/64
-
-# VLAN 1216 openSUSE-kani-dev
-define net6_os-kani-dev = 2a07:de40:b27e:1216::/64
-
-# VLAN 1217 openSUSE-kani-ext
-define net6_os-kani-ext = 2a07:de40:b27e:1217::/64
-
-# VLAN 1218 openSUSE-web
-define net6_os-web = 2a07:de40:b27e:1218::/64
+{%- endfor %}
 
 define net6_vpn-udp     = 2a07:de40:b27e:5001::/64
 define net6_vpn-tcp     = 2a07:de40:b27e:5002::/64
@@ -91,8 +51,9 @@ define net4_internet_mx2 = 195.135.223.52
 # only allocate further public IPv4 addresses wisely :)
 
 # NAT64
-define nat64_v6         = 2a07:de40:b27e:64::/96
-define nat64_v4         = 172.16.164.0/24
+{%- set nat64_config = networks['pseudos']['prg2']['openSUSE-NAT64-Pool'] %}
+define nat64_v6         = {{ nat64_config['net6'] }}
+define nat64_v4         = {{ nat64_config['net4'] }}
 
 # Idividual hosts
 define srx4_p2p          = 195.135.223.46/32
