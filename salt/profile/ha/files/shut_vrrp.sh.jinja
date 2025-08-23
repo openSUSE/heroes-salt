@@ -1,0 +1,93 @@
+#!/bin/sh -Cefu
+# vim: ft=sh noexpandtab
+#{{ pillar['managed_by_salt'] }}
+# Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+systemctl is-active keepalived
+
+data='/tmp/keepalived.data'
+
+_generate_stats () {
+	systemctl kill -sUSR1 keepalived
+	sleep 0.5
+}
+
+_get_count () {
+	if [ -f "$data" ]
+	then
+		grep -Fc "$1" /tmp/keepalived.data || :
+	else
+		>&2 'Missing data file, bailing out.'
+		exit 1
+	fi
+}
+
+_get_masters () {
+	_get_count MASTER
+}
+
+_get_backups () {
+	_get_count BACKUP
+}
+
+_cleanup() {
+	rm /tmp/keepalived.data /tmp/keepalived_parent.data
+}
+
+_generate_stats
+
+masters="$(_get_masters)"
+backups="$(_get_backups)"
+
+if { [ "$masters" -gt 0 ] && [ "$backups" -gt 0 ] ; } || { [ "$masters" -eq 0 ] && [ "$backups" -eq 0 ] ; }
+then
+	>&2 echo 'Unhandled VRRP configuration, bailing out.'
+	exit 1
+fi
+
+for x in $(ip -br l | awk '/^d-/{ printf $1 " " }')
+do
+	echo "Bringing down $x ..."
+	ip l s down "$x"
+done
+
+>&2 echo 'Waiting ...'
+
+sleep 5
+
+count=0
+while [ "$count" -lt 3 ]
+do
+	count=$(( count + 1 ))
+	>&2 echo "Attempt $count ..."
+
+	ret=0
+
+	_generate_stats
+
+	if [ "$(_get_masters)" -gt 0 ] || [ "$(_get_backups)" -gt 0 ]
+	then
+		ret=1
+	fi
+
+	faults="$(_get_count FAULT)"
+	if [ "$faults" -ne "$masters" ] && [ "$faults" -ne "$backups" ]
+	then
+		ret=1
+	fi
+
+	if [ "$ret" = 0 ]
+	then
+		>&2 echo 'Done.'
+		_cleanup
+		exit 0
+	fi
+
+	>&2 echo 'Waiting ...'
+
+	sleep 5
+done
+
+>&2 echo 'VRRP instances are still alive, bailing out.'
+_cleanup
+exit 1
