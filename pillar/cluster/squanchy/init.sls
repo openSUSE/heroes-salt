@@ -22,7 +22,7 @@ network:
     {{ vlantap('os-ipmi-ur', 1001, 'bond-mgmt') }}
 
     # VLAN interfaces for generic VM connectivity
-    {%- set vlanmap_r = [
+    {%- set vlanlist_r = [
           'os-internal',
           'os-mirror',
           'os-s-warp',
