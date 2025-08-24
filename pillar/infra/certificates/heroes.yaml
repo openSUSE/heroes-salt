@@ -115,6 +115,15 @@ quiz.infra.opensuse.org:
     - host: quiz
       services:
         - nginx
+seidr1.infra.opensuse.org:
+  sans:
+    - salt.infra.opensuse.org
+    - seidr.infra.opensuse.org
+  targets:
+    - host: seidr1
+      services:
+        - salined
+        - salt-api
 tyr.infra.opensuse.org:
   sans:
     - tyr1.infra.opensuse.org
