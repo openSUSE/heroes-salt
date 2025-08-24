@@ -1,4 +1,4 @@
-{%- from 'macros.jinja' import bond, slave, vlantap %}
+{%- from 'macros.jinja' import bond, default_gateway, slave, vlantapnetworks %}
 
 network:
   interfaces:
@@ -27,32 +27,32 @@ network:
       firewall: false
 
     # VLAN interfaces for generic (non-VRRP) VM connectivity
-    {%- set vlanmap = {
-          'os-thor': 1100,
-          'os-odin': 1102,
-          'os-salt': 1200,
-          'os-internal': 1203,
-          'os-public': 1204,
-          'os-mirror': 1205,
-          'os-code': 1206,
-          'os-mail': 1209,
-          'os-kani': 1210,
-          'os-netbox': 1211,
-          'os-log': 1215,
-          'os-kani-dev': 1216,
-          'os-kani-ext': 1217,
-          'os-web': 1218,
-          'os-code-dev': 1219,
-        }
+    {%- set vlanlist_r = [
+          'os-code',
+          'os-code-dev',
+          'os-internal',
+          'os-kani',
+          'os-kani-dev',
+          'os-kani-ext',
+          'os-log',
+          'os-mail',
+          'os-mirror',
+          'os-netbox',
+          'os-odin',
+          'os-public',
+          'os-salt',
+          'os-thor',
+          'os-web',
+        ]
     %}
-    {%- for vlan_name, vlan_id in vlanmap.items() %}
-    {{ vlantap(vlan_name, vlan_id, 'bond-fib') }}
-    {%- endfor %}
+    {{ vlantapnetworks(vlanlist_r, 'bond-fib', 'prg2') }}
+
+  {{ default_gateway('prg2', 'openSUSE-bare') }}
 
 firewalld:
   zones:
     drop:
       interfaces:
-        {%- for vlan_name in vlanmap.keys() %}
+        {%- for vlan_name in vlanlist_r %}
         - x-{{ vlan_name }}
         {%- endfor %}
