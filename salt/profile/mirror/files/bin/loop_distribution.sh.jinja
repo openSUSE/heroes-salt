@@ -1,7 +1,10 @@
 #!/bin/bash
 {{ pillar['managed_by_salt'] }}
 
-WHAT=( 'distribution/leap/15.6' )
+WHAT=(
+  'distribution/leap/15.6'
+  'distribution/leap/16.0'
+)
 
 . /home/mirror/bin/loop_common
 
