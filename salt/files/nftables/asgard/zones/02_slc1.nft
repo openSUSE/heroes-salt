@@ -14,10 +14,10 @@ chain input_network_slc1 {
   oif os-internal ip6 saddr @host6_volva-nw ip6 daddr $host6_mickey tcp dport https accept
 
   # remote Salt Syndics -> Master of Masters
-  oif os-salt ip6 saddr @host6_volva ip6 saddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
-  oif os-salt ip6 saddr @host6_volva ip6 saddr @host6_seidr tcp dport 4505-4506 accept
-  oif os-salt ip6 saddr @host6_volva-nw ip6 saddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
-  oif os-salt ip6 saddr @host6_volva-nw ip6 saddr @host6_seidr tcp dport 4505-4506 accept
+  oif os-salt ip6 saddr @host6_volva ip6 daddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
+  oif os-salt ip6 saddr @host6_volva ip6 daddr @host6_seidr tcp dport 4505-4506 accept
+  oif os-salt ip6 saddr @host6_volva-nw ip6 daddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
+  oif os-salt ip6 saddr @host6_volva-nw ip6 daddr @host6_seidr tcp dport 4505-4506 accept
 
   # globus reverse proxy -> jekyll (until we have a local copy of jekyll sites in SLC1)
   oif os-internal ip6 saddr @host6_globus ip6 daddr $host6_jekyll tcp dport http accept
