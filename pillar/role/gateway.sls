@@ -1,7 +1,18 @@
 nftables: true
 
+{%- import_yaml 'infra/hosts.yaml' as hosts %}
+
 {%- import_yaml 'infra/networks.yaml' as networks %}
 {%- set pseudo_networks = networks.pop('pseudo') %}
+
+hosts:
+  {%- for host, host_config in hosts.items() %}
+  {{ host }}:
+    {%- set minion_id_struct = salt['slsutil.renderer']('/srv/pillar/id/' ~ host ~ '_infra_opensuse_org.sls') %}
+    site: {{ minion_id_struct['grains']['site'] }}
+    roles: {{ minion_id_struct.get('roles', []) }}
+    interfaces: {{ host_config['interfaces'].keys() }}
+  {%- endfor %}
 
 networks:
   sites: {{ networks }}
