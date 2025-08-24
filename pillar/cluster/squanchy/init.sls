@@ -1,4 +1,4 @@
-{%- from 'macros.jinja' import bond, slave, smart, vlantap %}
+{%- from 'macros.jinja' import bond, default_gateway, slave, vlantap, vlantapnetworks %}
 
 network:
   interfaces:
@@ -22,25 +22,25 @@ network:
     {{ vlantap('os-ipmi-ur', 1001, 'bond-mgmt') }}
 
     # VLAN interfaces for generic VM connectivity
-    {%- set vlanmap = {
-          'os-thor': 1100,
-          'os-internal': 1203,
-          'os-mirror': 1205,
-          'os-salt': 1200,
-          'os-s-warp': 1101,
-          's-j-os-out': 3202,
-          's-na-mgmt': 3339
-        }
+    {%- set vlanmap_r = [
+          'os-internal',
+          'os-mirror',
+          'os-s-warp',
+          'os-salt',
+          'os-thor',
+          's-j-os-out',
+          's-na-mgmt',
+        ]
     %}
-    {%- for vlan_name, vlan_id in vlanmap.items() %}
-    {{ vlantap(vlan_name, vlan_id, 'bond-ob') }}
-    {%- endfor %}
+    {{ vlantapnetworks(vlanlist_r, 'bond-ob', 'prg2') }}
+
+  {{ default_gateway('prg2', 'openSUSE-bare') }}
 
 firewalld:
   zones:
     drop:
       interfaces:
-        {%- for vlan_name in vlanmap.keys() %}
+        {%- for vlan_name in vlanlist_r %}
         - x-{{ vlan_name }}
         {%- endfor %}
 
