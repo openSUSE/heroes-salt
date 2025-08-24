@@ -1,6 +1,9 @@
 ###################################################
 ## MANAGED BY SALT in salt/files/nftables/avalon ##
 ###################################################
+{#-
+vim:filetype=nftables.jinja
+#}
 
 # SUSE
 define net6_os-p2p-pub = 2a07:de40:617f:201::/64
@@ -13,36 +16,18 @@ define net4_os-avalon = 172.16.112.0/30
 # VLAN 1701 openSUSE-avalon-cluster-conntrack
 define net6_os-avalon-ct = fd03:7bbf:d626:1701::/64
 
-# VLAN 1800 openSUSE-bare
-define net6_os-bare = 2a07:de40:617e:1800::/64
+{%- set networks = pillar['networks'] %}
+{%- for network, network_config in networks['sites']['slc1'].items() %}
 
-# VLAN 1801 openSUSE-devcon
-define net6_os-devcon = 2a07:de40:617e:1801::/64
+# VLAN {{ network_config['id'] }} {{ network }}
+  {%- for i in [6, 4] %}
+    {%- set net = 'net' ~ i | string %}
+    {%- if net in network_config %}
+define {{ net }}_{{ network_config['short'] }}{{ ( '= ' ~ network_config[net] ) | indent(15 - network_config['short'] | length, true) }}
+    {%- endif %}
+  {%- endfor %}
 
-# VLAN 1801 openSUSE-sif
-define net6_os-sif = 2a07:de40:617e:1802::/64
-
-# VLAN 1803 openSUSE-SUSE-warp
-define net6_os-s-warp = 2a07:de40:617e:1803::/64
-
-# VLAN 1900 openSUSE-salt
-define net6_os-salt = 2a07:de40:617e:1900::/64
-
-# VLAN 1903 openSUSE-internal
-define net6_os-internal = 2a07:de40:617e:1903::/64
-
-# VLAN 1904 openSUSE-public
-define net6_os-public = 2a07:de40:617e:1904::/64
-define net4_os-public = 172.16.113.0/28
-
-# VLAN 1905 openSUSE-mirror
-define net6_os-mirror = 2a07:de40:617e:1905::/64
-
-# VLAN 1906 openSUSE-mirrorcache
-define net6_os-mircache = 2a07:de40:617e:1906::/64
-
-# VLAN 1907 openSUSE-debuginfod
-define net6_os-dbginfod = 2a07:de40:617e:1907::/64
+{%- endfor %}
 
 # WAN
 define net4_internet = 195.135.220.48/28
@@ -59,8 +44,9 @@ define net4_internet5 = 195.135.220.53
 define net4_internet6 = 195.135.220.54
 
 # NAT64
-define net6_nat64 = 2a07:de40:617e:64::/96
-define net4_nat64 = 172.16.127.0/25
+{%- set nat64_config = networks['pseudos']['slc1']['openSUSE-NAT64-Pool'] %}
+define net6_nat64         = {{ nat64_config['net6'] }}
+define net4_nat64         = {{ nat64_config['net4'] }}
 
 # Hosts
 define srx4_p2p = 195.135.220.46/32

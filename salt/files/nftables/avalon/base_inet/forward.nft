@@ -1,35 +1,33 @@
 ###################################################
 ## MANAGED BY SALT in salt/files/nftables/avalon ##
 ###################################################
+{#-
+vim:filetype=nftables.jinja
+-#}
+
+{%- set chainmap = {
+          'iif': 'input',
+          'oif': 'output',
+        }
+%}
 
  chain forward {
    type filter hook forward priority 0
    policy drop
    jump global
 
-   iif vmap {
-     os-avalon        : jump network_os-avalon,
-     os-bare          : jump input_network_os-bare,
-     os-dbginfod      : jump input_network_os-dbginfod,
-     os-devcon        : jump input_network_os-devcon,
-     os-internal      : jump input_network_os-internal,
-     os-mircache      : jump input_network_os-mircache,
-     os-mirror        : jump input_network_os-mirror,
-     os-p2p-pub       : jump input_network_os-p2p-pub,
-     os-public        : jump input_network_os-public,
-     os-s-warp        : jump input_network_os-s-warp,
-     os-salt          : jump input_network_os-salt,
-     os-sif           : jump input_network_os-sif,
-   }
-   oif vmap {
-     os-bare          : jump output_network_os-bare,
-     os-mircache      : jump output_network_os-mircache,
-     os-mirror        : jump output_network_os-mirror,
-     os-p2p-pub       : jump output_network_os-p2p-pub,
-     os-s-warp        : jump output_network_os-s-warp,
-     os-salt          : jump output_network_os-salt,
-     os-sif           : jump output_network_os-sif,
-   }
+{% for x in ['iif', 'oif'] %}
+  {{ x }} vmap {
+    {%- if x == 'iif' %}
+    os-avalon                      : jump network_os-avalon,
+    os-p2p-pub                     : jump input_network_os-p2p-pub,
+    {%- endif %}
+    {%- for network, network_config in pillar['networks']['sites']['slc1'].items() | sort(attribute='1.short') %}
+      {%- set shortnet = network_config['short'] %}
+    {{ shortnet }} {{ ( ': jump ' ~ chainmap[x] ~ '_network_' ~ shortnet ) | indent(30 - shortnet | length, true) }},
+    {%- endfor %}
+  }
+{% endfor %}
 
    iifname prg2_asgard jump input_network_prg2
 
@@ -38,4 +36,3 @@
 
    iif != os-p2p-pub log prefix "[avalon] Forward Dropped: " flags all
  }
-
