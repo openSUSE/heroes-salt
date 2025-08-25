@@ -1289,6 +1289,20 @@ set host6_all_dns {
   }
 }
 
+set cert_target {
+  type ipv6_addr
+  flags interval
+  elements = {
+    {%- for dest in pillar['profile']['certificate_target']['targets'] %}
+      {%- if dest not in [
+            'punk',
+          ]
+      %}
+    $host6_{{ dest }},
+      {%- endif %}
+    {%- endfor %}
+  }
+}
 
 # Blacklist - internet traffic from these source networks will be dropped!
 set net4_blacklist {
