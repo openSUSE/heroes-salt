@@ -33,6 +33,9 @@ profile:
       static.opensuse.org/chameleon-3.0:
         branch: rel-3.0
         repo: https://github.com/openSUSE/chameleon.git
+      static.opensuse.org/chameleon-4.0:
+        branch: rel-4.0
+        repo: https://github.com/openSUSE/chameleon.git
       studioexpress.opensuse.org:
         repo: https://github.com/openSUSE/studioexpress-landing.git
       lizards.opensuse.org:
