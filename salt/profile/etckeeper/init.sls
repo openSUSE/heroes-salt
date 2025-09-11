@@ -28,3 +28,6 @@ etckeeper_git_config_email:
     - repo: /etc
     - require:
         - pkg: zypper_packages
+
+/etc/.gitignore:
+  file.absent
