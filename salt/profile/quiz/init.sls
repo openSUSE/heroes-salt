@@ -64,6 +64,7 @@ profile_quiz_unit_files:
                 - User=quiz
                 - Group=quiz
                 - ExecStart=/home/quiz/bin/deploy-quizzes.py
+                - LimitNOFILE=4096
                 - SyslogIdentifier=%N
                 - PrivateTmp=yes
                 - ProtectSystem=strict
