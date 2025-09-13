@@ -38,6 +38,7 @@ haproxy:
       hashtype: consistent
       mode: http
       options:
+        - forwardfor
         - httpchk
       {{ httpcheck('idm' ~ suffix ~ '.infra.opensuse.org', 200, '/status', tls=True) }}
       servers:
