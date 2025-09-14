@@ -37,6 +37,7 @@ network:
           'os-log',
           'os-mail',
           'os-mirror',
+          'os-monitor',
           'os-netbox',
           'os-odin',
           'os-public',

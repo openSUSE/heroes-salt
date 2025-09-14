@@ -1,0 +1,14 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+ chain input_network_os-monitor {
+  jump global_internal
+
+  ip6 saddr @net6_os-monitor ip6 daddr @self6_monitor ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+
+  log prefix "[Monitor Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain output_network_os-monitor {
+ }

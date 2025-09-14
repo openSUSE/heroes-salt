@@ -88,6 +88,13 @@ prg2:
     net6: 2a07:de40:b27e:1211::/64
     gw6: 2a07:de40:b27e:1211::3
     id: 1211
+  openSUSE-monitor:
+    export: true
+    vpn_push: true
+    short: os-monitor
+    net6: 2a07:de40:b27e:1214::/64
+    gw6: 2a07:de40:b27e:1214::3
+    id: 1214
   openSUSE-log:
     export: true
     vpn_push: true
@@ -188,6 +195,12 @@ slc1:
     net6: 2a07:de40:617e:1907::/64
     gw6: 2a07:de40:617e:1907::3
     id: 1907
+  openSUSE-monitor:
+    export: true
+    short: os-monitor
+    net6: 2a07:de40:617e:1914::/64
+    gw6: 2a07:de40:617e:1914::3
+    id: 1914
 
 # below are mapping networks and not VLANs
 pseudo:
