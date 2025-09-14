@@ -2,9 +2,11 @@
 
 import yaml
 
-base = '/srv/pillar/infra/certificates/'
+root = '/srv/pillar/'
+base = f'{root}infra/certificates/'
 cas  = ['letsencrypt-test', 'letsencrypt', 'heroes']
 
+_certificate_targets = []
 _certificates = {}
 _services = []
 
@@ -22,6 +24,9 @@ def _extend_services(low_services):
 def run():
   result = {}
   host = __grains__['host']
+  minion_id_struct = __salt__['slsutil.renderer']('{}id/{}.sls'.format(root, __grains__['id'].replace('.', '_')))
+
+  collect_targets = 'gateway' in minion_id_struct.get('roles', [])
 
   certificates = {}
   """
@@ -39,6 +44,7 @@ def run():
       match = False
       target_services = target.get('services', [])
 
+      macro_hosts = []
       if 'macro' in target and target['macro'] in macros:
         macro_config = macros[target['macro']]
 
@@ -46,12 +52,21 @@ def run():
           match = True
           target_services = target_services + macro_config['services']
 
-      if match or host == target.get('host'):
+        if collect_targets:
+          for macro_host in macro_config['hosts']:
+            if macro_host not in _certificate_targets:
+              _certificate_targets.append(macro_host)
+
+      target_host = target.get('host')
+      if match or host == target_host:
         if certificate in _certificates:
           _certificates[certificate].extend(target_services)
         else:
           _certificates.update({certificate: target_services})
         _extend_services(target_services)
+
+      if collect_targets and target_host is not None and target_host not in _certificate_targets:
+        _certificate_targets.append(target_host)
 
   if _certificates:
     commands = [
@@ -111,6 +126,9 @@ def run():
         },
       },
     })
+
+    if collect_targets:
+      result['profile']['certificate_target']['targets'] = _certificate_targets
 
     if commands:
       result['sudoers'] = {

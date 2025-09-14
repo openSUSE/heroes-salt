@@ -242,6 +242,7 @@ exit $exit;
 
 __END__
 __Python__
+from os import listdir
 from salt.utils import templates
 from yaml import safe_load
 
@@ -264,7 +265,51 @@ def get_networks(path='pillar/infra/networks.yaml'):
 
   return networks
 
+def get_certificate_targets():
+  targets = []
+  certificates = {}
+  base = 'pillar/infra/certificates'
+  for file in listdir(base):
+    with open(f'{base}/{file}') as fh:
+      if file == 'macros.yaml':
+        macros = safe_load(fh)
+      else:
+        certificates.update(safe_load(fh))
+
+  for certificate, certificate_config in certificates.items():
+    for target in certificate_config['targets']:
+      if 'macro' in target and target['macro'] in macros:
+        for host in macros[target['macro']]['hosts']:
+          if host not in targets:
+            targets.append(host)
+
+      if 'host' in target and target['host'] not in targets:
+        targets.append(target['host'])
+
+  return targets
+
+def get_hosts():
+  hosts = {}
+  with open('pillar/infra/hosts.yaml') as fh:
+    data = safe_load(fh)
+
+  for host, host_config in data.items():
+    print(host)
+    fqdn = f'{host}.infra.opensuse.org'
+    with open('pillar/id/{}.sls'.format(fqdn.replace('.', '_'))) as fh:
+      minion_id_struct = safe_load(fh)
+    hosts[host] = {
+      'site': minion_id_struct['grains']['site'],
+      'roles': minion_id_struct.get('roles', []),
+      'interfaces': host_config['interfaces'].keys(),
+    }
+
+  return hosts
+
 grains = get_grains()
+
+certificate_targets = get_certificate_targets()
+hosts = get_hosts()
 networks = get_networks()
 
 def render_file(path):
@@ -279,7 +324,9 @@ def render_file(path):
         'cachedir': '/dev/null'
       },
       'pillar': {
+        'hosts': hosts,
         'networks': networks,
+        'profile': {'certificate_target': {'targets': certificate_targets}},
       },
       'saltenv': None
     }, '.'
