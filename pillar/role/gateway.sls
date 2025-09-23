@@ -76,5 +76,7 @@ zypper:
 
 sysctl:
   params:
+    net.core.rmem_default: 425984
+    net.core.rmem_max: 638976
     net.ipv4.ip_forward: 1
     net.ipv6.conf.all.forwarding: 1
