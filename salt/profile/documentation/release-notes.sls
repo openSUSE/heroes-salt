@@ -10,6 +10,7 @@ relsync_packages:
       - build # contains unrpm
       - daps # building of SUSE's release-notes
       - make # building of SUSE's release-notes
+      - w3m # needed only for make all PRODUCT_VERSION=
 
 relsync_user:
   user.present:
@@ -84,10 +85,4 @@ suse_rn_all_versions_cron:
     - minute: 0
     - hour: "*/6"
     - identifier: suse_rn_all
-    - name: >
-        cd {{ repodir_susern }} &&
-        git pull -q &&
-        {% for buildname, pubdir in versions.items() %}
-        make all PRODUCT_VERSION={{ buildname }} &&
-        rsync -a --delete --exclude='log/' --exclude='DC-release-notes-*' {{ repodir_susern }}/build/release-notes-{{ buildname }}/ /srv/www/vhosts/doc.opensuse.org/release-notes/x86_64/openSUSE/Leap/{{ pubdir }}{% if not loop.last %} &&{% endif %}
-        {% endfor %}
+    - name: "cd {{ repodir_susern }} && git pull -q{% for buildname, pubdir in versions.items() %} && make all PRODUCT_VERSION={{ buildname }} && rsync -a --delete --exclude='log/' --exclude='DC-release-notes-*' {{ repodir_susern }}/build/release-notes-{{ buildname }}/ /srv/www/vhosts/doc.opensuse.org/release-notes/x86_64/openSUSE/Leap/{{ pubdir }}{% endfor %}"
