@@ -1,3 +1,4 @@
 {{ pillar['managed_by_salt'] }}
 
-SPAMPD_OPTIONS="--host=ipv6-localhost:10024 --relayhost=ipv6-localhost:10025 --user=vscan --tagall --children=5 --maxsize=768 --homedir=/var/spool/spampd"
+# keep number of children close to the process limit in /etc/postfix/master.cf to avoid timeouts at end of DATA
+SPAMPD_OPTIONS="--host=ipv6-localhost:10024 --relayhost=ipv6-localhost:10025 --user=vscan --tagall --children=20 --maxsize=768 --homedir=/var/spool/spampd"

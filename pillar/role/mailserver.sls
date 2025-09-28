@@ -53,6 +53,8 @@ profile:
         check_recipient_access lmdb:/etc/postfix/handling_special_recipients,
         reject_unlisted_recipient,
         permit
+      smtpd_timeout: '${stress?{30}:{300}}s'  # noqa 206
+      smtpd_upstream_proxy_timeout: 30s
       smtp_sasl_auth_enable: 'no'
       smtp_use_tls: 'yes'
       smtp_tls_security_level: 'may'
