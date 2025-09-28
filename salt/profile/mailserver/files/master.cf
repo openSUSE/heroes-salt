@@ -1,7 +1,8 @@
 {{ pillar['managed_by_salt'] }}
 
 # listener for public mail access via atlas.i.o.o
-{{ grains.id }}:smtp             inet  n       -       n       -       -       smtpd
+# limit to 25 processes (slightly above the limit of spampd processes) to prevent timeouts at end of DATA
+{{ grains.id }}:smtp             inet  n       -       n       -       25       smtpd
         -o smtpd_upstream_proxy_protocol=haproxy
         -o smtpd_proxy_filter=ipv6-localhost:10024
         -o smtpd_proxy_options=speed_adjust
