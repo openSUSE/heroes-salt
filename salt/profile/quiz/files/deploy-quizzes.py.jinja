@@ -113,33 +113,46 @@ def stop_if_needed(container):
     if container.attrs['State'] not in ['exited', 'stopped']:
         container.stop()
 
+def remove_socket(instance):
+    # in case the previous one crashed without cleanup
+    Path(f'{SOCKETS_DIR}/{instance}.sock').unlink(missing_ok=True)
+
+def remove_database(instance):
+    db = f'{STATS_DIR}/{instance}.json'
+    print(f'=> Removing {db}')
+    try:
+        Path(db).unlink()
+    except FileNotFoundError:
+        print('File does not exist.')
+
+def destroy_instance(container):
+    stop_if_needed(container)
+    container.remove()
+
+    remove_socket(container.labels[CONTAINER_LABEL])
+
 def rework_instances(client, config, reset, delete):
     want = get_configured_instances(config)
     found = get_running_instances(client)
 
     print('=== Searching for instances to remove ===')
     for instance, container in found.items():
-        if instance not in want or reset:
-            print(f'== Destroying instance "{instance}" ==')
-            stop_if_needed(container)
-            container.remove()
-
-            # in case the previous one crashed without cleanup
-            Path(f'{SOCKETS_DIR}/{instance}.sock').unlink(missing_ok=True)
-
         if instance not in want or delete:
-            db = f'{STATS_DIR}/{instance}.json'
-            print(f'=> Removing {db}')
-            try:
-                Path(db).unlink()
-            except FileNotFoundError:
-                print('File does not exist.')
+            print(f'== Destroying stale instance "{instance}" ==')
+            destroy_instance(container)
+            remove_database(instance)
 
     print('=== Searching for instances to deploy ===')
     for instance in want:
         if instance in found:
-            start_if_needed(found[instance])
-            continue
+            if reset:
+                print(f'== Destroying outdated instance "{instance}" ==')
+                destroy_instance(found[instance])
+            else:
+                print(f'== Ensuring instance "{instance}" is started ==')
+                start_if_needed(found[instance])
+
+                continue
 
         print(f'== Creating instance "{instance}" ==')
         name = f'quiz-{instance}'
