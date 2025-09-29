@@ -93,6 +93,21 @@ def get_config():
 def get_configured_instances(config):
     return sorted(config.get('instances', {}).keys())
 
+def get_running_instances(client):
+    instances = {}
+
+    for container in client.containers.list(all=True):
+        if not ( container.name.startswith('quiz-') and CONTAINER_LABEL in container.labels ):
+            continue
+
+        instances[container.labels[CONTAINER_LABEL]] = container
+
+    return instances
+
+def start_if_needed(container):
+    if container.attrs['State'] != 'running':
+        container.start()
+
 # really podman-py should be patched to not return some generic JSON decoding error instead
 def stop_if_needed(container):
     if container.attrs['State'] not in ['exited', 'stopped']:
@@ -100,15 +115,10 @@ def stop_if_needed(container):
 
 def rework_instances(client, config, reset, delete):
     want = get_configured_instances(config)
-    found = []
+    found = get_running_instances(client)
 
     print('=== Searching for instances to remove ===')
-    for container in client.containers.list(all=True):
-        if not ( container.name[0:5] == 'quiz-' and CONTAINER_LABEL in container.labels ):
-            continue
-
-        instance = container.labels[CONTAINER_LABEL]
-
+    for instance, container in found.items():
         if instance not in want or reset:
             print(f'== Destroying instance "{instance}" ==')
             stop_if_needed(container)
@@ -116,9 +126,6 @@ def rework_instances(client, config, reset, delete):
 
             # in case the previous one crashed without cleanup
             Path(f'{SOCKETS_DIR}/{instance}.sock').unlink(missing_ok=True)
-
-        else:
-            found.append(instance)
 
         if instance not in want or delete:
             db = f'{STATS_DIR}/{instance}.json'
@@ -131,6 +138,7 @@ def rework_instances(client, config, reset, delete):
     print('=== Searching for instances to deploy ===')
     for instance in want:
         if instance in found:
+            start_if_needed(found[instance])
             continue
 
         print(f'== Creating instance "{instance}" ==')
