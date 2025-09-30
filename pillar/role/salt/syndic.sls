@@ -16,7 +16,7 @@ salt:
     pillar_merge_lists: True
     pillar_source_merging_strategy: smart
     pillar_roots:
-      __env__:
+      production:
         - /srv/pillar
     # TODO
     #syndic_master: seidr.infra.opensuse.org
