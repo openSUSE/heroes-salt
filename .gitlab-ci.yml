@@ -143,7 +143,6 @@ test_nginx:
 
 sync:
   extends: .deploy
-  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-deployment-rsync:latest
   script: bin/sync.sh
   resource_group: production
 
