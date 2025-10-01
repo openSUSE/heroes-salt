@@ -4,6 +4,7 @@ zypper:
       baseurl: http://$mirror_int/distribution/leap/$releasever/repo/oss/
       priority: 99
       refresh: False
+    {%- if grains['osrelease'] | float < 16 %}
     repo-update-oss:
       baseurl: http://$mirror_int/update/leap/$releasever/oss/
       priority: 99
@@ -16,6 +17,7 @@ zypper:
       baseurl: http://$mirror_int/update/leap/$releasever/sle/
       priority: 99
       refresh: True
+    {%- endif %}
     openSUSE:infrastructure:
       baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure/$releasever/
       gpgautoimport: True
