@@ -7,6 +7,7 @@ mirror_bin:
     - names:
         {%- for file in [
               'loop_common',
+              'loop_distribution.sh',
               'loop_repositories.sh',
               'loop_tumbleweed.sh',
               'loop_update.sh',
