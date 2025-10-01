@@ -136,7 +136,7 @@ remove_decommissioned_packages:
 {%- if grains['osfullname'] == 'Leap' %}
   {#- remove stock "openSUSE-Leap-15.x-x" repositories duplicating the pillar.osfullname managed repo-oss #}
   {#- and remove update repositories which no longer exist for Leap 16 #}
-  {%- for repository_file in salt['file.find']('/etc/zypp/repos.d', maxdepth=1, mindepth=1, name='*.repo', type='f') %}
+  {%- for repository_file in salt['file.find']('/etc/zypp/repos.d', maxdepth=1, mindepth=1, name='*.repo*', type='f') %}
     {%- if 'openSUSE-Leap-' in repository_file
         or
         (
