@@ -63,6 +63,7 @@ profile_quiz_unit_files:
                 - Type=oneshot
                 - User=quiz
                 - Group=quiz
+                - Environment=PYTHONUNBUFFERED=1
                 - ExecStart=/home/quiz/bin/deploy-quizzes.py
                 - LimitNOFILE=32768
                 - SyslogIdentifier=%N
