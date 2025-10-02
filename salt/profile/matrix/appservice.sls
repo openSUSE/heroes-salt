@@ -5,8 +5,8 @@ appservice_pkgs:
     - resolve_capabilities: True
     - pkgs:
       - git
-      - nodejs20
-      - nodejs20-devel
+      - nodejs22
+      - nodejs22-devel
       - nodejs-common
       - make
       - gcc
