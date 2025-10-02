@@ -4,11 +4,14 @@ heisenbridge_pkgs:
       - heisenbridge
 
 heisenbridge_conf_file:
-  file.managed:
+  suse_sysconfig.sysconfig:
     - name: /etc/sysconfig/heisenbridge
-    - source: salt://profile/matrix/files/config-heisenbridge
-    - template: jinja
-    - user: synapse
+    - key_values:
+        HEISENBRIDGE_LISTEN_ADDRESS: 127.0.0.1
+        HEISENBRIDGE_LISTEN_PORT: 9898
+        HEISENBRIDGE_HOMESERVER_URL: http://127.0.0.1:8008
+        HEISENBRIDGE_EXTRA_OPTIONS: >-
+          --owner @hellcp:opensuse.org
     - require:
       - pkg: heisenbridge_pkgs
 
@@ -38,6 +41,6 @@ heisenbridge_service:
       - pkg: heisenbridge_pkgs
       - service: synapse_service
     - watch:
-      - file: heisenbridge_conf_file
+      - suse_sysconfig: heisenbridge_conf_file
       - file: heisenbridge_appservice_file
       - file: synapse_appservice_heisenbridge_file
