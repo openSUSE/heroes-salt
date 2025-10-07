@@ -54,3 +54,18 @@ groups:
         annotations:
           summary: MySQL server restarted on instance {{ $labels.instance }})
           description: "MySQL server on {{ $labels.instance }} has been restarted less than five minutes ago.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      - alert: MySQLReplicationNotRunning
+        expr: >-
+          (
+            mysql_slave_status_slave_io_running == 0
+            or
+            mysql_slave_status_slave_sql_running == 0
+          )
+          and ON (instance)
+          ioo{role="mariadb.backup"} == 1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: MySQL replication on instance {{ $labels.instance }} is not running
+          description: "Replication on {{ $labels.instance }} (IO or SQL) has been down for more than 2 minutes.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
