@@ -99,6 +99,9 @@ mybackup.infra.opensuse.org:
 mysql.infra.opensuse.org:
   sans:
     - galera.infra.opensuse.org
+    - galera1.infra.opensuse.org
+    - galera2.infra.opensuse.org
+    - galera3.infra.opensuse.org
     - mariadb.infra.opensuse.org
   targets:
     - macro: galera
