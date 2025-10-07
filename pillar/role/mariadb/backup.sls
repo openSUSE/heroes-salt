@@ -26,10 +26,10 @@ profile:
         pubkey: {{ mysqlrootkey }}
         commands:
           - 'true'
-          - 'test -d /backup/bootstrap/'
+          - 'test -d /backup/bootstrap'
           - 'mountpoint -q /backup'
-          - 'mkdir /backup/bootstrap/'
-          - 'stat -fc%a /backup/bootstrap/'
+          - 'mkdir /backup/bootstrap'
+          - 'stat -fc%a /backup/bootstrap'
           - 'rsync --server -v?log[a-zA-Z\.]* \. /backup/bootstrap/[0-9]{8}'  # there is some random nonsense in the form of e.iLsfxCIvu in the middle
           - '/usr/local/sbin/backup_replica_restore\.sh -f galera[1-3]\.infra.opensuse\.org -d /backup/bootstrap/[0-9]{8} -l mysql-bin\.[0-9]{6} -p [0-9]+'
           - 'mariadb -e show slave STATUS\G; | grep Running | grep -v Slave_SQL_Running_State'
