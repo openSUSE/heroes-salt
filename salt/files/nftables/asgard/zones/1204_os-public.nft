@@ -33,7 +33,7 @@
       2a07:de40:b27e:1203::b20/128,
       2a07:de40:b27e:64::c0a8:2f03/128,
       $host6_calendar,
-      $host6_discourse,
+      $host6_discourse01,
       $host6_gcc-stats,
       $host6_kubic,
       $host6_limesurvey,
@@ -41,7 +41,7 @@
       $host6_obsreview,
       $host6_opi-proxy,
       $host6_osc-collab,
-      $host6_pagure,
+      $host6_pagure01,
       $host6_rpmlint,
       $host6_svn,
   } tcp dport http accept
@@ -64,7 +64,7 @@
   # atlas -> matrix (Synapse, Element; chat.o.o, matrix.o.o, dimension.o.o, webhook.o.o)
   ip6 saddr @host6_atlas ip6 daddr $host6_matrix tcp dport { http, 8008 } accept
   # atlas -> pagure01 (for Git via SSH to code.o.o)
-  ip6 saddr @host6_atlas ip6 daddr $host6_pagure tcp dport 2222 accept
+  ip6 saddr @host6_atlas ip6 daddr $host6_pagure01 tcp dport 2222 accept
   # atlas -> monitor (monitor.o.o, grafana)
   ip6 saddr @host6_atlas ip6 daddr $host6_monitor tcp dport { http, 3000 } accept
   # atlas -> metrics (metrics.o.o)

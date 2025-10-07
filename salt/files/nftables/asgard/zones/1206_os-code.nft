@@ -9,14 +9,14 @@
   ip6 saddr $net6_os-thor ip6 daddr $net6_os-code tcp dport ssh accept
 
   # PostgreSQL
-  ip6 saddr $host6_pagure ip6 daddr $host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
-  ip6 saddr $host6_pagure ip6 daddr $host6_hel tcp dport postgresql accept
+  ip6 saddr $host6_pagure01 ip6 daddr $host6_hel ip6 nexthdr icmpv6 icmpv6 type { echo-request, echo-reply } accept
+  ip6 saddr $host6_pagure01 ip6 daddr $host6_hel tcp dport postgresql accept
 
   # pagure -> atlas misc listener (needs to query "itself" through the public endpoint)
-  ip6 saddr $host6_pagure ip6 daddr $host6_atlas_misc tcp dport https accept
+  ip6 saddr $host6_pagure01 ip6 daddr $host6_atlas_misc tcp dport https accept
 
   # pagure -> atlas regular listener (needed for /login, but why? does it use legacy www.o.o/openid instead of id.o.o for querying metadata?)
-  ip6 saddr $host6_pagure ip6 daddr $host6_atlas tcp dport https accept
+  ip6 saddr $host6_pagure01 ip6 daddr $host6_atlas tcp dport https accept
 
   jump acl_internet_github
 

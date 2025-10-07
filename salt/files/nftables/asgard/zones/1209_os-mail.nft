@@ -10,7 +10,7 @@
 
   # mx* -> hosts related to relay_domains or hosts which use a local mail server for inbound application
   # mail (SMTP)
-  ip6 saddr @host6_mx ip6 daddr { $host6_pagure, $host6_discourse, $host6_mailman3, $host6_progressoo } tcp dport smtp accept
+  ip6 saddr @host6_mx ip6 daddr { $host6_pagure01, $host6_discourse01, $host6_mailman3, $host6_progressoo } tcp dport smtp accept
 
   # mx* -> wild internet (HTTPS/SMTP)
   ip6 saddr @host6_mx ip6 daddr != @lan_ipv6_prg2_nonat tcp dport { https, smtp } accept
