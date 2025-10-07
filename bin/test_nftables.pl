@@ -301,7 +301,7 @@ def get_hosts():
     hosts[host] = {
       'site': minion_id_struct['grains']['site'],
       'roles': minion_id_struct.get('roles', []),
-      'interfaces': host_config['interfaces'].keys(),
+      'interfaces': host_config['interfaces'],
     }
 
   return hosts
