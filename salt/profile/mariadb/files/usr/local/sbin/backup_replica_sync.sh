@@ -93,7 +93,7 @@ BACKUP_SIZE="$(du -s "$SOURCE_BACKUP" | awk '{ print $1 }')"
 #
 # Transfer dump to slave
 #
-TARGET_BACKUP_BASE='/backup/bootstrap/'
+TARGET_BACKUP_BASE='/backup/bootstrap'
 TARGET_BACKUP="$TARGET_BACKUP_BASE/$DATE"
 
 if ! ssh -q "$BACKUP_CLIENT" -- test -d "$TARGET_BACKUP_BASE"
