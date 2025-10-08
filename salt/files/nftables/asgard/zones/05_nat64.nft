@@ -38,7 +38,7 @@ chain input_network_nat64 {
   oifname os-p2p-pub ip saddr $host4_matrix ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } ip protocol tcp accept
 
   # discourse for debugging
-  oifname os-p2p-pub ip saddr $host4_discourse ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } log prefix "[Discourse HTTP 2] " accept
+  oifname os-p2p-pub ip saddr $host4_discourse01 ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } log prefix "[Discourse HTTP 2] " accept
 
   # for PMBS API access (https://pmbs.links2linux.de/)
   oifname os-p2p-pub ip saddr @acl4_internet_pmbs ip daddr @cloud4_pmbs tcp dport https accept

@@ -1085,7 +1085,7 @@ set acl6_internet_idoo {
         $host6_progressoo,
         $host6_mailman3,
         $host6_paste,
-        $host6_pagure,
+        $host6_pagure01,
         $host6_calendar
     }
 }
@@ -1120,7 +1120,7 @@ set acl6_internet_github_web {
     $host6_mailman3,        # access to openSUSE/lists-o-o.git
     $host6_narwal5,
     $host6_opi-proxy,       # software updates
-    $host6_pagure,          # repository mirroring
+    $host6_pagure01,        # repository mirroring
     $host6_paste,           # software updates
     $host6_pinot,
     $host6_tsp,
@@ -1168,7 +1168,7 @@ set acl4_internet_maxmind {
   type ipv4_addr
   flags interval
   elements = {
-    $host4_discourse
+    $host4_discourse01,
   }
 }
 

@@ -39,7 +39,7 @@ vim:filetype=nftables.jinja
   {%- endfor %}
 
   # paste, mailman3, discourse -> atlas1 (HTTPS / why? in case of mailman3, it seems it's required for OpenID login, metrics for susepaste)
-  ip6 saddr { $host6_paste, $host6_mailman3, $host6_discourse, $host6_metrics } ip6 daddr $host6_atlas tcp dport https accept
+  ip6 saddr { $host6_paste, $host6_mailman3, $host6_discourse01, $host6_metrics } ip6 daddr $host6_atlas tcp dport https accept
 
   # galera{1,2,3} -> downloadcontent (HTTP repositories) (could use @acl6_internet_downloadcontent instead)
   ip6 saddr @host6_galera ip6 daddr @host6_downloadcontent tcp dport https accept
@@ -68,8 +68,6 @@ vim:filetype=nftables.jinja
   # jekyll -> atlas (HTTPS for planet.o.o to news.o.o)
   oif os-public ip6 saddr $host6_jekyll ip6 daddr $host6_atlas tcp dport https accept
 
-  # narwal5 -> narwal4 (rsync over ssh)
-  oifname nat64 ip6 saddr $host6_narwal5 ip6 daddr $host6_narwal4 tcp dport ssh accept
   # narwal5 -> download.o.o (HTTPS for reaching download.o.o/report/mirrors)
   oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_download icmpv6 type { echo-request, echo-reply } accept
   oifname os-p2p-pub ip6 saddr $host6_narwal5 ip6 daddr @host6_download tcp dport https accept
@@ -93,7 +91,7 @@ vim:filetype=nftables.jinja
   oif os-public ip6 saddr $host6_matrix ip6 daddr $host6_atlas tcp dport https accept
 
   # discourse -> * (would be good to restrict further, but download of assets during discourse-update as well as generating of arbitrary link previews makes it difficult)
-  oifname { nat64, os-p2p-pub } ip6 saddr $host6_discourse tcp dport { http, https } ip6 daddr != @lan_ipv6_prg2_nonat log prefix "[Discourse HTTP 1] " accept
+  oifname { nat64, os-p2p-pub } ip6 saddr $host6_discourse01 tcp dport { http, https } ip6 daddr != @lan_ipv6_prg2_nonat log prefix "[Discourse HTTP 1] " accept
   # osc-collab -> * (https://github.com/openSUSE/osc-plugin-collab/blob/master/server/upstream/upstream-tarballs.txt)
   oifname { nat64, os-p2p-pub } ip6 saddr $host6_osc-collab tcp dport { http, https, ftp } ip6 daddr != @lan_ipv6_prg2_nonat accept
   # dale -> * for oEmbed with arbitrary internet resources
@@ -120,7 +118,7 @@ vim:filetype=nftables.jinja
   # BuddyCheck
   ip6 saddr @self6_internal ip6 daddr @self6_internal tcp dport 9100 accept
   # monitor -> all nginx nodes (Prometheus nginx metrics collection)
-  ip6 saddr $host6_monitor ip6 daddr { $host6_pagure, $host6_ipx-narwal1, $host6_narwal4, $host6_download, $host6_quiz } tcp dport 9113 accept
+  ip6 saddr $host6_monitor ip6 daddr { $host6_pagure01, $host6_ipx-narwal1, $host6_download, $host6_quiz } tcp dport 9113 accept
   # monitor -> falkor* (Prometheus HA cluster metrics collection)
   ip6 saddr $host6_monitor ip6 daddr @host6_falkor tcp dport 9664 accept
   # monitor -> all bare metal (Prometheus smartctl metrics collection)

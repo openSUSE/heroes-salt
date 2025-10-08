@@ -11,7 +11,7 @@ hosts:
     {%- set minion_id_struct = salt['slsutil.renderer']('/srv/pillar/id/' ~ host ~ '_infra_opensuse_org.sls') %}
     site: {{ minion_id_struct['grains']['site'] }}
     roles: {{ minion_id_struct.get('roles', []) }}
-    interfaces: {{ host_config['interfaces'].keys() }}
+    interfaces: {{ host_config['interfaces'] }}
   {%- endfor %}
 
 networks:
