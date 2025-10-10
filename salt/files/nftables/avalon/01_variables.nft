@@ -48,22 +48,28 @@ define net4_internet6 = 195.135.220.54
 define net6_nat64         = {{ nat64_config['net6'] }}
 define net4_nat64         = {{ nat64_config['net4'] }}
 
-# Hosts
+# Individual hosts
 define srx4_p2p = 195.135.220.46/32
 define srx6_p2p = 2a07:de40:617f:201:ffff:ffff:ffff:ffff/128
 define self6_p2p = { 2a07:de40:617f:201::11/128, 2a07:de40:617f:201::12/128, 2a07:de40:617f:201::1/128 }
 define self4_p2p = { 195.135.220.44/32, 195.135.220.45/32, 195.135.220.41/32 }
 
+## Virtual machines
+{%- for host, hostconfig in pillar['hosts'].items() %}
+  {%- for interface, ifconfig in hostconfig.get('interfaces', {}).items() %}
+    {%- if interface.startswith('os') %}
+      {%- if 'ip6' in ifconfig and ifconfig['ip6'].startswith('2a07') %}
+define host6_{{ host }}{{ ( '= ' ~ ifconfig['ip6'].split('/')[0] ) | indent (15 - host | length, true) }}/128
+        {%- set ip4 = ifconfig.get('ip4', ifconfig.get('pseudo_ip4')) %}
+        {%- if ip4 is not none %}
+define host4_{{ host }}{{ ( '= ' ~ ip4.split('/')[0] ) | indent(15 - host | length, true) }}
+        {%- endif %}
+      {%- endif %}
+    {%- endif %}
+  {%- endfor %}
+{%- endfor %}
+
+# Floating hosts (VIPs)
 define host6_globus  = 2a07:de40:617e:1904::10/128
-define host6_globus1 = 2a07:de40:617e:1904::11/128
-define host6_globus2 = 2a07:de40:617e:1904::12/128
 define host4_globus  = 172.16.113.10
-define host4_globus1 = 172.16.113.11
-define host4_globus2 = 172.16.113.12
-
-define host4_slc-ns1 = 172.16.113.6
-define host4_slc-ns2 = 172.16.113.7
-
 define host6_tyr     = 2a07:de40:617e:1903::10/128
-define host6_tyr1    = 2a07:de40:617e:1903::11/128
-define host6_tyr2    = 2a07:de40:617e:1903::12/128
