@@ -18,9 +18,8 @@ salt:
     pillar_roots:
       production:
         - /srv/pillar
-    # TODO
-    #syndic_master: seidr.infra.opensuse.org
-    #syndic_user: salt
+    syndic_master: seidr1.infra.opensuse.org
+    syndic_user: salt
     top_file_merging_strategy: same
 
 infrastructure:
