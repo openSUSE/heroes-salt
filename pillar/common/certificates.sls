@@ -44,7 +44,6 @@ def run():
       match = False
       target_services = target.get('services', [])
 
-      macro_hosts = []
       if 'macro' in target and target['macro'] in macros:
         macro_config = macros[target['macro']]
 
@@ -127,9 +126,6 @@ def run():
       },
     })
 
-    if collect_targets:
-      result['profile']['certificate_target']['targets'] = _certificate_targets
-
     if commands:
       result['sudoers'] = {
         'users': {
@@ -139,5 +135,17 @@ def run():
         },
       }
       result['profile']['authorized-exec']['certificate_deployment']['cert']['commands'].extend(commands_auth)
+
+  if collect_targets:
+    if 'profile' in result and 'certificate_target' in result['profile']:
+      result['profile']['certificate_target']['targets'] = _certificate_targets
+    else:
+      result.update({
+        'profile': {
+          'certificate_target': {
+            'targets': _certificate_targets,
+          },
+        },
+      })
 
   return result
