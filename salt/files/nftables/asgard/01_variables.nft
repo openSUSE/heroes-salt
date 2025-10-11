@@ -55,7 +55,7 @@ define net4_internet_mx2 = 195.135.223.52
 define nat64_v6         = {{ nat64_config['net6'] }}
 define nat64_v4         = {{ nat64_config['net4'] }}
 
-# Idividual hosts
+# Individual hosts
 define srx4_p2p          = 195.135.223.46/32
 define self6_p2p         = { 2a07:de40:b27f:201::11/128, 2a07:de40:b27f:201::12/128, 2a07:de40:b27f:201::1/128 }
 define self4_p2p         = { 195.135.223.41/32, 195.135.223.44/32, 195.135.223.45/32 }
@@ -110,6 +110,7 @@ define host6_ipx-proxy1  = 2a07:de40:b27e:0064:0000:0000:c0a8:5705/128
 define host4_ipx-proxy1  = 192.168.87.5/32
 define host6_qsc-ns3     = 2a07:de40:b27e:5002:c707:5ca1:19e:ce5e/128 # via OpenVPN (TCP)
 define host6_slimhat     = 2a07:de40:b27e:5001:4b26:fce8:5810:cf57/128 # via OpenVPN (UDP)
+define host6_status1     = 2a07:de40:b27e:64::c0a8:5703/128
 
 ### SUSE Hosts on Atreju
 define host6_daffy       = 2a07:de40:b280:0086:0000:0000:0000:0010/128

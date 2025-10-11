@@ -492,6 +492,18 @@ set cloud6_stage {
   }
 }
 
+set cert_target {
+  type ipv6_addr
+  flags interval
+  elements = {
+    {%- for dest in pillar['profile']['certificate_target']['targets'] %}
+      {%- if pillar['hosts'].get(dest, {}).get('site') == 'slc1' %}
+      $host6_{{ dest }},
+      {%- endif %}
+    {%- endfor %}
+  }
+}
+
 ###
 
 ## Blacklists
