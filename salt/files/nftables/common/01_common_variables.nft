@@ -1,0 +1,21 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/common ##
+###################################################
+{#-
+vim:filetype=nftables.jinja
+#}
+
+# Virtual machines
+{%- for host, hostconfig in pillar['hosts'].items() %}
+  {%- for interface, ifconfig in hostconfig.get('interfaces', {}).items() %}
+    {%- if interface.startswith('os') %}
+      {%- if 'ip6' in ifconfig and ifconfig['ip6'].startswith('2a07') %}
+define host6_{{ host }}{{ ( '= ' ~ ifconfig['ip6'].split('/')[0] ) | indent (20 - host | length, true) }}/128
+        {%- set ip4 = ifconfig.get('ip4', ifconfig.get('pseudo_ip4')) %}
+        {%- if ip4 is not none %}
+define host4_{{ host }}{{ ( '= ' ~ ip4.split('/')[0] ) | indent(20 - host | length, true) }}
+        {%- endif %}
+      {%- endif %}
+    {%- endif %}
+  {%- endfor %}
+{%- endfor %}
