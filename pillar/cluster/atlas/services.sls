@@ -171,7 +171,7 @@ haproxy:
         {#- host_ ACLs to enable POW challenge protection for, excluding paths commonly needed by legitimate scripts #}
         {{ berghain_use_backend({
               'rate_req_300': '!src_limit_exclude !host_static_o_o',
-              'rate_con_300': '!src_limit_exclude',
+              'rate_con_300': '!src_limit_exclude !host_static_o_o',
               'mailman3': '!path_hyperkitty_api !path_hyperkitty_feed',
               'redmine': '!suffix_json !suffix_xml',
         }) }}
