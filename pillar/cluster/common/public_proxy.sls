@@ -8,7 +8,10 @@ haproxy:
   frontends:
     http:
       acls:
-        - speedy_300 sc0_conn_rate(http) gt 300
+        {%- for i in [35, 300, 600, 900] %}
+        - rate_con_{{ i }} sc0_conn_rate(http) gt {{ i }}
+        - rate_req_{{ i }} sc_http_req_rate(0) gt {{ i }}
+        {%- endfor %}
 
         - annoying_networks   src                  -f /etc/haproxy/blacklists/networks -n    # salt/profile/proxy/files/etc/haproxy/blacklists/networks
         - annoying_useragents hdr_sub(User-Agent)  -i -f /etc/haproxy/blacklists/useragents  # salt/profile/proxy/files/etc/haproxy/blacklists/useragents

@@ -56,7 +56,7 @@ haproxy:
         - content:
           - accept if src_suse_office
 
-          - accept unless host_lnt speedy_35
+          - accept unless host_lnt rate_con_35
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt_png
@@ -76,9 +76,8 @@ haproxy:
           - deny_status 429 if { sc_http_req_rate(0) gt 80 } host_redmine cookie_ipsilon_username_missing path_redmine_gantt_pdf !berghain_valid
           - deny_status 429 if { sc_http_req_rate(0) gt 140 } host_redmine !src_suse_office
           - deny_status 429 if { sc_http_req_rate(0) gt 160 } host_redmine
-          - deny_status 429 if { sc_http_req_rate(0) gt 300 } !src_limit_exclude !host_static_o_o
-          - deny_status 429 if { sc_http_req_rate(0) gt 600 } !src_limit_exclude
-          - deny_status 429 if speedy_300 !src_limit_exclude
+          - deny_status 429 if rate_req_900 !src_limit_exclude
+          - deny_status 429 if rate_con_600 !src_limit_exclude
         - redirect:
           - code 308 drop-query location https://opensuse.github.io/libzypp%[capture.req.uri,regsub('/projects/libzypp/HEAD','')] if host_doc path_doc_libzypp_head
         - return:
