@@ -34,10 +34,13 @@
 {%- endmacro %}
 
 {%- macro berghain_use_backend(config) %}
-    {%- for host, excludes in config.items() %}
+    {%- for condition, excludes in config.items() %}
+        {%- if not condition.startswith('rate_') %}
+          {%- set condition = 'host_' ~ condition %}
+        {%- endif %}
         - >-
             berghain_http_challenge_front if
-            host_{{ host }} method_get !good_crawler
+            {{ condition }} method_get !good_crawler
             !path_favicon !path_robots !path_security
             berghain_active !berghain_down !berghain_path !berghain_valid
             {{ excludes }}

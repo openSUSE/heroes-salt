@@ -4,9 +4,6 @@ haproxy:
   frontends:
     http:
       acls:
-        - speedy_35 sc0_conn_rate(http) gt 35
-        - speedy_45 sc0_conn_rate(http) gt 45
-
         - internal_clients src 2a07:de40:b27e::/48  # PRG2
         - src_suse_office src 2a01:4a0:11::2/128  # NUE2
         - src_suse_office src 81.95.8.245/32      # NUE2
@@ -173,6 +170,8 @@ haproxy:
       use_backends:
         {#- host_ ACLs to enable POW challenge protection for, excluding paths commonly needed by legitimate scripts #}
         {{ berghain_use_backend({
+              'rate_req_300': '!src_limit_exclude !host_static_o_o',
+              'rate_con_300': '!src_limit_exclude',
               'mailman3': '!path_hyperkitty_api !path_hyperkitty_feed',
               'redmine': '!suffix_json !suffix_xml',
         }) }}
