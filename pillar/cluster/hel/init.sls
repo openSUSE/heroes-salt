@@ -88,9 +88,9 @@ haproxy:
         - server 30m
       servers:
         {%- for host, append in {
-              'galera1': 'weight 100',
-              'galera2': 'weight 90 backup',
-              'galera3': 'weight 80 backup',
+              'galera1': 'weight 50',
+              'galera2': 'weight 100',
+              'galera3': 'weight 100',
             }.items()
         %}
         {{ host }}:
