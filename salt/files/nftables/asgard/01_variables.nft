@@ -70,21 +70,6 @@ define self6_code        = { 2a07:de40:b27e:1206::1/128, 2a07:de40:b27e:1206::2/
 ## Physical machines
 define host6_apollo      = 2a07:de40:b27e:1207::a/128
 
-## Virtual machines
-{%- for host, hostconfig in pillar['hosts'].items() %}
-  {%- for interface, ifconfig in hostconfig.get('interfaces', {}).items() %}
-    {%- if interface.startswith('os') %}
-      {%- if 'ip6' in ifconfig and ifconfig['ip6'].startswith('2a07') %}
-define host6_{{ host }}{{ ( '= ' ~ ifconfig['ip6'].split('/')[0] ) | indent (15 - host | length, true) }}/128
-        {%- set ip4 = ifconfig.get('ip4', ifconfig.get('pseudo_ip4')) %}
-        {%- if ip4 is not none %}
-define host4_{{ host }}{{ ( '= ' ~ ip4.split('/')[0] ) | indent(15 - host | length, true) }}
-        {%- endif %}
-      {%- endif %}
-    {%- endif %}
-  {%- endfor %}
-{%- endfor %}
-
 # Floating hosts (VIPs)
 define host4_atlas       = 172.16.130.10
 define host6_atlas       = 2a07:de40:b27e:1204::10/128
