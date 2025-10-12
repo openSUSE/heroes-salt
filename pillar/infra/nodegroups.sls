@@ -1,4 +1,5 @@
 {%- import_yaml 'infra/clusters.yaml' as clusters %}
+{%- set site = grains.get('site') %}
 
 salt:
   master:
@@ -10,6 +11,8 @@ salt:
         {%- endfor %}
       {%- endfor %}
       hypervisors: N@{{ ' and N@'.join(clusters.keys()) }}
+
+      {%- if site == 'prg2' %}
       asgard:
         - asgard1.infra.opensuse.org
         - asgard2.infra.opensuse.org
@@ -23,17 +26,9 @@ salt:
       hel:
         - hel1.infra.opensuse.org
         - hel2.infra.opensuse.org
-      dns:
-        - prg-ns1.infra.opensuse.org
-        - prg.ns2.infra.opensuse.org
-        - qsc-ns3.infra.opensuse.org
-      dns-prg:
+      prg-ns:
         - prg-ns1.infra.opensuse.org
         - prg-ns2.infra.opensuse.org
-      mail:
-        {%- for i in [1, 2, 3, 4] %}
-        - mx{{ i }}.infra.opensuse.org
-        {%- endfor %}
       mail-prg:
         - mx1.infra.opensuse.org
         - mx2.infra.opensuse.org
@@ -42,6 +37,27 @@ salt:
         - mirrordb2.infra.opensuse.org
       narwal:
         - ipx-narwal1.infra.opensuse.org
-        {%- for i in [4, 5, 6, 7, 8] %}
+        {%- for i in [5, 6, 7, 8] %}
         - narwal{{ i }}.infra.opensuse.org
         {%- endfor %}
+
+      {%- elif site == 'slc1' %}
+      avalon:
+        - avalon1.infra.opensuse.org
+        - avalon2.infra.opensuse.org
+      globus:
+        - globus1.infra.opensuse.org
+        - globus2.infra.opensuse.org
+      slc-devcon:
+        - slc-devcon1.infra.opensuse.org
+        - slc-devcon2.infra.opensuse.org
+      slc-ns:
+        - slc-ns1.infra.opensuse.org
+        - slc-ns2.infra.opensuse.org
+      slc-warp:
+        - slc-warp1.infra.opensuse.org
+        - slc-warp2.infra.opensuse.org
+      tyr:
+        - tyr1.infra.opensuse.org
+        - tyr2.infra.opensuse.org
+      {%- endif %}
