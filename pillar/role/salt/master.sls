@@ -51,6 +51,7 @@ salt:
     ipc_write_buffer: dynamic
     timeout: 15
     gitfs_ssl_verify: True
+    gpg_decrypt_must_succeed: True
     hash_type: sha512
     {%- if grains.get('site') in ['prg2', 'slc1'] %}
     {#- _needs_ to align with the "ipv6" setting in pillar.common! #}
