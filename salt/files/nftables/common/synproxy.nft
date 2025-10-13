@@ -1,0 +1,9 @@
+synproxy common_synproxy {
+  mss 1440
+  wscale 7
+  timestamp sack-perm
+}
+
+chain common_synproxy {
+  ct state invalid, untracked synproxy name common_synproxy
+}

@@ -80,3 +80,4 @@ sysctl:
     net.core.rmem_max: 638976
     net.ipv4.ip_forward: 1
     net.ipv6.conf.all.forwarding: 1
+    net.netfilter.nf_conntrack_tcp_loose: 0
