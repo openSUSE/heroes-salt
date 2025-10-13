@@ -14,3 +14,4 @@ salt:
       dns: N@prg-ns and N@slc-ns
       warp: warp.infra.opensuse.org and N@slc-warp
       mail: N@mail-prg and mx3.infra.opensuse.org and mx-test.infra.opensuse.org
+      syndics: {{ grains.get('partners', []) }}
