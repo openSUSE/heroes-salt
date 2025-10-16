@@ -87,12 +87,26 @@ done
 
 salt_args=( "${salt_args[@]}" "$HOSTNAME" )
 
-# Update grains modules, pillar and mine - execution and runner modules are already cached through prepare_test_env.sh
-for cmd in saltutil.sync_grains saltutil.refresh_pillar mine.update
-do
-  echo "--> $cmd" >> "$out"
+minion_run () {
+  local cmd="$1"
+  echo "minion --> $cmd" >> "$out"
   salt "${salt_args[@]}" "$cmd" || { copy_logs ; exit 1 ; }
+}
+
+runner_run () {
+  local cmd="$1"
+  echo "runner --> $cmd" >> "$out"
+  salt-run "$cmd" || { copy_logs ; exit 1 ; }
+}
+
+runner_run saltutil.sync_modules
+
+for cmd in saltutil.sync_grains saltutil.sync_modules saltutil.sync_states saltutil.refresh_pillar mine.update
+do
+  minion_run "$cmd"
 done
+
+ls -alR /var/cache/salt/master/extmods/ /var/cache/salt/master/files/base/
 
 # monitor user in role.base
 useradd -U monitor
