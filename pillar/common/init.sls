@@ -281,7 +281,6 @@ zypper:
     traceroute: {}
     vim: {}
     vim-data: {}
-    withlock: {}
     {%- endif %} {#- Close Leap Micro check #}
   refreshdb_force: false
   variables:
