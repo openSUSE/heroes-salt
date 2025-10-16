@@ -7,12 +7,6 @@ synapse_dependencies:
       - {{ python }}-hiredis
       - {{ python }}-txredisapi
 
-synapse:
-  group.present:
-    - system: True
-    - members:
-      - synapse
-
 synapse_systemd_override:
   file.managed:
     - name: /etc/systemd/system/matrix-synapse.service.d/override.conf
