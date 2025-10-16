@@ -26,12 +26,13 @@ help() {
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
     echo "-n             OPTIONAL: Delete all repositories to speed up tests which do not install additional packages"
     echo "-c             OPTIONAL: Do not install Git formulas"
+    echo "-m             OPTIONAL: Do not bootstrap Salt minion"
     echo
 }
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts p:o:gsnch arg; do
+while getopts p:o:gsnchm arg; do
     case ${arg} in
         p) PKG=( ${OPTARG//,/ } ) ;;
         o) OS=( ${OPTARG//,/ } ) ;;
@@ -39,6 +40,7 @@ while getopts p:o:gsnch arg; do
         s) SECRETS="True" ;;
         n) REPOSITORIES='False' ;;
         c) FORMULAS='False' ;;
+        m) MINION='False' ;;
         h) help && exit ;;
         *) help && exit 1 ;;
     esac
@@ -80,6 +82,11 @@ if [[ -n "$HIGHSTATE" ]]; then
     bin/get_roles.py -o yaml >> "$IDFILE"
     cp "$IDFILE_BASE" "$IDFILE"
 fi
+
+ln -s "$PWD/salt" /srv/salt
+
+if [ -z "$MINION" ]
+then
 
 if [ ! -d /etc/salt/minion.d ]
 then
@@ -147,12 +154,12 @@ tee /etc/salt/minion.d/roots.conf >/dev/null <<-EOF
 	    - /srv/formulas
 	EOF
 
-ln -s "$PWD/salt" /srv/salt
-
 salt-call --local saltutil.runner saltutil.sync_modules
 salt-call --local saltutil.sync_grains
 salt-call --local saltutil.sync_modules
 salt-call --local saltutil.sync_states
+
+fi   # MINION
 
 # we reference custom modules in the pillar, hence only link it after they are available
 ln -s "$PWD/pillar" /srv/pillar
