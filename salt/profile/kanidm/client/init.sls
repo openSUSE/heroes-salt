@@ -2,12 +2,21 @@ include:
   - zypper.packages
   - .legacy
 
+/etc/nsswitch.conf_copy:
+  file.copy:
+    - name: /etc/nsswitch.conf
+    - source: /usr/etc/nsswitch.conf
+    - preserve: True
+
 {%- for setting in ['passwd', 'group'] %}
 /etc/nsswitch.conf_{{ setting }}:
   file.replace:
     - name: /etc/nsswitch.conf
+    - ignore_if_missing: {{ opts['test'] }}
     - pattern: ^{{ setting }}:.*$
     - repl: '{{ setting }}: compat kanidm'
+    - require:
+        - file: /etc/nsswitch.conf_copy
 {%- endfor %}
 
 kanidm_config:
