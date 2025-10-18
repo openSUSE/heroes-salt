@@ -4,6 +4,7 @@
 haproxy:
   global:
     extra:
+      - tune.lua.bool-sample-conversion normal
       - lua-load-per-thread /etc/haproxy/geoip.lua
   frontends:
     http:

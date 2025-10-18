@@ -161,12 +161,16 @@ spamassassin_disable_{{ z }}:
 {%- endfor %}
 
 /etc/default/postsrsd:
+{%- if grains['osrelease'] | float >= 16 %}
+  file.absent
+{%- else %}
   file.line:
     - match: ^SRS_LISTEN_ADDR=
     - content: SRS_LISTEN_ADDR=ipv6-localhost
     - mode: replace
     - watch_in:
       - service: service postsrsd
+{%- endif %}
 
 # MAYBE: remove override for clamd, seems to be standard now?
 {%- for svc in ['clamd', 'spampd'] %}
