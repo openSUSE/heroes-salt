@@ -1,0 +1,21 @@
+{{ pillar['managed_by_salt'] }}
+{#- vim: ft=toml.jinja
+-#}
+version = 2
+
+root      = "/var/lib/containerd"
+imports   = []
+state     = "/run/containerd"
+oom_score = 0
+
+[grpc]
+  address = "/run/containerd/containerd.sock"
+  uid     = 0
+  gid     = 0
+
+[plugins]
+  [plugins."io.containerd.snapshotter.v1.devmapper"]
+    pool_name       = "containerd-thinpool"
+    root_path       = "/var/lib/containerd/devmapper"
+    base_image_size = "30GB"
+    discard_blocks  = true
