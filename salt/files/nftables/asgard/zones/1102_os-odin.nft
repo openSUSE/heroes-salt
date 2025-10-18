@@ -60,7 +60,7 @@
      ip6 daddr $host6_community2 tcp dport 9000 accept
 
      # slimhat -> Salt (only for ping - Salt traffic is already allowed via global_internal)
-     ip6 saddr $host6_slimhat ip6 daddr @host6_witch1 ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+     ip6 saddr $host6_slimhat ip6 daddr $host6_witch1 ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
 
      log prefix "[VPN Denied] " reject with icmpx type admin-prohibited
  }

@@ -245,15 +245,6 @@ set host6_seidr {
   }
 }
 
-# witch1.i.o.o (Salt Master)
-set host6_witch1 {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:1200::a/128
-  }
-}
-
 # download.i.o.o (internal mirror)
 set host6_download {
   type ipv6_addr

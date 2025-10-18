@@ -18,6 +18,6 @@
    jump global_internal
 
   # Salt access for asgard itself
-  ip6 saddr @self6_salt ip6 daddr @host6_witch1 tcp dport 4505-4506 accept
+  ip6 saddr @self6_salt ip6 daddr $host6_witch1 tcp dport 4505-4506 accept
 
  }
