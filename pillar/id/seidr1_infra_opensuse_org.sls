@@ -13,7 +13,7 @@ grains:
     - volva1.infra.opensuse.org
     - volva2.infra.opensuse.org
     - witch1.infra.opensuse.org
-    - witch2.infra.opensuse.org
+    #- witch2.infra.opensuse.org
   weburls: []
 roles:
   - salt.master
