@@ -2,11 +2,16 @@ include:
   - zypper.packages
   - .legacy
 
+{%- if grains['osrelease'] | float >= 16 %}
 /etc/nsswitch.conf_copy:
   file.copy:
     - name: /etc/nsswitch.conf
     - source: /usr/etc/nsswitch.conf
     - preserve: True
+    - require_in:
+        - file: /etc/nsswitch.conf_passwd
+        - file: /etc/nsswitch.conf_group
+{%- endif %}
 
 {%- for setting in ['passwd', 'group'] %}
 /etc/nsswitch.conf_{{ setting }}:
@@ -15,8 +20,6 @@ include:
     - ignore_if_missing: {{ opts['test'] }}
     - pattern: ^{{ setting }}:.*$
     - repl: '{{ setting }}: compat kanidm'
-    - require:
-        - file: /etc/nsswitch.conf_copy
 {%- endfor %}
 
 kanidm_config:
