@@ -1,0 +1,4 @@
+#!/bin/sh -efu
+
+mkdir /etc/pagure
+touch /etc/pagure/pagure.cfg
