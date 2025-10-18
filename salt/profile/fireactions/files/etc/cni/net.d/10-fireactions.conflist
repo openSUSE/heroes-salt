@@ -1,0 +1,34 @@
+{
+  "cniVersion": "0.4.0",
+  "name": "fireactions",
+  "plugins": [
+    {
+      "bridge": "fireactions-br0",
+      "forceAddress": false,
+      "hairpinMode": true,
+      "ipMasq": true,
+      "ipam": {
+        "dataDir": "/run/cni",
+        "resolvConf": "/etc/resolv.conf",
+        "type": "host-local",
+        "ranges": [
+          [
+            {
+              "subnet": "2a07:de40:b27e:4003::/64",
+              "rangeStart": "2a07:de40:b27e:4003::100"
+            }
+          ]
+        ]
+      },
+      "isDefaultGateway": true,
+      "mtu": 1500,
+      "type": "bridge"
+    },
+    {
+      "type": "firewall"
+    },
+    {
+      "type": "tc-redirect-tap"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{#- vim: ft=yaml.jinja
+-#}
+{{ pillar['managed_by_salt'] }}
+
+bind_address: :8080
+
+metrics:
+  enabled: true
+  address: :8081
+
+github:
+  app_id: 1238204
+  app_private_key: |
+    {{ salt['pillar.get']('profile:fireactions:config:github:app_private_key') }}
+
+debug: true
+
+pools:
+- name: fireactions-performance
+
+  max_runners: 2
+  min_runners: 1
+
+  runner:
+    name: fireactions-runner
+    ## https://build.opensuse.org/package/show/openSUSE:infrastructure:fireactions/fireactions-runner-container
+    image: registry.opensuse.org/opensuse/infrastructure/fireactions/containers/fireactions:latest
+    image_pull_policy: IfNotPresent
+    group_id: 1
+    organization: cobbler
+    labels:
+    - self-hosted
+    - fireactions
+
+  firecracker:
+    binary_path: /usr/bin/firecracker
+    ## https://github.com/tacerus/opensuse-fireactions-kernel
+    kernel_image_path: /var/lib/fireactions/kernels/5.10/openSUSE.vmlinux3
+    kernel_args: console=ttyS0 noapic reboot=k panic=1
+    machine_config:
+      mem_size_mib: 4096
+      vcpu_count: 4
+    metadata:
+      example: example

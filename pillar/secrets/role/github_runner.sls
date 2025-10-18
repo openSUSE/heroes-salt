@@ -1,0 +1,65 @@
+#!yaml|gpg
+
+profile:
+  fireactions:
+    config:
+      github:
+        app_private_key: |
+          -----BEGIN PGP MESSAGE-----
+
+          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
+          /SINNuubk9vsvudtCGkwlLGXupaDxBQ=
+          =ZUcb
+          -----END PGP MESSAGE-----

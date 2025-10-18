@@ -25,6 +25,8 @@ define {{ net }}_{{ network_config['short'] }}{{ ( '= ' ~ network_config[net] ) 
 
 {%- endfor %}
 
+define net6_ghr-c-vms   = 2a07:de40:b27e:4003::/64
+
 define net6_vpn-udp     = 2a07:de40:b27e:5001::/64
 define net6_vpn-tcp     = 2a07:de40:b27e:5002::/64
 
