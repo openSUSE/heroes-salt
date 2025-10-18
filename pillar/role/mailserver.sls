@@ -112,9 +112,19 @@ profile:
       smtpcox_destination_recipient_limit: 10
       smtpcox_destination_concurrency_failed_cohort_limit: 10
       # postsrsd
-      sender_canonical_maps: 'tcp:ipv6-localhost:10001'
+      sender_canonical_maps:
+      {%- if grains['osrelease'] | float >= 16 %}
+        'socketmap:unix:srs:forward'
+      {%- else %}
+        'tcp:ipv6-localhost:10001'
+      {%- endif %}
       sender_canonical_classes: 'envelope_sender'
-      recipient_canonical_maps: 'tcp:ipv6-localhost:10002'
+      recipient_canonical_maps:
+      {%- if grains['osrelease'] | float >= 16 %}
+        'socketmap:unix:srs:reverse'
+      {%- else %}
+        'tcp:ipv6-localhost:10002'
+      {%- endif %}
       recipient_canonical_classes: 'envelope_recipient,header_recipient'
       # rspamd
       # smtpd_milters = unix:/run/rspamd/worker-proxy.socket
