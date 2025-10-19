@@ -10,8 +10,7 @@ firewalld:
       description: Fireactions traffic forwarding
       interfaces:
         - fireactions-br0
-      # TODO: forward support in formula
-      # forward: true
+      forward: true
 
 sysctl:
   params:
