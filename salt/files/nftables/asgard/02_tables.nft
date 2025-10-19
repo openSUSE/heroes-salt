@@ -11,3 +11,6 @@ table inet nat {
   include "/etc/nftables.d/base_nat/*.nft"
 }
 
+table inet mangle {
+  include "/etc/nftables.d/base_mangle/*.nft"
+}

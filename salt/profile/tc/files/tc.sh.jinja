@@ -1,0 +1,60 @@
+#!/bin/sh -Cefu
+{#- vim: ft=sh.jinja noexpandtab
+#}
+{{ pillar['managed_by_salt'] }}
+
+action="$1"
+interface="$2"
+
+command -v tc || exit 1
+
+teardown () {
+	tc qdisc delete dev "$interface" root || :
+}
+
+setup () {
+	case "$interface" in
+		{%- for interface, config in salt['pillar.get']('profile:tc:interfaces', {}).items() %}
+		{{ interface }} )
+			set -x
+			tc qdisc add dev "$interface" root handle 1: htb default {{ config['default'] }} r2q {{ config['r2q'] }}
+
+			# root class with maximum bandwidth
+			tc class add dev "$interface" parent 1: classid 1:1 htb rate {{ config['max'] }}
+
+			{%- for class in config.get('classes', []) %}
+				{%- set id = class['id'] %}
+				{%- set handle = id.split(':')[1] %}
+			tc class add dev "$interface" parent 1: classid {{ id }} htb rate {{ class['rate'] }} ceil {{ class['ceil'] }} prio {{ class['prio'] }}
+			tc filter add dev "$interface" parent 1: protocol ipv6 handle {{ handle }} fw classid {{ id }}
+			tc filter add dev "$interface" parent 1: protocol ip handle {{ handle }} fw classid {{ id }}
+			{%- endfor %}
+			set +x
+		;;
+		{%- endfor %}
+
+		* )
+			echo 'Interface is not known to dotc.'
+			exit 1
+		;;
+	esac
+}
+
+case "$action" in
+	post-up )
+		setup
+	;;
+
+	pre-down )
+		teardown
+	;;
+
+	reset )
+		teardown
+		setup
+	;;
+
+	* )
+		echo "Action $action is not implemented in dotc."
+	;;
+esac
