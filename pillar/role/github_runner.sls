@@ -28,7 +28,7 @@ zypper:
     tc-redirect-tap: {}
   repositories:
     openSUSE:infrastructure:fireactions:
-      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/fireactions/$releasever/openSUSE:infrastructure:fireactions.repo
+      baseurl: http://$mirror_int/repositories/openSUSE:/infrastructure:/fireactions/$releasever/
       gpgcheck: 1
       priority: 105
       refresh: true
