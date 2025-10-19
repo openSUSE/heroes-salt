@@ -6,7 +6,8 @@ grains:
     - K3S
   reboot_safe: yes
   description: GitHub Runner for Cobbler
-  documentation: []
+  documentation:
+    - https://progress.opensuse.org/projects/opensuse-admin-wiki/wiki/Apolloinfraopensuseorg
   responsible:
     - SchoolGuy
   weburls: []
