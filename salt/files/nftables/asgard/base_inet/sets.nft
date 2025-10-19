@@ -1058,7 +1058,6 @@ set acl6_internet_obs-login {
       $host6_rpmlint,    # access to build.o.o
       $host6_pinot,      # access to build.o.o
       $net6_os-web,      # access to registry.o.o
-      $net6_ghr-c-vms,
     }
 }
 
@@ -1102,7 +1101,6 @@ set acl6_internet_github_web {
   type ipv6_addr
   flags interval
   elements = {
-    $host6_apollo,
     $host6_calendar,        # software updates
     $host6_dale,
     $host6_gitlab-runner1,
@@ -1117,7 +1115,6 @@ set acl6_internet_github_web {
     $host6_pinot,
     $host6_tsp,
     $net6_os-web,
-    $net6_ghr-c-vms,
   }
 }
 
@@ -1128,7 +1125,6 @@ set acl6_internet_github_web_ssh {
    $host6_opi-proxy,  # software updates
    $host6_narwal5,    # git push for mirrors-static
    $host6_mickey,     # push mirrors
-   $net6_ghr-c-vms,
   }
 }
 
@@ -1136,19 +1132,15 @@ set acl6_internet_github_api {
   type ipv6_addr
   flags interval
   elements = {
-    $host6_apollo,
     $host6_obsreview,
-    $net6_ghr-c-vms,
   }
 }
 
 set acl6_internet_github_packages {
   type ipv6_addr
   flags interval
-  elements = {
-    $host6_apollo,
-    $net6_ghr-c-vms,
-  }
+  #elements = {
+  #}
 }
 
 
