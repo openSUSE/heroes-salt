@@ -3,15 +3,24 @@
 ###################################################
 
  chain input_network_os-ghr-c {
-  jump global_internal
+  ip6 saddr $net6_ghr-c-vms jump network_ghr-c-vms
 
-  oif os-p2p-pub ip6 saddr $net6_ghr-c-vms ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
-  oif os-p2p-pub ip6 saddr $net6_ghr-c-vms ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
-  oifname nat64 ip6 saddr $net6_ghr-c-vms ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
-  oifname nat64 ip6 saddr $net6_ghr-c-vms ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
+  jump global_internal
 
   log prefix "[GHR-C Denied] " reject with icmpv6 type admin-prohibited
  }
 
  chain output_network_os-ghr-c {
+ }
+
+ chain network_ghr-c-vms {
+  ip6 daddr @host6_hel tcp dport domain accept
+  ip6 daddr @host6_hel udp dport domain accept
+
+  oif os-p2p-pub ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
+  oif os-p2p-pub ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
+  oifname nat64 ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
+  oifname nat64 ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
+
+  log prefix "[GHR-C VM Denied] " reject with icmpv6 type admin-prohibited
  }
