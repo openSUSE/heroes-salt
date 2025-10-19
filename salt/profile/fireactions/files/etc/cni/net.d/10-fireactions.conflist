@@ -6,7 +6,7 @@
       "bridge": "fireactions-br0",
       "forceAddress": false,
       "hairpinMode": true,
-      "ipMasq": true,
+      "ipMasq": false,
       "ipam": {
         "dataDir": "/run/cni",
         "resolvConf": "/etc/resolv.conf",
