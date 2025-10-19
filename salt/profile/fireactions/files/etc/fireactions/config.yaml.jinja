@@ -11,7 +11,7 @@ metrics:
 github:
   app_id: 1238204
   app_private_key: |
-    {{ salt['pillar.get']('profile:fireactions:config:github:app_private_key') }}
+    {{ salt['pillar.get']('profile:fireactions:config:github:app_private_key') | indent }}
 
 debug: true
 
