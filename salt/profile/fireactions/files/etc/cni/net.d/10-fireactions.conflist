@@ -20,6 +20,12 @@
           ]
         ]
       },
+      "dns": {
+        "nameservers": [
+          "2a07:de40:b27e:1203::11",
+          "2a07:de40:b27e:1203::12"
+        ]
+      },
       "isDefaultGateway": true,
       "mtu": 1500,
       "type": "bridge"
