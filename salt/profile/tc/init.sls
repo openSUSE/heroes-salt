@@ -22,7 +22,7 @@ profile_tc_reset:
         {%- for interface in interfaces %}
         - /usr/local/libexec/dotc reset {{ interface }}
         {%- endfor %}
-    - watch:
+    - onchanges:
         - file: profile_tc_script
 {%- endif %}
 
