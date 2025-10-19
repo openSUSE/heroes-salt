@@ -1,0 +1,6 @@
+chain forward {
+  type filter hook forward priority mangle
+
+  # marks correspond to minor class IDs (1:XX) => pillar/cluster/asgard/network.sls
+  iifname nat64 oif os-p2p-pub meta mark set 17
+}
