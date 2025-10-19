@@ -15,10 +15,5 @@
       'narwal5': '2a07:de40:b27e:1203::e5', 'narwal6': '2a07:de40:b27e:1203::e6', 'narwal7': '2a07:de40:b27e:1203::e7', 'narwal8': '2a07:de40:b27e:1203::e8'
     }
 -%}
-{%- set galeras = {
-      'galera': {'galera1': 'weight 100', 'galera2': 'weight 90 backup', 'galera3': 'weight 80 backup'},
-      'galera-slave': {'galera1': 'weight 80 backup', 'galera2': 'weight 90 backup', 'galera3': 'weight 100'}
-    }
--%}
 
 {%- set check_txt = 'httpchk HEAD /check.txt' -%}
