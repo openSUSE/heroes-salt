@@ -1313,6 +1313,7 @@ set if_s2s {
     elements = {
         nueqsc_stonehat,
         slc1_avalon,
+        os-asgard,
     }
 }
 
