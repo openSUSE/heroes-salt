@@ -522,6 +522,7 @@ set if_s2s {
     elements = {
       nueqsc_stonehat,
       prg2_asgard,
+      os-avalon,
     }
 }
 
