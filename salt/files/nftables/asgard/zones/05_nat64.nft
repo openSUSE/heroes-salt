@@ -7,46 +7,6 @@ chain input_network_nat64 {
   oifname nueqsc_stonehat ip saddr $nat64_v4 accept #log prefix "[Tayga v4 Forward] " accept
   oifname os-public ip6 saddr { 2a07:de40:b27e:0064:0000:0000:c0a8:2f66/128, 2a07:de40:b27e:0064:0000:0000:c0a8:2f65/128 } ip6 daddr @host6_atlas tcp dport { http, https } accept
 
-  # GitHub Web (github.com) ACL
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_web ip protocol icmp icmp type { echo-request, echo-reply } accept
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_web tcp dport { https, ssh } accept
-
-  # GitHub API (api.github.com) ACL
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_api ip protocol icmp icmp type { echo-request, echo-reply } accept
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_api tcp dport https accept
-
-  # GitHub Packages ACL
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_packages ip protocol icmp icmp type { echo-request, echo-reply } accept
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_packages tcp dport https accept
-
-  # Akismet map
-  oifname os-p2p-pub ip saddr @acl4_internet_akismet ip daddr @cloud4_akismet tcp dport https accept
-
-  # Sentry map
-  oifname os-p2p-pub ip saddr @acl4_internet_sentry_organization ip daddr @cloud4_sentry_organization tcp dport https accept
-
-  # Maxmind map
-  oifname os-p2p-pub ip saddr @acl4_internet_maxmind ip daddr @cloud4_maxmind tcp dport https accept
-
-  # DB-IP map
-  oifname os-p2p-pub ip saddr @acl4_internet_db-ip ip daddr @cloud4_db-ip tcp dport https accept
-
-  # for planet.o.o RSS feed pulling
-  oifname os-p2p-pub ip saddr $host4_jekyll ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } accept
-
-  # Matrix federation, see v6 explanation in 1203_os-internal.nft
-  oifname os-p2p-pub ip saddr $host4_matrix ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } ip protocol tcp accept
-
-  # discourse for debugging
-  oifname os-p2p-pub ip saddr $host4_discourse01 ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } log prefix "[Discourse HTTP 2] " accept
-
-  # for PMBS API access (https://pmbs.links2linux.de/)
-  oifname os-p2p-pub ip saddr @acl4_internet_pmbs ip daddr @cloud4_pmbs tcp dport https accept
-
-  # rails-assets.org
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_rails-assets tcp dport https accept
-
-  # registry.suse.com ACL
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_registry_suse ip protocol icmp icmp type { echo-request, echo-reply } accept
-  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_registry_suse tcp dport https accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr != @net4_internal ip protocol icmp icmp type { echo-request, echo-reply } accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr != @net4_internal tcp dport { http, https, ssh } accept
 }

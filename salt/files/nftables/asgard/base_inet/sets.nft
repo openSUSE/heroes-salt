@@ -537,157 +537,6 @@ set host6_falkor {
   }
 }
 
-set cloud4_github_web {
-  type ipv4_addr
-  flags interval
-  elements = { # https://api.github.com/meta -> "web"
-    192.30.252.0/22,
-    185.199.108.0/22,
-    140.82.112.0/20,
-    143.55.64.0/20,
-    20.201.28.151/32,
-    20.205.243.166/32,
-    20.87.245.0/32,
-    20.248.137.48/32,
-    20.207.73.82/32,
-    20.27.177.113/32,
-    20.200.245.247/32,
-    20.175.192.147/32,
-    20.233.83.145/32,
-    20.29.134.23/32
-  }
-}
-set cloud4_github_api {
-  type ipv4_addr
-  flags interval
-  elements = { # https://api.github.com/meta -> "api"
-    192.30.252.0/22,
-    185.199.108.0/22,
-    140.82.112.0/20,
-    143.55.64.0/20,
-    20.201.28.148/32,
-    20.205.243.168/32,
-    20.87.245.6/32,
-    20.248.137.49/32,
-    20.207.73.85/32,
-    20.27.177.116/32,
-    20.200.245.245/32,
-    20.175.192.149/32,
-    20.233.83.146/32,
-    20.29.134.17/32
-  }
-}
-set cloud4_github_packages {
-  type ipv4_addr
-  flags interval
-  elements = { # https://api.github.com/meta -> "packages"
-    140.82.112.33/32,
-    140.82.112.34/32,
-    140.82.113.33/32,
-    140.82.113.34/32,
-    140.82.114.33/32,
-    140.82.114.34/32,
-    140.82.121.33/32,
-    140.82.121.34/32,
-    192.30.255.164/31,
-    20.175.192.150/32,
-    20.199.39.231/32,
-    20.200.245.241/32,
-    20.201.28.144/32,
-    20.205.243.164/32,
-    20.207.73.86/32,
-    20.217.135.1/32,
-    20.233.83.147/32,
-    20.26.156.211/32,
-    20.27.177.117/32,
-    20.29.134.18/32,
-    20.87.245.1/32,
-    4.208.26.196/32,
-    4.225.11.196/32,
-    4.237.22.32/32,
-  }
-}
-
-set cloud4_akismet {
-  type ipv4_addr
-  flags interval
-  elements = { # https://akismet.com/support/general/connection-issues/
-    192.0.80.244,
-    192.0.80.246,
-    192.0.96.247,
-    192.0.96.248,
-    192.0.123.250,
-    195.234.111.251 ,
-    195.234.111.252
-  }
-}
-
-set cloud4_rails-assets {
-  type ipv4_addr
-  flags interval
-  elements = {
-    159.89.227.134/32,
-  }
-}
-
-set cloud4_registry_suse {
-  type ipv4_addr
-  flags interval
-  elements = {
-    75.2.43.231/32,
-    99.83.188.102/32,
-  }
-}
-
-set cloud4_sentry_apex {
-  type ipv4_addr
-  flags interval
-  elements = { # https://docs.sentry.io/product/security/ip-ranges/
-    35.186.247.156/32
-  }
-}
-set cloud4_sentry_organization {
-  type ipv4_addr
-  flags interval
-  elements = { # https://docs.sentry.io/product/security/ip-ranges/
-    34.120.195.249/32
-  }
-}
-
-set cloud4_telegram {
-  type ipv4_addr
-  flags interval
-  elements = { # https://core.telegram.org/resources/cidr.txt
-    91.108.56.0/22,
-    91.108.4.0/22,
-    91.108.8.0/22,
-    91.108.16.0/22,
-    91.108.12.0/22,
-    149.154.160.0/20,
-    91.105.192.0/23,
-    91.108.20.0/22,
-    185.76.151.0/24,
-  }
-}
-
-set cloud4_pmbs {
-  type ipv4_addr
-  flags interval
-  elements = {
-      157.90.50.188/32
-  }
-}
-
-set cloud4_db-ip {
-  type ipv4_addr
-  flags interval
-  elements = {
-      104.26.4.15/32,
-      104.26.5.15/32,
-      172.67.75.166/32,
-  }
-}
-
 set host6_daffy {
     type ipv6_addr
     flags interval
@@ -862,13 +711,6 @@ set cloud6_registry_suse {
   }
 }
 
-set cloud46_sentry_apex {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:64::23ba:f79c/128
-  }
-}
 set cloud46_sentry_organization {
   type ipv6_addr
   flags interval
@@ -1005,15 +847,6 @@ set cloud6_npmjs {
   }
 }
 
-set cloud4_maxmind {
-  type ipv4_addr
-  flags interval
-  elements = { # https://dev.maxmind.com/maxmind-server-ip-addresses
-    162.159.134.22/32,
-    162.159.135.22/32
-  }
-}
-
 set acl6_internet_fastly {
     type ipv6_addr
     flags interval
@@ -1144,49 +977,35 @@ set acl6_internet_github_packages {
 }
 
 
-set acl4_internet_akismet {
-  type ipv4_addr
+set acl6_internet_akismet {
+  type ipv6_addr
   flags interval
   elements = {
-    $host4_dale
+    $host6_dale
   }
 }
 
-set acl4_internet_maxmind {
-  type ipv4_addr
+set acl6_internet_sentry_organization {
+  type ipv6_addr
   flags interval
   elements = {
-    $host4_discourse01,
+    $host6_dale
   }
 }
 
-#set acl4_internet_sentry_apex {
-#  type ipv4_addr
-#  flags interval
-#  elements = {
-#  }
-#}
-set acl4_internet_sentry_organization {
-  type ipv4_addr
+set acl6_internet_pmbs {
+  type ipv6_addr
   flags interval
   elements = {
-    $host4_dale
+      $host6_opi-proxy
   }
 }
 
-set acl4_internet_pmbs {
-  type ipv4_addr
+set acl6_internet_db-ip {
+  type ipv6_addr
   flags interval
   elements = {
-      $host4_opi-proxy
-  }
-}
-
-set acl4_internet_db-ip {
-  type ipv4_addr
-  flags interval
-  elements = {
-      $host4_matomo,
+      $host6_matomo,
   }
 }
 
@@ -1290,6 +1109,17 @@ set cert_target {
       {%- endif %}
     {%- endfor %}
   }
+}
+
+set net4_internal {
+    type ipv4_addr
+    flags interval
+    elements = {
+        $net4_os-p2p-pub,
+        10.0.0.0/8,
+        172.16.0.0/12,
+        192.168.0.0/16,
+    }
 }
 
 # Blacklist - internet traffic from these source networks will be dropped!
