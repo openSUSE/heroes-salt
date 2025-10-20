@@ -639,13 +639,6 @@ set cloud4_registry_suse {
   }
 }
 
-set cloud4_sentry_apex {
-  type ipv4_addr
-  flags interval
-  elements = { # https://docs.sentry.io/product/security/ip-ranges/
-    35.186.247.156/32
-  }
-}
 set cloud4_sentry_organization {
   type ipv4_addr
   flags interval
@@ -862,13 +855,6 @@ set cloud6_registry_suse {
   }
 }
 
-set cloud46_sentry_apex {
-  type ipv6_addr
-  flags interval
-  elements = {
-    2a07:de40:b27e:64::23ba:f79c/128
-  }
-}
 set cloud46_sentry_organization {
   type ipv6_addr
   flags interval
@@ -1135,41 +1121,35 @@ set acl6_internet_github_packages {
 }
 
 
-set acl4_internet_akismet {
-  type ipv4_addr
+set acl6_internet_akismet {
+  type ipv6_addr
   flags interval
   elements = {
-    $host4_dale
+    $host6_dale
   }
 }
 
-#set acl4_internet_sentry_apex {
-#  type ipv4_addr
-#  flags interval
-#  elements = {
-#  }
-#}
-set acl4_internet_sentry_organization {
-  type ipv4_addr
+set acl6_internet_sentry_organization {
+  type ipv6_addr
   flags interval
   elements = {
-    $host4_dale
+    $host6_dale
   }
 }
 
-set acl4_internet_pmbs {
-  type ipv4_addr
+set acl6_internet_pmbs {
+  type ipv6_addr
   flags interval
   elements = {
-      $host4_opi-proxy
+      $host6_opi-proxy
   }
 }
 
-set acl4_internet_db-ip {
-  type ipv4_addr
+set acl6_internet_db-ip {
+  type ipv6_addr
   flags interval
   elements = {
-      $host4_matomo,
+      $host6_matomo,
   }
 }
 

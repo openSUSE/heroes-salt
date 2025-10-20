@@ -20,14 +20,13 @@ chain input_network_nat64 {
   oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_github_packages tcp dport https accept
 
   # Akismet map
-  oifname os-p2p-pub ip saddr @acl4_internet_akismet ip daddr @cloud4_akismet tcp dport https accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_akismet tcp dport https accept
 
   # Sentry map
-  oifname os-p2p-pub ip saddr @acl4_internet_sentry_organization ip daddr @cloud4_sentry_organization tcp dport https accept
-
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_sentry_organization tcp dport https accept
 
   # DB-IP map
-  oifname os-p2p-pub ip saddr @acl4_internet_db-ip ip daddr @cloud4_db-ip tcp dport https accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_db-ip tcp dport https accept
 
   # for planet.o.o RSS feed pulling
   oifname os-p2p-pub ip saddr $host4_jekyll ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } accept
@@ -39,7 +38,7 @@ chain input_network_nat64 {
   oifname os-p2p-pub ip saddr $host4_discourse01 ip daddr != { $net4_os-p2p-pub, $net4_os-public, 172.16.164.0/24 } tcp dport { http, https } log prefix "[Discourse HTTP 2] " accept
 
   # for PMBS API access (https://pmbs.links2linux.de/)
-  oifname os-p2p-pub ip saddr @acl4_internet_pmbs ip daddr @cloud4_pmbs tcp dport https accept
+  oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_pmbs tcp dport https accept
 
   # rails-assets.org
   oif os-p2p-pub ip saddr $nat64_v4 ip daddr @cloud4_rails-assets tcp dport https accept

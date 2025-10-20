@@ -26,11 +26,11 @@ vim:filetype=nftables.jinja
   # galera{1,2,3} -> downloadcontent (HTTP repositories) (could use @acl6_internet_downloadcontent instead)
   ip6 saddr @host6_galera ip6 daddr @host6_downloadcontent tcp dport https accept
 
-  # * -> Akismet/Sentry (HTTPS) (further restricted using client whitelisting through @acl4_internet_{akismet,sentry} in forward.conf)
-  ip6 daddr @cloud46_akismet icmpv6 type { echo-request, echo-reply } accept
-  oifname nat64 ip6 daddr @cloud46_akismet tcp dport https accept
-  ip6 daddr @cloud46_sentry_organization icmpv6 type { echo-request, echo-reply } accept
-  oifname nat64 ip6 daddr @cloud46_sentry_organization tcp dport https accept
+  # akismet/sentry ACLs -> Akismet/Sentry (HTTPS)
+  oifname nat64 ip6 saddr @acl6_internet_akismet ip6 daddr @cloud46_akismet icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_akismet ip6 daddr @cloud46_akismet tcp dport https accept
+  oifname nat64 ip6 saddr @acl6_internet_sentry_organization ip6 daddr @cloud46_sentry_organization icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_sentry_organization ip6 daddr @cloud46_sentry_organization tcp dport https accept
 
   # Fastly ACL -> fastly (HTTPS, for rubygems.org)
   ip6 saddr @acl6_internet_fastly ip6 daddr @cloud6_fastly icmpv6 type { echo-request, echo-reply } accept
@@ -111,12 +111,13 @@ vim:filetype=nftables.jinja
   ip6 saddr $host6_chip ip6 daddr @host6_all_dns icmpv6 type { echo-reply, echo-request } accept
   ip6 saddr $host6_chip ip6 daddr @host6_all_dns udp dport domain accept
 
-  # * -> Packman Build Service (HTTPS) (further restricted using client whitelisting through @acl4_internet_pmbs in sets.nft)
-  ip6 daddr @cloud46_pmbs icmpv6 type { echo-request, echo-reply } accept
-  oifname nat64 ip6 daddr @cloud46_pmbs tcp dport https accept
+  # pmbs ACL -> Packman Build Service (HTTPS)
+  oifname nat64 ip6 saddr @acl6_internet_pmbs ip6 daddr @cloud46_pmbs icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_pmbs ip6 daddr @cloud46_pmbs tcp dport https accept
 
-  # * -> DB-IP (HTTPS) (further restricted using client whitelisting through @acl4_internet_db-ip in sets.nft)
-  oifname nat64 ip6 daddr @cloud46_db-ip tcp dport https accept
+  # db-ip ACL -> DB-IP (HTTPS)
+  oifname nat64 ip6 saddr @acl6_internet_db-ip ip6 daddr @cloud46_db-ip icmpv6 type { echo-request, echo-reply } accept
+  oifname nat64 ip6 saddr @acl6_internet_db-ip ip6 daddr @cloud46_db-ip tcp dport https accept
 
   # Hel -> global DNS (for recursion) and NTP (for upstream pool access)
   oif os-p2p-pub ip6 saddr @host6_hel udp dport ntp accept
