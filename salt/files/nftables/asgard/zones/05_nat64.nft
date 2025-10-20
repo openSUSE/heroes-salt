@@ -25,8 +25,6 @@ chain input_network_nat64 {
   # Sentry map
   oifname os-p2p-pub ip saddr @acl4_internet_sentry_organization ip daddr @cloud4_sentry_organization tcp dport https accept
 
-  # Maxmind map
-  oifname os-p2p-pub ip saddr @acl4_internet_maxmind ip daddr @cloud4_maxmind tcp dport https accept
 
   # DB-IP map
   oifname os-p2p-pub ip saddr @acl4_internet_db-ip ip daddr @cloud4_db-ip tcp dport https accept

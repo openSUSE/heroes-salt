@@ -1005,15 +1005,6 @@ set cloud6_npmjs {
   }
 }
 
-set cloud4_maxmind {
-  type ipv4_addr
-  flags interval
-  elements = { # https://dev.maxmind.com/maxmind-server-ip-addresses
-    162.159.134.22/32,
-    162.159.135.22/32
-  }
-}
-
 set acl6_internet_fastly {
     type ipv6_addr
     flags interval
@@ -1149,14 +1140,6 @@ set acl4_internet_akismet {
   flags interval
   elements = {
     $host4_dale
-  }
-}
-
-set acl4_internet_maxmind {
-  type ipv4_addr
-  flags interval
-  elements = {
-    $host4_discourse01,
   }
 }
 
