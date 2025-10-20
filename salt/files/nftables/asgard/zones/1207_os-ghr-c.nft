@@ -23,9 +23,9 @@
   ip6 daddr @host6_hel udp dport domain accept
 
   oif os-p2p-pub ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
-  oif os-p2p-pub ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
+  oif os-p2p-pub ip6 daddr != @lan_ipv6_prg2_nonat tcp dport { http, https } accept
   oifname nat64 ip6 daddr != @lan_ipv6_prg2_nonat icmpv6 type { echo-reply, echo-request } accept
-  oifname nat64 ip6 daddr != @lan_ipv6_prg2_nonat tcp dport https accept
+  oifname nat64 ip6 daddr != @lan_ipv6_prg2_nonat tcp dport { http, https } accept
 
   log prefix "[GHR-C VM Denied] " reject with icmpv6 type admin-prohibited
  }
