@@ -7,7 +7,7 @@ include:
     later referencing as scrape targets
 #}
 {%- set targets = {} %}
-{%- set mine = salt['mine.get'](tgt='*', fun=['grains', 'roles', 'states']) %}
+{%- set mine = salt['mine.get'](tgt='*', fun=['grains', 'roles', 'states']) or salt['pillar.get']('fake_mine', {}) %}
 
 {#- gather targets for the "nodes" job, i.e. node exporters running on all minions #}
 {%- for minion, mined_grains in mine.get('grains', {}).items() %}
