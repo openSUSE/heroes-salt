@@ -1,5 +1,5 @@
 chain prerouting {
   type filter hook prerouting priority raw
 
-  iif os-p2p-pub tcp flags syn notrack
+  #iif os-p2p-pub tcp flags syn notrack
 }
