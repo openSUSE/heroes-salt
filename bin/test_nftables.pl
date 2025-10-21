@@ -94,6 +94,7 @@ sub render_tree {
 
 foreach (@directories) {
   my $tree = $_;
+  if ( fileparse($tree) eq 'common' ) { next };
   my %interfaces;
   my %groups;
   my $treestatus = 0;
