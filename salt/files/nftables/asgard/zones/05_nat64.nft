@@ -9,4 +9,7 @@ chain input_network_nat64 {
 
   oif os-p2p-pub ip saddr $nat64_v4 ip daddr != @net4_internal ip protocol icmp icmp type { echo-request, echo-reply } accept
   oif os-p2p-pub ip saddr $nat64_v4 ip daddr != @net4_internal tcp dport { http, https, ssh } accept
+
+  # Matrix federation, see v6 explanation in 1203_os-internal.nft
+  oif os-p2p-pub ip saddr $host4_matrix ip daddr != @net4_internal ip protocol tcp accept
 }
