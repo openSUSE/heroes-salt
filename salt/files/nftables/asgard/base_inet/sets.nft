@@ -402,6 +402,7 @@ set host6_haproxy {
     elements = {
       $host6_atlas1,
       $host6_atlas2,
+      $host6_ipx-proxy1,
     }
 }
 
