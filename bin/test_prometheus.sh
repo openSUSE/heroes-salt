@@ -32,10 +32,14 @@ salt () {
 hack_pillar () {
 	# use a documentation address for this to work in containers with an empty fqdn_ip6
 	sed -i "s/grains\['fqdn_ip6'\]\[0\]/'2001:0DB8::100'/" pillar/role/monitoring/alertmanager.sls pillar/role/monitoring/master.sls
-	# replace mine call, avoid using a master based test container here
-	# (pillar rendering with mine functionality is tested during test_highstate anyways)
-	sed -i "s/= salt.saltutil.runner.*/= {'roles': {'minion-with-monitoring-master-role': ['monitoring.master'], 'minion-with-mariadb-1': ['mariadb'], 'minion-with-mariadb-2': ['mariadb']}, 'grains': {'minion-kvm-1': {'fqdn': 'kvm-minion-1.infra.opensuse.org', 'virtual': 'kvm'}, 'minion-with-kvm-2': {'fqdn': 'kvm-minion-2.infra.opensuse.org', 'virtual': 'kvm'}, 'physical.infra.opensuse.org': {'fqdn': 'physical-fqdn.infra.opensuse.org', 'virtual': 'physical'}}} %}/" pillar/role/monitoring/master.sls
 	cp pillar/role/monitoring/master.sls pillar_role_monitoring_master.sls.txt
+	# inject a pillar containing a structure that would usually be found in the mine of a production minion, we reference this in
+	# profile.monitoring.prometheus.targets as no real mine data is available in the test environment
+	# to generate:
+	# - salt --out=json --out-file=/tmp/monitor.mine monitor.infra.opensuse.org mine.get tgt='*' fun="['grains', 'roles', 'states']"
+	# - sed -Ei 's/^(		)"monitor.infra.opensuse.org"(: \{)/\1"fake_mine"\2/' /tmp/monitor.mine
+	cp test/pillar/monitor_mine.sls pillar/
+	sed '/^include:/a\\  - monitor_mine' pillar/role/monitoring/master.sls
 }
 
 gen_ssl () {

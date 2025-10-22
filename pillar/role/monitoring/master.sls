@@ -121,6 +121,9 @@ prometheus:
 
             nodes:
               port: 9100
+              simple: true
+              # target lists are pre-initialized in the "nodes" job to define the acceptable "virtual" grains
+              # minions with other "virtual" values will not be covered by this job
               targets:
                 physical: []
                 kvm: []
@@ -131,21 +134,18 @@ prometheus:
               states:
                 - apache_httpd
               simple: true
-              targets: []
 
             discourse:
               port: 9405
               roles:
                 - discourse
               simple: true
-              targets: []
 
             elasticsearch:
               port: 9114
               roles:
                 - wikisearch
               simple: true
-              targets: []
 
             ha_cluster:
               port: 9664
@@ -155,14 +155,12 @@ prometheus:
                 interval: 5m
                 timeout: 1m
               simple: true
-              targets: []
 
             haproxy:
               port: 8404
               roles:
                 - proxy
               simple: true
-              targets: []
 
             mail:
               port: 3903
@@ -170,7 +168,6 @@ prometheus:
                 - mailman3
                 - mailserver
               simple: true
-              targets: []
 
             mysql:
               port: 9104
@@ -178,7 +175,6 @@ prometheus:
                 - mariadb
                 - mariadb.backup
               simple: true
-              targets: []
 
             nginx:
               port: 9113
@@ -186,14 +182,12 @@ prometheus:
               states:
                 - nginx.config
               simple: true
-              targets: []
 
             pgbouncer:
               port: 9127
               roles:
                 - pgbouncer
               simple: true
-              targets: []
 
             php-fpm:
               port: 9253
@@ -201,14 +195,12 @@ prometheus:
                 - limesurvey
                 - wiki
               simple: true
-              targets: []
 
             ping:
               port: 9427
               roles:
                 - gateway
               simple: true
-              targets: []
 
             postgresql:
               port: 9187
@@ -216,13 +208,16 @@ prometheus:
                 - postgresql
                 - postgresql.backup
               simple: true
-              targets: []
 
             salt:
               port: 8216
               roles:
                 - salt.master
-              targets: []
+              scrape:
+                interval: 15s
+                timeout: 5s
+              simple: true
+              tls: true
 
             smartctl:
               port: 9633
@@ -231,64 +226,27 @@ prometheus:
               scrape:
                 interval: 5m
               simple: true
-              targets: []
 
             solr:
               port: 8989
               roles:
                 - mailman3
-              targets: []
+              scrape:
+                interval: 2m
+                timeout: 10s
+              simple: true
+              path: /
 
             {%- endload %}
 
-            {#- start collecting minions with a single mine call and pre-sort them into monitoring groups for
-                later referencing as scrape targets
-            #}
-            {%- set targets = {} %}
-            {%- set mine = salt.saltutil.runner('mine.get', tgt='*', fun=['grains', 'roles', 'states']) %}
-
-            {#- gather targets for the "nodes" job, i.e. node exporters running on all minions #}
-            {%- for minion, mined_grains in mine.get('grains', {}).items() %}
-              {#- check if the virtual grain is known (there should not be any minions with "stray" "virtual" values around) #}
-              {%- if mined_grains['virtual'] in monitors['nodes']['targets'] %}
-                {#- store FQDN in the virtual specific list #}
-                {%- do monitors['nodes']['targets'][mined_grains['virtual']].append(mined_grains['fqdn']) %}
-                {#- store minion->FQDN map for referencing the FQDN in the role iterations, which would otherwise
-                    only have access to the minion ID which is served as the key of any mine query
-                    (although in theory, the IDs of our minions should always match their FQDN)
-                #}
-                {%- do targets.update({minion: mined_grains['fqdn']}) %}
-              {%- else %}
-                {%- do salt.log.warning('monitoring.master: unhandled virtual in mined minion ' ~ minion) %}
-              {%- endif %}
-            {%- endfor %} {#- close grains loop #}
-
-            {#- gather role specific targets
-                (based off the roles listed in the job configuration in the "monitors" YAML block)
-            #}
-            {%- for x in ['states', 'roles'] %}
-            {%- for minion, roles in mine.get(x, {}).items() %}
-              {%- if minion in targets %}
-                {%- set minion_target = targets[minion] %}
-                {%- for job, job_config in monitors.items() %}
-                  {%- for role in job_config.get(x, []) %}
-                    {%- if role in roles and minion_target not in monitors[job]['targets'] %}
-                      {%- do monitors[job]['targets'].append(minion_target) %}
-                    {%- endif %}
-                  {%- endfor %}
-                {%- endfor %}
-              {%- endif %}
-            {%- endfor %}
-            {%- endfor %}
-
-            {%- do salt.log.debug('role.monitoring.master - targets: ' ~ targets) %}
-
-            {#- simple jobs using the default settings: #}
+            {#- simple jobs using the default settings and SD targets: #}
 
             {%- for job, job_config in monitors.items() %}
             {%- if job_config.get('simple', False) and 'port' in job_config %}
-            {%- set port = job_config['port'] %}
             - job_name: {{ job }}
+              {%- if 'path' in job_config %}
+              metrics_path: {{ job_config['path'] }}
+              {%- endif %}
               {%- if 'scrape' in job_config %}
                 {%- if 'interval' in job_config['scrape'] %}
               scrape_interval: {{ job_config['scrape']['interval'] }}
@@ -297,28 +255,14 @@ prometheus:
               scrape_timeout: {{ job_config['scrape']['timeout'] }}
                 {%- endif %}
               {%- endif %}
-              static_configs:
-                - targets:
-                    {%- for fqdn in job_config['targets'] | sort %}
-                    - {{ fqdn }}:{{ port }}
-                    {%- endfor %}
-              {{ relabel_instance(port) }}
+              file_sd_configs:
+                - files:
+                    - /etc/prometheus/targets/{{ job }}.json
+              {{ relabel_instance(job_config['port']) }}
             {%- endif %}
             {%- endfor %}
 
-            {#- jobs with custom settings: #}
-
-            - job_name: nodes
-              static_configs:
-                {%- for virtual, fqdns in monitors['nodes']['targets'].items() %}
-                - labels:
-                    virtual: {{ virtual }}
-                  targets:
-                    {%- for fqdn in fqdns | sort %}
-                    - {{ fqdn }}:{{ monitors['nodes']['port'] }}
-                    {%- endfor %}
-                {%- endfor %}
-              {{ relabel_instance(monitors['nodes']['port']) }}
+            {#- jobs with static targets: #}
 
             - job_name: prometheus
               scrape_interval: 5s
@@ -326,29 +270,6 @@ prometheus:
               static_configs:
                 - targets:
                     - localhost:9090
-
-            - job_name: salt
-              scrape_interval: 15s
-              scrape_timeout: 5s
-              static_configs:
-                - targets:
-                    {%- for fqdn in monitors['salt']['targets'] | sort  %}
-                    - {{ fqdn }}:{{ monitors['salt']['port'] }}
-                    {%- endfor %}
-                  labels:
-                    __scheme__: https
-              {{ relabel_instance(monitors['salt']['port']) }}
-
-            - job_name: solr
-              metrics_path: /
-              scrape_interval: 2m
-              scrape_timeout: 10s
-              static_configs:
-                - targets:
-                    {%- for fqdn in monitors['solr']['targets'] %}
-                    - {{ fqdn }}:{{ monitors['solr']['port'] }}
-                    {%- endfor %}
-              {{ relabel_instance(monitors['solr']['port']) }}
 
             {%- set mioo = 'matrix.infra.opensuse.org' %}
             - job_name: synapse
@@ -554,5 +475,9 @@ profile:
     ui:
       colorTitlebar: true
       minimalGroupWidth: 600
+
+  monitoring:
+    prometheus:
+      monitors: {{ monitors | yaml }}
 
 nftables: true
