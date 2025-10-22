@@ -4,6 +4,10 @@ include:
 {% endif %}
   - role.common.nginx
 
+mtail:
+  programs:
+    - postfix
+
 # Special config for mailman in the postfix relay
 profile:
   postfix:
