@@ -1,0 +1,23 @@
+.test_apache:
+  image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-apache:latest
+  stage: test
+  before_script:
+    - bin/prepare_test_env.sh -g -s
+  script: bin/test_apache.sh
+  tags:
+    - docker
+  artifacts:
+    when: always
+    paths:
+      - '*.txt'
+      - conf.d/
+      - vhosts.d/
+  rules:
+    - when: on_success
+
+{% for role in roles %}
+test_apache_{{ role }}:
+  extends:
+    - .test_apache
+  script: bin/test_apache.sh {{ role }}
+{% endfor %}
