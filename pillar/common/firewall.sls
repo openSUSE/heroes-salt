@@ -14,4 +14,7 @@ firewalld:
     internal:
       services:
         - node_exporter
+        {%- if grains['virtual'] == 'physical' %}
+        - smartctl_exporter
+        {%- endif %}
         - ssh
