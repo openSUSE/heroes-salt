@@ -19,6 +19,10 @@ firewalld:
     internal:
       interfaces:
         - private
+      ports:
+        - comment: HAProxy Prometheus Exporter
+          port: 8404
+          protocol: tcp
       services:
         - dns
         - http
