@@ -31,6 +31,8 @@ network:
     # VLAN interfaces for generic (non-VRRP) VM connectivity
     {{ vlantap('os-internal', 1203, 'bond-ob') }}
 
+  {{ default_gateway('prg2', 'openSUSE-bare') }}
+
 firewalld:
   enabled: true
   zones:

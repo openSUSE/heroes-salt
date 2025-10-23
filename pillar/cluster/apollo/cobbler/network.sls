@@ -19,3 +19,5 @@ network:
       etherdevice: bond-ob
       vlan_id: 1207
       firewall: false
+
+  {{ default_gateway('prg2', 'openSUSE-GHR-Cobbler') }}
