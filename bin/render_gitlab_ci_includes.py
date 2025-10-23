@@ -27,6 +27,8 @@ from jinja2 import Template
 
 enabled_templates = [
   'highstate',
+
+  'apache',
   'nginx',
 ]
 

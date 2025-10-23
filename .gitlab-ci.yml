@@ -123,6 +123,17 @@ test_highstate:
         job: prepare_includes
     strategy: depend
 
+test_apache:
+  extends:
+    - .test_mr
+  needs:
+    - prepare_includes
+  trigger:
+    include:
+      - artifact: .gitlab-ci.includes/test_apache.yml
+        job: prepare_includes
+    strategy: depend
+
 test_nginx:
   extends:
     - .test_mr
