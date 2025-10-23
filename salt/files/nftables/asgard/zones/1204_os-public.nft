@@ -85,8 +85,5 @@
  }
 
  chain output_network_os-public {
-  # ?
-  ip daddr $net4_os-public tcp dport http accept
-  ip6 daddr $net6_os-public tcp dport http accept
 
  }
