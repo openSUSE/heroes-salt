@@ -34,6 +34,8 @@ network:
     # VLAN interface for external warp VM connectivity
     {{ vlantap('s-j-os-out', 1011, 'bond-ob') }}
 
+  {{ default_gateway('slc1', 'openSUSE-bare') }}
+
 firewalld:
   enabled: true
   zones:

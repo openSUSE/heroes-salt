@@ -22,6 +22,8 @@ network:
     # VLAN interfaces for generic VM connectivity
     {{ vlantap('os-avalon', 1700, 'bond-ob') }}
 
+  {{ default_gateway('slc1', 'openSUSE-bare') }}
+
 firewalld:
   enabled: true
   zones:

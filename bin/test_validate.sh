@@ -13,6 +13,7 @@ TESTS=(
     test_roles.py
     test_custom_grains.py
     test_infra_data.sh
+    test_cluster_default_gateway.sh
 )
 
 for _test in "${TESTS[@]}"; do
