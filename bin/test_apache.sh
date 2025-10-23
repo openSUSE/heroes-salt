@@ -54,6 +54,8 @@ else
 	status=1
 fi
 
+set -e
+
 if [[ "$status" == 0 ]]
 then
     echo_PASSED
@@ -67,7 +69,7 @@ do
 	mkdir "$dir"
 	for file in /etc/apache2/"$dir"/*.conf
 	do
-		cp "$file" "$dir/${file%.conf}.txt"
+		cp "$file" "$dir/${file##*/}.txt"
 	done
 done
 
