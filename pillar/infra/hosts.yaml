@@ -916,6 +916,30 @@ pinot:
   legacy_boot: true
   ram: 2048MB
   vcpu: 1
+prg-monitor1:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b39503268
+    root: 3600a098038304161792455736d425058
+  interfaces:
+    os-monitor:
+      ip6: 2a07:de40:b27e:1214::a/64
+      mac: 00:16:3e:38:63:4e
+      source: x-os-monitor
+  ram: 4096MB
+  vcpu: 2
+prg-monitor2:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b39503269
+    root: 3600a098038304161792455736d425059
+  interfaces:
+    os-monitor:
+      ip6: 2a07:de40:b27e:1214::b/64
+      mac: 00:16:3e:38:63:4f
+      source: x-os-monitor
+  ram: 4096MB
+  vcpu: 2
 prg-ns1:
   cluster: falkor
   disks:
@@ -1085,6 +1109,30 @@ slc-mirror:
   legacy_boot: true
   ram: 8192MB
   vcpu: 4
+slc-monitor1:
+  cluster: arches
+  disks:
+    data0: 3600a0980383143393724584a74517974
+    root: 3600a0980383143393724584a74517972
+  interfaces:
+    os-monitor:
+      ip6: 2a07:de40:617e:1914::a/64
+      mac: 00:16:3e:6f:9c:2e
+      source: x-os-monitor
+  ram: 4096MB
+  vcpu: 2
+slc-monitor2:
+  cluster: arches
+  disks:
+    data0: 3600a0980383143393724584a74517975
+    root: 3600a0980383143393724584a74517973
+  interfaces:
+    os-monitor:
+      ip6: 2a07:de40:617e:1914::b/64
+      mac: 00:16:3e:6f:9c:2f
+      source: x-os-monitor
+  ram: 4096MB
+  vcpu: 2
 slc-ns1:
   cluster: arches
   disks:

@@ -9,6 +9,7 @@ suse_ha:
           'kani',
           'mirrordb',
           'mx',
+          'prg-monitor',
           'prg-ns',
         ]
     %}
