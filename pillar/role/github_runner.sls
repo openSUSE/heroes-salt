@@ -22,7 +22,7 @@ zypper:
     cni: {}
     containerd-ctr: {}
     containerd: {}
-    fireactions: {}
+    fireactions-server: {}
     firecracker: {}
     firectl: {}
     tc-redirect-tap: {}
