@@ -9,7 +9,6 @@ if [ ! -r /etc/os-release ]; then
 fi
 source /etc/os-release
 SECRETS="False"
-PKG=''
 
 if [[ $(whoami) != 'root' ]]; then
     echo 'Can only be run as root'
@@ -20,7 +19,6 @@ help() {
     echo "Prepares the CI runner or workstation environment to run highstate or show_highstate tests"
     echo
     echo "Arguments:"
-    echo "-p <pkg1,pkg2> Comma-separated list of additional packages to be installed"
     echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,15,6\""
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
@@ -32,9 +30,8 @@ help() {
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts p:o:gsnchm arg; do
+while getopts o:gsnchm arg; do
     case ${arg} in
-        p) PKG=( ${OPTARG//,/ } ) ;;
         o) OS=( ${OPTARG//,/ } ) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
@@ -51,11 +48,6 @@ DOMAIN='infra.opensuse.org'
 if [ -z "$REPOSITORIES" ]
 then
   sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
-
-  if [ -n "${PKG[*]}" ]; then
-      zypper --gpg-auto-import-keys ref
-      zypper -qn install --no-recommends "${PKG[@]}"
-  fi
 elif [ "$REPOSITORIES" == 'False' ]
 then
   rm /etc/zypp/repos.d/*
