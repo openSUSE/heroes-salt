@@ -157,5 +157,3 @@ fi   # MINION
 ln -s "$PWD/pillar" /srv/pillar
 
 ln -s "$PWD" /srv/salt-git
-
-grep -q search /etc/resolv.conf || echo 'search infra.opensuse.org' >> /etc/resolv.conf
