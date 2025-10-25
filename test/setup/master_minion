@@ -12,7 +12,6 @@ cp test/fixtures/minion.pub /etc/salt/pki/master/minions/"$HOSTNAME"
 
 # Ensure directories purged during the container build are ready
 install -o salt -g salt -d -m 0750 /var/log/salt
-chown -R salt: /var/cache/salt/master
 
 # zmq expects system tornado, but installing it breaks salt, which only works correctly with its vendored tornado (upstream patch to remove it exists)
 # https://bugzilla.opensuse.org/show_bug.cgi?id=1252244
@@ -38,10 +37,6 @@ systemctl start salt-master
 # roles with "nftables: true" (correctly) fail if neither a host nor a cluster nftables tree is provided
 mkdir salt/files/nftables/"$HOSTNAME"
 
-echo "== /etc/salt/grains =="
-cat "/etc/salt/grains"
-echo "== /etc/salt/grains END =="
-
 # Install the pre-seeded key pair
 cp test/fixtures/minion* /etc/salt/pki/minion/
 
@@ -61,10 +56,6 @@ IDFILE="pillar/id/$HOSTNAME.sls"
 # Add test pillars for data which is not included by roles
 sed "s/runner/$HOSTNAME/" test/pillar/clusters.yaml >> "$IDFILE"
 cat test/pillar/{mirrorcache,suse_ha,conntrackd-asgard}.sls >> "$IDFILE"
-
-echo "== $IDFILE =="
-cat "$IDFILE"
-echo "== $IDFILE END =="
 
 out='setup.txt'
 out_errors='setup_errors.txt'
@@ -106,8 +97,6 @@ for cmd in saltutil.sync_grains saltutil.sync_modules saltutil.sync_states saltu
 do
   minion_run "$cmd"
 done
-
-ls -alR /var/cache/salt/master/extmods/ /var/cache/salt/master/files/base/
 
 # monitor user in role.base
 useradd -U monitor
