@@ -1,4 +1,4 @@
-{%- from 'macros.jinja' import bond, slave, smart, vlantap %}
+{%- from 'macros.jinja' import bond, default_gateway, slave, smart, vlantap %}
 
 network:
   interfaces:
