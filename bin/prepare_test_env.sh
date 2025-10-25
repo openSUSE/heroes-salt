@@ -21,7 +21,6 @@ help() {
     echo "Arguments:"
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
-    echo "-n             OPTIONAL: Delete all repositories to speed up tests which do not install additional packages"
     echo "-c             OPTIONAL: Do not install Git formulas"
     echo "-m             OPTIONAL: Do not bootstrap Salt minion"
     echo
@@ -29,25 +28,16 @@ help() {
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts gsnchm arg; do
+while getopts gschm arg; do
     case ${arg} in
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
-        n) REPOSITORIES='False' ;;
         c) FORMULAS='False' ;;
         m) MINION='False' ;;
         h) help && exit ;;
         *) help && exit 1 ;;
     esac
 done
-
-if [ -z "$REPOSITORIES" ]
-then
-  sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
-elif [ "$REPOSITORIES" == 'False' ]
-then
-  rm /etc/zypp/repos.d/*
-fi
 
 if [ -z "$FORMULAS" ]
 then

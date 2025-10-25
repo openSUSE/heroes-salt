@@ -51,7 +51,7 @@ test_haproxy:
     - .test_artifacts
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy:latest
   before_script:
-    - bin/prepare_test_env.sh -g -s -n
+    - bin/prepare_test_env.sh -g -s
     - bin/replace_secrets.sh
   script: bin/test_haproxy.sh
 #     changes:
@@ -83,7 +83,7 @@ test_prometheus:
   extends:
     - .test_common
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-prometheus:latest
-  before_script: bin/prepare_test_env.sh -s -n
+  before_script: bin/prepare_test_env.sh -s
   script: bin/test_prometheus.sh
   artifacts:
     when: always
@@ -95,7 +95,7 @@ test_syslog-ng:
   extends:
     - .test_common
   image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-syslog:latest
-  before_script: bin/prepare_test_env.sh -c -s -n
+  before_script: bin/prepare_test_env.sh -c -s
   script: bin/test_syslog-ng.sh
   artifacts:
     when: always
