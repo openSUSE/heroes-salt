@@ -19,7 +19,7 @@ chown -R salt: /var/cache/salt/master
 sed -i 's/from tornado/from salt.ext.tornado/' /usr/lib64/python3.13/site-packages/zmq/eventloop/{__init__,zmqstream}.py
 
 # Configure and start the master
-tee >/etc/salt/master <<EOF
+cat > /etc/salt/master <<EOF
 file_roots:
   base:
   - /srv/salt
@@ -46,8 +46,9 @@ echo "== /etc/salt/grains END =="
 cp test/fixtures/minion* /etc/salt/pki/minion/
 
 # Configure and start the minion
-echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
-tee >/etc/salt/minion <<EOF
+cat >> /etc/salt/minion <<EOF
+
+# Additions from test/setup/master_minion
 master: 127.0.0.1
 log_level: warning
 log_level_logfile: debug

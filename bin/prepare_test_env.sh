@@ -41,8 +41,6 @@ while getopts gsnchm arg; do
     esac
 done
 
-DOMAIN='infra.opensuse.org'
-
 if [ -z "$REPOSITORIES" ]
 then
   sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
@@ -57,7 +55,7 @@ then
 fi
 
 bin/replace_secrets.sh
-rm -rf /srv/{salt,pillar} 2>/dev/null
+rm -fr /srv/{salt,pillar}
 
 ID=$(/usr/bin/hostname -f)
 IDFILE="pillar/id/${ID//./_}.sls"
@@ -67,7 +65,7 @@ printf "grains:\n  site: prg2\n  hostusage: test\n  reboot_safe: no\n" > "$IDFIL
 cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
-    printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' "$DOMAIN" "$SECRETS" > /etc/salt/grains
+    printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' infra.opensuse.org "$SECRETS" > /etc/salt/grains
     bin/get_roles.py -o yaml >> "$IDFILE"
     cp "$IDFILE_BASE" "$IDFILE"
 fi
@@ -77,13 +75,7 @@ ln -s "$PWD/salt" /srv/salt
 if [ -z "$MINION" ]
 then
 
-if [ ! -d /etc/salt/minion.d ]
-then
-        mkdir /etc/salt/minion.d
-fi
-echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
-echo 'pillar_merge_lists: True' > /etc/salt/minion.d/merge.conf
-tee /etc/salt/minion.d/modules.conf >/dev/null <<-EOF
+cat > /etc/salt/minion <<-EOF
 	disable_modules:
 	  - artifactory
 	  - bigip
@@ -134,13 +126,14 @@ tee /etc/salt/minion.d/modules.conf >/dev/null <<-EOF
 	  - pushover_notify
 	  - pyenv
 	  - random_org
-	EOF
-tee /etc/salt/minion.d/roots.conf >/dev/null <<-EOF
+	features:
+	  x509_v2: true
 	file_roots:
 	  base:
 	    - /srv/salt
 	    - /usr/share/salt-formulas/states
 	    - /srv/formulas
+	pillar_merge_lists: true
 	EOF
 
 salt-call --local saltutil.runner saltutil.sync_modules
