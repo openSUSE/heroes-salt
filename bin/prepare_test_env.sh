@@ -19,7 +19,6 @@ help() {
     echo "Prepares the CI runner or workstation environment to run highstate or show_highstate tests"
     echo
     echo "Arguments:"
-    echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,15,6\""
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
     echo "-n             OPTIONAL: Delete all repositories to speed up tests which do not install additional packages"
@@ -30,9 +29,8 @@ help() {
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts o:gsnchm arg; do
+while getopts gsnchm arg; do
     case ${arg} in
-        o) OS=( ${OPTARG//,/ } ) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
         n) REPOSITORIES='False' ;;
@@ -70,7 +68,6 @@ cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
     printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' "$DOMAIN" "$SECRETS" > /etc/salt/grains
-    [[ -n "${OS[0]}" ]] && printf 'osfullname: %s\nosmajorrelease: %s\nosrelease_info: [%s, %s]\n' "${OS[0]}" "${OS[1]}" "${OS[1]}" "${OS[2]}" >> /etc/salt/grains
     bin/get_roles.py -o yaml >> "$IDFILE"
     cp "$IDFILE_BASE" "$IDFILE"
 fi
