@@ -62,9 +62,6 @@ fi
 
 ln -s "$PWD/salt" /srv/salt
 
-if [ -z "$MINION" ]
-then
-
 cat > /etc/salt/minion <<-EOF
 	disable_modules:
 	  - artifactory
@@ -118,6 +115,14 @@ cat > /etc/salt/minion <<-EOF
 	  - random_org
 	features:
 	  x509_v2: true
+	EOF
+
+if [ -z "$MINION" ]
+then
+
+cat >> /etc/salt/minion <<-EOF
+
+	# Additions from MINION
 	file_roots:
 	  base:
 	    - /srv/salt
