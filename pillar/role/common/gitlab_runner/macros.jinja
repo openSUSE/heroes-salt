@@ -5,6 +5,7 @@
           token_obtained_at: 0001-01-01T00:00:00Z
           token_expires_at: 0001-01-01T00:00:00Z
           executor: docker
+          request_concurrency: 2
           cache:
             MaxUploadedArchiveSize: 0
           docker:
@@ -26,4 +27,7 @@
               # there's currently no known way to replace or extend the existing "::1" entry but we currently do not have anything expecting a reverse lookup of "::1" to return "ipv6-localhost",
               #   making it not an issue
               - ipv6-localhost:::1
+          feature_flags:
+              FF_SCRIPT_SECTIONS: true
+              FF_USE_FASTZIP: true
 {%- endmacro -%}
