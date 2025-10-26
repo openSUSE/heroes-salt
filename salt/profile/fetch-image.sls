@@ -80,15 +80,15 @@ hypervisor_image_install:
         - file: hypervisor_image_checksum_signature_download
         - cmd: hypervisor_image_checksum_verify
 
-  {%- set version_link = image_directory ~ 'admin-minimal-' ~ version.replace('.', '_') %}
+  {%- set version_link = 'admin-minimal-' ~ version.replace('.', '_') %}
 hypervisor_image_link_version:
   file.symlink:
-    - name: {{ version_link }}
-    - target: {{ image_destination_leap }}
+    - name: {{ image_directory ~ version_link }}
+    - target: {{ file }}
 
 hypervisor_image_link_latest:
   file.symlink:
-    - name: {{ image_directory }}/admin-minimal-latest
+    - name: {{ image_directory }}admin-minimal-latest
     - target: {{ version_link }}
 
 {%- endif %}
