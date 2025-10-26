@@ -1,7 +1,6 @@
 {%- set site = grains.get('site') %}
 
 include:
-  - .docker
   - secrets.include_id
 
 apparmor:
@@ -11,10 +10,6 @@ apparmor:
       - /etc/syslog-ng/conf.d/server.d/{,*} r
 
 profile:
-  docker:
-    daemon:
-      ipv6: true
-      fixed-cidr-v6: 2a07:de40:b27e:400{{ grains['host'][-1] }}::/64
   gitlab_runner:
     config:
     {%- if site == 'prg2' %}
@@ -32,6 +27,17 @@ profile:
         session_timeout: 1800
     # further runner configuration is in pillar/role/common/gitlab_runner/macros.jinja
     # included together with secrets in pillar/secrets/id/gitlab-runner*
+    podman:
+      {%- set subnet_stubs = {
+            'prg2': '2a07:de40:b27e:400',
+            'slc1': '2a07:de40:617e:400',
+      } %}
+      subnet:
+        {%- if site in subnet_stubs %}
+        {{ subnet_stubs[site] }}{{ grains['host'][-1] }}::/64
+        {%- else %}
+        null
+        {%- endif %}
 
 prometheus:
   pkg:
