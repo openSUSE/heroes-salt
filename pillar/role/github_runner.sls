@@ -23,6 +23,7 @@ zypper:
     containerd-ctr: {}
     containerd: {}
     fireactions-server: {}
+    fireactions-reset-devmapper-snapshotter: {}
     firecracker: {}
     firectl: {}
     tc-redirect-tap: {}
