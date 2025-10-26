@@ -9,7 +9,6 @@ if [ ! -r /etc/os-release ]; then
 fi
 source /etc/os-release
 SECRETS="False"
-PKG=''
 
 if [[ $(whoami) != 'root' ]]; then
     echo 'Can only be run as root'
@@ -20,11 +19,8 @@ help() {
     echo "Prepares the CI runner or workstation environment to run highstate or show_highstate tests"
     echo
     echo "Arguments:"
-    echo "-p <pkg1,pkg2> Comma-separated list of additional packages to be installed"
-    echo "-o <OS>        OPTIONAL: Specify different OS. Examples: \"Leap,15,6\""
     echo "-g             OPTIONAL: Make preparation for show_highstate"
     echo "-s             OPTIONAL: Include secrets files (disabed because CI runner can't decrypt them due to lack of GPG key)"
-    echo "-n             OPTIONAL: Delete all repositories to speed up tests which do not install additional packages"
     echo "-c             OPTIONAL: Do not install Git formulas"
     echo "-m             OPTIONAL: Do not bootstrap Salt minion"
     echo
@@ -32,13 +28,10 @@ help() {
 
 [[ $1 == '--help' ]] && help && exit
 
-while getopts p:o:gsnchm arg; do
+while getopts gschm arg; do
     case ${arg} in
-        p) PKG=( ${OPTARG//,/ } ) ;;
-        o) OS=( ${OPTARG//,/ } ) ;;
         g) HIGHSTATE=1 ;;
         s) SECRETS="True" ;;
-        n) REPOSITORIES='False' ;;
         c) FORMULAS='False' ;;
         m) MINION='False' ;;
         h) help && exit ;;
@@ -46,28 +39,13 @@ while getopts p:o:gsnchm arg; do
     esac
 done
 
-DOMAIN='infra.opensuse.org'
-
-if [ -z "$REPOSITORIES" ]
-then
-  sed -i 's/download.opensuse.org/download-prg.infra.opensuse.org/' /etc/zypp/repos.d/*
-
-  if [ -n "${PKG[*]}" ]; then
-      zypper --gpg-auto-import-keys ref
-      zypper -qn install --no-recommends "${PKG[@]}"
-  fi
-elif [ "$REPOSITORIES" == 'False' ]
-then
-  rm /etc/zypp/repos.d/*
-fi
-
 if [ -z "$FORMULAS" ]
 then
   bin/clone_formulas.sh
 fi
 
 bin/replace_secrets.sh
-rm -rf /srv/{salt,pillar} 2>/dev/null
+rm -fr /srv/{salt,pillar}
 
 ID=$(/usr/bin/hostname -f)
 IDFILE="pillar/id/${ID//./_}.sls"
@@ -77,24 +55,14 @@ printf "grains:\n  site: prg2\n  hostusage: test\n  reboot_safe: no\n" > "$IDFIL
 cp "$IDFILE" "$IDFILE_BASE"
 
 if [[ -n "$HIGHSTATE" ]]; then
-    printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' "$DOMAIN" "$SECRETS" > /etc/salt/grains
-    [[ -n "${OS[0]}" ]] && printf 'osfullname: %s\nosmajorrelease: %s\nosrelease_info: [%s, %s]\n' "${OS[0]}" "${OS[1]}" "${OS[1]}" "${OS[2]}" >> /etc/salt/grains
+    printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' infra.opensuse.org "$SECRETS" > /etc/salt/grains
     bin/get_roles.py -o yaml >> "$IDFILE"
     cp "$IDFILE_BASE" "$IDFILE"
 fi
 
 ln -s "$PWD/salt" /srv/salt
 
-if [ -z "$MINION" ]
-then
-
-if [ ! -d /etc/salt/minion.d ]
-then
-        mkdir /etc/salt/minion.d
-fi
-echo 'features: {"x509_v2": true}' > /etc/salt/minion.d/features_x509_v2.conf
-echo 'pillar_merge_lists: True' > /etc/salt/minion.d/merge.conf
-tee /etc/salt/minion.d/modules.conf >/dev/null <<-EOF
+cat > /etc/salt/minion <<-EOF
 	disable_modules:
 	  - artifactory
 	  - bigip
@@ -145,13 +113,22 @@ tee /etc/salt/minion.d/modules.conf >/dev/null <<-EOF
 	  - pushover_notify
 	  - pyenv
 	  - random_org
+	features:
+	  x509_v2: true
 	EOF
-tee /etc/salt/minion.d/roots.conf >/dev/null <<-EOF
+
+if [ -z "$MINION" ]
+then
+
+cat >> /etc/salt/minion <<-EOF
+
+	# Additions from MINION
 	file_roots:
 	  base:
 	    - /srv/salt
 	    - /usr/share/salt-formulas/states
 	    - /srv/formulas
+	pillar_merge_lists: true
 	EOF
 
 salt-call --local saltutil.runner saltutil.sync_modules
@@ -165,5 +142,3 @@ fi   # MINION
 ln -s "$PWD/pillar" /srv/pillar
 
 ln -s "$PWD" /srv/salt-git
-
-grep -q search /etc/resolv.conf || echo 'search infra.opensuse.org' >> /etc/resolv.conf
