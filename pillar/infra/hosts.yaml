@@ -348,6 +348,30 @@ gitlab-runner2:
   legacy_boot: true
   ram: 24576MB
   vcpu: 32
+gitlab-runner3:
+  cluster: arches
+  disks:
+    data0: 3600a0980383143393724584a74517977
+    root: 3600a0980383143393724584a74517976
+  interfaces:
+    os-glr:
+      ip6: 2a07:de40:617e:1908::103/64
+      mac: 00:16:3e:7b:77:7e
+      source: x-os-glr
+  ram: 32768MB
+  vcpu: 36
+gitlab-runner4:
+  cluster: arches
+  disks:
+    data0: 3600a0980383143393724584a74517979
+    root: 3600a0980383143393724584a74517978
+  interfaces:
+    os-glr:
+      ip6: 2a07:de40:617e:1908::104/64
+      mac: 00:16:3e:7b:77:7f
+      source: x-os-glr
+  ram: 32768MB
+  vcpu: 36
 globus1:
   cluster: arches
   disks:

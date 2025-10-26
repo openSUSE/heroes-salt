@@ -1,5 +1,5 @@
 grains:
-  site: prg2
+  site: slc1
   hostusage:
     - GitLab Runner
   reboot_safe: yes
@@ -12,7 +12,7 @@ grains:
     - crameleon
   partners:
     - gitlab-runner1.infra.opensuse.org
-    - gitlab-runner3.infra.opensuse.org
+    - gitlab-runner2.infra.opensuse.org
     - gitlab-runner4.infra.opensuse.org
   weburls: []
 roles:

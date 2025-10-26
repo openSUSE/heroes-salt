@@ -1,3 +1,5 @@
+{%- set site = grains.get('site') %}
+
 include:
   - .docker
   # secrets include conditionalized inside the secrets files
@@ -16,8 +18,15 @@ profile:
       fixed-cidr-v6: 2a07:de40:b27e:400{{ grains['host'][-1] }}::/64
   gitlab_runner:
     config:
-      concurrent: 30
+    {%- if site == 'prg2' %}
       check_interval: 5
+      concurrent:  30
+    {%- elif site == 'slc1' %}
+      check_interval: 30
+      concurrent:  40
+    {%- else %}
+      {%- do salt.log.warning('gitlab_runner: possibly incomplete pillar') %}
+    {%- endif %}
       user: gitlab-runner
       shutdown_timeout: 0
       session_server:

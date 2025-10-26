@@ -195,6 +195,12 @@ slc1:
     net6: 2a07:de40:617e:1907::/64
     gw6: 2a07:de40:617e:1907::3
     id: 1907
+  openSUSE-gitlab-runner:
+    export: true
+    short: os-glr
+    net6: 2a07:de40:617e:1908::/64
+    gw6: 2a07:de40:617e:1908::3
+    id: 1908
   openSUSE-monitor:
     export: true
     short: os-monitor

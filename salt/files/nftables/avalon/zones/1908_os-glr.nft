@@ -1,0 +1,27 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+chain input_network_os-glr {
+  jump global_internal
+
+  ip6 saddr @net6_os-glr ip6 daddr @self6_glr ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
+
+  # GitLab uplink
+  ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_mickey tcp dport https accept
+
+  # Salt repository deployment
+  ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
+  ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_seidr tcp dport 4550 accept
+  ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_witch icmpv6 type { echo-reply, echo-request } accept
+  ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_witch tcp dport rsync accept
+  oif os-salt ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_volva icmpv6 type { echo-reply, echo-request } accept
+  oif os-salt ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_volva tcp dport rsync accept
+
+  jump acl_internet_obs_login
+
+  log prefix "[avalon] GLR Denied: " reject with icmpv6 type admin-prohibited
+}
+
+chain output_network_os-glr {
+}
