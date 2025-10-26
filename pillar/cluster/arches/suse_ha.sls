@@ -3,6 +3,7 @@ suse_ha:
     name: arches
   constraints:
     {%- for vmpair in [
+          'gitlab-runner',
           'globus',
           'slc-monitor',
           'slc-ns',

@@ -293,6 +293,15 @@ set host6_avalon {
   }
 }
 
+set host6_gitlab-runner_slc {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a07:de40:617e:1908::103/128,
+    2a07:de40:617e:1908::104/128,
+  }
+}
+
 set host6_globus {
   type ipv6_addr
   flags interval
@@ -1012,7 +1021,7 @@ set acl6_internet_db-ip {
 
 
 # gitlab-runner{1,2}
-set host6_gitlab-runner {
+set host6_gitlab-runner_prg {
   type ipv6_addr
   flags interval
   elements = {

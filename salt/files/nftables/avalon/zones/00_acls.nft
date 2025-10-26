@@ -1,0 +1,9 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/avalon ##
+###################################################
+
+chain acl_internet_obs_login {
+  # api.o.o, build.o.o, registry.o.o ACL
+  oif os-p2p-pub ip6 saddr @acl6_internet_obs-login ip6 daddr @cloud6_obs-login icmpv6 type { echo-reply, echo-request } accept
+  oif os-p2p-pub ip6 saddr @acl6_internet_obs-login ip6 daddr @cloud6_obs-login tcp dport https accept
+}
