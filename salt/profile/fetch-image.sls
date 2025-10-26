@@ -84,7 +84,7 @@ hypervisor_image_install:
 hypervisor_image_link_version:
   file.symlink:
     - name: {{ image_directory ~ version_link }}
-    - target: {{ file }}
+    - target: {{ file.rstrip('.xz') if imagetype == 'raw' else file }}
 
 hypervisor_image_link_latest:
   file.symlink:
