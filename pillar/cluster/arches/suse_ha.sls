@@ -3,7 +3,6 @@ suse_ha:
     name: arches
   constraints:
     {%- for vmpair in [
-          'gitlab-runner',
           'globus',
           'slc-monitor',
           'slc-ns',
@@ -17,6 +16,12 @@ suse_ha:
         - VM_{{ vmpair }}1.infra.opensuse.org
         - VM_{{ vmpair }}2.infra.opensuse.org
     {%- endfor %}
+    colo_gitlab-runner:
+      type: rsc_colocation
+      score: -100
+      resources:
+        - VM_gitlab-runner3.infra.opensuse.org
+        - VM_gitlab-runner4.infra.opensuse.org
   fencing:
     stonith_enable: true
     sbd:
