@@ -113,6 +113,9 @@ def stop_if_needed(container):
     if container.attrs['State'] not in ['exited', 'stopped']:
         container.stop()
 
+def set_socket(socket):
+    Path(socket).chmod(0o660)
+
 def remove_socket(instance):
     # in case the previous one crashed without cleanup
     Path(f'{SOCKETS_DIR}/{instance}.sock').unlink(missing_ok=True)
@@ -144,6 +147,8 @@ def rework_instances(client, config, reset, delete):
 
     print('=== Searching for instances to deploy ===')
     for instance, instance_config in want.items():
+        socket = f'{SOCKETS_DIR}/{instance}.sock'
+
         if instance in found:
             if reset:
                 print(f'== Destroying outdated instance "{instance}" ==')
@@ -151,12 +156,12 @@ def rework_instances(client, config, reset, delete):
             else:
                 print(f'== Ensuring instance "{instance}" is started ==')
                 start_if_needed(found[instance])
+                set_socket(socket)
 
                 continue
 
         print(f'== Creating instance "{instance}" ==')
         name = f'quiz-{instance}'
-        socket = f'{SOCKETS_DIR}/{instance}.sock'
 
         environment = {
             'PORT': socket,
@@ -206,7 +211,7 @@ def rework_instances(client, config, reset, delete):
                 sys.exit(1)
             sleep(try_sec)
 
-        Path(socket).chmod(0o660)
+        set_socket(socket)
 
 def main():
     client = PodmanClient()
