@@ -53,3 +53,8 @@ zypper:
     # needed by Salt for TOML configuration serialization
     # move to the common pillar should we get more roles needing TOML
     {{ grains['system_python'] }}-toml: {}
+  repositories:
+    darix:apps:
+      baseurl: http://$mirror_int/repositories/home:/darix:/apps/$releasever/
+      priority: 100
+      refresh: True
