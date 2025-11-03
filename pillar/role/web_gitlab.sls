@@ -117,3 +117,10 @@ sshd_config:
       options:
         AuthorizedKeysCommand: /usr/lib/gitlab/shell/bin/gitlab-shell-authorized-keys-check gitlab %u %k
         AuthorizedKeysCommandUser: gitlab
+
+zypper:
+  repositories:
+    darix:apps:
+      baseurl: http://$mirror_int/repositories/home:/darix:/apps/openSUSE_Tumbleweed/
+      priority: 100
+      refresh: True
