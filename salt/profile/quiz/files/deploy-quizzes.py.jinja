@@ -113,12 +113,11 @@ def stop_if_needed(container):
     if container.attrs['State'] not in ['exited', 'stopped']:
         container.stop()
 
-def set_socket(socket):
-    Path(socket).chmod(0o660)
+def get_socket(instance):
+    return Path(f'{SOCKETS_DIR}/{instance}.sock')
 
-def remove_socket(instance):
-    # in case the previous one crashed without cleanup
-    Path(f'{SOCKETS_DIR}/{instance}.sock').unlink(missing_ok=True)
+def set_socket(p):
+    p.chmod(0o660)
 
 def remove_database(instance):
     db = f'{STATS_DIR}/{instance}.json'
@@ -132,7 +131,22 @@ def destroy_instance(container):
     stop_if_needed(container)
     container.remove()
 
-    remove_socket(container.labels[CONTAINER_LABEL])
+    # in case the previous one crashed without cleanup
+    get_socket(container.labels[CONTAINER_LABEL]).unlink(missing_ok=True)
+
+def wait_instance(instance):
+    try_count = 0
+    try_sec = 2
+    try_max = 5
+    # app/container does not support native health check
+    while not get_socket(instance).exists():
+        try_count += 1
+        if try_count > try_max:
+            print(f'Server for instance {instance} still not running after {try_count*try_sec} seconds')
+            return False
+        sleep(try_sec)
+
+    return True
 
 def rework_instances(client, config, reset, delete):
     want = get_configured_instances(config)
@@ -147,7 +161,7 @@ def rework_instances(client, config, reset, delete):
 
     print('=== Searching for instances to deploy ===')
     for instance, instance_config in want.items():
-        socket = f'{SOCKETS_DIR}/{instance}.sock'
+        socket = get_socket(instance)
 
         if instance in found:
             if reset:
@@ -156,7 +170,10 @@ def rework_instances(client, config, reset, delete):
             else:
                 print(f'== Ensuring instance "{instance}" is started ==')
                 start_if_needed(found[instance])
-                set_socket(socket)
+                if wait_instance(instance):
+                    set_socket(socket)
+                else:
+                    return False
 
                 continue
 
@@ -164,7 +181,7 @@ def rework_instances(client, config, reset, delete):
         name = f'quiz-{instance}'
 
         environment = {
-            'PORT': socket,
+            'PORT': str(socket),
             'STATS_FILE_PATH': f'/var/opt/quiz/{instance}.json',
         }
 
@@ -200,18 +217,12 @@ def rework_instances(client, config, reset, delete):
                 },
         )
 
-        try_count = 0
-        try_sec = 2
-        try_max = 5
-        # app/container does not support native health check
-        while not Path(socket).exists():
-            try_count += 1
-            if try_count > try_max:
-                print(f'Server for instance {instance} still not running after {try_count*try_sec} seconds')
-                sys.exit(1)
-            sleep(try_sec)
+        if wait_instance(instance):
+            set_socket(socket)
+        else:
+            return False
 
-        set_socket(socket)
+    return True
 
 def main():
     client = PodmanClient()
@@ -227,7 +238,8 @@ def main():
 
     config = get_config()
 
-    rework_instances(client, config, new or BUILD or RESET, RESET)
+    if not rework_instances(client, config, new or BUILD or RESET, RESET):
+        sys.exit(1)
 
     print('=== Done ===')
 
