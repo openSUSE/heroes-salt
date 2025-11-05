@@ -30,7 +30,7 @@ from time import sleep
 
 import json5 as json
 from podman import PodmanClient
-from podman.errors.exceptions import BuildError
+from podman.errors.exceptions import APIError, BuildError
 
 REPOSITORY_DIR = '/data/quiz/quiz-git'
 SOCKETS_DIR = '/run/quiz'
@@ -227,9 +227,21 @@ def rework_instances(client, config, reset, delete):
 def main():
     client = PodmanClient()
 
-    if not client.ping():
-        print('Cannot reach Podman')
-        sys.exit(1)
+    try_count = 0
+    up = False
+    while not up:
+        try:
+            if client.ping():
+                up = True
+            else:
+                print('Cannot reach Podman')
+                sys.exit(1)
+        except APIError:
+            if try_count < 5:
+                try_count += 1
+                sleep(2)
+            else:
+                raise
 
     new = update_repository()
 

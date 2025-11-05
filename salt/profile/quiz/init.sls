@@ -81,7 +81,7 @@ profile_quiz_unit_files:
                 - '[Timer]'
                 - AccuracySec=10
                 - OnCalendar=*:0/30
-                - OnStartupSec=0
+                - OnStartupSec=10
                 - ''
                 - '[Install]'
                 - WantedBy=timers.target
