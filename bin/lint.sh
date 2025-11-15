@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script to lint and style check our code
-# Copyright (C) 2024 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+# Copyright (C) 2024-2025 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -105,17 +105,20 @@ echo
 
 if [ "$STATUS_JINJA" = 1 ]
 then
-  echo '--> Jinja: FAIL'
+  echo -n '--> Jinja: '
+  echo_FAILED
   echo 'Please check the suggested Jinja formatting changes. Note that these are suggestions, and not all cases are considered. If the implementation of a particular suggestion is unreasonable, please discuss whether the rule should be added to the ignore list.'
   EXIT=5
 else
-  echo '--> Jinja: PASS'
+  echo -n '--> Jinja: '
+  echo_PASSED
 fi
 echo
 
 if [ "$STATUS_PYTHON" = 1 ] || [ "$STATUS_PYTHON_PROFILE" = 1 ]
 then
-  echo '--> Python: FAIL'
+  echo -n '--> Python: '
+  echo_FAILED
   echo 'Please reformat the problematic Python files to follow the PEP 8 style guide.'
   echo 'Reference: https://peps.python.org/pep-0008/.'
   echo 'Explanations for the linter rule codes: https://docs.astral.sh/ruff/rules/.'
@@ -123,50 +126,61 @@ then
   echo 'Tip: Install `ruff` on your workstation, and use `ruff --fix --unsafe-fixes <file1> <file2> ...` to have the tool automatically implement some of its suggestions.'
   EXIT=5
 else
-  echo '--> Python: PASS'
+  echo -n '--> Python: '
+  echo_PASSED
 fi
 echo
 
 if [ "$STATUS_SHELL" = 1 ]
 then
-  echo '--> Shell: FAIL'
+  echo -n '--> Shell: '
+  echo_FAILED
   echo 'Please try to apply the ShellCheck suggestions. Note that the Shebang is used to determine which suggestions should be applied.'
   echo 'If a particular suggestion is not implementable, a comment based override should be declared before the problematic line.'
   EXIT=5
 else
-  echo '--> Shell: PASS'
+  echo -n '--> Shell: '
+  echo_PASSED
 fi
 echo
 
 if [ "$STATUS_SLS" = 1 ]
 then
-  echo '--> SLS: FAIL'
+  echo -n '--> SLS: '
+  echo_FAILED
   echo 'Please check and apply the salt-lint suggestions.'
   EXIT=5
 else
-  echo '--> SLS: PASS'
+  echo -n '--> SLS: '
+  echo_PASSED
 fi
 echo
 
 if [ "$STATUS_YAML" = 1 ]
 then
-  echo '--> YAML: FAIL'
+  echo -n '--> YAML: '
+  echo_FAILED
   echo 'Please check and apply the yamllint suggestions.'
   echo 'In most cases, these should be very reasonable and easy to implement. In rare cases where it is not feasible, a comment based exclude in the line before the problematic one can be placed. This however is not possible for files run through sort_yaml.py.'
   EXIT=5
 else
-  echo '--> YAML: PASS'
+  echo -n '--> YAML: '
+  echo_PASSED
 fi
 echo
 
 if [ "$STATUS_TWS" = 1 ]
 then
-  echo '--> TRAILING WHITESPACE: FAIL'
+  echo -n '--> TRAILING WHITESPACE: '
+  echo_FAILED
   echo 'Please remove useless trailing spaces from the files/lines listed above.'
   EXIT=5
 else
-  echo '--> TRAILING WHITESPACE: PASS'
+  echo -n '--> TRAILING WHITESPACE: '
+  echo_PASSED
 fi
+
+echo
 
 if [ "$EXIT" = 5 ]
 then
