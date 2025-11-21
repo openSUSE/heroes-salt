@@ -63,6 +63,8 @@ groups:
           )
           and ON (instance)
           ioo{role="mariadb.backup"} == 1
+          unless ON ()
+          hour() >= 3 <= 6
         for: 2m
         labels:
           severity: critical
