@@ -64,6 +64,7 @@ haproxy:
 
         - suffix_asp             path_end    .asp
         - suffix_asp             path_end    .aspx
+        - suffix_atom            path_end    .atom
         - suffix_env             path_end    .env
         - suffix_json            path_end    .json
         - suffix_php             path_end    .php
@@ -173,7 +174,7 @@ haproxy:
               'rate_req_300': '!src_limit_exclude !host_static_o_o',
               'rate_con_300': '!src_limit_exclude !host_static_o_o',
               'mailman3': '!path_hyperkitty_api !path_hyperkitty_feed',
-              'redmine': '!suffix_json !suffix_xml',
+              'redmine': '!suffix_atom !suffix_json !suffix_xml',
         }) }}
 
         # special paths with common handling for all hosts
