@@ -4,7 +4,9 @@
 haproxy:
   global:
     extra:
+      {%- if grains['osrelease'] | float >= 16 %}
       - tune.lua.bool-sample-conversion normal
+      {%- endif %}
       - lua-load-per-thread /etc/haproxy/geoip.lua
   frontends:
     http:
