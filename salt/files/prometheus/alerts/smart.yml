@@ -33,7 +33,8 @@ groups:
             LABELS = {{ $labels }}
 
       - alert: SMART High Device Temperature
-        expr: smartctl_device_temperature > 50
+        expr: >-
+          smartctl_device_temperature{temperature_type="current"} > 50
         for: 2m
         labels:
           severity: warning
@@ -46,7 +47,8 @@ groups:
             LABELS = {{ $labels }}
 
       - alert: SMART Very High Device Temperature
-        expr: smartctl_device_temperature > 70
+        expr: >-
+          smartctl_device_temperature{temperature_type="current"} > 70
         for: 2m
         labels:
           severity: critical
