@@ -512,6 +512,18 @@ kubic:
   legacy_boot: true
   ram: 1024MB
   vcpu: 1
+kudos-prod:
+  cluster: falkor
+  disks:
+    data0: 3600a09803831494f635d554b39503273
+    root: 3600a09803831494f635d554b39503272
+  interfaces:
+    os-web:
+      ip6: 2a07:de40:b27e:1218::b10/64
+      mac: 00:16:3e:47:bb:5d
+      source: x-os-web
+  ram: 2048MB
+  vcpu: 1
 limesurvey:
   cluster: falkor
   disks:
