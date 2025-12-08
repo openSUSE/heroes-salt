@@ -13,10 +13,6 @@ cp test/fixtures/minion.pub /etc/salt/pki/master/minions/"$HOSTNAME"
 # Ensure directories purged during the container build are ready
 install -o salt -g salt -d -m 0750 /var/log/salt
 
-# zmq expects system tornado, but installing it breaks salt, which only works correctly with its vendored tornado (upstream patch to remove it exists)
-# https://bugzilla.opensuse.org/show_bug.cgi?id=1252244
-sed -i 's/from tornado/from salt.ext.tornado/' /usr/lib64/python3.13/site-packages/zmq/eventloop/{__init__,zmqstream}.py
-
 # Configure and start the master
 cat > /etc/salt/master <<EOF
 file_roots:
