@@ -142,7 +142,7 @@ haproxy:
     {{ metrics(bind_v6_standalone) }}
 
     rsync-community2:
-      acls: network_allowed src 195.135.223.25/32 # botmaster; additionaly restricted in border firewall
+      acls: network_allowed src 2a07:de40:b240:0:dc6f:dfb1:dc6f:dfb1/128 # botmaster; additionaly restricted in border firewall
       {{ rsync_backend_with_checks('2a07:de40:b27e:1203::129', extra='send-proxy', listen_addresses=bind_v4_vip, listen_port=11873, listen_params=bindopts) }}
 
     rsync-man:

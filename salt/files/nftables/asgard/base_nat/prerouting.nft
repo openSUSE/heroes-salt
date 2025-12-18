@@ -7,8 +7,6 @@
    ip daddr $net4_internet2 ip protocol icmp dnat to $host4_atlas
    ip daddr $net4_internet2 tcp dport { http, https } dnat to $host4_atlas
 
-   # factory-dashboard rsync from botmaster
-   ip saddr 195.135.223.25/32 ip daddr $net4_internet2 tcp dport 11873 dnat to $host4_atlas
    # man (rpm2docserv output) rsync from pontifex (via obs-gateway)
    ip saddr @cloud4_obs-gateway ip daddr $net4_internet2 tcp dport 11874 dnat to $host4_atlas
 
