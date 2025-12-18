@@ -52,7 +52,7 @@ rsync:
       read only: false
       uid: dashboard
       hosts allow:
-        - 195.135.223.25/32
+        - 2a07:de40:b240:0:dc6f:dfb1:dc6f:dfb1/128
 
 users:
   dashboard: {}

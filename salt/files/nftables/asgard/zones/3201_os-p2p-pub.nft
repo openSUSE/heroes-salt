@@ -24,7 +24,7 @@
   ip daddr $host4_atlas_misc tcp dport { http, https } accept
 
   # rsync to atlas*.i.o.o (for factory-dashboard)
-  ip saddr 195.135.223.25/32 ip daddr @host4_atlas tcp dport 11873 log prefix "[Factory Dashboard Rsync] " accept
+  ip6 saddr 2a07:de40:b240:0:dc6f:dfb1:dc6f:dfb1/128 ip6 daddr $host6_atlas tcp dport 11873 log prefix "[Factory Dashboard Rsync] " accept
   # rsync to atlas*.i.o.o (for man)
   ip saddr @cloud4_obs-gateway ip daddr @host4_atlas tcp dport 11874 log prefix "[Man Rsync] " accept
 
