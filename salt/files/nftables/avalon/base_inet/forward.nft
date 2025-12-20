@@ -31,7 +31,7 @@ vim:filetype=nftables.jinja
   }
 {% endfor %}
 
-   iifname prg2_asgard jump input_network_prg2
+   iifname @if_s2s_prg2 jump input_network_prg2
 
    # Tayga (-> zones/05_nat64.nft)
    iifname nat64 jump input_network_nat64

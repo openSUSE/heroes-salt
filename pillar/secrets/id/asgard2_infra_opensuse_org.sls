@@ -63,7 +63,68 @@ wireguard:
           8wfhzQIcJz6K6DBgvTPbRx/Ci3Z/pjCfA6TBH/RFSEPR/+x5ZzeQfF/J
           =TDk1
           -----END PGP MESSAGE-----
-    slc1_avalon:
+    slc1_avalon1:
+      config:
+        PrivateKey: |
+          -----BEGIN PGP MESSAGE-----
+
+          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
+          =E4Hy
+          -----END PGP MESSAGE-----
+    slc1_avalon2:
       config:
         PrivateKey: |
           -----BEGIN PGP MESSAGE-----

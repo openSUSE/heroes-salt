@@ -34,7 +34,7 @@ vim:filetype=nftables.jinja
 
   # WireGuard interfaces not using iif to prevent breakage on tunnel restarts
   iifname nueqsc_stonehat jump input_network_nueqsc
-  iifname slc1_avalon jump input_network_slc1
+  iifname @if_s2s_slc1 jump input_network_slc1
 
   # Tayga (-> zones/05_nat64.nft)
   iifname nat64 jump input_network_nat64

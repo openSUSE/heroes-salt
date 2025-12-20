@@ -63,7 +63,7 @@ wireguard:
           dgGTZEKhp1gz36L5kMifUEoJUwlCm1V/cZYLZcRgJwWDr6b3/l9//I/O
           =Hlf+
           -----END PGP MESSAGE-----
-    prg2_asgard:
+    prg2_asgard1:
       config:
         PrivateKey: |
           -----BEGIN PGP MESSAGE-----
@@ -123,4 +123,65 @@ wireguard:
           oF7D/0jJZdfhMSCtAcdA/EOAxvauXl9xi3RJMpP0PBULHXFyWsOvSiJDuLiZ4yiU
           baZ102lIsPXDnLWvqXJtL+odwJTVgYNZMHtB01p8gOEYMySJbp6mdco=
           =Pqgb
+          -----END PGP MESSAGE-----
+    prg2_asgard2:
+      config:
+        PrivateKey: |
+          -----BEGIN PGP MESSAGE-----
+
+          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
+          =fmE7
           -----END PGP MESSAGE-----

@@ -27,7 +27,7 @@ vim:filetype=nftables.jinja
 
   # WireGuard interfaces not using iif to prevent breakage on tunnel restarts
   iifname nueqsc_stonehat jump input_network_nueqsc
-  iifname slc1_avalon jump input_network_slc1
+  iifname @if_s2s_slc1 jump input_network_slc1
 
   ip6 saddr fe80::/10 log prefix "[asgard ll] Inbound Dropped: " flags all
   iif != os-p2p-pub log prefix "[asgard] Inbound Dropped: " flags all

@@ -186,8 +186,10 @@ set self6_p2p_slc1_avalon {
   type ipv6_addr
   flags interval
   elements = {
-    fda1:21af:580f:1::1/128, # asgard1
-    fda1:21af:580f:1::3/128, # asgard2
+    fda1:21af:580f:1::1/128, # slc1_avalon1 @ asgard1
+    fda1:21af:580f:1::3/128, # slc1_avalon2 @ asgard2
+    fda1:21af:580f:2::1/128, # slc1_avalon1 @ asgard2
+    fda1:21af:580f:2::3/128, # slc1_avalon2 @ asgard1
   }
 }
 set self4_p2p_slc1_avalon {
@@ -271,8 +273,10 @@ set host6_p2p_avalon {
   type ipv6_addr
   flags interval
   elements = {
-    fda1:21af:580f:1::/128,  # avalon1
-    fda1:21af:580f:1::2/128, # avalon2
+    fda1:21af:580f:1::/128,  # prg2_asgard1 @ avalon1
+    fda1:21af:580f:1::2/128, # prg2_asgard2 @ avalon2
+    fda1:21af:580f:2::/128,  # prg2_asgard2 @ avalon1
+    fda1:21af:580f:2::2/128, # prg2_asgard1 @ avalon2
   }
 }
 set host4_p2p_avalon {
@@ -290,6 +294,15 @@ set host6_avalon {
   elements = {
     fd03:7bbf:d626:1700::1/128,
     fd03:7bbf:d626:1700::2/128,
+  }
+}
+
+# stonehat.i.o.o over the internet to os-p2p-pub
+set host6_wan_stonehat {
+  type ipv6_addr
+  flags interval
+  elements = {
+    2a01:138:a004::210/128,
   }
 }
 
@@ -1147,13 +1160,22 @@ set net4_blacklist {
 
 ### Interfaces
 
-# site to site tunnel interfaces
+# all site to site tunnel interfaces
 set if_s2s {
     type ifname
     elements = {
         nueqsc_stonehat,
-        slc1_avalon,
+        slc1_avalon1,
+        slc1_avalon2,
         os-asgard,
+    }
+}
+
+set if_s2s_slc1 {
+    type ifname
+    elements = {
+        slc1_avalon1,
+        slc1_avalon2,
     }
 }
 

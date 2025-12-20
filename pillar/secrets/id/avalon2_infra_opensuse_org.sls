@@ -63,7 +63,68 @@ wireguard:
           bCuXp4NTEXQKftpsuALGe7saRrB4Yxn6ud1EGs4HHOrA2HJrk9Z3sc6z
           =iZS6
           -----END PGP MESSAGE-----
-    prg2_asgard:
+    prg2_asgard1:
+      config:
+        PrivateKey: |
+          -----BEGIN PGP MESSAGE-----
+
+          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
+          =Y69h
+          -----END PGP MESSAGE-----
+    prg2_asgard2:
       config:
         PrivateKey: |
           -----BEGIN PGP MESSAGE-----

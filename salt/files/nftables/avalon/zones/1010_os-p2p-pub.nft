@@ -8,7 +8,8 @@
    ip6 daddr @self6_p2p ip6 nexthdr icmpv6 limit rate 3/second accept
    ip daddr @self4_p2p ip protocol icmp limit rate 3/second accept
 
-   # stonehat -> avalon{1,2} WireGuard
+   # remote routers -> avalon{1,2} WireGuard
+   ip6 saddr @host6_wan_asgard ip6 daddr @self6_p2p udp dport { 52471, 52472 } accept
    ip6 saddr @host6_wan_stonehat ip6 daddr @self6_p2p udp dport 52462 accept
 
    # from the internet to os-public/Globus
