@@ -23,7 +23,7 @@ vim:filetype=nftables.jinja
   }
 
    iifname nueqsc_stonehat jump input_network_nueqsc
-   iifname prg2_asgard jump input_network_prg2
+   iifname @if_s2s_prg2 jump input_network_prg2
 
    iif != os-p2p-pub log prefix "[avalon] Inbound Dropped: " flags all
    counter reject

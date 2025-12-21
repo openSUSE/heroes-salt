@@ -59,7 +59,11 @@ bird:
                 type: broadcast
                 cost: 10
                 hello: 5
-              prg2_asgard:
+              prg2_asgard1:
+                type: ptp
+                cost: 100
+                hello: 5
+              prg2_asgard2:
                 type: ptp
                 cost: 100
                 hello: 5

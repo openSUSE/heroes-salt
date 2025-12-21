@@ -34,6 +34,13 @@ network:
       addresses:
         - 195.135.223.45/29
         - 2a07:de40:b27f:201::12/64
+  routes:
+    2a07:de40:617f:201::11/128:
+      options:
+        - src 2a07:de40:b27f:201::12
+    2a07:de40:617f:201::12/128:
+      options:
+        - src 2a07:de40:b27f:201::12
 sshd_config:
   ListenAddress:
     - 2a07:de40:b27e:1100::2

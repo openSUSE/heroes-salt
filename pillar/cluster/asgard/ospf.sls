@@ -59,7 +59,11 @@ bird:
                 type: broadcast
                 cost: 10
                 hello: 5
-              slc1_avalon:
+              slc1_avalon1:
+                type: ptp
+                cost: 100
+                hello: 5
+              slc1_avalon2:
                 type: ptp
                 cost: 100
                 hello: 5

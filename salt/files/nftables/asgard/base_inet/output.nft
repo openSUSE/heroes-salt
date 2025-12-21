@@ -24,7 +24,7 @@
   }
 
   oifname nueqsc_stonehat jump output_network_nueqsc
-  oifname slc1_avalon jump output_network_slc1
+  oifname @if_s2s_slc1 jump output_network_slc1
 
   log prefix "[asgard] Outbound Denied: " flags all
   counter reject

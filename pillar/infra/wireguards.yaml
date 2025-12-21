@@ -37,32 +37,60 @@
       - fda1:21af:580f:1::/127
       - 172.16.112.0/31
     link_local: fe80::216:3eff:fe10:1a1a/64
-    interface: prg2_asgard
+    interface: prg2_asgard1
     public_key: 'i+2br0nCBmlOfBFLKTNHM6BvzDU1lNVzyK4QmHSwFww='
   asgard1:
     addresses:
       - fda1:21af:580f:1::1/127
       - 172.16.112.1/31
     link_local: fe80::216:3eff:fe10:1a1b/64
-    interface: slc1_avalon
+    interface: slc1_avalon1
     listen: '[2a07:de40:b27f:201::11]:52461'
     public_key: 'rj1TytlWdj9x9bInYl5uEuppWqGxiE2QXy+iaf2pcGc='
+
+- avalon1:
+    addresses:
+      - fda1:21af:580f:2::/127
+    link_local: fe80::216:3eff:fe11:1a1a/64
+    interface: prg2_asgard2
+    listen: '[2a07:de40:617f:201::11]:52471'
+    public_key: 'jZjD/RVuwj0Hyh9+QOvQqJPRK0usz+wfr2FHdToqHh4='
+  asgard2:
+    addresses:
+      - fda1:21af:580f:2::1/127
+    link_local: fe80::216:3eff:fe11:1a1b/64
+    interface: slc1_avalon1
+    public_key: 'oBwvxMz0vJv0zwnQP8Q8pGMbFZtUSIW8Vraffc5/DX4='
 
 - avalon2:
     addresses:
       - fda1:21af:580f:1::2/127
       - 172.16.112.2/31
     link_local: fe80::216:3eff:fe10:1a2a/64
-    interface: prg2_asgard
+    interface: prg2_asgard2
     public_key: 'XeTj4sCoekGX1IK/lNsNxzoYQveCcnVtZ60wCoKVqUA='
   asgard2:
     addresses:
       - fda1:21af:580f:1::3/127
       - 172.16.112.3/31
     link_local: fe80::216:3eff:fe10:1a2b/64
-    interface: slc1_avalon
+    interface: slc1_avalon2
     listen: '[2a07:de40:b27f:201::12]:52461'
     public_key: 'Yv/Wv4kqbBzzAqAuNx5cQHwlbofJLq8WGwxILlI8aSw='
+
+- avalon2:
+    addresses:
+      - fda1:21af:580f:2::2/127
+    link_local: fe80::216:3eff:fe11:1a2a/64
+    listen: '[2a07:de40:617f:201::12]:52472'
+    interface: prg2_asgard1
+    public_key: 'JpXEw8XPqYieZRvjVJmh19DzOccc38vFxu2CvjZEryc='
+  asgard1:
+    addresses:
+      - fda1:21af:580f:2::3/127
+    link_local: fe80::216:3eff:fe11:1a2b/64
+    interface: slc1_avalon2
+    public_key: 'qBNKPNTR2byxV4zqApXIw8kGqoDVVtPPSf5YeDcr6wY='
 
 - avalon1:
     addresses:

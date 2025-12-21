@@ -21,7 +21,7 @@
    }
 
    oifname nueqsc_stonehat jump output_network_nueqsc
-   oifname prg2_asgard jump output_network_prg2
+   oifname @if_s2s_prg2 jump output_network_prg2
 
    log prefix "[avalon] Outbound Denied: " flags all
    counter reject

@@ -17,8 +17,8 @@
 
   # for reaching a remote non-primary firewall through a local non-primary firewall
   # for example, if asgard1 and avalon1 are masters, reaching avalon2 from thor requires forwarding via asgard2 over os-asgard
-  oifname slc1_avalon ip6 saddr @host6_thor ip6 daddr @host6_p2p_avalon icmpv6 type { echo-reply, echo-request } accept
-  oifname slc1_avalon ip6 saddr @host6_thor ip6 daddr @host6_p2p_avalon tcp dport ssh accept
+  oifname @if_s2s_slc1 ip6 saddr @host6_thor ip6 daddr @host6_p2p_avalon icmpv6 type { echo-reply, echo-request } accept
+  oifname @if_s2s_slc1 ip6 saddr @host6_thor ip6 daddr @host6_p2p_avalon tcp dport ssh accept
 
   # TODO: drop
   log prefix "[asgard misc] " accept
