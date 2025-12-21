@@ -68,5 +68,9 @@ def run():
   return {
     'wireguard': {
       'interfaces': pillar,
+      'lookup': {
+        'clean': True,
+        'syncconf': True,
+      },
     },
   }
