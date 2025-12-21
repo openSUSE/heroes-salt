@@ -37,7 +37,7 @@ nftables_service:
 
 nftables_status:
   cmd.run:
-    - name: systemctl --no-pager status -l nftables
+    - name: systemctl --no-pager status -l nftables-full
     - require:
         - pkg: nftables_packages
         - file: nftables_config_base
