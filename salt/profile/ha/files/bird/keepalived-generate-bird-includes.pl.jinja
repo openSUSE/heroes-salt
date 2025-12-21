@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+{#
+vim: ft=perl.jinja noexpandtab
+-#}{{ pillar['managed_by_salt'] }}
+# This script reads the database populated by by keepalived-pipe-processor.pl
+# and generates a list containing networks for VRRP instances in "MASTER" state,
+# which can then be loaded into a variable in BIRD for filtering purposes.
+#
+# Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+use v5.26;  # Leap 15.6
+use warnings;
+
+use BerkeleyDB;
+
+my $dbfile = '{{ database }}';
+my $outfile = '{{ output }}';
+
+my $db = new BerkeleyDB::Hash(
+	-Filename => $dbfile,
+	-Flags => DB_RDONLY,
+) or die "Cannot open database at $dbfile: $!";
+
+sub cleanup {
+	$db->db_close();
+}
+
+my %instances = (
+	{%- for network, network_config in salt['pillar.get']('networks:sites:' ~ grains.get('site'), {}).items () %}
+	'{{ pillar['cluster'] ~ '-' if 'cluster' in pillar else '' }}{{ network_config['short'] }}' => '{{ network_config['net6'] }}',
+	{%- endfor %}
+);
+
+my @out_networks;
+
+foreach my $instance (sort keys %instances) {
+	# instance keys are surrounded by quotes (could be stripped in the input script if needed)
+	$db->db_get("\"$instance\"", my $state);
+	if (!$state) {
+		print "No state for instance $instance, skipping.\n";
+		next;
+	}
+	push(@out_networks, $instances{$instance}) if ($state eq 'MASTER');
+}
+
+open(my $fh, '>', $outfile) or do {
+	cleanup;
+	die "Failed to open output file at $outfile: $!";
+};
+print $fh "[\n\t" . join(",\n\t", @out_networks) . "\n]\n";
+close($fh);
+
+cleanup;
+print "Done.\n";

@@ -39,6 +39,8 @@ networks:
 bird:
   server:
     definitions:
+      openSUSE_VRRP_Primary_Networks:
+        include: /run/birdalived/output_bird_vrrp_primary_networks
     {%- for site, networks in export_networks.items() %}
       {%- set site = site | upper %}
       openSUSE_{{ site }}_Networks: {{ networks['v6'] }}
@@ -64,6 +66,12 @@ bird:
               - openSUSE_direct
       {%- endfor %}
 
+keepalived:
+  config:
+    global_defs:
+      fifo_write_vrrp_states_on_reload: true
+      vrrp_notify_fifo: /run/birdalived/pipe
+
 profile:
   conntrack:
     hashsize: 524288
@@ -72,6 +80,8 @@ zypper:
   packages:
     conntrackd: {}
     nftables: {}
+    # for scripts under salt/profile/ha/files/bird/
+    perl-BerkeleyDB: {}
     vnstat: {}
 
 sysctl:

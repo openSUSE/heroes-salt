@@ -1,0 +1,81 @@
+#!/usr/bin/perl
+{#
+vim: ft=perl.jinja noexpandtab
+-#}{{ pillar['managed_by_salt'] }}
+# This script monitors a named pipe configured as "vrrp_notify_fifo" in Keepalived
+# and maintains a database file containing mappings from names of VRRP instances to their state.
+#
+# Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+
+use v5.26;  # Leap 15.6
+use warnings;
+
+use BerkeleyDB;
+use Fcntl ':flock';
+
+# for output to show in journal when run under systemd (is there a better way?)
+use IO::Handle;
+STDERR->autoflush(1);
+STDOUT->autoflush(1);
+
+my $dbfile = '{{ database }}';
+my $pipe = '{{ pipe }}';
+
+my $fh;
+
+my $db = new BerkeleyDB::Hash(
+	-Filename => $dbfile,
+	-Flags => DB_CREATE,
+	-Mode => 0640,
+) or die "Cannot open database at $dbfile: $!";
+
+sub terminate {
+	print STDERR "Shutting down ...\n";
+	close($fh);
+	$db->db_close();
+	exit(0);
+}
+
+$SIG{INT} = \&terminate;
+$SIG{TERM} = \&terminate;
+
+while(1) {
+	# in case Keepalived is still starting up
+	my $attempts = 3;
+	for my $i (1..$attempts) {
+		print STDERR "Attempting to open FIFO pipe ...\n";
+		last if open($fh, '<', $pipe) or do { print STDERR "Failed to open FIFO pipe at $pipe: $!\n"; die "Giving up.\n" if ($attempts == $i); };
+		sleep(2);
+		$i++;
+	}
+
+	flock($fh, LOCK_EX | LOCK_NB) or die "Failed to lock FIFO pipe at $pipe: $!\n";
+
+	print STDERR "Reading ...\n";
+
+	while (my $val = <$fh>) {
+		# INSTANCE "VI_1" MASTER 100
+		my ($type, $instance, $state, $priority) = split(' ', $val);
+
+		if ($type ne 'INSTANCE') {
+			print STDERR "Unhandled type: $type.\n";
+			next;
+		};
+
+		$db->db_get($instance, my $value);
+		$value = 'n/a' unless $value;
+
+		if ($value eq $state) {
+			print STDERR "Already up to date: $instance => $state\n";
+		} else {
+			print STDERR "Updating: $instance => old: $value new: $state\n";
+			$db->db_put($instance, $state);
+			$db->db_sync();
+		}
+	}
+
+	close($fh);
+	sleep(1);
+}
+
+terminate();
