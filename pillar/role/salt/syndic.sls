@@ -55,6 +55,7 @@ infrastructure:
       %}
       - {{ formula }}-formula
       {%- endfor %}
+      - infrastructure-formula-python
     git:
       formulas:
         repository: https://gitlab.infra.opensuse.org/infra/salt-formulas-git.git
