@@ -77,6 +77,8 @@
   ip6 saddr @host6_atlas ip6 daddr $host6_ldap-proxy_ext tcp dport https accept
   # atlas -> code-dev (code-dev.o.o)
   ip6 saddr @host6_atlas ip6 daddr $host6_code-dev tcp dport 3000 accept
+  # atlas -> sample-app (demo web applications)
+  ip6 saddr @host6_atlas ip6 daddr $host6_sample-app tcp dport 8080 accept
 
  }
 

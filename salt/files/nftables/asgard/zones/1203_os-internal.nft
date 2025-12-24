@@ -132,6 +132,8 @@ vim:filetype=nftables.jinja
   oif os-kani-dev ip6 saddr @host6_hel ip6 daddr @host6_kani-ext-dev tcp dport https accept
   # Hel -> netbox HTTPS (for netbox.i.o.o proxy)
   oif os-netbox ip6 saddr @host6_hel ip6 daddr @host6_netbox tcp dport https accept
+  # Hel -> sample-app (demo web applications)
+  oif os-web ip6 saddr @host6_hel ip6 daddr $host6_sample-app tcp dport 8080 accept
 
   # metrics -> download/pontifex2 (httpd log pulling)
   ip6 saddr $host6_metrics ip6 daddr @host6_download tcp dport https accept
