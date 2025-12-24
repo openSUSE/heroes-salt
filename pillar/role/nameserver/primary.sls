@@ -2,7 +2,7 @@ include:
   - .common.powerdns
   {%- if salt['grains.get']('include_secrets', True) %}
   - secrets.role.nameserver.primary
-  - secrets.id.{{ grains['id'].replace('.', '_') }}
+  - secrets.include_id
   {%- endif %}
 
 {%- load_yaml as data %}

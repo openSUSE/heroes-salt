@@ -2,8 +2,7 @@
 
 include:
   - .docker
-  # secrets include conditionalized inside the secrets files
-  - secrets.id.{{ grains['id'].replace('.', '_') }}
+  - secrets.include_id
 
 apparmor:
   local:
