@@ -54,8 +54,10 @@ IDFILE_BASE="$IDFILE.base.sls"
 printf "grains:\n  site: prg2\n  hostusage: test\n  reboot_safe: no\n" > "$IDFILE"
 cp "$IDFILE" "$IDFILE_BASE"
 
+echo 'domain: infra.opensuse.org' > /etc/salt/grains
+
 if [[ -n "$HIGHSTATE" ]]; then
-    printf 'site: prg2\ndomain: %s\ninclude_secrets: %s\n' infra.opensuse.org "$SECRETS" > /etc/salt/grains
+    printf '\nsite: prg2\ninclude_secrets: %s\n' "$SECRETS" >> /etc/salt/grains
     bin/get_roles.py -o yaml >> "$IDFILE"
     cp "$IDFILE_BASE" "$IDFILE"
 fi
