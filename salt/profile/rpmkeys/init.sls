@@ -10,6 +10,12 @@
     })
 %}
 {%- endif %}
+{%- if 'darix:apps' in repositories %}
+{%- do keys.update({
+      'darix:apps': 'gpg-pubkey-2941c2e1-5fda6958'
+    })
+%}
+{%- endif %}
 
 rpmkey_dir:
   file.directory:
