@@ -1,0 +1,34 @@
+{#- vim: ft=toml.jinja
+-#}
+{{ pillar['managed_by_salt'] }}
+
+[containers]
+# TODO: all of these needed?
+default_capabilities = [
+  "CHOWN",
+  "DAC_OVERRIDE",
+  "FOWNER",
+  "FSETID",
+  "KILL",
+  "NET_BIND_SERVICE",
+  "SETFCAP",
+  "SETGID",
+  "SETPCAP",
+  "SETUID",
+  "SYS_CHROOT"
+]
+init_path = "/usr/bin/catatonit"
+log_driver = "journald"
+
+[network]
+network_backend = "netavark"
+cni_plugin_dirs = ["/usr/libexec/cni"]
+default_network = "podman_ipv6"
+{%- set subnet = salt['pillar.get']('profile:gitlab_runner:podman:subnet') %}
+{%- if subnet %}
+default_subnet = "{{ subnet }}"
+{%- endif %}
+
+[engine]
+# TODO: this is not a good path, but the default - can it be elsewhere?
+image_copy_tmp_dir="/tmp"

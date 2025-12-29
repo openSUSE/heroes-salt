@@ -1,7 +1,21 @@
-{%- set site = grains.get('site') %}
+{%- set siteconfig = {
+      'prg2': {
+        'check_interval': 5,
+        'concurrent': 30,
+        'subnet_stub': '2a07:de40:b27e:400',
+      },
+      'slc1': {
+        'check_interval': 30,
+        'concurrent': 40,
+        'subnet_stub': '2a07:de40:617e:400',
+      },
+} %}
+{%- set config = siteconfig.get(grains.get('site')) %}
+{%- if not config %}
+  {%- do salt.log.warning('gitlab_runner: unknown site, pillar might be incomplete') %}
+{%- endif %}
 
 include:
-  - .docker
   - secrets.include_id
 
 apparmor:
@@ -11,27 +25,20 @@ apparmor:
       - /etc/syslog-ng/conf.d/server.d/{,*} r
 
 profile:
-  docker:
-    daemon:
-      ipv6: true
-      fixed-cidr-v6: 2a07:de40:b27e:400{{ grains['host'][-1] }}::/64
   gitlab_runner:
     config:
-    {%- if site == 'prg2' %}
-      check_interval: 5
-      concurrent:  30
-    {%- elif site == 'slc1' %}
-      check_interval: 30
-      concurrent:  40
-    {%- else %}
-      {%- do salt.log.warning('gitlab_runner: possibly incomplete pillar') %}
-    {%- endif %}
       user: gitlab-runner
       shutdown_timeout: 0
       session_server:
         session_timeout: 1800
     # further runner configuration is in pillar/role/common/gitlab_runner/macros.jinja
     # included together with secrets in pillar/secrets/id/gitlab-runner*
+    {%- if config %}
+      check_interval: {{ config['check_interval'] }}
+      concurrent: {{ config['concurrent'] }}
+    podman:
+      subnet: {{ config['subnet_stub'] }}{{ grains['host'][-1] }}::/64
+    {%- endif %}
 
 prometheus:
   pkg:

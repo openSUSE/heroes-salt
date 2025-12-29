@@ -1,5 +1,6 @@
 include:
   - .cleanup
+  - .podman
 
 profile_gitlab_runner_package:
   pkg.installed:
@@ -21,3 +22,4 @@ profile_gitlab_runner_service:
         - file: profile_gitlab_runner_config
     - require:
         - pkg: profile_gitlab_runner_package
+        - service: profile_gitlab_runner_podman_socket
