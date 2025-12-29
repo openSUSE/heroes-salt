@@ -286,6 +286,9 @@ zypper:
   variables:
     mirror_int: {{ mirrors['internal'] }}
     mirror_ext: {{ mirrors['external'] }}
+    {%- if osfullname == 'openSUSE Tumbleweed' %}
+    releasever: openSUSE_Tumbleweed
+    {%- endif %}
 
 mine_functions:
   network.ip_addrs: []
