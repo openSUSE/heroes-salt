@@ -4,6 +4,9 @@ bird:
 
       # filter to allow all our own networks
       openSUSE_PRG2_Out:
+        (net ~ openSUSE_PRG2_Networks && net !~ openSUSE_VRRP_Primary_Networks):
+          - 'print "oS OUT, discarding non-primary network: ", net'
+          - reject
         (net ~ openSUSE_PRG2_Networks || net ~ openSUSE_PRG2_Networks_Legacy):
           - 'print "oS OUT, green light for: ", net'
           - accept

@@ -3,3 +3,4 @@ include:
   - profile.conntrack
   - profile.conntrackd
   - profile.tc
+  - profile.ha.bird
