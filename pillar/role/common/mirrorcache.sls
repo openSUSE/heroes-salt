@@ -1,5 +1,5 @@
 include:
-  - secrets.mirrorcache
+  - secrets.role.common.mirrorcache
 
 zypper:
   repositories:
