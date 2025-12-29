@@ -13,15 +13,25 @@ cd {{ out_dir }}
 
 git pull --quiet
 
-{{ base_script }} > known_hosts
+{%- set site = grains.get('site') %}
+{%- if site %}
+site='{{ site }}'
+site_upper="$(echo "$site" | tr '[:lower:]' '[:upper:]')"
+
+if [ ! -d "$site" ]
+	mkdir "$site"
+fi
+
+{{ base_script }} > "$site"/known_hosts
 
 if [ -z "$(git status --porcelain)" ]
 then
 	echo 'Nothing to do.'
 else
-	git add known_hosts
+	git add "$site"
 	# TODO: commit signing
 	#GNUPGHOME=/etc/salt/gpgkeys git commit -sm 'Scripted update'
-	git commit -m 'Scripted update'
+	git commit -m "Scripted update for $site_upper"
 	git push origin main
 fi
+{%- endif %} {#- close site check #}
