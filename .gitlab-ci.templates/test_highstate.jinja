@@ -21,4 +21,6 @@ test_highstate_{{ role }}:
   extends:
     - .test_highstate
   script: bin/test_highstate.sh {{ role }}
+  tags:
+    - prg2
 {% endfor %}
