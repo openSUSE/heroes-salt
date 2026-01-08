@@ -40,3 +40,18 @@ rpmkey_import_{{ project }}:
       - file: rpmkey_file_{{ project }}
 
 {%- endfor %}
+
+{%- if salt['file.directory_exists'](keydir) %}
+  {%- set want_files = keys.values() | list %}
+  {%- for file in salt['file.find'](keydir, maxdepth=1, mindepth=1, print='name') %}
+    {%- if file not in want_files %}
+rpmkey_delete_{{ file }}:
+  file.absent:
+    - name: {{ keydir }}{{ file }}
+
+  cmd.run:
+    - name: rpm -e {{ file }}
+    - onlyif: rpm --quiet -q {{ file }}
+    {%- endif %}
+  {%- endfor %}
+{%- endif %}
