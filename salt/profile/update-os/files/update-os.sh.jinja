@@ -1,0 +1,29 @@
+#!/bin/sh -Cfu
+{#
+vim: ft=sh.jinja
+-#}{{ pillar['managed_by_salt'] }}
+
+{#- TODO: patch --with-interactive for Leap, but we have packages without patchinfo #}
+{%- set cmd = {
+	'Leap': 'up',
+	'openSUSE Tumbleweed': 'dup',
+}[grains['osfullname']] %}
+
+zypper -n {{ cmd }}
+ret="$?"
+
+# zypp restart needed
+if [ "$ret" -eq 103 ]
+then
+  zypper -n {{ cmd }}
+  ret="$?"
+fi
+
+# system reboot needed
+if [ "$ret" -eq 102 ]
+then
+  # maintenance will reboot after any successful update
+  exit 0
+fi
+
+exit "$ret"

@@ -33,6 +33,7 @@ include:
   - os-update
   - rebootmgr
   - profile.etckeeper
+  - profile.update-os
 
   - profile.pam
   - profile.kanidm.client
