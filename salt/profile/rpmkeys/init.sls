@@ -1,18 +1,18 @@
 {%- set keydir = '/etc/pki/rpm-gpg/' %}
 {%- set keys = {
-      'openSUSE:infrastructure': 'gpg-pubkey-20f13aac-6531532b'
+      'openSUSE:infrastructure': 'gpg-pubkey-20f13aac'
     }
 %}
 {%- set repositories = pillar.get('zypper', {}).get('repositories', {}) %}
 {%- if 'devel:languages:python' in repositories or 'devel:languages:python:backports' in repositories %}
 {%- do keys.update({
-      'devel:languages:python': 'gpg-pubkey-edf0d733-64c6ae0d'
+      'devel:languages:python': 'gpg-pubkey-edf0d733'
     })
 %}
 {%- endif %}
 {%- if 'darix:apps' in repositories %}
 {%- do keys.update({
-      'darix:apps': 'gpg-pubkey-2941c2e1-67f1433c'
+      'darix:apps': 'gpg-pubkey-2941c2e1'
     })
 %}
 {%- endif %}
@@ -34,17 +34,25 @@ rpmkey_file_{{ project }}:
 rpmkey_import_{{ project }}:
   cmd.run:
     - name: rpm --import {{ keyfile }}
-    - unless: rpm -q {{ key }}
+    - onchanges:
+      - file: rpmkey_file_{{ project }}
     - require:
       - file: rpmkey_dir
-      - file: rpmkey_file_{{ project }}
 
 {%- endfor %}
 
 {%- if salt['file.directory_exists'](keydir) %}
   {%- set want_files = keys.values() | list %}
   {%- for file in salt['file.find'](keydir, maxdepth=1, mindepth=1, print='name') %}
-    {%- if file not in want_files %}
+    {%- if file in want_files %}
+# rpmkey_import above only catches file changes, handle someone deleting the key from RPM without removing the file
+rpmkey_reimport_{{ file }}:
+  cmd.run:
+    - name: rpm --import {{ keydir }}{{ file }}
+    - unless: rpm --quiet -q {{ file }}
+    - require:
+      - file: rpmkey_dir
+    {%- else %}
 rpmkey_delete_{{ file }}:
   file.absent:
     - name: {{ keydir }}{{ file }}
