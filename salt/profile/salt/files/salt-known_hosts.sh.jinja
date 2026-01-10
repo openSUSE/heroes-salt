@@ -1,0 +1,45 @@
+#!/usr/bin/python3
+"""
+vim:filetype=python.jinja
+{{ pillar['managed_by_salt'] }}
+
+Generate a known_hosts file from Salt minions
+
+Copyright (C) 2024-2025 Georg Pfuetzenreuter <mail+opensuse@georg-pfuetzenreuter.net>
+"""
+
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument('--sshfp', help='Print SSHFP records instead of a known_hosts file', action='store_true')
+args = parser.parse_args()
+
+if args.sshfp:
+    from base64 import b64decode
+    from hashlib import sha256
+
+import salt.client  # noqa E402, slows down ArgumentParser
+
+client = salt.client.LocalClient()
+this_minion = '{{ grains['fqdn'] }}'
+types = ['ed25519.pub', 'ecdsa.pub']
+
+all_keys = client.cmd(this_minion, 'mine.get', ['*'], kwarg={'fun': 'ssh_host_keys'}).get(this_minion, {})
+
+def mksshfp(host, keytype, key):
+    if keytype == 'ssh-ed25519':
+        keytype = 4
+    elif keytype == 'ecdsa-sha2-nistp256':
+        keytype = 3
+    fingerprint = sha256(b64decode(key)).hexdigest().upper()
+    #                                   v SHA256
+    return f'{host}. IN SSHFP {keytype} 2 {fingerprint}'
+
+for minion, keys in all_keys.items():
+    result = [keys.get(x, '').split()[:2] for x in types if x]
+    for line in result:
+        if args.sshfp:
+            print(mksshfp(minion, line[0], line[1]))
+        else:
+            line = ' '.join(line)
+            print(f'{minion} {line}')

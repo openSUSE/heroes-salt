@@ -1,0 +1,37 @@
+#!/bin/sh -efu
+{#
+vim: ft=sh.jinja noexpandtab
+-#}{{ pillar['managed_by_salt'] }}
+
+if [ "$(whoami)" != 'salt' ]
+then
+	echo 'This must be executed as the "salt" user.'
+	exit 1
+fi
+
+cd {{ out_dir }}
+
+git pull --quiet
+
+{%- set site = grains.get('site') %}
+{%- if site %}
+site='{{ site }}'
+site_upper="$(echo "$site" | tr '[:lower:]' '[:upper:]')"
+
+if [ ! -d "$site" ]
+	mkdir "$site"
+fi
+
+{{ base_script }} > "$site"/known_hosts
+
+if [ -z "$(git status --porcelain)" ]
+then
+	echo 'Nothing to do.'
+else
+	git add "$site"
+	# TODO: commit signing
+	#GNUPGHOME=/etc/salt/gpgkeys git commit -sm 'Scripted update'
+	git commit -m "Scripted update for $site_upper"
+	git push origin main
+fi
+{%- endif %} {#- close site check #}
