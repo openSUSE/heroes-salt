@@ -37,5 +37,5 @@
 		}
 	},
 	"additionalProperties": false,
-	"required": [ "mac", "source" ]
+	"required": [ "mac" ]
 }
