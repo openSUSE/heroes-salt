@@ -9,7 +9,6 @@ acme:
       ip6: 2a07:de40:b27e:1203::100/64
       mac: ba:34:bc:a1:a8:c3
       pseudo_ip4: 172.16.164.103
-  primary_interface: os-internal
   ram: 1024MB
   vcpu: 1
 asgard1:
@@ -47,7 +46,6 @@ atlas1:
       ip4: 172.16.130.11/24
       ip6: 2a07:de40:b27e:1204::11/64
       mac: 2e:b6:1e:18:39:68
-  primary_interface: os-public
   ram: 4096MB
   vcpu: 2
 atlas2:
@@ -59,7 +57,6 @@ atlas2:
       ip4: 172.16.130.12/24
       ip6: 2a07:de40:b27e:1204::12/64
       mac: 2e:b6:1e:18:39:69
-  primary_interface: os-public
   ram: 4096MB
   vcpu: 2
 avalon1:
@@ -783,7 +780,6 @@ narwal8:
       ip6: 2a07:de40:b27e:1203::e8/64
       mac: 2e:09:0d:dc:6e:14
       pseudo_ip4: 172.16.164.102
-  primary_interface: os-internal
   ram: 1024MB
   vcpu: 1
 netbox1:
@@ -995,7 +991,6 @@ seidr1:
     os-salt:
       ip6: 2a07:de40:b27e:1200::e/64
       mac: 00:16:3e:38:35:29
-  primary_interface: os-salt
   ram: 4096MB
   vcpu: 4
 slc-devcon1:
@@ -1167,7 +1162,6 @@ thor1:
       ip6: 2a07:de40:b27e:1100::a/64
       mac: fe:cd:47:19:e7:86
       pseudo_ip4: 172.16.164.11
-  primary_interface: os-thor
   ram: 1024MB
   vcpu: 1
 thor2:
@@ -1179,7 +1173,6 @@ thor2:
       ip6: 2a07:de40:b27e:1100::b/64
       mac: c2:65:d8:27:81:f7
       pseudo_ip4: 172.16.164.12
-  primary_interface: os-thor
   ram: 1024MB
   vcpu: 1
 tsp:
@@ -1312,6 +1305,5 @@ witch1:
       ip6: 2a07:de40:b27e:1200::a/64
       mac: 92:93:ee:1a:c4:80
       pseudo_ip4: 172.16.164.101
-  primary_interface: os-salt
   ram: 8192MB
   vcpu: 16
