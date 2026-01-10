@@ -5,6 +5,9 @@ copy_logs () {
     cp /var/log/salt/master master_log.txt
 }
 
+# really ugly but the huge amount of DeprecationWarnings make it hard to parse the CI output
+sed -i 's/"once"/"ignore"/' /usr/lib/python3.13/site-packages/salt/__init__.py
+
 ## Salt Master setup
 
 # Pre-seed the minion key
