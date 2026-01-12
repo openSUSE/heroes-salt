@@ -983,6 +983,16 @@ rpmlint:
   legacy_boot: true
   ram: 8192MB
   vcpu: 2
+sample-app:
+  cluster: falkor
+  disks:
+    root: 3600a09803831494f635d554b39503338
+  interfaces:
+    os-web:
+      ip6: 2a07:de40:b27e:1218::f1/64
+      mac: 00:16:3e:28:a1:b5
+  ram: 1024MB
+  vcpu: 1
 seidr1:
   cluster: squanchy
   disks:

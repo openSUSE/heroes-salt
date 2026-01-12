@@ -26,10 +26,12 @@ haproxy:
         - host_idm         hdr(host)    idm.infra.opensuse.org
         - host_idm_ext_dev hdr(host)    idm-ext-dev.infra.opensuse.org
         - host_netbox      hdr(host)    netbox.infra.opensuse.org
+        - host_sample-app-dev hdr(host) sample-app-dev.infra.opensuse.org
       use_backends:
         - kanidm           if host_idm
         - kanidm-ext-dev   if host_idm_ext_dev
         - netbox           if host_netbox
+        - sample-app       if host_sample-app-dev
 
   backends:
     {%- for suffix in ['', '-ext-dev'] %}
@@ -58,6 +60,13 @@ haproxy:
       {{ server('netbox1', 'netbox1.infra.opensuse.org', 443,
                   extra_extra='ssl verify required ca-file ' ~ heroes_ca,
                 ) }}
+
+    sample-app:
+      mode: http
+      {{ options('httpchk') }}
+      {{ httpcheck('sample-app-dev.infra.opensuse.org', 200, '/') }}
+      {{ server('sample-app', 'sample-app.infra.opensuse.org', 8080) }}
+
 
   listens:
     {{ metrics(bind_v6_standalone) }}

@@ -118,6 +118,9 @@ quiz.infra.opensuse.org:
     - host: quiz
       services:
         - nginx
+sample-app-dev.infra.opensuse.org:
+  targets:
+    - macro: hel
 seidr1.infra.opensuse.org:
   sans:
     - salt.infra.opensuse.org
