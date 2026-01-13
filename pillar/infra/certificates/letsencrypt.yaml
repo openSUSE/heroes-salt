@@ -263,6 +263,7 @@ redirector.opensuse.org:
     - ignite-stage.opensuse.org
     - ignite.opensuse.org
     - license.opensuse.org
+    - lists.uyuni-project.org
     - tube.opensuse.org
     - upgrade.opensuse.org
     - dewiki.opensuse.org
