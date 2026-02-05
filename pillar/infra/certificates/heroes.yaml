@@ -76,6 +76,11 @@ kani2.infra.opensuse.org:
     - host: kani2
       services:
         - kanidmd
+kudos-prod.infra.opensuse.org:
+  targets:
+    - host: kudos-prod
+      services:
+        - kudos
 matrix.infra.opensuse.org:
   targets:
     - host: matrix
