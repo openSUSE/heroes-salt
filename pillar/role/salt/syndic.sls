@@ -78,6 +78,8 @@ rsync:
         {%- if grains.get('site') in ['prg2', 'slc1'] %}
         - 2a07:de40:b27e:1203::126 # gitlab-runner1
         - 2a07:de40:b27e:1203::127 # gitlab-runner2
+        - 2a07:de40:617e:1908::103 # gitlab-runner3
+        - 2a07:de40:617e:1908::104 # gitlab-runner4
         {%- else %}
         - 172.16.164.126
         - 172.16.164.127
