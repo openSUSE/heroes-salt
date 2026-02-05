@@ -101,6 +101,7 @@ haproxy:
         - host_jekyll       hdr(host)   -i {{ host_jekyll }}.opensuse.org
         {%- endfor %}
         - host_kubic        hdr(host)   -i kubic.opensuse.org
+        - host_kudos        hdr(host)   -i kudos.opensuse.org
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
         - host_lnt          hdr(host)   -i lnt.opensuse.org
         - host_mailman3     hdr(host)   -i lists.opensuse.org
@@ -211,6 +212,7 @@ haproxy:
         - jekyll          if host_jekyll || host_www || host_www_test || host_get_o_o
         - kubic           if host_kubic
         - kubic           if host_microos
+        - kudos_prod      if host_kudos
         - limesurvey      if host_limesurvey
         - lnt             if host_lnt
         - mailman3        if host_mailman3

@@ -117,6 +117,9 @@ kubic.opensuse.org:
     - microos.opensuse.org
   targets:
     - macro: atlas
+kudos.opensuse.org:
+  targets:
+    - macro: atlas
 lists.opensuse.org:
   targets:
     - macro: atlas

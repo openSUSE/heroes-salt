@@ -116,6 +116,10 @@ haproxy:
       {{ options ('httpchk') }}
       {{ httpcheck('kubic.opensuse.org', 200, '/check.txt') }}
       {{ server('kubic', '2a07:de40:b27e:1203::132') }}
+    kudos_prod:
+      {{ options ('httpchk') }}
+      {{ httpcheck('kudos.opensuse.org', 200, '/api/health') }}
+      {{ server('kudos-prod', 'kudos-prod.infra.opensuse.org', 8080) }}
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
