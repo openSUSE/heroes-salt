@@ -80,7 +80,7 @@
   # atlas -> sample-app (demo web applications)
   ip6 saddr @host6_atlas ip6 daddr $host6_sample-app tcp dport 8080 accept
   # atlas -> kudos-prod (kudos.o.o)
-  ip6 saddr @host6_atlas ip6 daddr $host6_kudos-prod tcp dport 8080 accept
+  ip6 saddr @host6_atlas ip6 daddr $host6_kudos-prod tcp dport 3000 accept
 
  }
 

@@ -119,7 +119,7 @@ haproxy:
     kudos_prod:
       {{ options ('httpchk') }}
       {{ httpcheck('kudos.opensuse.org', 200, '/api/health') }}
-      {{ server('kudos-prod', 'kudos-prod.infra.opensuse.org', 8080) }}
+      {{ server('kudos-prod', 'kudos-prod.infra.opensuse.org', 3000) }}
     limesurvey:
       {{ options() }}
       {{ server('limesurvey', '2a07:de40:b27e:1203::b4', extra_extra='inter 5000') }}
