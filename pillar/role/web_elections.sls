@@ -40,8 +40,9 @@ profile:
       - cboltz
       # election officials
       - AJV
-      - Ishwon
       - medwin
+      - lkocman
+      - eddylareine
     help_email_address: election-officials@opensuse.org
     # secret_key included from pillar/secrets/role/web_elections.sls
     url_host: https://elections.opensuse.org
