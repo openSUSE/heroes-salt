@@ -929,11 +929,12 @@ set acl6_internet_idoo {
     type ipv6_addr
     flags interval
     elements = {
-        $host6_progressoo,
+        $host6_calendar,
+        $host6_kudos-prod,
         $host6_mailman3,
-        $host6_paste,
         $host6_pagure01,
-        $host6_calendar
+        $host6_paste,
+        $host6_progressoo,
     }
 }
 
