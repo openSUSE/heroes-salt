@@ -20,8 +20,7 @@ def run():
        site_nameservers = safe_load(fh)
 
     # common local resolver configuration
-    __salt__['log.error'](site)
-    __salt__['log.error'](site_nameservers)
+    __salt__['log.debug'](f'common.network: site: {site}, site_nameserver: {site_nameservers}')
     if site in site_nameservers:
         pillar['network'].update({
             'config': {
