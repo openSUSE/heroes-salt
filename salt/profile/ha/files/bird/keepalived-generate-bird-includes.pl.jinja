@@ -40,7 +40,7 @@ foreach my $instance (sort keys %instances) {
 		print "No state for instance $instance, skipping.\n";
 		next;
 	}
-	push(@out_networks, $instances{$instance}) if ($state eq 'MASTER');
+	push(@out_networks, $instances{$instance}) if ($state eq 'MASTER' || $state eq 'MASTER_RX_LOWER_PRI');
 }
 
 open(my $fh, '>', $outfile) or do {
