@@ -103,9 +103,9 @@ haproxy:
         - host_kubic        hdr(host)   -i kubic.opensuse.org
         - host_kudos        hdr(host)   -i kudos.opensuse.org
         - host_limesurvey   hdr(host)   -i survey.opensuse.org
+        - host_lists_uyuni_project hdr(host) -i lists.uyuni-project.org
         - host_lnt          hdr(host)   -i lnt.opensuse.org
         - host_mailman3     hdr(host)   -i lists.opensuse.org
-        - host_mailman3     hdr(host)   -i lists.uyuni-project.org
         - host_mainpage     hdr(host)   -i opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_matrix       hdr(host)   -i matrix.opensuse.org
@@ -269,6 +269,7 @@ haproxy:
         - code 301 prefix   https://en.opensuse.org                          if host_redirect_wiki
         - code 301 prefix   https://de.opensuse.org                          if host_redirect_wiki_de
         - code 301 prefix   https://languages.opensuse.org                   if host_redirect_wiki_gone
+        - code 301 location https://www.uyuni-project.org/pages/contact.html if host_lists_uyuni_project
 
     # services routed from login proxies
     http-login:
