@@ -78,7 +78,7 @@ profile_ha_bird_systemd_files:
                 - '[Service]'
                 - Type=oneshot
                 - User=keepalived_script
-                - ExecStartPre=cp {{ files['output'] }} {{ files['output'] }}.pre
+                - ExecStartPre=-cp {{ files['output'] }} {{ files['output'] }}.pre
                 - ExecStart={{ files['generate-bird-includes'] }}
                 - >-
                     ExecStartPost=!sh -cx
