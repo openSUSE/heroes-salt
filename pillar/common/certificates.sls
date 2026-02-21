@@ -77,9 +77,9 @@ def run():
     ]
 
     # we use internal-sftp by default, but for restriction as a forced command set the external binary instead
-    if __grains__['osfullname'] == 'Leap':
+    if __grains__['osfullname'] == 'Leap' and float(__grains__['osrelease']) < 16:
       sftp = '/usr/lib/ssh/sftp-server'
-    elif __grains__['osfullname'] == 'openSUSE Tumbleweed':
+    else:
       sftp = '/usr/libexec/ssh/sftp-server'
 
     result.update({
