@@ -933,7 +933,7 @@ progressoo:
       mac: 52:54:00:77:70:cd
       pseudo_ip4: 172.16.164.139
   legacy_boot: true
-  ram: 4096MB
+  ram: 6144MB
   vcpu: 4
 quiz:
   cluster: falkor
