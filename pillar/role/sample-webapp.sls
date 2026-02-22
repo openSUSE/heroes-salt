@@ -10,4 +10,4 @@ profile:
       BaseUrl: https://sample-app-dev.infra.opensuse.org
       Bind: '[::]:8080'
       ClientId: sample-app
-      OidcBaseUrl: https://idm.example.com/oauth2/openid/sample-app
+      OidcBaseUrl: https://idm-ext-dev.infra.opensuse.org/oauth2/openid/sample-app
