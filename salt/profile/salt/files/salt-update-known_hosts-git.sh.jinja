@@ -19,6 +19,7 @@ site='{{ site }}'
 site_upper="$(echo "$site" | tr '[:lower:]' '[:upper:]')"
 
 if [ ! -d "$site" ]
+then
 	mkdir "$site"
 fi
 
