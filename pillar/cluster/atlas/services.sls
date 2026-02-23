@@ -284,6 +284,7 @@ haproxy:
         {{ berghain_acls() }}
 
         - path_favicon      path         /favicon.ico
+        - path_apiphp       path         /api.php
         - path_indexphp     path_beg     /index.php
         - path_robots       path         /robots.txt
         - path_security     path_end     /.well-known/security.txt
@@ -308,6 +309,7 @@ haproxy:
 
         - cookie_os_session      req.cook(openSUSE_Session2)  -m found
 
+        - param_mw_feed          urlp(feed)                   atom
         - param_mw_hide          urlp(hideanons)              -m found
         - param_mw_hide          urlp(hidebots)               -m found
         - param_mw_hide          urlp(hidecategorization)     -m found
@@ -324,6 +326,7 @@ haproxy:
 
       use_backends:
         {{ berghain_use_backend({
+              'mediawiki': '!param_mw_feed !path_apiphp',
               'tsp': '',
         }) }}
 
