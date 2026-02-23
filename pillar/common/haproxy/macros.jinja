@@ -83,8 +83,11 @@
         {%- endif %}
 {%- endmacro -%}
 {%- macro httpcheck(host, status, uri='/', method='head', tls=False) %}
+      {%- if tls is sameas true %}
+        {%- set tls = 'h2' %}
+      {%- endif %}
       httpchecks:
-        - connect{{ ' ssl alpn h2' if tls else '' }}
+        - connect{{ ' ssl alpn ' ~ tls if tls else '' }}
         - send meth {{ method | upper }} uri {{ uri }} ver HTTP/1.1 hdr Host {{ host }} hdr User-Agent haproxy/health-check
         - expect status {{ status }}
 {%- endmacro %}
