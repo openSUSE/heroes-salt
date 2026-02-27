@@ -283,9 +283,11 @@ haproxy:
 
         {{ berghain_acls() }}
 
-        - path_favicon      path         /favicon.ico
+        - path_api          path         /api
         - path_apiphp       path         /api.php
+        - path_favicon      path         /favicon.ico
         - path_indexphp     path_beg     /index.php
+        - path_rails        path         /rails
         - path_robots       path         /robots.txt
         - path_security     path_end     /.well-known/security.txt
 
@@ -293,8 +295,8 @@ haproxy:
         - suffix_asp        path_end    .aspx
         - suffix_php        path_end    .php
 
-        - host_dale         hdr(host)    events.opensuse.org
-        - host_dale         hdr(host)    events-test.opensuse.org
+        - host_events       hdr(host)    events.opensuse.org
+        - host_events       hdr(host)    events-test.opensuse.org
         - host_elections    hdr(host)    elections.opensuse.org
         - host_hackweek     hdr(host)    hackweek.opensuse.org
         - host_tsp          hdr(host)    tsp.opensuse.org
@@ -326,13 +328,15 @@ haproxy:
 
       use_backends:
         {{ berghain_use_backend({
+              'events': '!path_api',
+              'hackweek':  '!path_rails',
               'mediawiki': '!param_mw_feed !path_apiphp',
               'tsp': '',
         }) }}
 
         - security_txt      if path_security
 
-        - dale              if src_login host_dale
+        - dale              if src_login host_events
         - elections         if src_login host_elections
         - hackweek          if src_login host_hackweek
         - tsp               if src_login host_tsp
