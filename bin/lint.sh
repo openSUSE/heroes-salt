@@ -42,9 +42,8 @@ STATUS_JINJA="$?"
 
 
 echo_INFO 'Linting Python files ...'
-#ruff check --config etc/ruff.toml .
-#STATUS_PYTHON="$?"
-STATUS_PYTHON=0
+ruff check --config etc/ruff.toml .
+STATUS_PYTHON="$?"
 
 
 echo_INFO 'Linting Python files in profiles ...'
