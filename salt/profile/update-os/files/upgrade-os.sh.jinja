@@ -1,0 +1,60 @@
+#!/bin/sh -Cefu
+# Script for upgrading to a new Leap release.
+# Author: Georg Pfuetzenreuter
+#{{ pillar['managed_by_salt'] }}
+
+old_ver='{{ previous_version }}'
+new_ver='{{ latest_version }}'
+
+. /etc/os-release
+
+if [ "$VERSION" != "$old_ver" ]
+then
+  echo 'Upgrade from unsupported OS attempted, aborting.'
+  exit 1
+fi
+
+_zypper () {
+  zypper --releasever="$new_ver" "$@"
+}
+
+if _zypper -qt lr -u | grep -P ^\\d | grep -v "$new_ver"
+then
+  # shellcheck disable=SC2016
+  echo 'Repository URLs not respecting $releasever found, aborting.'
+  exit 1
+fi
+
+repositories="$(_zypper -qt lr -E)"
+
+if [ "$(id -u)" -ne 0 ]
+then
+  echo 'Elevating to root ...'
+  exec sudo "$0"
+fi
+
+for repo in backports-update backports-debug-update sle-update sle-debug-update update-oss
+do
+  repo="repo-$repo"
+  if echo "$repositories" | grep "$repo"
+  then
+    zypper mr -d "$repo"
+  fi
+done
+
+_zypper ref
+
+# would be nice being able to set this transiently only for the dup
+sed -Ei 's/(DISABLE_RESTART_ON_UPDATE=)"no"/\1"yes"/' /etc/sysconfig/services
+
+_zypper dup --allow-vendor-change  # ugh
+echo "$?"
+
+echo '
+
+  Now do:
+    1. reboot
+    2. systemctl --failed
+    3. salt-call state.apply
+
+'
