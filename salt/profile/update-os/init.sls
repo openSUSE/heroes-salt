@@ -14,7 +14,7 @@
   file.absent
 {%- else %}
   file.managed:
-    - source: salt://{{ slspath }}/files/upgrade-os.sh
+    - source: salt://{{ slspath }}/files/upgrade-os.sh.jinja
     - template: jinja
     - context:
         latest_version: '{{ latest }}'
