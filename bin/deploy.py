@@ -281,12 +281,11 @@ class Salt:
         for minionid, minionret in entry.items():
           if isinstance(minionret, dict):
             for stateid, stateret in minionret.items():
-              if 'result' in stateret:
-                if stateret['result'] is False:
-                  log.debug(f'Found failure in state {stateid}')
-                  state_ok = False
-                  if 'comment' in stateret:
-                    errors.update({stateret.get('name', stateid): stateret['comment']})
+              if 'result' in stateret and stateret['result'] is False:
+                log.debug(f'Found failure in state {stateid}')
+                state_ok = False
+                if 'comment' in stateret:
+                  errors.update({stateret.get('name', stateid): stateret['comment']})
 
             if 'ret' in minionret:
               salt.output.display_output(
@@ -414,21 +413,20 @@ def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar
             log.debug(f'{target}: ping succeeded')
             pinged_minions.append(target)
 
-          if mode in ['test', 'fire']:
-            if target in pinged_minions and target not in updated_minions and '*' not in updated_minions:
-              log.debug(f'{target}: calling update()')
-              update_mine = update.get('mine', True)
-              if ( not update.get('pillar', True) and not update_mine ) or 'highstate' in states or minion.update(mine=update_mine):
-                log.debug(f'{target}: update {"succeeded" if update and "highstate" not in states else "skipped"}')
-                updated_minions.append(target)
+          if mode in ['test', 'fire'] and target in pinged_minions and target not in updated_minions and '*' not in updated_minions:
+            log.debug(f'{target}: calling update()')
+            update_mine = update.get('mine', True)
+            if ( not update.get('pillar', True) and not update_mine ) or 'highstate' in states or minion.update(mine=update_mine):
+              log.debug(f'{target}: update {"succeeded" if update and "highstate" not in states else "skipped"}')
+              updated_minions.append(target)
 
-              if minion in updated_minions and 'highstate' in states:
-                log.debug(f'{target}: calling apply("highstate")')
-                minion.apply('highstate', mode == 'test')
-              else:
-                for state in states:
-                  log.debug(f'{target}: calling apply({state})')
-                  minion.apply(state, mode == 'test')
+            if minion in updated_minions and 'highstate' in states:
+              log.debug(f'{target}: calling apply("highstate")')
+              minion.apply('highstate', mode == 'test')
+            else:
+              for state in states:
+                log.debug(f'{target}: calling apply({state})')
+                minion.apply(state, mode == 'test')
 
 def _main_cli():
   choices = """
