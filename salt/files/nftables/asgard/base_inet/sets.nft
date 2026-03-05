@@ -632,6 +632,14 @@ set cloud6_obs-login { # api.o.o, build.o.o, registry.o.o
   }
 }
 
+set cloud6_obs-src { # src.o.o
+  type ipv6_addr
+  flags interval
+  elements = {
+   2a07:de40:b250:131:10:151:131:4/128,
+  }
+}
+
 set cloud6_openqa { # openqa.opensuse.org
   type ipv6_addr
   flags interval
