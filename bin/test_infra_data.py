@@ -270,8 +270,7 @@ def main():
         infra_data['hosts'],
     ]
     # we allow duplicates of "short" in different sites, hence treat all site network objects as individual datasets
-    for site, site_networks in infra_data['networks'].items():
-        dupdata.append(site_networks)
+    dupdata.extend(list(infra_data['networks'].values()))
     checks['duplicates'] = not any(
             test_duplicates(dupdataset) for dupdataset in dupdata
     )
