@@ -138,11 +138,11 @@ def get_targets(paths):  # noqa: PLR0912, PLR0915  # function needs more stateme
           if role == 'role.base':
             append(role, do_all_minions=True)
           else:
-            for minion, role in generate_minions_with_role(role).items():
+            for minion, role2 in generate_minions_with_role(role).items():
               if minion in targets:
-                targets[minion].append(role)
+                targets[minion].append(role2)
               else:
-                targets[minion] = [role]
+                targets[minion] = [role2]
     elif isinstance(targets, str):
       targets = [targets.replace('_', '.')]
     else:
