@@ -221,14 +221,14 @@ def users_in_vpn_logs() -> list[str]:
 
     try:
         logs = os.listdir(vpn_log_dir)
-        # we do not need the archive dir
-        logs.remove("archive")
-        cache["vpn_logs"] = logs
-        return logs
-
     except FileNotFoundError as e:
         stop_script(f"Failed to access the log dir\n{e}")
         return []
+
+    # we do not need the archive dir
+    logs.remove("archive")
+    cache["vpn_logs"] = logs
+    return logs
 
 
 def user_info(u: str):
