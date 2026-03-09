@@ -35,6 +35,7 @@ extend-select = [
 ignore = [
   "E501",    # line lengths
   "FBT002",  # booleans as function arguments
+  "PERF401", # Use a list comprehension to create a transformed list
   "PLR2004", # "magic" values which could be descriptive constants
   "PLW2901", # redefined variables in for loops
   "SIM103",  # Return the condition `...` directly - might cause less readable code
