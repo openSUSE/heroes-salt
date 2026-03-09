@@ -237,12 +237,14 @@ class Salt:
   Various operations against a given list of minions or a single
   nodegroup, executed through the given Pepper API instance
   """
-  def __init__(self, api, minions=[], nodegroup=None, outdir=None, state_output=None, state_verbose=None):
+  def __init__(self, api, minions=None, nodegroup=None, outdir=None, state_output=None, state_verbose=None):
+    if minions is None:
+        minions = []
+    elif isinstance(minions, str):
+      minions = [minions]
+
     if ( not minions and not nodegroup ) or ( minions and nodegroup ):
       _fail('Illegal use of Salt().', exception=ValueError)
-
-    if isinstance(minions, str):
-      minions = [minions]
 
     self.api = api
     self.minions = minions
@@ -376,10 +378,13 @@ class Salt:
     return self._call(payload)
 
 
-def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar': True, 'mine': True}, state_output=None, state_verbose=None):  # noqa: PLR0912  # too many nested if's
+def coordinate(repository, mode='dry', debug=False, outdir=None, update=None, state_output=None, state_verbose=None):  # noqa: PLR0912  # too many nested if's
   """
   Base application logic
   """
+  if update is None:
+    update={'pillar': True, 'mine': True}
+
   if mode not in modes or not isinstance(update, dict):
     raise ValueError('Invalid function call')
   DO_SALT = False
