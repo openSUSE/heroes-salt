@@ -168,12 +168,9 @@ def notify_admin(user: str):
 
 def db_load() -> dict:
     """load database from the file & return it"""
-    try:
-        with open(_db_name, "r") as f:
-            obj = json.loads(f.read())
-            return obj
-    except ValueError as e:
-        raise e
+    with open(_db_name, "r") as f:
+        obj = json.loads(f.read())
+        return obj
 
 
 def db_save(config: dict):
