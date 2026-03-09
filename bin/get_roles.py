@@ -58,9 +58,7 @@ def get_roles(with_base=False):
         if sls == 'README.md':
             continue
 
-        _roles = get_roles_of_one_minion(sls)
-        for item in _roles:
-            roles.append(item)
+        roles.extend(get_roles_of_one_minion(sls))
 
     roles = sorted(set(roles))
 
