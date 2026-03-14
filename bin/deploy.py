@@ -138,11 +138,11 @@ def get_targets(paths):  # noqa: PLR0912, PLR0915  # function needs more stateme
           if role == 'role.base':
             append(role, do_all_minions=True)
           else:
-            for minion, role in generate_minions_with_role(role).items():
+            for minion, role2 in generate_minions_with_role(role).items():
               if minion in targets:
-                targets[minion].append(role)
+                targets[minion].append(role2)
               else:
-                targets[minion] = [role]
+                targets[minion] = [role2]
     elif isinstance(targets, str):
       targets = [targets.replace('_', '.')]
     else:
@@ -237,12 +237,14 @@ class Salt:
   Various operations against a given list of minions or a single
   nodegroup, executed through the given Pepper API instance
   """
-  def __init__(self, api, minions=[], nodegroup=None, outdir=None, state_output=None, state_verbose=None):
+  def __init__(self, api, minions=None, nodegroup=None, outdir=None, state_output=None, state_verbose=None):
+    if minions is None:
+        minions = []
+    elif isinstance(minions, str):
+      minions = [minions]
+
     if ( not minions and not nodegroup ) or ( minions and nodegroup ):
       _fail('Illegal use of Salt().', exception=ValueError)
-
-    if isinstance(minions, str):
-      minions = [minions]
 
     self.api = api
     self.minions = minions
@@ -281,12 +283,11 @@ class Salt:
         for minionid, minionret in entry.items():
           if isinstance(minionret, dict):
             for stateid, stateret in minionret.items():
-              if 'result' in stateret:
-                if stateret['result'] is False:
-                  log.debug(f'Found failure in state {stateid}')
-                  state_ok = False
-                  if 'comment' in stateret:
-                    errors.update({stateret.get('name', stateid): stateret['comment']})
+              if 'result' in stateret and stateret['result'] is False:
+                log.debug(f'Found failure in state {stateid}')
+                state_ok = False
+                if 'comment' in stateret:
+                  errors.update({stateret.get('name', stateid): stateret['comment']})
 
             if 'ret' in minionret:
               salt.output.display_output(
@@ -377,10 +378,13 @@ class Salt:
     return self._call(payload)
 
 
-def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar': True, 'mine': True}, state_output=None, state_verbose=None):  # noqa: PLR0912  # too many nested if's
+def coordinate(repository, mode='dry', debug=False, outdir=None, update=None, state_output=None, state_verbose=None):  # noqa: PLR0912  # too many nested if's
   """
   Base application logic
   """
+  if update is None:
+    update={'pillar': True, 'mine': True}
+
   if mode not in modes or not isinstance(update, dict):
     raise ValueError('Invalid function call')
   DO_SALT = False
@@ -414,21 +418,20 @@ def coordinate(repository, mode='dry', debug=False, outdir=None, update={'pillar
             log.debug(f'{target}: ping succeeded')
             pinged_minions.append(target)
 
-          if mode in ['test', 'fire']:
-            if target in pinged_minions and target not in updated_minions and '*' not in updated_minions:
-              log.debug(f'{target}: calling update()')
-              update_mine = update.get('mine', True)
-              if ( not update.get('pillar', True) and not update_mine ) or 'highstate' in states or minion.update(mine=update_mine):
-                log.debug(f'{target}: update {"succeeded" if update and "highstate" not in states else "skipped"}')
-                updated_minions.append(target)
+          if mode in ['test', 'fire'] and target in pinged_minions and target not in updated_minions and '*' not in updated_minions:
+            log.debug(f'{target}: calling update()')
+            update_mine = update.get('mine', True)
+            if ( not update.get('pillar', True) and not update_mine ) or 'highstate' in states or minion.update(mine=update_mine):
+              log.debug(f'{target}: update {"succeeded" if update and "highstate" not in states else "skipped"}')
+              updated_minions.append(target)
 
-              if minion in updated_minions and 'highstate' in states:
-                log.debug(f'{target}: calling apply("highstate")')
-                minion.apply('highstate', mode == 'test')
-              else:
-                for state in states:
-                  log.debug(f'{target}: calling apply({state})')
-                  minion.apply(state, mode == 'test')
+            if minion in updated_minions and 'highstate' in states:
+              log.debug(f'{target}: calling apply("highstate")')
+              minion.apply('highstate', mode == 'test')
+            else:
+              for state in states:
+                log.debug(f'{target}: calling apply({state})')
+                minion.apply(state, mode == 'test')
 
 def _main_cli():
   choices = """

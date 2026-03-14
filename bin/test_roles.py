@@ -18,10 +18,9 @@ roles = get_roles() + special_roles
 
 for directory in ['salt', 'pillar']:
     for sls in os.listdir(f'{directory}/role'):
-        if sls.endswith('.sls'):
-            if sls.split('.sls')[0] not in roles:
-                print(f'Unused file {directory}/role/{sls} - not in roles')
-                status = 1
+        if sls.endswith('.sls') and sls.split('.sls')[0] not in roles:
+            print(f'Unused file {directory}/role/{sls} - not in roles')
+            status = 1
 
 for role in roles:
     role = role.replace('.', '/')

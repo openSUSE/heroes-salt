@@ -42,9 +42,8 @@ STATUS_JINJA="$?"
 
 
 echo_INFO 'Linting Python files ...'
-#ruff check --config etc/ruff.toml .
-#STATUS_PYTHON="$?"
-STATUS_PYTHON=0
+ruff check --config etc/ruff.toml .
+STATUS_PYTHON="$?"
 
 
 echo_INFO 'Linting Python files in profiles ...'
@@ -126,6 +125,13 @@ then
   # shellcheck disable=SC2016
   echo 'Tip: Install `ruff` on your workstation, and use `ruff --fix --unsafe-fixes <file1> <file2> ...` to have the tool automatically implement some of its suggestions.'
   EXIT=5
+elif [ "$STATUS_PYTHON" != 0 ] || [ "$STATUS_PYTHON_PROFILE" != 0 ]
+then
+  echo -n '--> Python: '
+  echo_FAILED
+  echo 'Error running ruff, check the error message above.'
+  echo 'A possible cause for this is invalid syntax in etc/ruff.toml.'
+  EXIT=1
 else
   echo -n '--> Python: '
   echo_PASSED

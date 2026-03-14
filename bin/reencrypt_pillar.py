@@ -147,9 +147,8 @@ for pillar in pillars:
     total += 1
 
     # Read data from pillar file
-    file = open(pillar, 'r')
-    data = file.read()
-    file.close()
+    with open(pillar, 'r') as file:
+        data = file.read()
 
     # Search for PGP messages and reencrypt them
     try:
@@ -161,9 +160,9 @@ for pillar in pillars:
 
     # File was modified, re-write it
     if count > 0:
-        file = open(pillar, 'w')
-        file.write(data)
-        file.close()
+        with open(pillar, 'w') as file:
+            file.write(data)
+
         logger.info(f'Successfully reencrypted all data in file: {pillar}')
         success += 1
 

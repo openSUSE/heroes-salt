@@ -168,12 +168,9 @@ def notify_admin(user: str):
 
 def db_load() -> dict:
     """load database from the file & return it"""
-    try:
-        with open(_db_name, "r") as f:
-            obj = json.loads(f.read())
-            return obj
-    except ValueError as e:
-        raise e
+    with open(_db_name, "r") as f:
+        obj = json.loads(f.read())
+        return obj
 
 
 def db_save(config: dict):
@@ -224,14 +221,14 @@ def users_in_vpn_logs() -> list[str]:
 
     try:
         logs = os.listdir(vpn_log_dir)
-        # we do not need the archive dir
-        logs.remove("archive")
-        cache["vpn_logs"] = logs
-        return logs
-
     except FileNotFoundError as e:
         stop_script(f"Failed to access the log dir\n{e}")
         return []
+
+    # we do not need the archive dir
+    logs.remove("archive")
+    cache["vpn_logs"] = logs
+    return logs
 
 
 def user_info(u: str):
@@ -275,25 +272,28 @@ for user in shortlisted_users:
         if (
             user in users_in_vpn_logs()
             and days_since(db[user]["notified_on"]) > _user_notice_days
-        ):
             # if the user did not login after the notice period ended
-            if days_since(last_login(user)) > _inactive_days:
-                log.info(f"{user} did not login even after notice period")
-                # report them to admin, if haven't
-                if "notified_admin_on" not in db[user]:
-                    log.info(f"Reporting {user} to the admin")
-                    notify_admin(user)
-                    db[user]["notified_admin_on"] = str(date_now())
+            and days_since(last_login(user)) > _inactive_days
+        ):
+            log.info(f"{user} did not login even after notice period")
+            # report them to admin, if haven't
+            if "notified_admin_on" not in db[user]:
+                log.info(f"Reporting {user} to the admin")
+                notify_admin(user)
+                db[user]["notified_admin_on"] = str(date_now())
 
         # user who is in vpn group but still not in logs
-        if user in users_in_kanidm_group() and user not in users_in_vpn_logs():
-            if days_since(db[user]["notified_on"]) > _user_notice_days:
-                log.info(f"{user} notice period ended, still never logged in")
-                # if not reported to admin yet, report them
-                if "notified_admin_on" not in db[user]:
-                    log.info(f"Reporting {user} to the admin")
-                    notify_admin(user)
-                    db[user]["notified_admin_on"] = str(date_now())
+        if (
+            user in users_in_kanidm_group()
+            and user not in users_in_vpn_logs()
+            and days_since(db[user]["notified_on"]) > _user_notice_days
+        ):
+            log.info(f"{user} notice period ended, still never logged in")
+            # if not reported to admin yet, report them
+            if "notified_admin_on" not in db[user]:
+                log.info(f"Reporting {user} to the admin")
+                notify_admin(user)
+                db[user]["notified_admin_on"] = str(date_now())
 
     else:
         log.info(f"Notifying inactive user: {user}")
@@ -313,10 +313,9 @@ for user in db:
         to_be_removed.append(user)
 
     # remove the user if they have a recent login activity
-    if user in users_in_vpn_logs():
-        if days_since(last_login(user)) < _inactive_days:
-            log.info(f"db: removing {user} due to recent login activity")
-            to_be_removed.append(user)
+    if user in users_in_vpn_logs() and days_since(last_login(user)) < _inactive_days:
+        log.info(f"db: removing {user} due to recent login activity")
+        to_be_removed.append(user)
 
 # remove the collected list of users from the db
 for user in to_be_removed:

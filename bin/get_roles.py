@@ -58,9 +58,7 @@ def get_roles(with_base=False):
         if sls == 'README.md':
             continue
 
-        _roles = get_roles_of_one_minion(sls)
-        for item in _roles:
-            roles.append(item)
+        roles.extend(get_roles_of_one_minion(sls))
 
     roles = sorted(set(roles))
 
@@ -82,13 +80,11 @@ def get_roles_including(query):
         if query in line:
           return True
         if alt_file is not None and line[0:5] == '  - .':
-          if not os.path.isfile(alt_file):
-            if len(line) == 5:
-              # constructs for example "salt/role/mirror/internal/init.sls"
-              alt_file = alt_file.replace(alt_file.split('/')[-2:][0], '').replace('//', '/')
-          if os.path.isfile(alt_file):
-            if find_in_sls(query, alt_file):
-              return True
+          if not os.path.isfile(alt_file) and len(line) == 5:
+            # constructs for example "salt/role/mirror/internal/init.sls"
+            alt_file = alt_file.replace(alt_file.split('/')[-2:][0], '').replace('//', '/')
+          if os.path.isfile(alt_file) and find_in_sls(query, alt_file):
+            return True
 
       return False
 
