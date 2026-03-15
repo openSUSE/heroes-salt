@@ -92,6 +92,7 @@ monitor.infra.opensuse.org:
     - alerts.infra.opensuse.org
     - karma.infra.opensuse.org
     - prometheus.infra.opensuse.org
+    - thanos.infra.opensuse.org
   targets:
     - host: monitor
       services:
@@ -118,6 +119,16 @@ netbox1.infra.opensuse.org:
     - host: netbox1
       services:
         - apache2
+prg-monitor1.infra.opensuse.org:
+  targets:
+    - host: prg-monitor1
+      services:
+        - apache2
+prg-monitor2.infra.opensuse.org:
+  targets:
+    - host: prg-monitor2
+      services:
+        - apache2
 quiz.infra.opensuse.org:
   targets:
     - host: quiz
@@ -135,6 +146,16 @@ seidr1.infra.opensuse.org:
       services:
         - salined
         - salt-api
+slc-monitor1.infra.opensuse.org:
+  targets:
+    - host: slc-monitor1
+      services:
+        - apache2
+slc-monitor2.infra.opensuse.org:
+  targets:
+    - host: slc-monitor2
+      services:
+        - apache2
 tyr.infra.opensuse.org:
   sans:
     - tyr1.infra.opensuse.org
