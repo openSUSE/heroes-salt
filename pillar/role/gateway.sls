@@ -70,6 +70,7 @@ keepalived:
   config:
     global_defs:
       fifo_write_vrrp_states_on_reload: true
+      vrrp_garp_master_refresh: 300
       vrrp_notify_fifo: /run/birdalived/pipe
 
 profile:
