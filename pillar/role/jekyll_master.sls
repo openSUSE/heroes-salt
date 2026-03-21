@@ -40,7 +40,10 @@ profile:
         # www.o.o/openid/ is not handled by Jekyll, HAProxy forwards /openid/ to a different server
     server_list:
       - jekyll.infra.opensuse.org
+      - narwal5.infra.opensuse.org
       - narwal6.infra.opensuse.org
+      - narwal7.infra.opensuse.org
+      - narwal8.infra.opensuse.org
 
 zypper:
   repositories:
