@@ -22,4 +22,5 @@ grains:
     - https://static.opensuse.org
     - https://studioexpress.opensuse.org
 roles:
+  - web_jekyll
   - web_static

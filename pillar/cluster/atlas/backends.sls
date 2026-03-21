@@ -111,7 +111,13 @@ haproxy:
     jekyll:
       {{ options('httpchk') }}
       {{ httpcheck('search.opensuse.org', 200, method='options') }}
-      {{ server('jekyll', '2a07:de40:b27e:1203::e1') }}
+      balance: roundrobin
+      mode: http
+      servers:
+        {{ server('jekyll', '2a07:de40:b27e:1203::e1', 80, header=False) }}
+        {%- for static_server, address in narwals.items() %}
+        {{ server(static_server, address, 80, header=False) }}
+        {%- endfor %}
     kubic:
       {{ options ('httpchk') }}
       {{ httpcheck('kubic.opensuse.org', 200, '/check.txt') }}
