@@ -33,6 +33,10 @@ rebootmgr:
   strategy: 'off'
   {%- endif %}
 
+status-mail:
+  services:
+    - os-update
+
 profile:
   buddycheck:
     services:
