@@ -1,7 +1,8 @@
 include:
   - profile.salt.git
 
-{%- set repo_dir = '/srv/ssh_known_hosts' %}
+{%- set repo_base_dir = '/srv/ssh_known_hosts' %}
+{%- set repo_dir = repo_base_dir ~ '/repository' %}
 {%- set base_script = '/usr/local/bin/salt-known_hosts' %}
 
 salt_known_hosts-scripts:
@@ -19,9 +20,17 @@ salt_known_hosts-scripts:
     - group: root
     - mode: '0755'
 
+{%- if salt['file.directory_exists'](repo_base_dir ~ '/.git') %}
+salt_known_hosts-repository-clean:
+  file.absent:
+    - name: {{ repo_base_dir }}
+    - require_in:
+        - file: salt_known_hosts-repository
+{%- endif %}
+
 salt_known_hosts-repository:
   file.directory:
-    - name: {{ repo_dir }}
+    - name: {{ repo_base_dir }}
     - user: salt
     - group: salt
     - mode: '0755'
@@ -32,4 +41,4 @@ salt_known_hosts-repository:
     - branch: main
     - user: salt
     - require:
-        - file: {{ repo_dir }}
+        - file: {{ repo_base_dir }}
