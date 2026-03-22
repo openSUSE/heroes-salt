@@ -32,6 +32,7 @@ include:
   - profile.nftables
   - os-update
   - rebootmgr
+  - status-mail
   - profile.etckeeper
   - profile.update-os
 
