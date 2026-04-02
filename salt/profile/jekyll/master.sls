@@ -3,6 +3,7 @@
 
 {%- set home = '/home/web_jekyll/' %}
 {%- set gitroot = home ~ 'git/' %}
+{%- set ruby = 'ruby3.4' %}
 
 include:
   - profile.cron
@@ -12,7 +13,7 @@ jekyll_master_pgks:
     - pkgs:
       - git
       - rsync
-      - ruby3.1-devel
+      - {{ ruby }}-devel
       # Needed for planet to work with its database
       - sqlite3-devel
       - libopenssl-devel
@@ -42,6 +43,7 @@ jekyll_master_pgks:
   file.managed:
     - context:
         git_dirs: {{ git_repos }}
+        ruby: {{ ruby }}
         server_list: {{ pillar['profile']['web_jekyll']['server_list'] }}
     - mode: '0755'
     - source: salt://profile/jekyll/files/git_pull_and_update.sh.jinja
