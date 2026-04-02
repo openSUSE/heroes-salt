@@ -26,10 +26,10 @@ update_jekyll() {
     # build the site
     current_md5=$(md5sum "Gemfile.lock" | cut -d " " -f1)
     [[ $(cat Gemfile.lock.md5) != $current_md5 ]] && rm -rf vendor
-    bundle.ruby3.1 config set deployment 'true' || return 5
-    bundle.ruby3.1 install || return 6
-    [[ -f "Rakefile" ]] && bundle.ruby3.1 exec rake
-    bundle.ruby3.1 exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || return 7
+    bundle.{{ ruby }} config set deployment 'true' || return 5
+    bundle.{{ ruby }} install || return 6
+    [[ -f "Rakefile" ]] && bundle.{{ ruby }} exec rake
+    bundle.{{ ruby }} exec jekyll build -d "$DESTDIR/$dir/" && echo $current_md5 > Gemfile.lock.md5 || return 7
 
     # sync to all servers
     cd $DESTDIR || return 10
