@@ -23,6 +23,8 @@ jekyll_master_pgks:
       - tar
       - aspell-devel
       - aspell-en
+      # Needed for search.o.o
+      - libffi-devel
 
 /home/web_jekyll/.ssh/id_ed25519:
   file.managed:
