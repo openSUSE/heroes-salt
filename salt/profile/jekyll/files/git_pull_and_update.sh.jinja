@@ -33,9 +33,18 @@ update_jekyll() {
 
     # sync to all servers
     cd $DESTDIR || return 10
-    for server in $SERVERS ; do
-        rsync -az --exclude '.git' --delete-after "$@" -e ssh "$DESTDIR/$dir/" "web_jekyll@$server:/srv/www/vhosts/$dir/" || retval=11
-    done
+
+    DISABLE_FILE="$BASEDIR/$dir/DISABLE_PUBLISH"
+    if [ -e $DISABLE_FILE ] ; then
+        echo
+        echo "$DISABLE_FILE found - rsync disabled"
+        return 42
+    else
+        for server in $SERVERS ; do
+            rsync -az --exclude '.git' --delete-after "$@" -e ssh "$DESTDIR/$dir/" "web_jekyll@$server:/srv/www/vhosts/$dir/" || retval=11
+        done
+    fi
+
     return $retval  # rsync failures for one server don't abort, but still get reported as error
 }
 
