@@ -1,5 +1,6 @@
 {%- if salt['grains.get']('include_secrets', True) %}
 include:
+  - secrets.role.common.matrix
   - secrets.role.draupnir
 {%- endif %}
 

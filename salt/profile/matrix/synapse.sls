@@ -4,6 +4,7 @@ synapse_dependencies:
   pkg.installed:
     - pkgs:
       - matrix-synapse
+      - synapse-http-antispam
       - {{ python }}-hiredis
       - {{ python }}-txredisapi
 
