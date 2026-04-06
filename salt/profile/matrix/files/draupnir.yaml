@@ -32,3 +32,9 @@ protections:
       - ywnbaw
 recordIgnoredInvites: true
 verboseLogging: false
+web:
+  enabled: true
+  port: 8081
+  synapseHTTPAntispam:
+    enabled: true
+    authorization: "{{ pillar['profile']['matrix']['modules']['synapse_http_antispam']['authorization'] }}"

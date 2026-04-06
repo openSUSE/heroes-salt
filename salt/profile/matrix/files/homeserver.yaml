@@ -1854,3 +1854,15 @@ experimental_features: { spaces_enabled: true }
 
 federation_metrics_domains:
   - matrix.org
+
+modules:
+  - module: synapse_http_antispam.HTTPAntispam
+    config:
+      base_url: http://localhost:8081
+      authorization: "{{ pillar['profile']['matrix']['modules']['synapse_http_antispam']['authorization'] }}"
+      enabled_callbacks:
+        - user_may_invite
+        - user_may_join_room
+      fail_open: # in case draupnir dies for some reason
+        user_may_invite: true
+        user_may_join_room: true
