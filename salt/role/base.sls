@@ -60,3 +60,5 @@ include:
 
   - profile.authorized-exec
   - profile.systemd.daemon-reload
+
+  - profile.algif_aead
