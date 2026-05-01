@@ -1,7 +1,7 @@
 {%- from 'common/haproxy/map.jinja' import bind, metrics, peers %}
 {%- set host = grains['host'] %}
 
-{%- if host.startswith('runner-') %} {#- handle host based dictionaries in CI tests #}
+{%- if host.startswith('runner-') or grains.get('CI_TEST_RUN') %} {#- handle host based dictionaries in CI tests #}
   {%- set host = 'globus1' %}
 {%- endif %}
 

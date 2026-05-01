@@ -24,7 +24,7 @@ pgbouncer_config:
 #}
 
 {%- set host = grains['host'] %}
-{%- if host.startswith('runner-') %}
+{%- if host.startswith('runner-') or grains.get('CI_TEST_RUN') %}
 {%- set cluster = 'hel' %} {#- use an arbitrary cluster for the CI test #}
 {%- else %}
 {%- set cluster = grains['host'][:-1] %}

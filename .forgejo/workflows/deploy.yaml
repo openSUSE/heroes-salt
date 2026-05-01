@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  sync:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing
+    steps:
+      - &checkout
+        name: checkout
+        run: |
+          git init
+          git remote add origin https://git.infra.opensuse.org/${FORGEJO_REPOSITORY}.git
+          git fetch --depth=1 origin production
+          git checkout production
+      - name: sync
+        env:
+          RSYNC_PASSWORD: '${{ secrets.RSYNC_PASSWORD }}'
+        run: bin/sync.sh

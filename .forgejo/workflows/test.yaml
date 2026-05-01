@@ -1,0 +1,194 @@
+on:
+  - push
+
+jobs:
+  lint:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation:latest
+    steps:
+      - &checkout
+        name: checkout
+        run: |
+          # workspace is sometimes owned by root, causing non-root tests to be flaky
+          if [ "$(id -u)" -ne 0 ]
+          then
+            cd
+          fi
+
+          git init
+          git remote add origin https://git.infra.opensuse.org/${FORGEJO_REPOSITORY}.git
+          git fetch --depth=1 origin ${FORGEJO_SHA}
+          git checkout ${FORGEJO_SHA}
+      - name: lint
+        run: cd && bin/lint.sh
+
+  test_validate:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation
+    steps:
+      - *checkout
+      - name: test_validate
+        run: cd && bin/test_validate.sh
+
+  test_show_highstate:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing
+    steps:
+      - *checkout
+      - name: prepare
+        run: bin/prepare_test_env.sh -g -s
+      - name: test_show_highstate
+        run: bin/test_show_highstate.sh
+      - name: store_artifacts
+        if: always()
+        run: artifact upload -name=output_test_show_highstate -path=\*.txt
+
+  test_haproxy:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy
+    steps:
+      - *checkout
+      - name: prepare
+        run: bin/prepare_test_env.sh -g -s
+      - name: test_haproxy
+        run: bin/test_haproxy.sh
+      - name: store_artifacts
+        if: always()
+        run: artifact upload -name=output_test_haproxy -path=\*.txt
+
+  test_nftables:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nftables
+    steps:
+      - *checkout
+      - name: test_nftables
+        run: bin/test_nftables.pl
+      - name: store_artifacts
+        if: always()
+        run: artifact upload -name=output_test_nftables -path=salt/files_rendered/nftables
+
+  test_networks:
+    needs: test_nftables
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-networks
+    steps:
+      - *checkout
+      - name: Retrieve test_nftables artifacts
+        run: artifact download -name=output_test_nftables -path=.
+      - name: test_networks
+        run: bin/test_networks.pl
+
+  test_prometheus:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-prometheus
+    steps:
+      - *checkout
+      - name: correct_hosts
+        if: always()
+        run: echo ::1 ipv6-localhost >> /etc/hosts
+      - name: prepare
+        run: bin/prepare_test_env.sh -s
+      - name: test_prometheus
+        run: bin/test_prometheus.sh
+      - name: store_artifacts
+        if: always()
+        run: |
+          artifact upload -name=output_test_prometheus -path=\*.txt
+          artifact upload -name=output_test_prometheus_rules -path=rules/\*.txt
+
+  test_syslog-ng:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-syslog
+    steps:
+      - *checkout
+      - name: prepare
+        run: bin/prepare_test_env.sh -c -s
+      - name: test_syslog-ng
+        run: bin/test_syslog-ng.sh
+      - name: store_artifacts
+        if: always()
+        run: artifact upload -name=output_test_syslog-ng -path=\*.txt
+
+  generate_role_tests:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing
+    outputs:
+      role_matrix: ${{ steps.render.outputs.role_matrix }}
+    steps:
+      - *checkout
+      - name: render
+        id: render
+        run: bin/render_forgejo_actions_matrix.py
+
+  test_highstate:
+    needs:
+      - generate_role_tests
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-systemd#useImageEntrypoint=true
+    strategy:
+      matrix:
+        role: ${{ fromJSON(needs.generate_role_tests.outputs.role_matrix).highstate }}
+    steps:
+      - *checkout
+      - name: prepare
+        run: bin/prepare_test_env.sh -g -s -m
+      - name: test_highstate
+        run: bin/test_highstate.sh ${{ matrix.role }}
+      - name: store_artifacts
+        if: always()
+        run: artifact upload -name=output_test_highstate_${{ matrix.role }} -path=\*.txt
+
+  test_apache:
+    needs:
+      - generate_role_tests
+    runs-on: normal
+    strategy:
+      matrix:
+        role: ${{ fromJSON(needs.generate_role_tests.outputs.role_matrix).apache }}
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-apache
+    steps:
+      - *checkout
+      - name: correct_hosts
+        if: always()
+        run: echo ::1 ipv6-localhost >> /etc/hosts
+      - name: prepare
+        run: bin/prepare_test_env.sh -c -g -s
+      - name: test_apache
+        run: bin/test_apache.sh ${{ matrix.role }}
+      - name: store_artifacts
+        if: always()
+        run: |
+          artifact upload -name=output_test_highstate_${{ matrix.role }} -path=\*.txt
+          mkdir config
+          mv conf.d vhosts.d config
+          artifact upload -name=output_test_highstate_${{ matrix.role }}_config -path=config/\*.d
+
+  test_nginx:
+    needs:
+      - generate_role_tests
+    runs-on: normal
+    strategy:
+      matrix:
+        role: ${{ fromJSON(needs.generate_role_tests.outputs.role_matrix).nginx }}
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nginx
+    steps:
+      - *checkout
+      - name: prepare
+        run: bin/prepare_test_env.sh -g -s
+      - name: test_nginx
+        run: bin/test_nginx.sh ${{ matrix.role }}
+      - name: store_artifacts
+        if: always()
+        run: artifact upload -name=output_test_highstate_${{ matrix.role }} -path=\*.txt

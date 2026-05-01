@@ -55,6 +55,7 @@ printf "grains:\n  site: prg2\n  hostusage: test\n  reboot_safe: no\n" > "$IDFIL
 cp "$IDFILE" "$IDFILE_BASE"
 
 echo 'domain: infra.opensuse.org' > /etc/salt/grains
+echo 'CI_TEST_RUN: True' >> /etc/salt/grains
 
 if [[ -n "$HIGHSTATE" ]]; then
     printf '\nsite: prg2\ninclude_secrets: %s\n' "$SECRETS" >> /etc/salt/grains
