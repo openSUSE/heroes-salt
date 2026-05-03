@@ -15,8 +15,6 @@ profile_forgejo_server_files:
             - template: jinja
     - require:
         - pkg: profile_forgejo_server_packages
-    - watch_in:
-        - service: profile_forgejo_server_service
 
 {%- set branding = salt['pillar.get']('profile:forgejo:server:branding') %}
 profile_forgejo_server_templates:
@@ -38,8 +36,6 @@ profile_forgejo_server_templates:
 {%- endif %}
     - require:
         - pkg: profile_forgejo_server_packages
-    - watch_in:
-        - service: profile_forgejo_server_service
 
 profile_forgejo_server_ssh_key_directory:
   file.directory:
@@ -79,3 +75,6 @@ profile_forgejo_server_service:
     - enable: true
     - require:
         - pkg: profile_forgejo_server_packages
+    - watch:
+        - file: profile_forgejo_server_files
+        - file: profile_forgejo_server_templates
