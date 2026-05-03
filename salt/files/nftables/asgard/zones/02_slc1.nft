@@ -10,8 +10,8 @@ chain input_network_slc1 {
   jump global_internal
 
   # remote Salt Masters -> GitLab
-  oif os-internal ip6 saddr @host6_volva ip6 daddr $host6_mickey tcp dport https accept
-  oif os-internal ip6 saddr @host6_volva-nw ip6 daddr $host6_mickey tcp dport https accept
+  oif os-internal ip6 saddr @host6_volva ip6 daddr $host6_mickey_git tcp dport { https, ssh } accept
+  oif os-internal ip6 saddr @host6_volva-nw ip6 daddr $host6_mickey_git tcp dport { https, ssh } accept
 
   # remote Salt Syndics -> Master of Masters
   oif os-salt ip6 saddr @host6_volva ip6 daddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
@@ -20,7 +20,7 @@ chain input_network_slc1 {
   oif os-salt ip6 saddr @host6_volva-nw ip6 daddr @host6_seidr tcp dport 4505-4506 accept
 
   # remote GitLab Runners
-  oif os-internal ip6 saddr @host6_gitlab-runner_slc ip6 daddr $host6_mickey tcp dport https accept
+  oif os-internal ip6 saddr @host6_gitlab-runner_slc ip6 daddr $host6_mickey_git tcp dport https accept
   oif os-salt ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept
   oif os-salt ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_seidr tcp dport 4550 accept
   oif os-salt ip6 saddr @host6_gitlab-runner_slc ip6 daddr $host6_witch1 icmpv6 type { echo-reply, echo-request } accept

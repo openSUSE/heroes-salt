@@ -8,9 +8,9 @@
    ip6 saddr @lan_ipv6_slc1 ip6 daddr @net6_os-salt ip6 nexthdr icmpv6 accept
    ip6 saddr @net6_os-salt ip6 daddr @lan_ipv6_slc1 ip6 nexthdr icmpv6 accept
 
-   # volva -> mickey (for GitLab repository access via HTTPS)
-   oifname @if_s2s ip6 saddr @host6_volva ip6 daddr @host6_mickey tcp dport https accept
-   oifname @if_s2s ip6 saddr @host6_volva-nw ip6 daddr @host6_mickey tcp dport https accept
+   # volva -> mickey (for GitLab repository access via HTTPS/SSH)
+   oifname @if_s2s ip6 saddr @host6_volva ip6 daddr @host6_mickey_git tcp dport { https, ssh } accept
+   oifname @if_s2s ip6 saddr @host6_volva-nw ip6 daddr @host6_mickey_git tcp dport { https, ssh } accept
 
    # volva -> seidr (for Salt Syndic -> Master connectivity)
    oifname @if_s2s ip6 saddr @host6_volva ip6 daddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept

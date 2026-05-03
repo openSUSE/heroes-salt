@@ -19,3 +19,6 @@ define host4_{{ host }}{{ ( '= ' ~ ip4.split('/')[0] ) | indent(20 - host | leng
     {%- endif %}
   {%- endfor %}
 {%- endfor %}
+
+# Services
+define host6_mickey_git = 2a07:de40:b27e:1203::b44/128

@@ -23,6 +23,16 @@ then
 	mkdir "$site"
 fi
 
+{#- have only one location manage service keys #}
+{%- if site == 'prg2' %}
+if [ ! -d services ]
+then
+	mkdir services
+fi
+
+{{ base_script }} --static > services/known_hosts
+{%- endif %}
+
 {{ base_script }} > "$site"/known_hosts
 
 if [ -z "$(git status --porcelain)" ]
