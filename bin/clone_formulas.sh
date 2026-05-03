@@ -10,5 +10,5 @@ if [ -d "$FORMULASDIR" ]
 then
   git -C "$FORMULASDIR" pull -j "$JOBS" -q --recurse-submodules
 else
-  git clone -b production -j "$JOBS" -q --recurse-submodules --single-branch https://gitlab.infra.opensuse.org/infra/salt-formulas-git.git "$FORMULASDIR"
+  git clone -b production -j "$JOBS" -q --recurse-submodules --single-branch https://git.infra.opensuse.org/infra/salt-formulas-git.git "$FORMULASDIR"
 fi

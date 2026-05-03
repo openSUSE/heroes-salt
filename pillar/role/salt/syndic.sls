@@ -58,7 +58,7 @@ infrastructure:
       - infrastructure-formula-python
     git:
       formulas:
-        repository: https://gitlab.infra.opensuse.org/infra/salt-formulas-git.git
+        repository: https://git.infra.opensuse.org/infra/salt-formulas-git.git
     scriptconfig:
       ssh_key: /root/.ssh/salt-mm
 
