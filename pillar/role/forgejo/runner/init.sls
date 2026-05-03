@@ -16,7 +16,12 @@ profile:
           fetch_interval: 3s
           report_interval: 2s
           labels:
-            - normal:docker://registry.opensuse.org/opensuse/leap:16.0
+            {%- set default_image = 'docker://registry.opensuse.org/opensuse/leap:16.0' %}
+            - normal:{{ default_image }}
+            {%- set site = grains.get('site') %}
+            {%- if site %}
+            - {{ site }}:{{ default_image }}
+            {%- endif %}
         container:
           enable_ipv6: true
           privileged: true
