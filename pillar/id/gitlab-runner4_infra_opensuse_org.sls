@@ -16,4 +16,14 @@ grains:
     - gitlab-runner3.infra.opensuse.org
   weburls: []
 roles:
+  - forgejo.runner.internal
   - gitlab_runner
+
+profile:
+  forgejo:
+    runner:
+      config:
+        server:
+          connections:
+            forgejo-internal:
+              uuid: 64656636-6532-6264-3237-623939316333
