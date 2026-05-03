@@ -36,9 +36,15 @@ salt_known_hosts-repository:
     - mode: '0755'
 
   git.cloned:
-    - name: https://gitlab.infra.opensuse.org/infra/ssh_known_hosts.git
+    - name: https://git.infra.opensuse.org/infra/ssh_known_hosts.git
     - target: {{ repo_dir }}
     - branch: main
     - user: salt
     - require:
         - file: {{ repo_base_dir }}
+
+salt_ssh_key:
+  cmd.run:
+    - name: ssh-keygen -f /var/lib/salt/.ssh/id_ed25519 -N '' -t ed25519
+    - runas: salt
+    - creates: /var/lib/salt/.ssh/id_ed25519
