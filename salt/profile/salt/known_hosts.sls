@@ -36,7 +36,7 @@ salt_known_hosts-repository:
     - mode: '0755'
 
   git.cloned:
-    - name: https://git.infra.opensuse.org/infra/ssh_known_hosts.git
+    - name: ssh://git@git.infra.opensuse.org/infra/ssh_known_hosts.git
     - target: {{ repo_dir }}
     - branch: main
     - user: salt
