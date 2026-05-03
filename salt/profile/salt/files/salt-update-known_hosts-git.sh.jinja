@@ -39,7 +39,7 @@ if [ -z "$(git status --porcelain)" ]
 then
 	echo 'Nothing to do.'
 else
-	git add "$site"
+	git add "$site" services
 	# TODO: commit signing
 	#GNUPGHOME=/etc/salt/gpgkeys git commit -sm 'Scripted update'
 	git commit -m "Scripted update for $site_upper"
