@@ -295,11 +295,11 @@ set host6_logger-prg {
   }
 }
 
-set host6_mickey {
+set host6_mickey_git {
   type ipv6_addr
   flags interval
   elements = {
-    2a07:de40:b27e:1203::b43/128,
+    $host6_mickey_git,
   }
 }
 

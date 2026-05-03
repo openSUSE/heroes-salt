@@ -10,7 +10,7 @@
   oif os-p2p-pub ip6 saddr $host6_quiz ip6 daddr @cloud6_npmjs icmpv6 type { echo-request, echo-reply } accept
   oif os-p2p-pub ip6 saddr $host6_quiz ip6 daddr @cloud6_npmjs tcp dport https accept
 
-  oif os-internal ip6 saddr $host6_kudos-prod ip6 daddr $host6_mickey tcp dport https accept  # access to gitlab.i.o.o
+  oif os-internal ip6 saddr $host6_kudos-prod ip6 daddr $host6_mickey_git tcp dport https accept  # access to gitlab.i.o.o
   oif os-p2p-pub ip6 saddr $host6_kudos-prod ip6 daddr @cloud6_obs-src tcp dport https accept
   oif os-public ip6 saddr $host6_kudos-prod ip6 daddr $host6_atlas tcp dport https accept  # access to matrix.o.o
 

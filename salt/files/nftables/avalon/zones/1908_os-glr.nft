@@ -8,7 +8,7 @@ chain input_network_os-glr {
   ip6 saddr @net6_os-glr ip6 daddr @self6_glr ip6 nexthdr icmpv6 icmpv6 type { echo-reply, echo-request } accept
 
   # GitLab uplink
-  ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_mickey tcp dport https accept
+  ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_mickey_git tcp dport https accept
 
   # Salt repository deployment
   ip6 saddr @host6_gitlab-runner_slc ip6 daddr @host6_seidr icmpv6 type { echo-reply, echo-request } accept

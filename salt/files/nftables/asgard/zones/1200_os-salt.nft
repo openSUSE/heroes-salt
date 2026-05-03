@@ -8,8 +8,8 @@
   ip6 saddr @lan_ipv6_prg2 ip6 daddr $net6_os-salt ip6 nexthdr icmpv6 accept
   ip6 saddr $net6_os-salt ip6 daddr @lan_ipv6_prg2 ip6 nexthdr icmpv6 accept
 
-  # os-salt -> mickey (for GitLab repository access via HTTPS)
-  ip6 saddr $net6_os-salt ip6 daddr $host6_mickey tcp dport https accept
+  # os-salt -> mickey (for GitLab repository access via HTTPS/SSH)
+  ip6 saddr $net6_os-salt ip6 daddr $host6_mickey_git tcp dport { https, ssh } accept
 
   log prefix "[Salt Denied] " reject with icmpv6 type admin-prohibited
  }
