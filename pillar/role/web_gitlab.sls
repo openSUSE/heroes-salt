@@ -42,7 +42,7 @@ nginx:
               - ~^(?<temp>.*)\?: $temp
           ## Redirects all HTTP traffic to the HTTPS host
           - server:
-              - listen: '[::]:80 ipv6only=on default_server'
+              - listen: '[2a07:de40:b27e:1203::b43]:80 ipv6only=on default_server'
               - server_name: gitlab.infra.opensuse.org
               - server_tokens: 'off'
               - location /:
@@ -50,7 +50,7 @@ nginx:
               - access_log: /var/log/nginx/gitlab_access.log gitlab_ssl_access
               - error_log: /var/log/nginx/gitlab_error.log
           - server:
-              - listen: '[::]:443 ipv6only=on ssl default_server'
+              - listen: '[2a07:de40:b27e:1203::b43]:443 ipv6only=on ssl default_server'
               - server_name: gitlab.infra.opensuse.org
               - server_tokens: 'off'
               ## Strong SSL Security

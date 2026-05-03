@@ -1,0 +1,2 @@
+{{ pillar['managed_by_salt'] }}
+{{ salt['pillar.get']('profile:forgejo:runner:config', {}) | yaml(False) }}

@@ -2,6 +2,71 @@
 {%- from 'role/common/gitlab_runner/macros.jinja' import runner %}
 
 profile:
+  forgejo:
+    runner:
+      config:
+        server:
+          connections:
+            forgejo-internal:
+              token: |
+                -----BEGIN PGP MESSAGE-----
+
+                hQQOA7A9CHm0S6RyEA/9Fl21iOlt1brwCS9uKjTwMtWG0re80VVSzVplqJ2AWM+6
+                DKqMmGkfJRtViFw8LBFoTYJSyBk15sXGsgokabTUrEexT6qiAJupZX5PSjcu3eEl
+                uC4DSXo90QoeNL2mNyZ2Ey7jNHqjzbnjGWBx9Bt+kEswZta8Gv4oGUvrZDFHY1XY
+                KxXpDeKgNk7IUECoxSvRGjMi18Q0TbJivgzAopZXMr9vz9oaqn+R0mka3Y5qs+Ja
+                4bY5fwF36PDDKFhZjKgONh+99qHRMBCyTwBiwg1vQbMIA59hzFMoiusxjMJNozvf
+                YvxlC95HbrTO4Tt0iGX6RqoWfEG1fYBlkfQhJgc61LigY+y7dFJYxjJwtktdrAHR
+                KPCxYJ+4CkaU1jBuMS90Gjg4PlJzPooIb61Y+jLGpu68yLH7eFSNCaBZK9RBbpwZ
+                FXo4xcEeTocU6CVxcka1+5iXDwo+0JS1aJettnPaabMTKpFRkP1KTBEB/yi2juwT
+                fhb07X4fC2OZLXKwvy8LqOmYciMCKrMjUTEvlAq94se3XyBl+XSAFgIOzosihaXA
+                Ai9WD5RlJv5MqLAkS9c4ydXLLkYhkT4y9paNr3PFLlu1chkZRHeSFfeeT++kBtA6
+                wUocY9ml5cVpyvNVYNAUsPN/0A1X+IVePaV/nwcNABM3q0RnyE//7DRLlUPQBqAP
+                /Rq9648/MgUAFqgpx0gx7zA2O2Esfvub6YhNqFBFFBj4aIkQB3we4nmWCJgYxvrM
+                1WzjfUSa0EkxrZpl5fZRMlOYLqW/Qhdw3yd5Zaj7Zog1rt3IZCyVrkJRc+S/fdb8
+                43FhRwqhk+DKsbqBhN4qbwHq59cFm4VMlYdwtoUlVzXMYTOXNlfg16+UC5Nj2nXJ
+                xk5GKy32KPv1+KotDKoCt46Ozx5GTzCICBTrnNiRkPDHFp13csz3rfKIGdhIOaoW
+                JXyS3yFn0UmiFGU5f3PK9j8cYYs6gXzZkWYg0OKIGLILXwDB9y9BvnxEYGp8cq9U
+                4TVksZrMNhj/SiJrySose13HliBi3SIC3Ab0GmGTm4n8az3dx1RDH4BW3dERGmyq
+                DAGL186U309Rs+JYHlKTHULV0nrTflHwfWCxFI3EUgkrtKo+MyikCCzhRwnjgn7V
+                qRG5l09q5zqJ9Qx1vMHGvSo32IVWi6K0+BA5FZYPab/VJLpXAFqbTQIhaAOpIb4J
+                lY4jFKvoKnw47rK7/XhcHMITlaePZA2R+Ok1b1NVKX/boR7Dt7WG4zjzlrAThV+G
+                H+QoB6fxG19IzqGidaEO7Wkog0eqvhaR7xsDDZt0Gei0GGwNrsjNcZpRliPCh0KB
+                DZJBg+wmc4i8KFVpIb5TUQH2m76QlkzpdM8N0J0sYWFhhQIMA8amgupjyC8cAQ/+
+                P5Zlhq/kPUvxOy32tvtL++hBZOS4O3FCe4Y7ewnUMAtXNCG00oDtwjx0Ni+ugpJx
+                96ph0XuTBvV7xeLw1TIw8KlJ0V6w3D7JLIJUszuG6uQRYdJPsLyum1ezj7ZIRd+H
+                hpA1alIt1jaQH35TQWGlQKbV5fcHBVZR/v/uifGnaw92tH2PGRUtdS5hLl4GZzxE
+                KMdwbMz/0awe+qGHXICtOJYaull7b2lWt7q8XJoDIdjfcUa7Fy/1Ucoa8xLoZnb4
+                RrDunDTh68lpWQcdRNcEmlDuxGz0lYRlUB4Gw50LMoamumoSltHUkx97JBY7gfNb
+                mFHAufwiBd/S362tpQOWQHtbupxORJBkzS1+O8IkwcEIifblI0fy7xXKPFKAQOUc
+                TgZqFlVwFyfULU9TgYSg0LvwNqd8f/YD2GYI1vgxAIhItMHHcy7jGJ2pAlVeOYES
+                7mqT+e/LpD+fP5p8cihLbCIbRLu0Ce/osE+CVJjOOu+cWcC6leSozHg8+QICKZAl
+                hXf438coc2sSvB+23q/VF2YvqHHnd74HdjVxpMeptwJtR1TcrrOfgY9GAI1mgsKm
+                ElQFYIJa84E9/kKcVNx9tU03bqSGzuDTP7A6IenQruDCHoizOTz8bx8dV0IZ1dW4
+                WTBD+L2ZiKxPBvKAqlSuGQL8oC9ZGqfm7GmFWu6rrbCFAg4DiLcKbyvsTOYQB/0U
+                5XLuidEveET9PuTychCOmQ1G7MbyNsY5uSstw0BXkTAiFBENGX8ifz6sxXmg/83U
+                WbADe8u1bINioJRahqI2Ck1fOEXunaFn3xB8no+wTtJbhTeDhXTdQ2ZIQYmi25qi
+                oZUpH2HQ+TMQR2UI2+uBRPCucdOuavdlmQgR1m5wAnli0Q7aQgsN0bUd5aoCrc1H
+                MbDUq6qabc4fpxg4r5J3eWrhRJ9on+e35fbhK9QaGUkMX5w4ZBSc92f6RzXHTEpI
+                xJGbujmWWCbA+BOWmEtUM4ap3BxgWJasQUS19sNZJxhUR0wX0AvAmz52Aa01uCVL
+                Fyayxa0JJQ8Dan864cAnB/9fdtmZRp+CCU/emRoCkIy/SUHCQORInOq5JQdMSL3L
+                M7ZX4/0qnNZLteXdYLamxkkzmTrTWhAsqdmglpjQK9sz0sFUxQf4jDu0KOI+iLFq
+                uA9bySr3XxiObFK3XooBAgAILdn6OUf4BdE7MU9YWjrBJkcUj2VRfX6f3ZcvYGOK
+                e1yyrv2H/LbV0ydpcHwUrlniQ9cfiaoGZh/dxBE+u4Tf4agjh77ELC+9XGgLHzwu
+                IZdsDsLw0PBRiBm9/Fm12nI98FUIF2AvnabfKUU8PO0g+7jQBn3nHIvjaq2fRTo3
+                ekMr3Th6sCy8V8LHO3YjtqQA3tT/F+iPkGYd7d+kDK4jhF4Dx56WF/g6QEwSAQdA
+                ZS4sqInD14Qgyi/gRxWjxlJnGL634JtdJypWF5m4mw4w4dXhkY5qAN/V+nEEZ9p/
+                VGaCguoo/VHqTQgfbJ2UX5eMDQcsCu/s6MfuaWPK+dTfhF4D+qb0QqJGs2ASAQdA
+                OqBz6T+rc4YkAnAzKLzk00YvR+DI/gSlzZ+j5n/7uFgwcW4fwWUsy0hbW/LaAnX1
+                ZAV4NADbOMBrgmX8aBcm5znWTlWiUQ4Oyf2QQJiUM3vChF4Dy6xlJ4yoQMkSAQdA
+                cwvpfan5iq5KPv0JCScgKqnZVxae+3GfKqyERAows1gwYclarqgRNy38WkKF38/R
+                lpjXbxNoXCZsal63LOq9o/b/ywuCOxr3a7MubueiH9YjhF4DJxnsf5W3ZzASAQdA
+                Uo0H4rTjCCjj6ykEDRucT24OWCOs/eDr17Ag2507om4w4ls8cJQeWuH6uCO3+vKG
+                MSHuVEfp9vx+HkIRwmtekUS/rB9lAom/S/rvA87R/Alq0mMBS3y3EJpJ9/UzAJI2
+                W6PNsE/CLT7G87bHA+7Sb3cWGDX2kZJq0koeJdaa7HfzoHFhKCqu8vLpEfUJ8I7Y
+                Rv0NQVTyi2Xuk0VpIGD+TD1xWihtyNdHsf+cL0H+WIfBQYhk1hU=
+                =hfqC
+                -----END PGP MESSAGE-----
   gitlab_runner:
     config:
       runners:

@@ -1,0 +1,32 @@
+{%- load_yaml as config_base -%}
+server:
+  protocol: https
+  http_port: 443
+  static_root_path: /usr/share/forgejo
+cors:
+  enabled: true
+security:
+  install_lock: true
+session:
+  same_site: strict
+metrics:
+  enabled: true
+{%- endload -%}
+{%- set config = salt['pillar.get']('profile:forgejo:server:config', default=config_base, merge=True) -%}
+{{ pillar['managed_by_salt'] }}
+
+APP_NAME = {{ config.pop('app_name') }}
+WORK_PATH = /var/lib/forgejo
+{% for section, options in config.items() %}
+  {%- do salt.log.error(section) %}
+  {%- do salt.log.error(options) %}
+[{{ section }}]
+{%- for key, value in options | dictsort %}
+  {%- if value is sameas true or value is sameas false %}
+    {%- set value = value | string | lower %}
+  {%- elif value is iterable and value is not mapping and value is not string %}
+    {%- set value = ','.join(value) %}
+  {%- endif %}
+{{ key | upper }} = {{ value }}
+{%- endfor %}
+{% endfor %}

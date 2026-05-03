@@ -13,4 +13,4 @@ grains:
   weburls:
     - https://code-dev.opensuse.org
 roles:
-  - forgejo
+  - forgejo.server.public

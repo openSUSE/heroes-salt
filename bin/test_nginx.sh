@@ -71,7 +71,10 @@ printf 'roles:\n- %s' "$role" >> "$IDFILE"
 # to bind to any configured listen IP
 if [ -f "pillar/role/$role.sls" ]
 then
-  sed -i -e "s/{{ ip4_.* }}/127.0.0.1/g" "pillar/role/$role.sls"
+  sed -i \
+    -e "s/{{ ip4_.* }}/127.0.0.1/g" \
+    -e 's/2a07:de40:[0-9a-f:]*/::/' \
+    "pillar/role/$role.sls"
 fi
 
 # RuntimeDirectory
