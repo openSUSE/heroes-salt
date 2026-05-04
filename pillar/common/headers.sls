@@ -4,7 +4,7 @@ managed_by_salt: |
   ##################################################
   # If you would like to modify this file, please
   # submit a merge request to our Salt repository:
-  # https://gitlab.infra.opensuse.org/infra/salt
+  # https://git.infra.opensuse.org/infra/salt
   #
 
 managed_by_salt_sysconfig: |
@@ -13,7 +13,7 @@ managed_by_salt_sysconfig: |
   #
   # If you would like to modify this file, please
   # submit a merge request to our Salt repository:
-  # https://gitlab.infra.opensuse.org/infra/salt
+  # https://git.infra.opensuse.org/infra/salt
   #
 
 managed_by_salt_ini: |
@@ -22,7 +22,7 @@ managed_by_salt_ini: |
   ;#################################################
   ; If you would like to modify this file, please
   ; submit a merge request to our Salt repository:
-  ; https://gitlab.infra.opensuse.org/infra/salt
+  ; https://git.infra.opensuse.org/infra/salt
   ;
 
 managed_by_salt_xml: |
@@ -32,7 +32,7 @@ managed_by_salt_xml: |
   ##################################################
   # If you would like to modify this file, please
   # submit a merge request to our Salt repository:
-  # https://gitlab.infra.opensuse.org/infra/salt
+  # https://git.infra.opensuse.org/infra/salt
   -->
 
 managed_by_salt_lua: |
@@ -41,7 +41,7 @@ managed_by_salt_lua: |
   -- #################################################
   --  If you would like to modify this file, please
   --  submit a merge request to our Salt repository:
-  --  https://gitlab.infra.opensuse.org/infra/salt
+  --  https://git.infra.opensuse.org/infra/salt
   --
 
 managed_by_salt_formula: |
@@ -51,7 +51,7 @@ managed_by_salt_formula: |
   # If you would like to change configuration values
   # set by this file, please submit a merge request
   # modifying the pillar to our Salt repository:
-  # https://gitlab.infra.opensuse.org/infra/salt
+  # https://git.infra.opensuse.org/infra/salt
   #
   # If you would like to contribute to the Salt
   # states or templates generating this file, please
@@ -66,7 +66,7 @@ managed_by_salt_formula_sysconfig: |
   # If you would like to change configuration values
   # set by this file, please submit a merge request
   # modifying the pillar to our Salt repository:
-  # https://gitlab.infra.opensuse.org/infra/salt
+  # https://git.infra.opensuse.org/infra/salt
   #
   # If you would like to contribute to the Salt
   # states or templates generating this file, please
@@ -82,7 +82,7 @@ managed_by_salt_formula_xml: |
   # If you would like to change configuration values
   # set by this file, please submit a merge request
   # modifying the pillar to our Salt repository:
-  # https://gitlab.infra.opensuse.org/infra/salt
+  # https://git.infra.opensuse.org/infra/salt
   #
   # If you would like to contribute to the Salt
   # states or templates generating this file, please

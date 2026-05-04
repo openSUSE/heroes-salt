@@ -677,7 +677,7 @@ set cloud6_publicsuffix {
 set cloud46_akismet {
   type ipv6_addr
   flags interval
-  elements = { # generated using https://gitlab.infra.opensuse.org/infra/scripts/-/blob/master/4to6/akismet-4to6.py
+  elements = { # generated using https://git.infra.opensuse.org/infra/scripts/src/branch/master/4to6/akismet-4to6.py
     2a07:de40:b27e:64::c000:50f4/128,
     2a07:de40:b27e:64::c000:50f6/128,
     2a07:de40:b27e:64::c000:60f7/128,
@@ -753,7 +753,7 @@ set cloud46_sentry_organization {
 set cloud46_github_web {
   type ipv6_addr
   flags interval
-  elements = { # generated using https://gitlab.infra.opensuse.org/infra/scripts/-/blob/master/4to6/github-4to6.py
+  elements = { # generated using https://git.infra.opensuse.org/infra/scripts/src/branch/master/4to6/github-4to6.py
     2a07:de40:b27e:64::141b:b171/128,
     2a07:de40:b27e:64::141d:8617/128,
     2a07:de40:b27e:64::1457:f500/128,

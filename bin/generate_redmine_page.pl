@@ -88,7 +88,7 @@ my $redmine_header="
 Machines
 ========
 
-This is a placeholder for some wiki pages containing more details about machines and their setups. The list below is generated based on the [pillar/id](https://gitlab.infra.opensuse.org/infra/salt/tree/production/pillar/id) information in [our Salt Repo in Gitlab](https://gitlab.infra.opensuse.org/).
+This is a placeholder for some wiki pages containing more details about machines and their setups. The list below is generated based on the [pillar/id](https://git.infra.opensuse.org/infra/salt/tree/production/pillar/id) information in [our Salt repository](https://git.infra.opensuse.org/infra/salt).
 
 You need a GIT checkout of the repository and the following perl modules installed on your system:
 
