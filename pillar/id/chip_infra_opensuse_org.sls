@@ -14,7 +14,7 @@ grains:
 motd:
   - '====='
   - 'DNS zones are managed through Git now.'
-  - 'Submit your changes to https://gitlab.infra.opensuse.org/infra/dns.'
+  - 'Submit your changes to https://git.infra.opensuse.org/infra/dns.'
   - 'Manual changes will be reverted. No mercy.'
   - '======'
 roles:
