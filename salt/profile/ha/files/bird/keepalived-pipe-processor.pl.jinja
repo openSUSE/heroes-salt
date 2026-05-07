@@ -41,11 +41,11 @@ $SIG{TERM} = \&terminate;
 
 while(1) {
 	# in case Keepalived is still starting up
-	my $attempts = 3;
+	my $attempts = 5;
 	for my $i (1..$attempts) {
 		print STDERR "Attempting to open FIFO pipe ...\n";
 		last if open($fh, '<', $pipe) or do { print STDERR "Failed to open FIFO pipe at $pipe: $!\n"; die "Giving up.\n" if ($attempts == $i); };
-		sleep(2);
+		sleep(3);
 		$i++;
 	}
 
