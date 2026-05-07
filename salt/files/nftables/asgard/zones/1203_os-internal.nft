@@ -160,7 +160,8 @@ vim:filetype=nftables.jinja
   # Syslog
   ip6 saddr @self6_internal ip6 daddr $host6_monitor tcp dport 514 accept
   # DNS/NTP/SMTP
-  ip6 saddr @self6_internal ip6 daddr @host6_hel udp dport { domain, ntp, smtp } accept
+  ip6 saddr @self6_internal ip6 daddr @host6_hel tcp dport { domain, smtp } accept
+  ip6 saddr @self6_internal ip6 daddr @host6_hel udp dport { domain, ntp } accept
   # HTTPS (for idm.i.o.o)
   ip6 saddr @self6_internal ip6 daddr @host6_hel tcp dport https accept
   # BuddyCheck
