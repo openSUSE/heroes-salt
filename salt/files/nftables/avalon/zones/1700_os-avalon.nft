@@ -12,6 +12,8 @@
 
    # Monitoring
    ip6 saddr @host6_monitor ip6 daddr @host6_avalon tcp dport 9100 accept
+   # BuddyCheck
+   ip6 saddr @host6_avalon ip6 daddr @host6_avalon tcp dport 9100 accept
 
    # ICMP (echo, neighbor discovery, etc.), OSPF (BIRD), VRRP (Keepalived),
    ip6 nexthdr { icmpv6, ospfigp, vrrp } accept
