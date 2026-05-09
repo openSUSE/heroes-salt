@@ -24,7 +24,7 @@ haproxy_trees:
         {%- if grains['host'].rstrip('12') in [
               'atlas',
               'globus',
-            ] or 'runner' in grains['host'] or grains.get('CI_TEST_RUN')
+            ] or grains.get('CI_TEST_RUN')
         %}
         - /etc/haproxy/robots:
             - source: salt://{{ slspath }}/files/etc/haproxy/robots

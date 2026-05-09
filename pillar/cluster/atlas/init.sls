@@ -4,7 +4,7 @@
 -%}
 {%- set host = grains['host'] %}
 
-{%- if host.startswith('runner-') or grains.get('CI_TEST_RUN') %} {#- handle host based dictionaries in CI tests #}
+{%- if grains.get('CI_TEST_RUN') %} {#- handle host based dictionaries in CI tests #}
   {%- set host = 'atlas1' %}
 {%- endif %}
 

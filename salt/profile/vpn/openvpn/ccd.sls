@@ -25,7 +25,7 @@ def run():
   def has_expired(user_spn):
 
     # LDAP secrets are not available in the test environment
-    if ( __grains__['id'].startswith('runner-') or __grains__.get('CI_TEST_RUN') ) and __opts__['test']:
+    if __grains__.get('CI_TEST_RUN') and __opts__['test']:
       return None
 
     user_expiry = __salt__['ldap3.search'](
