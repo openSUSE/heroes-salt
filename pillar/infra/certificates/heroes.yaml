@@ -22,12 +22,10 @@ download.infra.opensuse.org:
       services:
         - nginx
 git.infra.opensuse.org:
-  sans:
-    - gitlab.infra.opensuse.org
   targets:
     - host: mickey
       services:
-        - nginx
+        - forgejo
 globus1.infra.opensuse.org:
   targets:
     - host: globus1
