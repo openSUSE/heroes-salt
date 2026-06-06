@@ -7,10 +7,9 @@
     - user: synapse
 
 https://github.com/turt2live/matrix-dimension.git:
-  git.latest:
+  git.cloned:
     - branch: master
     - target: /var/lib/matrix-synapse/dimension
-    - rev: master
     - user: synapse
 
 dimension_conf_file:
@@ -45,9 +44,9 @@ dimension_systemd_file:
       - service: dimension_service
 
 dimension_service:
-  service.running:
+  service.dead:
     - name: dimension
-    - enable: True
+    - enable: False
     - require:
       - service: synapse_service
     - watch:
