@@ -24,6 +24,7 @@ network:
             'os-ipmi-ur': 1001,
           },
           'ob': {
+            'os-asgard-m': 1003,
             's-j-os-out': 3202,
             's-na-mgmt': 3339,
           },

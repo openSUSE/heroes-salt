@@ -29,6 +29,7 @@ network:
       firewall: false
 
     # VLAN interfaces for generic (non-VRRP) VM connectivity
+    {{ vlantap('os-asgard-m', 1003, 'bond-ob') }}
     {{ vlantap('os-internal', 1203, 'bond-ob') }}
 
   {{ default_gateway('prg2', 'openSUSE-bare') }}
