@@ -25,6 +25,11 @@ bootloader:
       {%- if virtual == 'physical' %}
         {%- set cmdline = 'console=ttyS0,15200 console=tty0 loglevel=4 mitigations=auto preempt=full' %}
 
+        {#- TODO: ugly to hardcode id conditions here; nice would be to improve the formula to support dicts as a value, then to extend in the respective cluster or role pillars #}
+        {%- if grains.id.startswith('orbit') %}
+          {%- set cmdline = cmdline ~ ' cpufreq.default_governor=performance processor.max_cstate=1' %}
+        {%- endif %}
+
       {%- if grains.get('fc_host') %}
         {#- raise maximum LUNs on machines with fiber channel storage #}
         {%- set cmdline = cmdline ~ ' lpfc.lpfc_max_luns=4095' %}

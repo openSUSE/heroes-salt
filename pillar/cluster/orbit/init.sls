@@ -8,6 +8,12 @@ network:
     {{ slave }}:
       bootproto: none
       firewall: false
+      {%- if slave[0:3] == 'fib' %}
+      ethtool_options: >-
+        -G x
+        rx 4096
+        {#- QQ: increase of tx also needed ? #}
+      {%- endif %}
     {%- endfor %}
 
     # LACP bonds
@@ -33,6 +39,12 @@ network:
     {{ vlantap('os-internal', 1203, 'bond-ob') }}
 
   {{ default_gateway('prg2', 'openSUSE-bare') }}
+
+profile:
+  udev:
+    net:
+      asgard[12]_1:  # _1 is the passthrough interface
+        tx_queue_len: 4096
 
 firewalld:
   enabled: true

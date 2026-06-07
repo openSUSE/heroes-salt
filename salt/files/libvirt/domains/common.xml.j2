@@ -10,6 +10,18 @@
   {%- set vcpu_min = vm_cores | int %}
   {%- set vcpu_max = ( vcpu_min * 1.5 + 0.5 ) | int %}
   <vcpu current='{{ vcpu_min }}'>{{ vcpu_max }}</vcpu>
+  {%- if vm_name.startswith('asgard') %}
+  <cputune>
+    <vcpupin vcpu='0' cpuset='4'/>
+    <vcpupin vcpu='1' cpuset='5'/>
+    <vcpupin vcpu='2' cpuset='6'/>
+    <vcpupin vcpu='3' cpuset='7'/>
+    <emulatorpin cpuset='8-11'/>
+  </cputune>
+  <numatune>
+    <memory nodeset='0'/>
+  </numatune>
+  {%- endif %}
   <cpu mode='custom' match='exact'>
     <model fallback='forbid'>EPYC-Rome</model>
     <vendor>AMD</vendor>
@@ -86,10 +98,14 @@
     {%- set iftype = ifconfig['type'] %}
     <interface type='{{ iftype }}'{{ ' trustGuestRxFilters=\'yes\'' if iftype == 'direct' else '' }}>
       <mac address='{{ ifconfig['mac'] }}'/>
-      <source {{ 'bridge' if iftype == 'bridge' else 'dev' }}='{{ ifconfig['source'] }}'{{ ' mode=\'' ~ ifconfig['mode'] ~ '\'' if 'mode' in ifconfig else '' }}/>
+      {%- set mode = ifconfig.get('mode') %}
+      <source {{ 'bridge' if iftype == 'bridge' else 'dev' }}='{{ ifconfig['source'] }}'{{ ' mode=\'' ~ mode ~ '\'' if mode else '' }}/>
       <target dev='{{ vm_interface_name }}_{{ ifconfig['source'][:4] if iftype == 'bridge' else loop.index }}'/>
       <model type='virtio'/>
       <alias name='{{ vm_name_short ~ '_' ~ interface }}'/>
+      {%- if mode and mode == 'passthrough' %}
+      <driver name='vhost' queues='{{ vcpu_min }}' rx_queue_size='1024' tx_queue_size='256'/>
+      {%- endif %}
     </interface>
     {%- endfor %}
     <serial type='pty'/>
