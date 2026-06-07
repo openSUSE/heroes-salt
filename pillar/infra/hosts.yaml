@@ -21,6 +21,10 @@ asgard1:
       mac: d2:e1:4b:98:46:1f
       mode: passthrough
       source: bond-fib
+    os-asgard-m:
+      ip6: fd4b:5292:d67e:1003::1/64
+      mac: d2:e1:4b:98:46:1e
+      source: x-os-asgard-m
   node: orbit20.infra.opensuse.org
   ram: 4096MB
   vcpu: 4
@@ -34,6 +38,10 @@ asgard2:
       mac: d2:e1:4b:98:46:2f
       mode: passthrough
       source: bond-fib
+    os-asgard-m:
+      ip6: fd4b:5292:d67e:1003::2/64
+      mac: d2:e1:4b:98:46:2e
+      source: x-os-asgard-m
   node: orbit21.infra.opensuse.org
   ram: 4096MB
   vcpu: 4
@@ -178,6 +186,10 @@ devcon:
   disks:
     root: 15G
   interfaces:
+    os-asgard-m:
+      ip6: fd4b:5292:d67e:1003::de/64
+      mac: 1a:eb:8a:3d:1a:83
+      source: x-os-asgard-m
     os-internal:
       ip6: 2a07:de40:b27e:1203::de/64
       mac: 1a:eb:8a:3d:1a:80
@@ -1260,6 +1272,10 @@ warp:
   disks:
     root: 15G
   interfaces:
+    os-asgard-m:
+      ip6: fd4b:5292:d67e:1003::a/64
+      mac: d6:f7:c1:31:ce:82
+      source: x-os-asgard-m
     os-s-warp:
       ip6: 2a07:de40:b27e:1101::a/64
       mac: d6:f7:c1:31:ce:80

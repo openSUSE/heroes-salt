@@ -1,0 +1,10 @@
+###################################################
+## MANAGED BY SALT in salt/files/nftables/asgard ##
+###################################################
+
+chain network_os-asgard-m {
+  ip6 nexthdr icmpv6 accept
+  tcp dport ssh accept
+
+  log prefix "[Asgard Mgmt Denied] " reject with icmpv6 type admin-prohibited
+}
