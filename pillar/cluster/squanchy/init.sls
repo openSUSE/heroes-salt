@@ -19,7 +19,20 @@ network:
       firewall: false
 
     # VLAN interface for devcon VM connectivity
-    {{ vlantap('os-ipmi-ur', 1001, 'bond-mgmt') }}
+    {%- set vlanmap_ur = {
+          'mgmt': {
+            'os-ipmi-ur': 1001,
+          },
+          'ob': {
+            's-j-os-out': 3202,
+            's-na-mgmt': 3339,
+          },
+    } %}
+    {%- for bond, vlans in vlanmap_ur.items() %}
+      {%- for vlan_name, vlan_id in vlans.items() %}
+    {{ vlantap(vlan_name, vlan_id, 'bond-' ~ bond) }}
+      {%- enfor %}
+    {%- endfor %}
 
     # VLAN interfaces for generic VM connectivity
     {%- set vlanlist_r = [
@@ -28,8 +41,6 @@ network:
           'os-s-warp',
           'os-salt',
           'os-thor',
-          's-j-os-out',
-          's-na-mgmt',
         ]
     %}
     {{ vlantapnetworks(vlanlist_r, 'bond-ob', 'prg2') }}
@@ -40,7 +51,7 @@ firewalld:
   zones:
     drop:
       interfaces:
-        {%- for vlan_name in vlanlist_r %}
+        {%- for vlan_name in vlanlist_r + vlanmap_ur['mgmt'] | list + vlanmap_ur['ob'] | list %}
         - x-{{ vlan_name }}
         {%- endfor %}
 
