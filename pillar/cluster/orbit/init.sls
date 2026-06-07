@@ -14,7 +14,7 @@ network:
     # bond-ob implicitly receives bootproto=none as it's enslaved in a bridge
     {{ bond('ob', 'ob0', 'ob1') }}
     # bond-fib explicitly receives bootproto=none as it's passed through to the Asgard VMs
-    {{ bond('fib', 'fib0', 'fib1', 'none') }}
+    {{ bond('fib', 'fib0', 'fib1', 'none', policy='layer3+4') }}
 
     # Bridge for shared connectivity through onboard interfaces
     br0:
