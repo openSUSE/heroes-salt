@@ -10,11 +10,8 @@ General {
 		Path /run/conntrackd.sock
 	}
 
-	NetlinkBufferSize 10064960
-	NetlinkBufferSizeMaxGrowth 20129920
-
-	SocketBufferSize 262142
-	SocketBufferSizeMaxGrown 655355
+	NetlinkBufferSize 536870912
+	NetlinkBufferSizeMaxGrowth 1073741824
 
 	Filter From Userspace {
 		Address Ignore {
