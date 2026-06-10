@@ -43,6 +43,7 @@ profile_ha_bird_systemd_files:
                 - {{ pillar['managed_by_salt'] | yaml_encode }}
                 - '[Unit]'
                 - Description=Keepalived FIFO notification processor
+                - After=keepalived.service
                 # Keepalived deletes the pipe upon being stopped, prevent processor from failing after exhausting its opening attempts.
                 # In case of a restart, the processor will be started again through Wants= in keepalived.service.
                 - StopPropagatedFrom=keepalived.service
