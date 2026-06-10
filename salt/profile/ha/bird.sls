@@ -43,6 +43,7 @@ profile_ha_bird_systemd_files:
                 - {{ pillar['managed_by_salt'] | yaml_encode }}
                 - '[Unit]'
                 - Description=Keepalived FIFO notification processor
+                - After=keepalived.service
                 # Keepalived deletes the pipe upon being stopped, prevent processor from failing after exhausting its opening attempts.
                 # In case of a restart, the processor will be started again through Wants= in keepalived.service.
                 - StopPropagatedFrom=keepalived.service
@@ -82,7 +83,7 @@ profile_ha_bird_systemd_files:
                 - ExecStart={{ files['generate-bird-includes'] }}
                 - >-
                     ExecStartPost=!sh -cx
-                    'if ! diff {{ files['output'] }}{,.pre};
+                    'if ! diff {{ files['output'] }}{,.pre} && systemctl is-active -q bird;
                     then birdc configure check &&
                     birdc configure; fi'
                 - LogLevelMax=notice
