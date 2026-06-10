@@ -83,7 +83,7 @@ profile_ha_bird_systemd_files:
                 - ExecStart={{ files['generate-bird-includes'] }}
                 - >-
                     ExecStartPost=!sh -cx
-                    'if ! diff {{ files['output'] }}{,.pre};
+                    'if ! diff {{ files['output'] }}{,.pre} && systemctl is-active -q bird;
                     then birdc configure check &&
                     birdc configure; fi'
                 - LogLevelMax=notice
