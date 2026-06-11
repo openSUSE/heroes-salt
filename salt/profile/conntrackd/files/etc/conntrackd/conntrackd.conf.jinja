@@ -10,13 +10,10 @@ General {
 		Path /run/conntrackd.sock
 	}
 
-	NetlinkBufferSize 10064960
-	NetlinkBufferSizeMaxGrowth 20129920
+	NetlinkBufferSize 536870912
+	NetlinkBufferSizeMaxGrowth 1073741824
 
-	SocketBufferSize 262142
-	SocketBufferSizeMaxGrown 655355
-
-	Filter From Userspace {
+	Filter From Kernelspace {
 		Address Ignore {
 			IPv4_address 127.0.0.1
 			IPv6_address ::1
