@@ -8,13 +8,19 @@ network:
     {{ slave }}:
       bootproto: none
       firewall: false
+      {%- if slave[0:3] == 'fib' %}
+      ethtool_options: >-
+        -G x
+        rx 4096
+        {#- QQ: increase of tx also needed ? #}
+      {%- endif %}
     {%- endfor %}
 
     # LACP bonds
     # bond-ob implicitly receives bootproto=none as it's enslaved in a bridge
     {{ bond('ob', 'ob0', 'ob1') }}
     # bond-fib explicitly receives bootproto=none as it's passed through to the Asgard VMs
-    {{ bond('fib', 'fib0', 'fib1', 'none') }}
+    {{ bond('fib', 'fib0', 'fib1', 'none', policy='layer3+4') }}
 
     # Bridge for shared connectivity through onboard interfaces
     br0:
@@ -33,6 +39,12 @@ network:
     {{ vlantap('os-internal', 1203, 'bond-ob') }}
 
   {{ default_gateway('prg2', 'openSUSE-bare') }}
+
+profile:
+  udev:
+    net:
+      asgard[12]_1:  # _1 is the passthrough interface
+        tx_queue_len: 4096
 
 firewalld:
   enabled: true
