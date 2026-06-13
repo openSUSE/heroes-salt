@@ -32,7 +32,7 @@ network:
     {%- for bond, vlans in vlanmap_ur.items() %}
       {%- for vlan_name, vlan_id in vlans.items() %}
     {{ vlantap(vlan_name, vlan_id, 'bond-' ~ bond) }}
-      {%- enfor %}
+      {%- endfor %}
     {%- endfor %}
 
     # VLAN interfaces for generic VM connectivity
