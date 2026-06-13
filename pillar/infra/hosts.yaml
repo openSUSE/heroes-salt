@@ -22,7 +22,6 @@ asgard1:
       mode: passthrough
       source: bond-fib
     os-asgard-m:
-      ip6: fd4b:5292:d67e:1003::1/64
       mac: d2:e1:4b:98:46:1e
       source: x-os-asgard-m
   node: orbit20.infra.opensuse.org
@@ -39,7 +38,6 @@ asgard2:
       mode: passthrough
       source: bond-fib
     os-asgard-m:
-      ip6: fd4b:5292:d67e:1003::2/64
       mac: d2:e1:4b:98:46:2e
       source: x-os-asgard-m
   node: orbit21.infra.opensuse.org

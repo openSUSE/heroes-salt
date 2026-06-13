@@ -30,6 +30,9 @@ network:
       addresses:
         - fd4b:5292:d67e:1000::2/64
         - 172.16.128.2/30
+    os-asgard-m:
+      addresses:
+        - fd4b:5292:d67e:1003::2/64
     os-p2p-pub:
       addresses:
         - 195.135.223.45/29
