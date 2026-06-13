@@ -37,13 +37,6 @@ network:
       addresses:
         - 195.135.223.44/29
         - 2a07:de40:b27f:201::11/64
-  routes:
-    2a07:de40:617f:201::11/128:
-      options:
-        - src 2a07:de40:b27f:201::11
-    2a07:de40:617f:201::12/128:
-      options:
-        - src 2a07:de40:b27f:201::11
 sshd_config:
   ListenAddress:
     - 2a07:de40:b27e:1100::1
@@ -55,6 +48,12 @@ sshd_config:
 profile:
   buddycheck:
     buddy: 2a07:de40:b27e:1203::2
+  pbr:
+    tables:
+      os-s2s:
+        routes:
+          default:
+            src: 2a07:de40:b27f:201::11
 prometheus:
   extra_files:
     ping_exporter:
