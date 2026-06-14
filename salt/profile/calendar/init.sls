@@ -27,6 +27,7 @@ https://github.com/openSUSE/calendar-o-o.git:
     - rev: main
     - user: calendar
     - force_fetch: True
+    - force_reset: True
 
 calendar_bundler_deployment:
   cmd.run:
