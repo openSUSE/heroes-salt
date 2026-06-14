@@ -294,6 +294,7 @@ haproxy:
         - suffix_asp        path_end    .asp
         - suffix_asp        path_end    .aspx
         - suffix_php        path_end    .php
+        - suffix_xml        path_end    .xml
 
         - host_events       hdr(host)    events.opensuse.org
         - host_events       hdr(host)    events-test.opensuse.org
@@ -328,7 +329,7 @@ haproxy:
 
       use_backends:
         {{ berghain_use_backend({
-              'events': '!path_api',
+              'events': '!path_api !suffix_xml',
               'hackweek':  '!path_rails',
               'mediawiki': '!param_mw_feed !path_apiphp',
               'tsp': '',
