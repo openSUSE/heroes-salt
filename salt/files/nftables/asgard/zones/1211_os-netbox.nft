@@ -8,6 +8,12 @@
   ip6 saddr $net6_os-netbox ip6 daddr @self6_netbox ip6 nexthdr icmpv6 accept
   ip6 saddr @host6_netbox ip6 daddr @host6_hel tcp dport postgresql accept
 
+  oifname { nat64, os-p2p-pub } ip6 saddr @host6_netbox icmpv6 type { echo-reply, echo-request } ip6 daddr != @lan_ipv6_prg2_nonat accept
+  oifname { nat64, os-p2p-pub } ip6 saddr @host6_netbox tcp dport https ip6 daddr != @lan_ipv6_prg2_nonat accept
+
+  # http-01 acme challenge as an exception
+  oif os-internal ip6 saddr @host6_netbox ip6 daddr @host6_acme tcp dport https accept
+
   log prefix "[Netbox Denied] " reject with icmpv6 type admin-prohibited
  }
 

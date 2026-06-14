@@ -906,7 +906,6 @@ set acl6_internet_downloadcontent {
         $host6_monitor,
         $host6_mybackup,
         $host6_svn,
-        $host6_netbox1,
     }
 }
 

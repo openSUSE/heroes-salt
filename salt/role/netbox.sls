@@ -1,3 +1,2 @@
 include:
-  - apache_httpd
-  - redis
+  - profile.netbox

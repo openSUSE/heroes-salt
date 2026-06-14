@@ -148,6 +148,9 @@ vim:filetype=nftables.jinja
   # mickey -> atlas (SSH for GitLab -> Pagure Git repository mirror)
   oif os-public ip6 saddr $host6_mickey ip6 daddr $host6_atlas_misc tcp dport ssh accept
 
+  # http-01 acme challenge as an exception
+  oif os-netbox ip6 saddr @host6_netbox ip6 daddr @host6_acme tcp dport http accept
+
   jump acl_internet_github
   jump acl_internet_obs_login
 
