@@ -754,20 +754,26 @@ set cloud46_github_web {
   type ipv6_addr
   flags interval
   elements = { # generated using https://git.infra.opensuse.org/infra/scripts/src/branch/master/4to6/github-4to6.py
+    2a07:de40:b27e:64::141a:9cd7/128,
     2a07:de40:b27e:64::141b:b171/128,
     2a07:de40:b27e:64::141d:8617/128,
     2a07:de40:b27e:64::1457:f500/128,
     2a07:de40:b27e:64::14af:c093/128,
+    2a07:de40:b27e:64::14c7:27e8/128,
     2a07:de40:b27e:64::14c8:f5f7/128,
     2a07:de40:b27e:64::14c9:1c97/128,
     2a07:de40:b27e:64::14cd:f3a6/128,
     2a07:de40:b27e:64::14cf:4952/128,
+    2a07:de40:b27e:64::14d9:8705/128,
     2a07:de40:b27e:64::14e9:5391/128,
-    2a07:de40:b27e:64::14f8:8930/128,
+    2a07:de40:b27e:64::4d0:1ac5/128,
+    2a07:de40:b27e:64::4e1:bc2/128,
+    2a07:de40:b27e:64::4e4:1f96/128,
+    2a07:de40:b27e:64::4ed:1626/128,
     2a07:de40:b27e:64::8c52:7000/116,
     2a07:de40:b27e:64::8f37:4000/116,
     2a07:de40:b27e:64::b9c7:6c00/118,
-    2a07:de40:b27e:64::c01e:fc00/118
+    2a07:de40:b27e:64::c01e:fc00/118,
   }
 }
 set cloud46_github_api {
