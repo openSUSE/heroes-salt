@@ -82,17 +82,30 @@
         - {{ append.replace('\n', '\\n').replace('\r', '\\r') }}
         {%- endif %}
 {%- endmacro -%}
-{%- macro httpcheck(host, status, uri='/', method='head', tls=False) %}
-      {%- if tls is sameas true %}
-        {%- set tls = 'h2' %}
-      {%- endif %}
+{%- macro httpcheck(host, status, uri='/', method='head', sni=False, tls=False, ver='2') %}
       httpchecks:
-        - connect{{ ' ssl alpn ' ~ tls if tls else '' }}
-        - send meth {{ method | upper }} uri {{ uri }} ver HTTP/1.1 hdr Host {{ host }} hdr User-Agent haproxy/health-check
+        - >-
+            connect
+            {%- if tls %}
+            ssl alpn {{ 'h2' if ver == '2' else 'http/' ~ ver }}
+              {%- if sni %}
+            sni {{ host }}
+              {%- endif %}
+            {%- endif %}
+        - >-
+            send meth {{ method | upper }}
+            uri {{ uri }}
+            ver HTTP/{{ ver }}
+            hdr Host {{ host }}
+            hdr User-Agent haproxy/health-check
         - expect status {{ status }}
 {%- endmacro %}
-{%- macro server(server, host, port=80, check='check', extra_extra=None, extra_check=None, header=True) -%}
+{%- macro server(server, host, port=80, check='check', extra_extra=None, extra_check=None, header=True, sni=False) -%}
       {%- set extra = 'extra: ' %}
+      {%- if sni %}
+        {#- TODO: factor into native formula pillar? #}
+        {%- set extra = extra ~ 'sni str(' ~ host ~ ') ' %}
+      {%- endif %}
       {%- if header %}
       servers:
       {%- endif %}

@@ -124,7 +124,7 @@ haproxy:
       {{ server('kubic', '2a07:de40:b27e:1203::132') }}
     kudos_prod:
       {{ options ('httpchk') }}
-      {{ httpcheck('kudos.opensuse.org', 200, '/api/health', tls='http/1.1') }}
+      {{ httpcheck('kudos.opensuse.org', 200, '/api/health', tls=True, ver='1.1') }}
       {{ server('kudos-prod', 'kudos-prod.infra.opensuse.org', 3000, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem') }}
     limesurvey:
       {{ options() }}
