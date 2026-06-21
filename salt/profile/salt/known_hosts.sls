@@ -28,6 +28,13 @@ salt_known_hosts-repository-clean:
         - file: salt_known_hosts-repository
 {%- endif %}
 
+salt_known_hosts-known_hosts:
+  file.managed:
+    - name: /var/lib/salt/.ssh/known_hosts
+    - contents:
+        - {{ pillar['managed_by_salt'] | yaml_encode }}
+        - git.infra.opensuse.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIqC55XDx9dVDBE776o30nvj9m9rMXlIV/44lrJYN1aJ
+
 salt_known_hosts-repository:
   file.directory:
     - name: {{ repo_base_dir }}
@@ -41,6 +48,7 @@ salt_known_hosts-repository:
     - branch: main
     - user: salt
     - require:
+        - file: salt_known_hosts-known_hosts
         - file: {{ repo_base_dir }}
 
 salt_ssh_key:
