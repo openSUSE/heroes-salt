@@ -14,6 +14,7 @@ profile_sample-webapp_config:
 profile_sample-webapp_service:
   service.running:
     - name: sample-go-webapp
+    - enable: true
     - reload: false
     - watch:
         - file: profile_sample-webapp_config
