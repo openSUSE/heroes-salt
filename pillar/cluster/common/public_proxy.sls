@@ -89,7 +89,7 @@ profile:
       default:
         # list order matters, each entry is one "level" to target in HAProxy ACLs, starting from 1
         levels:
-          - countdown: 1
+          - countdown: 0
             duration: 24h
             type: pow
         trusted_domains:
