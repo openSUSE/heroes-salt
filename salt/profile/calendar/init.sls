@@ -120,6 +120,7 @@ calendar_service:
     - name: calendar.service
     - enable: True
     - watch:
+        - git: https://github.com/openSUSE/calendar-o-o.git
         - cmd: calendar_ruby_dependencies
         - cmd: calendar_assets_precompile
         - file: /srv/www/calendar-o-o/config/master.key
