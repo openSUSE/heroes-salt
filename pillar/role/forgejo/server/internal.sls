@@ -53,7 +53,6 @@ profile:
           domain: {{ domain }}
         migrations:
           allowed_domains:
-            - gitlab.infra.opensuse.org
             - code.opensuse.org
             - code.forgejo.org
             - github.com

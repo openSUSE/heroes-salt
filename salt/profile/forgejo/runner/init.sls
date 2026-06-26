@@ -1,3 +1,7 @@
+include:
+  - .cleanup
+  - .podman
+
 profile_forgejo_runner_packages:
   pkg.installed:
     - names:
@@ -9,7 +13,7 @@ profile_forgejo_runner_config:
     - user: root
     - group: root
     - mode: '0640'
-    - source: salt://{{ slspath }}/files/etc/forgejo-runner/config.yaml.jinja
+    - source: salt://profile/forgejo/files/etc/forgejo-runner/config.yaml.jinja
     - template: jinja
     - require:
         - pkg: profile_forgejo_runner_packages

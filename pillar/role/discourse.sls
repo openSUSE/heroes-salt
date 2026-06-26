@@ -137,7 +137,7 @@ nginx:
                       - add_header: Access-Control-Allow-Origin *
                   - location ~ ^/assets/(?<asset_path>.+)$:
                       - expires: 1y
-                      {%- if not grains['host'].startswith('runner-') or grains.get('CI_TEST_RUN') %} {#- ugly, but required for tests due to the modules being commented out above #}
+                      {%- if not grains.get('CI_TEST_RUN') %} {#- ugly, but required for tests due to the modules being commented out above #}
                       - brotli_static: "on"
                       {%- endif %}
                       - gzip_static: "on"

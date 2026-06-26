@@ -24,7 +24,7 @@ log_driver = "journald"
 network_backend = "netavark"
 cni_plugin_dirs = ["/usr/libexec/cni"]
 default_network = "podman_ipv6"
-{%- set subnet = salt['pillar.get']('profile:gitlab_runner:podman:subnet') %}
+{%- set subnet = salt['pillar.get']('profile:forgejo:runner:podman:subnet') %}
 {%- if subnet %}
 default_subnet = "{{ subnet }}"
 {%- endif %}
