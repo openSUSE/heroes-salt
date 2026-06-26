@@ -11,9 +11,9 @@ Refresh: 600
 <head>
   <title>openSUSE.org - deprecated service</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <link href="https://www.opensuse.org/build/css/openSUSE.min.css" type="text/css" rel="stylesheet" />
-  <link href="https://www.opensuse.org/build/css/vendor.min.css"   type="text/css" rel="stylesheet" />
-  <script src="https://www.opensuse.org/build/js/main.min.js"      type="text/javascript"></script>
+  <link href="https://static.opensuse.org/css/openSUSE.min.css" type="text/css" rel="stylesheet" />
+  <link href="https://static.opensuse.org/css/vendor.min.css"   type="text/css" rel="stylesheet" />
+  <script src="https://static.opensuse.org/js/main.min.js"      type="text/javascript"></script>
   <link rel="icon" type="image/png" href="https://static.opensuse.org/themes/bento/images/favicon.png" />
 </head>
 <body>
@@ -23,7 +23,7 @@ Refresh: 600
       <div class="row">
         <div class="col-sm-2 logo">
           <a href="https://www.opensuse.org/">
-            <img src="https://www.opensuse.org/build/images/opensuse-logo.png" class="wow fadeIn smoothScroll" id="opensuseLogo" alt="openSUSE Logo"/>
+            <img src="https://static.opensuse.org/images/opensuse-logo.png" class="wow fadeIn smoothScroll" id="opensuseLogo" alt="openSUSE Logo"/>
           </a>
           <i class="fa fa-bars fa-lg pull-left visible-xs" id="open_main_menu"></i>
         </div>
