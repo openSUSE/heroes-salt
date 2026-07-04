@@ -14,6 +14,7 @@ include:
   - network.wicked
   - hostsfile.pillar_only
   - profile.rpmkeys
+  - profile.rpmkeys.zypp
   - zypper
   {%- if virtual == 'kvm' %}
   - profile.qemu-guest-agent
