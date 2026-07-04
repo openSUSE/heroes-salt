@@ -20,3 +20,7 @@ network:
       addresses:
         # secondary address for binding Forgejo to
         - 2a07:de40:b27e:1203::b44/64
+  routes:
+    default6:
+      options:
+        - src 2a07:de40:b27e:1203::b43
