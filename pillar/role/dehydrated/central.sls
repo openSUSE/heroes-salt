@@ -50,6 +50,9 @@ profile:
                   {%- for service in target['services'] %}
                   - {{ service }}
                   {%- endfor %}
+                {%- if 'subhost' in target %}
+                subhost: {{ target['subhost'] }}
+                {%- endif %} {#- close subhost check #}
               {%- endif %}
             {%- endfor %} {#- close targets loop #}
             {%- endif %} {#- close targets check #}

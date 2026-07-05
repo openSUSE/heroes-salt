@@ -109,6 +109,11 @@ mysql.infra.opensuse.org:
     - mariadb.infra.opensuse.org
   targets:
     - macro: galera
+netapp-fas-prg2.mgmt.infra.opensuse.org:
+  targets:
+    - host: devcon
+      services:
+        - ontap_rest
 netbox.infra.opensuse.org:
   targets:
     - macro: hel
@@ -117,6 +122,12 @@ netbox1.infra.opensuse.org:
     - host: netbox1
       services:
         - apache2
+prg-fas-s3.infra.opensuse.org:
+  targets:
+    - host: devcon
+      services:
+        - ontap_s3
+      subhost: netapp-fas-prg2.mgmt.infra.opensuse.org
 prg-monitor1.infra.opensuse.org:
   targets:
     - host: prg-monitor1
