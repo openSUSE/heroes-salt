@@ -1,0 +1,107 @@
+#!/bin/sh -Cefu
+{#- vim: ft=sh.jinja noexpandtab
+#}
+{%- set custom_tables = salt['pillar.get']('profile:pbr:tables', {}) | dictsort %}
+{%- set network_routes = salt['pillar.get']('network:routes', {}) %}
+{{ pillar['managed_by_salt'] }}
+
+action="$1"
+interface="$2"
+
+command -v ip || exit 1
+
+teardown () {
+	{%- set interfaces = [] %}
+	case "${1:-$interface}" in
+	{%- for table, table_config in custom_tables %}
+		{%- if not 'bind_interface' in table_config %}
+			{%- continue %}
+		{%- endif %}
+		{%- do interfaces.append(table_config['bind_interface']) %}
+		{{ table_config['bind_interface'] }} )
+		{%- for i in [4, 6] %}
+			ip -{{ i }} rule flush table {{ table }}
+			ip -{{ i }} route flush table {{ table }} || :
+		{%- endfor %}
+		;;
+	{%- endfor %}
+
+		all )
+			{%- for interface in interfaces %}
+			teardown {{ interface }}
+			{%- endfor %}
+		;;
+
+		* )
+			echo 'Interface is not known to dopbr.'
+			exit 1
+		;;
+	esac
+}
+
+setup () {
+	case "${1:-$interface}" in
+	{%- for table, table_config in custom_tables %}
+		{%- if not 'bind_interface' in table_config %}
+			{%- continue %}
+		{%- endif %}
+		{{ table_config.pop('bind_interface') }} )
+			set -x
+		{%- for route_to, route_options in table_config.get('routes', {}).items() %}
+			{%- if route_options %}
+			ip -6 route add \
+				to {{ route_to }} \
+				{%- if not 'via' in route_options %}
+					{%- if route_to == 'default' %}
+						{%- set route_to = 'default6' %}
+					{%- endif %}
+					{%- if route_to in network_routes and 'gateway' in network_routes[route_to] %}
+				via {{ network_routes[route_to]['gateway'] }} \
+					{%- endif %}
+				{%- endif %}
+				{%- for route_option_name, route_option_value in route_options.items() %}
+				{{ route_option_name }} {{ route_option_value }} \
+				{%- endfor %}
+				table {{ table }}
+			{%- endif %} {#- close route_options check #}
+		{%- endfor %} {#- close routes loop #}
+		{%- for rule_selector_name, rule_selector_values in table_config.get('rules', {}).items() %}
+			{%- for rule_selector_value in rule_selector_values %}
+			ip -6 rule add {{ rule_selector_name }} {{ rule_selector_value }} table {{ table }}
+			{%- endfor %}
+		{%- endfor %} {#- close rules loop #}
+			set +x
+		;;
+	{%- endfor %} {#- close custom_tables loop #}
+
+		all )
+			{%- for interface in interfaces %}
+			setup {{ interface }}
+			{%- endfor %}
+		;;
+
+		* )
+			echo 'Interface is not known to dopbr.'
+			exit 1
+		;;
+	esac
+}
+
+case "$action" in
+	post-up )
+		setup
+	;;
+
+	pre-down )
+		teardown
+	;;
+
+	reset )
+		teardown
+		setup
+	;;
+
+	* )
+		echo "Action $action is not implemented in dopbr."
+	;;
+esac

@@ -13,8 +13,10 @@ network:
     os-p2p-pub:
       vlan_id: 3201
       etherdevice: eth0
-      post_up_script: wicked:/usr/local/libexec/dotc
-      pre_down_script: wicked:/usr/local/libexec/dotc
+      post_up_script: &ifscripts >-
+        wicked:/usr/local/libexec/dopbr
+        wicked:/usr/local/libexec/dotc
+      pre_down_script: *ifscripts
 
     {{ gateway_interfaces('prg2') }}
 
@@ -51,3 +53,13 @@ profile:
             rate: 50Mbit
             ceil: 60Mbit
             prio: 7
+
+  pbr:
+    tables:
+      os-s2s:
+        bind_interface: os-p2p-pub
+        id: 201
+        rules:
+          to:
+            - 2a07:de40:617f:201::11/128  # avalon1
+            - 2a07:de40:617f:201::12/128  # avalon2
