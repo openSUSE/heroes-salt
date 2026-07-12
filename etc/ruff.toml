@@ -54,3 +54,6 @@ convention = "pep257"
 
 [lint.pylint]
 max-args = 10  # allow more function arguments (default is 5)
+
+[format]
+quote-style = 'single'
