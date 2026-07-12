@@ -13,3 +13,7 @@ grains:
     - download.infra.opensuse.org
 roles:
   - mirror.internal
+os-update:
+  time: 08:30
+rebootmgr:
+  window-start: 08:35
