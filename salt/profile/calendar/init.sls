@@ -1,4 +1,4 @@
-{% set ruby = "ruby3.2" %}
+{% set ruby = "ruby3.4" %}
 
 calendar_dependencies:
   pkg.installed:
@@ -13,7 +13,7 @@ calendar_dependencies:
       - postgresql-server-devel
       - {{ ruby }}-devel
       - system-user-wwwrun
-      - nodejs20
+      - nodejs24
       - libyaml-devel
 
 /srv/www/calendar-o-o:
