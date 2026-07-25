@@ -30,7 +30,8 @@
 								"$ref": "infra/schemas/service.json"
 							}
 						},
-						"additionalProperties": false
+						"additionalProperties": false,
+						"required": ["host", "services"]
 					},
 					{
 						"type": "object",
@@ -43,7 +44,8 @@
 								"$ref": "infra/schemas/service.json"
 							}
 						},
-						"additionalProperties": false
+						"additionalProperties": false,
+						"required": ["macro"]
 					}
 				]
 			}
