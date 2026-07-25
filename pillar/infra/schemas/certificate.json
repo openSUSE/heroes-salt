@@ -26,6 +26,10 @@
 								"type": "string",
 								"pattern": "^[a-z0-9-]+$"
 							},
+							"subhost": {
+								"type": "string",
+								"pattern": "^[a-z0-9\\.-]+$"
+							},
 							"services": {
 								"$ref": "infra/schemas/service.json"
 							}
