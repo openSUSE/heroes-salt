@@ -14,6 +14,8 @@ _services = []
 # entries here go along with a conditional in salt/profile/dehydrated/files/etc/dehydrated/hook.d/certificate.sh.jinja
 _service_excludes = [
   'mariadb',
+  'ontap_rest',
+  'ontap_s3',
 ]
 
 def _extend_services(low_services):

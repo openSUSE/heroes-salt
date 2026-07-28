@@ -1,0 +1,363 @@
+#!/usr/bin/python3
+"""
+vim: ft=python.jinja
+
+Script to update HTTPS certificates used for the REST API or for object
+  storage on ONTAP.
+
+Where possible, the native REST API is used -
+  but with some functions, only the private/cli endpoint was possible.
+
+The script expects a SVM specific connection.
+
+Author: Georg Pfuetzenreuter
+
+{{ pillar['managed_by_salt'] }}
+"""
+
+import logging
+from argparse import ArgumentParser
+from urllib.parse import urljoin
+
+# TODO: cryptography?
+from M2Crypto import X509
+from pem import parse_file
+from requests import Session
+from requests.adapters import HTTPAdapter
+from urllib3.util import ssl_
+
+CA_CERTIFICATE = '/usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem'
+HTTP_TIMEOUT = 20
+
+LOGGER = logging.getLogger('update-ontap-certificate')
+PURPOSES = ['rest', 's3']
+
+
+class IgnoreExpiryHTTPAdapter(HTTPAdapter):
+    # patching the context allows expired certificates while preserving CA/SAN validation,
+    # which is better than completely disabling certificate validation and useful when an
+    # already expired HTTPS certificate needs to be replaced.
+    # this adapter is only used if explicitly enabled on the command line - by default,
+    # full validation is performed.
+    def init_poolmanager(self, *args, **kwargs):
+        context = ssl_.create_urllib3_context()
+        context.verify_flags |= 0x200000  # OpenSSL X509_V_FLAG_NO_CHECK_TIME
+        kwargs['ssl_context'] = context
+        return super().init_poolmanager(*args, **kwargs)
+
+
+class APISession(Session):
+  def __init__(self, base_url):
+    super().__init__()
+    self.base_url = base_url
+
+  def request(self, method, url, *args, **kwargs):
+    # href paths
+    if url.startswith('/api/'):  # noqa FURB188, factor to .removeprefix once on Leap 16
+      url = url[5:]
+    absolute_url = urljoin(self.base_url, url)
+    kwargs.setdefault('timeout', HTTP_TIMEOUT)
+
+    return super().request(method, absolute_url, *args, **kwargs)
+
+
+class ScriptError(Exception):
+    pass
+
+
+def _certificate_name(cn, serial):
+  return cn + '_' + serial
+
+
+def _get_active_rest_certificate(session):
+    r = session.get(
+        'private/cli/security/ssl',
+        params={
+            'fields': 'ca,common_name,serial',
+        },
+    )
+    LOGGER.debug(f'_get_active_rest_certificate response:\n{r.text}')
+    r.raise_for_status()
+
+    data = r.json()
+    records = data.get('records')
+
+    if not isinstance(records, list):
+        raise TypeError(f'Unexpected data: {data}')
+
+    if not records:
+        return None
+
+    # it's not possible to have more than one HTTPS certificate per vserver
+    if len(records) > 1:
+        raise ValueError(f'Unexpected amount of data: {records}')
+
+    record = records[0]
+
+    if 'common_name' not in record or 'serial' not in record:
+        raise ValueError(f'Unexpected record data: {record}')
+
+    return record
+
+
+def _get_s3_server(session, s3_server=None):
+    params={
+      'fields': 'certificate,name',
+    }
+
+    if s3_server is not None:
+      params['name'] = s3_server
+
+    r = session.get(
+        'protocols/s3/services',
+        params=params,
+    )
+    LOGGER.debug(f'_get_s3_server response:\n{r.text}')
+    r.raise_for_status()
+
+    data = r.json()
+    records = data.get('records')
+
+    if not isinstance(records, list):
+        raise TypeError(f'Unexpected data: {data}')
+
+    if not records:
+        return None
+
+    # it's not possible to have more than one object store server per vserver
+    if len(records) > 1:
+        raise ValueError(f'Unexpected amount of data: {records}')
+
+    return records[0]
+
+
+def _get_active_s3_certificate(session, record):
+    ref = record.get('certificate', {}).get('_links', {}).get('self', {}).get('href')
+
+    if not ref:
+        raise ValueError(f'Unexpected record data: {record}')
+
+    r = session.get(
+      ref,
+      params={
+        'fields': 'ca,common_name,serial_number,svm',
+      },
+    )
+    LOGGER.debug(f'_get_active_s3_certificate response:\n{r.text}')
+    r.raise_for_status()
+
+    data = r.json()
+
+    # add keys to match output from _get_active_rest_certificate
+    data['serial'] = data['serial_number']
+    data['vserver'] = data['svm']['name']
+    del data['serial_number']
+    del data['svm']
+
+    return data
+
+
+def _upload_certificate(session, certificate_name, cn, public, public_chain, private):
+    r = session.post(
+        'security/certificates',
+        json={
+            'name': certificate_name,
+            'common_name': cn,
+            'type': 'server',
+            'public_certificate': public,
+            'intermediate_certificates': public_chain,
+            'private_key': private,
+        },
+    )
+    LOGGER.debug(f'_upload_certificate response:\n{r.text}')
+    r.raise_for_status()
+
+    return r.json() == {}
+
+
+def _activate_rest_certificate(session, vserver, ca, cn, serial):
+    r = session.patch(
+        'private/cli/security/ssl',
+        params={
+            'vserver': vserver,
+        },
+        json={
+            'ca': ca,
+            'common_name': cn,
+            'serial': serial,
+        },
+    )
+    LOGGER.debug(f'_activate_rest_certificate response:\n{r.text}')
+    r.raise_for_status()
+
+    data = r.json()
+
+    if 'num_records' not in data:
+        raise ValueError(f'Unexpected data: {data}')
+
+    if data['num_records'] != 1:
+        raise ValueError(f'Unexpected activation result: {data}')
+
+    return True
+
+
+def _activate_s3_certificate(session, record, certificate_name):
+    ref = record.get('_links', {}).get('self', {}).get('href')
+
+    if not ref:
+        raise ValueError(f'Unexpected record data: {record}')
+
+    r = session.patch(
+        ref,
+        json={
+          'certificate': {
+            'name': certificate_name,
+          },
+        },
+    )
+    LOGGER.debug(f'_activate_s3_certificate response:\n{r.text}')
+    r.raise_for_status()
+
+    return r.json() == {}
+
+
+def _get_certificate_uuid(session, serial, ctype=None):
+    r = session.get(
+        'security/certificates',
+        params={
+            'fields': 'type',
+            'serial_number': serial,
+        },
+    )
+    LOGGER.debug(f'_get_certificate_uuid response:\n{r.text}')
+    r.raise_for_status()
+
+    data = r.json()
+
+    for record in data['records']:
+        if ctype is not None and record['type'] != ctype:
+          continue
+
+        if record['serial_number'] == serial:
+            return record['uuid']
+
+
+def _delete_certificate(session, serial):
+    # only target server certificate, as deletion of a server certificate implies the deletion of the corresponding server-chain certificate
+    certificate_uuid = _get_certificate_uuid(session, serial, 'server')
+
+    if not certificate_uuid:
+        return False
+
+    r = session.delete(f'security/certificates/{certificate_uuid}')
+    LOGGER.debug(f'_delete_certificate response:\n{r.text}')
+    r.raise_for_status()
+
+    return r.json() == {}
+
+
+def _get_certificate_serial(certificate):
+  # is there no prettier way to get the serial number ..
+  serial_hex = f'{certificate.get_serial_number():x}'
+  # .. if the serial contains a leading zero, the above dropped it, and we need to add it back
+  serial = ('0' + serial_hex if len(serial_hex) % 2 else serial_hex)
+
+  # uppercase to match API responses
+  return serial.upper()
+
+
+def main(certificate_chain_file, key_file, host=None, purpose=None, s3_server=None, bypass_tls_certificate_expiry=False):  # noqa PLR0912, PLR0915 # more work to make smaller funs
+    if purpose is None:
+      LOGGER.warning('No "purpose" specified - will only upload, not activate certificate!')
+
+    elif purpose not in PURPOSES:
+      raise ScriptError('Unhandled "purpose".')
+
+    certificates = parse_file(certificate_chain_file)
+
+    if not certificates:
+        raise ScriptError('Chain file did not yield certificates.')
+
+    public = certificates.pop(0).as_text()
+    public_chain = [c.as_text() for c in certificates] + [parse_file(CA_CERTIFICATE)[0].as_text()]
+
+    with open(key_file) as fh:
+        private = fh.read()
+
+    public_cert = X509.load_cert_string(public)
+
+    serial = _get_certificate_serial(public_cert)
+    LOGGER.info(f'New serial: {serial}')
+
+    cn = public_cert.get_subject().CN
+    cn_issuer = public_cert.get_issuer().CN
+
+    if host is None:
+        host = cn
+
+    api = urljoin('https://' + host, 'api/')
+    LOGGER.info(f'API: {api}')
+
+    session = APISession(base_url=api)
+
+    if bypass_tls_certificate_expiry is True:
+      LOGGER.warning('Bypassing HTTPS certificate expiry validation!')
+      session.mount(api, IgnoreExpiryHTTPAdapter())
+
+    if purpose == 'rest':
+      active = _get_active_rest_certificate(session)
+    elif purpose == 's3':
+      s3_server_record = _get_s3_server(session, s3_server)
+      s3_server = s3_server_record['name']
+      active = _get_active_s3_certificate(session, s3_server_record)
+
+    if purpose is not None:
+      LOGGER.info(f'Active certificate (old):\n{active}')
+
+    if purpose is not None and active['serial'] == serial:
+      raise ScriptError(f'Certificate with serial {serial} is already active.')
+
+    certificate_name = _certificate_name(cn, serial)
+
+    # TODO: if the certificate was already uploaded, but is not yet active, this will fail due to duplicity and not proceed with activation
+    upload = _upload_certificate(session, certificate_name, cn, public, public_chain, private)
+    LOGGER.info(f'Got upload: {upload}')
+
+    if purpose == 'rest':
+      _activate_rest_certificate(session, active['vserver'], cn_issuer, cn, serial)
+      new_active = _get_active_rest_certificate(session)
+
+    elif purpose == 's3':
+      _activate_s3_certificate(session, s3_server_record, certificate_name)
+      # re-fetch record to get new certificate reference
+      s3_server_record = _get_s3_server(session, s3_server)
+      new_active = _get_active_s3_certificate(session, s3_server_record)
+
+    if purpose is not None:
+      LOGGER.info(f'Active certificate (new):\n{new_active}')
+
+      if new_active['serial'] != serial:
+          raise ScriptError('New certificate is not the active one.')
+
+    LOGGER.info('Successful update')
+
+    if purpose:
+      delete = _delete_certificate(session, active['serial'])
+      LOGGER.info(f'Got delete:\n{delete}')
+
+      LOGGER.info('Successful cleanup')
+
+
+if __name__ == '__main__':
+    argparser = ArgumentParser()
+    argparser.add_argument('--host')
+    argparser.add_argument('--purpose', choices=PURPOSES)
+    argparser.add_argument('--s3-server')
+    argparser.add_argument('--certificate-chain-file', required=True)
+    argparser.add_argument('--key-file', required=True)
+    argparser.add_argument('--bypass-tls-certificate-expiry', type=bool)
+    args = argparser.parse_args()
+
+    logging.basicConfig(level=logging.DEBUG)
+
+    main(**vars(args))
