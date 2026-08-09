@@ -61,6 +61,8 @@ haproxy_allowlists:
   file.absent:
     - name: /etc/haproxy/allowlists
 {%- endif %}
+    - watch_in:
+      - service: haproxy.service
 
 {%- set secrets = salt['pillar.get']('profile:proxy:haproxy:secrets', {}) %}
 {%- if 'stats_user' in secrets and 'stats_passphrase' in secrets and salt['grains.get']('include_secrets', True) %}
