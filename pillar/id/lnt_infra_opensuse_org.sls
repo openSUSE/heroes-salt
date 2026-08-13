@@ -7,7 +7,8 @@ grains:
   aliases: []
   description: lnt.o.o server
   documentation: []
-  responsible: []
+  responsible:
+    - phodac
   partners: []
   weburls:
     - https://lnt.opensuse.org
