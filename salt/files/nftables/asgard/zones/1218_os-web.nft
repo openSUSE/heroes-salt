@@ -23,6 +23,7 @@
   oif os-internal ip6 daddr $host6_mickey_git tcp dport https accept  # access to git.i.o.o
   oif os-p2p-pub ip6 daddr @cloud6_obs-src tcp dport https accept
   oif os-public ip6 daddr $host6_atlas tcp dport https accept  # access to matrix.o.o
+  oif os-public ip6 daddr @cloud6_login2 tcp dport https accept  # access to wikis
  }
 
  chain output_network_os-web {
