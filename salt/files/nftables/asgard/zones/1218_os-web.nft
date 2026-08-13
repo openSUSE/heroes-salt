@@ -10,15 +10,19 @@
   oif os-p2p-pub ip6 saddr $host6_quiz ip6 daddr @cloud6_npmjs icmpv6 type { echo-request, echo-reply } accept
   oif os-p2p-pub ip6 saddr $host6_quiz ip6 daddr @cloud6_npmjs tcp dport https accept
 
-  oif os-internal ip6 saddr $host6_kudos-prod ip6 daddr $host6_mickey_git tcp dport https accept  # access to gitlab.i.o.o
-  oif os-p2p-pub ip6 saddr $host6_kudos-prod ip6 daddr @cloud6_obs-src tcp dport https accept
-  oif os-public ip6 saddr $host6_kudos-prod ip6 daddr $host6_atlas tcp dport https accept  # access to matrix.o.o
+  ip6 saddr $host6_kudos-prod jump service_kudos
 
   jump acl_internet_github
   jump acl_internet_obs_login
   jump acl_internet_registry_suse
 
   log prefix "[Web Denied] " reject with icmpv6 type admin-prohibited
+ }
+
+ chain service_kudos {
+  oif os-internal ip6 daddr $host6_mickey_git tcp dport https accept  # access to git.i.o.o
+  oif os-p2p-pub ip6 daddr @cloud6_obs-src tcp dport https accept
+  oif os-public ip6 daddr $host6_atlas tcp dport https accept  # access to matrix.o.o
  }
 
  chain output_network_os-web {
