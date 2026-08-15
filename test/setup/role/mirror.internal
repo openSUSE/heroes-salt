@@ -1,2 +1,3 @@
 #!/bin/sh -efu
 groupadd mirror
+"$(dirname "$0")"/common/mariadb
