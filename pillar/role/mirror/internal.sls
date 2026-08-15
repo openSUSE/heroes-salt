@@ -39,6 +39,7 @@ nginx:
           localhost
       - location /:
           - root: /data/repo/
+          - autoindex: 'on'
       - rewrite: ^/repositories/([^/]+):([^/]+)/(.*)$  /repositories/$1:/$2/$3 permanent
 
 profile:
