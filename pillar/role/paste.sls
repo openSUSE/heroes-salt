@@ -46,3 +46,9 @@ zypper:
       baseurl: https://$mirror_ext/repositories/devel:/languages:/ruby/$releasever/
       priority: 100
       refresh: True
+    # https://src.opensuse.org/openSUSE/Leap/issues/162
+    graphics:
+      baseurl: https://$mirror_ext/repositories/graphics/$releasever/
+      gpgkey: https://$mirror_ext/repositories/graphics/$releasever/repodata/repomd.xml.key
+      priority: 100
+      refresh: True

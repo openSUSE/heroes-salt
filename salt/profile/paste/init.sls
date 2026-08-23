@@ -1,5 +1,5 @@
 {%- from 'macros.jinja' import puma_service_dropin %}
-{%- set ruby = "ruby3.1" %}
+{%- set ruby = "ruby3.4" %}
 
 paste_dependencies:
   pkg.installed:
@@ -10,7 +10,7 @@ paste_dependencies:
       - libvips42
       - libyaml-devel
       - make
-      - nodejs20
+      - nodejs24
       - postgresql-devel
       - postgresql-server-devel
       - system-user-wwwrun
