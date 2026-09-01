@@ -27,6 +27,9 @@ RSYNC_OPTIONS="$RSYNC_OPTIONS
         --exclude=*-debuginfo-*
         --exclude=SLE[_-]1[125]*
         --exclude=*.src.rpm
+        --exclude=*.json*
+        --exclude=*.raw
+        --exclude=*.tar*
         --delete-excluded"
 
 sync_loop
