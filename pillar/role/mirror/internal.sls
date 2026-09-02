@@ -23,6 +23,10 @@ nginx:
               - listen: '[::]:80'
               - include:
                   - snippets/download
+              - location /repo/SUSE:
+                  - include: snippets/rmt
+              - location /services:
+                  - include: snippets/rmt
           - server:
               - listen: '[::]:443 http2 ssl'
               {%- set tlsdir = '/etc/ssl/services/download.infra.opensuse.org/' %}
@@ -30,6 +34,8 @@ nginx:
               - ssl_certificate_key: {{ tlsdir }}/privkey.pem
               - include:
                   - snippets/download
+              - location /connect:
+                  - include: snippets/rmt
         enabled: True
   snippets:
     download:
@@ -41,6 +47,13 @@ nginx:
           - root: /data/repo/
           - autoindex: 'on'
       - rewrite: ^/repositories/([^/]+):([^/]+)/(.*)$  /repositories/$1:/$2/$3 permanent
+    rmt:
+      - proxy_pass: http://127.0.0.1  # rmt hardcodes IPv4
+      - proxy_redirect: 'off'
+      - proxy_read_timeout: 600
+      - proxy_set_header: Host $http_host
+      - proxy_set_header: X-Forwarded-Proto $scheme
+      - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
 
 profile:
   rmt:
