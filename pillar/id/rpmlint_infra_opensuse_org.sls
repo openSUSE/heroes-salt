@@ -8,7 +8,7 @@ grains:
   description: Build check statistics
   documentation: []
   responsible:
-    - lnussel
+    - kraih
   partners: []
   weburls:
     - https://rpmlint.opensuse.org
