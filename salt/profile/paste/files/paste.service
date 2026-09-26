@@ -10,6 +10,8 @@ User=paste
 WorkingDirectory=/srv/www/paste-o-o
 
 Environment="RAILS_ENV=production"
+Environment=REDIS_URL=unix:///run/redis/paste.sock?db=0
+Environment=CLASSIFIER_REDIS_URL=unix:///run/redis/paste.sock?db=1
 
 ExecStart=/usr/bin/bundler.{{ ruby }} exec puma -C /srv/www/paste-o-o/config/puma.rb ./config.ru
 

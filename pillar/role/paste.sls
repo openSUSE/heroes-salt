@@ -38,7 +38,13 @@ nginx:
               - error_log: /var/log/nginx/paste.error.log
         enabled: True
 
-{{ redis('paste', True) }}
+groups:
+  redis:
+    system: true
+    members:
+      - paste
+
+{{ redis('paste', False, 2) }}
 
 zypper:
   repositories:
