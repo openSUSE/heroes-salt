@@ -7,6 +7,9 @@ include:
 rsync:
   defaults:
     proxy protocol: true
+    proxy protocol hosts:
+      - 2a07:de40:b27e:1204::11  # atlas1
+      - 2a07:de40:b27e:1204::12  # atlas2
   modules:
     rpm2docserv:
       auth users: docserv
