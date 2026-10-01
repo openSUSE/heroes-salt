@@ -900,6 +900,7 @@ set acl6_internet_downloadcontent {
     type ipv6_addr
     flags interval
     elements = {
+        $host6_dale,
         $host6_metrics,
         $host6_rpmlint,
         $host6_progressoo,
