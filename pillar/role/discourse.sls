@@ -211,7 +211,7 @@ nginx:
 zypper:
   repositories:
     darix:apps:
-      baseurl: http://$mirror_int/repositories/home:/darix:/apps/openSUSE_Tumbleweed/
+      baseurl: http://$mirror_ext/repositories/home:/darix:/apps/openSUSE_Tumbleweed/
       priority: 100
       refresh: True
     openSUSE:infrastructure:discourse:
