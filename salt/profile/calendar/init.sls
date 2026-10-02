@@ -40,7 +40,7 @@ calendar_bundler_deployment:
 
 calendar_ruby_dependencies:
   cmd.run:
-    - name: bundler.{{ ruby }} install
+    - name: bundler.{{ ruby }} install --jobs 4 --local --no-cache
     - cwd: /srv/www/calendar-o-o
     - env:
       - RAILS_ENV: 'production'
