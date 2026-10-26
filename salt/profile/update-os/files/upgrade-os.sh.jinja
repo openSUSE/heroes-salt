@@ -50,7 +50,13 @@ sed -Ei 's/(DISABLE_RESTART_ON_UPDATE=)"no"/\1"yes"/' /etc/sysconfig/services
 _zypper dup --allow-vendor-change  # ugh
 echo "$?"
 
+# old cache breaks salt, see https://progress.opensuse.org/issues/209256#change-1149615
+systemctl stop salt-minion
+rm -r /var/cache/salt/minion/*
+
 echo '
+
+  Salt minion stopped and cache removed.
 
   Now do:
     1. reboot
