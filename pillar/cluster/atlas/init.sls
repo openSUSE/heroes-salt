@@ -62,6 +62,7 @@ haproxy:
           - accept unless host_redmine cookie_ipsilon_username_missing path_redmine_gantt_png
           - accept if WAIT_END
       httprequests:
+        - set-var(req.legacy_auth): bool(true) if host_mediawiki #TODO: || host_elections || host_events || host_hackweek || host_tsp
         - deny:
           - deny_status 429 if annoying_networks !host_conncheck
           # https://progress.opensuse.org/issues/181934
@@ -84,6 +85,23 @@ haproxy:
           - status 404 if suffix_asp
           - status 404 if suffix_env
           - status 404 if suffix_php !host_beans !host_limesurvey !host_pmya
+        - set-header:
+          - X-Forwarded-Host %[req.hdr(Host)] if host_legacy_auth
+          - X-Original-URL https://%[req.hdr(Host)]%[pathq] if host_legacy_auth
+        - lua.auth-intercept: suseid /forward-auth/opensuse/auth/proxy HEAD cookie,x-forwarded-host,x-forwarded-proto,x-original-url x-authentik-* - if host_legacy_auth !path_legacy_auth_callback !path_legacy_auth_start
+        - set-header:
+          - X-USERNAME %[req.hdr(x-authentik-username)] if host_legacy_auth { req.hdr(x-authentik-username) -m found }
+          - X-EMAIL %[req.hdr(x-authentik-email)] if host_legacy_auth { req.hdr(x-authentik-email) -m found }
+          # TODO: this used by any app?
+          #- X-Remote-User %[req.hdr(X-authentik-username)] if host_legacy_auth { req.hdr(x-authentik-username) -m found }
+        - set-var(txn.auth_response_set_cookie): var(req.auth_response_header.set_cookie) if { var(req.auth_response_header.set_cookie) -m found }
+        - redirect:
+          - code 307 location /forward-auth/opensuse/start?rd=%[hdr(X-Original-URL),url_enc] if host_legacy_auth path_legacy_auth !{ var(txn.auth_response_successful) -m bool } { var(txn.auth_response_code) -m int 401 }
+          - code 307 location /forward-auth/opensuse/sign_out if host_legacy_auth path_legacy_auth_logout
+        - return:
+          # TODO: some more user friendly error handling here?
+          - status 503 if host_legacy_auth path_legacy_auth !{ var(txn.auth_response_successful) -m bool }
+
         {{ berghain_httprequests_spoe() }}
       sticktable: type ipv6 size 500k expire 1m store conn_rate(10s),http_req_rate(30s) peers atlas
       {{ filters() }}
@@ -206,9 +224,30 @@ haproxy:
           host: 2a07:de40:b27e:1206::a
           port: 2222
 
+    # hack for lack of tls support in auth-request
+    suseid-loopback:
+      # TODO: the Lua module misses support for Unix domain sockets
+      bind: ::1:10080
+      httprequests:
+        - set-header Host id.suse.com
+      servers:
+        suseid:
+          extra: ssl verify required ca-file /etc/ssl/ca-bundle.pem
+          host: id.suse.com
+          port: 443
+
   {{ peers('atlas', host, bind_v6_map) }}
+
+  global:
+    extra:
+      - lua-load /usr/share/lua/5.4/auth-request.lua
 
 profile:
   proxy:
     berghain:
       enable: true
+
+zypper:
+  packages:
+  # TODO: Leap 16 for 54
+    lua54-haproxy-auth-request: {}

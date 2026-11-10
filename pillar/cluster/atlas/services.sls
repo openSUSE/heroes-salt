@@ -37,6 +37,11 @@ haproxy:
         - path_hyperkitty_api    path_beg    /archives/api/
         - path_hyperkitty_export path_reg    ^/archives/list/commit@lists.opensuse.org/export/commit@lists.opensuse.org-.+\.mbox\.gz$
         - path_hyperkitty_feed   path_end    /feed /feed/
+        - path_legacy_auth          path     /ICSLogin/auth-up
+        - path_legacy_auth_callback path     /outpost.goauthentik.io/callback
+        - path_legacy_auth_logout   path     /cmd/ICSLogout/
+        - path_legacy_auth_signout  path     /forward-auth/opensuse/sign_out
+        - path_legacy_auth_start    path     /forward-auth/opensuse/start
         - path_lnt_graph         path_end    /graph
         - path_matomo            path        /matomo/index.php
         - path_matrix_block      path_beg    /_matrix/federation/v2/invite
@@ -109,6 +114,7 @@ haproxy:
         - host_mainpage     hdr(host)   -i opensuse.org
         - host_manpages     hdr(host)   -i manpages.opensuse.org
         - host_matrix       hdr(host)   -i matrix.opensuse.org
+        - host_mediawiki    hdr(host)   en-test.opensuse.org
         - host_metrics      hdr(host)   -i metrics.opensuse.org
         - host_microos      hdr(host)   -i microos.opensuse.org
         - host_minio        hdr(host)   -i s3.opensuse-project.net
@@ -130,6 +136,9 @@ haproxy:
         {%- endfor %}
         - host_www            hdr(host)   -i www.opensuse.org
         - host_www_test       hdr(host)   -i www-test.opensuse.org
+
+        # grouped hosts
+        - host_legacy_auth  var(req.legacy_auth) -m bool true
 
         # hostnames only used for domain-level redirects
         - host_redirect_apparmor   hdr(host)     -i apparmor.opensuse.org
@@ -192,6 +201,9 @@ haproxy:
         - internal        if host_monitor path_grafana_login !internal_clients
         - internal        if host_beans path_matomo param_matomo_module_loginoidc param_matomo_action_signin !internal_clients
         - internal        if host_beans path_piwik param_matomo_module_loginoidc param_matomo_action_signin !internal_clients
+        - suseid          if host_legacy_auth path_legacy_auth_callback
+        - suseid          if host_legacy_auth path_legacy_auth_signout
+        - suseid          if host_legacy_auth path_legacy_auth_start
         - jekyll          if host_monitor path_slash
         - lists_robots_txt if host_mailman3 path_robots
         - monitor_grafana if host_monitor path_grafana
@@ -232,6 +244,7 @@ haproxy:
         - pinot           if host_pmya
         - quiz            if host_quiz
         - redmine         if host_redmine
+        - riesling        if host_mediawiki
         - rpmlint         if host_rpmlint
         - staticpages     if host_community path_ebooks
         - staticpages     if host_community path_meetings
@@ -304,7 +317,7 @@ haproxy:
         - host_tsp          hdr(host)    tsp-test.opensuse.org
         {%- for wiki in [
               'cn', 'cs', 'de', 'el', 'en', 'es', 'files', 'fr', 'hu', 'it', 'ja', 'languages',
-              'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw', 'en-test'
+              'nl', 'old-en', 'old-de', 'pl', 'pt', 'ru', 'sv', 'tr', 'zh', 'zh-tw',
             ]
         %}
         - host_mediawiki    hdr(host)    {{ wiki }}.opensuse.org

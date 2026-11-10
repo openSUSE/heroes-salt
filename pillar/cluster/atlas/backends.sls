@@ -218,6 +218,9 @@ haproxy:
         {%- for static_server, address in narwals.items() %}
         {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
+    suseid:
+      # ref. comment in suseid-loopback listener
+      {{ server('suseid-loopback', '::1', 10080, extra_check='inter 30s') }}
     tsp:
       {{ options('httpchk') }}
       {{ httpcheck('tsp.opensuse.org', 301) }}
