@@ -1,4 +1,5 @@
 {%- from 'common/haproxy/map.jinja' import berghain_acls, berghain_httprequests_vars, errorfiles %}
+{%- from 'map.jinja' import system_lua %}
 {%- import_yaml 'common/haproxy/goodbots.yaml' as goodbots %}
 
 haproxy:
@@ -100,4 +101,4 @@ profile:
 
 zypper:
   packages:
-    lua53-haproxy-geoip2: {}
+    {{ system_lua }}-haproxy-geoip2: {}

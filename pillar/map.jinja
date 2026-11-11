@@ -20,3 +20,10 @@
       'external': mirror_ext,
     }
 %}
+
+{%- if grains['osrelease'] | float >= 16 -%}
+  {%- set system_lua = '54' -%}
+{%- else -%}
+  {%- set system_lua = '53' -%}
+{%- endif -%}
+{%- set system_lua = 'lua' + system_lua -%}
