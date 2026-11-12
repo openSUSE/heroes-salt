@@ -33,5 +33,7 @@ haproxy:
       - ssl-default-server-options no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets
       {%- set cpus = grains['num_cpus'] %}
       - nbthread {{ cpus }}
+      {%- if not grains.get('CI_TEST_RUN') %}
       # are these values good?
       - cpu-map auto:1/1-{{ cpus }} 0-{{ cpus - 1 }}
+      {%- endif %}

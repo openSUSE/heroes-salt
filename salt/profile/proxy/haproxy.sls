@@ -82,12 +82,20 @@ haproxy_sysconfig_variables:
 {%- do salt.log.debug('Skipping management of HAProxy secrets!') %}
 {%- endif %}
 
+haproxy_home_directory:
+  file.directory:
+    - name: /var/lib/haproxy
+    - user: root
+    - group: haproxy
+    - mode: '0750'
+
 {%- if salt['pillar.get']('profile:proxy:haproxy:geoip', false) is sameas true %}
 haproxy_geoip_directory:
   file.directory:
     - name: /var/lib/haproxy/geoip
     - require:
       - haproxy.install
+      - file: haproxy_home_directory
 
 haproxy_geoip_config:
   file.managed:
