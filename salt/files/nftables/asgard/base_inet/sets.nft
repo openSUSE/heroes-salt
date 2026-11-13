@@ -640,6 +640,14 @@ set cloud6_obs-src { # src.o.o
   }
 }
 
+set cloud6_weblate { # l10n.o.o (suse.weblate.cloud)
+  type ipv6_addr
+  flags interval
+  elements = {
+   2a01:4f8:c012:5f65::1/128,
+  }
+}
+
 set cloud6_openqa { # openqa.opensuse.org
   type ipv6_addr
   flags interval
