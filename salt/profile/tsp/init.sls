@@ -48,7 +48,7 @@ https://github.com/openSUSE/travel-support-program.git:
 
 tsp_ruby_dependencies:
   cmd.run:
-    - name: bundler.{{ ruby }} install --deployment
+    - name: bundler.{{ ruby }} config set deployment true && bundler.{{ ruby }} install
     - cwd: /srv/www/travel-support-program
     - runas: tsp
     - unless: bundler.{{ ruby }} check
