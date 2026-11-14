@@ -1,5 +1,5 @@
 {%- from 'macros.jinja' import puma_service_dropin %}
-{%- set ruby = 'ruby2.7' %}
+{%- set ruby = 'ruby3.4' %}
 
 tsp_dependencies:
   pkg.installed:
