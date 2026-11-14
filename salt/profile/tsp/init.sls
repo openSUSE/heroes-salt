@@ -8,7 +8,9 @@ tsp_dependencies:
       - tar
       - make
       - gcc-c++
+      - graphviz
       - zlib-devel
+      - libmariadb-devel
       - postgresql-devel
       - {{ ruby }}-devel
       - system-user-wwwrun
