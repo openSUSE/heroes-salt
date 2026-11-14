@@ -9,9 +9,7 @@ tsp_dependencies:
       - make
       - gcc-c++
       - zlib-devel
-      - libQt5WebKit5-devel
       - postgresql-devel
-      - postgresql-server-devel
       - {{ ruby }}-devel
       - system-user-wwwrun
 
