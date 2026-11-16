@@ -104,6 +104,7 @@
       {%- set extra = 'extra: ' %}
       {%- if sni %}
         {#- TODO: factor into native formula pillar? #}
+        {%- set check = check ~ ' check-ssl check-sni ' ~ host %}
         {%- set extra = extra ~ 'sni str(' ~ host ~ ') ' %}
       {%- endif %}
       {%- if header %}
