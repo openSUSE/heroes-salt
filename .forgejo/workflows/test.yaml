@@ -4,6 +4,10 @@ on:
 
 jobs:
   lint:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation:latest
@@ -25,6 +29,10 @@ jobs:
         run: cd && bin/lint.sh
 
   test_validate:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers_tumbleweed/heroes-salt-validation
@@ -34,6 +42,10 @@ jobs:
         run: cd && bin/test_validate.sh
 
   test_show_highstate:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing
@@ -48,6 +60,10 @@ jobs:
         run: artifact upload -name=output_test_show_highstate -path=\*.txt
 
   test_haproxy:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-haproxy
@@ -62,6 +78,10 @@ jobs:
         run: artifact upload -name=output_test_haproxy -path=\*.txt
 
   test_nftables:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-nftables
@@ -74,6 +94,10 @@ jobs:
         run: artifact upload -name=output_test_nftables -path=salt/files_rendered/nftables
 
   test_networks:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     needs: test_nftables
     runs-on: normal
     container:
@@ -86,6 +110,10 @@ jobs:
         run: bin/test_networks.pl
 
   test_prometheus:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-prometheus
@@ -105,6 +133,10 @@ jobs:
           artifact upload -name=output_test_prometheus_rules -path=rules/\*.txt
 
   test_syslog-ng:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing-syslog
@@ -119,6 +151,10 @@ jobs:
         run: artifact upload -name=output_test_syslog-ng -path=\*.txt
 
   generate_role_tests:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     runs-on: normal
     container:
       image: registry.opensuse.org/opensuse/infrastructure/containers/heroes-salt-testing
@@ -131,6 +167,10 @@ jobs:
         run: bin/render_forgejo_actions_matrix.py
 
   test_highstate:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     needs:
       - generate_role_tests
     runs-on: normal
@@ -152,6 +192,10 @@ jobs:
         run: artifact upload -name=output_test_highstate_${{ matrix.role }} -path=\*.txt
 
   test_apache:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     needs:
       - generate_role_tests
     runs-on: normal
@@ -178,6 +222,10 @@ jobs:
           artifact upload -name=output_test_highstate_${{ matrix.role }}_config -path=config/\*.d
 
   test_nginx:
+    if: >-
+      (forgejo.event_name != 'pull_request' && ! forgejo.event.pull_request.head.repo.fork)
+      ||
+      (forgejo.event_name == 'pull_request' && forgejo.event.pull_request.head.repo.fork)
     needs:
       - generate_role_tests
     runs-on: normal
