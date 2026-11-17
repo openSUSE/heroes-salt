@@ -1,5 +1,7 @@
 #!/bin/bash -eu
 
+[ -f /var/adm/bootstrapped ] && exit 0
+
 copy_logs () {
     cp /var/log/salt/minion minion_log.txt
     cp /var/log/salt/master master_log.txt
@@ -99,3 +101,5 @@ done
 
 # monitor user in role.base
 useradd -U monitor
+
+touch /var/adm/bootstrapped

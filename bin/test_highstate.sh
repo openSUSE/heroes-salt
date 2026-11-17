@@ -80,6 +80,7 @@ filter_log /var/log/salt/master master_log.txt
 
 salt "$HOSTNAME" pillar.items > pillar.txt
 
+[ -d render ] && rm -r render
 mkdir render
 render_log='render/_log.txt'
 render_failures=( $(gawk 'match($0, /Rendering SLS '\''base:(.*)'\'' failed/, capture) { gsub(/\./, "/", capture[1]); print "salt/" capture[1] ".sls" }' minion_log.txt) )
@@ -128,6 +129,7 @@ then
         echo "${pillar_files[*]}"
         echo
       } | tee -a "$render_log"
+      [ -d work ] && rm -r work
       mkdir work
       for pillar_file in "${pillar_files[@]}"
       do

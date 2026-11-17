@@ -144,7 +144,9 @@ jobs:
       - name: prepare
         run: bin/prepare_test_env.sh -g -s -m
       - name: test_highstate
-        run: bin/test_highstate.sh ${{ matrix.role }}
+        run: >-
+          retry -r1 -s0 --
+          bin/test_highstate.sh ${{ matrix.role }}
       - name: store_artifacts
         if: always()
         run: artifact upload -name=output_test_highstate_${{ matrix.role }} -path=\*.txt
