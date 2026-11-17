@@ -52,7 +52,7 @@ haproxy:
     code-dev:
       {{ options('httpchk') }}
       {{ httpcheck('code-dev.opensuse.org', 200, '/api/healthz', 'get', tls=True) }}
-      {{ server('code-dev', '2a07:de40:b27e:1219::a', 3000, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem', sni=True) }}
+      {{ server('code-dev', 'code-dev.infra.opensuse.org', 3000, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem', sni=True) }}
     community: {#- community points to httpd on community2 #}
       {{ options ('httpchk') }}
       {{ httpcheck('community.opensuse.org', 200, method='options') }}
@@ -188,7 +188,7 @@ haproxy:
     quiz:
       {{ options('httpchk') }}
       {{ httpcheck('quiz.infra.opensuse.org', 200, '/check', tls=True) }}
-      {{ server('quiz', '2a07:de40:b27e:1218::a10', 443, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem', sni=True) }}
+      {{ server('quiz', 'quiz.infra.opensuse.org', 443, extra_extra='ssl verify required ca-file /usr/share/pki/trust/anchors/stepca-opensuse-ca.crt.pem', sni=True) }}
       httprequests:
         - set-header X-Forwarded-Host %[req.hdr(Host)]
     redirect_www_o_o:
