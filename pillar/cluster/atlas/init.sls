@@ -88,12 +88,10 @@ haproxy:
         - set-header:
           - X-Forwarded-Host %[req.hdr(Host)] if host_legacy_auth
           - X-Original-URL https://%[req.hdr(Host)]%[pathq] if host_legacy_auth
-        - lua.auth-intercept: suseid /forward-auth/opensuse/auth/proxy HEAD cookie,x-forwarded-host,x-forwarded-proto,x-original-url x-authentik-* - if host_legacy_auth !path_legacy_auth_callback !path_legacy_auth_start
+        - lua.auth-intercept: suseid /forward-auth/opensuse/auth/proxy HEAD cookie,x-forwarded-host,x-forwarded-proto,x-original-url x-suse-auth-* - if host_legacy_auth !path_legacy_auth_callback !path_legacy_auth_start
         - set-header:
-          - X-USERNAME %[req.hdr(x-authentik-username)] if host_legacy_auth { req.hdr(x-authentik-username) -m found }
-          - X-EMAIL %[req.hdr(x-authentik-email)] if host_legacy_auth { req.hdr(x-authentik-email) -m found }
-          # TODO: this used by any app?
-          #- X-Remote-User %[req.hdr(X-authentik-username)] if host_legacy_auth { req.hdr(x-authentik-username) -m found }
+          - X-USERNAME %[req.hdr(X-SUSE-Auth-CommunityUsername)] if host_legacy_auth { req.hdr(X-SUSE-Auth-CommunityUsername) -m found }
+          - X-EMAIL %[req.hdr(X-SUSE-Auth-Email)] if host_legacy_auth { req.hdr(X-SUSE-Auth-Email) -m found }
         - set-var(txn.auth_response_set_cookie): var(req.auth_response_header.set_cookie) if { var(req.auth_response_header.set_cookie) -m found }
         - redirect:
           - code 307 location /forward-auth/opensuse/start?rd=%[hdr(X-Original-URL),url_enc] if host_legacy_auth path_legacy_auth !{ var(txn.auth_response_successful) -m bool } { var(txn.auth_response_code) -m int 401 }
