@@ -225,6 +225,7 @@ haproxy:
       httprequests:
         - set-var(txn.has_legacy_auth_cookie): bool(true) if { req.hdr(Cookie) -m sub authentik_proxy_ }
         - set-var(txn.is_legacy_auth_signout): bool(true) if { path /forward-auth/opensuse/sign_out }
+        - set-var(txn.auth_cookie_name): req.hdr(Cookie),regsub(\"^.*(authentik_proxy_[0-9a-f]{8})=.*$\",\1) if cookie_legacy_auth
       httpresponses:
         - add-header:
             - >-  # avoid 400 upon re-login due to invalid session (this must be a bug elsewhere)
