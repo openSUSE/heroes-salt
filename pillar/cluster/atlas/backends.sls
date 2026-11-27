@@ -219,6 +219,21 @@ haproxy:
         {{ server(static_server, address, 80, header=False) }}
         {%- endfor %}
     suseid:
+      acls:
+        - cookie_legacy_auth var(txn.has_legacy_auth_cookie) -m bool true
+        - path_legacy_auth_signout var(txn.is_legacy_auth_signout) -m bool true
+      httprequests:
+        - set-var(txn.has_legacy_auth_cookie): bool(true) if { req.hdr(Cookie) -m sub authentik_proxy_ }
+        - set-var(txn.is_legacy_auth_signout): bool(true) if { path /forward-auth/opensuse/sign_out }
+      httpresponses:
+        - add-header:
+            - >-  # avoid 400 upon re-login due to invalid session (this must be a bug elsewhere)
+                Set-Cookie "%[var(txn.auth_cookie_name)]=; Path=/; Domain=opensuse.org; Max-Age=0; HttpOnly; Secure"
+                if cookie_legacy_auth path_legacy_auth_signout
+        - set-header:
+            - >-  # avoid 404 upon logout as we do not handle this path
+                Location /
+                if path_legacy_auth_signout { res.hdr(Location) -m sub /outpost.goauthentik.io/start }
       # ref. comment in suseid-loopback listener
       {{ server('suseid-loopback', '::1', 10080, extra_check='inter 30s') }}
     tsp:
